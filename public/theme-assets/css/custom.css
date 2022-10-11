@@ -148,6 +148,9 @@ a {
 .fontSize20 {
     font-size: 20px !important;
 }
+.fontSize30 {
+    font-size: 30px !important;
+}
 .fontNormal {
     font-weight: normal !important;
 }
@@ -231,6 +234,9 @@ a {
 }
 .colorWhite {
     color: white !important;
+}
+.colorWhiteGray {
+    color: #dedede !important;
 }
 .colorBlack {
     color: #000 !important;
@@ -619,6 +625,9 @@ a {
 }
 select:focus-visible {
     border: 0;
+}
+.ui-sticky.ui-sticky-top {
+    top: 150px;
 }
 .btnHover:hover {
     color: #c59358 !important;

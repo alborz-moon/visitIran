@@ -29,12 +29,16 @@
                 <!-- start of product-detail-container -->
                 <!-- start of breadcrumb -->
                 <div class="product-detail-container mb-3">
-                <nav aria-label="breadcrumb">
+                <nav aria-label="breadcrumb" style="display: flex;justify-content:space-between;">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">خانه</a></li>
                         <li class="breadcrumb-item"><a href="#">منسوجات </a></li>
                         <li class="breadcrumb-item"><a href="#">فرش</a></li>
                     </ol>
+                <span>
+                    <button class="ri-stackshare-line fontSize30 b-0 colorWhiteGray btnHover"></button>
+                    <button class="ri-bookmark-line fontSize30 b-0 colorWhiteGray btnHover"></button>
+                </span>
                 </nav>
                 <!-- end of breadcrumb -->
                     <div class="row">
@@ -130,7 +134,7 @@
                             <div class="mb-3 mt-3 spaceBetween">
                                 <div class="bold">توضیحات</div>
                             </div>
-                            <p>{{ $product['img'] }}</p>
+                            {{-- <p>{{ $product['img'] }}</p> --}}
                             <div class="product-additional-info-container mb-3">
                                 <span class="icon">
                                     <i class="ri-information-line"></i>
@@ -222,9 +226,9 @@
                 </div>
                 <!-- end of product-detail-container -->
                 @include('sections.most_like_products')
-                <div class="row">
+                <div class="row TopParentBannerMoveOnTop">
                     <div class="col-xl-9 col-lg-8">
-                        <div class="ui-sticky ui-sticky-top mb-4">
+                        <div class="ui-sticky ui-sticky-top mb-4 ">
                             <!-- start of product-tabs -->
                             <div class="product-tabs">
                                 <ul class="nav nav-pills">
