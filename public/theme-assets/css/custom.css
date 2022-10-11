@@ -545,7 +545,7 @@ a {
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
-    margin-left: 10px;
+    margin-left: 10px !important;
 }
 .customCardNews {
     min-width: 300px;
@@ -742,4 +742,62 @@ figure .ck-widget {
     .marginTopMediaQuaryForSlider {
         margin-top: 42px;
     }
+}
+.SimmerParent {
+    position: relative;
+    background-color: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    width: auto;
+    height: auto;
+}
+.shimmerBG {
+    animation-duration: 2.2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: shimmer;
+    animation-timing-function: linear;
+    background: #ddd;
+    background: linear-gradient(to right, #f6f6f6 8%, #e2e2e2 18%, #f6f6f6 33%);
+    background-size: 1200px 100%;
+}
+@-webkit-keyframes shimmer {
+    0% {
+        background-position: -100% 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
+@keyframes shimmer {
+    0% {
+        background-position: -1200px 0;
+    }
+    100% {
+        background-position: 1200px 0;
+    }
+}
+.media {
+    height: 200px;
+}
+.p-32 {
+    padding: 32px;
+}
+.title-line {
+    height: 24px;
+    width: 100%;
+    margin-bottom: 12px;
+    border-radius: 20px;
+}
+.content-line {
+    height: 8px;
+    width: 100%;
+    margin-bottom: 16px;
+    border-radius: 8px;
+}
+.end {
+    width: 40%;
+}
+.m-t-24 {
+    margin-top: 24px;
 }
