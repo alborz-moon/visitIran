@@ -373,8 +373,9 @@ class ProductController extends Controller
          
             $filename = $request->img_file->store('public/products');
             $filename = str_replace('public/products', '', $filename);   
-
-            if(file_exists(__DIR__ . '/../../../public/storage/products/' . $product->img))
+                
+            if($product->img != null && !empty($product->img) && 
+                file_exists(__DIR__ . '/../../../public/storage/products/' . $product->img))
                 unlink(__DIR__ . '/../../../public/storage/products/' . $product->img);
 
             $product->img = $filename;
@@ -408,6 +409,21 @@ class ProductController extends Controller
         return response()->json([
             'status' => 'ok', 
             'data' => ProductResource::make($product)->toArray($request)
+        ]);
+    }
+
+    
+    /**
+     * show the specified resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function showDetail(Request $request, Product $product, $productName) {
+        
+        return view('product', [
+            'product' => ProductDigestUser::make($product)->toArray($request)
         ]);
     }
 

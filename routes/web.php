@@ -164,7 +164,7 @@ Route::get('/cart-empty', function () {
     return view('cart-empty');
 })->name('cart-empty');
 
-Route::view('/product/{productId?}/{productName?}', 'product')->name('single-product');
+Route::get('/product/{product}/{productName}', [ProductController::class, 'showDetail'])->name('single-product');
 
 Route::view('alaki', 'alaki');
 Route::get('/checkout-successful', function () {
@@ -206,10 +206,6 @@ Route::get('/profile', function () {
 Route::get('/404', function () {
     return view('404');
 })->name('404');
-
-Route::get('/product', function () {
-    return view('product');
-})->name('product');
 
 Route::get('/welcome', function () {
     return view('welcome');

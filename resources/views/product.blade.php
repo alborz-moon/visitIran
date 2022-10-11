@@ -1,4 +1,27 @@
 @extends('layouts.structure')
+
+@section('seo')
+    <title>غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال</title>
+    <meta property="og:title" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
+    <meta name="twitter:title" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
+    <meta property="og:site_name" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
+
+    
+        <meta property="og:image" content="https://micamall.com/storage/post-pic/images/UxiMI3IXfTQBMO0p4H4MrXMLkmYwTTzVJ1O8QTPQ.jpg"/>
+        <meta property="og:image:secure_url" content="https://micamall.com/storage/post-pic/images/UxiMI3IXfTQBMO0p4H4MrXMLkmYwTTzVJ1O8QTPQ.jpg"/>
+        <meta name="twitter:image" content="https://micamall.com/storage/post-pic/images/UxiMI3IXfTQBMO0p4H4MrXMLkmYwTTzVJ1O8QTPQ.jpg"/>
+
+    
+    
+
+    <meta property="og:description" content="جاهای دیدنی کیش و غذاهای این جزیره از جمله جاذبه های گردشگری کیش هستند که مثل تونل باد میکامال می‌تواند تجربه لذت‌بخشی به شما هدیه دهد." />
+    <meta name="twitter:description" content="جاهای دیدنی کیش و غذاهای این جزیره از جمله جاذبه های گردشگری کیش هستند که مثل تونل باد میکامال می‌تواند تجربه لذت‌بخشی به شما هدیه دهد." />
+    <meta name="description" content="جاهای دیدنی کیش و غذاهای این جزیره از جمله جاذبه های گردشگری کیش هستند که مثل تونل باد میکامال می‌تواند تجربه لذت‌بخشی به شما هدیه دهد."/>
+
+    {{-- <meta name="keywords" content="{{ $product['keywords'] }}" /> --}}
+    <meta property="article:tag" content="تونل باد, جاهای دیدنی کیش، غذاهای کیش"/>
+@stop
+
 @section('content')
 <div class="container">
         <main class="page-content TopParentBannerMoveOnTop">
@@ -21,23 +44,11 @@
                                 <div class="product-gallery">
                                     
                                     <div class="gallery-img-container">
-                                        <div class="gallery-img">
-                                            <img src="./theme-assets/images/gallery/main.jpg" class="zoom-img" alt="">
+                                        <div class="gallery-img" id="galleryMain">
+                                            <img src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />
                                         </div>
                                         <div class="gallery-thumbs">
-                                            <ul>
-                                                <li data-fancybox="gallery-a"
-                                                    data-src="./theme-assets/images/gallery/01.png"><img
-                                                        src="./theme-assets/images/gallery/01.png" alt=""></li>
-                                                <li data-fancybox="gallery-a"
-                                                    data-src="./theme-assets/images/gallery/02.png"><img
-                                                        src="./theme-assets/images/gallery/02.png" alt=""></li>
-                                                <li data-fancybox="gallery-a"
-                                                    data-src="./theme-assets/images/gallery/03.png"><img
-                                                        src="./theme-assets/images/gallery/03.png" alt=""></li>
-                                                <li data-fancybox="gallery-a"
-                                                    data-src="./theme-assets/images/gallery/04.png"><img
-                                                        src="./theme-assets/images/gallery/04.png" alt=""></li>
+                                            <ul id="gallery">
                                             </ul>
                                         </div>
                                     </div>
@@ -47,7 +58,7 @@
                         </div>
                         <div class="col-xl-5 col-lg-4 col-md-7 mb-lg-0 mb-4">
                             <!-- start of product-detail -->
-                            <h2 id="productTitle" class="product-title"></h2>
+                            <h2 id="productTitle" class="product-title">{{ $product['name'] }}</h2>
                             <div class="product-user-meta fa-num mb-4 spaceBetween">
                                 <span class="product-users-rating">
                                     <i class="ri-star-fill icon me-1"></i>
@@ -112,30 +123,15 @@
                             <div class="expandable-text mb-3" style="height: 95px;">
                                 <div class="expandable-text_text">
                                     <div class="product-params">
-                                        <ul>
-                                            <li>
-                                                <span class="label colorBlueWhite"> جنس :</span>
-                                                <span class="title">سفال</span>
-                                            </li>
-                                            <li>
-                                                <span class="label colorBlueWhite">کاربر :</span>
-                                                <span class="title">ظروف آشپزخانه، دکوراسیون</span>
-                                            </li>
-                                            <li>
-                                                <span class="label colorBlueWhite"> وزن :</span>
-                                                <span class="title">450 گرم</span>
-                                            </li>
-                                            <li>
-                                                <span class="label colorBlueWhite">شکل :</span>
-                                                <span class="title">کوزه</span>
-                                            </li>
+                                        <ul id="property">
                                         </ul>
                                     </div>
                                 </div>
                             <div class="mb-3 mt-3 spaceBetween">
                                 <div class="bold">توضیحات</div>
                             </div>
-                                                        <div class="product-additional-info-container mb-3">
+                            <p>{{ $product['img'] }}</p>
+                            <div class="product-additional-info-container mb-3">
                                 <span class="icon">
                                     <i class="ri-information-line"></i>
                                 </span>
@@ -199,12 +195,12 @@
                                     </div>
                                     <div class="product-seller-row product-seller-row--price">
                                         <div class="product-seller-row--price-now fa-num">
-                                            <span class="price">28,250,000</span>
+                                            <span class="price">{{ $product['price'] }}</span>
                                             <span class="currency">تومان</span>
                                         </div>
                                     </div>
                                     <div class="product-seller-row product-remaining-in-stock">
-                                        <span>تنها <span class="mx-2">۱</span> عدد در انبار باقیست - پیش از
+                                        <span>تنها <span class="mx-2">{{ $product['available_count'] }}</span> عدد در انبار باقیست - پیش از
                                             اتمام بخرید</span>
                                     </div>
                                     <div class="product-seller-row product-remaining-in-stock">
@@ -399,7 +395,7 @@
                                     </div>
                                 </div>
                                 <div class="product-price">
-                                    <span class="price-value">۶,۵۹۹,۰۰۰</span>
+                                    <span class="price-value">{{ $product['price'] }}</span>
                                     <span class="currency ms-1">تومان</span>
                                 </div>
                                 <a href="#" class="btn btn-block btn-primary fw-bold">افزودن به
@@ -518,8 +514,16 @@
 <script>
 
     $(document).ready(function() {
-
-        let productId = location.pathname.split('/product/')[1].split('/')[0];
+        
+        let productId;
+        
+        try {
+            productId = location.pathname.split('/product/')[1].split('/')[0];
+        }
+        catch(e) {
+            document.location.href = '{{ route('home') }}';
+        }
+        
         $.ajax({
             type: 'get',
             url: '{{ route('api.product.show') }}' + '/' + productId,
@@ -527,7 +531,21 @@
                 'accept': 'application/json'
             },
             success: function(res) {
-                $("#productTitle").text(res.data.name);
+                
+                let html = '';
+                for(var i = 0; i < res.data.galleries.length; i++) {
+                    html += '<li data-fancybox="gallery-a" data-src="' + res.data.galleries[i].img + '">'
+                    html += '<img src="' + res.data.galleries[i].img + '" alt="' + res.data.galleries[i].alt + '"></li>'
+                }
+                $("#gallery").empty().append(html);
+
+                let property = '';
+                for (var i=0; i < res.data.features.length;i++){
+                    property += '<li><span class="label colorBlueWhite">' + res.data.features[i].name + '</span>'
+                    property += '<span class="title">' + res.data.features[i].value + '</span></li>'
+                }
+                $("#property").empty().append(property);
+                
             }
         });
 

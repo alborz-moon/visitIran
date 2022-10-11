@@ -35,6 +35,9 @@
     
     <script src="{{ asset('theme-assets/js/dependencies/jquery-3.6.0.min.js') }}"></script>
 
+    @section('seo')
+    @show
+
     @section('header')
     @show
 </head>
@@ -205,7 +208,7 @@
                                             <li><a href="{{route('home')}}">خانه</a></li>
                                             <li><a href="{{route('login-register')}}">ورود / ثبت نام</a></li>
                                             <li><a href="{{route('password-reset')}}">پسورد</a></li>
-                                            <li><a href="{{route('product')}}">خرید محصول</a></li>
+                                            
                                             <li><a href="{{route('profile')}}">پروفایل</a></li>
                                             <li><a href="{{route('shop')}}">لیست محصول</a></li>
                                             <li><a href="{{route('verification')}}">کد ارسالی ورفیکشن</a></li>
