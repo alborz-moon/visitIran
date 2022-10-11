@@ -1,0 +1,130 @@
+@font-face {
+    font-family: "visitiran";
+    src: url("../fonts/visitiran/visitiran.eot");
+    src: url("../fonts/visitiran/visitiran.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/visitiran/visitiran.woff") format("woff"),
+        url("../fonts/visitiran/visitiran.ttf") format("truetype"),
+        url("../fonts/visitiran/visitiran.svg#visitiran") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+[class*="icon-visit-"]:before {
+    display: inline-block;
+    font-family: "visitiran";
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+/* .icon-visit-rightchevron:before {
+    content: "\0041";
+}
+.icon-visit-basket:before {
+    content: "\0042";
+}
+.icon-visit-leftarrow:before {
+    content: "\0043";
+}
+.icon-visit-leftchevron:before {
+    content: "\0044";
+}
+.icon-visit-search:before {
+    content: "\0045";
+}
+.icon-visit-home:before {
+    content: "\0046";
+}
+.icon-visit-staroutline:before {
+    content: "\0047";
+}
+.icon-visit-label:before {
+    content: "\0048";
+}
+.icon-visit-star:before {
+    content: "\0049";
+}
+.icon-visit-headline:before {
+    content: "\004a";
+}
+.icon-visit-person:before {
+    content: "\004b";
+} */
+.icon-visit-rightchevron:before {
+    content: "\0041";
+}
+.icon-visit-basket:before {
+    content: "\0042";
+}
+.icon-visit-leftarrow:before {
+    content: "\0043";
+}
+.icon-visit-leftchevron:before {
+    content: "\0044";
+}
+.icon-visit-search:before {
+    content: "\0045";
+}
+.icon-visit-home:before {
+    content: "\0046";
+}
+.icon-visit-staroutline:before {
+    content: "\0047";
+}
+.icon-visit-label:before {
+    content: "\0048";
+}
+.icon-visit-star:before {
+    content: "\0049";
+}
+.icon-visit-headline:before {
+    content: "\004a";
+}
+.icon-visit-person:before {
+    content: "\004b";
+}
+.icon-visit-original:before {
+    content: "\004c";
+}
+.icon-visit-sort:before {
+    content: "\004d";
+}
+.icon-visit-store:before {
+    content: "\004e";
+}
+.icon-visit-truck:before {
+    content: "\004f";
+}
+.icon-visit-minus:before {
+    content: "\0050";
+}
+.icon-visit-plus:before {
+    content: "\0051";
+}
+.icon-visit-verified:before {
+    content: "\0052";
+}
+.icon-visit-person:hover,
+.icon-visit-search:hover {
+    color: #c59358 !important;
+    transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    -webkit-transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    -moz-transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    -ms-transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    -o-transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.icon-visit-basket:hover {
+    transform: rotate(30deg);
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+}
+.icon-visit-star,
+.icon-visit-staroutline {
+    color: #c59358;
+}
+.icon-visit-staroutline {
+    font-size: 10px;
+}

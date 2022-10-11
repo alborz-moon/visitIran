@@ -1,0 +1,745 @@
+/* Write your code here */
+/*# sourceMappingURL=custom.css.map */
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: 900;
+    src: url("../fonts/IRANSans/eot/IRANSansWeb(FaNum)_Black.eot");
+    src: url("../fonts/IRANSans/eot/IRANSansWeb(FaNum)_Black.eot?#iefix")
+            format("embedded-opentype"),
+        /* IE6-8 */
+            url("../fonts/IRANSans/woff2/IRANSansWeb(FaNum)_Black.woff2")
+            format("woff2"),
+        /* FF39+,Chrome36+, Opera24+*/
+            url("../fonts/IRANSans/woff/IRANSansWeb(FaNum)_Black.woff")
+            format("woff"),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+            url("../fonts/IRANSans/ttf/IRANSansWeb(FaNum)_Black.ttf")
+            format("truetype");
+}
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: bold;
+    src: url("../fonts/IRANSans/eot/IRANSansWeb(FaNum)_Bold.eot");
+    src: url("../fonts/IRANSans/eot/IRANSansWeb(FaNum)_Bold.eot?#iefix")
+            format("embedded-opentype"),
+        /* IE6-8 */ url("../fonts/IRANSans/woff2/IRANSansWeb(FaNum)_Bold.woff2")
+            format("woff2"),
+        /* FF39+,Chrome36+, Opera24+*/
+            url("../fonts/IRANSans/woff/IRANSansWeb(FaNum)_Bold.woff")
+            format("woff"),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+            url("../fonts/IRANSans/ttf/IRANSansWeb(FaNum)_Bold.ttf")
+            format("truetype");
+}
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: 500;
+    src: url("../fonts/IRANSans/eot/IRANSansWeb(FaNum)_Medium.eot");
+    src: url("../fonts/IRANSans/eot/IRANSansWeb(FaNum)_Medium.eot?#iefix")
+            format("embedded-opentype"),
+        /* IE6-8 */
+            url("../fonts/IRANSans/woff2/IRANSansWeb(FaNum)_Medium.woff2")
+            format("woff2"),
+        /* FF39+,Chrome36+, Opera24+*/
+            url("../fonts/IRANSans/woff/IRANSansWeb(FaNum)_Medium.woff")
+            format("woff"),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+            url("../fonts/IRANSans/ttf/IRANSansWeb(FaNum)_Medium.ttf")
+            format("truetype");
+}
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: 300;
+    src: url("../fonts/IRANSans/eot/IRANSansWeb(FaNum)_Light.eot");
+    src: url("../fonts/IRANSans/eot/IRANSansWeb(FaNum)_Light.eot?#iefix")
+            format("embedded-opentype"),
+        /* IE6-8 */
+            url("../fonts/IRANSans/woff2/IRANSansWeb(FaNum)_Light.woff2")
+            format("woff2"),
+        /* FF39+,Chrome36+, Opera24+*/
+            url("../fonts/IRANSans/woff/IRANSansWeb(FaNum)_Light.woff")
+            format("woff"),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+            url("../fonts/IRANSans/ttf/IRANSansWeb(FaNum)_Light.ttf")
+            format("truetype");
+}
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: 200;
+    src: url("../fonts/IRANSans/eot/IRANSansWeb(FaNum)_UltraLight.eot");
+    src: url("../fonts/IRANSans/eot/IRANSansWeb(FaNum)_UltraLight.eot?#iefix")
+            format("embedded-opentype"),
+        /* IE6-8 */
+            url("../fonts/IRANSans/woff2/IRANSansWeb(FaNum)_UltraLight.woff2")
+            format("woff2"),
+        /* FF39+,Chrome36+, Opera24+*/
+            url("../fonts/IRANSans/woff/IRANSansWeb(FaNum)_UltraLight.woff")
+            format("woff"),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+            url("../fonts/IRANSans/ttf/IRANSansWeb(FaNum)_UltraLight.ttf")
+            format("truetype");
+}
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: normal;
+    src: url("../fonts/IRANSans/eot/IRANSansWeb(FaNum).eot");
+    src: url("../fonts/IRANSans/eot/IRANSansWeb(FaNum).eot?#iefix")
+            format("embedded-opentype"),
+        /* IE6-8 */ url("../fonts/IRANSans/woff2/IRANSansWeb(FaNum).woff2")
+            format("woff2"),
+        /* FF39+,Chrome36+, Opera24+*/
+            url("../fonts/IRANSans/woff/IRANSansWeb(FaNum).woff") format("woff"),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+            url("../fonts/IRANSans/ttf/IRANSansWeb(FaNum).ttf")
+            format("truetype");
+}
+* {
+    font-family: "IRANSans";
+}
+a {
+    text-decoration: none;
+    color: #0089b7;
+}
+::selection {
+    color: #0089b7 !important;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #555;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #0089b7;
+}
+.fontSize8 {
+    font-size: 8px !important;
+}
+.fontSize10 {
+    font-size: 10px !important;
+}
+.fontSize11 {
+    font-size: 11px !important;
+}
+.fontSize12 {
+    font-size: 12px !important;
+}
+.fontSize14 {
+    font-size: 14px !important;
+}
+.fontSize15 {
+    font-size: 15px !important;
+}
+.fontSize18 {
+    font-size: 18px !important;
+}
+.fontSize20 {
+    font-size: 20px !important;
+}
+.fontNormal {
+    font-weight: normal !important;
+}
+.bold {
+    font-weight: bold;
+}
+.padding0 {
+    padding: 0;
+}
+.borderNone {
+    border: none !important;
+}
+.accordion-button:focus {
+    z-index: 3;
+    border-color: #00000000 !important;
+    box-shadow: none;
+    outline: 0;
+}
+.accordion-button:focus-visible {
+    color: inherit;
+    background-color: none !important;
+}
+.positionAbsolute {
+    position: absolute !important;
+}
+.positionRelative {
+    position: relative !important;
+}
+.logoImgFromTop {
+    top: -5px;
+    border-bottom-left-radius: 30px !important;
+    border-bottom-right-radius: 30px !important;
+    box-shadow: 1px 3px 6px 0 #00000029 !important;
+}
+.zIndex3 {
+    z-index: 3;
+}
+.zIndex2 {
+    z-index: 2;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.heightHeader {
+    height: 50px;
+}
+.bold {
+    font-weight: 700;
+}
+.customCloseIconBanner {
+    width: 31px;
+    height: 31px;
+    background-color: #efefef;
+    border-radius: 50%;
+    padding: 0px;
+    margin: 15px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+.backGray {
+    background: #0000007a 0% 0% no-repeat padding-box !important;
+    box-shadow: 0px 3px 6px #00000029 !important;
+    opacity: 1;
+}
+.marginFromRightHeader {
+    margin-right: 160px;
+}
+.marginFromRightHeaderMobile {
+    margin-right: 90px;
+}
+.marginFromRightHeaderNegative {
+    margin-right: -160px;
+}
+.colorWhite {
+    color: white !important;
+}
+.colorBlack {
+    color: #000 !important;
+}
+.colorBlueWhite {
+    color: #00b2bc !important;
+}
+.marginTopNegative5 {
+    margin-top: -5px;
+}
+.marginTop10 {
+    margin-top: 10px;
+}
+.opacity1 {
+    opacity: 1 !important;
+}
+.imgResponsive {
+    height: 100% !important;
+    width: 100% !important;
+}
+.b-0 {
+    border: 0 !important;
+}
+.w100 {
+    width: 100% !important;
+}
+.width-200 {
+    width: 200px !important;
+}
+.h100 {
+    width: 100% !important;
+}
+.tiles {
+    width: 190px !important;
+    height: 250px !important;
+}
+.text-category {
+    margin-right: 8px;
+    width: 174px;
+    height: 37px;
+    background-color: #555a5d5c;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+    bottom: 20px;
+}
+.labelForCat {
+    padding-right: 15px;
+    height: 37px;
+    display: flex;
+    align-items: center;
+}
+/* .tiles:hover {
+    filter: grayscale(0.5);
+    -webkit-filter: grayscale(0.5);
+} */
+.catDetails {
+    text-align: center;
+    padding: 10px;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    padding: 10px;
+    width: 160px;
+    height: 215px;
+    background-color: #555a5dba;
+    margin: 15px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+.tiles:hover .catDetails {
+    opacity: 1 !important;
+}
+.tiles:hover .labelForCat {
+    opacity: 0 !important;
+}
+.catText {
+    color: white !important;
+    font-size: 10px !important;
+    line-height: 0.5px;
+}
+.arrowLeftIcon {
+    border: 1px solid #efefef;
+    width: 35px;
+    height: 25px;
+    padding-right: 6px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+.margin45Negative {
+    margin: -45px 0px !important;
+}
+.borderRadius0 {
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+}
+.overflowHidden {
+    overflow: hidden;
+}
+.custom-vertical-menu-items {
+    min-width: 250px;
+}
+.minWidthUnset {
+    min-width: unset !important;
+}
+.zIndex10 {
+    z-index: 10;
+}
+.iconSvg {
+    vertical-align: -2px;
+    padding: 0 5px;
+}
+.mt-10 {
+    margin-top: 10px;
+}
+.pl-10 {
+    padding-left: 10px;
+}
+.customIconHeadLine {
+    width: 21px;
+    height: 21px;
+    filter: contrast(0.5);
+    -webkit-filter: contrast(0.5);
+}
+.gap10 {
+    gap: 10px;
+}
+.gap15 {
+    gap: 15px;
+}
+.form-check-input:checked {
+    background-color: #00b2bc;
+    border-color: #00b2bc;
+}
+.ui-box {
+    box-shadow: 0px 2px 3px #00000014;
+    border: 0;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+}
+.whiteSpaceNoWrap {
+    white-space: nowrap;
+}
+.circle {
+    content: "as";
+    width: 6px;
+    height: 6px;
+    background-color: #00b2bc;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+.customBorderLeft1 {
+    border-left: 1px solid #9c9c9c;
+    padding: 0 15px;
+}
+.customPaddingTopBottom10 {
+    padding: 10px 0;
+}
+.backgroundWhite {
+    background-color: #f5f5f5;
+}
+.customFilterGray {
+    background-color: #efefef;
+    padding: 0 15px;
+    box-shadow: inset 0px 3px 6px 0px #dddddd;
+}
+.paddingRight15 {
+    padding-right: 15px;
+}
+.colorYellow {
+    color: #c59358;
+}
+.backgroundGray {
+    background-color: #555a5d80 !important;
+}
+.backgroundBlue {
+    background-color: #0089b7 !important;
+}
+.colorBlue {
+    color: #0089b7 !important;
+}
+.backgroundColorYellow {
+    background-color: #c59358;
+}
+.colorRed {
+    color: #ff0000;
+}
+.customFixedMenu {
+    position: fixed !important;
+    width: 100% !important;
+}
+.mt-150 {
+    margin-top: 150px;
+}
+.customBorderBoxShadow {
+    border: 1px solid #dedede;
+    border-radius: 15px;
+    box-shadow: 0 3px 6px 0px #00000029;
+    max-width: 250px !important;
+    height: 400px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
+.colorCircle {
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    top: 5px;
+    left: 25px;
+    background-image: url("../../theme-assets//images/color-circle.png");
+    background-position: center;
+    background-size: cover;
+}
+.customBorderBoxShadow:hover,
+.customBoxNews:hover {
+    /* border: 4px solid #dedede; */
+    box-shadow: 0px 0px 6px 4px #00000029;
+}
+.customBoxLabel {
+    padding: 5px 10px;
+    background-color: #555a5d8c;
+    margin-right: -10px;
+    margin-top: 15px;
+}
+.customHeader {
+    font-size: 21px;
+    display: flex;
+}
+.textColor {
+    color: #555a5d !important;
+}
+.customBackgroundWhite {
+    background-color: #fff;
+}
+.customBold {
+    font-weight: 800;
+}
+.alignItemsCenter {
+    align-items: center;
+}
+.alignSelfCenter {
+    align-self: center;
+}
+.alignSelfEnd {
+    align-self: end;
+}
+.spaceBetween {
+    display: flex !important;
+    justify-content: space-between !important;
+}
+.product-detail-container
+    .product-seller-info
+    .product-seller-row
+    .product-seller-row-icon
+    i {
+    font-size: 29px;
+}
+.product-detail-container
+    .product-seller-info
+    .product-seller-row
+    .product-seller-row-detail::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    height: 0px;
+    right: 0;
+    left: 0;
+    background-color: #dfdfdf;
+}
+.customOff {
+    right: 6px;
+    top: 5px;
+}
+.customlineText {
+    text-decoration-color: red;
+    text-decoration-line: line-through;
+    -moz-text-decoration-line: line-through;
+    -moz-text-decoration-color: red;
+}
+.customArrowLeftIcon {
+    bottom: 20px;
+    left: 23px;
+}
+.customArrowRightIcon {
+    bottom: 20px;
+    right: 23px;
+}
+.customBoxNews {
+    max-width: 350px !important;
+    min-width: 300px;
+    height: 500px;
+    border: 4px solid #dedede;
+    border-radius: 20px;
+    opacity: 1;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    margin-left: 10px;
+}
+.customCardNews {
+    min-width: 300px;
+    width: 350px !important;
+}
+.customImgNews {
+    max-width: 325px !important;
+    min-width: 300px !important;
+    height: 300px !important;
+    min-height: 250px !important;
+    object-position: center;
+    object-fit: cover;
+    margin-right: -20px !important;
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+}
+.customIconBottom12 {
+    bottom: 12px;
+}
+.accordion-button:not(.collapsed) {
+    color: #555a5d !important;
+    background-color: white !important;
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+}
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    color: #555a5d;
+}
+.page-header .page-header--bottom .vertical-menu:hover .vertical-menu-items {
+    margin-right: -285px;
+}
+.customIconTag {
+    vertical-align: -6px;
+}
+.customLogoBoxInMobile {
+    margin-right: 5px !important;
+    min-width: 80px !important;
+    background-color: #ffffff;
+    padding: 5px !important;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0px 5px 17px 4px #00000029 !important;
+}
+.heightMobileViewAuth {
+    height: 50px !important;
+}
+.wx-100 {
+    max-width: 100% !important;
+    background-color: red !important;
+    /* width: 100%; */
+}
+.customCategoryIconBack {
+    position: absolute;
+    bottom: 9px;
+    left: 11px;
+}
+.cursorPointer {
+    cursor: pointer;
+}
+.marginTopMediaQuaryForSlider {
+    margin-top: -60px;
+}
+.filter-price .filter-slider .noUi-connect {
+    background-color: #0089b7;
+}
+.filter-price .filter-slider .noUi-handle {
+    background-color: #0089b7;
+}
+select:focus-visible {
+    border: 0;
+}
+.btnHover:hover {
+    color: #c59358 !important;
+}
+/* icon Hover */
+.swiper .swiper-button-next,
+.swiper .swiper-button-prev {
+    opacity: 60% !important;
+    box-shadow: none !important;
+}
+.swiper .swiper-button-next:disabled,
+.swiper .swiper-buttonprev:disabled {
+    opacity: 0% !important;
+    box-shadow: none !important;
+}
+.swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+    opacity: 0.35;
+    cursor: auto;
+    pointer-events: none;
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+}
+.swiper .swiper-button-next:hover,
+.swiper .swiper-button-prev:hover {
+    opacity: 100% !important;
+}
+.customWidthBox {
+    width: 250px !important;
+    margin-left: 10px;
+}
+.customBtnAddress {
+    position: inherit !important;
+    width: 90px !important;
+}
+.hoverBold:hover {
+    font-weight: 600 !important;
+    color: #0089b7 !important;
+}
+figure .ck-widget {
+    text-align: center !important;
+}
+.image-style-align-left {
+    float: left !important;
+    margin-right: 1.5rem;
+}
+.image-style-align-right {
+    float: right !important;
+    margin-left: 1.5rem;
+}
+
+.pagination .page-item.active .page-link {
+    color: #fff;
+    cursor: default;
+}
+.pagination .page-item .page-link {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    color: #212121;
+    padding: 0;
+}
+.page-item.active .page-link {
+    background-color: #00b2bc;
+    border-color: #00b2bc;
+}
+.boxLoadingEmptyContent {
+    content: " ";
+    opacity: 0.3;
+    filter: grayscale(1);
+    -webkit-filter: grayscale(1);
+    background-color: #00000034;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+}
+.backgroundColorNone {
+    background: none !important;
+}
+.product-thumbnail a img {
+    background-position: center;
+    object-fit: cover;
+    object-position: center;
+    width: 200px;
+    height: 200px;
+    max-width: 200px !important;
+}
+.product-title {
+    height: 40px;
+    overflow: hidden;
+}
+.boxDescription {
+    height: 42px;
+}
+.m-neg-10 {
+    margin-top: -10px;
+}
+.visibilityHidden {
+    visibility: hidden;
+}
+@media (min-width: 768px) {
+    .mt-md-110 {
+        margin-top: 110px;
+    }
+}
+@media (max-width: 768px) {
+    .mt-md-110 {
+        margin-top: -50px;
+    }
+    .marginTopMediaQuaryForSlider {
+        margin-top: 42px;
+    }
+}
