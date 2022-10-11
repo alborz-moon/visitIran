@@ -38,6 +38,7 @@ class ProductDigestUser extends JsonResource
         return [
             'id' => $this->id,
             'img' => $this->img == null ? asset('default.png') : asset('storage/products/' . $this->img),
+            'alt' => $this->alt,
             'rate' => $this->rate == null ? 4 : $this->rate,
             'name' => $this->name,
             'brand' => $this->brand->name,
