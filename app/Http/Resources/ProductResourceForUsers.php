@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use App\Models\Config;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductDigestUser extends JsonResource
+class ProductResourceForUsers extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -39,6 +39,9 @@ class ProductDigestUser extends JsonResource
             'id' => $this->id,
             'img' => $this->img == null ? asset('default.png') : asset('storage/products/' . $this->img),
             'alt' => $this->alt,
+            'description' => $this->description,
+            'keywords' => $this->keywords,
+            'digest' => $this->digest,
             'rate' => $this->rate == null ? 4 : $this->rate,
             'name' => $this->name,
             'brand' => $this->brand->name,
@@ -49,7 +52,7 @@ class ProductDigestUser extends JsonResource
             'price' => number_format($this->price, 0),
             'off' => $off,
             'priceAfterOff' => number_format($priceAfterOff, 0),
-            'has_multi_color' => $multiColor
+            'has_multi_color' => $multiColor,
         ];
     }
 }

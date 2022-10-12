@@ -8,10 +8,12 @@ use App\Http\Resources\CategoryDigest;
 use App\Http\Resources\ProductDigest;
 use App\Http\Resources\ProductDigestUser;
 use App\Http\Resources\ProductResource;
+use App\Http\Resources\ProductResourceForUsers;
 use App\Http\Resources\SellerResource;
 use App\Imports\ProductImport;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Product;
 use App\Models\PurchaseItems;
 use App\Models\Seller;
@@ -421,9 +423,30 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function showDetail(Request $request, Product $product, $productName) {
-        
+
+        $user = $request->user();
+        if($user == null)
+            return view('product', [
+                'product' => ProductResourceForUsers::make($product)->additional(
+                    [
+                        'is_bookmark' => false,
+                        'user_rate' => null,
+                        'has_comment' => false,
+                        'is_login' => false,
+                    ]
+                )->toArray($request)
+            ]);
+
+        $comment = Comment::userComment($product->id, $user->id);
         return view('product', [
-            'product' => ProductDigestUser::make($product)->toArray($request)
+            'product' => ProductResourceForUsers::make($product)->additional(
+                [
+                    'is_bookmark' => $comment != null && $comment->is_bookmark != null ? $comment->is_bookmark : false,
+                    'user_rate' => $comment != null ? $comment->rate : null,
+                    'has_comment' => $comment != null && $comment->comment != null ? true : false,
+                    'is_login' => true,
+                ]
+            )->toArray($request)
         ]);
     }
 
