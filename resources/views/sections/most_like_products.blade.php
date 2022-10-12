@@ -85,7 +85,7 @@
     $(document).ready(function() {
         $.ajax({
             type: 'get',
-            url: '{{ route('api.product.list', ['orderBy' => 'rate', 'limit' => 8]) }}',
+            url: '{{ route('api.product.list', ['orderBy' => 'rate', 'limit' => 5]) }}',
             success: function(res) {
                 let html = renderProductSlider(res.data, 'mostLikeProduct');
                 $("#mostLikeProductsSlider").empty().append(html).removeClass('hidden');

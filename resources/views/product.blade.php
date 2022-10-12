@@ -38,6 +38,7 @@
                 <span>
                     <button class="ri-stackshare-line fontSize30 b-0 colorWhiteGray btnHover"></button>
                     <button class="ri-bookmark-line fontSize30 b-0 colorWhiteGray btnHover"></button>
+                    <button class="ri-bookmark-fill fontSize30 b-0 colorWhiteGray btnHover"></button>
                 </span>
                 </nav>
                 <!-- end of breadcrumb -->
@@ -225,8 +226,8 @@
                     </div>
                 </div>
                 <!-- end of product-detail-container -->
-                @include('sections.most_like_products')
-                <div class="row TopParentBannerMoveOnTop">
+                @include('layouts.box')
+                <div class="row">
                     <div class="col-xl-9 col-lg-8">
                         <div class="ui-sticky ui-sticky-top mb-4 ">
                             <!-- start of product-tabs -->
@@ -545,7 +546,7 @@
 
                 let property = '';
                 for (var i=0; i < res.data.features.length;i++){
-                    property += '<li><span class="label colorBlueWhite">' + res.data.features[i].name + '</span>'
+                    property += '<li><span class="label colorBlueWhite">' + res.data.features[i].name + '</span><span>" : "</span>'
                     property += '<span class="title">' + res.data.features[i].value + '</span></li>'
                 }
                 $("#property").empty().append(property);
