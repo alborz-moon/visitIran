@@ -3,6 +3,7 @@
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoBoxController;
@@ -50,3 +51,14 @@ Route::get('category', [CategoryController::class, 'index'])->name('api.category
 Route::post('submitMail', [MailController::class, 'submitMail'])->name('api.submitMail');
 
 Route::get('get_top_categories_products', [CategoryController::class, 'get_top_categories_products'])->name('api.get_top_categories_products');
+
+Route::middleware(['myAuth'])->group(function() {
+
+    Route::prefix('product/{product}')->group(function() {
+
+        Route::post('/comment', [CommentController::class, 'store'])->name('api.product.comment.store');
+
+    });
+    
+
+});

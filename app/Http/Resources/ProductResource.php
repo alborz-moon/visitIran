@@ -30,9 +30,7 @@ class ProductResource extends JsonResource
             'is_in_top_list' => $this->is_in_top_list,
             'visibility' => $this->visibility,
             'priority' => $this->priority,
-            'price' => $this->price,
-            // 'galleries' => GalleryResource::collection($this->galleries()->orderBy('priority', 'asc')->get())->toArray($request),
-            // 'features' => ProductFeatureResource::collection($this->featuresWithValue())->toArray($request)
+            'price' => $this->price
         ];
     }
 }

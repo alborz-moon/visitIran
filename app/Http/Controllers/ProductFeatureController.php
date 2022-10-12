@@ -35,7 +35,9 @@ class ProductFeatureController extends Controller
     {
         $validator = [
             'value' => 'required',
-            'category_feature_id' => 'required|exists:category_features,id'
+            'category_feature_id' => 'required|exists:category_features,id',
+            'price' => 'nullable|integer|min:0',
+            'count' => 'nullable|integer|min:0'
         ];
 
         $request->validate($validator);
@@ -68,11 +70,32 @@ class ProductFeatureController extends Controller
         }
 
         $pf->value = $request['value'];
+
+        if($request->has('price'))
+            $pf->price = $request['price'];
+
+        if($request->has('count'))
+            $pf->available_count = $request['count'];
+
         $pf->save();
 
         return response()->json(
             ['status' => 'ok']
         );
     }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Comment  $comment
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(ProductFeatures $productFeature)
+    {
+        $productFeature->delete();
+        return response()->json(['status' => 'ok']);
+    }
+
 
 }

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Exports\ProductExport;
 use App\Http\Resources\BrandResource;
 use App\Http\Resources\CategoryDigest;
+use App\Http\Resources\GalleryResource;
 use App\Http\Resources\ProductDigest;
 use App\Http\Resources\ProductDigestUser;
+use App\Http\Resources\ProductFeatureResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\ProductResourceForUsers;
 use App\Http\Resources\SellerResource;
@@ -325,6 +327,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        if($request->has('seller_id') && $request['seller_id'] == -1)
+            $request['seller_id'] = null;
 
         $validator = [
             'name' => 'nullable|string|min:2',
@@ -400,17 +404,15 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Product $product = null)
+    public function show(Request $request, Product $product)
     {
-        if($product == null)
-            return;
-
-        $product->seen = $product->seen + 1;
-        $product->save();
+        if(!$product->visibility)
+            return Redirect::route('home');
 
         return response()->json([
             'status' => 'ok', 
-            'data' => ProductResource::make($product)->toArray($request)
+            'galleries' => GalleryResource::collection($product->galleries()->orderBy('priority', 'asc')->get())->toArray($request),
+            'features' => ProductFeatureResource::collection($product->featuresWithValue())->toArray($request)
         ]);
     }
 
@@ -424,29 +426,34 @@ class ProductController extends Controller
      */
     public function showDetail(Request $request, Product $product, $productName) {
 
+        if(!$product->visibility)
+            return Redirect::route('home');
+
+        $product->seen = $product->seen + 1;
+        $product->save();
+
         $user = $request->user();
         if($user == null)
             return view('product', [
-                'product' => ProductResourceForUsers::make($product)->additional(
-                    [
-                        'is_bookmark' => false,
-                        'user_rate' => null,
-                        'has_comment' => false,
-                        'is_login' => false,
-                    ]
-                )->toArray($request)
+                'product' => array_merge(
+                    ProductResourceForUsers::make($product)->toArray($request), [
+                    'is_bookmark' => false,
+                    'user_rate' => null,
+                    'has_comment' => false,
+                    'is_login' => false,
+                ])
             ]);
-
+            
         $comment = Comment::userComment($product->id, $user->id);
         return view('product', [
-            'product' => ProductResourceForUsers::make($product)->additional(
+            'product' => array_merge(
+                ProductResourceForUsers::make($product)->toArray($request), 
                 [
                     'is_bookmark' => $comment != null && $comment->is_bookmark != null ? $comment->is_bookmark : false,
                     'user_rate' => $comment != null ? $comment->rate : null,
-                    'has_comment' => $comment != null && $comment->comment != null ? true : false,
+                    'has_comment' => $comment != null && $comment->msg != null,
                     'is_login' => true,
-                ]
-            )->toArray($request)
+                ])
         ]);
     }
 

@@ -5,6 +5,13 @@
 @stop
 
 @section('form')
+    
+    <center>
+        @if($errors->any())
+            {{ implode('', $errors->all(':message')) }}
+        @endif
+    </center>
+
 
     @if(isset($item))
         <div class="flex center">

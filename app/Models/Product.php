@@ -60,18 +60,19 @@ class Product extends Model
     }
 
     public function features() {
-        $features = DB::select(
-            'select category_features.id, category_features.name, product_features.value from category_features left join product_features on ' . 
+        return DB::select(
+            'select category_features.id, category_features.unit, category_features.name, category_features.effect_on_available_count, ' . 
+            'category_features.effect_on_price, product_features.price, product_features.available_count, ' . 
+            'product_features.value, product_features.id as product_features_id from category_features left join product_features on ' . 
                 'category_features.id = product_features.category_feature_id and '.
                 'product_features.product_id = ' . $this->id .
                 ' where category_features.category_id = ' . $this->category_id
         );
-        return $features;
     }
 
     public function featuresWithValue() {
         $features = DB::select(
-            'select category_features.id, category_features.show_in_top, ' .
+            'select category_features.id, category_features.unit, category_features.show_in_top, ' .
                 'category_features.name, product_features.value from category_features join product_features on ' . 
                 'category_features.id = product_features.category_feature_id and '.
                 'product_features.product_id = ' . $this->id .
