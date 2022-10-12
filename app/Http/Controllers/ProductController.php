@@ -423,7 +423,14 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function showDetail(Request $request, Product $product, $productName) {
-
+        dd('product', ['product' => ProductResourceForUsers::make($product)->additional(
+                    [
+                        'is_bookmark' => false,
+                        'user_rate' => null,
+                        'has_comment' => false,
+                        'is_login' => false,
+                    ]
+                )->toArray($request))
         $user = $request->user();
         if($user == null)
             return view('product', [

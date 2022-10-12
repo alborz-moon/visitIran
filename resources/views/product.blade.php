@@ -36,9 +36,9 @@
                         <li class="breadcrumb-item"><a href="#">فرش</a></li>
                     </ol>
                 <span>
-                    <button class="ri-stackshare-line fontSize30 b-0 colorWhiteGray btnHover"></button>
-                    <button class="ri-bookmark-line fontSize30 b-0 colorWhiteGray btnHover"></button>
-                    <button class="ri-bookmark-fill fontSize30 b-0 colorWhiteGray btnHover"></button>
+                    <button class="ri-stackshare-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
+                    <button class="ri-bookmark-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
+                    <button class="ri-bookmark-fill fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
                 </span>
                 </nav>
                 <!-- end of breadcrumb -->
@@ -322,16 +322,22 @@
                             <div class="row">
                             <div class="product-user-meta fa-num mb-4 spaceBetween">
                                 <span class="product-users-rating">
-                                    <span class="product-title fontSize15 ml-3">دیدگاه کاربران</span>
+                                    <span class="product-title fontSize15 marginLeft15">دیدگاه کاربران</span>
                                     <i class="icon-visit-staroutline me-1 fontSize15"></i><i class="icon-visit-staroutline me-1 fontSize15"></i><i class="icon-visit-star me-1 fontSize20"></i><i class="icon-visit-star me-1 fontSize20"></i><i class="icon-visit-star me-1 fontSize20"></i>
                                     <span class="fw-bold me-1">4.4</span>
                                     <span class="text-muted fs-7">(از 1000 رای)</span>
                                 </span>
-                                <a href="#" class="link border-bottom-0 fs-7">۶۳۷ دیدگاه کاربران</a>
+                                <span style="gap15">
+                                    <a class="marginLeft15 btnHover colorBlack" href=""><i class="icon-visit-sort align-middle fontSize20 marginLeft15"></i>جدید ترین</a>
+                                    <a class="marginLeft15 btnHover colorBlack" href="">کمترین امتیاز</a>
+                                    <a class="marginLeft15 btnHover colorBlack" href="">بیشترین امتیاز</a>
+                                </span>
                             </div>
                                 <div class="col-xl-3 col-lg-4 col-md-5 mb-3">
+                                    <p class="bold">امتیاز شما</p>
+                                    @include('layouts.ratting')
                                 </div>
-                                <div class="col-xl-9 col-lg-8 col-md-7 pt-5">
+                                <div class="col-xl-9 col-lg-8 col-md-7 pt-0">
                                     <!-- start of comments -->
                                     <div class="comments">
                                         <!-- start of comment -->

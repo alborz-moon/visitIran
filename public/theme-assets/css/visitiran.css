@@ -56,6 +56,7 @@
 }
 .icon-visit-sort:before {
     content: "\004d";
+    vertical-align: middle;
 }
 .icon-visit-store:before {
     content: "\004e";

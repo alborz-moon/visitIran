@@ -423,6 +423,9 @@ a {
 .colorYellow {
     color: #c59358;
 }
+.backColorWhite {
+    background-color: #ffffff;
+}
 .backgroundGray {
     background-color: #555a5d80 !important;
 }
@@ -738,6 +741,9 @@ figure .ck-widget {
 }
 .visibilityHidden {
     visibility: hidden;
+}
+.marginLeft15 {
+    margin-left: 15px;
 }
 @media (min-width: 768px) {
     .mt-md-110 {
