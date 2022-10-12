@@ -66,9 +66,9 @@
                             <h2 id="productTitle" class="product-title">{{ $product['name'] }}</h2>
                             <div class="product-user-meta fa-num mb-4 spaceBetween">
                                 <span class="product-users-rating">
-                                    <i class="ri-star-fill icon me-1"></i>
+                                    <i class="icon-visit-staroutline me-1 fontSize15"></i><i class="icon-visit-staroutline me-1 fontSize15"></i><i class="icon-visit-star me-1 fontSize20"></i><i class="icon-visit-star me-1 fontSize20"></i><i class="icon-visit-star me-1 fontSize20"></i>
                                     <span class="fw-bold me-1">4.4</span>
-                                    <span class="text-muted fs-7">(742)</span>
+                                    <span class="text-muted fs-7">(از 1000 رای)</span>
                                 </span>
                                 <a href="#" class="link border-bottom-0 fs-7">۶۳۷ دیدگاه کاربران</a>
                             </div>
@@ -135,7 +135,7 @@
                             <div class="mb-3 mt-3 spaceBetween">
                                 <div class="bold">توضیحات</div>
                             </div>
-                            {{-- <p>{{ $product['img'] }}</p> --}}
+                            {{-- <p>{{ $product['description'] }}</p> --}}
                             <div class="product-additional-info-container mb-3">
                                 <span class="icon">
                                     <i class="ri-information-line"></i>
@@ -259,8 +259,7 @@
                             <div class="expandable-text pt-1" style="height: 250px;">
                                 <div class="expandable-text_text">
                                     <p>
-                                        گوشی موبایل «iPhone 13» پرچم‌دار جدید شرکت اپل است که با چند ویژگی جدید و دوربین
-                                        دوگانه روانه بازار شده است. اپل برای ویژگی‌ها و طراحی کلی این
+                                        گوشی موبایل «iPhone 13» پرچم‌دار جدید شرکت اپل است که با چند ویژگی جدید و دوربین دوگانه روانه بازار شده است. اپل برای ویژگی‌ها و طراحی کلی این گوشی از همان فرمول چند سال اخیرش استفاده کرده است. نمایشگر آیفون 13 به پنل Super Retina مجهز ‌شده است تا تصاویر بسیار مطلوبی را به کاربر عرضه کند. این نمایشگر رزولوشن بسیار بالایی دارد؛ به‌طوری‌که در اندازه­‌ی 6.1 اینچی‌اش، حدود 460 پیکسل را در هر اینچ جا داده است. امکان شارژ بی‌‌سیم باتری در این گوشی وجود دارد. روکش سرامیکی صفحه‌نمایش این گوشی می‌تواند انقلابی در محافظت به‌پا کند. این گوشی ضدآب و ضد گردوخاک است. بدنه­ زیبا iPhone 13 در مقابل خط‌‌وخش مقاومت زیادی دارد؛ پس خیالتان از این بابت که آب و گردوغبار به‌‌راحتی روی آیفون 13 تأثیر نمی‌‌گذارد، راحت باشد. علاوه‌براین لکه و چربی هم روی این صفحه‌نمایش باکیفیت تأثیر چندانی ندارند. تشخیص چهره با استفاده از دوربین جلو دیگر ویژگی است که در آیفون جدید اپل به کار گرفته شده است. قابلیت اتصال به شبکه­‌های 4G و 5G، بلوتوث نسخه‌ 5، نسخه­‌ 15 از iOS دیگر ویژگی‌های این گوشی هستند. ازنظر سخت‌‌افزاری هم این گوشی از تراشه­‌ی جدید A15 بهره می‌برد که دارای 15 میلیارد ترانزیستور است که دارای کنترل گرمای مطلوبی بوده که تا بتواند علاوه بر کارهای معمول، از قابلیت‌های جدید واقعیت مجازی که اپل این روزها روی آن تمرکز خاصی دارد، پشتیبانی کند. به گفته خود شرکت اپل این گوشی دارای سرعتی 50 برابر نسخه 12 خود است. پردازنده دارای ماژولار جدیدی است که مصرف باتری را بسیار پایین‌تر آورده است و شما دارای حفظ باتری بالاتری هستید. کیفیت نمایش شما در iPhone 13 دارای 120 هرتز است و کسفیت بالایی را شاهد خواهید بود. اپل در این سری از گوشی‌های iPhone خود پردازنده گرافیکی‌ای را قرار داده که از سری 12 گوشی‌های خود 30 درصد سریع‌تر است و این نویدبخش آن است که شما می‌توانید بازی‌هایی را با گرافیک و MAP سنگین تر و بزرگ‌تر اجرا کنید. یکی از ویژگی‌هایی که در iPhone 13 شاهد هستیم سیستم فیلمبرداری ProRes سینمایی آن است که می تواند انقلابی در فیلمبرداری گوشی‌های موبایل به‌راه انداخته باشد. این قابلیت می‌تواند نسبت به صورت روبرو بین افراد و یا بین فرد و اشیا فوکوس و بِلار داشته باشد.
                                     </p>
                                 </div>
                                 <div class="expandable-text-expand-btn justify-content-start text-sm">
@@ -281,7 +280,7 @@
                                 <h2>مشخصات کالا</h2>
                                 <h3 class="subtitle">Apple iPhone 13 A2634 Dual SIM 128GB And 4GB RAM Mobile Phone</h3>
                             </div>
-                            <div class="expandable-text pt-1" style="height: 540px;">
+                            <div class="expandable-text pt-1" style="height: auto">
                                 <div class="expandable-text_text fa-num">
                                     <!-- start of params-list -->
                                     <div class="params-list">
@@ -306,25 +305,30 @@
                                     </div>
                                     <!-- end of params-list -->
                                 </div>
-                                <div class="expandable-text-expand-btn justify-content-start text-sm">
+                                {{-- <div class="expandable-text-expand-btn justify-content-start text-sm">
                                     <span class="show-more active">
                                         نمایش همه مشخصات کالا <i class="ri-arrow-down-s-line ms-2"></i>
                                     </span>
                                     <span class="show-less d-none">
                                         فقط نمایش مشخصات کلی کالا <i class="ri-arrow-up-s-line ms-2"></i>
                                     </span>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <!-- end of product-params -->
                         <!-- start of product-comments -->
                         <div class="product-tab-content product-comments tab-content border-bottom pb-2 mb-4"
                             id="scrollspyHeading4">
-                            <div class="product-tab-title mb-0">
-                                <h2>امتیاز و دیدگاه کاربران</h2>
-                                <h3 class="subtitle">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</h3>
-                            </div>
                             <div class="row">
+                            <div class="product-user-meta fa-num mb-4 spaceBetween">
+                                <span class="product-users-rating">
+                                    <span class="product-title fontSize15 ml-3">دیدگاه کاربران</span>
+                                    <i class="icon-visit-staroutline me-1 fontSize15"></i><i class="icon-visit-staroutline me-1 fontSize15"></i><i class="icon-visit-star me-1 fontSize20"></i><i class="icon-visit-star me-1 fontSize20"></i><i class="icon-visit-star me-1 fontSize20"></i>
+                                    <span class="fw-bold me-1">4.4</span>
+                                    <span class="text-muted fs-7">(از 1000 رای)</span>
+                                </span>
+                                <a href="#" class="link border-bottom-0 fs-7">۶۳۷ دیدگاه کاربران</a>
+                            </div>
                                 <div class="col-xl-3 col-lg-4 col-md-5 mb-3">
                                 </div>
                                 <div class="col-xl-9 col-lg-8 col-md-7 pt-5">
@@ -544,12 +548,21 @@
                 // }
                 // $("#gallery").empty().append(html);
 
+<<<<<<< HEAD
                 // let property = '';
                 // for (var i=0; i < res.data.features.length;i++){
                 //     property += '<li><span class="label colorBlueWhite">' + res.data.features[i].name + '</span><span>" : "</span>'
                 //     property += '<span class="title">' + res.data.features[i].value + '</span></li>'
                 // }
                 // $("#property").empty().append(property);
+=======
+                let property = '';
+                for (var i=0; i < res.data.features.length;i++){
+                    property += '<li><span class="label colorBlueWhite">' + res.data.features[i].name + '</span><span> : </span>'
+                    property += '<span class="title">' + res.data.features[i].value + '</span></li>'
+                }
+                $("#property").empty().append(property);
+>>>>>>> bc2fc892793ae208b5db7aed285771fa8910f3fe
                 
             }
         });
