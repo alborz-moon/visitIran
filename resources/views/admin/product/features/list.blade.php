@@ -10,6 +10,7 @@
 
 @section('items')
 <center style="margin-top: 20px">
+    <p id="err"></p>
     <table>
         <thead>
             <tr>
@@ -26,7 +27,7 @@
                     <td>{{ $i++ }}</td>
                     <td>{{ $item->name }}</td>
                     <td>
-                        <input id="feature_{{ $item->id }}" value="{{ $item->value }}" />
+                        <input autocomplete="false" id="feature_{{ $item->id }}" value="{{ $item->value }}" />
                     </td>
                     <td>
                         <button data-id={{ $item->id }} class="saveBtn btn btn-primary">ثبت تغییر</button>
@@ -59,6 +60,21 @@
                         }
                         else {
                             alert(res.msg);
+                        }
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        
+                        var errs = XMLHttpRequest.responseJSON.errors;
+                        if(errs instanceof Object)
+                            $("#err").empty().append(errs.value);
+                        else {
+                            var errsText = '';
+
+                            for(let i = 0; i < errs.length; i++)
+                                errsText += errs[i].value;
+
+
+                            $("#err").empty().append(errsText);
                         }
                     }
                 });

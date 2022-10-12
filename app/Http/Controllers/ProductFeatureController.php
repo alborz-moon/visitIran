@@ -6,6 +6,7 @@ use App\Models\Feature;
 use App\Models\Product;
 use App\Models\ProductFeatures;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProductFeatureController extends Controller
 {
@@ -43,6 +44,21 @@ class ProductFeatureController extends Controller
 
         if($product->category_id != $categoryFeature->category_id)
             return abort(401);
+
+        $validator = null;
+        if($categoryFeature->answer_type == 'number') {
+            $validator = [
+                'value' => 'required|integer|min:0'
+            ];
+        }
+        else if($categoryFeature->answer_type == 'multi_choice') {
+            $choices = explode('__', $categoryFeature->choices);
+            $validator = [
+                'value' => ['required', Rule::in($choices)]
+            ];
+        }
+        if($validator != null)
+            $request->validate($validator);
 
         $pf = ProductFeatures::where('category_feature_id', '=', $request['category_feature_id'])->first();
         if($pf == null) {

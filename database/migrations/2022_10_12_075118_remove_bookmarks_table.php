@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBookmarkTable extends Migration
+class RemoveBookmarksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,6 +12,16 @@ class CreateBookmarkTable extends Migration
      * @return void
      */
     public function up()
+    {
+        Schema::dropIfExists('bookmarks');
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
     {
         Schema::create('bookmarks', function (Blueprint $table) {
             $table->increments('id');
@@ -23,15 +33,5 @@ class CreateBookmarkTable extends Migration
             $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('user_id')->references('id')->on('users');
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('bookmarks');
     }
 }

@@ -72,6 +72,12 @@ class FeatureController extends Controller
         if($request['answer_type'] != 'multi_choice' && $request->has('choices'))
             return $this->create($category, 'پارامترهای ورودی معتبر نمی باشند.');
 
+
+        if($request->has('effect_on_price') && $request->has('effect_on_available_count') && 
+            $request['effect_on_available_count'] && $request['effect_on_price']
+        )
+            return $this->create($category, 'نمی توان همزمان یک ویژگی هم بر روی قیمت و هم موجودی تاثیر گذار باشد.');
+            
         $request['category_id'] = $category->id;
         Feature::create($request->toArray());
         return Redirect::route('category.features.index', ['category' => $category->id]);
