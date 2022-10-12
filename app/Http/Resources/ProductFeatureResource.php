@@ -17,7 +17,7 @@ class ProductFeatureResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'value' => $this->value,
+            'value' => $this->unit == null ? $this->value : $this->value . ' ' . $this->unit,
             'show_in_top' => $this->show_in_top
         ];
     }

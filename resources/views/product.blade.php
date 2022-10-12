@@ -547,22 +547,44 @@
             },
             success: function(res) {
                 
-                let html = '';
-                for(var i = 0; i < res.data.galleries.length; i++) {
-                    html += '<li data-fancybox="gallery-a" data-src="' + res.data.galleries[i].img + '">'
-                    html += '<img src="' + res.data.galleries[i].img + '" alt="' + res.data.galleries[i].alt + '"></li>'
-                }
-                $("#gallery").empty().append(html);
+                // let html = '';
+                // for(var i = 0; i < res.data.galleries.length; i++) {
+                //     html += '<li data-fancybox="gallery-a" data-src="' + res.data.galleries[i].img + '">'
+                //     html += '<img src="' + res.data.galleries[i].img + '" alt="' + res.data.galleries[i].alt + '"></li>'
+                // }
+                // $("#gallery").empty().append(html);
 
+<<<<<<< HEAD
+                // let property = '';
+                // for (var i=0; i < res.data.features.length;i++){
+                //     property += '<li><span class="label colorBlueWhite">' + res.data.features[i].name + '</span><span>" : "</span>'
+                //     property += '<span class="title">' + res.data.features[i].value + '</span></li>'
+                // }
+                // $("#property").empty().append(property);
+=======
                 let property = '';
                 for (var i=0; i < res.data.features.length;i++){
                     property += '<li><span class="label colorBlueWhite">' + res.data.features[i].name + '</span><span> : </span>'
                     property += '<span class="title">' + res.data.features[i].value + '</span></li>'
                 }
                 $("#property").empty().append(property);
+>>>>>>> bc2fc892793ae208b5db7aed285771fa8910f3fe
                 
             }
         });
+
+        // $.ajax({
+        //     type: 'post',
+        //     url: '{{ route('api.product.comment.store', ['product' => $product['id']]) }}',
+        //     data: {
+        //         'rate': 4,
+        //         'is_bookmark': 1,
+        //         'msg': 'sasds'
+        //     },
+        //     success: function(res) {
+        //         alert(res);
+        //     }
+        // });
 
     });
 

@@ -136,7 +136,7 @@ Route::middleware(['auth', 'editorLevel'])->prefix('admin')->group(function() {
 
     Route::resource('product.productGallery', GalleryController::class)->except('show', 'update', 'edit')->shallow();
     
-    Route::resource('product.productFeature', ProductFeatureController::class)->only('index', 'store')->shallow();
+    Route::resource('product.productFeature', ProductFeatureController::class)->only('index', 'store', 'destroy')->shallow();
 
 
     Route::post('uploadImg', [HomeController::class, 'uploadImg'])->name('uploadImg');

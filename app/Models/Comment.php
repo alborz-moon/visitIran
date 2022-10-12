@@ -22,4 +22,12 @@ class Comment extends Model
         return Comment::where('user_id', $userId)->where('product_id', $productId)->first();
     }
 
+    public static function scopeComment($query, $productId) {
+        return $query->where('product_id', $productId)->whereNotNull('msg');
+    }
+
+    public static function scopeRate($query, $productId) {
+        return $query->where('product_id', $productId)->whereNotNull('rate');
+    }
+
 }

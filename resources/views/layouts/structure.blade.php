@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="{{ asset('theme-assets/css/visitiran.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/custom.css') }}">
     
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script src="{{ asset('theme-assets/js/dependencies/jquery-3.6.0.min.js') }}"></script>
 
     @section('seo')
@@ -377,6 +378,14 @@
     <script src="{{ asset('theme-assets/js/dependencies/simplebar.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/zoomsl.min.js') }}"></script>
+
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
     @section('extraJS')
     @show
 </body>
