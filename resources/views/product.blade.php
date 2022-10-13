@@ -30,10 +30,7 @@
                 <!-- start of breadcrumb -->
                 <div class="product-detail-container mb-3">
                 <nav aria-label="breadcrumb" style="display: flex;justify-content:space-between;">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">خانه</a></li>
-                        <li class="breadcrumb-item"><a href="#">منسوجات </a></li>
-                        <li class="breadcrumb-item"><a href="#">فرش</a></li>
+                    <ol id="parentPath" class="breadcrumb">
                     </ol>
                 <span>
                     <button class="ri-stackshare-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
@@ -67,13 +64,13 @@
                             <div class="product-user-meta fa-num mb-4 spaceBetween">
                                 <span class="product-users-rating">
                                     <i class="icon-visit-staroutline me-1 fontSize15"></i><i class="icon-visit-staroutline me-1 fontSize15"></i><i class="icon-visit-star me-1 fontSize20"></i><i class="icon-visit-star me-1 fontSize20"></i><i class="icon-visit-star me-1 fontSize20"></i>
-                                    <span class="fw-bold me-1">4.4</span>
+                                    <span class="fw-bold me-1">{{ $product['rate'] }}</span>
                                     <span class="text-muted fs-7">(از 1000 رای)</span>
                                 </span>
                                 <a href="#" class="link border-bottom-0 fs-7">۶۳۷ دیدگاه کاربران</a>
                             </div>
                             <div class="product-variant-selected-label bold mb-3">سازنده</div>
-                            <div class="mb-3">سنگ تراشان برادران احتشام</div>
+                            <div class="mb-3">{{ $product['seller'] }}</div>
                             <div class="product-variants-container mb-3">
                                 <div class="product-variant-selected-container spaceBetween">
                                     <span class="product-variant-selected-label">رنگ:</span>
@@ -170,7 +167,7 @@
                                             <i class="icon-visit-store colorYellow  productIcon"></i>
                                         </div>
                                         <div class="product-seller-row-detail">
-                                            <div class="product-seller-row-detail-title">سنگ تراشان برادران احتشام</div>
+                                            <div class="product-seller-row-detail-title">{{ $product['seller'] }}</div>
                                         </div>
                                     </div>
                                     <div class="product-seller-row">
@@ -554,25 +551,16 @@
                 // }
                 // $("#gallery").empty().append(html);
 
-<<<<<<< HEAD
-                // let property = '';
-                // for (var i=0; i < res.data.features.length;i++){
-                //     property += '<li><span class="label colorBlueWhite">' + res.data.features[i].name + '</span><span>" : "</span>'
-                //     property += '<span class="title">' + res.data.features[i].value + '</span></li>'
-                // }
-                // $("#property").empty().append(property);
-=======
                 let property = '';
                 for (var i=0; i < res.data.features.length;i++){
                     property += '<li><span class="label colorBlueWhite">' + res.data.features[i].name + '</span><span> : </span>'
                     property += '<span class="title">' + res.data.features[i].value + '</span></li>'
                 }
                 $("#property").empty().append(property);
->>>>>>> bc2fc892793ae208b5db7aed285771fa8910f3fe
-                
+                 
             }
         });
-
+        
         // $.ajax({
         //     type: 'post',
         //     url: '{{ route('api.product.comment.store', ['product' => $product['id']]) }}',
@@ -580,14 +568,17 @@
         //         'rate': 4,
         //         'is_bookmark': 1,
         //         'msg': 'sasds'
-        //     },
+        //     },  
         //     success: function(res) {
         //         alert(res);
         //     }
         // });
-
+        let breadcrumb="";
+        for (var i=0; i < res.data.parentPath.length;i++){
+            breadcrumb += <li class="breadcrumb-item"><a href="#">{{ $product['img'] }}</a></li>
+        }
+        $("#parentPath").empty().append(property);
     });
-
 </script>
 @stop
 

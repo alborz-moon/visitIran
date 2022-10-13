@@ -431,8 +431,19 @@ class ProductController extends Controller
 
         $product->seen = $product->seen + 1;
         $product->save();
-
+        
         $user = $request->user();
+
+        // $comment = Comment::userComment($product->id, $user->id);
+        // dd(array_merge(
+        //         ProductResourceForUsers::make($product)->toArray($request), 
+        //         [
+        //             'is_bookmark' => $comment != null && $comment->is_bookmark != null ? $comment->is_bookmark : false,
+        //             'user_rate' => $comment != null ? $comment->rate : null,
+        //             'has_comment' => $comment != null && $comment->msg != null,
+        //             'is_login' => true,
+        //         ]));
+        
         if($user == null)
             return view('product', [
                 'product' => array_merge(
