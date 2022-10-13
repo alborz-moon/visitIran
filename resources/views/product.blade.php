@@ -557,7 +557,11 @@
                     property += '<span class="title">' + res.data.features[i].value + '</span></li>'
                 }
                 $("#property").empty().append(property);
+<<<<<<< HEAD
                  
+=======
+                
+>>>>>>> 0232d742598a975b2b8c1d38dcce95f2a50f2fc1
             }
         });
         

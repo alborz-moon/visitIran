@@ -30,7 +30,41 @@
                     <td>{{ $i++ }}</td>
                     <td>{{ $item->name }}</td>
                     <td>
-                        <input autocomplete="false" id="feature_{{ $item->id }}" value="{{ $item->value }}" />
+                        @if($item->answer_type == 'text')
+                            <input id="feature_{{ $item->id }}" value="{{ $item->value }}" />
+                        @elseif($item->answer_type == 'number')
+                            <input type="number" id="feature_{{ $item->id }}" value="{{ $item->value }}" />
+                        @elseif($item->answer_type == 'longtext')
+                            <textarea id="feature_{{ $item->id }}">{{ $item->value }}</textarea>
+                        @else
+                            <?php 
+                                $choices = [];
+                                if($item->choices != null) {
+                                    $tmp = explode('__', $item->choices);
+                                    foreach($tmp as $itr) {
+                                        $arr = explode('$$', $itr);
+                                        if(count($arr) == 2) {
+                                            array_push($choices, [
+                                                'key' => $arr[0],
+                                                'label' => $arr[1]
+                                            ]);
+                                        }
+                                        else {
+                                            array_push($choices, [
+                                                'key' => $arr[0],
+                                                'label' => ''
+                                            ]);
+                                        }
+                                    }
+                                }
+                             ?>
+                            <select id="feature_{{ $item->id }}">
+                                <option value="">انتخاب کنید</option>
+                                @foreach ($choices as $choice)
+                                    <option value="{{ $choice['key'] }}">{{ $choice['key'] }}</option>    
+                                @endforeach
+                            </select>
+                        @endif
                     </td>
                     <td>{{ $item->unit }}</td>
                     <td>

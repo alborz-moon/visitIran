@@ -14,6 +14,27 @@ class FeatureResource extends JsonResource
      */
     public function toArray($request)
     {
+        $choices = [];
+
+        if($this->choices != null) {
+            $tmp = explode('__', $this->choices);
+            foreach($tmp as $itr) {
+                $arr = explode('$$', $itr);
+                if(count($arr) == 2) {
+                    array_push($choices, [
+                        'key' => $arr[0],
+                        'label' => $arr[1]
+                    ]);
+                }
+                else {
+                    array_push($choices, [
+                        'key' => $arr[0],
+                        'label' => ''
+                    ]);
+                }
+            }
+        }
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -23,7 +44,7 @@ class FeatureResource extends JsonResource
             'unit' => $this->unit,
             'answer_type' => $this->answer_type,
             'priority' => $this->priority,
-            'choices' => $this->answer_type == 'multi_choice' ? $this->choices : null
+            'choices' => $choices,
         ];
     }
 }

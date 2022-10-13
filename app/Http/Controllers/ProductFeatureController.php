@@ -54,10 +54,21 @@ class ProductFeatureController extends Controller
             ];
         }
         else if($categoryFeature->answer_type == 'multi_choice') {
+
             $choices = explode('__', $categoryFeature->choices);
-            $validator = [
-                'value' => ['required', Rule::in($choices)]
-            ];
+            $label = null;
+
+            foreach($choices as $choice) {
+                $tmp = explode('$$', $choice);
+                if($tmp[0] == $request['value']) {
+                    $label = count($tmp) == 2 ? $tmp[1] : '';
+                }
+            }
+
+            if($label == null)
+                abort(401);
+
+            $request['value'] = $request['value'] . '$$' . $label;
         }
         if($validator != null)
             $request->validate($validator);
