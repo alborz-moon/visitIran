@@ -40,6 +40,7 @@ class ProductController extends Controller
         $isInTopList = $request->query('isInTopList', null);
         $max = $request->query('max', null);
         $min = $request->query('min', null);
+        $off = $request->query('off', null);
 
         if($cat != null)
             $filters->where('category_id', $cat);
@@ -65,6 +66,17 @@ class ProductController extends Controller
             if($visibility != null)
                 $filters->where('visibility', $visibility);
                 
+            if($off != null) {
+                $today = (int)self::getToday()['date'];
+                if($off)
+                    $filters->whereNotNull('off')->where('off_expiration', '>=', $today);
+                else
+                    $filters->where(function ($query) use ($today) {
+                        $query->whereNull('off')->orWhere('off_expiration', '<', $today);
+                    });
+            }
+                
+
             if($max != null)
                 $filters->where('available_count', '<=', $max);
                 
@@ -160,6 +172,24 @@ class ProductController extends Controller
         ]);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list(Request $request)
+    {
+        sleep(2);
+        $limit = $request->query('limit', null);
+        
+        $filters = $this->build_filters($request);
+        $products = $filters->paginate($limit == null ? 30 : $limit);
+
+        return response()->json([
+            'status' => 'ok',
+            'data' =>  ProductDigestUser::collection($products)->toArray($request)
+        ]);
+    }
 
     public function excel(Request $request) {
         $filters = $this->build_filters($request);
@@ -228,7 +258,7 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
             'seller_id' => 'nullable|exists:sellers,id',
-            'description' => 'required|string|min:2',
+            'description' => 'nullable|string|min:2',
             'digest' => 'nullable|string|min:2',
             'keywords' => 'nullable|string|min:2',
             'tags' => 'nullable|string|min:2',
@@ -248,7 +278,7 @@ class ProductController extends Controller
         $request->validate($validator);
 
         $filename = $request->img_file->store('public/products');
-        $filename = str_replace('public/products', '', $filename);
+        $filename = str_replace('public/products/', '', $filename);
 
         $request['img'] = $filename;
         Product::create($request->toArray());
@@ -382,7 +412,7 @@ class ProductController extends Controller
         if($request->has('img_file')) {
          
             $filename = $request->img_file->store('public/products');
-            $filename = str_replace('public/products', '', $filename);   
+            $filename = str_replace('public/products/', '', $filename);   
                 
             if($product->img != null && !empty($product->img) && 
                 file_exists(__DIR__ . '/../../../public/storage/products/' . $product->img))
@@ -546,8 +576,10 @@ class ProductController extends Controller
             if($product->img != null && 
                 file_exists(__DIR__ . '/../../../public/storage/products/' . $product->img))
                 unlink(__DIR__ . '/../../../public/storage/products/' . $product->img);
+
+            return response()->json(['status' => 'ok']);
         }
 
-        return response()->json(['status' => 'ok']);
+        return response()->json(['status' => 'nok', 'msg' => 'خطا در حذف محصول موردنظر']);
     }
 }

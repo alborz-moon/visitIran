@@ -43,27 +43,27 @@
 
 
             <div>
-                <label for="desc">توضیح محصول</label>
-                <textarea required name="description" id="desc">{{ isset($item) ? $item['description'] : '' }}</textarea>
+                <label for="desc">توضیح محصول(اختیاری)</label>
+                <textarea name="description" id="desc">{{ isset($item) ? $item['description'] : '' }}</textarea>
             </div>
 
             <div>
-                <label for="digest">متن خلاصه</label>
+                <label for="digest">متن خلاصه(اختیاری)</label>
                 <textarea name="digest" id="digest">{{ isset($item) ? $item['digest'] : '' }}</textarea>
             </div>
 
             <div>
-                <label for="keywords">واژه های کلیدی</label>
+                <label for="keywords">واژه های کلیدی(اختیاری)</label>
                 <textarea name="keywords" id="keywords">{{ isset($item) ? $item['keywords'] : '' }}</textarea>
             </div>
 
             <div>
-                <label for="tags">تگ ها</label>
+                <label for="tags">تگ ها(اختیاری)</label>
                 <textarea name="tags" id="tags">{{ isset($item) ? $item['tags'] : '' }}</textarea>
             </div>
 
             <div>
-                <label for="alt">تگ alt</label>
+                <label for="alt">تگ alt(اختیاری)</label>
                 <input value="{{ isset($item) ? $item['alt'] : '' }}" type="text" placeholder="این فیلد اختیاری است" name="alt" id="alt" />
             </div>
 
@@ -97,7 +97,7 @@
             
 
             <div>
-                <label for="seller_id">فروشنده</label>
+                <label for="seller_id">فروشنده(اختیاری)</label>
                 <select name="seller_id" id="seller_id">
                     <option value="-1">نامشخص</option>
                     @foreach($sellers as $seller)
@@ -127,7 +127,7 @@
                 </select>
             </div>
 
-
+            <p style="margin-top: 20px">نقد و بررسی(اختیاری)</p>
             <div class="editor">
                 <div id="toolbar-container"></div>
                 @if(isset($item) && $item['introduce'] != null && $item['introduce'] != '')

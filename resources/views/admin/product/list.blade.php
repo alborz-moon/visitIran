@@ -85,6 +85,15 @@
                 <label class="width-auto" for="maxFilter">حداکثر تعداد موجودی</label>
                 <input type="number" value="{{ isset($maxFilter) ? $maxFilter : '' }}" id="maxFilter" />
             </div>
+
+            <div class="flex gap10 center">
+                <label class="width-auto" for="offFilter">وضعیت تخفیف</label>
+                <select id="offFilter">
+                    <option value="all">همه</option>
+                    <option {{ isset($offFilter) && $offFilter ? 'selected' : '' }} value="1">بله</option>
+                    <option {{ isset($offFilter) && !$offFilter ? 'selected' : '' }} value="0">خیر</option>
+                </select>
+            </div>
             
             <div class="flex gap10 center">
                 <label class="width-auto" for="orderBy">مرتب سازی بر اساس</label>
@@ -145,6 +154,7 @@
                                 </div>
                                 <div class="flex gap10">
                                     <button data-toggle='tooltip' title="مدیریت نظرات" onclick="document.location.href = '{{ route('product.comment.index', ['product' => $item['id']]) }}'" class="btn btn-purple"><span class="glyphicon glyphicon-comment"></span></button>
+                                    <button data-toggle='tooltip' title="مدیریت نظرات" onclick="document.location.href = '{{ route('product.comment.index', ['product' => $item['id']]) }}'" style="background-color: #ce9243; border-color: #ce9243;" class="btn btn-success"><span class="glyphicon glyphicon-stats"></span></button>
                                 </div>
                             </div>
                             
@@ -256,6 +266,7 @@
             let visibility = $("#visibilityFilter").val();
             let isInTopList = $("#isInTopListFilter").val();
             let brand = $("#brandFilter").val();
+            let off = $("#offFilter").val();
             let max = $("#maxFilter").val();
             let min = $("#minFilter").val();
             let orderBy = $("#orderBy").val();
@@ -275,6 +286,9 @@
                 
             if(min !== '')
                 query.append('min', min);
+
+            if(off !== 'all')
+                query.append('off', off);
 
             query.append('orderBy', orderBy);
             query.append('orderByType', orderByType);

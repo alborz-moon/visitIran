@@ -72,7 +72,7 @@ Route::middleware(['auth', 'editorLevel'])->prefix('admin')->group(function() {
 
     Route::prefix('category')->group(function() {
 
-        Route::post('/', [CategoryController::class, 'uploadCategories'])->name('category.upload');
+        Route::post('/addBatch', [CategoryController::class, 'uploadCategories'])->name('category.upload');
 
         Route::post('/{category}', [CategoryController::class, 'update'])->name('category.update');
         

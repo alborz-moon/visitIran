@@ -35,7 +35,7 @@ class ProductResourceForUsers extends JsonResource
             $priceAfterOff = $this->price - $off['value'];
         else if($off != null)
             $priceAfterOff = $this->price * (100 - $off['value']) / 100;
-
+        
         $cat = $this->category;
 
         $parentPath = [];

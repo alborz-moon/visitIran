@@ -44,7 +44,7 @@ Route::get('blog/{blog?}', [BlogController::class, 'show'])->name('api.blog.show
 
 Route::get('product/{product?}', [ProductController::class, 'show'])->name('api.product.show');
 
-Route::get('products', [ProductController::class, 'index'])->name('api.product.list');
+Route::get('products', [ProductController::class, 'list'])->name('api.product.list');
 
 Route::get('category', [CategoryController::class, 'index'])->name('api.category');
 

@@ -91,7 +91,7 @@ class Product extends Model
 
         if($this->off != null) {
             $today = (int)Controller::getToday()['date'];
-            if((int)Controller::convertDateToString($this->off_expiration) >= $today)
+            if((int)$this->off_expiration >= $today)
                 return [
                     'type' => $this->off_type,
                     'value' => $this->off
