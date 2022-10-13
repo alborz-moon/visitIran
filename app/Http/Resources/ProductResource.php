@@ -30,7 +30,9 @@ class ProductResource extends JsonResource
             'is_in_top_list' => $this->is_in_top_list,
             'visibility' => $this->visibility,
             'priority' => $this->priority,
-            'price' => $this->price
+            'price' => $this->price,
+            'gaurantee' => $this->gaurantee,
+            'introduce' => $this->introduce
         ];
     }
 }

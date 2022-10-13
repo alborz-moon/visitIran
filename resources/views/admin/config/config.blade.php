@@ -1,7 +1,6 @@
 @extends('admin.layouts.create')
 
-@section('header')
-    @parent
+@section('moreHeader')
     <script>
         var UploadURL = '{{ route('uploadImg') }}';
     </script>
