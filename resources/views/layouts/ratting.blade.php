@@ -24,8 +24,9 @@
 { color: #c59358 ;
 content: "\0049";
 font-family: "visitiran";
-  display: inline-block;  }
-.starrating > input:checked ~ label
+display: inline-block;  }
+
+  .starrating > input:checked ~ label
 { color: #c59358 ;
 content: "\0049";
 font-family: "visitiran";

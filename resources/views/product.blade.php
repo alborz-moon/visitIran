@@ -7,13 +7,9 @@
     <meta property="og:site_name" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
 
     
-        <meta property="og:image" content="https://micamall.com/storage/post-pic/images/UxiMI3IXfTQBMO0p4H4MrXMLkmYwTTzVJ1O8QTPQ.jpg"/>
-        <meta property="og:image:secure_url" content="https://micamall.com/storage/post-pic/images/UxiMI3IXfTQBMO0p4H4MrXMLkmYwTTzVJ1O8QTPQ.jpg"/>
-        <meta name="twitter:image" content="https://micamall.com/storage/post-pic/images/UxiMI3IXfTQBMO0p4H4MrXMLkmYwTTzVJ1O8QTPQ.jpg"/>
-
-    
-    
-
+    <meta property="og:image" content="https://micamall.com/storage/post-pic/images/UxiMI3IXfTQBMO0p4H4MrXMLkmYwTTzVJ1O8QTPQ.jpg"/>
+    <meta property="og:image:secure_url" content="https://micamall.com/storage/post-pic/images/UxiMI3IXfTQBMO0p4H4MrXMLkmYwTTzVJ1O8QTPQ.jpg"/>
+    <meta name="twitter:image" content="https://micamall.com/storage/post-pic/images/UxiMI3IXfTQBMO0p4H4MrXMLkmYwTTzVJ1O8QTPQ.jpg"/>
     <meta property="og:description" content="جاهای دیدنی کیش و غذاهای این جزیره از جمله جاذبه های گردشگری کیش هستند که مثل تونل باد میکامال می‌تواند تجربه لذت‌بخشی به شما هدیه دهد." />
     <meta name="twitter:description" content="جاهای دیدنی کیش و غذاهای این جزیره از جمله جاذبه های گردشگری کیش هستند که مثل تونل باد میکامال می‌تواند تجربه لذت‌بخشی به شما هدیه دهد." />
     <meta name="description" content="جاهای دیدنی کیش و غذاهای این جزیره از جمله جاذبه های گردشگری کیش هستند که مثل تونل باد میکامال می‌تواند تجربه لذت‌بخشی به شما هدیه دهد."/>
@@ -62,12 +58,13 @@
                             <!-- start of product-detail -->
                             <h2 id="productTitle" class="product-title">{{ $product['name'] }}</h2>
                             <div class="product-user-meta fa-num mb-4 spaceBetween">
-                                <span class="product-users-rating">
-                                    <i class="icon-visit-staroutline me-1 fontSize15"></i><i class="icon-visit-staroutline me-1 fontSize15"></i><i class="icon-visit-star me-1 fontSize20"></i><i class="icon-visit-star me-1 fontSize20"></i><i class="icon-visit-star me-1 fontSize20"></i>
+                                <span class="product-users-rating" >
+                                    <span class="rattingToStar">
+                                    </span>
                                     <span class="fw-bold me-1">{{ $product['rate'] }}</span>
-                                    <span class="text-muted fs-7">(از 1000 رای)</span>
+                                    <span class="text-muted fs-7">(از <span>{{ $product['all_rates_count'] }}</span> رای)</span>
                                 </span>
-                                <a href="#" class="link border-bottom-0 fs-7">۶۳۷ دیدگاه کاربران</a>
+                                <a href="#" class="link border-bottom-0 fs-7 me-1"> دیدگاه کاربران <span class="mr-1">{{ $product['all_rates_count'] }}</span></a>
                             </div>
                             <div class="product-variant-selected-label bold mb-3">سازنده</div>
                             <div class="mb-3">{{ $product['seller'] }}</div>
@@ -320,9 +317,9 @@
                             <div class="product-user-meta fa-num mb-4 spaceBetween">
                                 <span class="product-users-rating">
                                     <span class="product-title fontSize15 marginLeft15">دیدگاه کاربران</span>
-                                    <i class="icon-visit-staroutline me-1 fontSize15"></i><i class="icon-visit-staroutline me-1 fontSize15"></i><i class="icon-visit-star me-1 fontSize20"></i><i class="icon-visit-star me-1 fontSize20"></i><i class="icon-visit-star me-1 fontSize20"></i>
-                                    <span class="fw-bold me-1">4.4</span>
-                                    <span class="text-muted fs-7">(از 1000 رای)</span>
+                                    <span class="rattingToStar"></span>
+                                    <span class="fw-bold me-1">{{ $product['rate'] }}</span>
+                                    <span class="text-muted fs-7">(از <span>{{ $product['all_rates_count'] }}</span> رای)</span>
                                 </span>
                                 <span style="gap15">
                                     <a class="marginLeft15 btnHover colorBlack" href=""><i class="icon-visit-sort align-middle fontSize20 marginLeft15"></i>جدید ترین</a>
@@ -557,11 +554,7 @@
                     property += '<span class="title">' + res.data.features[i].value + '</span></li>'
                 }
                 $("#property").empty().append(property);
-<<<<<<< HEAD
-                 
-=======
                 
->>>>>>> 0232d742598a975b2b8c1d38dcce95f2a50f2fc1
             }
         });
         
@@ -577,13 +570,23 @@
         //         alert(res);
         //     }
         // });
-        let breadcrumb="";
-        for (var i=0; i < res.data.parentPath.length;i++){
-            breadcrumb += <li class="breadcrumb-item"><a href="#">{{ $product['img'] }}</a></li>
+        // let breadcrumb="";
+        // for (var i=0; i < res.data.parentPath.length;i++){
+        //     breadcrumb += <li class="breadcrumb-item"><a href="#">{{ $product['img'] }}</a></li>
+        // }
+        // $("#parentPath").empty().append(property);
+        let star="";
+        let roundRatting=Math.floor('{{ $product['rate'] }}');
+        for(var i = 5; i >= 1; i--) {
+            if(i <= roundRatting)
+                star += '<i class="icon-visit-star me-1 fontSize15"></i>';
+            else
+                star += '<i class="icon-visit-staroutline me-1 fontSize15"></i>';
         }
-        $("#parentPath").empty().append(property);
+        $(".rattingToStar").empty().append(star);
     });
 </script>
+
 @stop
 
 @section('footer')
