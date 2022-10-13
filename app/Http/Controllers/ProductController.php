@@ -467,6 +467,7 @@ class ProductController extends Controller
         $product->save();
         
         $user = $request->user();
+        
 
         // $comment = Comment::userComment($product->id, $user->id);
         // dd(array_merge(
