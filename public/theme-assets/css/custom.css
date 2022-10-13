@@ -820,3 +820,6 @@ figure .ck-widget {
 .m-t-24 {
     margin-top: 10px;
 }
+.num-block .num-in {
+    height: unset !important;
+}

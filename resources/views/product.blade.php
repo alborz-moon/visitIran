@@ -26,7 +26,17 @@
                 <!-- start of breadcrumb -->
                 <div class="product-detail-container mb-3">
                 <nav aria-label="breadcrumb" style="display: flex;justify-content:space-between;">
-                    <ol id="parentPath" class="breadcrumb">
+                    <ol class="breadcrumb">
+                        <?php $i = 1; ?>
+                        @foreach($product['parentPath'] as $path)
+                            <li>
+                                <span>{{ $path }}</span>
+                                @if($i != count($product['parentPath']))
+                                    <span> / </span>
+                                @endif
+                            </li>
+                            <?php $i++; ?>
+                        @endforeach
                     </ol>
                 <span>
                     <button class="ri-stackshare-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
@@ -64,13 +74,14 @@
                                     <span class="fw-bold me-1">{{ $product['rate'] }}</span>
                                     <span class="text-muted fs-7">(از <span>{{ $product['all_rates_count'] }}</span> رای)</span>
                                 </span>
-                                <a href="#" class="link border-bottom-0 fs-7 me-1"> دیدگاه کاربران <span class="mr-1">{{ $product['all_rates_count'] }}</span></a>
+                                <a href="#" class="link border-bottom-0 fs-7 me-1"> دیدگاه کاربران <span class="mr-1">({{ $product['all_rates_count'] }})</span></a>
                             </div>
-                            <div class="product-variant-selected-label bold mb-3">سازنده</div>
-                            <div class="mb-3">{{ $product['seller'] }}</div>
+                            @if($product['seller'] !== '')
+                                <div class="product-variant-selected-label bold mb-3 seller">سازنده : <span  class="mb-3 ">{{ $product['seller'] }}</span></div>
+                            @endif
                             <div class="product-variants-container mb-3">
                                 <div class="product-variant-selected-container spaceBetween">
-                                    <span class="product-variant-selected-label">رنگ:</span>
+                                    <span class="product-variant-selected-label"> رنگ : </span>
                                     <span class="product-variant-selected">آبی</span>
                                 </div>
                                 <div class="product-variants">
@@ -113,11 +124,11 @@
                                 </div>
                             </div>
                             <div class="mb-3 spaceBetween">
-                                <div class="bold">سایز</div>
+                                <div class="bold">سایز : </div>
                                 <div>30*20*40cm</div>
                             </div>
                             <div class="mb-3 spaceBetween">
-                                <div class="bold">ویژگی‌ها</div>
+                                <div class="bold">ویژگی‌ها : </div>
                             </div>
                             <div class="expandable-text mb-3" style="height: 95px;">
                                 <div class="expandable-text_text">
@@ -127,7 +138,7 @@
                                     </div>
                                 </div>
                             <div class="mb-3 mt-3 spaceBetween">
-                                <div class="bold">توضیحات</div>
+                                <div class="bold">توضیحات :</div>
                             </div>
                             {{-- <p>{{ $product['description'] }}</p> --}}
                             <div class="product-additional-info-container mb-3">
@@ -159,22 +170,26 @@
                             <!-- start of product-seller-info -->
                             <div class="product-seller-info ui-box">
                                 <div class="seller-info-changeable">
-                                    <div class="product-seller-row">
-                                        <div class="product-seller-row-icon marginTop10">
-                                            <i class="icon-visit-store colorYellow  productIcon"></i>
+                                    @if($product['seller'] !== '')
+                                        <div class="product-seller-row seller">
+                                            <div class="product-seller-row-icon marginTop10">
+                                                <i class="icon-visit-store colorYellow  productIcon"></i>
+                                            </div>
+                                            <div class="product-seller-row-detail">
+                                                <div class="product-seller-row-detail-title">{{ $product['seller'] }}</div>
+                                            </div>
                                         </div>
-                                        <div class="product-seller-row-detail">
-                                            <div class="product-seller-row-detail-title">{{ $product['seller'] }}</div>
+                                    @endif
+                                    @if ($product['gaurantee'] !== null)
+                                        <div class="product-seller-row">
+                                            <div class="product-seller-row-icon marginTop10">
+                                                <i class="icon-visit-verified colorYellow  productIcon"></i>
+                                            </div>
+                                            <div class="product-seller-row-detail">
+                                                <div class="product-seller-row-detail-title">گارانتی {{$product['gaurantee']}} ماهه</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="product-seller-row">
-                                        <div class="product-seller-row-icon marginTop10">
-                                            <i class="icon-visit-verified colorYellow  productIcon"></i>
-                                        </div>
-                                        <div class="product-seller-row-detail">
-                                            <div class="product-seller-row-detail-title">گارانتی ۱۸ ماهه</div>
-                                        </div>
-                                    </div>
+                                    @endif
                                     <div class="product-seller-row product-seller-row--clickable">
                                         <div class="product-seller-row-icon marginTop10">
                                             <i class="icon-visit-original colorYellow  productIcon"></i>
@@ -188,24 +203,41 @@
                                         </div>
                                         <div class="product-seller-row-detail">
                                             <div class="product-seller-row-detail-title">
-                                                ارسال : <span class="fontNormal"> 2 تا 7 روز کاری</span>
+                                                ارسال : <span class="fontNormal"> 2 تا 7 روز کاری </span>
                                             </div>
                                         </div>
                                     </div>
+                                    @if ($product['available_count'] != 0)
                                     <div class="product-seller-row product-seller-row--price">
                                         <div class="product-seller-row--price-now fa-num">
                                             <span class="price">{{ $product['price'] }}</span>
                                             <span class="currency">تومان</span>
                                         </div>
                                     </div>
-                                    <div class="product-seller-row product-remaining-in-stock">
-                                        <span>تنها <span class="mx-2">{{ $product['available_count'] }}</span> عدد در انبار باقیست - پیش از
-                                            اتمام بخرید</span>
+                                    @endif
+                                    @if($product['available_count']  > 0)
+                                        <div id="availableCount" class="product-seller-row product-remaining-in-stock">
+                                            <span>تنها <span class="mx-2">{{ $product['available_count'] }}</span> عدد در انبار باقیست - پیش از
+                                                اتمام بخرید</span>
+                                        </div>
+                                    @elseif($product['available_count'] == 0)
+                                        <div id="availableCount" class="product-seller-row product-remaining-in-stock">
+                                            <span>اتمام موجودی</span>
+                                        </div>
+                                    @endif
+                                    
+                                    <div class="product-seller-row product-remaining-in-stock spaceBetween">
+                                        <div class="bold colorBlack d-flex align-items-center ">
+                                            <div>تعداد سفارش :</div>                                            
+                                        </div>
+                                        <div class="num-block fa-num me-3">
+                                            <span class="num-in">
+                                                <span class="plus"></span>
+                                                <input type="text" class="in-num" value="1" readonly="">
+                                                <span class="minus dis"></span>
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="product-seller-row product-remaining-in-stock">
-                                        <span class="bold colorBlack">تعداد سفارش :<span><i class="icon-visit-minus"></i> 1 کالا<i class="icon-visit-plus"></i></span></span>
-                                    </div>
-                                </div>
                                 <div class="product-seller--add-to-cart">
                                     <a href="#" class="btn btn-primary w-100" data-toast data-toast-type="success"
                                         data-toast-color="green" data-toast-position="topRight"
@@ -394,10 +426,12 @@
                                         <i class="ri-store-3-line text-success me-2"></i>
                                         <span>ویزیت ایران</span>
                                     </div>
-                                    <div class="d-flex align-items-center mb-2">
-                                        <i class="ri-shield-check-line text-info me-2"></i>
-                                        <span>گارانتی ۱۸ ماهه آوات</span>
-                                    </div>
+                                    @if ($product['gaurantee'] !== null)
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="ri-shield-check-line text-info me-2"></i>
+                                            <span>گارانتی {{$product['gaurantee']}} ماهه</span>
+                                        </div>
+                                    @endif
                                     <div class="d-flex align-items-center mb-2">
                                         <i class="ri-checkbox-multiple-line text-primary me-2"></i>
                                         <span>موجود در انبار فروشنده</span>
@@ -584,6 +618,13 @@
                 star += '<i class="icon-visit-staroutline me-1 fontSize15"></i>';
         }
         $(".rattingToStar").empty().append(star);
+
+        // if ('{{ $product['seller'] }}' !== ''){
+        //     $('.seller').removeClass('hidden');
+        // }
+        console.log('====================================');
+        console.log({{$product['gaurantee']}});
+        console.log('====================================');
     });
 </script>
 
