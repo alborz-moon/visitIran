@@ -30,7 +30,9 @@ class Product extends Model
         'keywords',
         'tags',
         'seller_id',
-        'alt'
+        'alt',
+        'gaurantee',
+        'introduce'
     ];
     
     public $timestamps = false;

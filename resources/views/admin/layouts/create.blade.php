@@ -25,7 +25,10 @@
 
     </style>
 
-@show
+    @section('moreHeader')
+    @show
+
+@stop
 
 @section('content')
 

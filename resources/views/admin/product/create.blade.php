@@ -1,5 +1,15 @@
 @extends('admin.layouts.create')
 
+
+@section('header')
+    @parent
+    <script>
+        var UploadURL = '{{ route('uploadImg') }}';
+    </script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/10.0.1/decoupled-document/ckeditor.js"></script>
+    <script src="{{asset('admin-panel/js/ckeditor.js?v=2.2')}}"></script>
+@stop
+
 @section('title')
 {{ isset($item) ? 'ویرایش محصول' . ' > ' . $item['name'] : 'افزودن محصول' }}
 @stop
@@ -30,10 +40,11 @@
                 <label for="name">نام</label>
                 <input required value="{{ isset($item) ? $item['name'] : '' }}" type="text" name="name" id="name" />
             </div>
-            
+
+
             <div>
-                <label for="description">توضیح محصول</label>
-                <textarea required name="description" id="description">{{ isset($item) ? $item['description'] : '' }}</textarea>
+                <label for="desc">توضیح محصول</label>
+                <textarea required name="description" id="desc">{{ isset($item) ? $item['description'] : '' }}</textarea>
             </div>
 
             <div>
@@ -58,7 +69,12 @@
 
             <div>
                 <label for="price">قیمت</label>
-                <input required {{ isset($item) ? '' : 'required' }} value="{{ isset($item) ? $item['price'] : '' }}" type="number" name="price" id="price" />
+                <input required value="{{ isset($item) ? $item['price'] : '' }}" type="number" name="price" id="price" />
+            </div>
+
+            <div>
+                <label for="gaurantee">گارانتی(اختیاری)</label>
+                <input value="{{ isset($item) ? $item['gaurantee'] : '' }}" type="number" name="gaurantee" id="gaurantee" />
             </div>
 
             <div>
@@ -111,13 +127,36 @@
                 </select>
             </div>
 
+
+            <div class="editor">
+                <div id="toolbar-container"></div>
+                @if(isset($item) && $item['introduce'] != null && $item['introduce'] != '')
+                    <div id="description">{!!  $item['introduce'] !!}</div>
+                @else
+                    <div id="description"></div>
+                @endif
+            </div>
+
+            <input type="hidden" id="introduce" name="introduce" />
         </div>
 
 
         <div class="flex center gap10">
             <span onclick="document.location.href = '{{ route('product.index') }}'" class="btn btn-danger">بازگشت</span>
-            <input value="ذخیره" type="submit" class="btn green" id="saveBtn" />
+            <span type="submit" class="btn green" id="saveBtn">ذخیره</span>
         </div>
 
     </form>
+
+
+    <script src="{{asset('admin-panel/js/initCKs.js?v=2.3')}}"></script>
+    <script>
+        $(document).ready(function () {
+            initCK('{{ csrf_token() }}');
+            $("#saveBtn").on('click', function() {
+                $("#introduce").val($("#description").html());
+                $("#myForm").submit();
+            });
+        });
+    </script>
 @stop

@@ -68,6 +68,8 @@ class ProductResourceForUsers extends JsonResource
             'has_multi_color' => $multiColor,
             'all_comments_count' => Comment::comment($this->id)->count(),
             'all_rates_count' => Comment::rate($this->id)->count(),
+            'gaurantee' => $this->gaurantee,
+            'introduce' => $this->introduce
         ];
     }
 }
