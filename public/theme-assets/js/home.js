@@ -1,5 +1,7 @@
 function renderProductSlider(data, prefix) {
     let html = "";
+    if (data === undefined) return "";
+
     data.forEach((elem) => {
         $("#" + prefix + "Img")
             .attr("src", elem.img)
