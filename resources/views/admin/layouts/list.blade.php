@@ -25,7 +25,9 @@
                     <div class="row">
                         <div class="flex center gap10">
                             @yield('backBtn')
-                            <button onclick="document.location.href = @yield('createNew')" class="btn btn-success">افزودن مورد جدید</button>
+                            @section('addBtn')
+                                <button onclick="document.location.href = @yield('createNew')" class="btn btn-success">افزودن مورد جدید</button>
+                            @show
                         </div>
                         <div class="col-xs-12">
                             @yield('items')

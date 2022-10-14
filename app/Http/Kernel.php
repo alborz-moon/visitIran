@@ -41,7 +41,12 @@ class Kernel extends HttpKernel
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            \App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
             'throttle:api',
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
@@ -67,5 +72,6 @@ class Kernel extends HttpKernel
         'editorLevel' => \App\Http\Middleware\EditorAccess::class,
         'financeLevel' => \App\Http\Middleware\FinanceAccess::class,
         'active' => \App\Http\Middleware\ActiveAccount::class,
+        'myAuth' => \App\Http\Middleware\MyAuth::class
     ];
 }

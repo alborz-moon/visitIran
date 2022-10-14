@@ -57,7 +57,7 @@ class GalleryController extends Controller
         $request->validate($validator);
 
         $filename = $request->img_file->store('public/products');
-        $filename = str_replace('public/products', '', $filename);
+        $filename = str_replace('public/products/', '', $filename);
 
         $request['img'] = $filename;
         $request['product_id'] = $product->id;

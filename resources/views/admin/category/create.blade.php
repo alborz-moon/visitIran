@@ -21,7 +21,7 @@
         <div class="flex flex-col center gap10" style="margin: 10px">
 
             <div>
-                <label for="image_file">تصویر</label>
+                <label for="image_file">تصویر(اختیاری)</label>
                 <input type="file" name="image_file" id="image_file">
             </div>
 

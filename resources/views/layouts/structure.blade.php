@@ -33,7 +33,11 @@
     <link rel="stylesheet" href="{{ asset('theme-assets/css/visitiran.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/custom.css') }}">
     
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script src="{{ asset('theme-assets/js/dependencies/jquery-3.6.0.min.js') }}"></script>
+
+    @section('seo')
+    @show
 
     @section('header')
     @show
@@ -205,7 +209,7 @@
                                             <li><a href="{{route('home')}}">خانه</a></li>
                                             <li><a href="{{route('login-register')}}">ورود / ثبت نام</a></li>
                                             <li><a href="{{route('password-reset')}}">پسورد</a></li>
-                                            <li><a href="{{route('product')}}">خرید محصول</a></li>
+                                            
                                             <li><a href="{{route('profile')}}">پروفایل</a></li>
                                             <li><a href="{{route('shop')}}">لیست محصول</a></li>
                                             <li><a href="{{route('verification')}}">کد ارسالی ورفیکشن</a></li>
@@ -374,6 +378,14 @@
     <script src="{{ asset('theme-assets/js/dependencies/simplebar.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/zoomsl.min.js') }}"></script>
+
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
     @section('extraJS')
     @show
 </body>

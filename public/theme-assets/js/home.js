@@ -34,6 +34,8 @@ function renderProductSlider(data, prefix) {
             $("#" + prefix + "CriticalCount").text(elem.available_count);
             if (elem.available_count == 0) zeroAvailableCount = true;
             $("#" + prefix + "Critical").removeClass("invisible");
+            if (zeroAvailableCount)
+                $("#" + prefix + "Critical").text("اتمام موجودی");
         } else $("#" + prefix + "Critical").addClass("invisible");
 
         if (elem.off != null && !zeroAvailableCount) {

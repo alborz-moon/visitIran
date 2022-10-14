@@ -85,6 +85,15 @@
                 <label class="width-auto" for="maxFilter">حداکثر تعداد موجودی</label>
                 <input type="number" value="{{ isset($maxFilter) ? $maxFilter : '' }}" id="maxFilter" />
             </div>
+
+            <div class="flex gap10 center">
+                <label class="width-auto" for="offFilter">وضعیت تخفیف</label>
+                <select id="offFilter">
+                    <option value="all">همه</option>
+                    <option {{ isset($offFilter) && $offFilter ? 'selected' : '' }} value="1">بله</option>
+                    <option {{ isset($offFilter) && !$offFilter ? 'selected' : '' }} value="0">خیر</option>
+                </select>
+            </div>
             
             <div class="flex gap10 center">
                 <label class="width-auto" for="orderBy">مرتب سازی بر اساس</label>
@@ -92,6 +101,7 @@
                     <option {{ isset($orderBy) && $orderBy == 'createdAt' ? 'selected' : '' }} value="createdAt">زمان ایجاد</option>
                     <option {{ isset($orderBy) && $orderBy == 'rate' ? 'selected' : '' }} value="rate">محبوبیت</option>
                     <option {{ isset($orderBy) && $orderBy == 'seen' ? 'selected' : '' }} value="seen">بازدید</option>
+                    <option {{ isset($orderBy) && $orderBy == 'price' ? 'selected' : '' }} value="price">قیمت</option>
                 </select>
             </div>
             
@@ -117,6 +127,7 @@
                     <th>نام</th>
                     <th>قیمت</th>
                     <th>امتیاز</th>
+                    <th>تعداد کامنت</th>
                     <th>تعداد موجودی</th>
                     <th>آیا جز محصولات برتر است؟</th>
                     <th>وضعیت نمایش</th>
@@ -145,13 +156,15 @@
                                 </div>
                                 <div class="flex gap10">
                                     <button data-toggle='tooltip' title="مدیریت نظرات" onclick="document.location.href = '{{ route('product.comment.index', ['product' => $item['id']]) }}'" class="btn btn-purple"><span class="glyphicon glyphicon-comment"></span></button>
+                                    <button data-toggle='tooltip' title="مدیریت نظرات" onclick="document.location.href = '{{ route('product.comment.index', ['product' => $item['id']]) }}'" style="background-color: #ce9243; border-color: #ce9243;" class="btn btn-success"><span class="glyphicon glyphicon-stats"></span></button>
                                 </div>
                             </div>
                             
                         </td>
                         <td>{{ $item['name'] }}</td>
                         <td>{{ $item['price'] }}</td>
-                        <td>{{ $item['rate'] == null ? 'امتیازی ثبت نشده است' : $item['rate'] }}</td>
+                        <td>{{ $item['rate'] == null ? 'امتیازی ثبت نشده است' : $item['rate'] . ' از ' . $item['rate_count'] . ' رای'}}</td>
+                        <td>{{ $item['comment_count'] == 0 ? 'کامنتی ثبت نشده است' : 'تعداد کل: ' . $item['comment_count'] . ' تعداد تایید نشده:' . $item['new_comment_count'] }}</td>
                         <td>
                             <div class="flex gap10">
                                 <input style="width: 40px" type="number" value="{{ $item['available_count'] }}" id="available_count_{{ $item['id'] }}" />
@@ -256,6 +269,7 @@
             let visibility = $("#visibilityFilter").val();
             let isInTopList = $("#isInTopListFilter").val();
             let brand = $("#brandFilter").val();
+            let off = $("#offFilter").val();
             let max = $("#maxFilter").val();
             let min = $("#minFilter").val();
             let orderBy = $("#orderBy").val();
@@ -275,6 +289,9 @@
                 
             if(min !== '')
                 query.append('min', min);
+
+            if(off !== 'all')
+                query.append('off', off);
 
             query.append('orderBy', orderBy);
             query.append('orderByType', orderByType);

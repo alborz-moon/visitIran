@@ -20,6 +20,7 @@ class ProductFeatureController extends Controller
             'items' => $product->features(),
             'productId' => $product->id,
             'productName' => $product->name,
+            'defaultPrice' => $product->price
         ]);
     }
 
@@ -34,7 +35,9 @@ class ProductFeatureController extends Controller
     {
         $validator = [
             'value' => 'required',
-            'category_feature_id' => 'required|exists:category_features,id'
+            'category_feature_id' => 'required|exists:category_features,id',
+            'price' => 'nullable',
+            'count' => 'nullable'
         ];
 
         $request->validate($validator);
@@ -44,7 +47,64 @@ class ProductFeatureController extends Controller
         if($product->category_id != $categoryFeature->category_id)
             return abort(401);
 
-        $pf = ProductFeatures::where('category_feature_id', '=', $request['category_feature_id'])->first();
+        $validator = null;
+
+        if($categoryFeature->answer_type == 'number') {
+            $validator = [
+                'value' => 'required|integer|min:0',
+            ];
+        }
+        else if($categoryFeature->answer_type == 'multi_choice') {
+
+            $choices = explode('__', $categoryFeature->choices);
+            $label = null;
+
+            $values = $request['value'];
+
+            if($categoryFeature->effect_on_price && !$request->has('price'))
+                abort(401);
+
+            if($request->has('price')) {
+                $prices = $request['price'];
+
+                if(count($prices) != count($values))
+                    abort(401);
+                    
+                $format_prices = [];
+                foreach($prices as $price)
+                    array_push($format_prices, number_format($price, 0));
+                    
+                $request['price'] = implode('$$', $format_prices);
+            }
+
+            foreach($choices as $choice) {
+                $tmp = explode('$$', $choice);
+                if(in_array($tmp[0], $values)) {
+                    if($label == null)
+                        $label = count($tmp) == 2 ? $tmp[1] : '';
+                    else
+                        $label .= '$$' . (count($tmp) == 2 ? $tmp[1] : '');
+                }
+            }
+
+            if($label == null)
+                abort(401);
+
+            $request['value'] = implode('$$', $values) . '__' . $label;
+        }
+
+        
+        if($categoryFeature->answer_type != 'multi_choice' &&
+            $request->has('price')
+        )
+            abort(401);
+
+        if($validator != null)
+            $request->validate($validator);
+
+        $pf = ProductFeatures::where('category_feature_id', $request['category_feature_id'])
+            ->where('product_id', $product->id)->first();
+        
         if($pf == null) {
             $pf = new ProductFeatures();
             $pf->product_id = $product->id;
@@ -52,11 +112,32 @@ class ProductFeatureController extends Controller
         }
 
         $pf->value = $request['value'];
+
+        if($request->has('price'))
+            $pf->price = $request['price'];
+
+        if($request->has('count'))
+            $pf->available_count = $request['count'];
+
         $pf->save();
 
         return response()->json(
             ['status' => 'ok']
         );
     }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Comment  $comment
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(ProductFeatures $productFeature)
+    {
+        $productFeature->delete();
+        return response()->json(['status' => 'ok']);
+    }
+
 
 }

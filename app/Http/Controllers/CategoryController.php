@@ -172,12 +172,14 @@ class CategoryController extends Controller
             'alt' => 'nullable|string|min:1'
         ]);
 
-        $filename = $request->img_file->store('public/categories');
-        $filename = str_replace('public/categories/', '', $filename);
+        if($request->has('img_file')) {
+            $filename = $request->img_file->store('public/categories');
+            $filename = str_replace('public/categories/', '', $filename);
 
-        $request['img'] = $filename;
+            $request['img'] = $filename;
+        }
         Category::create($request->toArray());
-        return Redirect::route('category.list');
+        return Redirect::route('category.index');
     }
 
     

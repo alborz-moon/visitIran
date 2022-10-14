@@ -17,6 +17,9 @@ class ProductDigest extends JsonResource
         return [
             'id' => $this->id,
             'rate' => $this->rate,
+            'rate_count' => $this->rate_count,
+            'comment_count' => $this->comment_count,
+            'new_comment_count' => $this->new_comment_count,
             'name' => $this->name,
             'brand' => $this->brand->name,
             'category' => $this->category->name,

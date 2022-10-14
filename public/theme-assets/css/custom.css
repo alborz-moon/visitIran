@@ -148,6 +148,9 @@ a {
 .fontSize20 {
     font-size: 20px !important;
 }
+.fontSize30 {
+    font-size: 30px !important;
+}
 .fontNormal {
     font-weight: normal !important;
 }
@@ -231,6 +234,9 @@ a {
 }
 .colorWhite {
     color: white !important;
+}
+.colorWhiteGray {
+    color: #dedede !important;
 }
 .colorBlack {
     color: #000 !important;
@@ -416,6 +422,9 @@ a {
 }
 .colorYellow {
     color: #c59358;
+}
+.backColorWhite {
+    background-color: #ffffff;
 }
 .backgroundGray {
     background-color: #555a5d80 !important;
@@ -620,6 +629,9 @@ a {
 select:focus-visible {
     border: 0;
 }
+.ui-sticky.ui-sticky-top {
+    top: 150px;
+}
 .btnHover:hover {
     color: #c59358 !important;
 }
@@ -730,6 +742,9 @@ figure .ck-widget {
 .visibilityHidden {
     visibility: hidden;
 }
+.marginLeft15 {
+    margin-left: 15px;
+}
 @media (min-width: 768px) {
     .mt-md-110 {
         margin-top: 110px;
@@ -748,8 +763,7 @@ figure .ck-widget {
     background-color: #fff;
     border-radius: 6px;
     overflow: hidden;
-    width: auto;
-    height: auto;
+    overflow: hidden;
 }
 .shimmerBG {
     animation-duration: 2.2s;
@@ -778,26 +792,34 @@ figure .ck-widget {
     }
 }
 .media {
+    margin-top: 10px;
     height: 200px;
 }
 .p-32 {
-    padding: 32px;
+    padding: 15px;
 }
 .title-line {
-    height: 24px;
+    height: 30px;
     width: 100%;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
 }
 .content-line {
     height: 8px;
     width: 100%;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     border-radius: 8px;
 }
 .end {
     width: 40%;
 }
 .m-t-24 {
-    margin-top: 24px;
+    margin-top: 10px;
+}
+.num-block .num-in {
+    height: unset !important;
 }

@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use App\Exports\ProductExport;
 use App\Http\Resources\BrandResource;
 use App\Http\Resources\CategoryDigest;
+use App\Http\Resources\GalleryResource;
 use App\Http\Resources\ProductDigest;
 use App\Http\Resources\ProductDigestUser;
+use App\Http\Resources\ProductFeatureResource;
 use App\Http\Resources\ProductResource;
+use App\Http\Resources\ProductResourceForUsers;
 use App\Http\Resources\SellerResource;
 use App\Imports\ProductImport;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Product;
 use App\Models\PurchaseItems;
 use App\Models\Seller;
@@ -36,6 +40,7 @@ class ProductController extends Controller
         $isInTopList = $request->query('isInTopList', null);
         $max = $request->query('max', null);
         $min = $request->query('min', null);
+        $off = $request->query('off', null);
 
         if($cat != null)
             $filters->where('category_id', $cat);
@@ -61,6 +66,17 @@ class ProductController extends Controller
             if($visibility != null)
                 $filters->where('visibility', $visibility);
                 
+            if($off != null) {
+                $today = (int)self::getToday()['date'];
+                if($off)
+                    $filters->whereNotNull('off')->where('off_expiration', '>=', $today);
+                else
+                    $filters->where(function ($query) use ($today) {
+                        $query->whereNull('off')->orWhere('off_expiration', '<', $today);
+                    });
+            }
+                
+
             if($max != null)
                 $filters->where('available_count', '<=', $max);
                 
@@ -84,6 +100,8 @@ class ProductController extends Controller
                 $filters->orderBy('rate', $orderByType);
             else if($orderBy == 'seen')
                 $filters->orderBy('seen', $orderByType);
+            else if($orderBy == 'price')
+                $filters->orderBy('price', $orderByType);
         }
         else {
             $orderBy = 'createAt';
@@ -114,6 +132,7 @@ class ProductController extends Controller
         $isInTopList = $request->query('isInTopList', null);
         $max = $request->query('max', null);
         $min = $request->query('min', null);
+        $off = $request->query('off', null);
         
         $filters = $this->build_filters($request);
         $products = $filters->paginate($limit == null ? 30 : $limit);
@@ -144,6 +163,7 @@ class ProductController extends Controller
                 'minFilter' => $min,
                 'orderBy' => $orderBy,
                 'orderByType' => $orderByType,
+                'offFilter' => $off,
                 'categories' => CategoryDigest::collection($arr)->toArray($request),
                 'brands' => BrandResource::collection(Brand::all())->toArray($request),
                 'sellers' => SellerResource::collection(Seller::all())->toArray($request),
@@ -156,6 +176,24 @@ class ProductController extends Controller
         ]);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list(Request $request)
+    {
+        sleep(2);
+        $limit = $request->query('limit', null);
+        
+        $filters = $this->build_filters($request);
+        $products = $filters->paginate($limit == null ? 30 : $limit);
+
+        return response()->json([
+            'status' => 'ok',
+            'data' =>  ProductDigestUser::collection($products)->toArray($request)
+        ]);
+    }
 
     public function excel(Request $request) {
         $filters = $this->build_filters($request);
@@ -224,7 +262,7 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
             'seller_id' => 'nullable|exists:sellers,id',
-            'description' => 'required|string|min:2',
+            'description' => 'nullable|string|min:2',
             'digest' => 'nullable|string|min:2',
             'keywords' => 'nullable|string|min:2',
             'tags' => 'nullable|string|min:2',
@@ -234,6 +272,8 @@ class ProductController extends Controller
             'visibility' => 'required|boolean',
             'img_file' => 'required|image',
             'alt' => 'nullable|string|min:2',
+            'gaurantee' => 'nullable|integer|min:0',
+            'introduce' => 'nullable|string|min:2',
         ];
 
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
@@ -242,7 +282,7 @@ class ProductController extends Controller
         $request->validate($validator);
 
         $filename = $request->img_file->store('public/products');
-        $filename = str_replace('public/products', '', $filename);
+        $filename = str_replace('public/products/', '', $filename);
 
         $request['img'] = $filename;
         Product::create($request->toArray());
@@ -323,6 +363,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        if($request->has('seller_id') && $request['seller_id'] == -1)
+            $request['seller_id'] = null;
 
         $validator = [
             'name' => 'nullable|string|min:2',
@@ -343,6 +385,8 @@ class ProductController extends Controller
             'is_in_top_list' => 'nullable|boolean',
             'img_file' => 'nullable|image',
             'alt' => 'nullable|string|min:2',
+            'gaurantee' => 'nullable|integer|min:0',
+            'introduce' => 'nullable|string|min:2',
         ];
 
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
@@ -372,9 +416,10 @@ class ProductController extends Controller
         if($request->has('img_file')) {
          
             $filename = $request->img_file->store('public/products');
-            $filename = str_replace('public/products', '', $filename);   
-
-            if(file_exists(__DIR__ . '/../../../public/storage/products/' . $product->img))
+            $filename = str_replace('public/products/', '', $filename);   
+                
+            if($product->img != null && !empty($product->img) && 
+                file_exists(__DIR__ . '/../../../public/storage/products/' . $product->img))
                 unlink(__DIR__ . '/../../../public/storage/products/' . $product->img);
 
             $product->img = $filename;
@@ -397,17 +442,67 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Product $product = null)
+    public function show(Request $request, Product $product)
     {
-        if($product == null)
-            return;
-
-        $product->seen = $product->seen + 1;
-        $product->save();
+        if(!$product->visibility)
+            return Redirect::route('home');
 
         return response()->json([
             'status' => 'ok', 
-            'data' => ProductResource::make($product)->toArray($request)
+            'galleries' => GalleryResource::collection($product->galleries()->orderBy('priority', 'asc')->get())->toArray($request),
+            'features' => ProductFeatureResource::collection($product->featuresWithValue())->toArray($request)
+        ]);
+    }
+
+    
+    /**
+     * show the specified resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function showDetail(Request $request, Product $product, $productName) {
+
+        if(!$product->visibility)
+            return Redirect::route('home');
+
+        $product->seen = $product->seen + 1;
+        $product->save();
+        
+        $user = $request->user();
+        
+        // $comment = Comment::userComment($product->id, $user->id);
+        // dd(array_merge(
+        //         ProductResourceForUsers::make($product)->toArray($request), 
+        //         [
+        //             'is_bookmark' => $comment != null && $comment->is_bookmark != null ? $comment->is_bookmark : false,
+        //             'user_rate' => $comment != null ? $comment->rate : null,
+        //             'has_comment' => $comment != null && $comment->msg != null,
+        //             'is_login' => true,
+        //         ]));
+        
+        if($user == null)
+            return view('product', [
+                'product' => array_merge(
+                    ProductResourceForUsers::make($product)->toArray($request), [
+                    'is_bookmark' => false,
+                    'user_rate' => null,
+                    'has_comment' => false,
+                    'is_login' => false,
+                ])
+            ]);
+            
+        $comment = Comment::userComment($product->id, $user->id);
+        return view('product', [
+            'product' => array_merge(
+                ProductResourceForUsers::make($product)->toArray($request), 
+                [
+                    'is_bookmark' => $comment != null && $comment->is_bookmark != null ? $comment->is_bookmark : false,
+                    'user_rate' => $comment != null ? $comment->rate : null,
+                    'has_comment' => $comment != null && $comment->msg != null,
+                    'is_login' => true,
+                ])
         ]);
     }
 
@@ -485,8 +580,10 @@ class ProductController extends Controller
             if($product->img != null && 
                 file_exists(__DIR__ . '/../../../public/storage/products/' . $product->img))
                 unlink(__DIR__ . '/../../../public/storage/products/' . $product->img);
+
+            return response()->json(['status' => 'ok']);
         }
 
-        return response()->json(['status' => 'ok']);
+        return response()->json(['status' => 'nok', 'msg' => 'خطا در حذف محصول موردنظر']);
     }
 }

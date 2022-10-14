@@ -5,10 +5,18 @@
 @include('layouts.slider')    
                 @include('layouts.tiles')
                 @include('sections.top_categories_products')
-                @include('layouts.box')
-                @include('sections.latest_products')
-                @include('sections.most_seen_products')
-                @include('sections.most_like_products')
+
+                @include('layouts.box', ['id' => 'latest_products_when_not_filled', 'title' => 'تازه ترین ها'])
+                @include('layouts.box', ['id' => 'most_like_products_when_not_filled', 'title' => 'محبوب ترین ها'])
+                @include('layouts.box', ['id' => 'most_seen_products_when_not_filled', 'title' => 'پر بازدید ترین ها'])
+                
+                @include('sections.top_products_slider', ['id' => 'latest_products_when_filled', 'searchKey' => 'createdAt', 
+                    'key' => 'latestProduct', 'title' => 'تازه ترین ها', 'not_fill_id' => 'latest_products_when_not_filled'])
+                @include('sections.top_products_slider', ['id' => 'most_like_products_when_filled', 'searchKey' => 'rate', 
+                    'key' => 'mostLikeProduct', 'title' => 'محبوب ترین ها', 'not_fill_id' => 'most_like_products_when_not_filled'])
+                @include('sections.top_products_slider', ['id' => 'most_seen_products_when_filled', 'searchKey' => 'seen', 
+                    'key' => 'mostSeenProduct', 'title' => 'پر بازدیدترین ها', 'not_fill_id' => 'most_seen_products_when_not_filled'])
+                
                 @include('layouts.banner')
                 @include('layouts.news')
                 <!-- end of box => categories-slider -->

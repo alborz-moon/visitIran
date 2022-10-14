@@ -57,7 +57,9 @@ class FeatureController extends Controller
             'effect_on_price' => 'nullable|boolean',
             'effect_on_available_count' => 'nullable|boolean',
             'answer_type' => ['required', Rule::in(['number', 'text', 'longtext', 'multi_choice'])],
-            'choices' => 'nullable|string|min:3',
+            'choices' => 'nullable|array|min:1',
+            'choices.*.key' => 'required|string|min:2',
+            'choices.*.label' => 'nullable|string|min:2',
             'priority' => 'required|integer|min:1'
         ];
 
@@ -72,7 +74,22 @@ class FeatureController extends Controller
         if($request['answer_type'] != 'multi_choice' && $request->has('choices'))
             return $this->create($category, 'پارامترهای ورودی معتبر نمی باشند.');
 
+        if($request->has('effect_on_price') && $request->has('effect_on_available_count') && 
+            $request['effect_on_available_count'] && $request['effect_on_price']
+        )
+            return $this->create($category, 'نمی توان همزمان یک ویژگی هم بر روی قیمت و هم موجودی تاثیر گذار باشد.');
+            
         $request['category_id'] = $category->id;
+
+        if($request->has('choices')) {
+            $choicesStr = "";
+
+            foreach($request['choices'] as $itr)
+                $choicesStr .= $itr['key'] . '$$' . $itr['label'] . '__';
+            
+            $request['choices'] = substr($choicesStr, 0, strlen($choicesStr) - 2);
+        }
+
         Feature::create($request->toArray());
         return Redirect::route('category.features.index', ['category' => $category->id]);
     }
@@ -115,7 +132,9 @@ class FeatureController extends Controller
             'effect_on_price' => 'nullable|boolean',
             'effect_on_available_count' => 'nullable|boolean',
             'answer_type' => ['nullable', Rule::in(['number', 'text', 'longtext', 'multi_choice'])],
-            'choices' => 'nullable|string|min:3',
+            'choices' => 'nullable|array|min:1',
+            'choices.*.key' => 'required|string|min:2',
+            'choices.*.label' => 'nullable|string|min:2',
             'priority' => 'nullable|integer|min:1'
         ];
 
@@ -130,7 +149,19 @@ class FeatureController extends Controller
         if($request->has('answer_type') && $request['answer_type'] != 'multi_choice' && $request->has('choices'))
             return $this->edit($feature, $request, 'پارامترهای ورودی معتبر نمی باشند.');
 
-        
+        if($request->has('choices')) {
+            $choicesStr = "";
+
+            foreach($request['choices'] as $itr) {
+                if($itr['label'] != null)
+                    $choicesStr .= $itr['key'] . '$$' . $itr['label'] . '__';
+                else
+                    $choicesStr .= $itr['key'] . '$$__';
+            }
+            
+            $request['choices'] = substr($choicesStr, 0, strlen($choicesStr) - 2);
+        }
+
         foreach($request->keys() as $key) {
             
             if($key == '_token')
@@ -138,6 +169,7 @@ class FeatureController extends Controller
 
             $feature[$key] = $request[$key];
         }
+
         $feature->save();
 
         return Redirect::route('category.features.index', ['category' => $cat->id]);

@@ -557,6 +557,8 @@
                                 alert("عملیات موردنظر با موفقیت انجام شد.");
                                 $("#" + item + "_" + itemID).remove();
                             }
+                            else
+                                alert(res.msg);
                         }
                     })
 

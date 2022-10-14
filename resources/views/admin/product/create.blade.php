@@ -1,10 +1,27 @@
 @extends('admin.layouts.create')
 
+
+@section('header')
+    @parent
+    <script>
+        var UploadURL = '{{ route('uploadImg') }}';
+    </script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/10.0.1/decoupled-document/ckeditor.js"></script>
+    <script src="{{asset('admin-panel/js/ckeditor.js?v=2.2')}}"></script>
+@stop
+
 @section('title')
 {{ isset($item) ? 'ویرایش محصول' . ' > ' . $item['name'] : 'افزودن محصول' }}
 @stop
 
 @section('form')
+    
+    <center>
+        @if($errors->any())
+            {{ implode('', $errors->all(':message')) }}
+        @endif
+    </center>
+
 
     @if(isset($item))
         <div class="flex center">
@@ -23,35 +40,41 @@
                 <label for="name">نام</label>
                 <input required value="{{ isset($item) ? $item['name'] : '' }}" type="text" name="name" id="name" />
             </div>
-            
+
+
             <div>
-                <label for="description">توضیح محصول</label>
-                <textarea required name="description" id="description">{{ isset($item) ? $item['description'] : '' }}</textarea>
+                <label for="desc">توضیح محصول(اختیاری)</label>
+                <textarea name="description" id="desc">{{ isset($item) ? $item['description'] : '' }}</textarea>
             </div>
 
             <div>
-                <label for="digest">متن خلاصه</label>
+                <label for="digest">متن خلاصه(اختیاری)</label>
                 <textarea name="digest" id="digest">{{ isset($item) ? $item['digest'] : '' }}</textarea>
             </div>
 
             <div>
-                <label for="keywords">واژه های کلیدی</label>
+                <label for="keywords">واژه های کلیدی(اختیاری)</label>
                 <textarea name="keywords" id="keywords">{{ isset($item) ? $item['keywords'] : '' }}</textarea>
             </div>
 
             <div>
-                <label for="tags">تگ ها</label>
+                <label for="tags">تگ ها(اختیاری)</label>
                 <textarea name="tags" id="tags">{{ isset($item) ? $item['tags'] : '' }}</textarea>
             </div>
 
             <div>
-                <label for="alt">تگ alt</label>
+                <label for="alt">تگ alt(اختیاری)</label>
                 <input value="{{ isset($item) ? $item['alt'] : '' }}" type="text" placeholder="این فیلد اختیاری است" name="alt" id="alt" />
             </div>
 
             <div>
                 <label for="price">قیمت</label>
-                <input required {{ isset($item) ? '' : 'required' }} value="{{ isset($item) ? $item['price'] : '' }}" type="number" name="price" id="price" />
+                <input required value="{{ isset($item) ? $item['price'] : '' }}" type="number" name="price" id="price" />
+            </div>
+
+            <div>
+                <label for="gaurantee">گارانتی(اختیاری)</label>
+                <input value="{{ isset($item) ? $item['gaurantee'] : '' }}" type="number" name="gaurantee" id="gaurantee" />
             </div>
 
             <div>
@@ -74,7 +97,7 @@
             
 
             <div>
-                <label for="seller_id">فروشنده</label>
+                <label for="seller_id">فروشنده(اختیاری)</label>
                 <select name="seller_id" id="seller_id">
                     <option value="-1">نامشخص</option>
                     @foreach($sellers as $seller)
@@ -104,13 +127,36 @@
                 </select>
             </div>
 
+            <p style="margin-top: 20px">نقد و بررسی(اختیاری)</p>
+            <div class="editor">
+                <div id="toolbar-container"></div>
+                @if(isset($item) && $item['introduce'] != null && $item['introduce'] != '')
+                    <div id="description">{!!  $item['introduce'] !!}</div>
+                @else
+                    <div id="description"></div>
+                @endif
+            </div>
+
+            <input type="hidden" id="introduce" name="introduce" />
         </div>
 
 
         <div class="flex center gap10">
             <span onclick="document.location.href = '{{ route('product.index') }}'" class="btn btn-danger">بازگشت</span>
-            <input value="ذخیره" type="submit" class="btn green" id="saveBtn" />
+            <span type="submit" class="btn green" id="saveBtn">ذخیره</span>
         </div>
 
     </form>
+
+
+    <script src="{{asset('admin-panel/js/initCKs.js?v=2.3')}}"></script>
+    <script>
+        $(document).ready(function () {
+            initCK('{{ csrf_token() }}');
+            $("#saveBtn").on('click', function() {
+                $("#introduce").val($("#description").html());
+                $("#myForm").submit();
+            });
+        });
+    </script>
 @stop

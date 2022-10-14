@@ -1,4 +1,23 @@
 @extends('layouts.structure')
+
+@section('seo')
+    <title>غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال</title>
+    <meta property="og:title" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
+    <meta name="twitter:title" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
+    <meta property="og:site_name" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
+
+    
+    <meta property="og:image" content="https://micamall.com/storage/post-pic/images/UxiMI3IXfTQBMO0p4H4MrXMLkmYwTTzVJ1O8QTPQ.jpg"/>
+    <meta property="og:image:secure_url" content="https://micamall.com/storage/post-pic/images/UxiMI3IXfTQBMO0p4H4MrXMLkmYwTTzVJ1O8QTPQ.jpg"/>
+    <meta name="twitter:image" content="https://micamall.com/storage/post-pic/images/UxiMI3IXfTQBMO0p4H4MrXMLkmYwTTzVJ1O8QTPQ.jpg"/>
+    <meta property="og:description" content="جاهای دیدنی کیش و غذاهای این جزیره از جمله جاذبه های گردشگری کیش هستند که مثل تونل باد میکامال می‌تواند تجربه لذت‌بخشی به شما هدیه دهد." />
+    <meta name="twitter:description" content="جاهای دیدنی کیش و غذاهای این جزیره از جمله جاذبه های گردشگری کیش هستند که مثل تونل باد میکامال می‌تواند تجربه لذت‌بخشی به شما هدیه دهد." />
+    <meta name="description" content="جاهای دیدنی کیش و غذاهای این جزیره از جمله جاذبه های گردشگری کیش هستند که مثل تونل باد میکامال می‌تواند تجربه لذت‌بخشی به شما هدیه دهد."/>
+
+    {{-- <meta name="keywords" content="{{ $product['keywords'] }}" /> --}}
+    <meta property="article:tag" content="تونل باد, جاهای دیدنی کیش، غذاهای کیش"/>
+@stop
+
 @section('content')
 <div class="container">
         <main class="page-content TopParentBannerMoveOnTop">
@@ -6,12 +25,24 @@
                 <!-- start of product-detail-container -->
                 <!-- start of breadcrumb -->
                 <div class="product-detail-container mb-3">
-                <nav aria-label="breadcrumb">
+                <nav aria-label="breadcrumb" style="display: flex;justify-content:space-between;">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">خانه</a></li>
-                        <li class="breadcrumb-item"><a href="#">منسوجات </a></li>
-                        <li class="breadcrumb-item"><a href="#">فرش</a></li>
+                        <?php $i = 1; ?>
+                        @foreach($product['parentPath'] as $path)
+                            <li>
+                                <span>{{ $path }}</span>
+                                @if($i != count($product['parentPath']))
+                                    <span> / </span>
+                                @endif
+                            </li>
+                            <?php $i++; ?>
+                        @endforeach
                     </ol>
+                <span>
+                    <button class="ri-stackshare-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
+                    <button class="ri-bookmark-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
+                    <button class="ri-bookmark-fill fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
+                </span>
                 </nav>
                 <!-- end of breadcrumb -->
                     <div class="row">
@@ -21,23 +52,11 @@
                                 <div class="product-gallery">
                                     
                                     <div class="gallery-img-container">
-                                        <div class="gallery-img">
-                                            <img src="./theme-assets/images/gallery/main.jpg" class="zoom-img" alt="">
+                                        <div class="gallery-img" id="galleryMain">
+                                            <img src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />
                                         </div>
                                         <div class="gallery-thumbs">
-                                            <ul>
-                                                <li data-fancybox="gallery-a"
-                                                    data-src="./theme-assets/images/gallery/01.png"><img
-                                                        src="./theme-assets/images/gallery/01.png" alt=""></li>
-                                                <li data-fancybox="gallery-a"
-                                                    data-src="./theme-assets/images/gallery/02.png"><img
-                                                        src="./theme-assets/images/gallery/02.png" alt=""></li>
-                                                <li data-fancybox="gallery-a"
-                                                    data-src="./theme-assets/images/gallery/03.png"><img
-                                                        src="./theme-assets/images/gallery/03.png" alt=""></li>
-                                                <li data-fancybox="gallery-a"
-                                                    data-src="./theme-assets/images/gallery/04.png"><img
-                                                        src="./theme-assets/images/gallery/04.png" alt=""></li>
+                                            <ul id="gallery">
                                             </ul>
                                         </div>
                                     </div>
@@ -47,106 +66,51 @@
                         </div>
                         <div class="col-xl-5 col-lg-4 col-md-7 mb-lg-0 mb-4">
                             <!-- start of product-detail -->
-                            <h2 id="productTitle" class="product-title"></h2>
+                            <h2 id="productTitle" class="product-title">{{ $product['name'] }}</h2>
                             <div class="product-user-meta fa-num mb-4 spaceBetween">
-                                <span class="product-users-rating">
-                                    <i class="ri-star-fill icon me-1"></i>
-                                    <span class="fw-bold me-1">4.4</span>
-                                    <span class="text-muted fs-7">(742)</span>
+                                <span class="product-users-rating" >
+                                    <span class="rattingToStar">
+                                    </span>
+                                    <span class="fw-bold me-1">{{ $product['rate'] }}</span>
+                                    <span class="text-muted fs-7">(از <span>{{ $product['all_rates_count'] }}</span> رای)</span>
                                 </span>
-                                <a href="#" class="link border-bottom-0 fs-7">۶۳۷ دیدگاه کاربران</a>
+                                <a href="#" class="link border-bottom-0 fs-7 me-1"> دیدگاه کاربران <span class="mr-1">({{ $product['all_rates_count'] }})</span></a>
                             </div>
-                            <div class="product-variant-selected-label bold mb-3">سازنده</div>
-                            <div class="mb-3">سنگ تراشان برادران احتشام</div>
+                            @if($product['seller'] !== '')
+                                <div class="product-variant-selected-label bold mb-3 seller">سازنده : <span  class="mb-3 ">{{ $product['seller'] }}</span></div>
+                            @endif
                             <div class="product-variants-container mb-3">
                                 <div class="product-variant-selected-container spaceBetween">
-                                    <span class="product-variant-selected-label">رنگ:</span>
-                                    <span class="product-variant-selected">آبی</span>
+                                    <span class="product-variant-selected-label"> رنگ : </span>
+                                    <span id="product-color-variant-selected" class="product-variant-selected"></span>
                                 </div>
-                                <div class="product-variants">
-                                    <div class="product-variant-item">
-                                        <div class="custom-radio-circle">
-                                            <input type="radio" class="custom-radio-circle-input" name="productColor"
-                                                id="productColor01" checked>
-                                            <label for="productColor01" class="custom-radio-circle-label"
-                                                data-variant-label="آبی">
-                                                <span class="color" style="background-color: #2196f3;"
-                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                    title="آبی"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="product-variant-item">
-                                        <div class="custom-radio-circle">
-                                            <input type="radio" class="custom-radio-circle-input" name="productColor"
-                                                id="productColor02">
-                                            <label for="productColor02" class="custom-radio-circle-label"
-                                                data-variant-label="سفید">
-                                                <span class="color" style="background-color: #fff;"
-                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                    title="سفید"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="product-variant-item">
-                                        <div class="custom-radio-circle">
-                                            <input type="radio" class="custom-radio-circle-input" name="productColor"
-                                                id="productColor03">
-                                            <label for="productColor03" class="custom-radio-circle-label"
-                                                data-variant-label="صورتی">
-                                                <span class="color" style="background-color: #ff80ab;"
-                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                    title="صورتی"></span>
-                                            </label>
-                                        </div>
-                                    </div>
+                                <div id="product-colors-variants" class="product-variants">
                                 </div>
                             </div>
-                            <div class="mb-3 spaceBetween">
-                                <div class="bold">سایز</div>
+                            {{-- <div class="mb-3 spaceBetween">
+                                <div class="bold">سایز : </div>
                                 <div>30*20*40cm</div>
-                            </div>
+                            </div> --}}
                             <div class="mb-3 spaceBetween">
-                                <div class="bold">ویژگی‌ها</div>
+                                <div class="bold">ویژگی‌ها : </div>
                             </div>
                             <div class="expandable-text mb-3" style="height: 95px;">
                                 <div class="expandable-text_text">
                                     <div class="product-params">
-                                        <ul>
-                                            <li>
-                                                <span class="label colorBlueWhite"> جنس :</span>
-                                                <span class="title">سفال</span>
-                                            </li>
-                                            <li>
-                                                <span class="label colorBlueWhite">کاربر :</span>
-                                                <span class="title">ظروف آشپزخانه، دکوراسیون</span>
-                                            </li>
-                                            <li>
-                                                <span class="label colorBlueWhite"> وزن :</span>
-                                                <span class="title">450 گرم</span>
-                                            </li>
-                                            <li>
-                                                <span class="label colorBlueWhite">شکل :</span>
-                                                <span class="title">کوزه</span>
-                                            </li>
+                                        <ul id="property">
                                         </ul>
                                     </div>
                                 </div>
                             <div class="mb-3 mt-3 spaceBetween">
-                                <div class="bold">توضیحات</div>
+                                <div class="bold">توضیحات :</div>
                             </div>
-                                                        <div class="product-additional-info-container mb-3">
+                            {{-- <p>{{ $product['description'] }}</p> --}}
+                            <div class="product-additional-info-container mb-3">
                                 <span class="icon">
                                     <i class="ri-information-line"></i>
                                 </span>
                                 <div class="product-additional-info">
-                                    <p>هشدار سامانه همتا: در صورت انجام معامله، از فروشنده کد فعالسازی را
-                                        گرفته
-                                        و حتما در حضور ایشان، دستگاه را از طریق #7777*، برای سیمکارت خود
-                                        فعالسازی نمایید. آموزش تصویری در آدرس اینترنتی hmti.ir/06</p>
-                                    <p>امکان برگشت کالا در گروه موبایل با دلیل "انصراف از خرید" تنها در
-                                        صورتی
-                                        مورد قبول است که پلمپ کالا باز نشده باشد.</p>
+                                    <p>{{ $product['description'] }}</p>
                                 </div>
                             </div>
                                 <div class="expandable-text-expand-btn">
@@ -164,22 +128,26 @@
                             <!-- start of product-seller-info -->
                             <div class="product-seller-info ui-box">
                                 <div class="seller-info-changeable">
-                                    <div class="product-seller-row">
-                                        <div class="product-seller-row-icon marginTop10">
-                                            <i class="icon-visit-store colorYellow  productIcon"></i>
+                                    @if($product['seller'] !== '')
+                                        <div class="product-seller-row seller">
+                                            <div class="product-seller-row-icon marginTop10">
+                                                <i class="icon-visit-store colorYellow  productIcon"></i>
+                                            </div>
+                                            <div class="product-seller-row-detail">
+                                                <div class="product-seller-row-detail-title">{{ $product['seller'] }}</div>
+                                            </div>
                                         </div>
-                                        <div class="product-seller-row-detail">
-                                            <div class="product-seller-row-detail-title">سنگ تراشان برادران احتشام</div>
+                                    @endif
+                                    @if ($product['gaurantee'] !== null)
+                                        <div class="product-seller-row">
+                                            <div class="product-seller-row-icon marginTop10">
+                                                <i class="icon-visit-verified colorYellow  productIcon"></i>
+                                            </div>
+                                            <div class="product-seller-row-detail">
+                                                <div class="product-seller-row-detail-title">گارانتی {{$product['gaurantee']}} ماهه</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="product-seller-row">
-                                        <div class="product-seller-row-icon marginTop10">
-                                            <i class="icon-visit-verified colorYellow  productIcon"></i>
-                                        </div>
-                                        <div class="product-seller-row-detail">
-                                            <div class="product-seller-row-detail-title">گارانتی ۱۸ ماهه</div>
-                                        </div>
-                                    </div>
+                                    @endif
                                     <div class="product-seller-row product-seller-row--clickable">
                                         <div class="product-seller-row-icon marginTop10">
                                             <i class="icon-visit-original colorYellow  productIcon"></i>
@@ -193,24 +161,41 @@
                                         </div>
                                         <div class="product-seller-row-detail">
                                             <div class="product-seller-row-detail-title">
-                                                ارسال : <span class="fontNormal"> 2 تا 7 روز کاری</span>
+                                                ارسال : <span class="fontNormal"> 2 تا 7 روز کاری </span>
                                             </div>
                                         </div>
                                     </div>
+                                    @if ($product['available_count'] != 0)
                                     <div class="product-seller-row product-seller-row--price">
                                         <div class="product-seller-row--price-now fa-num">
-                                            <span class="price">28,250,000</span>
+                                            <span class="price">{{ $product['price'] }}</span>
                                             <span class="currency">تومان</span>
                                         </div>
                                     </div>
-                                    <div class="product-seller-row product-remaining-in-stock">
-                                        <span>تنها <span class="mx-2">۱</span> عدد در انبار باقیست - پیش از
-                                            اتمام بخرید</span>
+                                    @endif
+                                    @if($product['available_count']  > 0)
+                                        <div id="availableCount" class="product-seller-row product-remaining-in-stock">
+                                            <span>تنها <span class="mx-2">{{ $product['available_count'] }}</span> عدد در انبار باقیست - پیش از
+                                                اتمام بخرید</span>
+                                        </div>
+                                    @elseif($product['available_count'] == 0)
+                                        <div id="availableCount" class="product-seller-row product-remaining-in-stock">
+                                            <span>اتمام موجودی</span>
+                                        </div>
+                                    @endif
+                                    
+                                    <div class="product-seller-row product-remaining-in-stock spaceBetween">
+                                        <div class="bold colorBlack d-flex align-items-center ">
+                                            <div>تعداد سفارش :</div>                                            
+                                        </div>
+                                        <div class="num-block fa-num me-3">
+                                            <span class="num-in">
+                                                <span class="plus"></span>
+                                                <input type="text" class="in-num" value="1" readonly="">
+                                                <span class="minus dis"></span>
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="product-seller-row product-remaining-in-stock">
-                                        <span class="bold colorBlack">تعداد سفارش :<span><i class="icon-visit-minus"></i> 1 کالا<i class="icon-visit-plus"></i></span></span>
-                                    </div>
-                                </div>
                                 <div class="product-seller--add-to-cart">
                                     <a href="#" class="btn btn-primary w-100" data-toast data-toast-type="success"
                                         data-toast-color="green" data-toast-position="topRight"
@@ -225,10 +210,10 @@
                     </div>
                 </div>
                 <!-- end of product-detail-container -->
-                @include('sections.most_like_products')
+                
                 <div class="row">
                     <div class="col-xl-9 col-lg-8">
-                        <div class="ui-sticky ui-sticky-top mb-4">
+                        <div class="ui-sticky ui-sticky-top mb-4 ">
                             <!-- start of product-tabs -->
                             <div class="product-tabs">
                                 <ul class="nav nav-pills">
@@ -253,13 +238,11 @@
                             id="scrollspyHeading1">
                             <div class="product-tab-title">
                                 <h2>نقد و بررسی اجمالی</h2>
-                                <h3 class="subtitle">Apple iPhone 13 A2634 Dual SIM 128GB And 4GB RAM Mobile Phone</h3>
                             </div>
                             <div class="expandable-text pt-1" style="height: 250px;">
                                 <div class="expandable-text_text">
                                     <p>
-                                        گوشی موبایل «iPhone 13» پرچم‌دار جدید شرکت اپل است که با چند ویژگی جدید و دوربین
-                                        دوگانه روانه بازار شده است. اپل برای ویژگی‌ها و طراحی کلی این
+                                        {!! $product['introduce'] !!}
                                     </p>
                                 </div>
                                 <div class="expandable-text-expand-btn justify-content-start text-sm">
@@ -278,55 +261,49 @@
                             id="scrollspyHeading3">
                             <div class="product-tab-title">
                                 <h2>مشخصات کالا</h2>
-                                <h3 class="subtitle">Apple iPhone 13 A2634 Dual SIM 128GB And 4GB RAM Mobile Phone</h3>
                             </div>
-                            <div class="expandable-text pt-1" style="height: 540px;">
+                            <div class="expandable-text pt-1" style="height: auto">
                                 <div class="expandable-text_text fa-num">
                                     <!-- start of params-list -->
                                     <div class="params-list">
                                         <div class="params-list-title">مشخصات کلی</div>
-                                        <ul>
-                                            <li>
-                                                <span class="param-title">وزن</span>
-                                                <span class="param-value">191 گرم</span>
-                                            </li>
-                                            <li>
-                                                <span class="param-title">ساختار بدنه</span>
-                                                <span class="param-value">
-                                                    <span>قاب جلو ساخته شده از شیشه با پوشش محافظ Gorilla Glass 3</span>
-                                                    <span>قاب پشتی و فریم ساخته شده از پلاستیک</span>
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <span class="param-title">شناسه کالا</span>
-                                                <span class="param-value">2800000350215</span>
-                                            </li>
-                                        </ul>
+                                        <ul id="params-list-div"></ul>
                                     </div>
                                     <!-- end of params-list -->
                                 </div>
-                                <div class="expandable-text-expand-btn justify-content-start text-sm">
+                                {{-- <div class="expandable-text-expand-btn justify-content-start text-sm">
                                     <span class="show-more active">
                                         نمایش همه مشخصات کالا <i class="ri-arrow-down-s-line ms-2"></i>
                                     </span>
                                     <span class="show-less d-none">
                                         فقط نمایش مشخصات کلی کالا <i class="ri-arrow-up-s-line ms-2"></i>
                                     </span>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <!-- end of product-params -->
                         <!-- start of product-comments -->
                         <div class="product-tab-content product-comments tab-content border-bottom pb-2 mb-4"
                             id="scrollspyHeading4">
-                            <div class="product-tab-title mb-0">
-                                <h2>امتیاز و دیدگاه کاربران</h2>
-                                <h3 class="subtitle">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</h3>
-                            </div>
                             <div class="row">
+                            <div class="product-user-meta fa-num mb-4 spaceBetween">
+                                <span class="product-users-rating">
+                                    <span class="product-title fontSize15 marginLeft15">دیدگاه کاربران</span>
+                                    <span class="rattingToStar"></span>
+                                    <span class="fw-bold me-1">{{ $product['rate'] }}</span>
+                                    <span class="text-muted fs-7">(از <span>{{ $product['all_rates_count'] }}</span> رای)</span>
+                                </span>
+                                <span style="gap15">
+                                    <a class="marginLeft15 btnHover colorBlack" href=""><i class="icon-visit-sort align-middle fontSize20 marginLeft15"></i>جدید ترین</a>
+                                    <a class="marginLeft15 btnHover colorBlack" href="">کمترین امتیاز</a>
+                                    <a class="marginLeft15 btnHover colorBlack" href="">بیشترین امتیاز</a>
+                                </span>
+                            </div>
                                 <div class="col-xl-3 col-lg-4 col-md-5 mb-3">
+                                    <p class="bold">امتیاز شما</p>
+                                    @include('layouts.ratting')
                                 </div>
-                                <div class="col-xl-9 col-lg-8 col-md-7 pt-5">
+                                <div class="col-xl-9 col-lg-8 col-md-7 pt-0">
                                     <!-- start of comments -->
                                     <div class="comments">
                                         <!-- start of comment -->
@@ -372,15 +349,9 @@
                                     </div>
                                     <div class="product-details">
                                         <div class="product-title">
-                                            <h1>گوشی موبایل اپل مدل iPhone 13 A2634 دو سیم کارت ظرفیت 128 گیگابایت و رم
-                                                4 گیگابایت
-                                            </h1>
+                                            <h1>{{ $product['name'] }}</h1>
                                         </div>
-                                        <div class="product-options">
-                                            <div class="product-option">
-                                                <span class="color" style="background-color: #2196f3;"></span>
-                                                <span class="color-label ms-2">آبی</span>
-                                            </div>
+                                        <div id="product_options" class="product-options">
                                         </div>
                                     </div>
                                 </div>
@@ -389,17 +360,19 @@
                                         <i class="ri-store-3-line text-success me-2"></i>
                                         <span>ویزیت ایران</span>
                                     </div>
-                                    <div class="d-flex align-items-center mb-2">
-                                        <i class="ri-shield-check-line text-info me-2"></i>
-                                        <span>گارانتی ۱۸ ماهه آوات</span>
-                                    </div>
+                                    @if ($product['gaurantee'] !== null)
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="ri-shield-check-line text-info me-2"></i>
+                                            <span>گارانتی {{$product['gaurantee']}} ماهه</span>
+                                        </div>
+                                    @endif
                                     <div class="d-flex align-items-center mb-2">
                                         <i class="ri-checkbox-multiple-line text-primary me-2"></i>
                                         <span>موجود در انبار فروشنده</span>
                                     </div>
                                 </div>
                                 <div class="product-price">
-                                    <span class="price-value">۶,۵۹۹,۰۰۰</span>
+                                    <span class="price price-value">{{ $product['price'] }}</span>
                                     <span class="currency ms-1">تومان</span>
                                 </div>
                                 <a href="#" class="btn btn-block btn-primary fw-bold">افزودن به
@@ -518,8 +491,16 @@
 <script>
 
     $(document).ready(function() {
-
-        let productId = location.pathname.split('/product/')[1].split('/')[0];
+        
+        let productId;
+        
+        try {
+            productId = location.pathname.split('/product/')[1].split('/')[0];
+        }
+        catch(e) {
+            document.location.href = '{{ route('home') }}';
+        }
+        
         $.ajax({
             type: 'get',
             url: '{{ route('api.product.show') }}' + '/' + productId,
@@ -527,13 +508,129 @@
                 'accept': 'application/json'
             },
             success: function(res) {
-                $("#productTitle").text(res.data.name);
+                
+                // let html = '';
+                // for(var i = 0; i < res.data.galleries.length; i++) {
+                //     html += '<li data-fancybox="gallery-a" data-src="' + res.data.galleries[i].img + '">'
+                //     html += '<img src="' + res.data.galleries[i].img + '" alt="' + res.data.galleries[i].alt + '"></li>'
+                // }
+                // $("#gallery").empty().append(html);
+
+                let colors = '';
+                let property = '';
+                let params = '';
+
+                for (var i = 0; i < res.features.length; i++) {
+
+                    if(res.features[i].name === 'multicolor') {
+
+                        let val_label = res.features[i].value.split('__');
+                        let prices = res.features[i].price !== undefined && 
+                            res.features[i].price !== null && res.features[i].price != '' ? 
+                                res.features[i].price.split('$$') : [];
+
+                        let colors_keys = val_label[0].split('$$');
+                        let colors_labels = val_label[1].split('$$');
+
+                        for(var j = 0; j < colors_keys.length; j++) {
+
+                            colors += '<div class="product-variant-item"><div class="custom-radio-circle">';
+                            colors += '<input data-label="' + colors_labels[j] + '" data-val="' + colors_keys[j] + '"" type="radio" class="custom-radio-circle-input" name="productColor"';
+                            if(j == 0) {
+
+                                if(prices.length > j)
+                                    colors += 'data-price="' + prices[j] + '" id="productColor0' + j + '" checked>';
+                                else
+                                    colors += 'data-price="" id="productColor0' + j + '" checked>';
+                                
+                                let html = '<div class="product-option">';
+                                html += '<span class="color" style="background-color: ' + colors_labels[j] + ';"></span>';
+                                html += '<span class="color-label ms-2">' + colors_keys[j] + '</span>';
+                                html += '</div>';
+
+                                $("#product_options").empty().append(html);
+
+                                $(".price").empty().append(prices[j]);
+                                $("#product-color-variant-selected").empty().append(colors_keys[j]);
+                            }
+                            else {
+                                
+                                if(prices.length > j)
+                                    colors += 'data-price="' + prices[j] + '" id="productColor0' + j + '">';
+                                else
+                                    colors += 'data-price="" id="productColor0' + j + '">';
+                            }
+
+                            colors += '<label for="productColor0' + j + '" class="custom-radio-circle-label"';
+                            colors += 'data-variant-label="' + colors_keys[j] + '">';
+                            colors += '<span class="color" style="background-color: ' + colors_labels[j] +';"';
+                            colors += 'data-bs-toggle="tooltip" data-bs-placement="bottom"';
+                            colors += 'title="' + colors_keys[j] + '" data-bs-original-title="' + colors_keys[j] + '" aria-label="' + colors_keys[j] + '"></span>';
+                            colors += '</label></div></div></div>';
+                        }
+
+                    }
+                    else {
+                        property += '<li><span class="label colorBlueWhite">' + res.features[i].name + '</span><span> : </span>';
+                        property += '<span class="title">' + res.features[i].value + '</span></li>';
+
+                        params += '<li>';
+                        params += '<span class="param-title">' + res.features[i].name + '</span>';
+                        params += '<span class="param-value">' + res.features[i].value + '</span>';
+                        params += '</li>';
+                    }
+
+                }
+                $("#params-list-div").empty().append(params);
+                $("#property").empty().append(property);
+
+                if(colors != '')
+                    $("#product-colors-variants").empty().append(colors);
+                
             }
         });
 
-    });
+        $(document).on("click","input[name='productColor']", function() {
+            
+            let html = '<div class="product-option">';
+            html += '<span class="color" style="background-color: ' + $(this).attr('data-label') + ';"></span>';
+            html += '<span class="color-label ms-2">' + $(this).attr('data-val') + '</span>';
+            html += '</div>';
 
+            $("#product_options").empty().append(html);
+            $(".price").empty().append($(this).attr('data-price'));
+            $("#product-color-variant-selected").empty().append($(this).attr('data-val'));
+        });
+        
+        // $.ajax({
+        //     type: 'post',
+        //     url: '{{ route('api.product.comment.store', ['product' => $product['id']]) }}',
+        //     data: {
+        //         'rate': 3,
+        //         'is_bookmark': 1,
+        //         'msg': 'sasds'
+        //     },  
+        //     success: function(res) {
+        //         alert(res);
+        //     }
+        // });
+        
+        let star="";
+        let roundRatting=Math.floor('{{ $product['rate'] }}');
+        for(var i = 5; i >= 1; i--) {
+            if(i <= roundRatting)
+                star += '<i class="icon-visit-star me-1 fontSize15"></i>';
+            else
+                star += '<i class="icon-visit-staroutline me-1 fontSize15"></i>';
+        }
+        $(".rattingToStar").empty().append(star);
+
+        // if ('{{ $product['seller'] }}' !== ''){
+        //     $('.seller').removeClass('hidden');
+        // }
+    });
 </script>
+
 @stop
 
 @section('footer')

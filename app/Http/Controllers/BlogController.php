@@ -96,7 +96,7 @@ class BlogController extends Controller
         $request->validate($validator);
 
         $filename = $request->img_file->store('public/blogs');
-        $filename = str_replace('public/blogs', '', $filename);
+        $filename = str_replace('public/blogs/', '', $filename);
 
         $request['img'] = $filename;
         Blog::create($request->toArray());
@@ -145,7 +145,7 @@ class BlogController extends Controller
         if($request->has('img_file')) {
          
             $filename = $request->img_file->store('public/blogs');
-            $filename = str_replace('public/blogs', '', $filename);   
+            $filename = str_replace('public/blogs/', '', $filename);   
 
             if(file_exists(__DIR__ . '/../../../public/storage/blogs/' . $blog->img))
                 unlink(__DIR__ . '/../../../public/storage/blogs/' . $blog->img);

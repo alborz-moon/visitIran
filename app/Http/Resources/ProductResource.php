@@ -31,8 +31,8 @@ class ProductResource extends JsonResource
             'visibility' => $this->visibility,
             'priority' => $this->priority,
             'price' => $this->price,
-            'galleries' => GalleryResource::collection($this->galleries()->orderBy('priority', 'asc')->get())->toArray($request),
-            'features' => ProductFeatureResource::collection($this->featuresWithValue())->toArray($request)
+            'gaurantee' => $this->gaurantee,
+            'introduce' => $this->introduce
         ];
     }
 }

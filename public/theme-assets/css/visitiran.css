@@ -18,39 +18,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-/* .icon-visit-rightchevron:before {
-    content: "\0041";
-}
-.icon-visit-basket:before {
-    content: "\0042";
-}
-.icon-visit-leftarrow:before {
-    content: "\0043";
-}
-.icon-visit-leftchevron:before {
-    content: "\0044";
-}
-.icon-visit-search:before {
-    content: "\0045";
-}
-.icon-visit-home:before {
-    content: "\0046";
-}
-.icon-visit-staroutline:before {
-    content: "\0047";
-}
-.icon-visit-label:before {
-    content: "\0048";
-}
-.icon-visit-star:before {
-    content: "\0049";
-}
-.icon-visit-headline:before {
-    content: "\004a";
-}
-.icon-visit-person:before {
-    content: "\004b";
-} */
 .icon-visit-rightchevron:before {
     content: "\0041";
 }
@@ -89,6 +56,7 @@
 }
 .icon-visit-sort:before {
     content: "\004d";
+    vertical-align: middle;
 }
 .icon-visit-store:before {
     content: "\004e";

@@ -30,7 +30,9 @@ class Product extends Model
         'keywords',
         'tags',
         'seller_id',
-        'alt'
+        'alt',
+        'gaurantee',
+        'introduce'
     ];
     
     public $timestamps = false;
@@ -60,19 +62,23 @@ class Product extends Model
     }
 
     public function features() {
-        $features = DB::select(
-            'select category_features.id, category_features.name, product_features.value from category_features left join product_features on ' . 
+        return DB::select(
+            'select category_features.*, product_features.price,' . 
+            '  product_features.available_count, product_features.value,' . 
+            ' product_features.id as product_features_id from category_features ' .
+            'left join product_features on ' . 
                 'category_features.id = product_features.category_feature_id and '.
                 'product_features.product_id = ' . $this->id .
                 ' where category_features.category_id = ' . $this->category_id
         );
-        return $features;
     }
 
     public function featuresWithValue() {
         $features = DB::select(
-            'select category_features.id, category_features.show_in_top, ' .
-                'category_features.name, product_features.value from category_features join product_features on ' . 
+            'select category_features.id, category_features.unit, category_features.show_in_top, ' .
+                'category_features.name, product_features.value, ' . 
+                'product_features.price, product_features.available_count ' . 
+                'from category_features join product_features on ' . 
                 'category_features.id = product_features.category_feature_id and '.
                 'product_features.product_id = ' . $this->id .
               ' where category_features.category_id = ' . $this->category_id . 
@@ -85,7 +91,7 @@ class Product extends Model
 
         if($this->off != null) {
             $today = (int)Controller::getToday()['date'];
-            if((int)Controller::convertDateToString($this->off_expiration) >= $today)
+            if((int)$this->off_expiration >= $today)
                 return [
                     'type' => $this->off_type,
                     'value' => $this->off
