@@ -8,6 +8,9 @@
 <button onclick="document.location.href = '{{ route('product.index') }}'" class="btn btn-danger">بازگشت</button>
 @stop
 
+@section('addBtn')
+@stop
+
 @section('items')
 <center style="margin-top: 20px">
     <p id="err"></p>
@@ -57,19 +60,39 @@
                                         }
                                     }
                                 }
+                                $values = [];
+                                $values = explode('$$', explode('__', $item->value)[0]);
+                                
                              ?>
-                            <select id="feature_{{ $item->id }}">
-                                <option value="">انتخاب کنید</option>
-                                @foreach ($choices as $choice)
-                                    <option value="{{ $choice['key'] }}">{{ $choice['key'] }}</option>    
-                                @endforeach
+                            @foreach ($choices as $choice)
+                                <div>
+                                    <label style="width: auto" for="feature_{{ $item->id }}_{{ $choice['key'] }}">{{ $choice['key'] }}</label>
+                                    <input class="feature_multi_choice" data-id="{{ $item->id }}" {{ in_array($choice['key'], $values) ? 'checked' : '' }} style="width: auto" name="feature_{{ $item->id }}_multi_choice[]" id="feature_{{ $item->id }}_{{ $choice['key'] }}" type="checkbox" value="{{ $choice['key'] }}" />
+                                </div>
+                            @endforeach
                             </select>
                         @endif
                     </td>
                     <td>{{ $item->unit }}</td>
                     <td>
-                        @if($item->effect_on_price)
-                            <input id="feature_{{ $item->id }}_price" type="number" value="{{ $item->price }}" />
+                        @if($item->effect_on_price && count($choices) > 0)
+                            <div id="prices_{{ $item->id }}">
+                                <?php $k = 0; ?>
+                                <?php 
+                                    $prices = $item->price != null ? $prices = explode('$$', $item->price) : [];
+                                ?>
+                                @foreach($values as $value)
+
+                                        @if(isset($prices[$k]))
+                                            <div class="flex" style="margin-top: 10px">
+                                                <label for="feature_{{ $item->id }}_price_{{ $value }}" style="width: 100px">قیمت {{ $value }}</label>
+                                                <input value="{{ str_replace(',', '', $prices[$k]) }}" class="feature_{{ $item->id }}_price" style="width: 100px" id="feature_{{ $item->id }}_price_{{ $value }}" type="number" />    
+                                            </div>
+                                        @endif
+
+                                    <?php $k++ ?>
+                                @endforeach
+                            </div>
                         @else
                             <span>-</span>
                         @endif
@@ -100,15 +123,54 @@
                 save($(this).attr('data-id'));
             });
 
+            $(document).on('change', '.feature_multi_choice', function() {
+                let id = $(this).attr('data-id');
+                val = [];
+                $("input[name='feature_" + id + "_multi_choice[]']:checked").each(function() {
+                    val.push(this.value);
+                });
+
+                let htmlPrices = '';
+                for(let i = 0; i < val.length; i++) {
+                    htmlPrices += '<div class="flex" style="margin-top: 10px">';
+                    htmlPrices += '<label for="feature_' + id + '_price_' + val[i] + '" style="width: 100px">قیمت ' + val[i] + '</label>';
+                    htmlPrices += '<input class="feature_' + id + '_price" style="width: 100px" id="feature_' + id + '_price_' + val[i] + '" type="number" />'
+                    htmlPrices += '</div>';
+                }
+                
+                $("#prices_" + id).empty('').append(htmlPrices);
+            });
+
             function save(categoryFeatureId) {
+                
+                var price =  $("#feature_" + categoryFeatureId + "_price") !== undefined ? 
+                    $("#feature_" + categoryFeatureId + "_price").val() : null;
+
+                if(price === undefined) {
+                    price = [];
+                    $(".feature_" + categoryFeatureId + "_price").each(function() {
+                        if(this.value === '')
+                            price.push('{{ $defaultPrice }}')
+                        else
+                            price.push(this.value);
+                    });
+                }
+
+                var val = $("#feature_" + categoryFeatureId).val();
+                if(val === undefined) {
+                    val = [];
+                    $("input[name='feature_" + categoryFeatureId + "_multi_choice[]']:checked").each(function() {
+                        val.push(this.value);
+                    });
+                }
+
                 $.ajax({
                     type: 'post',
                     url: '{{ route('product.productFeature.store', ['product' => $productId]) }}',
                     data: {
                         'category_feature_id': categoryFeatureId,
-                        'value': $("#feature_" + categoryFeatureId).val(),
-                        'price': $("#feature_" + categoryFeatureId + "_price") !== undefined ? 
-                            $("#feature_" + categoryFeatureId + "_price").val() : null,
+                        'value': val,
+                        'price': price,
                         'count': $("#feature_" + categoryFeatureId + "_count") !== undefined ?
                             $("#feature_" + categoryFeatureId + "_count").val() : null,
                     },

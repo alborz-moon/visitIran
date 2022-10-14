@@ -100,6 +100,8 @@ class ProductController extends Controller
                 $filters->orderBy('rate', $orderByType);
             else if($orderBy == 'seen')
                 $filters->orderBy('seen', $orderByType);
+            else if($orderBy == 'price')
+                $filters->orderBy('price', $orderByType);
         }
         else {
             $orderBy = 'createAt';
@@ -130,6 +132,7 @@ class ProductController extends Controller
         $isInTopList = $request->query('isInTopList', null);
         $max = $request->query('max', null);
         $min = $request->query('min', null);
+        $off = $request->query('off', null);
         
         $filters = $this->build_filters($request);
         $products = $filters->paginate($limit == null ? 30 : $limit);
@@ -160,6 +163,7 @@ class ProductController extends Controller
                 'minFilter' => $min,
                 'orderBy' => $orderBy,
                 'orderByType' => $orderByType,
+                'offFilter' => $off,
                 'categories' => CategoryDigest::collection($arr)->toArray($request),
                 'brands' => BrandResource::collection(Brand::all())->toArray($request),
                 'sellers' => SellerResource::collection(Seller::all())->toArray($request),
@@ -468,7 +472,6 @@ class ProductController extends Controller
         
         $user = $request->user();
         
-
         // $comment = Comment::userComment($product->id, $user->id);
         // dd(array_merge(
         //         ProductResourceForUsers::make($product)->toArray($request), 

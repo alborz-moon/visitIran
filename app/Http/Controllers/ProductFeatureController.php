@@ -6,7 +6,6 @@ use App\Models\Feature;
 use App\Models\Product;
 use App\Models\ProductFeatures;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class ProductFeatureController extends Controller
 {
@@ -21,6 +20,7 @@ class ProductFeatureController extends Controller
             'items' => $product->features(),
             'productId' => $product->id,
             'productName' => $product->name,
+            'defaultPrice' => $product->price
         ]);
     }
 
@@ -36,8 +36,8 @@ class ProductFeatureController extends Controller
         $validator = [
             'value' => 'required',
             'category_feature_id' => 'required|exists:category_features,id',
-            'price' => 'nullable|integer|min:0',
-            'count' => 'nullable|integer|min:0'
+            'price' => 'nullable',
+            'count' => 'nullable'
         ];
 
         $request->validate($validator);
@@ -48,9 +48,10 @@ class ProductFeatureController extends Controller
             return abort(401);
 
         $validator = null;
+
         if($categoryFeature->answer_type == 'number') {
             $validator = [
-                'value' => 'required|integer|min:0'
+                'value' => 'required|integer|min:0',
             ];
         }
         else if($categoryFeature->answer_type == 'multi_choice') {
@@ -58,22 +59,52 @@ class ProductFeatureController extends Controller
             $choices = explode('__', $categoryFeature->choices);
             $label = null;
 
+            $values = $request['value'];
+
+            if($categoryFeature->effect_on_price && !$request->has('price'))
+                abort(401);
+
+            if($request->has('price')) {
+                $prices = $request['price'];
+
+                if(count($prices) != count($values))
+                    abort(401);
+                    
+                $format_prices = [];
+                foreach($prices as $price)
+                    array_push($format_prices, number_format($price, 0));
+                    
+                $request['price'] = implode('$$', $format_prices);
+            }
+
             foreach($choices as $choice) {
                 $tmp = explode('$$', $choice);
-                if($tmp[0] == $request['value']) {
-                    $label = count($tmp) == 2 ? $tmp[1] : '';
+                if(in_array($tmp[0], $values)) {
+                    if($label == null)
+                        $label = count($tmp) == 2 ? $tmp[1] : '';
+                    else
+                        $label .= '$$' . (count($tmp) == 2 ? $tmp[1] : '');
                 }
             }
 
             if($label == null)
                 abort(401);
 
-            $request['value'] = $request['value'] . '$$' . $label;
+            $request['value'] = implode('$$', $values) . '__' . $label;
         }
+
+        
+        if($categoryFeature->answer_type != 'multi_choice' &&
+            $request->has('price')
+        )
+            abort(401);
+
         if($validator != null)
             $request->validate($validator);
 
-        $pf = ProductFeatures::where('category_feature_id', '=', $request['category_feature_id'])->first();
+        $pf = ProductFeatures::where('category_feature_id', $request['category_feature_id'])
+            ->where('product_id', $product->id)->first();
+        
         if($pf == null) {
             $pf = new ProductFeatures();
             $pf->product_id = $product->id;

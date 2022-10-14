@@ -82,51 +82,15 @@
                             <div class="product-variants-container mb-3">
                                 <div class="product-variant-selected-container spaceBetween">
                                     <span class="product-variant-selected-label"> رنگ : </span>
-                                    <span class="product-variant-selected">آبی</span>
+                                    <span id="product-color-variant-selected" class="product-variant-selected"></span>
                                 </div>
-                                <div class="product-variants">
-                                    <div class="product-variant-item">
-                                        <div class="custom-radio-circle">
-                                            <input type="radio" class="custom-radio-circle-input" name="productColor"
-                                                id="productColor01" checked>
-                                            <label for="productColor01" class="custom-radio-circle-label"
-                                                data-variant-label="آبی">
-                                                <span class="color" style="background-color: #2196f3;"
-                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                    title="آبی"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="product-variant-item">
-                                        <div class="custom-radio-circle">
-                                            <input type="radio" class="custom-radio-circle-input" name="productColor"
-                                                id="productColor02">
-                                            <label for="productColor02" class="custom-radio-circle-label"
-                                                data-variant-label="سفید">
-                                                <span class="color" style="background-color: #fff;"
-                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                    title="سفید"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="product-variant-item">
-                                        <div class="custom-radio-circle">
-                                            <input type="radio" class="custom-radio-circle-input" name="productColor"
-                                                id="productColor03">
-                                            <label for="productColor03" class="custom-radio-circle-label"
-                                                data-variant-label="صورتی">
-                                                <span class="color" style="background-color: #ff80ab;"
-                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                    title="صورتی"></span>
-                                            </label>
-                                        </div>
-                                    </div>
+                                <div id="product-colors-variants" class="product-variants">
                                 </div>
                             </div>
-                            <div class="mb-3 spaceBetween">
+                            {{-- <div class="mb-3 spaceBetween">
                                 <div class="bold">سایز : </div>
                                 <div>30*20*40cm</div>
-                            </div>
+                            </div> --}}
                             <div class="mb-3 spaceBetween">
                                 <div class="bold">ویژگی‌ها : </div>
                             </div>
@@ -146,13 +110,7 @@
                                     <i class="ri-information-line"></i>
                                 </span>
                                 <div class="product-additional-info">
-                                    <p>هشدار سامانه همتا: در صورت انجام معامله، از فروشنده کد فعالسازی را
-                                        گرفته
-                                        و حتما در حضور ایشان، دستگاه را از طریق #7777*، برای سیمکارت خود
-                                        فعالسازی نمایید. آموزش تصویری در آدرس اینترنتی hmti.ir/06</p>
-                                    <p>امکان برگشت کالا در گروه موبایل با دلیل "انصراف از خرید" تنها در
-                                        صورتی
-                                        مورد قبول است که پلمپ کالا باز نشده باشد.</p>
+                                    <p>{{ $product['description'] }}</p>
                                 </div>
                             </div>
                                 <div class="expandable-text-expand-btn">
@@ -252,7 +210,7 @@
                     </div>
                 </div>
                 <!-- end of product-detail-container -->
-                @include('layouts.box')
+                
                 <div class="row">
                     <div class="col-xl-9 col-lg-8">
                         <div class="ui-sticky ui-sticky-top mb-4 ">
@@ -280,12 +238,11 @@
                             id="scrollspyHeading1">
                             <div class="product-tab-title">
                                 <h2>نقد و بررسی اجمالی</h2>
-                                <h3 class="subtitle">Apple iPhone 13 A2634 Dual SIM 128GB And 4GB RAM Mobile Phone</h3>
                             </div>
                             <div class="expandable-text pt-1" style="height: 250px;">
                                 <div class="expandable-text_text">
                                     <p>
-                                        گوشی موبایل «iPhone 13» پرچم‌دار جدید شرکت اپل است که با چند ویژگی جدید و دوربین دوگانه روانه بازار شده است. اپل برای ویژگی‌ها و طراحی کلی این گوشی از همان فرمول چند سال اخیرش استفاده کرده است. نمایشگر آیفون 13 به پنل Super Retina مجهز ‌شده است تا تصاویر بسیار مطلوبی را به کاربر عرضه کند. این نمایشگر رزولوشن بسیار بالایی دارد؛ به‌طوری‌که در اندازه­‌ی 6.1 اینچی‌اش، حدود 460 پیکسل را در هر اینچ جا داده است. امکان شارژ بی‌‌سیم باتری در این گوشی وجود دارد. روکش سرامیکی صفحه‌نمایش این گوشی می‌تواند انقلابی در محافظت به‌پا کند. این گوشی ضدآب و ضد گردوخاک است. بدنه­ زیبا iPhone 13 در مقابل خط‌‌وخش مقاومت زیادی دارد؛ پس خیالتان از این بابت که آب و گردوغبار به‌‌راحتی روی آیفون 13 تأثیر نمی‌‌گذارد، راحت باشد. علاوه‌براین لکه و چربی هم روی این صفحه‌نمایش باکیفیت تأثیر چندانی ندارند. تشخیص چهره با استفاده از دوربین جلو دیگر ویژگی است که در آیفون جدید اپل به کار گرفته شده است. قابلیت اتصال به شبکه­‌های 4G و 5G، بلوتوث نسخه‌ 5، نسخه­‌ 15 از iOS دیگر ویژگی‌های این گوشی هستند. ازنظر سخت‌‌افزاری هم این گوشی از تراشه­‌ی جدید A15 بهره می‌برد که دارای 15 میلیارد ترانزیستور است که دارای کنترل گرمای مطلوبی بوده که تا بتواند علاوه بر کارهای معمول، از قابلیت‌های جدید واقعیت مجازی که اپل این روزها روی آن تمرکز خاصی دارد، پشتیبانی کند. به گفته خود شرکت اپل این گوشی دارای سرعتی 50 برابر نسخه 12 خود است. پردازنده دارای ماژولار جدیدی است که مصرف باتری را بسیار پایین‌تر آورده است و شما دارای حفظ باتری بالاتری هستید. کیفیت نمایش شما در iPhone 13 دارای 120 هرتز است و کسفیت بالایی را شاهد خواهید بود. اپل در این سری از گوشی‌های iPhone خود پردازنده گرافیکی‌ای را قرار داده که از سری 12 گوشی‌های خود 30 درصد سریع‌تر است و این نویدبخش آن است که شما می‌توانید بازی‌هایی را با گرافیک و MAP سنگین تر و بزرگ‌تر اجرا کنید. یکی از ویژگی‌هایی که در iPhone 13 شاهد هستیم سیستم فیلمبرداری ProRes سینمایی آن است که می تواند انقلابی در فیلمبرداری گوشی‌های موبایل به‌راه انداخته باشد. این قابلیت می‌تواند نسبت به صورت روبرو بین افراد و یا بین فرد و اشیا فوکوس و بِلار داشته باشد.
+                                        {!! $product['introduce'] !!}
                                     </p>
                                 </div>
                                 <div class="expandable-text-expand-btn justify-content-start text-sm">
@@ -304,30 +261,13 @@
                             id="scrollspyHeading3">
                             <div class="product-tab-title">
                                 <h2>مشخصات کالا</h2>
-                                <h3 class="subtitle">Apple iPhone 13 A2634 Dual SIM 128GB And 4GB RAM Mobile Phone</h3>
                             </div>
                             <div class="expandable-text pt-1" style="height: auto">
                                 <div class="expandable-text_text fa-num">
                                     <!-- start of params-list -->
                                     <div class="params-list">
                                         <div class="params-list-title">مشخصات کلی</div>
-                                        <ul>
-                                            <li>
-                                                <span class="param-title">وزن</span>
-                                                <span class="param-value">191 گرم</span>
-                                            </li>
-                                            <li>
-                                                <span class="param-title">ساختار بدنه</span>
-                                                <span class="param-value">
-                                                    <span>قاب جلو ساخته شده از شیشه با پوشش محافظ Gorilla Glass 3</span>
-                                                    <span>قاب پشتی و فریم ساخته شده از پلاستیک</span>
-                                                </span>
-                                            </li>
-                                            <li>
-                                                <span class="param-title">شناسه کالا</span>
-                                                <span class="param-value">2800000350215</span>
-                                            </li>
-                                        </ul>
+                                        <ul id="params-list-div"></ul>
                                     </div>
                                     <!-- end of params-list -->
                                 </div>
@@ -409,15 +349,9 @@
                                     </div>
                                     <div class="product-details">
                                         <div class="product-title">
-                                            <h1>گوشی موبایل اپل مدل iPhone 13 A2634 دو سیم کارت ظرفیت 128 گیگابایت و رم
-                                                4 گیگابایت
-                                            </h1>
+                                            <h1>{{ $product['name'] }}</h1>
                                         </div>
-                                        <div class="product-options">
-                                            <div class="product-option">
-                                                <span class="color" style="background-color: #2196f3;"></span>
-                                                <span class="color-label ms-2">آبی</span>
-                                            </div>
+                                        <div id="product_options" class="product-options">
                                         </div>
                                     </div>
                                 </div>
@@ -438,7 +372,7 @@
                                     </div>
                                 </div>
                                 <div class="product-price">
-                                    <span class="price-value">{{ $product['price'] }}</span>
+                                    <span class="price price-value">{{ $product['price'] }}</span>
                                     <span class="currency ms-1">تومان</span>
                                 </div>
                                 <a href="#" class="btn btn-block btn-primary fw-bold">افزودن به
@@ -582,21 +516,97 @@
                 // }
                 // $("#gallery").empty().append(html);
 
+                let colors = '';
                 let property = '';
-                for (var i=0; i < res.data.features.length;i++){
-                    property += '<li><span class="label colorBlueWhite">' + res.data.features[i].name + '</span><span> : </span>'
-                    property += '<span class="title">' + res.data.features[i].value + '</span></li>'
+                let params = '';
+
+                for (var i = 0; i < res.features.length; i++) {
+
+                    if(res.features[i].name === 'multicolor') {
+
+                        let val_label = res.features[i].value.split('__');
+                        let prices = res.features[i].price !== undefined && 
+                            res.features[i].price !== null && res.features[i].price != '' ? 
+                                res.features[i].price.split('$$') : [];
+
+                        let colors_keys = val_label[0].split('$$');
+                        let colors_labels = val_label[1].split('$$');
+
+                        for(var j = 0; j < colors_keys.length; j++) {
+
+                            colors += '<div class="product-variant-item"><div class="custom-radio-circle">';
+                            colors += '<input data-label="' + colors_labels[j] + '" data-val="' + colors_keys[j] + '"" type="radio" class="custom-radio-circle-input" name="productColor"';
+                            if(j == 0) {
+
+                                if(prices.length > j)
+                                    colors += 'data-price="' + prices[j] + '" id="productColor0' + j + '" checked>';
+                                else
+                                    colors += 'data-price="" id="productColor0' + j + '" checked>';
+                                
+                                let html = '<div class="product-option">';
+                                html += '<span class="color" style="background-color: ' + colors_labels[j] + ';"></span>';
+                                html += '<span class="color-label ms-2">' + colors_keys[j] + '</span>';
+                                html += '</div>';
+
+                                $("#product_options").empty().append(html);
+
+                                $(".price").empty().append(prices[j]);
+                                $("#product-color-variant-selected").empty().append(colors_keys[j]);
+                            }
+                            else {
+                                
+                                if(prices.length > j)
+                                    colors += 'data-price="' + prices[j] + '" id="productColor0' + j + '">';
+                                else
+                                    colors += 'data-price="" id="productColor0' + j + '">';
+                            }
+
+                            colors += '<label for="productColor0' + j + '" class="custom-radio-circle-label"';
+                            colors += 'data-variant-label="' + colors_keys[j] + '">';
+                            colors += '<span class="color" style="background-color: ' + colors_labels[j] +';"';
+                            colors += 'data-bs-toggle="tooltip" data-bs-placement="bottom"';
+                            colors += 'title="' + colors_keys[j] + '" data-bs-original-title="' + colors_keys[j] + '" aria-label="' + colors_keys[j] + '"></span>';
+                            colors += '</label></div></div></div>';
+                        }
+
+                    }
+                    else {
+                        property += '<li><span class="label colorBlueWhite">' + res.features[i].name + '</span><span> : </span>';
+                        property += '<span class="title">' + res.features[i].value + '</span></li>';
+
+                        params += '<li>';
+                        params += '<span class="param-title">' + res.features[i].name + '</span>';
+                        params += '<span class="param-value">' + res.features[i].value + '</span>';
+                        params += '</li>';
+                    }
+
                 }
+                $("#params-list-div").empty().append(params);
                 $("#property").empty().append(property);
+
+                if(colors != '')
+                    $("#product-colors-variants").empty().append(colors);
                 
             }
+        });
+
+        $(document).on("click","input[name='productColor']", function() {
+            
+            let html = '<div class="product-option">';
+            html += '<span class="color" style="background-color: ' + $(this).attr('data-label') + ';"></span>';
+            html += '<span class="color-label ms-2">' + $(this).attr('data-val') + '</span>';
+            html += '</div>';
+
+            $("#product_options").empty().append(html);
+            $(".price").empty().append($(this).attr('data-price'));
+            $("#product-color-variant-selected").empty().append($(this).attr('data-val'));
         });
         
         // $.ajax({
         //     type: 'post',
         //     url: '{{ route('api.product.comment.store', ['product' => $product['id']]) }}',
         //     data: {
-        //         'rate': 4,
+        //         'rate': 3,
         //         'is_bookmark': 1,
         //         'msg': 'sasds'
         //     },  
@@ -604,11 +614,7 @@
         //         alert(res);
         //     }
         // });
-        // let breadcrumb="";
-        // for (var i=0; i < res.data.parentPath.length;i++){
-        //     breadcrumb += <li class="breadcrumb-item"><a href="#">{{ $product['img'] }}</a></li>
-        // }
-        // $("#parentPath").empty().append(property);
+        
         let star="";
         let roundRatting=Math.floor('{{ $product['rate'] }}');
         for(var i = 5; i >= 1; i--) {
@@ -622,9 +628,6 @@
         // if ('{{ $product['seller'] }}' !== ''){
         //     $('.seller').removeClass('hidden');
         // }
-        console.log('====================================');
-        console.log({{$product['gaurantee']}});
-        console.log('====================================');
     });
 </script>
 

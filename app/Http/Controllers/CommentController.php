@@ -35,29 +35,48 @@ class CommentController extends Controller
             'is_bookmark' => 'required_without_all:msg,rate|boolean'
         ];
 
-
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
         $user = $request->user();
         $request->validate($validator);
         $comment = Comment::userComment($product->id, $user->id);
+        $needUpdateProductTable = false;
+
         if($comment == null) {
             $comment = new Comment();
             $comment->product_id = $product->id;
             $comment->user_id = $user->id;
+            if($request->has('rate')) {
+                $product->rate = ($product->rate * $product->rate_count + $request['rate']) / ($product->rate_count + 1);
+                $product->rate_count = $product->rate_count + 1;
+                $needUpdateProductTable = true;
+            }
+            if($request->has('msg')) {
+                $product->comment_count = $product->comment_count + 1;
+                $needUpdateProductTable = true;
+            }
         }
 
         if($request->has('msg'))
             $comment->msg = $request['msg'];
 
-        if($request->has('rate'))
+        if($request->has('rate')) {
+            if(!$needUpdateProductTable) {
+                $product->rate = ($product->rate * $product->rate_count - $comment->rate + $request['rate']) / $product->rate_count;
+                $needUpdateProductTable = true;
+            }
+            
             $comment->rate = $request['rate'];
+        }
 
         if($request->has('is_bookmark'))
             $comment->is_bookmark = $request['is_bookmark'];
         
         $comment->save();
+        if($needUpdateProductTable)
+            $product->save();
+            
         return response()->json(['status' => 'ok']);
     }
 

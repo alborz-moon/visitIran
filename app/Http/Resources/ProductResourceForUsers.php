@@ -66,8 +66,8 @@ class ProductResourceForUsers extends JsonResource
             'off' => $off,
             'priceAfterOff' => number_format($priceAfterOff, 0),
             'has_multi_color' => $multiColor,
-            'all_comments_count' => Comment::comment($this->id)->count(),
-            'all_rates_count' => Comment::rate($this->id)->count(),
+            'all_comments_count' => $this->comment_count,
+            'all_rates_count' => $this->rate_count,
             'gaurantee' => $this->gaurantee,
             'introduce' => $this->introduce
         ];

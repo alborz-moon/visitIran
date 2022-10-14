@@ -107,7 +107,7 @@
                 </select>
             </div>
             
-            <div>
+            <div class="hidden needMultiChoice">
                 <label for="effect_on_price">آیا این ویژگی در قیمت محصول تاثیر دارد؟</label>
                 <select name="effect_on_price" id="effect_on_price">
                     <option {{ isset($item) && !$item['effect_on_price'] ? 'selected' : '' }} value="0">خیر</option>
@@ -115,7 +115,7 @@
                 </select>
             </div>
             
-            <div>
+            <div class="hidden needMultiChoice">
                 <label for="effect_on_available_count">آیا این ویژگی در موجودی محصول تاثیر دارد؟</label>
                 <select name="effect_on_available_count" id="effect_on_available_count">
                     <option {{ isset($item) && !$item['effect_on_available_count'] ? 'selected' : '' }} value="0">خیر</option>
@@ -148,10 +148,14 @@
             @endif
 
             $('#answer_type').on('change', function() {
-                if($(this).val() === "multi_choice")
+                if($(this).val() === "multi_choice") {
                     $("#choices").removeClass('hidden');
-                else
+                    $(".needMultiChoice").removeClass('hidden');
+                }
+                else {
                     $("#choices").addClass('hidden');
+                    $(".needMultiChoice").addClass('hidden');
+                }
             });
 
             $("#choices_count").on('change', function() {

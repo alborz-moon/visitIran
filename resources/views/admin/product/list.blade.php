@@ -101,6 +101,7 @@
                     <option {{ isset($orderBy) && $orderBy == 'createdAt' ? 'selected' : '' }} value="createdAt">زمان ایجاد</option>
                     <option {{ isset($orderBy) && $orderBy == 'rate' ? 'selected' : '' }} value="rate">محبوبیت</option>
                     <option {{ isset($orderBy) && $orderBy == 'seen' ? 'selected' : '' }} value="seen">بازدید</option>
+                    <option {{ isset($orderBy) && $orderBy == 'price' ? 'selected' : '' }} value="price">قیمت</option>
                 </select>
             </div>
             
@@ -126,6 +127,7 @@
                     <th>نام</th>
                     <th>قیمت</th>
                     <th>امتیاز</th>
+                    <th>تعداد کامنت</th>
                     <th>تعداد موجودی</th>
                     <th>آیا جز محصولات برتر است؟</th>
                     <th>وضعیت نمایش</th>
@@ -161,7 +163,8 @@
                         </td>
                         <td>{{ $item['name'] }}</td>
                         <td>{{ $item['price'] }}</td>
-                        <td>{{ $item['rate'] == null ? 'امتیازی ثبت نشده است' : $item['rate'] }}</td>
+                        <td>{{ $item['rate'] == null ? 'امتیازی ثبت نشده است' : $item['rate'] . ' از ' . $item['rate_count'] . ' رای'}}</td>
+                        <td>{{ $item['comment_count'] == 0 ? 'کامنتی ثبت نشده است' : 'تعداد کل: ' . $item['comment_count'] . ' تعداد تایید نشده:' . $item['new_comment_count'] }}</td>
                         <td>
                             <div class="flex gap10">
                                 <input style="width: 40px" type="number" value="{{ $item['available_count'] }}" id="available_count_{{ $item['id'] }}" />
