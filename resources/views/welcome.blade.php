@@ -3,6 +3,9 @@
 @section('content')
 
 @include('layouts.slider')    
+    <script>
+        var productPrefixRoute = '{{ route('home') }}' + "/product";
+    </script>
                 @include('layouts.tiles')
                 @include('sections.top_categories_products')
 
