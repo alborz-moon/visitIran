@@ -16,7 +16,7 @@
                                     <!-- start of product-card -->
                                     <div class="product-card customBoxNews">
                                         <div class="product-thumbnail">
-                                            <a id="newsHref" href="#">
+                                            <a id="newsHref marginRight4" href="#">
                                                 <img id="newsImg" class="customImgNews">
                                             </a>
                                         </div>
