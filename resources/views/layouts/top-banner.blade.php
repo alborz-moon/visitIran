@@ -12,5 +12,28 @@
                     })
                 });
             </script>
+            
+       <script>
+      var width = window.innerWidth;
+        $.ajax({
+            type: 'get',
+            url: '{{ route('api.infobox') }}',
+            headers: {
+                'accept': 'application/json'
+            },
+            success: function(res) {
+                if(res.status === "ok") {
+                     if (width > 1000) {
+                         $(".infobox").css('background-image', "url(" + res.data.img_large + ")").attr('href', res.data.href);
+                     }else if(width > 768){
+                        $(".infobox").css('background-image', "url(" + res.data.img_mid + ")").attr('href', res.data.href);
+                     }else{
+                        $(".infobox").css('background-image', "url(" + res.data.img_small + ")").attr('href', res.data.href);
+                     }
+                }
+            }
+        });
+
+    </script>
              
             <!-- end banner -->

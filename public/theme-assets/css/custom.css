@@ -823,3 +823,7 @@ figure .ck-widget {
 .num-block .num-in {
     height: unset !important;
 }
+.product-gallery .gallery-thumbs ul li {
+    flex: 0 0 80px;
+    padding: 10px;
+}

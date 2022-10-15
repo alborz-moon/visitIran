@@ -79,8 +79,8 @@
                             @if($product['seller'] !== '')
                                 <div class="product-variant-selected-label bold mb-3 seller">سازنده : <span  class="mb-3 ">{{ $product['seller'] }}</span></div>
                             @endif
-                            <div class="product-variants-container mb-3">
-                                <div class="product-variant-selected-container spaceBetween">
+                            <div id="color-div" class="product-variants-container mb-3 hidden">
+                                <div class="product-variant-selected-container spaceBetween" >
                                     <span class="product-variant-selected-label"> رنگ : </span>
                                     <span id="product-color-variant-selected" class="product-variant-selected"></span>
                                 </div>
@@ -509,21 +509,21 @@
             },
             success: function(res) {
                 
-                // let html = '';
-                // for(var i = 0; i < res.data.galleries.length; i++) {
-                //     html += '<li data-fancybox="gallery-a" data-src="' + res.data.galleries[i].img + '">'
-                //     html += '<img src="' + res.data.galleries[i].img + '" alt="' + res.data.galleries[i].alt + '"></li>'
-                // }
-                // $("#gallery").empty().append(html);
+                let html = '';
+                for(var i = 0; i < res.galleries.length; i++) {
+                    html += '<li data-fancybox="gallery-a" data-src="' + res.galleries[i].img + '">'
+                    html += '<img src="' + res.galleries[i].img + '" alt="' + res.galleries[i].alt + '"></li>'
+                }
+                $("#gallery").empty().append(html);
 
                 let colors = '';
                 let property = '';
                 let params = '';
-
                 for (var i = 0; i < res.features.length; i++) {
 
                     if(res.features[i].name === 'multicolor') {
-
+                        
+                        $("#color-div").removeClass('hidden');
                         let val_label = res.features[i].value.split('__');
                         let prices = res.features[i].price !== undefined && 
                             res.features[i].price !== null && res.features[i].price != '' ? 
@@ -586,7 +586,6 @@
 
                 if(colors != '')
                     $("#product-colors-variants").empty().append(colors);
-                
             }
         });
 
