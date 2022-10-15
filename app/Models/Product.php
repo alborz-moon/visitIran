@@ -31,7 +31,7 @@ class Product extends Model
         'tags',
         'seller_id',
         'alt',
-        'gaurantee',
+        'guarantee',
         'introduce',
         'slug'
     ];

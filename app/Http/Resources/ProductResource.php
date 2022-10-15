@@ -32,7 +32,7 @@ class ProductResource extends JsonResource
             'visibility' => $this->visibility,
             'priority' => $this->priority,
             'price' => $this->price,
-            'gaurantee' => $this->gaurantee,
+            'guarantee' => $this->guarantee,
             'introduce' => $this->introduce
         ];
     }
