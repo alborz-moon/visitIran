@@ -42,11 +42,15 @@ class CommentController extends Controller
         $request->validate($validator);
         $comment = Comment::userComment($product->id, $user->id);
         $needUpdateProductTable = false;
+        $needToConfirm = false;
 
         if($comment == null) {
             $comment = new Comment();
             $comment->product_id = $product->id;
             $comment->user_id = $user->id;
+            $comment->status = false;
+            $needToConfirm = true;
+
             if($request->has('rate')) {
                 $product->rate = ($product->rate * $product->rate_count + $request['rate']) / ($product->rate_count + 1);
                 $product->rate_count = $product->rate_count + 1;
@@ -58,8 +62,16 @@ class CommentController extends Controller
             }
         }
 
-        if($request->has('msg'))
+        if($request->has('msg')) {
+            
             $comment->msg = $request['msg'];
+            if($comment->status) {
+                $needToConfirm = true;
+                $needUpdateProductTable = true;
+            }
+
+            $comment->status = false;
+        }
 
         if($request->has('rate')) {
             if(!$needUpdateProductTable) {
@@ -74,8 +86,14 @@ class CommentController extends Controller
             $comment->is_bookmark = $request['is_bookmark'];
         
         $comment->save();
-        if($needUpdateProductTable)
+
+        if($needUpdateProductTable) {
+            
+            if($needToConfirm)
+                $product->new_comment_count = $product->new_comment_count + 1;
+
             $product->save();
+        }
             
         return response()->json(['status' => 'ok']);
     }

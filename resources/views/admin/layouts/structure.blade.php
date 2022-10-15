@@ -198,6 +198,10 @@
             flex-direction: column;
         }
 
+        .err-input {
+            border: 2px solid red;
+        }
+
         .margin20 {
             margin: 20px;
         }
