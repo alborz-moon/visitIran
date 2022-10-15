@@ -554,6 +554,9 @@ a {
     bottom: 20px;
     right: 23px;
 }
+.marginRight4 {
+    margin-right: 4px;
+}
 .customBoxNews {
     max-width: 350px !important;
     min-width: 300px;
