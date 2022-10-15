@@ -617,6 +617,9 @@ a {
 .cursorPointer {
     cursor: pointer;
 }
+.stickyTop {
+    top: 90px !important;
+}
 .marginTopMediaQuaryForSlider {
     margin-top: -60px;
 }
@@ -822,4 +825,8 @@ figure .ck-widget {
 }
 .num-block .num-in {
     height: unset !important;
+}
+.product-gallery .gallery-thumbs ul li {
+    flex: 0 0 80px;
+    padding: 10px;
 }

@@ -32,6 +32,18 @@ class InfoBoxController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list()
+    {    
+        return InfoBoxResource::make(InfoBox::first())->additional(['status' => 'ok']);   
+    }
+
+
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\InfoBox  $infobox

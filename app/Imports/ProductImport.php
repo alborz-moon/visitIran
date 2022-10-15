@@ -26,10 +26,13 @@ class ProductImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnF
     {
         return new Product([
             'name' => $row['name'],
+            'slug' => isset($row['slug']) ? $row['slug'] : null,
+            'guarantee' => isset($row['guarantee']) ? $row['guarantee'] : null,
             'alt' => isset($row['alt']) ? $row['alt'] : null,
             'digest' => isset($row['digest']) ? $row['digest'] : null,
             'keywords' => isset($row['keywords']) ? $row['keywords'] : null,
-            'description' => $row['description'],
+            'description' => isset($row['description']) ? $row['description'] : null,
+            'introduce' => isset($row['introduce']) ? $row['introduce'] : null,
             'tags' => isset($row['tags']) ? $row['tags'] : null,
             'is_in_top_list' => $row['is_in_top_list'],
             'visibility' => $row['visibility'],
@@ -45,13 +48,16 @@ class ProductImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnF
     {
         return [
             'name' => 'required|string|min:2',
+            'slug' => 'nullable|string|min:2|unique:products',
             'category' => 'required|exists:categories,name',
             'brand' => 'required|exists:brands,name',
             'seller' => 'nullable|exists:sellers,name',
-            'description' => 'required|string|min:2',
+            'description' => 'nullable|string|min:2',
+            'introduce' => 'nullable|string|min:2',
             'digest' => 'nullable|string|min:2',
             'keywords' => 'nullable|string|min:2',
             'tags' => 'nullable|string|min:2',
+            'guarantee' => 'nullable|integer|min:0',
             'price' => 'required|integer|min:0',
             'priority' => 'required|integer|min:0',
             'is_in_top_list' => 'required|boolean',
