@@ -167,22 +167,24 @@
                                     </div>
                                     @if ($product['available_count'] != 0)
                                     <div class="product-seller-row product-seller-row--price spaceBetween">
-                                        <div class="product-price fa-num">
-                                            <div id="OffSection" class="d-flex align-items-center">
-                                                <span class="fontSize15 pl-10 position-relative">
-                                                    <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="" width="45">
-                                                    <span id="Off" class="position-absolute fontSize10 colorWhite r-0 customOff">
-                                                        {{-- @if ($product['off']['type'] == 'percent')
-                                                            <span>%</span>{{ $product['off']['value'] }}
-                                                        @else
-                                                            {{ $product['off']['value'] }}<span class="fontSize10 px-1 colorYellow">ت</span>
-                                                        @endif --}}
-                                                    </span>
-                                                </span>
-                                                <del id="PriceBeforeOff" class="customlineText textColor fontSize15">{{ $product['price'] }}</del>
+                                        @if($product['off'] != null)
+                                            <div class="product-price fa-num">
+                                                <div id="OffSection" class="d-flex align-items-center">
+                                                    <div class="fontSize15 pl-10 position-relative">
+                                                        <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="" width="45">
+                                                        <span id="Off" class="position-absolute fontSize10 colorWhite r-0 customOff">
+                                                            @if ($product['off'] != null && $product['off']['type'] == 'percent')
+                                                                <span>%</span>{{ $product['off']['value'] }}
+                                                            @elseif ($product['off']!= null && $product['off']['type'] == 'value') 
+                                                                {{ $product['off']['value'] }}<span class="fontSize10 px-1 colorYellow">ت</span>
+                                                            @endif
+                                                        </span>
+                                                    </div>
+                                                    <del id="PriceBeforeOff" class="customlineText textColor fontSize15">{{ $product['price'] }}</del>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="product-seller-row--price-now fa-num">
+                                        @endif
+                                        <div class="product-seller-row--price-now fa-num justifyContentEnd">
                                             <span class="price">{{ $product['price'] }}</span>
                                             <span class="currency fontSize18 colorYellow">ت</span>
                                         </div>

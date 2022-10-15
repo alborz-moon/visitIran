@@ -506,6 +506,9 @@ a {
     display: flex !important;
     justify-content: space-between !important;
 }
+.justifyContentEnd {
+    justify-content: end !important;
+}
 .product-detail-container
     .product-seller-info
     .product-seller-row
@@ -573,6 +576,11 @@ a {
     -moz-border-radius: 25px;
     -ms-border-radius: 25px;
     -o-border-radius: 25px;
+    padding: 0 12px;
+}
+.heightTextNews {
+    overflow: hidden;
+    height: 65px;
 }
 .customIconBottom12 {
     bottom: 12px;
@@ -829,4 +837,11 @@ figure .ck-widget {
 .product-gallery .gallery-thumbs ul li {
     flex: 0 0 80px;
     padding: 10px;
+}
+.between {
+    display: flex;
+    justify-content: space-between;
+}
+.product-card .product-thumbnail img {
+    padding: 0 12px;
 }
