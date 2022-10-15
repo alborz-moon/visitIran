@@ -122,6 +122,19 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+
+        $products = Product::all();
+        foreach($products as $product) {
+            if($product->slug != null)
+                continue;
+
+            $product->slug = str_replace(' ', '_', $product->name);
+            $product->save();
+        }
+
+        if(1 == 1)
+            dd("salma");
+
         $limit = $request->query('limit', null);
         $cat = $request->query('category', null);
         $brand = $request->query('brand', null);
