@@ -1,31 +1,31 @@
 <div id="top_categories_products_sliders">
-                <!-- start of box -->
-                <div id="sampleSlider" class="w-100 mb-5 hidden">
-                    <div class="container">
-                        <div class="d-flex spaceBetween alignItemsCenter">
-                            <span class="ui-box-title fontSize20"> 
-                                <img class="p-2" src="{{ asset('./theme-assets/images/svg/headlineTitle.svg') }}" alt="">
-                                <span id="sampleSliderTitle"></span>
-                            </span>
-                            <span class="alignItemsCenter colorBlue"><a class="hoverBold" href="">مشاهده همه</a></span>
-                        </div>
-                        <div class="ui-box-content">
-                            <!-- Slider main container -->
-                            <div class="swiper product-swiper-slider">
-                                <!-- Additional required wrapper -->
-                                <div id="topCategoryProductsSlider" class="swiper-wrapper">
-                                </div>
-                                <!-- If we need pagination -->
-                                <div class="swiper-pagination"></div>
-
-                                <!-- If we need navigation buttons -->
-                                <div class="swiper-button-prev"></div>
-                                <div class="swiper-button-next"></div>
-                            </div>
-                        </div>
+    <!-- start of box -->
+    <div id="sampleSlider" class="w-100 my-slider mb-5 hidden">
+        <div class="container">
+            <div class="d-flex spaceBetween alignItemsCenter">
+                <span class="ui-box-title fontSize20"> 
+                    <img class="p-2" src="{{ asset('./theme-assets/images/svg/headlineTitle.svg') }}" alt="">
+                    <span id="sampleSliderTitle"></span>
+                </span>
+                <span class="alignItemsCenter colorBlue"><a class="hoverBold" href="">مشاهده همه</a></span>
+            </div>
+            <div class="ui-box-content">
+                <!-- Slider main container -->
+                <div class="swiper product-swiper-slider">
+                    <!-- Additional required wrapper -->
+                    <div id="topCategoryProductsSlider" class="swiper-wrapper">
                     </div>
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination"></div>
+
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
                 </div>
-                <!-- end of box -->
+            </div>
+        </div>
+    </div>
+    <!-- end of box -->
 
 </div>
 

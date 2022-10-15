@@ -94,6 +94,15 @@
                     <option {{ isset($offFilter) && !$offFilter ? 'selected' : '' }} value="0">خیر</option>
                 </select>
             </div>
+
+            <div class="flex gap10 center">
+                <label class="width-auto" for="commentFilter">وضعیت کامنت ها</label>
+                <select id="commentFilter">
+                    <option value="all">همه</option>
+                    <option {{ isset($commentFilter) && $commentFilter ? 'selected' : '' }} value="1">همگی تایید شده</option>
+                    <option {{ isset($commentFilter) && !$commentFilter ? 'selected' : '' }} value="0">دارای تایید نشده</option>
+                </select>
+            </div>
             
             <div class="flex gap10 center">
                 <label class="width-auto" for="orderBy">مرتب سازی بر اساس</label>
@@ -102,6 +111,10 @@
                     <option {{ isset($orderBy) && $orderBy == 'rate' ? 'selected' : '' }} value="rate">محبوبیت</option>
                     <option {{ isset($orderBy) && $orderBy == 'seen' ? 'selected' : '' }} value="seen">بازدید</option>
                     <option {{ isset($orderBy) && $orderBy == 'price' ? 'selected' : '' }} value="price">قیمت</option>
+                    <option {{ isset($orderBy) && $orderBy == 'rate_count' ? 'selected' : '' }} value="rate_count">تعداد رای</option>
+                    <option {{ isset($orderBy) && $orderBy == 'comment_count' ? 'selected' : '' }} value="comment_count">تعداد نظرات</option>
+                    <option {{ isset($orderBy) && $orderBy == 'new_comment_count' ? 'selected' : '' }} value="new_comment_count">تعداد نظرات تایید نشده</option>
+                    <option {{ isset($orderBy) && $orderBy == 'sell_count' ? 'selected' : '' }} value="sell_count">تعداد فروش</option>
                 </select>
             </div>
             
@@ -272,6 +285,7 @@
             let isInTopList = $("#isInTopListFilter").val();
             let brand = $("#brandFilter").val();
             let off = $("#offFilter").val();
+            let comment = $("#commentFilter").val();
             let max = $("#maxFilter").val();
             let min = $("#minFilter").val();
             let orderBy = $("#orderBy").val();
@@ -294,6 +308,9 @@
 
             if(off !== 'all')
                 query.append('off', off);
+
+            if(comment !== 'all')
+                query.append('comment', comment);
 
             query.append('orderBy', orderBy);
             query.append('orderByType', orderByType);

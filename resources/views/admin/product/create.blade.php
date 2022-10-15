@@ -17,6 +17,11 @@
 @section('form')
     
     <center id="errs">
+        
+        @if(isset($err))
+            {{ $err }}
+        @endif
+
         @if($errors->any())
             {{ implode('', $errors->all(':message')) }}
         @endif
@@ -34,7 +39,11 @@
 
         <div class="flex flex-col center gap10" style="margin: 10px">
             
-            <input {{ isset($item) ? '' : 'required' }} type="file" name="img_file" id="imgInp">
+            <div>
+                <label for="imgInp">تصویر اصلی (اختیاری)</label>
+                <input type="file" name="img_file" id="imgInp">
+            </div>
+            
 
             <div>
                 <label for="name">نام</label>

@@ -32,6 +32,17 @@ class BannerController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list()
+    {
+        return BannerResource::collection(Banner::all())->additional(['status' => 'ok']);
+    }
+
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
