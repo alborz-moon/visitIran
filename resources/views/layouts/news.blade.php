@@ -28,7 +28,7 @@
                                                 <span id="newsTag" class="colorWhite customBoxLabel"></span>
                                             </div>
                                             <div class="mt-3 mb-3 heightTextNews">
-                                                <span id="newsDigest" class="fontSize12 textColor"></span>
+                                                <div id="newsDigest" class="fontSize12 textColor textAlignJustify"></div>
                                             </div>
                                         </div>
                                         <div class="product-card-footer d-flex justify-content-end">

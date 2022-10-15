@@ -25,6 +25,7 @@ class CategoryController extends Controller
         foreach($categories as $category) {
             
             $products = $category->products()->visible()->get();
+            
             if(count($products) == 0)
                 continue;
 
