@@ -71,7 +71,7 @@ function renderProductSlider(data, prefix) {
             "<div onclick=\"redirect('" +
             id +
             "', '" +
-            elem.name +
+            elem.slug +
             '\')" class="cursorPointer">' +
             newElem +
             "</div>";

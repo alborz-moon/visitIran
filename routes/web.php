@@ -164,7 +164,7 @@ Route::get('/cart-empty', function () {
     return view('cart-empty');
 })->name('cart-empty');
 
-Route::get('/product/{product}/{productName}', [ProductController::class, 'showDetail'])->name('single-product');
+Route::get('/product/{product}/{slug}', [ProductController::class, 'showDetail'])->name('single-product');
 
 Route::view('alaki', 'alaki');
 Route::get('/checkout-successful', function () {

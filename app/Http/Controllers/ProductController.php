@@ -123,17 +123,17 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
-        $products = Product::all();
-        foreach($products as $product) {
-            if($product->slug != null)
-                continue;
+        // $products = Product::all();
+        // foreach($products as $product) {
+        //     if($product->slug != null)
+        //         continue;
 
-            $product->slug = str_replace(' ', '_', $product->name);
-            $product->save();
-        }
+        //     $product->slug = str_replace(' ', '_', $product->name);
+        //     $product->save();
+        // }
 
-        if(1 == 1)
-            dd("salma");
+        // if(1 == 1)
+        //     dd("salma");
 
         $limit = $request->query('limit', null);
         $cat = $request->query('category', null);
@@ -475,9 +475,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function showDetail(Request $request, Product $product, $productName) {
+    public function showDetail(Request $request, Product $product, string $slug) {
 
-        if(!$product->visibility)
+        if(!$product->visibility || $slug != $product->slug)
             return Redirect::route('home');
 
         $product->seen = $product->seen + 1;
