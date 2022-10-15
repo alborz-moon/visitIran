@@ -16,7 +16,7 @@
 
 @section('form')
     
-    <center>
+    <center id="errs">
         @if($errors->any())
             {{ implode('', $errors->all(':message')) }}
         @endif
@@ -43,23 +43,28 @@
 
 
             <div>
+                <label for="slug">slug(اختیاری)</label>
+                <input value="{{ isset($item) ? $item['slug'] : '' }}" placeholder="این فیلد اختیاری است" type="text" name="slug" id="slug" />
+            </div>
+
+            <div>
                 <label for="desc">توضیح محصول(اختیاری)</label>
-                <textarea name="description" id="desc">{{ isset($item) ? $item['description'] : '' }}</textarea>
+                <textarea name="description" placeholder="این فیلد اختیاری است" id="desc">{{ isset($item) ? $item['description'] : '' }}</textarea>
             </div>
 
             <div>
                 <label for="digest">متن خلاصه(اختیاری)</label>
-                <textarea name="digest" id="digest">{{ isset($item) ? $item['digest'] : '' }}</textarea>
+                <textarea placeholder="این فیلد اختیاری است" name="digest" id="digest">{{ isset($item) ? $item['digest'] : '' }}</textarea>
             </div>
 
             <div>
                 <label for="keywords">واژه های کلیدی(اختیاری)</label>
-                <textarea name="keywords" id="keywords">{{ isset($item) ? $item['keywords'] : '' }}</textarea>
+                <textarea placeholder="این فیلد اختیاری است" name="keywords" id="keywords">{{ isset($item) ? $item['keywords'] : '' }}</textarea>
             </div>
 
             <div>
                 <label for="tags">تگ ها(اختیاری)</label>
-                <textarea name="tags" id="tags">{{ isset($item) ? $item['tags'] : '' }}</textarea>
+                <textarea placeholder="این فیلد اختیاری است" name="tags" id="tags">{{ isset($item) ? $item['tags'] : '' }}</textarea>
             </div>
 
             <div>
@@ -74,7 +79,7 @@
 
             <div>
                 <label for="gaurantee">گارانتی(اختیاری)</label>
-                <input value="{{ isset($item) ? $item['gaurantee'] : '' }}" type="number" name="gaurantee" id="gaurantee" />
+                <input value="{{ isset($item) ? $item['gaurantee'] : '' }}" placeholder="این فیلد اختیاری است" type="number" name="gaurantee" id="gaurantee" />
             </div>
 
             <div>
@@ -154,6 +159,36 @@
         $(document).ready(function () {
             initCK('{{ csrf_token() }}');
             $("#saveBtn").on('click', function() {
+
+                if(!'{{ isset($item) }}') {
+                    $("#errs").empty();
+                    let hasErr = false;
+
+                    $("#myForm input").map((index, elem) => {
+                        if(elem.required && (elem.value === undefined || elem.value === '')) {
+                            labels = $("#myForm label");
+                            for( var i = 0; i < labels.length; i++ ) {
+                                if (labels[i].htmlFor == elem.id) {
+                                    $("#errs").append("لطفا " + labels[i].innerText + " را وارد کنید").append("<br />");
+                                    break;
+                                }   
+                            }
+                            hasErr = true;
+                            elem.classList.add('err-input');
+                        }
+                    });
+                }
+
+                let err = $("#errs").text();
+                if(err !== undefined && err !== null && err !== '') {
+                    
+                    $([document.documentElement, document.body]).animate({
+                        scrollTop: $("#errs").offset().top
+                    }, 500);
+
+                    return;
+                }
+
                 $("#introduce").val($("#description").html());
                 $("#myForm").submit();
             });

@@ -32,7 +32,8 @@ class Product extends Model
         'seller_id',
         'alt',
         'gaurantee',
-        'introduce'
+        'introduce',
+        'slug'
     ];
     
     public $timestamps = false;

@@ -32,7 +32,7 @@ Route::get('getDesc/{category?}', [HomeController::class, 'getDesc'])->name('api
 
 Route::get('faq', [FAQController::class, 'index'])->name('api.faq');
 
-Route::get('infobox', [InfoBoxController::class, 'index'])->name('api.infobox');
+Route::get('infobox', [InfoBoxController::class, 'list'])->name('api.infobox');
 
 Route::get('banner', [BannerController::class, 'index'])->name('api.banner');
 
