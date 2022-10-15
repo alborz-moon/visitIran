@@ -7,15 +7,18 @@
     <meta property="og:site_name" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
 
     
-    <meta property="og:image" content="https://micamall.com/storage/post-pic/images/UxiMI3IXfTQBMO0p4H4MrXMLkmYwTTzVJ1O8QTPQ.jpg"/>
-    <meta property="og:image:secure_url" content="https://micamall.com/storage/post-pic/images/UxiMI3IXfTQBMO0p4H4MrXMLkmYwTTzVJ1O8QTPQ.jpg"/>
-    <meta name="twitter:image" content="https://micamall.com/storage/post-pic/images/UxiMI3IXfTQBMO0p4H4MrXMLkmYwTTzVJ1O8QTPQ.jpg"/>
-    <meta property="og:description" content="جاهای دیدنی کیش و غذاهای این جزیره از جمله جاذبه های گردشگری کیش هستند که مثل تونل باد میکامال می‌تواند تجربه لذت‌بخشی به شما هدیه دهد." />
-    <meta name="twitter:description" content="جاهای دیدنی کیش و غذاهای این جزیره از جمله جاذبه های گردشگری کیش هستند که مثل تونل باد میکامال می‌تواند تجربه لذت‌بخشی به شما هدیه دهد." />
-    <meta name="description" content="جاهای دیدنی کیش و غذاهای این جزیره از جمله جاذبه های گردشگری کیش هستند که مثل تونل باد میکامال می‌تواند تجربه لذت‌بخشی به شما هدیه دهد."/>
+    <meta property="og:image" content="{{ $product['img'] }}"/>
+    <meta property="og:image:secure_url" content="{{ $product['img'] }}"/>
+    <meta name="twitter:image" content="{{ $product['img'] }}"/>
+    <meta property="og:description" content="{{ $product['digest'] }}" />
+    <meta name="twitter:description" content="{{ $product['digest'] }}" />
+    <meta name="description" content="{{ $product['digest'] }}"/>
 
-    {{-- <meta name="keywords" content="{{ $product['keywords'] }}" /> --}}
-    <meta property="article:tag" content="تونل باد, جاهای دیدنی کیش، غذاهای کیش"/>
+    <meta name="keywords" content="{{ $product['keywords'] }}" />
+    <meta property="article:tag" content="{{ $product['tags'] }}"/>
+
+    <script>var productPrefixRoute = '{{ route('home') }}' + "/product";</script>
+
 @stop
 
 @section('content')
