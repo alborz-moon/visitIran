@@ -46,7 +46,7 @@ class InfoBoxController extends Controller
                 'data' => []
             ]);
 
-        return InfoBoxResource::make()->additional(['status' => 'ok']);   
+        return InfoBoxResource::make($info)->additional(['status' => 'ok']);
     }
 
 

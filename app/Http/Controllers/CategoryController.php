@@ -75,23 +75,6 @@ class CategoryController extends Controller
         return view('admin.category.create', compact('categories'));
     }
 
-    public function getTopCategoriesProducts()
-    {
-        $cats = Category::topProducts()->get();
-        $products = [];
-
-        foreach($cats as $cat) {
-            
-            $subs = $cat->sub()->get();
-
-            while(count($subs) > 0) {
-
-            }
-
-        }
-
-    }
-
     public function edit(Category $category, Request $request, string $err = null) {
         
         $categories = Category::all();
@@ -148,6 +131,23 @@ class CategoryController extends Controller
                 'isHead' => true,
             ]);
         }
+
+        $cats = Category::visible()->top()->get();
+        $menuCats = Category::visible()->head()->get();
+
+        return response()->json(
+            [
+                'data' => [
+                    "top" => CategoryDigest::collection($cats)->toArray($request),
+                    "menu" => CategoryDigest::collection($menuCats)->toArray($request),
+                ],
+                'status' => 'ok'
+            ]
+        );
+    }
+
+
+    public function list(Request $request) {
 
         $cats = Category::visible()->top()->get();
         $menuCats = Category::visible()->head()->get();
