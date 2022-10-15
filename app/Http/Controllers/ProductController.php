@@ -21,6 +21,7 @@ use App\Models\PurchaseItems;
 use App\Models\Seller;
 use App\Models\Similar;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
@@ -44,6 +45,9 @@ class ProductController extends Controller
         $off = $request->query('off', null);
         $comment = $request->query('comment', null);
 
+        $fromCreatedAt = $request->query('fromCreatedAt', null);
+        $toCreatedAt = $request->query('toCreatedAt', null);
+
         if($cat != null)
             $filters->where('category_id', $cat);
             
@@ -55,6 +59,12 @@ class ProductController extends Controller
             
         if($isInTopList != null)
             $filters->where('is_in_top_list', $isInTopList);
+            
+        if($fromCreatedAt != null)
+            $filters->whereDate('created_at', '>=', self::ShamsiToMilady($fromCreatedAt));
+            
+        if($toCreatedAt != null)
+            $filters->whereDate('created_at', '<=', self::ShamsiToMilady($toCreatedAt));
 
         $isAdmin = false;
 
@@ -156,6 +166,8 @@ class ProductController extends Controller
         $min = $request->query('min', null);
         $off = $request->query('off', null);
         $comment = $request->query('comment', null);
+        $fromCreatedAt = $request->query('fromCreatedAt', null);
+        $toCreatedAt = $request->query('toCreatedAt', null);
         
         $filters = $this->build_filters($request);
         $products = $filters->paginate($limit == null ? 30 : $limit);
@@ -188,6 +200,8 @@ class ProductController extends Controller
                 'orderByType' => $orderByType,
                 'offFilter' => $off,
                 'commentFilter' => $comment,
+                'fromCreatedAtFilter' => $fromCreatedAt,
+                'toCreatedAtFilter' => $toCreatedAt,
                 'categories' => CategoryDigest::collection($arr)->toArray($request),
                 'brands' => BrandResource::collection(Brand::all())->toArray($request),
                 'sellers' => SellerResource::collection(Seller::all())->toArray($request),

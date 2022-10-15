@@ -368,6 +368,10 @@
 
             .mCSB_container {
                 overflow: scroll !important;
+                transform: rotateX(180deg) !important;
+            }
+            #mainContainer {
+                transform: rotateX(180deg) !important;
             }
         </style>
 
