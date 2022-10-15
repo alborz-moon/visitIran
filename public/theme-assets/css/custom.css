@@ -850,6 +850,3 @@ figure .ck-widget {
     display: flex;
     justify-content: space-between;
 }
-.product-card .product-thumbnail img {
-    padding: 0 12px;
-}
