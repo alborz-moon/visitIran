@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStatusToCommentsTable extends Migration
+class AddSlugToProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddStatusToCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->boolean('status')->default(false);
+        Schema::table('products', function (Blueprint $table) {
+            $table->string('slug')->unique()->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddStatusToCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->dropColumn('status');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('slug');
         });
     }
 }
