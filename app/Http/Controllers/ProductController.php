@@ -19,6 +19,7 @@ use App\Models\Comment;
 use App\Models\Product;
 use App\Models\PurchaseItems;
 use App\Models\Seller;
+use App\Models\Similar;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -215,6 +216,40 @@ class ProductController extends Controller
         return response()->json([
             'status' => 'ok',
             'data' =>  ProductDigestUser::collection($products)->toArray($request)
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function similars(Product $product, Request $request)
+    {
+        
+        $products = Similar::where('product_id', $product->id)->first();
+        if($products == null) {
+            return response()->json([
+                'status' => 'ok',
+                'data' =>  []
+            ]);
+        }
+
+        $data = $products->getAttributes();
+
+        $ids = [];
+
+        for($i = 1; $i < 9; $i++) {
+            
+            if($data['sim_' . $i] == null)
+                break;
+
+            array_push($ids, $data['sim_' . $i]);
+        }
+        
+        return response()->json([
+            'status' => 'ok',
+            'data' => ProductDigestUser::collection(Product::whereIn('id', $ids)->visible()->get())->toArray($request)
         ]);
     }
 

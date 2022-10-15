@@ -231,7 +231,9 @@
                     </div>
                 </div>
                 <!-- end of product-detail-container -->
-                
+                @include('sections.top_products_slider', ['id' => 'most_seen_products_when_filled', 'api' => route('api.product.similars', ['product' => $product['id']]),
+                    'key' => 'mostSeenProduct', 'title' => 'محصولات مشابه', 'not_fill_id' => 'most_seen_products_when_not_filled'])
+
                 <div class="row">
                     <div class="col-xl-9 col-lg-8">
                         <div class="ui-sticky ui-sticky-top mb-4 StickyMenuMoveOnTop">
@@ -661,4 +663,5 @@
     @parent
     <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
+    <script src="{{ asset('theme-assets/js/home.js') }}"></script>
 @stop

@@ -46,6 +46,8 @@ Route::get('product/{product?}', [ProductController::class, 'show'])->name('api.
 
 Route::get('products', [ProductController::class, 'list'])->name('api.product.list');
 
+Route::get('similar_products/{product}', [ProductController::class, 'similars'])->name('api.product.similars');
+
 Route::get('category', [CategoryController::class, 'index'])->name('api.category');
 
 Route::post('submitMail', [MailController::class, 'submitMail'])->name('api.submitMail');
