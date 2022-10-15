@@ -45,28 +45,6 @@
 
 <body>
 
-       <script>
-      var width = window.innerWidth;
-        $.ajax({
-            type: 'get',
-            url: '{{ route('api.infobox') }}',
-            headers: {
-                'accept': 'application/json'
-            },
-            success: function(res) {
-                if(res.status === "ok") {
-                     if (width > 1000) {
-                         $(".infobox").css('background-image', "url(" + res.data.img_large + ")").attr('href', res.data.href);
-                     }else if(width > 768){
-                        $(".infobox").css('background-image', "url(" + res.data.img_mid + ")").attr('href', res.data.href);
-                     }else{
-                        $(".infobox").css('background-image', "url(" + res.data.img_small + ")").attr('href', res.data.href);
-                     }
-                }
-            }
-        });
-
-    </script>
 
     <div class="page-wrapper">
         <!-- start of page-header -->
@@ -78,7 +56,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center flex-grow-1 pe-3 zIndex3 position-relative">
                             <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop">
-                                    <img src="./theme-assets/images/menuImage.png" width="120" alt="">
+                                    <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="120" alt="">
                             </div>
                             <div class="marginFromRightHeader">
                                 <div class="notification-item--text colorYellow bold"> ویزیت ایران </div>

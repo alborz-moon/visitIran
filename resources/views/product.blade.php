@@ -79,8 +79,8 @@
                             @if($product['seller'] !== '')
                                 <div class="product-variant-selected-label bold mb-3 seller">سازنده : <span  class="mb-3 ">{{ $product['seller'] }}</span></div>
                             @endif
-                            <div class="product-variants-container mb-3">
-                                <div class="product-variant-selected-container spaceBetween">
+                            <div id="color-div" class="product-variants-container mb-3 hidden">
+                                <div class="product-variant-selected-container spaceBetween" >
                                     <span class="product-variant-selected-label"> رنگ : </span>
                                     <span id="product-color-variant-selected" class="product-variant-selected"></span>
                                 </div>
@@ -166,13 +166,34 @@
                                         </div>
                                     </div>
                                     @if ($product['available_count'] != 0)
-                                    <div class="product-seller-row product-seller-row--price">
-                                        <div class="product-seller-row--price-now fa-num">
+                                    <div class="product-seller-row product-seller-row--price spaceBetween">
+                                        @if($product['off'] != null)
+                                            <div class="product-price fa-num">
+                                                <div id="OffSection" class="d-flex align-items-center">
+                                                    <div class="fontSize15 pl-10 position-relative">
+                                                        <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="" width="45">
+                                                        <span id="Off" class="position-absolute fontSize10 colorWhite r-0 customOff">
+                                                            @if ($product['off'] != null && $product['off']['type'] == 'percent')
+                                                                <span>%</span>{{ $product['off']['value'] }}
+                                                            @elseif ($product['off']!= null && $product['off']['type'] == 'value') 
+                                                                {{ $product['off']['value'] }}<span class="fontSize10 px-1 colorYellow">ت</span>
+                                                            @endif
+                                                        </span>
+                                                    </div>
+                                                    <del id="PriceBeforeOff" class="customlineText textColor fontSize15">{{ $product['price'] }}</del>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <div class="product-seller-row--price-now fa-num justifyContentEnd">
                                             <span class="price">{{ $product['price'] }}</span>
-                                            <span class="currency">تومان</span>
+                                            <span class="currency fontSize18 colorYellow">ت</span>
                                         </div>
                                     </div>
+   
                                     @endif
+                                    {{-- @if ($product['available_count'] != 0) --}}
+                                    
+                                    {{-- @endif --}}
                                     @if($product['available_count']  > 0)
                                         <div id="availableCount" class="product-seller-row product-remaining-in-stock">
                                             <span>تنها <span class="mx-2">{{ $product['available_count'] }}</span> عدد در انبار باقیست - پیش از
@@ -213,7 +234,7 @@
                 
                 <div class="row">
                     <div class="col-xl-9 col-lg-8">
-                        <div class="ui-sticky ui-sticky-top mb-4 ">
+                        <div class="ui-sticky ui-sticky-top mb-4 StickyMenuMoveOnTop">
                             <!-- start of product-tabs -->
                             <div class="product-tabs">
                                 <ul class="nav nav-pills">
@@ -340,12 +361,12 @@
                         <!-- end of product-comments -->
                     </div>
                     <div class="col-xl-3 col-lg-4 d-lg-block d-none">
-                        <div class="ui-sticky ui-sticky-top">
+                        <div class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">
                             <!-- start of mini-buy-box -->
                             <div class="mini-buy-box ui-box bg-transparent p-4">
                                 <div class="d-flex border-bottom pb-3 mb-3">
                                     <div class="product-thumbnail">
-                                        <img src="./theme-assets/images/gallery/main.jpg" alt="product title">
+                                            <img src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />
                                     </div>
                                     <div class="product-details">
                                         <div class="product-title">
@@ -509,21 +530,21 @@
             },
             success: function(res) {
                 
-                // let html = '';
-                // for(var i = 0; i < res.data.galleries.length; i++) {
-                //     html += '<li data-fancybox="gallery-a" data-src="' + res.data.galleries[i].img + '">'
-                //     html += '<img src="' + res.data.galleries[i].img + '" alt="' + res.data.galleries[i].alt + '"></li>'
-                // }
-                // $("#gallery").empty().append(html);
+                let html = '';
+                for(var i = 0; i < res.galleries.length; i++) {
+                    html += '<li data-fancybox="gallery-a" data-src="' + res.galleries[i].img + '">'
+                    html += '<img src="' + res.galleries[i].img + '" alt="' + res.galleries[i].alt + '"></li>'
+                }
+                $("#gallery").empty().append(html);
 
                 let colors = '';
                 let property = '';
                 let params = '';
-
                 for (var i = 0; i < res.features.length; i++) {
 
                     if(res.features[i].name === 'multicolor') {
-
+                        
+                        $("#color-div").removeClass('hidden');
                         let val_label = res.features[i].value.split('__');
                         let prices = res.features[i].price !== undefined && 
                             res.features[i].price !== null && res.features[i].price != '' ? 
@@ -586,7 +607,6 @@
 
                 if(colors != '')
                     $("#product-colors-variants").empty().append(colors);
-                
             }
         });
 

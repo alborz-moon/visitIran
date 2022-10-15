@@ -37,8 +37,8 @@
                     html += '<div class="swiper-slide d-flex justify-content-center width-200">';
                     html += '<div class="banner-img ">';
                     html += '<a target="_blank" href="#" class="tiles">';
-                    html +='<img class="imgResponsive" src="' + res.data.top[i].img + '" alt="' + res.data.top[i].alt + '">';
-                    html += '<div class="catDetails"><div class="catTitle"></div><span class="catText mb-3">' + res.data.top[i].digest + '</span>                            <div class="arrowLeftIcon backgroundGray p-0 customCategoryIconBack"><img src="{{ asset('theme-assets/images/svg/ionic-ios-arrow-round-back.svg') }}"></div></div>'
+                    html +='<img class="imgResponsive borderRadius20" src="' + res.data.top[i].img + '" alt="' + res.data.top[i].alt + '">';
+                    html += '<div class="catDetails"><div class="catTitle"></div><div class="catText mb-3"><span class="heightcategory">' + res.data.top[i].digest + '</span></div><div class="arrowLeftIcon backgroundGray p-0 customCategoryIconBack"><img src="{{ asset('theme-assets/images/svg/ionic-ios-arrow-round-back.svg') }}"></div></div>'
                     html += '<div class="text-category position-absolute labelForCat"><h4 class="colorWhite fontSize14">' + res.data.top[i].name + '</h4></div>';
                     html +='</a></div></div>';
                 }
