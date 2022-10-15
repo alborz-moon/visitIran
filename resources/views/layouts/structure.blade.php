@@ -56,7 +56,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center flex-grow-1 pe-3 zIndex3 position-relative">
                             <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop">
-                                    <img src="./theme-assets/images/menuImage.png" width="120" alt="">
+                                    <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="120" alt="">
                             </div>
                             <div class="marginFromRightHeader">
                                 <div class="notification-item--text colorYellow bold"> ویزیت ایران </div>

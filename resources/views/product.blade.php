@@ -166,13 +166,32 @@
                                         </div>
                                     </div>
                                     @if ($product['available_count'] != 0)
-                                    <div class="product-seller-row product-seller-row--price">
+                                    <div class="product-seller-row product-seller-row--price spaceBetween">
+                                        <div class="product-price fa-num">
+                                            <div id="OffSection" class="d-flex align-items-center">
+                                                <span class="fontSize15 pl-10 position-relative">
+                                                    <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="" width="45">
+                                                    <span id="Off" class="position-absolute fontSize10 colorWhite r-0 customOff">
+                                                        {{-- @if ($product['off']['type'] == 'percent')
+                                                            <span>%</span>{{ $product['off']['value'] }}
+                                                        @else
+                                                            {{ $product['off']['value'] }}<span class="fontSize10 px-1 colorYellow">ت</span>
+                                                        @endif --}}
+                                                    </span>
+                                                </span>
+                                                <del id="PriceBeforeOff" class="customlineText textColor fontSize15">{{ $product['price'] }}</del>
+                                            </div>
+                                        </div>
                                         <div class="product-seller-row--price-now fa-num">
                                             <span class="price">{{ $product['price'] }}</span>
-                                            <span class="currency">تومان</span>
+                                            <span class="currency fontSize18 colorYellow">ت</span>
                                         </div>
                                     </div>
+   
                                     @endif
+                                    {{-- @if ($product['available_count'] != 0) --}}
+                                    
+                                    {{-- @endif --}}
                                     @if($product['available_count']  > 0)
                                         <div id="availableCount" class="product-seller-row product-remaining-in-stock">
                                             <span>تنها <span class="mx-2">{{ $product['available_count'] }}</span> عدد در انبار باقیست - پیش از
@@ -213,7 +232,7 @@
                 
                 <div class="row">
                     <div class="col-xl-9 col-lg-8">
-                        <div class="ui-sticky ui-sticky-top mb-4 ">
+                        <div class="ui-sticky ui-sticky-top mb-4 StickyMenuMoveOnTop">
                             <!-- start of product-tabs -->
                             <div class="product-tabs">
                                 <ul class="nav nav-pills">
@@ -340,12 +359,12 @@
                         <!-- end of product-comments -->
                     </div>
                     <div class="col-xl-3 col-lg-4 d-lg-block d-none">
-                        <div class="ui-sticky ui-sticky-top">
+                        <div class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">
                             <!-- start of mini-buy-box -->
                             <div class="mini-buy-box ui-box bg-transparent p-4">
                                 <div class="d-flex border-bottom pb-3 mb-3">
                                     <div class="product-thumbnail">
-                                        <img src="./theme-assets/images/gallery/main.jpg" alt="product title">
+                                            <img src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />
                                     </div>
                                     <div class="product-details">
                                         <div class="product-title">

@@ -617,6 +617,9 @@ a {
 .cursorPointer {
     cursor: pointer;
 }
+.stickyTop {
+    top: 90px !important;
+}
 .marginTopMediaQuaryForSlider {
     margin-top: -60px;
 }

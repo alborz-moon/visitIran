@@ -272,7 +272,6 @@ class ProductController extends Controller
 
         $validator = [
             'name' => 'required|string|min:2',
-            'slug' => 'nullable|string|min:2|unique:products',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
             'seller_id' => 'nullable|exists:sellers,id',
@@ -382,7 +381,6 @@ class ProductController extends Controller
 
         $validator = [
             'name' => 'nullable|string|min:2',
-            'slug' => 'nullable|string|min:2',
             'category_id' => 'nullable|exists:categories,id',
             'seller_id' => 'nullable|exists:sellers,id',
             'digest' => 'nullable|string|min:2',
@@ -408,11 +406,6 @@ class ProductController extends Controller
             return abort(401);
 
         $request->validate($validator);
-
-        if($request->has('slug') && $request['slug'] != $product->slug && 
-            Product::where('slug', $request['slug'])->count() > 0)
-            return $this->editOff($product, 'slug وارد شده در سیستم موجود است.');
-
 
         if($request->has('off_expiration')) {
             $today = self::getToday()['date'];
