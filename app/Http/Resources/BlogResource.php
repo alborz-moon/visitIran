@@ -25,7 +25,8 @@ class BlogResource extends JsonResource
             'priority' => $this->priority,
             'tags' => $this->tags,
             'article_tags' => $this->article_tags,
-            'alt' => $this->alt
+            'alt' => $this->alt,
+            'slug' => $this->slug
         ];
     }
 }

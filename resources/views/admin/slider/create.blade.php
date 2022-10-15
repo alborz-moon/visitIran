@@ -6,6 +6,14 @@
 
 @section('form')
 
+
+    <center id="errs">
+
+        @if($errors->any())
+            {{ implode('', $errors->all(':message')) }}
+        @endif
+    </center>
+
     @if(isset($item))
         <div style="display: flex; flex-direction: row; gap: 20px; margin-right: 40px; margin-left: 40px;">
             <div>
@@ -40,28 +48,28 @@
             </div>
             
             <div>
-                <label for="image_file_mid">تصویر سایز متوسط</label>
+                <label for="image_file_mid">تصویر سایز متوسط(اختیاری)</label>
                 <input type="file" name="image_file_mid" id="image_file_mid">
             </div>
             
             <div>
-                <label for="image_file_small">تصویر سایز کوچک</label>
+                <label for="image_file_small">تصویر سایز کوچک(اختیاری)</label>
                 <input type="file" name="image_file_small" id="image_file_small">
             </div>
             
             <div>
-                <label for="alt">تگ alt</label>
+                <label for="alt">تگ alt(اختیاری)</label>
                 <input value="{{ isset($item) ? $item['alt'] : '' }}" type="text" placeholder="این فیلد اختیاری است" name="alt" id="alt" />
             </div>
                 
             <div>
-                <label for="href">لینک</label>
-                <input value="{{ isset($item) ? $item['href'] : '' }}" type="text" name="href" id="href"/>
+                <label for="href">لینک(اختیاری)</label>
+                <input value="{{ isset($item) ? $item['href'] : '' }}" type="text" placeholder="این فیلد اختیاری است" name="href" id="href"/>
             </div>
             
             <div>
                 <label for="priority">اولویت</label>
-                <input value="{{ isset($item) ? $item['priority'] : '' }}" type="text" name="priority" id="priority"/>
+                <input required value="{{ isset($item) ? $item['priority'] : '' }}" type="text" name="priority" id="priority"/>
             </div>
 
             <div>

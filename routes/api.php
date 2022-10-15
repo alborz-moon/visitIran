@@ -34,11 +34,11 @@ Route::get('faq', [FAQController::class, 'index'])->name('api.faq');
 
 Route::get('infobox', [InfoBoxController::class, 'list'])->name('api.infobox');
 
-Route::get('banner', [BannerController::class, 'index'])->name('api.banner');
+Route::get('banner', [BannerController::class, 'list'])->name('api.banner');
 
-Route::get('slider', [SliderController::class, 'index'])->name('api.slider');
+Route::get('slider', [SliderController::class, 'list'])->name('api.slider');
 
-Route::get('blogs', [BlogController::class, 'index'])->name('api.blog.list');
+Route::get('blogs', [BlogController::class, 'list'])->name('api.blog.list');
 
 Route::get('blog/{blog?}', [BlogController::class, 'show'])->name('api.blog.show');
 

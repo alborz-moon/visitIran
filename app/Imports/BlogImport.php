@@ -24,6 +24,7 @@ class BlogImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnFail
         return new Blog([
             'header' => $row['header'],
             'alt' => isset($row['alt']) ? $row['alt'] : null,
+            'slug' => isset($row['slug']) ? $row['slug'] : null,
             'digest' => $row['digest'],
             'keywords' => isset($row['keywords']) ? $row['keywords'] : null,
             'description' => $row['description'],
@@ -38,6 +39,7 @@ class BlogImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnFail
     {
         return [
             'header' => 'required|string|min:2',
+            'slug' => 'nullable|string|min:2|unique:blogs',
             'description' => 'required|string|min:2',
             'digest' => 'required|string|min:2',
             'keywords' => 'nullable|string|min:2',

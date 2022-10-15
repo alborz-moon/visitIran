@@ -20,7 +20,8 @@ class BlogDigestUser extends JsonResource
             'header' => $this->header,
             'alt' => $this->alt,
             'tags' => $this->tags,
-            'digest' => $this->digest
+            'digest' => $this->digest,
+            'slug' => $this->slug == null ? $this->header : $this->slug,
         ];
     }
 }

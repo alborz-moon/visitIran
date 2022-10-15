@@ -1,5 +1,5 @@
 <!-- start of box -->
-<div id="{{ $id }}" class="w-100 mb-5 hidden">
+<div id="{{ $id }}" class="w-100 my-slider mb-5 hidden">
     <div class="container">
                             <div class="d-flex spaceBetween alignItemsCenter">
         <span class="ui-box-title fontSize20"> 
