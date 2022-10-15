@@ -85,7 +85,7 @@
     $(document).ready(function() {
         $.ajax({
             type: 'get',
-            url: '{{ route('api.product.list', ['orderBy' => $searchKey, 'limit' => 8]) }}',
+            url: '{{ isset($api) ? $api : route('api.product.list', ['orderBy' => $searchKey, 'limit' => 8]) }}',
             success: function(res) {
                 let html = renderProductSlider(res.data, '{{ $key }}');
                 $("#" + '{{ $key }}' + "sSlider").empty().append(html).removeClass('hidden');

@@ -71,7 +71,7 @@ class CalcSimilars extends Command
      */
     public function handle()
     {
-        $products = Product::select('id', 'rate', 'price', 'seller_id')->get();
+        $products = Product::select('id', 'rate', 'price', 'seller_id', 'category_id', 'brand_id', 'guarantee')->get();
 
         $max_g_diff = -1;
         $max_price_diff = -1;

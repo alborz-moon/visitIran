@@ -68,7 +68,7 @@ class ProductResourceForUsers extends JsonResource
             'has_multi_color' => $multiColor,
             'all_comments_count' => $this->comment_count,
             'all_rates_count' => $this->rate_count,
-            'gaurantee' => $this->gaurantee,
+            'guarantee' => $this->guarantee,
             'introduce' => $this->introduce
         ];
     }

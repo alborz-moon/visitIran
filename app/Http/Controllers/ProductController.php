@@ -19,6 +19,7 @@ use App\Models\Comment;
 use App\Models\Product;
 use App\Models\PurchaseItems;
 use App\Models\Seller;
+use App\Models\Similar;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -218,6 +219,43 @@ class ProductController extends Controller
         ]);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function similars(Product $product, Request $request)
+    {
+        
+        $products = Similar::where('product_id', $product->id)->first();
+        if($products == null) {
+            return response()->json([
+                'status' => 'ok',
+                'data' =>  []
+            ]);
+        }
+
+        $data = $products->getAttributes();
+
+        $similars = [];
+
+        for($i = 1; $i < 9; $i++) {
+            
+            if($data['sim_' . $i] == null)
+                break;
+            
+            array_push($similars,
+                ProductDigestUser::make(Product::find($data['sim_' . $i]))->toArray($request)
+            );
+        }
+        
+        
+        return response()->json([
+            'status' => 'ok',
+            'data' => $similars
+        ]);
+    }
+
     public function excel(Request $request) {
         $filters = $this->build_filters($request);
         $products = ProductDigest::collection($filters->get())->toArray($request);
@@ -295,7 +333,7 @@ class ProductController extends Controller
             'visibility' => 'required|boolean',
             'img_file' => 'nullable|image',
             'alt' => 'nullable|string|min:2',
-            'gaurantee' => 'nullable|integer|min:0',
+            'guarantee' => 'nullable|integer|min:0',
             'introduce' => 'nullable|string|min:2',
         ];
 
@@ -413,7 +451,7 @@ class ProductController extends Controller
             'is_in_top_list' => 'nullable|boolean',
             'img_file' => 'nullable|image',
             'alt' => 'nullable|string|min:2',
-            'gaurantee' => 'nullable|integer|min:0',
+            'guarantee' => 'nullable|integer|min:0',
             'introduce' => 'nullable|string|min:2',
         ];
 

@@ -138,13 +138,13 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @if ($product['gaurantee'] !== null)
+                                    @if ($product['guarantee'] !== null)
                                         <div class="product-seller-row">
                                             <div class="product-seller-row-icon marginTop10">
                                                 <i class="icon-visit-verified colorYellow  productIcon"></i>
                                             </div>
                                             <div class="product-seller-row-detail">
-                                                <div class="product-seller-row-detail-title">گارانتی {{$product['gaurantee']}} ماهه</div>
+                                                <div class="product-seller-row-detail-title">گارانتی {{$product['guarantee']}} ماهه</div>
                                             </div>
                                         </div>
                                     @endif
@@ -231,7 +231,9 @@
                     </div>
                 </div>
                 <!-- end of product-detail-container -->
-                
+                @include('sections.top_products_slider', ['id' => 'most_seen_products_when_filled', 'api' => route('api.product.similars', ['product' => $product['id']]),
+                    'key' => 'mostSeenProduct', 'title' => 'محصولات مشابه', 'not_fill_id' => 'most_seen_products_when_not_filled'])
+
                 <div class="row">
                     <div class="col-xl-9 col-lg-8">
                         <div class="ui-sticky ui-sticky-top mb-4 StickyMenuMoveOnTop">
@@ -381,10 +383,10 @@
                                         <i class="ri-store-3-line text-success me-2"></i>
                                         <span>ویزیت ایران</span>
                                     </div>
-                                    @if ($product['gaurantee'] !== null)
+                                    @if ($product['guarantee'] !== null)
                                         <div class="d-flex align-items-center mb-2">
                                             <i class="ri-shield-check-line text-info me-2"></i>
-                                            <span>گارانتی {{$product['gaurantee']}} ماهه</span>
+                                            <span>گارانتی {{$product['guarantee']}} ماهه</span>
                                         </div>
                                     @endif
                                     <div class="d-flex align-items-center mb-2">
@@ -661,4 +663,5 @@
     @parent
     <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
+    <script src="{{ asset('theme-assets/js/home.js') }}"></script>
 @stop
