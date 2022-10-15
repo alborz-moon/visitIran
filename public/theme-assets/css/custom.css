@@ -273,6 +273,13 @@ a {
     width: 190px !important;
     height: 250px !important;
 }
+.borderRadius20 {
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
 .text-category {
     margin-right: 8px;
     width: 174px;
@@ -280,7 +287,7 @@ a {
     background-color: #555a5d5c;
     border-bottom-left-radius: 18px;
     border-bottom-right-radius: 18px;
-    bottom: 20px;
+    bottom: 12px;
 }
 .labelForCat {
     padding-right: 15px;
@@ -300,9 +307,10 @@ a {
     top: 0;
     padding: 10px;
     width: 160px;
-    height: 215px;
+    height: 222px;
     background-color: #555a5dba;
     margin: 15px;
+    overflow: hidden;
     border-radius: 20px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
