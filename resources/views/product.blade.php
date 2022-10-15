@@ -15,7 +15,7 @@
     <meta name="description" content="{{ $product['digest'] }}"/>
 
     <meta name="keywords" content="{{ $product['keywords'] }}" />
-    <meta property="article:tag" content="{{ $product['tags'] }}"/>
+    {{-- <meta property="article:tag" content="{{ $product['tags'] }}"/> --}}
 
     <script>var productPrefixRoute = '{{ route('home') }}' + "/product";</script>
 
