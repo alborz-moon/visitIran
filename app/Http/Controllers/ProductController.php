@@ -237,19 +237,22 @@ class ProductController extends Controller
 
         $data = $products->getAttributes();
 
-        $ids = [];
+        $similars = [];
 
         for($i = 1; $i < 9; $i++) {
             
             if($data['sim_' . $i] == null)
                 break;
-
-            array_push($ids, $data['sim_' . $i]);
+            
+            array_push($similars,
+                ProductDigestUser::make(Product::find($data['sim_' . $i]))->toArray($request)
+            );
         }
+        
         
         return response()->json([
             'status' => 'ok',
-            'data' => ProductDigestUser::collection(Product::whereIn('id', $ids)->visible()->get())->toArray($request)
+            'data' => $similars
         ]);
     }
 
