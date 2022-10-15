@@ -19,12 +19,12 @@ class CategoryController extends Controller
 
     public function get_top_categories_products(Request $request)
     {
-        $categories = Category::topProducts()->get();
+        $categories = Category::topProducts()->visible()->get();
         $arr = [];
 
         foreach($categories as $category) {
             
-            $products = $category->products;
+            $products = $category->products()->visible()->get();
             if(count($products) == 0)
                 continue;
 

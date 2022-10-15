@@ -12,45 +12,66 @@
         </div>
     @endif
 
+
+    <center id="errs">
+        
+        @if(isset($err))
+            {{ $err }}
+        @endif
+
+        @if($errors->any())
+            {{ implode('', $errors->all(':message')) }}
+        @endif
+    </center>
+
     <form id="myForm" action="{{ isset($item) ? route('blog.update', ['blog' => $item['id']]) : route('blog.store')}}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
 
         <div class="flex flex-col center gap10" style="margin: 10px">
             
-            <input {{ isset($item) ? '' : 'required' }} type="file" name="img_file" id="imgInp">
-
+            <div>
+                <label for="imgInp">تصویر اصلی (اختیاری)</label>
+                <input type="file" name="img_file" id="imgInp">
+            </div>
+            
             <div>
                 <label for="header">عنوان</label>
                 <input required value="{{ isset($item) ? $item['header'] : '' }}" type="text" name="header" id="header" />
             </div>
             
             <div>
-                <label for="description">توضیح محصول</label>
+                <label for="slug">slug(اختیاری)</label>
+                <input value="{{ isset($item) ? $item['slug'] : '' }}" placeholder="این فیلد اختیاری است" type="text" name="slug" id="slug" />
+            </div>
+
+            <div>
+                <label for="description">توضیح</label>
                 <textarea required name="description" id="description">{{ isset($item) ? $item['description'] : '' }}</textarea>
             </div>
 
             <div>
                 <label for="digest">متن خلاصه</label>
-                <textarea name="digest" id="digest">{{ isset($item) ? $item['digest'] : '' }}</textarea>
+                <textarea required name="digest" id="digest">{{ isset($item) ? $item['digest'] : '' }}</textarea>
             </div>
 
             <div>
-                <label for="keywords">واژه های کلیدی</label>
+                <label for="keywords">واژه های کلیدی(اختیاری)</label>
                 <textarea name="keywords" id="keywords">{{ isset($item) ? $item['keywords'] : '' }}</textarea>
             </div>
 
             <div>
-                <label for="article_tags">تگ ها سئو</label>
+                <label for="article_tags">تگ ها سئو(اختیاری)</label>
                 <textarea name="article_tags" id="article_tags">{{ isset($item) ? $item['article_tags'] : '' }}</textarea>
             </div>
 
+
             <div>
-                <label for="tags">تگ ها</label>
+                <label for="tags">تگ ها(اختیاری)</label>
                 <textarea name="tags" id="tags">{{ isset($item) ? $item['tags'] : '' }}</textarea>
             </div>
 
             <div>
-                <label for="alt">تگ alt</label>
+                <label for="alt">تگ alt(اختیاری)</label>
                 <input value="{{ isset($item) ? $item['alt'] : '' }}" type="text" placeholder="این فیلد اختیاری است" name="alt" id="alt" />
             </div>        
 

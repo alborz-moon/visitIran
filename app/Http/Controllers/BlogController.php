@@ -38,6 +38,19 @@ class BlogController extends Controller
         ]);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list(Request $request)
+    {
+        return response()->json([
+            'status' => 'ok',
+            'data' => BlogDigestUser::collection(Blog::orderBy('priority', 'asc')->take(6)->get())->toArray($request)
+        ]);
+    }
+
     public function addBatch(Request $request)
     {
         $request->validate([
@@ -87,7 +100,8 @@ class BlogController extends Controller
             'article_tags' => 'nullable|string|min:2',
             'visibility' => 'nullable|boolean',
             'priority' => 'required|integer|min:1',
-            'img_file' => 'required|image'
+            'img_file' => 'nullable|image',
+            'slug' => 'nullable|string|min:2|unique:blogs'
         ];
         
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
@@ -95,12 +109,14 @@ class BlogController extends Controller
 
         $request->validate($validator);
 
-        $filename = $request->img_file->store('public/blogs');
-        $filename = str_replace('public/blogs/', '', $filename);
+        if($request->has('img')) {
+            $filename = $request->img_file->store('public/blogs');
+            $filename = str_replace('public/blogs/', '', $filename);
 
-        $request['img'] = $filename;
+            $request['img'] = $filename;
+        }
+
         Blog::create($request->toArray());
-
         return Redirect::route('blog.index');
     }
 
@@ -110,10 +126,11 @@ class BlogController extends Controller
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function edit(Blog $blog, Request $request)
+    public function edit(Blog $blog, Request $request, $err = null)
     {
         return view('admin.blogs.create', [
-            'item' => BlogResource::make($blog)->toArray($request)
+            'item' => BlogResource::make($blog)->toArray($request),
+            'err' => $err
         ]);
     }
 
@@ -136,18 +153,26 @@ class BlogController extends Controller
             'article_tags' => 'nullable|string|min:2',
             'visibility' => 'nullable|boolean',
             'priority' => 'nullable|integer|min:1',
-            'img_file' => 'nullable|image'
+            'img_file' => 'nullable|image',
+            'slug' => 'nullable|string|min:2'
         ];
         
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
+
+        $request->validate($validator);
+
+        if($request->has('slug') && $request['slug'] != $blog->slug && 
+            Blog::where('slug', $request['slug'])->count() > 0)
+            return $this->edit($blog, $request, 'slug وارد شده در سیستم موجود است.');
 
         if($request->has('img_file')) {
          
             $filename = $request->img_file->store('public/blogs');
             $filename = str_replace('public/blogs/', '', $filename);   
 
-            if(file_exists(__DIR__ . '/../../../public/storage/blogs/' . $blog->img))
+            if($blog->img != null && !empty($blog->img) && 
+                file_exists(__DIR__ . '/../../../public/storage/blogs/' . $blog->img))
                 unlink(__DIR__ . '/../../../public/storage/blogs/' . $blog->img);
 
             $blog->img = $filename;
@@ -192,7 +217,7 @@ class BlogController extends Controller
     {
         $blog->delete();
         
-        if($blog->img != null && 
+        if($blog->img != null && !empty($blog->img) &&
             file_exists(__DIR__ . '/../../../public/storage/blogs/' . $blog->img))
             unlink(__DIR__ . '/../../../public/storage/blogs/' . $blog->img);
 

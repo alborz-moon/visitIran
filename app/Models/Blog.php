@@ -20,7 +20,8 @@ class Blog extends Model
         'keywords',
         'tags',
         'article_tags',
-        'alt'
+        'alt',
+        'slug'
     ];
 
 }

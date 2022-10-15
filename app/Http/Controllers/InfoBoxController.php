@@ -38,7 +38,15 @@ class InfoBoxController extends Controller
      */
     public function list()
     {    
-        return InfoBoxResource::make(InfoBox::first())->additional(['status' => 'ok']);   
+        $info = InfoBox::first();
+        
+        if($info == null)
+            return response()->json([
+                'status' => 'ok',
+                'data' => []
+            ]);
+
+        return InfoBoxResource::make()->additional(['status' => 'ok']);   
     }
 
 

@@ -28,7 +28,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class ProductController extends Controller
 {
 
-    private function build_filters($request) {
+    private function build_filters($request, $justVisibles=false) {
         
         $filters = Product::where('id', '>', '0');
         $cat = $request->query('category', null);
@@ -41,6 +41,7 @@ class ProductController extends Controller
         $max = $request->query('max', null);
         $min = $request->query('min', null);
         $off = $request->query('off', null);
+        $comment = $request->query('comment', null);
 
         if($cat != null)
             $filters->where('category_id', $cat);
@@ -66,6 +67,13 @@ class ProductController extends Controller
             if($visibility != null)
                 $filters->where('visibility', $visibility);
                 
+            if($comment != null) {
+                if($comment)
+                    $filters->where('new_comment_count', 0);
+                else
+                    $filters->where('new_comment_count', '>', 0);
+            }
+
             if($off != null) {
                 $today = (int)self::getToday()['date'];
                 if($off)
@@ -87,6 +95,9 @@ class ProductController extends Controller
         else
             $filters->where('visibility', true);
 
+        if($justVisibles && $isAdmin)
+            $filters->where('visibility', true);
+
         if($orderByType == null || (
                 $orderByType != 'asc' && 
                 $orderByType != 'desc'
@@ -96,12 +107,9 @@ class ProductController extends Controller
         if($orderBy != null) {
             if($orderBy == 'createdAt')
                 $filters->orderBy('id', $orderByType);
-            else if($orderBy == 'rate')
-                $filters->orderBy('rate', $orderByType);
-            else if($orderBy == 'seen')
-                $filters->orderBy('seen', $orderByType);
-            else if($orderBy == 'price')
-                $filters->orderBy('price', $orderByType);
+            else if(in_array($orderBy, ['rate', 'seen', 'price', 
+                'rate_count', 'comment_count', 'new_comment_count', 'sell_count']))
+                $filters->orderBy($orderBy, $orderByType);
         }
         else {
             $orderBy = 'createAt';
@@ -146,6 +154,7 @@ class ProductController extends Controller
         $max = $request->query('max', null);
         $min = $request->query('min', null);
         $off = $request->query('off', null);
+        $comment = $request->query('comment', null);
         
         $filters = $this->build_filters($request);
         $products = $filters->paginate($limit == null ? 30 : $limit);
@@ -177,6 +186,7 @@ class ProductController extends Controller
                 'orderBy' => $orderBy,
                 'orderByType' => $orderByType,
                 'offFilter' => $off,
+                'commentFilter' => $comment,
                 'categories' => CategoryDigest::collection($arr)->toArray($request),
                 'brands' => BrandResource::collection(Brand::all())->toArray($request),
                 'sellers' => SellerResource::collection(Seller::all())->toArray($request),
@@ -199,7 +209,7 @@ class ProductController extends Controller
         sleep(2);
         $limit = $request->query('limit', null);
         
-        $filters = $this->build_filters($request);
+        $filters = $this->build_filters($request, true);
         $products = $filters->paginate($limit == null ? 30 : $limit);
 
         return response()->json([
@@ -284,7 +294,7 @@ class ProductController extends Controller
             'priority' => 'required|integer|min:0',
             'is_in_top_list' => 'required|boolean',
             'visibility' => 'required|boolean',
-            'img_file' => 'required|image',
+            'img_file' => 'nullable|image',
             'alt' => 'nullable|string|min:2',
             'gaurantee' => 'nullable|integer|min:0',
             'introduce' => 'nullable|string|min:2',
@@ -295,12 +305,14 @@ class ProductController extends Controller
 
         $request->validate($validator);
 
-        $filename = $request->img_file->store('public/products');
-        $filename = str_replace('public/products/', '', $filename);
+        if($request->has('img_file')) {
+            $filename = $request->img_file->store('public/products');
+            $filename = str_replace('public/products/', '', $filename);
 
-        $request['img'] = $filename;
+            $request['img'] = $filename;
+        }
+
         Product::create($request->toArray());
-
         return Redirect::route('product.index');
     }
 
@@ -310,14 +322,16 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product, Request $request)
+    public function edit(Product $product, Request $request, $err = null)
     {
         
         $categories = Category::all();
         $arr = [];
         foreach($categories as $cat) {
+
             if($cat->sub()->count() > 0)
                 continue;
+
             array_push($arr, $cat);
         }
 
@@ -326,6 +340,7 @@ class ProductController extends Controller
             'brands' => BrandResource::collection(Brand::all())->toArray($request),
             'sellers' => SellerResource::collection(Seller::all())->toArray($request),
             'categories' => CategoryDigest::collection($arr)->toArray($request),
+            'err' => $err
         ]);   
     }
     
@@ -411,7 +426,7 @@ class ProductController extends Controller
 
         if($request->has('slug') && $request['slug'] != $product->slug && 
             Product::where('slug', $request['slug'])->count() > 0)
-            return $this->editOff($product, 'slug وارد شده در سیستم موجود است.');
+            return $this->edit($product, $request, 'slug وارد شده در سیستم موجود است.');
 
 
         if($request->has('off_expiration')) {
@@ -484,7 +499,10 @@ class ProductController extends Controller
      */
     public function showDetail(Request $request, Product $product, string $slug) {
 
-        if(!$product->visibility || $slug != $product->slug)
+        if(!$product->visibility || 
+            ($product->slug != null && $slug != $product->slug) ||
+            ($product->slug == null && $slug != $product->name)
+        )
             return Redirect::route('home');
 
         $product->seen = $product->seen + 1;

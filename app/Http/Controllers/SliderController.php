@@ -30,6 +30,16 @@ class SliderController extends Controller
         return SliderResource::collection(Slider::visible()->get())->additional(['status' => 'ok']);   
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list()
+    {    
+        return SliderResource::collection(Slider::visible()->get())->additional(['status' => 'ok']);   
+    }
+
     
     /**
      * Show the form for editing the specified resource.

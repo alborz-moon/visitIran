@@ -47,7 +47,7 @@
                 <center style="margin: 10px">
                     <h3>لطفا فایل اکسل را مطابق فایل نمونه بارگزاری نمایید.</h3>
                     <div style="margin: 10px">
-                        <a href="{{ asset('blogs.xlsx') }}" target="_blank" download>دانلود فایل نمونه</a>
+                        <a href="{{ asset('blogs.xls') }}" target="_blank" download>دانلود فایل نمونه</a>
                     </div>
                     <input type="file" name="file" />
                 </center>
