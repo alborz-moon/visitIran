@@ -326,7 +326,13 @@ a {
 .catText {
     color: white !important;
     font-size: 10px !important;
-    line-height: 0.5px;
+}
+.customDivCategory {
+    display: flex;
+    height: 165px;
+    overflow: hidden;
+    text-align: justify;
+    line-height: 2;
 }
 .arrowLeftIcon {
     border: 1px solid #efefef;
