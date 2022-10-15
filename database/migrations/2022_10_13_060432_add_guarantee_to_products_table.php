@@ -14,7 +14,7 @@ class AddGuaranteeToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->smallInteger('gaurantee')->nullable();
+            $table->smallInteger('guarantee')->nullable();
             $table->longText('introduce')->nullable();
         });
     }
@@ -27,7 +27,7 @@ class AddGuaranteeToProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('gaurantee');
+            $table->dropColumn('guarantee');
             $table->dropColumn('introduce');
         });
     }

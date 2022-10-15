@@ -333,7 +333,7 @@ class ProductController extends Controller
             'visibility' => 'required|boolean',
             'img_file' => 'nullable|image',
             'alt' => 'nullable|string|min:2',
-            'gaurantee' => 'nullable|integer|min:0',
+            'guarantee' => 'nullable|integer|min:0',
             'introduce' => 'nullable|string|min:2',
         ];
 
@@ -451,7 +451,7 @@ class ProductController extends Controller
             'is_in_top_list' => 'nullable|boolean',
             'img_file' => 'nullable|image',
             'alt' => 'nullable|string|min:2',
-            'gaurantee' => 'nullable|integer|min:0',
+            'guarantee' => 'nullable|integer|min:0',
             'introduce' => 'nullable|string|min:2',
         ];
 

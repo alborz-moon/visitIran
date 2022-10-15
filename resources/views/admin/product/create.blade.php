@@ -87,8 +87,8 @@
             </div>
 
             <div>
-                <label for="gaurantee">گارانتی(اختیاری)</label>
-                <input value="{{ isset($item) ? $item['gaurantee'] : '' }}" placeholder="این فیلد اختیاری است" type="number" name="gaurantee" id="gaurantee" />
+                <label for="guarantee">گارانتی(اختیاری)</label>
+                <input value="{{ isset($item) ? $item['guarantee'] : '' }}" placeholder="این فیلد اختیاری است" type="number" name="guarantee" id="guarantee" />
             </div>
 
             <div>
