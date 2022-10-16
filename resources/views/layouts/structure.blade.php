@@ -82,7 +82,7 @@
                                     <div class="mini-cart-products do-simplebar">
                                         <div class="mini-cart-product">
                                             <div class="mini-cart-product-thumbnail">
-                                                <a href="#"><img src="./theme-assets/images/products/01.jpg" alt=""></a>
+                                                <a href="#"><img src="#" alt=""></a>
                                             </div>
                                             <div class="mini-cart-product-detail">
                                                 <div class="mini-cart-product-brand"><a href="#">apple</a></div>
@@ -122,7 +122,7 @@
                                         <div class="profile-detail">
                                             <div class="d-flex align-items-center">
                                                 <div class="profile-avatar me-3">
-                                                    <img src="./theme-assets/images/avatar/default.png" alt="avatar">
+                                                    <img src="#" alt="avatar">
                                                 </div>
                                                 <div class="profile-info">
                                                     <a href="#" class="text-decoration-none text-dark fw-bold mb-2">
@@ -167,11 +167,11 @@
                     <div class="d-flex align-items-center">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a class="nav-link colorWhite" href="{{ route('home') }}"><img class="iconSvg" src="./theme-assets/images/svg/home.svg" alt="">صفحه اصلی</a>
+                                <a class="nav-link colorWhite" href="{{ route('home') }}"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/home.svg') }}" alt="">صفحه اصلی</a>
                             </li>
                             <li class="nav-item align-self-center">
                             <div class="vertical-menu minWidthUnset">
-                            <a href="#" class="vertical-menu-btn p-0 m-0 colorWhite fontNormal"><img class="iconSvg" src="./theme-assets/images/svg/headline.svg" alt="">دسته بندی کالاها</a>
+                            <a href="#" class="vertical-menu-btn p-0 m-0 colorWhite fontNormal"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt="">دسته بندی کالاها</a>
                             <div class="vertical-menu-items marginFromRightHeaderNegative custom-vertical-menu-items zIndex2 mt-10">
                                 <ul>
                                     <li class="mega-menu-category show">
@@ -214,7 +214,7 @@
                         </div>                            
                     </li>
                             <li class="nav-item">
-                                <a class="nav-link colorWhite fontNormal" href="index-1.html"><img class="iconSvg customIconTag" src="./theme-assets/images/svg/label.svg" alt="">پیشنهاد های ویژه</a>
+                                <a class="nav-link colorWhite fontNormal" href="index-1.html"><img class="iconSvg customIconTag" src="{{ asset('theme-assets/images/svg/label.svg') }}" alt="">پیشنهاد های ویژه</a>
                             </li>
                         </ul>
                     </div>
