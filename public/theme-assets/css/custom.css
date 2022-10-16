@@ -364,6 +364,9 @@ ul {
 .overflowHidden {
     overflow: hidden;
 }
+.noWrap {
+    flex-wrap: nowrap !important;
+}
 .custom-vertical-menu-items {
     min-width: 250px;
 }
@@ -649,6 +652,26 @@ ul {
     bottom: 9px;
     left: 11px;
 }
+.product-gallery .gallery-thumbs ul li:first-child::before {
+    content: "\EF78";
+    font-family: remixicon;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #fff;
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background-color: rgba(115, 114, 115, 0.6);
+    border-radius: 50%;
+    font-size: 21px;
+}
 .cursorPointer {
     cursor: pointer;
 }
@@ -862,8 +885,8 @@ figure .ck-widget {
     height: unset !important;
 }
 .product-gallery .gallery-thumbs ul li {
-    flex: 0 0 80px;
-    padding: 10px;
+    flex: 0 0 68px;
+    padding: 0px;
 }
 .between {
     display: flex;
