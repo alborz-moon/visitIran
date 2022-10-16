@@ -555,7 +555,7 @@ ul {
     background-color: #dfdfdf;
 }
 .customOff {
-    right: 6px;
+    right: 3px;
     top: 2px;
     font-weight: 500;
     font-size: 15px !important;
@@ -687,6 +687,9 @@ select:focus-visible {
     color: #c59358 !important;
 }
 /* icon Hover */
+.swiper-button-lock {
+    display: unset !important;
+}
 .swiper .swiper-button-next,
 .swiper .swiper-button-prev {
     opacity: 60% !important;
@@ -875,7 +878,7 @@ figure .ck-widget {
     height: unset !important;
 }
 .product-gallery .gallery-thumbs ul li {
-    flex: 0 0 68px;
+    flex: 0 0 67px;
     padding: 0px;
 }
 .between {
