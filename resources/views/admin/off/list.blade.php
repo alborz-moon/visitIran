@@ -100,7 +100,7 @@
                  <div class="flex gap10 center">
                     <label class="width-auto" for="fromExpiration">شروع بازه تاریخ انقضا</label>
                     <input type="button" style="border: none; width: 30px; height: 30px; background: url({{ asset('admin-panel/img/calendar-flat.png') }}) repeat 0 0; background-size: 100% 100%;" id="fromExpirationBtn">
-                    <input value="{{ isset($fromExpiration) ? $fromExpiration : '' }}" name="fromExpiration" onchange="getEvents(this.value)" type="text" id="fromExpiration" readonly>
+                    <input value="{{ isset($fromExpiration) ? $fromExpiration : '' }}" name="fromExpiration" type="text" id="fromExpiration" readonly>
                     <script>
                         Calendar.setup({
                             inputField: "fromExpiration",
@@ -114,7 +114,7 @@
                 <div class="flex gap10 center">
                     <label class="width-auto" for="toExpiration">اتمام بازه تاریخ انقضا</label>
                     <input type="button" style="border: none; width: 30px; height: 30px; background: url({{ asset('admin-panel/img/calendar-flat.png') }}) repeat 0 0; background-size: 100% 100%;" id="toExpirationBtn">
-                    <input value="{{ isset($toExpiration) ? $toExpiration : '' }}" name="toExpiration" onchange="getEvents(this.value)" type="text" id="toExpiration" readonly>
+                    <input value="{{ isset($toExpiration) ? $toExpiration : '' }}" name="toExpiration" type="text" id="toExpiration" readonly>
                     <script>
                         Calendar.setup({
                             inputField: "toExpiration",

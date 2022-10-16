@@ -1,5 +1,6 @@
 @extends('admin.layouts.structure')
 
+        {{-- <div id="double-scroll"> --}}
 @section('header')
     @parent
 @stop
@@ -21,7 +22,6 @@
             <div class="sparkline8-graph dashone-comment messages-scrollbar dashtwo-messages">
 
                 <div id="mainContainer" class="page-content" style="margin-top: 5%; margin: 50px; direction: rtl">
-
                     <div class="row">
                         <div class="flex center gap10">
                             @yield('backBtn')

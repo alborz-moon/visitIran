@@ -25,7 +25,7 @@
                  <div class="flex gap10 center">
                     <label class="width-auto" for="fromCreatedAt">شروع بازه تاریخ ایجاد</label>
                     <input type="button" style="border: none; width: 30px; height: 30px; background: url({{ asset('admin-panel/img/calendar-flat.png') }}) repeat 0 0; background-size: 100% 100%;" id="fromCreatedAtBtn">
-                    <input value="{{ isset($fromCreatedAt) ? $fromCreatedAt : '' }}" name="fromCreatedAt" onchange="getEvents(this.value)" type="text" id="fromCreatedAt" readonly>
+                    <input value="{{ isset($fromCreatedAt) ? $fromCreatedAt : '' }}" name="fromCreatedAt" type="text" id="fromCreatedAt" readonly>
                     <script>
                         Calendar.setup({
                             inputField: "fromCreatedAt",
@@ -39,7 +39,7 @@
                 <div class="flex gap10 center">
                     <label class="width-auto" for="toCreatedAt">اتمام بازه تاریخ ایجاد</label>
                     <input type="button" style="border: none; width: 30px; height: 30px; background: url({{ asset('admin-panel/img/calendar-flat.png') }}) repeat 0 0; background-size: 100% 100%;" id="toCreatedAtBtn">
-                    <input value="{{ isset($toCreatedAt) ? $toCreatedAt : '' }}" name="toCreatedAt" onchange="getEvents(this.value)" type="text" id="toCreatedAt" readonly>
+                    <input value="{{ isset($toCreatedAt) ? $toCreatedAt : '' }}" name="toCreatedAt" type="text" id="toCreatedAt" readonly>
                     <script>
                         Calendar.setup({
                             inputField: "toCreatedAt",

@@ -1,5 +1,20 @@
 @extends('admin.layouts.list')
 
+@section('header')
+    @parent
+    <script src = {{asset("admin-panel/js/calendar.js") }}></script>
+    <script src = {{asset("admin-panel/js/calendar-setup.js") }}></script>
+    <script src = {{asset("admin-panel/js/calendar-fa.js") }}></script>
+    <script src = {{asset("admin-panel/js/jalali.js") }}></script>
+    <link rel="stylesheet" href = {{asset("admin-panel/css/calendar-green.css") }}>
+    
+    <style>
+        .calendar table td, .calendar table th {
+            min-width: unset !important;
+        }
+    </style>
+@stop
+
 @section('title')
 مدیریت محصولات
 @stop
@@ -126,12 +141,44 @@
                 </select>
             </div>
 
+            <div class="flex gap10" style="width: 100%">
+                 <div class="flex gap10 center">
+                    <label class="width-auto" for="fromCreatedAt">شروع بازه تاریخ ایجاد</label>
+                    <input type="button" style="border: none; width: 30px; height: 30px; background: url({{ asset('admin-panel/img/calendar-flat.png') }}) repeat 0 0; background-size: 100% 100%;" id="fromCreatedAtBtn">
+                    <input value="{{ isset($fromCreatedAtFilter) ? $fromCreatedAtFilter : '' }}" name="fromCreatedAt" type="text" id="fromCreatedAt" readonly>
+                    <script>
+                        Calendar.setup({
+                            inputField: "fromCreatedAt",
+                            button: "fromCreatedAtBtn",
+                            ifFormat: "%Y/%m/%d",
+                            dateType: "jalali"
+                        });
+                    </script>
+                </div>
+
+                <div class="flex gap10 center">
+                    <label class="width-auto" for="toCreatedAt">اتمام بازه تاریخ ایجاد</label>
+                    <input type="button" style="border: none; width: 30px; height: 30px; background: url({{ asset('admin-panel/img/calendar-flat.png') }}) repeat 0 0; background-size: 100% 100%;" id="toCreatedAtBtn">
+                    <input value="{{ isset($toCreatedAtFilter) ? $toCreatedAtFilter : '' }}" name="toCreatedAt" type="text" id="toCreatedAt" readonly>
+                    <script>
+                        Calendar.setup({
+                            inputField: "toCreatedAt",
+                            button: "toCreatedAtBtn",
+                            ifFormat: "%Y/%m/%d",
+                            dateType: "jalali"
+                        });
+                    </script>
+                </div>
+                
+            </div>
+
             <div>
                 <button onclick="excel()" class="btn btn-success">دریافت گزارش اکسل</button>
                 <button onclick="filter()" class="btn btn-success">اعمال فیلتر</button>
             </div>
             
         </div>
+
         <table>
             <thead>
                 <tr>
@@ -143,12 +190,14 @@
                     <th>امتیاز</th>
                     <th>تعداد کامنت</th>
                     <th>تعداد موجودی</th>
+                    <th>تعداد خرید</th>
                     <th>آیا جز محصولات برتر است؟</th>
                     <th>وضعیت نمایش</th>
                     <th>اولویت</th>
                     <th>تعداد بازدید</th>
                     <th>برند</th>
                     <th>دسته مربوطه</th>
+                    <th>تاریخ ایجاد</th>
                 </tr>
             </thead>
             <tbody>
@@ -186,6 +235,7 @@
                                 <button data-id={{ $item['id'] }} class="saveBtn btn btn-primary">ثبت تغییر</button>
                             </div>
                         </td>
+                        <td>{{ $item['seller_count'] == 0 ? 'خریدی ثبت نشده است' : $item['seller_count'] }}</td>
                         <td>{{ $item['is_in_top_list'] ? "بله" : "خیر" }}</td>
                         <td>
                             <p id="visibility_text_{{ $item['id'] }}">{{ $item['visibility'] ? "نمایش" : "عدم نمایش"}}</p>
@@ -201,6 +251,7 @@
                         <td>{{ $item['seen'] }}</td>
                         <td>{{ $item['brand'] }}</td>
                         <td>{{ $item['category'] }}</td>
+                        <td>{{ $item['created_at'] }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -291,6 +342,9 @@
             let orderBy = $("#orderBy").val();
             let orderByType = $("#orderByType").val();
 
+            let toCreatedAt = $("#toCreatedAt").val();
+            let fromCreatedAt = $("#fromCreatedAt").val();
+
             if(visibility !== 'all')
                 query.append('visibility', visibility);
                 
@@ -311,6 +365,12 @@
 
             if(comment !== 'all')
                 query.append('comment', comment);
+                
+            if(toCreatedAt !== '')
+                query.append('toCreatedAt', toCreatedAt);
+                
+            if(fromCreatedAt !== '')
+                query.append('fromCreatedAt', fromCreatedAt);
 
             query.append('orderBy', orderBy);
             query.append('orderByType', orderByType);
