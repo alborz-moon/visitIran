@@ -9,12 +9,12 @@
         </div>
         <div class="ui-box-content">
             <!-- Slider main container -->
-            <div class="swiper product-swiper-slider">
+            <div class="swiper {{ $key }}-product-swiper-slider">
                 <!-- Additional required wrapper -->
                 <div id="{{ $key }}sSlider" class="swiper-wrapper">
                     <!-- Slides -->
-                    <div id="{{ $key }}sSample" class="cursorPointer hidden">
-                        <div class="swiper-slide customBox customWidthBox">
+                    <div id="{{ $key }}sSample" class="hidden">
+                        <div>
                             <!-- start of product-card -->
                             <div class="product-card customBorderBoxShadow">
                                 <div class="product-thumbnail">
@@ -88,6 +88,38 @@
                 $("#" + '{{ $key }}' + "sSlider").empty().append(html).removeClass('hidden');
                 $("#" + '{{ $not_fill_id }}').remove();
                 $("#" + '{{ $id }}').removeClass('hidden');
+                
+                const productSpecialsSwiperSlider = new Swiper(
+                    "." + '{{ $key }}' + "-product-swiper-slider",
+                    {
+                        // Optional parameters
+                        spaceBetween: 10,
+
+                        // Navigation arrows
+                        navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev",
+                        },
+
+                        breakpoints: {
+                        1200: {
+                            slidesPerView: 4,
+                        },
+                        992: {
+                            slidesPerView: 3,
+                            spaceBetween: 10,
+                        },
+                        576: {
+                            slidesPerView: 3,
+                            spaceBetween: 10,
+                        },
+                        480: {
+                            slidesPerView: 2,
+                            spaceBetween: 8,
+                        },
+                        },
+                    }
+                    );
             }
         });
     });
