@@ -157,6 +157,7 @@ class ProductController extends Controller
         $limit = $request->query('limit', null);
         $cat = $request->query('category', null);
         $brand = $request->query('brand', null);
+        $category = $request->query('category', null);
         $seller = $request->query('seller', null);
         $visibility = $request->query('visibility', null);
         $orderBy = $request->query('orderBy', null);
@@ -194,6 +195,7 @@ class ProductController extends Controller
                 'isInTopListFilter' => $isInTopList,
                 'sellerFilter' => $seller,
                 'brandFilter' => $brand,
+                'categoryFilter' => $category,
                 'maxFilter' => $max,
                 'minFilter' => $min,
                 'orderBy' => $orderBy,
@@ -448,6 +450,7 @@ class ProductController extends Controller
 
         $validator = [
             'name' => 'nullable|string|min:2',
+            'slug' => 'nullable|string|min:2',
             'category_id' => 'nullable|exists:categories,id',
             'seller_id' => 'nullable|exists:sellers,id',
             'digest' => 'nullable|string|min:2',

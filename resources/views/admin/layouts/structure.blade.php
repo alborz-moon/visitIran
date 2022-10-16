@@ -293,6 +293,10 @@
             -o-transition: unset !important;
 
         }
+        #mainContainer > .row {
+            margin-right: 0;
+            margin-left: 0;
+        }
         *{
             animation-delay: unset !important;
             transition-delay: unset !important;

@@ -188,7 +188,8 @@
                     });
                 }
 
-                let err = $("#errs").text();
+                let err = $("#errs").text().replace(/\s/g, '');
+                
                 if(err !== undefined && err !== null && err !== '') {
                     
                     $([document.documentElement, document.body]).animate({
