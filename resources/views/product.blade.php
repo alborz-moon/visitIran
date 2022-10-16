@@ -59,7 +59,7 @@
                                             <img class="zoom-img" src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />
                                         </div>
                                         <div class="gallery-thumbs">
-                                            <ul id="gallery" class="overflowHidden noWrap">
+                                            <ul id="gallery">
                                             </ul>
                                         </div>
                                     </div>
@@ -594,4 +594,5 @@
     @parent
     <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
+    <script src="{{ asset('theme-assets/js/home.js') }}"></script>
 @stop
