@@ -42,7 +42,7 @@
                     html += '<div class="text-category position-absolute labelForCat"><h4 class="colorWhite fontSize14">' + res.data.top[i].name + '</h4></div>';
                     html +='</a></div></div>';
                 }
-                    $("#cat").empty().append(html);
+                $("#cat").empty().append(html);
         }}
     });
 </script>

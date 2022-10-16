@@ -33,8 +33,12 @@
             },
             success: function(res) {
                 if(res.status === "ok") {
-                    $("#banner1").attr('href', res.data[0].href).attr('src', res.data[0].img);
-                    $("#banner2").attr('href', res.data[1].href).attr('src', res.data[1].img);
+
+                    if(res.data.length > 0)
+                        $("#banner1").attr('href', res.data[0].href).attr('src', res.data[0].img);
+
+                    if(res.data.length > 1)
+                        $("#banner2").attr('href', res.data[1].href).attr('src', res.data[1].img);
                 }
             }
         });

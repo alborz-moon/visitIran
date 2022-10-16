@@ -72,7 +72,7 @@ function renderProductSlider(data, prefix) {
             id +
             "', '" +
             elem.slug +
-            '\')" class="cursorPointer">' +
+            '\')" class="cursorPointer swiper-slide customBox customWidthBox">' +
             newElem +
             "</div>";
     });
