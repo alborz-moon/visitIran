@@ -98,9 +98,7 @@
                                 <div class="bold">ویژگی‌ها : </div>
                             </div>
                             <div class="expandable-text mb-3" style="height: 95px;">
-                                <p>salam</p>
                                 <div class="expandable-text_text">
-                                    <p>dwq</p>
                                     <div class="product-params">
                                         <ul id="property">
                                         </ul>
@@ -504,8 +502,8 @@
                     }
                     else {
                         if(res.features[i].show_in_top == 1) {
-                            property += '<li><span class="label colorBlueWhite">' + res.features[i].name + '</span><span> : </span>';
-                            property += '<span class="title">' + res.features[i].value + '</span></li>';
+                            property += '<li><span class="label colorBlueWhite px-1">' + res.features[i].name + '</span><span> : </span>';
+                            property += '<span class="title px-1">' + res.features[i].value + '</span></li>';
                         }
                         params += '<li>';
                         params += '<span class="param-title">' + res.features[i].name + '</span>';

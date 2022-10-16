@@ -342,7 +342,6 @@
         
     </div>
 
-    <script src="{{ asset('theme-assets/js/dependencies/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/bootstrap-slider.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/jquery.countdown.min.js') }}"></script>
@@ -367,5 +366,4 @@
     @section('extraJS')
     @show
 </body>
-
 </html>
