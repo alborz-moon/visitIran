@@ -57,7 +57,7 @@
                 <select id="categoryFilter">
                     <option value="all">همه</option>
                     @foreach ($categories as $category)
-                        <option {{ isset($categoryFilter) && $categoryFilter == $category['id'] ? 'selected' : '' }} value="1">{{ $category['name'] }}</option>
+                        <option {{ isset($categoryFilter) && $categoryFilter == $category['id'] ? 'selected' : '' }} value="{{ $category['id'] }}">{{ $category['name'] }}</option>
                     @endforeach
                 </select>
             </div>
@@ -335,6 +335,7 @@
             let visibility = $("#visibilityFilter").val();
             let isInTopList = $("#isInTopListFilter").val();
             let brand = $("#brandFilter").val();
+            let category = $("#categoryFilter").val();
             let off = $("#offFilter").val();
             let comment = $("#commentFilter").val();
             let max = $("#maxFilter").val();
@@ -354,6 +355,9 @@
             if(brand !== 'all')
                 query.append('brand', brand);
                 
+            if(category !== 'all')
+                query.append('category', category);
+
             if(max !== '')
                 query.append('max', max);
                 

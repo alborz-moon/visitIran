@@ -64,9 +64,13 @@
                                     </div>
    
                                     @endif
-                                    {{-- @if ($product['available_count'] != 0) --}}
                                     
-                                    {{-- @endif --}}
+                                    @if ($product['available_count'] < 0)
+                                        <div id="availableCount" class="product-seller-row product-remaining-in-stock">
+                                            <span></span>
+                                        </div>
+                                    @endif
+
                                     @if($product['available_count']  > 0)
                                         <div id="availableCount" class="product-seller-row product-remaining-in-stock">
                                             <span>تنها <span class="mx-2">{{ $product['available_count'] }}</span> عدد در انبار باقیست - پیش از

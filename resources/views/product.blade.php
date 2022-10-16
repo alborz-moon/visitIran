@@ -98,15 +98,17 @@
                                 <div class="bold">ویژگی‌ها : </div>
                             </div>
                             <div class="expandable-text mb-3" style="height: 95px;">
+                                <p>salam</p>
                                 <div class="expandable-text_text">
+                                    <p>dwq</p>
                                     <div class="product-params">
                                         <ul id="property">
                                         </ul>
                                     </div>
                                 </div>
-                            <div class="mb-3 mt-3 spaceBetween">
-                                <div class="bold">توضیحات :</div>
-                            </div>
+                                <div class="mb-3 mt-3 spaceBetween">
+                                    <div class="bold">توضیحات :</div>
+                                </div>
                             {{-- <p>{{ $product['description'] }}</p> --}}
                             <div class="product-additional-info-container mb-3">
                                 <span class="icon">
@@ -408,6 +410,7 @@
                 }
                 $("#gallery").empty().append(html);
 
+                let options = '';
                 let colors = '';
                 let property = '';
                 let params = '';
@@ -462,9 +465,48 @@
                         }
 
                     }
+                    else if(res.features[i].available_count !== null || 
+                        res.features[i].price !== null
+                    ) {
+                        let vals = res.features[i].value.split('__')[0].split("$$");
+                        
+                        let prices = res.features[i].price == null ? null : res.features[i].price.split("$$");
+                        let counts = res.features[i].available_count == null ? null : res.features[i].available_count.split("$$");
+
+                        options = '<div class="flex">'
+                        for(var j = 0; j < vals.length; j++) {
+
+                            options += '<button data-val="' + vals[j] + '" name="productOption"';
+                            if(j == 0) {
+
+                                if(prices != null) {
+                                    options += 'data-price="' + prices[j] + '" id="productOption0' + j + '" class="selected">';
+                                    $(".price").empty().append(prices[j]);
+                                }
+                                else {
+                                    options += 'data-count="' + counts[j] + '" id="productOption0' + j + '" class="selected">';
+                                    $("#availableCount").empty().append(counts[j]);
+                                }
+                                
+                            }
+                            else {
+                                if(prices != null)
+                                    options += 'data-price="' + prices[j] + '" id="productOption0' + j + '">';
+                                else
+                                    options += 'data-count="' + counts[j] + '" id="productOption0' + j + '">';
+                            }
+
+                            options += vals[j] + "</button>";
+
+                        }
+
+                        options += "</div>";
+                    }
                     else {
-                        property += '<li><span class="label colorBlueWhite">' + res.features[i].name + '</span><span> : </span>';
-                        property += '<span class="title">' + res.features[i].value + '</span></li>';
+                        if(res.features[i].show_in_top == 1) {
+                            property += '<li><span class="label colorBlueWhite">' + res.features[i].name + '</span><span> : </span>';
+                            property += '<span class="title">' + res.features[i].value + '</span></li>';
+                        }
                         params += '<li>';
                         params += '<span class="param-title">' + res.features[i].name + '</span>';
                         params += '<span class="param-value">' + res.features[i].value + '</span>';
@@ -477,11 +519,24 @@
 
                 if(colors != '')
                     $("#product-colors-variants").empty().append(colors);
+
+                if(options !== '')
+                    $("#property").append(options);
             }
         });
 
         $(document).on("click","input[name='productColor']", function() {
             
+
+            if(prices != null) {
+                options += 'data-price="' + prices[j] + '" id="productOption0' + j + '" class="selected">';
+                $(".price").empty().append(prices[j]);
+            }
+            else {
+                options += 'data-count="' + counts[j] + '" id="productOption0' + j + '" class="selected">';
+                $("#availableCount").empty().append(counts[j]);
+            }
+
             let html = '<div class="product-option">';
             html += '<span class="color" style="background-color: ' + $(this).attr('data-label') + ';"></span>';
             html += '<span class="color-label ms-2">' + $(this).attr('data-val') + '</span>';
@@ -490,6 +545,16 @@
             $("#product_options").empty().append(html);
             $(".price").empty().append($(this).attr('data-price'));
             $("#product-color-variant-selected").empty().append($(this).attr('data-val'));
+        });
+
+        $(document).on("click","button[name='productOption']", function() {
+
+            if($(this).attr('data-price') !== undefined)
+                $(".price").empty().append($(this).attr('data-price'));
+            else
+                $("#availableCount").empty().append($(this).attr('data-count'));
+            
+            
         });
         
         // $.ajax({
