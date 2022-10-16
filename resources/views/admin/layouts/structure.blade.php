@@ -293,6 +293,10 @@
             -o-transition: unset !important;
 
         }
+        #mainContainer > .row {
+            margin-right: 0;
+            margin-left: 0;
+        }
         *{
             animation-delay: unset !important;
             transition-delay: unset !important;
@@ -368,6 +372,10 @@
 
             .mCSB_container {
                 overflow: scroll !important;
+                transform: rotateX(180deg) !important;
+            }
+            #mainContainer {
+                transform: rotateX(180deg) !important;
             }
         </style>
 

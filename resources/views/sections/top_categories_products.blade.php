@@ -35,7 +35,7 @@
         <!-- start of product-card -->
         <div class="product-card customBorderBoxShadow">
             <div class="product-thumbnail">
-                <a href="#" target="_blank">
+                <a>
                     <img id="topCategoryProductImg">
                 </a>
             </div>

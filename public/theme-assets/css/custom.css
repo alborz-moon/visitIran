@@ -157,6 +157,12 @@ a {
 .bold {
     font-weight: bold;
 }
+ul {
+    list-style: none;
+}
+.product-detail-container .product-params ul li::before {
+    display: none;
+}
 .padding0 {
     padding: 0;
 }
@@ -544,13 +550,17 @@ a {
 }
 .customOff {
     right: 6px;
-    top: 5px;
+    top: 2px;
+    font-weight: 500;
+    font-size: 15px !important;
 }
 .customlineText {
     text-decoration-color: red;
     text-decoration-line: line-through;
     -moz-text-decoration-line: line-through;
     -moz-text-decoration-color: red;
+    font-weight: bold;
+    font-size: 18px !important;
 }
 .customArrowLeftIcon {
     bottom: 20px;

@@ -45,7 +45,7 @@
                     <input type="button" style="border: none; width: 30px; height: 30px; background: url({{ asset('admin-panel/img/calendar-flat.png') }}) repeat 0 0; background-size: 100% 100%;" id="date_btn">
                     
                 </label>
-                <input value="{{ isset($item) ? $item['off_expiration'] : '' }}" name="off_expiration" onchange="getEvents(this.value)" type="text" id="date_input" readonly>
+                <input value="{{ isset($item) ? $item['off_expiration'] : '' }}" name="off_expiration" type="text" id="date_input" readonly>
                 <script>
                     Calendar.setup({
                         inputField: "date_input",

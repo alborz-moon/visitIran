@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductDigest extends JsonResource
@@ -26,6 +27,8 @@ class ProductDigest extends JsonResource
             'visibility' => $this->visibility,
             'priority' => $this->priority,
             'price' => $this->price,
+            'seller_count' => $this->seller_count,
+            'created_at' => Controller::MiladyToShamsi($this->created_at),
             'rate_count' => $this->rate_count,
             'comment_count' => $this->comment_count,
             'new_comment_count' => $this->new_comment_count,

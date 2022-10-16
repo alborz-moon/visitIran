@@ -35,31 +35,66 @@
                             <button onclick="$('#addBatchModal').removeClass('hidden')" class="btn btn-success">افزودن دسته ای</button>
                         </div>
 
+                        <div>
+                            <label for="presentType">نوع نمایش</label>
+                            <select id="presentType">
+                                <option value="card">کارتی</option>
+                                <option value="table">جدولی</option>
+                            </select>
+                        </div>
+
                         <div class="col-xs-12">
                             @if(isset($errors) && $errors != null && count($errors) > 0)
                                 @foreach ($errors as $error)
                                     <div>{{$error}}</div>
                                 @endforeach
                             @else
-                                @foreach($categories as $category)
-                                    <div class="col-xs-12 col-lg-3" id="item_{{ $category['id'] }}">
-                                        <center>
-                                            <h5>{{ $category['name'] }}</h5>
-                                        </center>
-                                        <img src="{{$category['img']}}" alt="{{ $category['alt'] }}" style="width:100%; height: 100%">
-                                        <div class="flex space-between flex-wrap gap10">
-                                            <button class="btn btn-primary" onclick="document.location.href = '{{ route('category.edit', ['category' => $category['id']]) }}'">مشاهده اطلاعات</button>
-                                            <button class="btn btn-danger" onclick="removeModal('item', {{$category['id']}}, '{{ route('category.destroy', ['category' => $category['id']]) }}')">حذف</button>
-                                            @if($category['has_sub'])
-                                                <button style="width: 100%" onclick="document.location.href = '{{ route('category.sub', ['category' => $category['id']]) }}'" class="btn btn-info">مشاهده زیر دسته ها</button>
-                                            @else
-                                                <button onclick="document.location.href = '{{ route('category.features.index', ['category' => $category['id']]) }}'" class="btn btn-info">ویژگی ها</button>
-                                                <button onclick="document.location.href = '{{ route('product.index', ['category' => $category['id']]) }}'" class="btn btn-warning">محصولات</button>
-                                            @endif
+                                <div id="card-view">
+                                    @foreach($categories as $category)
+                                        <div class="col-xs-12 col-lg-3" id="item_{{ $category['id'] }}">
+                                            <center>
+                                                <h5>{{ $category['name'] }}</h5>
+                                            </center>
+                                            <img src="{{$category['img']}}" alt="{{ $category['alt'] }}" style="width:100%; height: 100%">
+                                            <div class="flex space-between flex-wrap gap10">
+                                                <button class="btn btn-primary" onclick="document.location.href = '{{ route('category.edit', ['category' => $category['id']]) }}'">مشاهده اطلاعات</button>
+                                                <button class="btn btn-danger" onclick="removeModal('item', {{$category['id']}}, '{{ route('category.destroy', ['category' => $category['id']]) }}')">حذف</button>
+                                                @if($category['has_sub'])
+                                                    <button style="width: 100%" onclick="document.location.href = '{{ route('category.sub', ['category' => $category['id']]) }}'" class="btn btn-info">مشاهده زیر دسته ها</button>
+                                                @else
+                                                    <button onclick="document.location.href = '{{ route('category.features.index', ['category' => $category['id']]) }}'" class="btn btn-info">ویژگی ها</button>
+                                                    <button onclick="document.location.href = '{{ route('product.index', ['category' => $category['id']]) }}'" class="btn btn-warning">محصولات</button>
+                                                @endif
+                                            </div>
+                                            
                                         </div>
-                                        
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
+                                <div id="table-view" class="hidden">
+                                    <table>
+                                        <thead>
+                                            <th>نام</th>
+                                            <th>عملیات</th>
+                                        </thead>
+                                        @foreach($categories as $category)
+                                            <tr id="item_{{ $category['id'] }}">
+                                                <td>{{ $category['name'] }}</td>
+                                                <td>
+                                                    <div class="flex space-between flex-wrap gap10">
+                                                        <button class="btn btn-primary" onclick="document.location.href = '{{ route('category.edit', ['category' => $category['id']]) }}'">مشاهده اطلاعات</button>
+                                                        <button class="btn btn-danger" onclick="removeModal('item', {{$category['id']}}, '{{ route('category.destroy', ['category' => $category['id']]) }}')">حذف</button>
+                                                        @if($category['has_sub'])
+                                                            <button style="width: 100%" onclick="document.location.href = '{{ route('category.sub', ['category' => $category['id']]) }}'" class="btn btn-info">مشاهده زیر دسته ها</button>
+                                                        @else
+                                                            <button onclick="document.location.href = '{{ route('category.features.index', ['category' => $category['id']]) }}'" class="btn btn-info">ویژگی ها</button>
+                                                            <button onclick="document.location.href = '{{ route('product.index', ['category' => $category['id']]) }}'" class="btn btn-warning">محصولات</button>
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                </div>
                             @endif
                             
                         </div>
@@ -94,4 +129,21 @@
         </div>
     </div>
 
+
+    <script>
+
+        $(document).on('ready', function() {
+            $("#presentType").on('change', function() {
+                if($(this).val() === "table") {
+                    $("#table-view").removeClass('hidden');
+                    $("#card-view").addClass('hidden');
+                }
+                else {
+                    $("#table-view").addClass('hidden');
+                    $("#card-view").removeClass('hidden');
+                }
+            });
+        });
+
+    </script>
 @stop

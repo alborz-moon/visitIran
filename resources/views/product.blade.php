@@ -98,15 +98,17 @@
                                 <div class="bold">ویژگی‌ها : </div>
                             </div>
                             <div class="expandable-text mb-3" style="height: 95px;">
+                                <p>salam</p>
                                 <div class="expandable-text_text">
+                                    <p>dwq</p>
                                     <div class="product-params">
                                         <ul id="property">
                                         </ul>
                                     </div>
                                 </div>
-                            <div class="mb-3 mt-3 spaceBetween">
-                                <div class="bold">توضیحات :</div>
-                            </div>
+                                <div class="mb-3 mt-3 spaceBetween">
+                                    <div class="bold">توضیحات :</div>
+                                </div>
                             {{-- <p>{{ $product['description'] }}</p> --}}
                             <div class="product-additional-info-container mb-3">
                                 <span class="icon">
@@ -129,106 +131,7 @@
                         </div>
                         <div class="col-xl-3 col-lg-4">
                             <!-- start of product-seller-info -->
-                            <div class="product-seller-info ui-box">
-                                <div class="seller-info-changeable">
-                                    @if($product['seller'] !== '')
-                                        <div class="product-seller-row seller">
-                                            <div class="product-seller-row-icon marginTop10">
-                                                <i class="icon-visit-store colorYellow  productIcon"></i>
-                                            </div>
-                                            <div class="product-seller-row-detail">
-                                                <div class="product-seller-row-detail-title">{{ $product['seller'] }}</div>
-                                            </div>
-                                        </div>
-                                    @endif
-                                    @if ($product['guarantee'] !== null)
-                                        <div class="product-seller-row">
-                                            <div class="product-seller-row-icon marginTop10">
-                                                <i class="icon-visit-verified colorYellow  productIcon"></i>
-                                            </div>
-                                            <div class="product-seller-row-detail">
-                                                <div class="product-seller-row-detail-title">گارانتی {{$product['guarantee']}} ماهه</div>
-                                            </div>
-                                        </div>
-                                    @endif
-                                    <div class="product-seller-row product-seller-row--clickable">
-                                        <div class="product-seller-row-icon marginTop10">
-                                            <i class="icon-visit-original colorYellow  productIcon"></i>
-                                        </div>
-                                        <div class="product-seller-row-detail">
-                                            <div class="product-seller-row-detail-title">تضمین اصالت</div>                                        </div>
-                                    </div>
-                                    <div class="product-seller-row">
-                                        <div class="product-seller-row-icon marginTop10">
-                                            <i class="icon-visit-truck colorYellow  productIcon"></i>
-                                        </div>
-                                        <div class="product-seller-row-detail">
-                                            <div class="product-seller-row-detail-title">
-                                                ارسال : <span class="fontNormal"> 2 تا 7 روز کاری </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @if ($product['available_count'] != 0)
-                                    <div class="product-seller-row product-seller-row--price spaceBetween flexDirectionRowReverse">
-                                        <div class="product-seller-row--price-now fa-num ">
-                                            <span class="price">{{ $product['price'] }}</span>
-                                            <span class="currency fontSize18 colorYellow">ت</span>
-                                        </div>
-                                        @if($product['off'] != null)
-                                            <div class="product-price fa-num">
-                                                <div id="OffSection" class="d-flex align-items-center">
-                                                    <div class="fontSize15 pl-10 position-relative">
-                                                        <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="" width="45">
-                                                        <span id="Off" class="position-absolute fontSize10 colorWhite r-0 customOff">
-                                                            @if ($product['off'] != null && $product['off']['type'] == 'percent')
-                                                                <span>%</span>{{ $product['off']['value'] }}
-                                                            @elseif ($product['off']!= null && $product['off']['type'] == 'value') 
-                                                                {{ $product['off']['value'] }}<span class="fontSize10 px-1 colorYellow">ت</span>
-                                                            @endif
-                                                        </span>
-                                                    </div>
-                                                    <del id="PriceBeforeOff" class="customlineText textColor fontSize15">{{ $product['price'] }}</del>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    </div>
-   
-                                    @endif
-                                    {{-- @if ($product['available_count'] != 0) --}}
-                                    
-                                    {{-- @endif --}}
-                                    @if($product['available_count']  > 0)
-                                        <div id="availableCount" class="product-seller-row product-remaining-in-stock">
-                                            <span>تنها <span class="mx-2">{{ $product['available_count'] }}</span> عدد در انبار باقیست - پیش از
-                                                اتمام بخرید</span>
-                                        </div>
-                                    @elseif($product['available_count'] == 0)
-                                        <div id="availableCount" class="product-seller-row product-remaining-in-stock">
-                                            <span>اتمام موجودی</span>
-                                        </div>
-                                    @endif
-                                    
-                                    <div class="product-seller-row product-remaining-in-stock spaceBetween">
-                                        <div class="bold colorBlack d-flex align-items-center ">
-                                            <div>تعداد سفارش :</div>                                            
-                                        </div>
-                                        <div class="num-block fa-num me-3">
-                                            <span class="num-in">
-                                                <span class="plus"></span>
-                                                <input type="text" class="in-num" value="1" readonly="">
-                                                <span class="minus dis"></span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                <div class="product-seller--add-to-cart">
-                                    <a href="#" class="btn btn-primary w-100" data-toast data-toast-type="success"
-                                        data-toast-color="green" data-toast-position="topRight"
-                                        data-toast-icon="ri-check-fill" data-toast-title="موفق!"
-                                        data-toast-message="به سبد اضافه شد!">
-                                        افزودن به سبد خرید
-                                    </a>
-                                </div>
-                            </div>
+                            @include('product.product_basket_card', ['product' => $product])
                             <!-- end of product-seller-info -->
                         </div>
                     </div>
@@ -368,107 +271,7 @@
                     <div class="col-xl-3 col-lg-4 d-lg-block d-none">
                         <div class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">
                             <!-- start of product-seller-info -->
-                            <div class="product-seller-info ui-box">
-                                <div class="seller-info-changeable">
-                                    @if($product['seller'] !== '')
-                                        <div class="product-seller-row seller">
-                                            <div class="product-seller-row-icon marginTop10">
-                                                <i class="icon-visit-store colorYellow  productIcon"></i>
-                                            </div>
-                                            <div class="product-seller-row-detail">
-                                                <div class="product-seller-row-detail-title">{{ $product['seller'] }}</div>
-                                            </div>
-                                        </div>
-                                    @endif
-                                    @if ($product['guarantee'] !== null)
-                                        <div class="product-seller-row">
-                                            <div class="product-seller-row-icon marginTop10">
-                                                <i class="icon-visit-verified colorYellow  productIcon"></i>
-                                            </div>
-                                            <div class="product-seller-row-detail">
-                                                <div class="product-seller-row-detail-title">گارانتی {{$product['guarantee']}} ماهه</div>
-                                            </div>
-                                        </div>
-                                    @endif
-                                    <div class="product-seller-row product-seller-row--clickable">
-                                        <div class="product-seller-row-icon marginTop10">
-                                            <i class="icon-visit-original colorYellow  productIcon"></i>
-                                        </div>
-                                        <div class="product-seller-row-detail">
-                                            <div class="product-seller-row-detail-title">تضمین اصالت</div>                                        </div>
-                                    </div>
-                                    <div class="product-seller-row">
-                                        <div class="product-seller-row-icon marginTop10">
-                                            <i class="icon-visit-truck colorYellow  productIcon"></i>
-                                        </div>
-                                        <div class="product-seller-row-detail">
-                                            <div class="product-seller-row-detail-title">
-                                                ارسال : <span class="fontNormal"> 2 تا 7 روز کاری </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @if ($product['available_count'] != 0)
-                                    <div class="product-seller-row product-seller-row--price spaceBetween flexDirectionRowReverse">
-                                        <div class="product-seller-row--price-now fa-num ">
-                                            <span class="price">{{ $product['priceAfterOff'] }}</span>
-                                            <span class="currency fontSize18 colorYellow">ت</span>
-                                        </div>
-                                        @if($product['off'] != null)
-                                            <div class="product-price fa-num">
-                                                <div id="OffSection" class="d-flex align-items-center">
-                                                    <div class="fontSize15 pl-10 position-relative">
-                                                        <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="" width="45">
-                                                        <span id="Off" class="position-absolute fontSize10 colorWhite r-0 customOff">
-                                                            @if ($product['off'] != null && $product['off']['type'] == 'percent')
-                                                                <span>%</span>{{ $product['off']['value'] }}
-                                                            @elseif ($product['off']!= null && $product['off']['type'] == 'value') 
-                                                                {{ $product['off']['value'] }}<span class="fontSize10 px-1 colorYellow">ت</span>
-                                                            @endif
-                                                        </span>
-                                                    </div>
-                                                    <del id="PriceBeforeOff" class="customlineText textColor fontSize15">{{ $product['price'] }}</del>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    </div>
-   
-                                    @endif
-                                    {{-- @if ($product['available_count'] != 0) --}}
-                                    
-                                    {{-- @endif --}}
-                                    @if($product['available_count']  > 0)
-                                        <div id="availableCount" class="product-seller-row product-remaining-in-stock">
-                                            <span>تنها <span class="mx-2">{{ $product['available_count'] }}</span> عدد در انبار باقیست - پیش از
-                                                اتمام بخرید</span>
-                                        </div>
-                                    @elseif($product['available_count'] == 0)
-                                        <div id="availableCount" class="product-seller-row product-remaining-in-stock">
-                                            <span>اتمام موجودی</span>
-                                        </div>
-                                    @endif
-                                    
-                                    <div class="product-seller-row product-remaining-in-stock spaceBetween">
-                                        <div class="bold colorBlack d-flex align-items-center ">
-                                            <div>تعداد سفارش :</div>                                            
-                                        </div>
-                                        <div class="num-block fa-num me-3">
-                                            <span class="num-in">
-                                                <span class="plus"></span>
-                                                <input type="text" class="in-num" value="1" readonly="">
-                                                <span class="minus dis"></span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                <div class="product-seller--add-to-cart">
-                                    <a href="#" class="btn btn-primary w-100" data-toast data-toast-type="success"
-                                        data-toast-color="green" data-toast-position="topRight"
-                                        data-toast-icon="ri-check-fill" data-toast-title="موفق!"
-                                        data-toast-message="به سبد اضافه شد!">
-                                        افزودن به سبد خرید
-                                    </a>
-                                </div>
-                            </div>
-                            </div>
+                            @include('product.product_basket_card', ['product' => $product])
                             <!-- end of product-seller-info -->
                         </div>
                     </div>
@@ -607,6 +410,7 @@
                 }
                 $("#gallery").empty().append(html);
 
+                let options = '';
                 let colors = '';
                 let property = '';
                 let params = '';
@@ -661,10 +465,48 @@
                         }
 
                     }
-                    else {
-                        property += '<li><span class="label colorBlueWhite">' + res.features[i].name + '</span><span> : </span>';
-                        property += '<span class="title">' + res.features[i].value + '</span></li>';
+                    else if(res.features[i].available_count !== null || 
+                        res.features[i].price !== null
+                    ) {
+                        let vals = res.features[i].value.split('__')[0].split("$$");
+                        
+                        let prices = res.features[i].price == null ? null : res.features[i].price.split("$$");
+                        let counts = res.features[i].available_count == null ? null : res.features[i].available_count.split("$$");
 
+                        options = '<div class="flex">'
+                        for(var j = 0; j < vals.length; j++) {
+
+                            options += '<button data-val="' + vals[j] + '" name="productOption"';
+                            if(j == 0) {
+
+                                if(prices != null) {
+                                    options += 'data-price="' + prices[j] + '" id="productOption0' + j + '" class="selected">';
+                                    $(".price").empty().append(prices[j]);
+                                }
+                                else {
+                                    options += 'data-count="' + counts[j] + '" id="productOption0' + j + '" class="selected">';
+                                    $("#availableCount").empty().append(counts[j]);
+                                }
+                                
+                            }
+                            else {
+                                if(prices != null)
+                                    options += 'data-price="' + prices[j] + '" id="productOption0' + j + '">';
+                                else
+                                    options += 'data-count="' + counts[j] + '" id="productOption0' + j + '">';
+                            }
+
+                            options += vals[j] + "</button>";
+
+                        }
+
+                        options += "</div>";
+                    }
+                    else {
+                        if(res.features[i].show_in_top == 1) {
+                            property += '<li><span class="label colorBlueWhite">' + res.features[i].name + '</span><span> : </span>';
+                            property += '<span class="title">' + res.features[i].value + '</span></li>';
+                        }
                         params += '<li>';
                         params += '<span class="param-title">' + res.features[i].name + '</span>';
                         params += '<span class="param-value">' + res.features[i].value + '</span>';
@@ -677,11 +519,24 @@
 
                 if(colors != '')
                     $("#product-colors-variants").empty().append(colors);
+
+                if(options !== '')
+                    $("#property").append(options);
             }
         });
 
         $(document).on("click","input[name='productColor']", function() {
             
+
+            if(prices != null) {
+                options += 'data-price="' + prices[j] + '" id="productOption0' + j + '" class="selected">';
+                $(".price").empty().append(prices[j]);
+            }
+            else {
+                options += 'data-count="' + counts[j] + '" id="productOption0' + j + '" class="selected">';
+                $("#availableCount").empty().append(counts[j]);
+            }
+
             let html = '<div class="product-option">';
             html += '<span class="color" style="background-color: ' + $(this).attr('data-label') + ';"></span>';
             html += '<span class="color-label ms-2">' + $(this).attr('data-val') + '</span>';
@@ -690,6 +545,16 @@
             $("#product_options").empty().append(html);
             $(".price").empty().append($(this).attr('data-price'));
             $("#product-color-variant-selected").empty().append($(this).attr('data-val'));
+        });
+
+        $(document).on("click","button[name='productOption']", function() {
+
+            if($(this).attr('data-price') !== undefined)
+                $(".price").empty().append($(this).attr('data-price'));
+            else
+                $("#availableCount").empty().append($(this).attr('data-count'));
+            
+            
         });
         
         // $.ajax({

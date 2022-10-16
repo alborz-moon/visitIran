@@ -20,7 +20,8 @@ class ProductFeatureController extends Controller
             'items' => $product->features(),
             'productId' => $product->id,
             'productName' => $product->name,
-            'defaultPrice' => $product->price
+            'defaultPrice' => $product->price,
+            'defaultCount' => $product->available_count,
         ]);
     }
 
@@ -64,6 +65,12 @@ class ProductFeatureController extends Controller
             if($categoryFeature->effect_on_price && !$request->has('price'))
                 abort(401);
 
+            if($categoryFeature->effect_on_available_count && !$request->has('count'))
+                abort(401);
+
+            if($request->has('price') && $request->has('count'))
+                abort(401);
+
             if($request->has('price')) {
                 $prices = $request['price'];
 
@@ -75,6 +82,15 @@ class ProductFeatureController extends Controller
                     array_push($format_prices, number_format($price, 0));
                     
                 $request['price'] = implode('$$', $format_prices);
+            }
+
+            if($request->has('count')) {
+                $counts = $request['count'];
+
+                if(count($counts) != count($values))
+                    abort(401);
+                
+                $request['count'] = implode('$$', $counts);
             }
 
             foreach($choices as $choice) {
