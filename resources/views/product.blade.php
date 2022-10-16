@@ -56,10 +56,10 @@
                                     
                                     <div class="gallery-img-container">
                                         <div class="gallery-img" id="galleryMain">
-                                            <img src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />
+                                            <img class="zoom-img" src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />
                                         </div>
                                         <div class="gallery-thumbs">
-                                            <ul id="gallery">
+                                            <ul id="gallery" class="overflowHidden noWrap">
                                             </ul>
                                         </div>
                                     </div>
@@ -371,7 +371,7 @@
                         <div class="text-muted fs-7 fw-bold">
                             با دعوت دوستانتان، پس از اولین خریدشان، کدتخفیف و امتیاز هدیه بگیرید.
                         </div>
-                        <img src="./theme-assets/images/theme/club.svg" width="100" alt="">
+                        <img src="{{ asset('theme-assets/images/theme/club.svg') }}" width="100" alt="">
                     </div>
                 </div>
             </div>
@@ -531,5 +531,4 @@
     @parent
     <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
-    <script src="{{ asset('theme-assets/js/home.js') }}"></script>
 @stop

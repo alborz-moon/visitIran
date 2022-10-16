@@ -22,7 +22,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('theme-assets/images/logo/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('theme-assets/images/logo/favicon-96x96.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('theme-assets/images/logo/favicon-16x16.png') }}">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="{{ asset('manifest.json')}}">
     <meta name="msapplication-TileColor" content="#00B2BC">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#00B2BC">
@@ -248,8 +248,8 @@
                             <div class="navigation-header">
                                 <div class="logo-container logo-box p-0">
                                     <a href="#" class="logo">
-                                        <img src="./theme-assets/images/menuImage.png" width="110" alt="">
-                                        <span class="logo-text colorBlue">دسته بندی کالاها<img class="iconSvg" src="./theme-assets/images/svg/headline.svg" alt=""></span>
+                                        <img src="{{ asset('theme-assets/images/menuImage.png') }}"  width="110" alt="">
+                                        <span class="logo-text colorBlue">دسته بندی کالاها<img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt=""></span>
                                     </a>
                                 </div>
                             </div>
@@ -300,7 +300,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center flex-grow-1 pe-3 position-relative">
                             <div class="logo-container logo-box customLogoBoxInMobile me-3 positionAbsolute logoImgFromTop">
-                                    <img src="./theme-assets/images/menuImage.png" width="70" alt="">
+                                    <img src="{{ asset('theme-assets/images/menuImage.png') }}"  width="70" alt="">
                             </div>
                             <div class="marginFromRightHeaderMobile">
                                 <div class="notification-item--text colorYellow bold"> ویزیت ایران </div>
@@ -316,10 +316,10 @@
                     <div class="d-flex align-items-center justify-content-between" style="height: 50px">
                         <div class="page-header--top-right d-flex gap10">
                             <a href="profile.html" class="user-option-btn user-option-btn--search gap10">
-                                <img class="customIconHeadLine" src="./theme-assets/images/svg/search.svg" alt="">
+                                <img class="customIconHeadLine" src="{{ asset('theme-assets/images/svg/search.svg') }}" alt="">
                             </a>
                             <a href="{{route('cart')}}" class="user-option-btn user-option-btn--cart">
-                                <img class="customIconHeadLine" src="./theme-assets/images/svg/basket.svg" alt="">
+                                <img class="customIconHeadLine" src=""{{ asset('theme-assets/images/svg/basket.svg') }} alt="">
                             </a>
                         </div>
                         <div class="page-header--top-left">
@@ -342,7 +342,7 @@
         
     </div>
 
-
+    <script src="{{ asset('theme-assets/js/dependencies/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/bootstrap-slider.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/jquery.countdown.min.js') }}"></script>
@@ -355,14 +355,14 @@
     <script src="{{ asset('theme-assets/js/dependencies/select2.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/simplebar.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/swiper-bundle.min.js') }}"></script>
-    <script src="{{ asset('theme-assets/js/dependencies/zoomsl.min.js') }}"></script>
-
+    <script src="{{ asset('theme-assets/js/dependencies/zoomsl.min.js') }}"></script>    
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+    </script>        
     </script>
     @section('extraJS')
     @show
