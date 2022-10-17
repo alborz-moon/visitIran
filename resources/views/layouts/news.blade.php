@@ -3,7 +3,7 @@
     <div class="swiper-slide customCardNews mb-5">
         <!-- start of product-card -->
         <div class="product-card customBoxNews">
-            <div class="product-thumbnail">
+            <div>
                 <a id="newsHref" class="marginRight4" href="#">
                     <img id="newsImg" class="customImgNews">
                 </a>
