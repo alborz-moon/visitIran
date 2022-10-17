@@ -38,7 +38,7 @@
 <script>
     $.ajax({
         type: 'get',
-        url: '{{ route('api.product.comment.list') }}',
+        url: '{{ route('api.product.comment.list', ['product' => $productId]) }}',
         headers: {
             'accept': 'application/json'
         },
