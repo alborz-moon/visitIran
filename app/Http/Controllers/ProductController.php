@@ -535,6 +535,8 @@ class ProductController extends Controller
         if(!$product->visibility)
             return Redirect::route('home');
 
+        sleep(10);
+
         return response()->json([
             'status' => 'ok', 
             'galleries' => GalleryResource::collection($product->galleries()->orderBy('priority', 'asc')->get())->toArray($request),
