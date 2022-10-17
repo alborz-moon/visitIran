@@ -590,15 +590,15 @@ ul {
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
-    margin-left: 10px !important;
+    /* margin-left: 10px !important; */
 }
 .customCardNews {
     min-width: 300px;
     width: 350px !important;
 }
 .customImgNews {
-    max-width: 325px !important;
-    min-width: 300px !important;
+    max-width: 343px !important;
+    min-width: 343px !important;
     height: 300px !important;
     min-height: 250px !important;
     object-position: center;
