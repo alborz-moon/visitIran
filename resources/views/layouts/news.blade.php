@@ -1,10 +1,10 @@
 <div id="customCardNewsSample" class="hidden">
     <!-- Slides -->
-    <div class="swiper-slide customCardNews">
+    <div class="swiper-slide customCardNews mb-5">
         <!-- start of product-card -->
         <div class="product-card customBoxNews">
-            <div class="product-thumbnail">
-                <a id="newsHref" class="marginRight4" href="#">
+            <div>
+                <a id="newsHref" href="#">
                     <img id="newsImg" class="customImgNews">
                 </a>
             </div>
@@ -84,7 +84,7 @@
                     ".news-swiper-slider",
                     {
                         // Optional parameters
-                        spaceBetween: 10,
+                        spaceBetween:10,
 
                         // Navigation arrows
                         navigation: {
@@ -94,7 +94,7 @@
 
                         breakpoints: {
                         1200: {
-                            slidesPerView: 4,
+                            slidesPerView: 3,
                         },
                         992: {
                             slidesPerView: 3,

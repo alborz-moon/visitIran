@@ -590,7 +590,7 @@ ul {
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
-    margin-left: 10px !important;
+    /* margin-left: 10px !important; */
 }
 .customCardNews {
     min-width: 300px;
@@ -598,12 +598,13 @@ ul {
 }
 .customImgNews {
     max-width: 325px !important;
-    min-width: 300px !important;
-    height: 300px !important;
-    min-height: 250px !important;
+    min-width: 325px !important;
+    height: 325px !important;
+    min-height: 325px !important;
     object-position: center;
     object-fit: cover;
-    margin-right: -20px !important;
+    margin-right: -4px !important;
+    margin-top: 12.5px;
     border-radius: 25px;
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;
