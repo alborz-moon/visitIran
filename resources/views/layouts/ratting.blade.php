@@ -7,36 +7,13 @@
 .starrating > input {display: none;}  /* Remove radio buttons */
 
 .starrating > label:before { 
-
   content: "\0047"; /* Star */
   font-size: 20px;
   margin: 2px;
   font-family: "visitiran";
   display: inline-block; 
-}
-
-.starrating > label
-{
-  font-family: "visitiran";
-  display: inline-block; /* Start color when not clicked */
-}
-.starrating > input:active ~ label
-{ color: #c59358 ;
-content: "\0049";
-font-family: "visitiran";
-display: inline-block;  }
-
-  .starrating > input:checked ~ label
-{ color: #c59358 ;
-content: "\0049";
-font-family: "visitiran";
-  display: inline-block;  } /* Set yellow color when star checked */
-
-.starrating > input:hover ~ label
-{ color: #c59358 ;
-content: "\0049";
-font-family: "visitiran";
-  display: inline-block;  } /* Set yellow color when star hover */
+  color: #c59358;
+} /* Set yellow color when star hover */
 .starrating > label:hover ~ label::before{
     color: #c59358 ;
     content: "\0049" !important;

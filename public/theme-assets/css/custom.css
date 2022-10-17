@@ -245,7 +245,7 @@ ul {
     color: #dedede !important;
 }
 .colorBlack {
-    color: #000 !important;
+    color: #555a5d !important;
 }
 .colorBlueWhite {
     color: #00b2bc !important;
@@ -693,16 +693,16 @@ select:focus-visible {
 .swiper .swiper-button-next,
 .swiper .swiper-button-prev {
     opacity: 60% !important;
-    background-color: #00b2bc;
+    /* background-color: #00b2bc; */
     z-index: 10;
     box-shadow: none !important;
 }
-/* .swiper .swiper-button-next:disabled,
+.swiper .swiper-button-next:disabled,
 .swiper .swiper-buttonprev:disabled {
     opacity: 0% !important;
     box-shadow: none !important;
-} */
-/* .swiper-button-next.swiper-button-disabled,
+}
+.swiper-button-next.swiper-button-disabled,
 .swiper-button-prev.swiper-button-disabled {
     opacity: 0.35;
     cursor: auto;
@@ -710,7 +710,7 @@ select:focus-visible {
     display: none;
     visibility: hidden;
     opacity: 0;
-} */
+}
 .swiper-button-next.swiper-button-disabled,
 .swiper-button-prev.swiper-button-disabled {
     opacity: 0.35;

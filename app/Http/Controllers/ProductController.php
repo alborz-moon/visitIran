@@ -580,8 +580,8 @@ class ProductController extends Controller
                     'is_bookmark' => false,
                     'user_rate' => null,
                     'has_comment' => false,
+                    ]), 
                     'is_login' => false,
-                ])
             ]);
             
         $comment = Comment::userComment($product->id, $user->id);
@@ -592,8 +592,7 @@ class ProductController extends Controller
                     'is_bookmark' => $comment != null && $comment->is_bookmark != null ? $comment->is_bookmark : false,
                     'user_rate' => $comment != null ? $comment->rate : null,
                     'has_comment' => $comment != null && $comment->msg != null,
-                    'is_login' => true,
-                ])
+                ]), 'is_login' => true,
         ]);
     }
 
