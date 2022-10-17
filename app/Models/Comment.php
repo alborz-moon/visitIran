@@ -37,6 +37,10 @@ class Comment extends Model
         return $query->where('status', true);
     }
 
+    public function scopeUnConfirmed($query) {
+        return $query->where('status', false);
+    }
+
     public function product() {
         return $this->belongsTo(Product::class);
     }

@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CommentResource extends JsonResource
+class CommentUserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,16 +17,13 @@ class CommentResource extends JsonResource
     {
         $user = $this->user;
         return [
-            'id' => $this->id,
             'msg' => $this->msg,
             'rate' => $this->rate,
             'title' => $this->title,
-            'negative' => $this->negative == null ? [] : explode('$$$___$$$', $this->negative),
-            'positive' => $this->positive == null ? [] : explode('$$$___$$$', $this->positive),
-            'status' => $this->status,
+            'negative' => $this->negative,
+            'positive' => $this->positive,
             'user' => $user->first_name . ' ' . $user->last_name,
-            'created_at' => Controller::MiladyToShamsi($this->created_at),
-            'confirmed_at' => $this->confirmed_at == null ? null : Controller::MiladyToShamsi($this->confirmed_at),
+            'created_at' => Controller::MiladyToShamsi($this->created_at)
         ];
     }
 }

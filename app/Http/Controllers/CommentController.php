@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CommentDigest;
 use App\Http\Resources\CommentResource;
+use App\Http\Resources\CommentUserResource;
 use App\Models\Comment;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +20,31 @@ class CommentController extends Controller
     public function index(Product $product, Request $request)
     {
         
+        $confirmed = $request->query('confirmed', null);
+        $orderBy = $request->query('orderBy', null);
+        $orderByType = $request->query('orderByType', null);
+
+        $comments = [];
+
+        if($confirmed == null)
+            $comments = $product->comments();
+        else if($confirmed)
+            $comments = $product->comments()->confirmed();
+        else
+            $comments = $product->comments()->unConfirmed();
+
+        if($orderBy != null && 
+            ($orderBy == 'created_at' || $orderBy == 'rate')
+        ) {
+            $orderByType = $orderByType == null || $orderByType == 'desc' || $orderByType != 'asc' ? 'desc' : 'asc';
+            $comments->orderBy($orderBy, $orderByType);
+        }
+        
+        return view('admin.product.comments.list', [
+            'items' => CommentDigest::collection($comments->paginate(20))->toArray($request),
+            'productId' => $product->id,
+            'productName' => $product->name
+        ]);
     }
 
     /**
@@ -28,7 +56,7 @@ class CommentController extends Controller
     {
         return response()->json([
             'status' => 'ok',
-            'data' => CommentResource::collection($product->comments()->confirmed()->get())->toArray($request)
+            'data' => CommentUserResource::collection($product->comments()->confirmed()->get())->toArray($request)
         ]);
     }
 
@@ -47,8 +75,8 @@ class CommentController extends Controller
             'title' => 'required_without_all|string|min:2',
             'rate' => 'required_without_all:title,is_bookmark|integer|min:1|max:5',
             'is_bookmark' => 'required_without_all:title,rate|boolean',
-            'negative' => 'nullable|string|min:2',
-            'positive' => 'nullable|string|min:2',
+            'negative' => 'nullable|array|min:1',
+            'positive' => 'nullable|array|min:1',
             'msg' => 'nullable:rate,is_bookmark|string',
         ];
 
@@ -87,10 +115,10 @@ class CommentController extends Controller
                 $comment->msg = $request['msg'];
 
             if($request->has('negative'))
-                $comment->negative = $request['negative'];
+                $comment->negative = implode('$$$___$$$', $request['negative']);
 
             if($request->has('positive'))
-                $comment->positive = $request['positive'];
+                $comment->positive = implode('$$$___$$$', $request['positive']);
 
             if($comment->status) {
                 $needToConfirm = true;
@@ -131,9 +159,12 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit(Comment $comment, Request $request)
     {
-        //
+        return view('admin.product.comments.edit', [
+            'item' => CommentResource::make($comment)->toArray($request),
+            'product_id' => $comment->product->id
+        ]);
     }
 
     /**
@@ -164,5 +195,7 @@ class CommentController extends Controller
         $product->comment_count -= 1;
         $product->save();
         $comment->delete();
+
+        return response()->json(['status' => 'ok']);
     }
 }
