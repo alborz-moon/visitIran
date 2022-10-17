@@ -4,7 +4,7 @@
         <!-- start of product-card -->
         <div class="product-card customBoxNews">
             <div>
-                <a id="newsHref" class="marginRight4" href="#">
+                <a id="newsHref" href="#">
                     <img id="newsImg" class="customImgNews">
                 </a>
             </div>

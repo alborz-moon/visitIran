@@ -597,13 +597,14 @@ ul {
     width: 350px !important;
 }
 .customImgNews {
-    max-width: 343px !important;
-    min-width: 343px !important;
-    height: 300px !important;
-    min-height: 250px !important;
+    max-width: 325px !important;
+    min-width: 325px !important;
+    height: 325px !important;
+    min-height: 325px !important;
     object-position: center;
     object-fit: cover;
-    margin-right: -20px !important;
+    margin-right: -4px !important;
+    margin-top: 12.5px;
     border-radius: 25px;
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;
