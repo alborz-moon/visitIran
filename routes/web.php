@@ -132,7 +132,9 @@ Route::middleware(['auth', 'editorLevel'])->prefix('admin')->group(function() {
     Route::get('mail_users', [MailController::class, 'users'])->name('mail.users');
 
 
-    Route::resource('product.comment', CommentController::class)->except('show', 'update', 'edit')->shallow();
+    Route::resource('product.comment', CommentController::class)->except('show', 'update')->shallow();
+
+    Route::post('comment/{comment}', [CommentController::class, 'update'])->name('comment.update');
 
     Route::resource('product.productGallery', GalleryController::class)->except('show', 'update', 'edit')->shallow();
     
