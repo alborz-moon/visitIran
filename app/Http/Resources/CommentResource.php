@@ -20,8 +20,17 @@ class CommentResource extends JsonResource
             'msg' => $this->msg,
             'rate' => $this->rate,
             'title' => $this->title,
-            'negative' => $this->negative,
-            'positive' => $this->positive,
+            // 'negative' => $this->negative,
+            // 'positive' => $this->positive,
+            'negative' => [
+                'aasdwq',
+                'asdwq'
+            ],
+            'positive' => [
+                'wqqw',
+                'dwqwq3eqwewq',
+                'asdqwqw'
+            ],
             'user' => $user->first_name . ' ' . $user->last_name
         ];
     }
