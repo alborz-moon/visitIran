@@ -11,9 +11,9 @@
     <script>
         $('#bookmark').click(function(){
             if($(this).hasClass('ri-bookmark-line'))
-                $(this).removeClass('ri-bookmark-line').addClass('ri-bookmark-fill');
+                $(this).removeClass('ri-bookmark-line').addClass('ri-bookmark-fill colorYellow');
             else
-                $(this).removeClass('ri-bookmark-fill').addClass('ri-bookmark-line');
+                $(this).removeClass('ri-bookmark-fill').removeClass('colorYellow').addClass('ri-bookmark-line');
         });
     </script>
 @else
