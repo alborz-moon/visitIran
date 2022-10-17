@@ -444,7 +444,7 @@ ul {
     padding-right: 15px;
 }
 .colorYellow {
-    color: #c59358;
+    color: #c59358 !important;
 }
 .backColorWhite {
     background-color: #ffffff;
