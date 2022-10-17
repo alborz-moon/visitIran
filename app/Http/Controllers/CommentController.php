@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -15,7 +16,20 @@ class CommentController extends Controller
      */
     public function index(Product $product, Request $request)
     {
-        //
+        
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list(Product $product, Request $request)
+    {
+        return response()->json([
+            'status' => 'ok',
+            'data' => CommentResource::collection($product->comments()->confirmed()->get())->toArray($request)
+        ]);
     }
 
     /**
@@ -30,9 +44,12 @@ class CommentController extends Controller
             abort(401);
 
         $validator = [
-            'msg' => 'required_without_all:rate,is_bookmark|string',
-            'rate' => 'required_without_all:msg,is_bookmark|integer|min:1|max:5',
-            'is_bookmark' => 'required_without_all:msg,rate|boolean'
+            'title' => 'required_without_all|string|min:2',
+            'rate' => 'required_without_all:title,is_bookmark|integer|min:1|max:5',
+            'is_bookmark' => 'required_without_all:title,rate|boolean',
+            'negative' => 'nullable|string|min:2',
+            'positive' => 'nullable|string|min:2',
+            'msg' => 'nullable:rate,is_bookmark|string',
         ];
 
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
@@ -56,15 +73,25 @@ class CommentController extends Controller
                 $product->rate_count = $product->rate_count + 1;
                 $needUpdateProductTable = true;
             }
-            if($request->has('msg')) {
+            if($request->has('title')) {
                 $product->comment_count = $product->comment_count + 1;
                 $needUpdateProductTable = true;
             }
         }
 
-        if($request->has('msg')) {
+        if($request->has('title')) {
             
-            $comment->msg = $request['msg'];
+            $comment->title = $request['title'];
+
+            if($request->has('msg'))
+                $comment->msg = $request['msg'];
+
+            if($request->has('negative'))
+                $comment->negative = $request['negative'];
+
+            if($request->has('positive'))
+                $comment->positive = $request['positive'];
+
             if($comment->status) {
                 $needToConfirm = true;
                 $needUpdateProductTable = true;
@@ -99,17 +126,6 @@ class CommentController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Comment $comment)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Comment  $comment
@@ -140,6 +156,13 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $product = $comment->product;
+
+        if(!$comment->status)
+            $product->new_comment_count -= 1;
+        
+        $product->comment_count -= 1;
+        $product->save();
+        $comment->delete();
     }
 }

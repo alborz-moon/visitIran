@@ -682,12 +682,23 @@
         //     data: {
         //         'rate': 3,
         //         'is_bookmark': 1,
+        //         'title': 'sample',
+        //         'negative': 'asdwqdwqdqwqwd',
+        //         'positive': 'sdffq',
         //         'msg': 'sasds'
         //     },  
         //     success: function(res) {
         //         alert(res);
         //     }
         // });
+
+        $.ajax({
+            type: 'get',
+            url: '{{ route('api.product.comment.list', ['product' => $product['id']]) }}',
+            success: function(res) {
+                console.log(res.data);
+            }
+        });
         
         let star="";
         let roundRatting=Math.floor('{{ $product['rate'] }}');

@@ -54,6 +54,10 @@ class Product extends Model
         return $this->hasMany(ProductGallery::class);
     }
 
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
+
     public function scopeVisible($query) {
         return $query->where('visibility', true);
     }
