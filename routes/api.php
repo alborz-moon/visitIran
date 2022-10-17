@@ -58,6 +58,8 @@ Route::middleware(['myAuth'])->group(function() {
 
     Route::prefix('product/{product}')->group(function() {
 
+        Route::get('/comment', [CommentController::class, 'list'])->name('api.product.comment.list');
+
         Route::post('/comment', [CommentController::class, 'store'])->name('api.product.comment.store');
 
     });

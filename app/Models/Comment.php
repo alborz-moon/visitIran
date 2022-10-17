@@ -15,6 +15,9 @@ class Comment extends Model
         'user_id',
         'is_bookmark',
         'msg',
+        'title',
+        'positive',
+        'negative',
         'rate'
     ];
 
@@ -30,4 +33,16 @@ class Comment extends Model
         return $query->where('product_id', $productId)->whereNotNull('rate');
     }
 
+    public function scopeConfirmed($query) {
+        return $query->where('status', true);
+    }
+
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+    
 }
