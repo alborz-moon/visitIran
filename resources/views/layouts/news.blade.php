@@ -9,7 +9,7 @@
                 </a>
             </div>
             <div class="product-card-body">
-                <h2 class="product-title">
+                <h2 class="product-title mt-3">
                     <a id="newsHeader" class="textColor fontSize18 bold" href="#"></a>
                 </h2>
                 <div class="product-variant">
