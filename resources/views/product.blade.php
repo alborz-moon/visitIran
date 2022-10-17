@@ -209,9 +209,12 @@
                             </div>
                         </div>
                         <!-- end of product-params -->
+                        
                         <!-- start of product-comments -->
+                        @include('product.write-comment', ['productId' => $product['id']])
                         @include('product.comments-show', ['productId' => $product['id']])
                         <!-- end of product-comments -->
+
                     </div>
                     <div class="col-xl-3 col-lg-4 d-lg-block d-none">
                         <div class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">

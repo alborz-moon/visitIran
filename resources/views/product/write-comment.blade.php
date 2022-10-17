@@ -1,14 +1,14 @@
 {{-- Modal     --}}
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">دیدگاه شما</h5>
+          <h5 class="modal-title" id="commentModalLabel">دیدگاه شما</h5>
           {{-- <div class="d-flex" style="flex-direction:column">
               <img src="#">
               <p>عکس محصول</p>
           </div> --}}
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button id="close-comment-modal-btn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body p-0">
   <main class="page-content p-0">
@@ -18,14 +18,14 @@
               <div class="ui-box-content">
                   <div class="row">
                       <div class="col-md-6 mb-md-0 mb-4">
-                          <form action="#" class="add-comment-product">
+                          <div class="add-comment-product">
                               <!-- start of form-element -->
                               <div class="d-flex justify-content-center align-items-center">
                                   @include('layouts.ratting')
                               </div>
                               <div class="form-element-row mb-3">
-                                  <label class="label">عنوان نظر شما</label>
-                                  <input type="text" class="form-control"
+                                  <label class="label">عنوان نظر شما(اجباری)</label>
+                                  <input id="comment-title" type="text" class="form-control"
                                       placeholder="عنوان نظر خود را بنویسید..">
                               </div>
                               <!-- end of form-element -->
@@ -36,7 +36,7 @@
                                       <div class="add-point-field">
                                           <input type="text" class="form-control" id="advantage-input"
                                               autocomplete="off">
-                                          <button type="button"
+                                          <button id="add-advantage-input" type="button"
                                               class="btn btn-primary btn-add-point js-icon-form-add"><i
                                                   class="ri-add-line"></i></button>
                                       </div>
@@ -51,7 +51,7 @@
                                       <div class="add-point-field">
                                           <input type="text" class="form-control" id="disadvantage-input"
                                               autocomplete="off">
-                                          <button type="button"
+                                          <button id="add-disadvantage-input" type="button"
                                               class="btn btn-primary btn-add-point js-icon-form-add"><i
                                                   class="ri-add-line"></i></button>
                                       </div>
@@ -61,12 +61,12 @@
                               <!-- end of form-element -->
                               <!-- start of form-element -->
                               <div class="form-element-row mb-3">
-                                  <label class="label">متن نظر شما (اجباری)</label>
-                                  <textarea rows="5" class="form-control"
+                                  <label class="label">متن نظر شما </label>
+                                  <textarea id="comment-msg" rows="5" class="form-control"
                                       placeholder="متن نظر خود را بنویسید.."></textarea>
                               </div>
                               <!-- end of form-element -->
-                          </form>
+                          </div>
                           
                       </div>
                       <div class="col-md-6 p-0">
@@ -109,7 +109,7 @@
               </div>
           </div>
           <div class="text-end">
-              <button class="btn btn-primary">ثبت نظر 
+              <button id="submitComment" class="btn btn-primary">ثبت نظر 
                   <i class="ri-send-plane-fill ms-2"></i>
               </button>
           </div>
@@ -117,3 +117,53 @@
       </div>
     </div>
   </div>
+
+  <script>
+
+    let advantages = [];
+    let disadvantages = [];
+
+
+
+    $("#submitComment").on('click', function() {
+
+        let title = $("#comment-title").val();
+        if(title.length === 0) {
+            return;
+        }
+
+        $(".js-advantages-list").children('.js-advantage-item').each(function() {
+            advantages.push($(this).text().replace("\n", ""));
+        });
+        $(".js-disadvantages-list").children('.js-disadvantage-item').each(function() {
+            disadvantages.push($(this).text().replace("\n", ""));
+        });
+
+        let data = {title: title};
+
+        if(advantages.length > 0)
+            data.positive = advantages;
+        
+        if(disadvantages.length > 0)
+            data.negative = disadvantages;
+
+        let msg = $("#comment-msg").val();
+        if(msg.length > 0)
+            data.msg = msg;
+
+        if($("#comment-rate").attr('data-rate') !== undefined)
+            data.rate = $("#comment-rate").attr('data-rate');
+
+        $.ajax({
+            type: 'post',
+            url: '{{ route('api.product.comment.store', ['product' => $productId]) }}',
+            data: data,  
+            success: function(res) {
+                if(res.status === 'ok')
+                    $("#close-comment-modal-btn").click();
+            }
+        });
+
+    });
+
+  </script>

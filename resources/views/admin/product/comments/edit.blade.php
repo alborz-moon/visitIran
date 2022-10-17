@@ -31,16 +31,20 @@
                 <textarea type="text" name="msg" id="msg">{{ $item['msg'] }}</textarea>
             </div>
 
-            <div>
+            <div style="display: block !important">
                 <label for="positive">نقاط قوت</label>
-                <textarea type="text" name="positive" id="positive">{{ $item['positive'] }}</textarea>
+                <?php $i = 0; ?>
+                @foreach ($item['positive'] as $itr)
+                    <input type="text" value="{{ $itr }}" name="positive[{{ $i }}][]" />
+                    <?php $i++; ?>
+                @endforeach
             </div>
 
 
-            <div>
+            {{-- <div>
                 <label for="negative">نقاط ضعف</label>
                 <textarea type="text" name="negative" id="negative">{{ $item['negative'] }}</textarea>
-            </div>
+            </div> --}}
 
 
             <div>

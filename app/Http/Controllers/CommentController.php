@@ -7,7 +7,10 @@ use App\Http\Resources\CommentResource;
 use App\Http\Resources\CommentUserResource;
 use App\Models\Comment;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rule;
 
 class CommentController extends Controller
 {
@@ -72,7 +75,7 @@ class CommentController extends Controller
             abort(401);
 
         $validator = [
-            'title' => 'required_without_all|string|min:2',
+            'title' => 'required_without_all:is_bookmark,rate|string|min:2',
             'rate' => 'required_without_all:title,is_bookmark|integer|min:1|max:5',
             'is_bookmark' => 'required_without_all:title,rate|boolean',
             'negative' => 'nullable|array|min:1',
@@ -176,7 +179,67 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        
+        $user = $request->user();
+        $validator = [
+            'title' => 'required_without_all:rate|string|min:2',
+            'rate' => 'required_without_all:title|integer|min:1|max:5',
+            'negative' => 'nullable|array|min:1',
+            'positive' => 'nullable|array|min:1',
+            'msg' => 'nullable:rate,is_bookmark|string',
+            'status' => Rule::requiredIf($user->level === User::$ADMIN_LEVEL || $user->level === User::$EDITOR_LEVEL),
+        ];
+     
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator);
+        
+        if($user->level != User::$ADMIN_LEVEL && 
+            $user->level != User::$EDITOR_LEVEL && 
+            $user->id != $comment->user_id
+        )
+            abort(401);
+
+        $isAdmin = $user->level == User::$ADMIN_LEVEL ||
+            $user->level == User::$EDITOR_LEVEL;
+
+        if(!$isAdmin && $request->has('status'))
+            abort(401);
+
+        $product = $comment->product;
+
+        if(!$isAdmin && $comment->status) {
+            $comment->status = false;
+            $product->new_comment_count += 1;
+            $product->save();
+        }
+
+        if($isAdmin && $request['status'] != $comment->status) {
+            if($request['status'])
+                $product->new_comment_count -= 1;
+            else
+                $product->new_comment_count += 1;
+
+            $product->save();
+        }
+
+
+        foreach($request->keys() as $key) {
+
+            if($key == '_token')
+                continue;
+
+            if($key == 'positive')
+                $comment[$key] = implode('$$$___$$$', $request['positive']);
+            else if($key === 'negative')
+                $comment[$key] = implode('$$$___$$$', $request['negative']);
+            else
+                $comment[$key] = $request[$key];
+        }
+
+        $comment->save();
+        return Redirect::route('product.comment.index', ['product' => $product->id]);
     }
 
     /**

@@ -29,7 +29,7 @@
         <tbody>
             <?php $i = 1; ?>
             @foreach($items as $item)
-                <tr>
+                <tr id="item_{{ $item['id'] }}">
 
                     <td>{{ $i++ }}</td>
                     <td>{{ $item['user'] }}</td>
