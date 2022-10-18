@@ -13,7 +13,9 @@
 
 @section('items')
 <center style="margin-top: 20px">
-    <p id="err"></p>
+    
+    <p>تعداد کل: {{ $total_count }}</p>
+
     <table>
         <thead>
             <tr>
@@ -29,7 +31,7 @@
         <tbody>
             <?php $i = 1; ?>
             @foreach($items as $item)
-                <tr id="item_{{ $item['id'] }}">
+                <tr id="item_{{ $item['id'] }}">    
 
                     <td>{{ $i++ }}</td>
                     <td>{{ $item['user'] }}</td>

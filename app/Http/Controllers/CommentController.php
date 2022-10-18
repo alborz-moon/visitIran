@@ -8,6 +8,7 @@ use App\Http\Resources\CommentUserResource;
 use App\Models\Comment;
 use App\Models\Product;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
@@ -43,8 +44,11 @@ class CommentController extends Controller
             $comments->orderBy($orderBy, $orderByType);
         }
         
+        $tmp = $comments->paginate(20);
+
         return view('admin.product.comments.list', [
-            'items' => CommentDigest::collection($comments->paginate(20))->toArray($request),
+            'items' => CommentDigest::collection($tmp)->toArray($request),
+            'total_count' => $tmp->count(),
             'productId' => $product->id,
             'productName' => $product->name
         ]);
@@ -208,28 +212,40 @@ class CommentController extends Controller
             abort(401);
 
         $product = $comment->product;
+        $needUpdateProductTable = false;
 
         if(!$isAdmin && $comment->status) {
             $comment->status = false;
             $product->new_comment_count += 1;
-            $product->save();
+            $needUpdateProductTable = true;
         }
 
         if($isAdmin && $request['status'] != $comment->status) {
-            if($request['status'])
+
+            if($request['status']) {
                 $product->new_comment_count -= 1;
+                $comment->confirmed_at = Carbon::now();
+            }
             else
                 $product->new_comment_count += 1;
-
-            $product->save();
+                
+            $needUpdateProductTable = true;
         }
 
+
+        if($request->has('rate') && $request['rate'] != $comment->rate) {
+            $product->rate = ($product->rate * $product->rate_count - $comment->rate + $request['rate']) / ($product->rate_count * 1.0);
+            $needUpdateProductTable = true;
+        }
+
+        if($needUpdateProductTable)
+            $product->save();
 
         foreach($request->keys() as $key) {
 
             if($key == '_token')
                 continue;
-
+            
             if($key == 'positive')
                 $comment[$key] = implode('$$$___$$$', $request['positive']);
             else if($key === 'negative')

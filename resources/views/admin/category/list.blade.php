@@ -35,7 +35,7 @@
                             <button onclick="$('#addBatchModal').removeClass('hidden')" class="btn btn-success">افزودن دسته ای</button>
                         </div>
 
-                        <div>
+                        <div class="flex flex-start gap10 margin20">
                             <label for="presentType">نوع نمایش</label>
                             <select id="presentType">
                                 <option value="card">کارتی</option>
@@ -74,6 +74,12 @@
                                     <table>
                                         <thead>
                                             <th>نام</th>
+                                            @if($category['has_sub'])
+                                                <th>تعداد زیردسته</th>
+                                            @else
+                                                <th>تعداد ویژگی</th>
+                                                <th>تعداد محصول</th>
+                                            @endif
                                             <th>عملیات</th>
                                         </thead>
                                         @foreach($categories as $category)

@@ -35,17 +35,20 @@
                 <label for="positive">نقاط قوت</label>
                 <?php $i = 0; ?>
                 @foreach ($item['positive'] as $itr)
-                    <input type="text" value="{{ $itr }}" name="positive[{{ $i }}][]" />
+                    <input type="text" value="{{ $itr }}" name="positive[]" />
                     <?php $i++; ?>
                 @endforeach
             </div>
 
 
-            {{-- <div>
+            <div style="display: block !important">
                 <label for="negative">نقاط ضعف</label>
-                <textarea type="text" name="negative" id="negative">{{ $item['negative'] }}</textarea>
-            </div> --}}
-
+                <?php $i = 0; ?>
+                @foreach ($item['negative'] as $itr)
+                    <input type="text" value="{{ $itr }}" name="negative[]" />
+                    <?php $i++; ?>
+                @endforeach
+            </div>
 
             <div>
                 <label for="status">وضعیت</label>

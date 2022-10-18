@@ -21,7 +21,6 @@ use App\Models\PurchaseItems;
 use App\Models\Seller;
 use App\Models\Similar;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
@@ -191,6 +190,7 @@ class ProductController extends Controller
             return view('admin.product.list', [
                 'items' => $output->toArray($request),
                 'links' => $output->links(),
+                'total_count' => $output->total(),
                 'visibilityFilter' => $visibility,
                 'isInTopListFilter' => $isInTopList,
                 'sellerFilter' => $seller,
