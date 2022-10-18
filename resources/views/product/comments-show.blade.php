@@ -50,10 +50,10 @@
                    html += '<span>' + res.data[i].user + '</span></div><div class="comment-body">';
                    html += '<p>' + res.data[i].msg + '</p>';
                    html += '<ul>';
-                    for(var j = 0; j < res.data.positive.length; j++) {
+                    for(var j = 0; j < res.data[i].positive.length; j++) {
                         html += '<li class="comment-evaluation positive">' + res.data[i].positive[j] + '</li>';
                     }
-                    for(var j = 0; j < res.data.negative.length; j++) {
+                    for(var j = 0; j < res.data[i].negative.length; j++) {
                         html += '<li class="comment-evaluation negative">' + res.data[i].negative[j] + '</li>';
                     }  
                    html += '</ul></div></div>';
@@ -62,5 +62,4 @@
             }
         }
     });
-
 </script>
