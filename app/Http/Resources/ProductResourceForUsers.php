@@ -40,11 +40,11 @@ class ProductResourceForUsers extends JsonResource
 
         $parentPath = [];
         array_push($parentPath, $this->name);
-        array_push($parentPath, $cat->name);
+        array_unshift($parentPath, $cat->name);
         $tmpCat = $cat;
         while($tmpCat->parent_id != null) {
             $tmpCat = $tmpCat->parent;
-            array_push($parentPath, $tmpCat->name);
+            array_unshift($parentPath, $tmpCat->name);
         }
 
         return [
@@ -54,7 +54,7 @@ class ProductResourceForUsers extends JsonResource
             'description' => $this->description,
             'keywords' => $this->keywords,
             'digest' => $this->digest,
-            'rate' => $this->rate == null ? 4 : $this->rate,
+            'rate' => $this->rate == null ? 4 : round($this->rate, 1),
             'name' => $this->name,
             'brand' => $this->brand->name,
             'seller' => $this->seller_id == null ? '' : $this->seller->name,

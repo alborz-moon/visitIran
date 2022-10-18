@@ -19,9 +19,9 @@ class CommentDigest extends JsonResource
         return [
             'id' => $this->id,
             'rate' => $this->rate,
-            'title' => $this->title,
             'status' => $this->status,
             'user' => $user->first_name . ' ' . $user->last_name,
+            'msg' => $this->msg,
             'created_at' => Controller::MiladyToShamsi($this->created_at),
         ];
     }

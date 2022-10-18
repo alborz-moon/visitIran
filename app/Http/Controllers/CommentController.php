@@ -27,8 +27,15 @@ class CommentController extends Controller
     {
         
         $confirmed = $request->query('confirmed', null);
+        $rate = $request->query('rate', null);
+        $max = $request->query('max', null);
+        $min = $request->query('min', null);
+
         $orderBy = $request->query('orderBy', null);
         $orderByType = $request->query('orderByType', null);
+
+        $fromCreatedAt = $request->query('fromCreatedAt', null);
+        $toCreatedAt = $request->query('toCreatedAt', null);
 
         $comments = [];
 
@@ -39,8 +46,26 @@ class CommentController extends Controller
         else
             $comments = $product->comments()->unConfirmed();
 
+        if($rate != null && $rate)
+            $comments = $comments->whereNotNull('rate');
+        else
+            $comments = $comments->whereNull('rate');
+
+        if($max != null)
+            $comments = $comments->where('rate', '<=', $max);
+
+        if($min != null)
+            $comments = $comments->where('rate', '>=', $min);
+
+
+        if($fromCreatedAt != null)
+            $comments =  $comments->whereDate('created_at', '>=', self::ShamsiToMilady($fromCreatedAt));
+            
+        if($toCreatedAt != null)
+            $comments = $comments->whereDate('created_at', '<=', self::ShamsiToMilady($toCreatedAt));
+
         if($orderBy != null && 
-            ($orderBy == 'created_at' || $orderBy == 'rate')
+            ($orderBy == 'created_at' || $orderBy == 'rate' || $orderBy == 'confirmed_at')
         ) {
             $orderByType = $orderByType == null || $orderByType == 'desc' || $orderByType != 'asc' ? 'desc' : 'asc';
             $comments->orderBy($orderBy, $orderByType);
@@ -50,9 +75,17 @@ class CommentController extends Controller
 
         return view('admin.product.comments.list', [
             'items' => CommentDigest::collection($tmp)->toArray($request),
+            'confirmedFilter' => $confirmed,
+            'rateFilter' => $rate,
+            'maxFilter' => $max,
+            'minFilter' => $min,
+            'orderByType' => $orderByType,
+            'orderBy' => $orderBy,
             'total_count' => $tmp->count(),
             'productId' => $product->id,
-            'productName' => $product->name
+            'productName' => $product->name,
+            'fromCreatedAtFilter' => $fromCreatedAt,
+            'toCreatedAtFilter' => $toCreatedAt,
         ]);
     }
 
@@ -64,11 +97,22 @@ class CommentController extends Controller
     public function list(Product $product, Request $request)
     {
         $page = $request->query('page', 1);
+
+        $comments = $product->comments()->confirmed();
+
+        $orderBy = $request->query('orderBy', null);
+        $orderBy = $orderBy != null && $orderBy == 'rate' ? 'rate' : 'created_at';
+
+        $orderByType = $request->query('orderType', null);
+        $orderByType = $orderByType != null && $orderByType === 'asc' ? 'asc' : 'desc';
+        // dd($comments->orderBy($orderBy, $orderByType)->get());
         
         return response()->json([
             'status' => 'ok',
             'data' => CommentUserResource::collection(
-                $product->comments()->confirmed()->skip(($page - 1) * self::$PER_PAGE)->take(self::$PER_PAGE)->get())
+                $comments->orderBy($orderBy, $orderByType)
+                ->skip(($page - 1) * self::$PER_PAGE)->take(self::$PER_PAGE)
+                ->get())
                 ->toArray($request)
         ]);
     }
@@ -85,12 +129,11 @@ class CommentController extends Controller
             abort(401);
 
         $validator = [
-            'title' => 'required_without_all:is_bookmark,rate|string|min:2',
-            'rate' => 'required_without_all:title,is_bookmark|integer|min:1|max:5',
-            'is_bookmark' => 'required_without_all:title,rate|boolean',
+            'msg' => 'required_without_all:is_bookmark,rate|string|min:2',
+            'rate' => 'required_without_all:msg,is_bookmark|integer|min:1|max:5',
+            'is_bookmark' => 'required_without_all:msg,rate|boolean',
             'negative' => 'nullable|array|min:1',
             'positive' => 'nullable|array|min:1',
-            'msg' => 'nullable:rate,is_bookmark|string',
         ];
 
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
@@ -114,18 +157,15 @@ class CommentController extends Controller
                 $product->rate_count = $product->rate_count + 1;
                 $needUpdateProductTable = true;
             }
-            if($request->has('title')) {
+            if($request->has('msg')) {
                 $product->comment_count = $product->comment_count + 1;
                 $needUpdateProductTable = true;
             }
         }
 
-        if($request->has('title')) {
-            
-            $comment->title = $request['title'];
+        if($request->has('msg')) {
 
-            if($request->has('msg'))
-                $comment->msg = $request['msg'];
+            $comment->msg = $request['msg'];
 
             if($request->has('negative'))
                 $comment->negative = implode('$$$___$$$', $request['negative']);
@@ -194,11 +234,10 @@ class CommentController extends Controller
 
         $user = $request->user();
         $validator = [
-            'title' => 'required_without_all:rate|string|min:2',
-            'rate' => 'required_without_all:title|integer|min:0|max:5',
+            'msg' => 'required_without_all:rate|string|min:2',
+            'rate' => 'required_without_all:msg|integer|min:0|max:5',
             'negative' => 'nullable|array|min:1',
             'positive' => 'nullable|array|min:1',
-            'msg' => 'nullable:rate,is_bookmark|string',
             'status' => Rule::requiredIf($user->level === User::$ADMIN_LEVEL || $user->level === User::$EDITOR_LEVEL),
         ];
      
@@ -249,7 +288,8 @@ class CommentController extends Controller
             (!$request->has('rate') || $request['rate'] == null) && $comment->rate != null
         ) {
             $comment->rate = null;
-            $product->rate = ($product->rate * $product->rate_count - $comment->rate) / ($product->rate_count * 1.0);
+            $product->rate = round(($product->rate * $product->rate_count - $comment->rate) / (($product->rate_count - 1) * 1.0), 2);
+            $product->rate_count -= 1;
             $needUpdateProductTable = true;
         }
 
@@ -286,6 +326,11 @@ class CommentController extends Controller
         if(!$comment->status)
             $product->new_comment_count -= 1;
         
+        if($comment->rate != null) {
+            $product->rate = round(($product->rate * $product->rate_count - $comment->rate) / (($product->rate_count - 1) * 1.0), 2);
+            $product->rate_count -= 1;
+        }
+
         $product->comment_count -= 1;
         $product->save();
         $comment->delete();
