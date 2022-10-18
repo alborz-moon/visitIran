@@ -19,7 +19,6 @@ class CommentUserResource extends JsonResource
         return [
             'msg' => $this->msg,
             'rate' => $this->rate,
-            'title' => $this->title,
             'negative' => explode('$$$___$$$', $this->negative),
             'positive' => explode('$$$___$$$', $this->positive),
             'user' => $user->first_name . ' ' . $user->last_name,

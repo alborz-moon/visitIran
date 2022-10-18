@@ -40,7 +40,7 @@ class ProductDigestUser extends JsonResource
             'img' => $this->img == null ? asset('default.png') : asset('storage/products/' . $this->img),
             'alt' => $this->alt,
             'slug' => $this->slug == null ? $this->name : $this->slug,
-            'rate' => $this->rate == null ? 4 : $this->rate,
+            'rate' => $this->rate == null ? 4 : round($this->rate, 1),
             'name' => $this->name,
             'brand' => $this->brand->name,
             'seller' => $this->seller_id == null ? '' : $this->seller->name,

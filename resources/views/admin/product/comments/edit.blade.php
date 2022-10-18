@@ -21,11 +21,6 @@
         {{ csrf_field() }}
 
         <div class="flex flex-col center gap10" style="margin: 10px">
-            
-            <div>
-                <label for="title">عنوان</label>
-                <input value="{{ $item['title'] }}" type="text" name="title" id="title" />
-            </div>
                 
             <div>
                 <label for="rate">امتیاز</label>

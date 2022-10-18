@@ -15,7 +15,6 @@ class Comment extends Model
         'user_id',
         'is_bookmark',
         'msg',
-        'title',
         'positive',
         'negative',
         'rate'
