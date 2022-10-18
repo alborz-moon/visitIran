@@ -183,11 +183,13 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        
+        if($request->has('rate') && $request['rate'] == 0)
+            unset($request['rate']);
+
         $user = $request->user();
         $validator = [
             'title' => 'required_without_all:rate|string|min:2',
-            'rate' => 'required_without_all:title|integer|min:1|max:5',
+            'rate' => 'required_without_all:title|integer|min:0|max:5',
             'negative' => 'nullable|array|min:1',
             'positive' => 'nullable|array|min:1',
             'msg' => 'nullable:rate,is_bookmark|string',
@@ -233,8 +235,15 @@ class CommentController extends Controller
         }
 
 
-        if($request->has('rate') && $request['rate'] != $comment->rate) {
+        if($request->has('rate') && $request['rate'] != null && $request['rate'] != $comment->rate) {
             $product->rate = ($product->rate * $product->rate_count - $comment->rate + $request['rate']) / ($product->rate_count * 1.0);
+            $needUpdateProductTable = true;
+        }
+        else if(
+            (!$request->has('rate') || $request['rate'] == null) && $comment->rate != null
+        ) {
+            $comment->rate = null;
+            $product->rate = ($product->rate * $product->rate_count - $comment->rate) / ($product->rate_count * 1.0);
             $needUpdateProductTable = true;
         }
 

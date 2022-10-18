@@ -7,6 +7,12 @@
 @section('form')
 
     <center>
+        @if($errors->any())
+            {{ implode('', $errors->all(':message')) }}
+        @endif
+    </center>
+
+    <center>
         <p>کاربر مربوطه: {{ $item['user'] }}</p>
         <p>تاریخ ایجاد: {{ $item['created_at'] }}</p>
         <p>تاریخ تایید: {{ $item['status'] ? $item['confirmed_at'] : 'هنوز تایید نشده است' }}</p>
