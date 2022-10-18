@@ -9,7 +9,9 @@
                     <div class="product-seller-row-detail-title">{{ $product['seller'] }}</div>
                 </div>
             </div>
+            
         @endif
+        <hr>
         @if ($product['guarantee'] !== null)
             <div class="product-seller-row">
                 <div class="product-seller-row-icon marginTop10">
@@ -20,6 +22,7 @@
                 </div>
             </div>
         @endif
+        <hr>
         <div class="product-seller-row product-seller-row--clickable">
             <div class="product-seller-row-icon marginTop10">
                 <i class="icon-visit-original colorYellow  productIcon"></i>
@@ -27,18 +30,20 @@
             <div class="product-seller-row-detail">
                 <div class="product-seller-row-detail-title">تضمین اصالت</div>                                        </div>
         </div>
+        <hr>
         <div class="product-seller-row">
             <div class="product-seller-row-icon marginTop10">
                 <i class="icon-visit-truck colorYellow  productIcon"></i>
             </div>
             <div class="product-seller-row-detail">
                 <div class="product-seller-row-detail-title">
-                    ارسال : <span class="fontNormal"> 2 تا 7 روز کاری </span>
+                    ارسال : <span class="fontNormal fontSize16"> 2 تا 7 روز کاری </span>
                 </div>
             </div>
         </div>
+        <hr>
         @if ($product['available_count'] != 0)
-        <div class="product-seller-row product-seller-row--price spaceBetween flexDirectionRowReverse">
+        <div class="product-seller-row product-seller-row--price spaceBetween flexDirectionRowReverse pt-2">
             <div class="product-seller-row--price-now fa-num ">
                 <span class="price">{{ $product['off'] != null ?  $product['priceAfterOff'] : $product['price'] }}</span>
                 <span class="currency fontSize18 colorYellow">ت</span>
@@ -79,19 +84,19 @@
             </div>
         @endif
         <div class="product-seller-row product-remaining-in-stock spaceBetween">
-            <div class="bold colorBlack d-flex align-items-center ">
+            <div class="bold customColorBlack d-flex align-items-center ">
                 <div>تعداد سفارش :</div>                                            
             </div>
             <div class="num-block fa-num me-3">
                 <span class="num-in">
-                    <span class="ri-add-circle-line countPlus colorBlack"></span>
+                    <span class="icon-visit-Exclusion1 countPlus customColorBlack d-contents"></span>
                     <input name="counter" type="text" value="1" readonly="">
-                    <span class="ri-subtract-line countMinus colorBlack"></span>
+                    <span class="icon-visit-Exclusion2 countMinus customColorBlack d-contents"></span>
                 </span>
             </div>
         </div>
     <div class="product-seller--add-to-cart">
-        <a href="#" class="btn btn-primary w-100" data-toast data-toast-type="success"
+        <a href="#" class="btn btn-primary backgroundColorBlue w-100" data-toast data-toast-type="success"
             data-toast-color="green" data-toast-position="topRight"
             data-toast-icon="ri-check-fill" data-toast-title="موفق!"
             data-toast-message="به سبد اضافه شد!">

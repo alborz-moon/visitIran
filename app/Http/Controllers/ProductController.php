@@ -535,7 +535,7 @@ class ProductController extends Controller
         if(!$product->visibility)
             return Redirect::route('home');
 
-        sleep(10);
+        // sleep(10);
 
         return response()->json([
             'status' => 'ok', 

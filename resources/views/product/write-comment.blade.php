@@ -23,11 +23,6 @@
                               <div class="d-flex justify-content-center align-items-center">
                                   @include('layouts.ratting')
                               </div>
-                              <div class="form-element-row mb-3">
-                                  <label class="label">عنوان نظر شما(اجباری)</label>
-                                  <input id="comment-title" type="text" class="form-control"
-                                      placeholder="عنوان نظر خود را بنویسید..">
-                              </div>
                               <!-- end of form-element -->
                               <!-- start of form-element -->
                               <div class="form-element-row mb-3">

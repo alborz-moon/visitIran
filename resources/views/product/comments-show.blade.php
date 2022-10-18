@@ -46,8 +46,8 @@
             var html= "";
             if(res.status === "ok") {
                for(var i = 0; i < res.data.length; i++) {
-                   html += '<div class="comment"><div class="comment-header"><span>' + res.data[i].created_at + '</span>';
-                   html += '<span>' + res.data[i].user + '</span></div><div class="comment-body">';
+                   html += '<div class="comment"><div class="comment-header">' + res.data[i].created_at + '<span>' + res.data[i].created_at + '</span>';
+                   html += '<span class="m-3">' + res.data[i].user + '</span></div><div class="comment-body">';
                    html += '<p>' + res.data[i].msg + '</p>';
                    html += '<ul>';
                     for(var j = 0; j < res.data[i].positive.length; j++) {
