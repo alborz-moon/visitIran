@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CategoryDigest;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\CategoryUserDigest;
 use App\Http\Resources\CategoryVeryDigest;
+use App\Http\Resources\HeadCategoryResource;
 use App\Http\Resources\ProductDigestUser;
 use App\Imports\CategoryImport;
 use App\Models\Category;
@@ -138,8 +140,8 @@ class CategoryController extends Controller
         return response()->json(
             [
                 'data' => [
-                    "top" => CategoryDigest::collection($cats)->toArray($request),
-                    "menu" => CategoryDigest::collection($menuCats)->toArray($request),
+                    "top" => CategoryUserDigest::collection($cats)->toArray($request),
+                    "menu" => HeadCategoryResource::collection($menuCats)->toArray($request),
                 ],
                 'status' => 'ok'
             ]
@@ -155,8 +157,8 @@ class CategoryController extends Controller
         return response()->json(
             [
                 'data' => [
-                    "top" => CategoryDigest::collection($cats)->toArray($request),
-                    "menu" => CategoryDigest::collection($menuCats)->toArray($request),
+                    "top" => CategoryUserDigest::collection($cats)->toArray($request),
+                    "menu" => HeadCategoryResource::collection($menuCats)->toArray($request),
                 ],
                 'status' => 'ok'
             ]

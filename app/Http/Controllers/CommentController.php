@@ -16,6 +16,8 @@ use Illuminate\Validation\Rule;
 class CommentController extends Controller
 {
 
+    private static $PER_PAGE = 10;
+
     /**
      * Display a listing of the resource.
      *
@@ -61,9 +63,13 @@ class CommentController extends Controller
      */
     public function list(Product $product, Request $request)
     {
+        $page = $request->query('page', 1);
+        
         return response()->json([
             'status' => 'ok',
-            'data' => CommentUserResource::collection($product->comments()->confirmed()->get())->toArray($request)
+            'data' => CommentUserResource::collection(
+                $product->comments()->confirmed()->skip(($page - 1) * self::$PER_PAGE)->take(self::$PER_PAGE)->get())
+                ->toArray($request)
         ]);
     }
 
@@ -104,7 +110,7 @@ class CommentController extends Controller
             $needToConfirm = true;
 
             if($request->has('rate')) {
-                $product->rate = ($product->rate * $product->rate_count + $request['rate']) / ($product->rate_count + 1);
+                $product->rate = round(($product->rate * $product->rate_count + $request['rate']) / ($product->rate_count + 1), 2);
                 $product->rate_count = $product->rate_count + 1;
                 $needUpdateProductTable = true;
             }
@@ -137,7 +143,7 @@ class CommentController extends Controller
 
         if($request->has('rate')) {
             if(!$needUpdateProductTable) {
-                $product->rate = ($product->rate * $product->rate_count - $comment->rate + $request['rate']) / $product->rate_count;
+                $product->rate = round(($product->rate * $product->rate_count - $comment->rate + $request['rate']) / $product->rate_count, 2);
                 $needUpdateProductTable = true;
             }
             
@@ -234,7 +240,7 @@ class CommentController extends Controller
 
 
         if($request->has('rate') && $request['rate'] != $comment->rate) {
-            $product->rate = ($product->rate * $product->rate_count - $comment->rate + $request['rate']) / ($product->rate_count * 1.0);
+            $product->rate = round(($product->rate * $product->rate_count - $comment->rate + $request['rate']) / ($product->rate_count * 1.0), 2);
             $needUpdateProductTable = true;
         }
 
