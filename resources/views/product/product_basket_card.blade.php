@@ -43,7 +43,7 @@
         </div>
         <hr>
         @if ($product['available_count'] != 0)
-        <div class="product-seller-row product-seller-row--price spaceBetween flexDirectionRowReverse pt-2">
+        <div class="product-seller-row product-seller-row--price pt-2 flexDirectionColumnR align-items-end">
             <div class="product-seller-row--price-now fa-num ">
                 <span class="price">{{ $product['off'] != null ?  $product['priceAfterOff'] : $product['price'] }}</span>
                 <span class="currency fontSize18 colorYellow">ت</span>

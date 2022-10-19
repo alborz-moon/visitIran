@@ -4,7 +4,7 @@
                         <div class="row">
                         <div class="product-user-meta fa-num mb-4 spaceBetween">
                             <span class="product-users-rating">
-                                <span class="product-title fontSize15 marginLeft15">دیدگاه کاربران</span>
+                                <span class="product-title fontSize15 marginLeft15 d-flex align-items-center">دیدگاه کاربران</span>
                                 <span class="rattingToStar"></span>
                                 <span class="fw-bold me-1">{{ $product['rate'] }}</span>
                                 <span class="text-muted fs-7">(از <span>{{ $product['all_rates_count'] }}</span> رای)</span>
@@ -44,10 +44,30 @@
         },
         success: function(res) {
             var html= "";
+            let star="";
+            
             if(res.status === "ok") {
                for(var i = 0; i < res.data.length; i++) {
-                   html += '<div class="comment"><div class="comment-header">' + res.data[i].created_at + '<span>' + res.data[i].created_at + '</span>';
-                   html += '<span class="m-3">' + res.data[i].user + '</span></div><div class="comment-body">';
+
+                    let rate = res.data[i].rate;
+
+                   html += '<div class="comment">';
+                   html += '<div class="d-flex spaceBetween"><div><span class="comment-header colorBlack fontSize12 font400"><span class="font800 ml-5">از</span>' + res.data[i].user + '</span>';
+                   html += '<span class="m-3 colorBlack fontSize12 font400"><span class="font800 ml-5">در</span>';
+                   html +=  res.data[i].created_at + '</span></div><div><span>' +
+                
+                    if(rate != null) {
+
+                        for(var i = 5; i >= 1; i--) {
+                            if(i <= rate)
+                                html += '<i class="icon-visit-star me-1 fontSize21"></i>';
+                            else
+                                html += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
+                        }
+                        
+                    }
+
+                   html += '</span></div></div></div><hr><div class="comment-body">';
                    html += '<p>' + res.data[i].msg + '</p>';
                    html += '<ul>';
                     for(var j = 0; j < res.data[i].positive.length; j++) {

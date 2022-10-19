@@ -171,6 +171,12 @@ hr {
 .fontNormal {
     font-weight: normal !important;
 }
+.font400 {
+    font-weight: 400;
+}
+.font800 {
+    font-weight: 800;
+}
 .bold {
     font-weight: bold;
 }
@@ -251,6 +257,9 @@ ul {
 }
 .ml-15 {
     margin-left: 15px;
+}
+.ml-5 {
+    margin-left: 5px;
 }
 .marginFromRightHeader {
     margin-right: 160px;
@@ -1003,6 +1012,22 @@ figure .ck-widget {
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
 }
+.comments .comment {
+    border-bottom: none;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.comments .comment .comment-header {
+    color: #a1a3a8;
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 0;
+    padding: 10px 0;
+}
+.comments .comment .comment-body ul li.comment-evaluation.positive::before {
+    content: "\EA10";
+    color: #25b31c;
+}
 .content-line {
     height: 8px;
     width: 100%;
@@ -1028,6 +1053,9 @@ figure .ck-widget {
 }
 .flexDirectionRowReverse {
     flex-direction: row-reverse;
+}
+.flexDirectionColumnR {
+    flex-direction: column-reverse;
 }
 .line {
     width: 100%;
