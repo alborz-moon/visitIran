@@ -95,6 +95,9 @@
                             <div class="expandable-text mb-3" style="height: 95px;">
                                 <div class="expandable-text_text">
                                     <div class="product-params">
+                                        <div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18 whiteSpaceNoWrap">ویژگی ها
+                                            <div class="line mr-15"></div> 
+                                        </div>
                                         <ul id="property">
                                         </ul>
                                     </div>
