@@ -164,7 +164,7 @@
                         <div class="product-tab-content product-content-expert-summary tab-content border-bottom pb-2 mb-4"
                             id="scrollspyHeading1">
                             <div class="product-tab-title">
-                                <div class="fontSize18 bold">بررسی نام محصول</div>
+                                <div class="fontSize18 bold">بررسی {{ $product['name'] }}</div>
                             </div>
                             <div class="expandable-text pt-1" style="height: auto;">
                                 <div class="expandable-text_text">
@@ -187,7 +187,7 @@
                         <div class="product-tab-content product-params tab-content border-bottom pb-2 mb-4"
                             id="scrollspyHeading3">
                             <div class="product-tab-title">
-                                 <div class="fontSize18 bold">مشخصات کالا</div>
+                                 <div class="fontSize18 bold">مشخصات {{ $product['name'] }}</div>
                             </div>
                             <div class="expandable-text pt-1" style="height: auto">
                                 <div class="expandable-text_text fa-num">
@@ -451,6 +451,19 @@
         //     }
         // });
 
+        let star="";
+        let roundRatting=Math.floor('{{ $product['rate'] }}');
+        for(var i = 5; i >= 1; i--) {
+            if(i <= roundRatting)
+                star += '<i class="icon-visit-star me-1 fontSize21"></i>';
+            else
+                star += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
+        }
+        $(".rattingToStar").empty().append(star);
+
+        // if ('{{ $product['seller'] }}' !== ''){
+        //     $('.seller').removeClass('hidden');
+        // }
     });
 </script>
 

@@ -9,7 +9,7 @@
             </div>                                     
             <div class="d-flex">
                 <img class="b-0 commentImageProduct" src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />
-                <h5 class="fontSize16 align-self-end fontNormal mt-1">{{ $product['name'] }}</h5>
+                <h5 class="fontSize16 align-self-end fontNormal mt-1 mr-15">{{ $product['name'] }}</h5>
             </div>
             </div>
           <button id="close-comment-modal-btn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -105,8 +105,7 @@
               </div>
           </div>
           <div class="text-end">
-              <button id="submitComment" class="btn btn-primary">ثبت نظر 
-              </button>
+              <button  id="submitComment" class="btn btn-primary msgComment">ثبت نظر</button>
           </div>
           </div>
       </div>
@@ -121,12 +120,6 @@
 
 
     $("#submitComment").on('click', function() {
-
-        let title = $("#comment-title").val();
-        if(title.length === 0) {
-            return;
-        }
-
         $(".js-advantages-list").children('.js-advantage-item').each(function() {
             advantages.push($(this).text().replace("\n", ""));
         });
@@ -134,18 +127,40 @@
             disadvantages.push($(this).text().replace("\n", ""));
         });
 
-        let data = {title: title};
+        let data = {};
+        
+         let msg = $("#comment-msg").val();
+         if(msg.length == 0) {
+            // $('#submitComment').attr('data-toast', true).attr('data-toast-type', 'success')
+            // .attr('data-toast-color', 'red').attr('data-toast-position', 'right')
+            // .attr('data-toast-icon', 'ri-check-fill').attr('data-toast-title', 'موفق!')
+            // .attr('data-toast-message', 'دیدگاه شما ثبت شد!');
+            s = {
+                rtl: true,
+                class: "iziToast-" + "danger",
+                title: "ناموفق",
+                message: "لطفا قسمت متن نظر را خالی نگذارید !",
+                animateInside: !1,
+                position: "topRight",
+                progressBar: !1,
+                icon: 'ri-close-fill',
+                timeout: 3200,
+                transitionIn: "fadeInLeft",
+                transitionOut: "fadeOut",
+                transitionInMobile: "fadeIn",
+                transitionOutMobile: "fadeOut",
+                color: "red",
+                };
+            iziToast.show(s);
+            return;
+         }    
 
-        if(advantages.length > 0)
+         if(advantages.length > 0)
             data.positive = advantages;
         
         if(disadvantages.length > 0)
             data.negative = disadvantages;
-
-        let msg = $("#comment-msg").val();
-        if(msg.length > 0)
             data.msg = msg;
-
         if($("#comment-rate").attr('data-rate') !== undefined)
             data.rate = $("#comment-rate").attr('data-rate');
 
@@ -155,6 +170,23 @@
             data: data,  
             success: function(res) {
                 if(res.status === 'ok')
+                    s = {
+                        rtl: true,
+                        class: "iziToast-" + "success",
+                        title: "موفق",
+                        message: "دیدگاه شما ثبت شد!",
+                        animateInside: !1,
+                        position: "topRight",
+                        progressBar: !1,
+                        icon: 'ri-close-fill',
+                        timeout: 3200,
+                        transitionIn: "fadeInLeft",
+                        transitionOut: "fadeOut",
+                        transitionInMobile: "fadeIn",
+                        transitionOutMobile: "fadeOut",
+                        color: "green",
+                    };
+                    iziToast.show(s);
                     $("#close-comment-modal-btn").click();
             }
         });
