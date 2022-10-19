@@ -17,7 +17,7 @@
                         </div>
                             <div class="col-xl-3 col-lg-4 col-md-5 mb-3">
                                 <p class="bold fontSize12">شما هم درباره این کالا دیدگاه ثبت کنید</p>
-                                <button class="btn btn-primary w-100 mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal"> ثبت دیدگاه </button>
+                                <button class="btn btn-primary w-100 mt-4" data-bs-toggle="modal" data-bs-target="#commentModal"> ثبت دیدگاه </button>
                                 <!-- Modal -->
                                 {{-- @include('layouts.ratting') --}}
                             </div>
@@ -46,20 +46,20 @@
             var html= "";
             if(res.status === "ok") {
                for(var i = 0; i < res.data.length; i++) {
-                   html += '<div class="comment"><div class="comment-header"><span>۱۵ تیر ۱۴۰۰</span>';
-                   html += '<span>امیر محمد اکبرپور</span></div><div class="comment-body">';
-                   html += '<p>گوشی مناسبی هست نسبت به قیمتش من خودم با ایفون X مقایسه کردم که دربعضی از برنامه ها عقب میموند بسیار گوشی خوبی هست در کل</p>';
-                   html += '<ul><li class="comment-evaluation positive">دوربین قوی</li>';
-                   html += '<li class="comment-evaluation positive">مناسب برای کار های حدودا سنگین و بالاتر</li>';
-                   html += '<li class="comment-evaluation negative">حسگر اثر انگشت کمی عیف</li>';
-                   html += '</ul></div><div class="comment-footer">';
-                   html += '<span class="me-2">آیا این دیدگاه برایتان مفید بود؟</span>';
-                   html += '<button class="comment-like">۷</button><button class="comment-dislike">۲</button>';
-                   html += '</div></div>';
+                   html += '<div class="comment"><div class="comment-header">' + res.data[i].created_at + '<span>' + res.data[i].created_at + '</span>';
+                   html += '<span class="m-3">' + res.data[i].user + '</span></div><div class="comment-body">';
+                   html += '<p>' + res.data[i].msg + '</p>';
+                   html += '<ul>';
+                    for(var j = 0; j < res.data[i].positive.length; j++) {
+                        html += '<li class="comment-evaluation positive">' + res.data[i].positive[j] + '</li>';
+                    }
+                    for(var j = 0; j < res.data[i].negative.length; j++) {
+                        html += '<li class="comment-evaluation negative">' + res.data[i].negative[j] + '</li>';
+                    }  
+                   html += '</ul></div></div>';
                }
                $("#comment").empty().append(html);
             }
         }
     });
-
 </script>

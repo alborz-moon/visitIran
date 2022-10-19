@@ -19,9 +19,8 @@ class CommentUserResource extends JsonResource
         return [
             'msg' => $this->msg,
             'rate' => $this->rate,
-            'title' => $this->title,
-            'negative' => $this->negative,
-            'positive' => $this->positive,
+            'negative' => explode('$$$___$$$', $this->negative),
+            'positive' => explode('$$$___$$$', $this->positive),
             'user' => $user->first_name . ' ' . $user->last_name,
             'created_at' => Controller::MiladyToShamsi($this->created_at)
         ];

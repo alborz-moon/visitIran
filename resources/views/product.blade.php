@@ -41,7 +41,7 @@
                             <?php $i++; ?>
                         @endforeach
                     </ol>
-                    @include('layouts.bookmark', ['product' => $product])
+                    @include('product.bookmark', ['product' => $product])
                 </nav>
                 <!-- end of breadcrumb -->
                     <div class="row">
@@ -52,9 +52,9 @@
                                     
                                     <div class="gallery-img-container">
                                         <div class="gallery-img" id="galleryMain">
-                                            <img class="zoom-img" src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />
+                                            <img class="zoom-img b-0" src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />
                                         </div>
-                                        <div class="gallery-thumbs">
+                                        <div class="gallery-thumbs overflowHidden">
                                             <ul id="gallery">
                                             </ul>
                                         </div>
@@ -70,29 +70,29 @@
                                 <span class="product-users-rating" >
                                     <span class="rattingToStar">
                                     </span>
-                                    <span class="fw-bold me-1">{{ $product['rate'] }}</span>
+                                    <span class="fw-bold me-1 fontSize22 colorYellow">{{ $product['rate'] }}</span>
                                     <span class="text-muted fs-7">(از <span>{{ $product['all_rates_count'] }}</span> رای)</span>
                                 </span>
-                                <a href="#" class="link border-bottom-0 fs-7 me-1"> دیدگاه کاربران <span class="mr-1">({{ $product['all_rates_count'] }})</span></a>
+                                <a href="#" class="link border-bottom-0 fs-7 me-1 text-muted"> دیدگاه کاربران <span class="mr-1">({{ $product['all_comments_count'] }})</span></a>
                             </div>
                             @if($product['seller'] !== '')
-                                <div class="product-variant-selected-label bold mb-3 seller">سازنده : <span  class="mb-3 ">{{ $product['seller'] }}</span></div>
+                                <div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18">سازنده <div class="line mr-15"></div> </div>
+                                <div  class="mb-3 fontSize16">{{ $product['seller'] }}</div>
                             @endif
                             <div id="color-div" class="product-variants-container mb-3 hidden">
                                 <div class="product-variant-selected-container spaceBetween" >
-                                    <span class="product-variant-selected-label"> رنگ : </span>
-                                    <span id="product-color-variant-selected" class="product-variant-selected"></span>
+                                    <div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18">رنگ</div>
+                                    <div class="line mr-15 ml-15"></div>
+                                    <div id="product-color-variant-selected" class="product-variant-selected"></div> 
                                 </div>
                                 <div id="product-colors-variants" class="product-variants">
                                 </div>
                             </div>
-                            {{-- <div class="mb-3 spaceBetween">
-                                <div class="bold">سایز : </div>
-                                <div>30*20*40cm</div>
-                            </div> --}}
-                            <div class="mb-3 spaceBetween">
-                                <div class="bold">ویژگی‌ها : </div>
+                            
+                            <div id="dynamic_multi_choice_features">
+
                             </div>
+
                             <div class="expandable-text mb-3" style="height: 95px;">
                                 <div class="expandable-text_text">
                                     <div class="product-params">
@@ -100,10 +100,11 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="mb-3 mt-3 spaceBetween">
-                                    <div class="bold">توضیحات :</div>
+                                <div class="mb-3 mt-3">
+                                    <div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18">توضیحات  
+                                        <div class="line mr-15"></div> 
+                                    </div>
                                 </div>
-                            {{-- <p>{{ $product['description'] }}</p> --}}
                             <div class="product-additional-info-container mb-3">
                                 <span class="icon">
                                     <i class="ri-information-line"></i>
@@ -112,9 +113,9 @@
                                     <p>{{ $product['description'] }}</p>
                                 </div>
                             </div>
-                                <div class="expandable-text-expand-btn">
+                                <div class="expandable-text-expand-btn d-flex justify-content-end">
                                     <span class="show-more">
-                                        بیشتر بخوانید <i class="ri-arrow-down-s-line"></i>
+                                        بیشتر <i class="ri-arrow-down-s-line"></i>
                                     </span>
                                     <span class="show-less d-none">
                                         بستن <i class="ri-arrow-up-s-line"></i>
@@ -146,7 +147,7 @@
                                 <ul class="nav nav-pills">
                                     <li class="nav-item">
                                         <a class="nav-link active" href="#scrollspyHeading1"
-                                            data-scroll="scrollspyHeading1">نقد و بررسی</a>
+                                            data-scroll="scrollspyHeading1">نقد و بررسی </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#scrollspyHeading3"
@@ -164,15 +165,15 @@
                         <div class="product-tab-content product-content-expert-summary tab-content border-bottom pb-2 mb-4"
                             id="scrollspyHeading1">
                             <div class="product-tab-title">
-                                <h2>نقد و بررسی اجمالی</h2>
+                                <div class="fontSize18 bold">بررسی نام محصول</div>
                             </div>
-                            <div class="expandable-text pt-1" style="height: 250px;">
+                            <div class="expandable-text pt-1" style="height: auto;">
                                 <div class="expandable-text_text">
                                     <p>
                                         {!! $product['introduce'] !!}
                                     </p>
                                 </div>
-                                <div class="expandable-text-expand-btn justify-content-start text-sm">
+                                <div class="expandable-text-expand-btn justify-content-start text-sm d-flex justify-content-end">
                                     <span class="show-more active">
                                         ادامه مطلب <i class="ri-arrow-down-s-line ms-2"></i>
                                     </span>
@@ -187,15 +188,15 @@
                         <div class="product-tab-content product-params tab-content border-bottom pb-2 mb-4"
                             id="scrollspyHeading3">
                             <div class="product-tab-title">
-                                <h2>مشخصات کالا</h2>
+                                 <div class="fontSize18 bold">مشخصات کالا</div>
                             </div>
                             <div class="expandable-text pt-1" style="height: auto">
                                 <div class="expandable-text_text fa-num">
                                     <!-- start of params-list -->
-                                    <div class="params-list">
+                                    {{-- <div class="params-list">
                                         <div class="params-list-title">مشخصات کلی</div>
                                         <ul id="params-list-div"></ul>
-                                    </div>
+                                    </div> --}}
                                     <!-- end of params-list -->
                                 </div>
                                 {{-- <div class="expandable-text-expand-btn justify-content-start text-sm">
@@ -210,6 +211,7 @@
                         </div>
                         <!-- end of product-params -->
                         <!-- start of product-comments -->
+                        @include('product.write-comment', ['productId' => $product['id']])
                         @include('product.comments-show', ['productId' => $product['id']])
                         <!-- end of product-comments -->
                     </div>
@@ -222,74 +224,8 @@
                     </div>
                 </div>
             </div>
-            <!-- start of notification-modal -->
-            <div class="remodal remodal-sm" data-remodal-id="notification-modal"
-                data-remodal-options="hashTracking: false">
-                <div class="remodal-header">
-                    <div class="remodal-title">به من اطلاع بده</div>
-                    <button data-remodal-action="close" class="remodal-close"></button>
-                </div>
-                <div class="remodal-content">
-                    <div class="text-muted fs-7 mb-2">اطلاع به من در زمان:</div>
-                    <div class="text-dark fs-6">پیشنهاد شگفت‌انگیز</div>
-                    <div class="border-bottom my-3"></div>
-                    <div class="text-muted fs-7 mb-2">از طریق:</div>
-                    <div class="form-element-row">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="notificationCheckDefault1">
-                            <label class="form-check-label" for="notificationCheckDefault1">
-                                ایمیل به <span>example@example.com</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-element-row">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="notificationCheckDefault2">
-                            <label class="form-check-label" for="notificationCheckDefault2">
-                                پیامک به <span>09xxxxxxxxx</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-element-row">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="notificationCheckDefault3">
-                            <label class="form-check-label" for="notificationCheckDefault3">
-                                سیستم پیام شخصی
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="remodal-footer">
-                    <button data-remodal-action="cancel" class="btn btn-sm btn-outline-light px-3 me-2">بستن</button>
-                    <button class="btn btn-sm btn-primary px-3">ثبت</button>
-                </div>
-            </div>
-            <!-- end of notification-modal -->
-            <!-- start of add-question-modal -->
-            <div class="remodal remodal-sm" data-remodal-id="add-question-modal"
-                data-remodal-options="hashTracking: false">
-                <div class="remodal-header">
-                    <div class="remodal-title">پرسش خود را در مورد کالا مطرح کنید</div>
-                    <button data-remodal-action="close" class="remodal-close"></button>
-                </div>
-                <div class="remodal-content">
-                    <form action="#">
-                        <div class="form-element-row mb-3">
-                            <textarea rows="3" class="form-control" placeholder="متن سوال"></textarea>
-                        </div>
-                    </form>
-                    <div class="fs-7 fw-bold">
-                        ثبت پرسش به معنی موافقت با <a href="#" class="link border-bottom-0">قوانین انتشار</a>
-                        است.
-                    </div>
-                </div>
-                <div class="remodal-footer">
-                    <button class="btn btn-sm btn-primary px-3">ثبت پرسش</button>
-                </div>
-            </div>
-            <!-- end of add-question-modal -->
-            <!-- start of share-modal -->
-            <div class="remodal remodal-xs" data-remodal-id="share-modal" data-remodal-options="hashTracking: false">
+        </main>
+            <div class="remodal remodal-xs remodal-is-initialized remodal-is-opened" data-remodal-id="share-modal" data-remodal-options="hashTracking: false" tabindex="-1">
                 <div class="remodal-header">
                     <div class="remodal-title">اشتراک‌گذاری</div>
                     <button data-remodal-action="close" class="remodal-close"></button>
@@ -313,17 +249,7 @@
                         <div class="btn btn-sm btn-primary copy-url-btn" data-copy="https://www.google.com">کپی لینک
                         </div>
                     </div>
-                    <div class="text-dark fs-7 fw-bold mb-3">جایزه شما</div>
-                    <div class="d-flex justify-content-between">
-                        <div class="text-muted fs-7 fw-bold">
-                            با دعوت دوستانتان، پس از اولین خریدشان، کدتخفیف و امتیاز هدیه بگیرید.
-                        </div>
-                        <img src="{{ asset('theme-assets/images/theme/club.svg') }}" width="100" alt="">
-                    </div>
                 </div>
-            </div>
-            <!-- end of share-modal -->
-        </main>
 
 <script>
 
@@ -348,8 +274,8 @@
                 
                 let html = '';
                 for(var i = 0; i < res.galleries.length; i++) {
-                    html += '<li data-fancybox="gallery-a" data-src="' + res.galleries[i].img + '">'
-                    html += '<img src="' + res.galleries[i].img + '" alt="' + res.galleries[i].alt + '"></li>'
+                    html += '<li data-fancybox="gallery-a " data-src="' + res.galleries[i].img + '">'
+                    html += '<img class="customBoxShadowGallery" src="' + res.galleries[i].img + '" alt="' + res.galleries[i].alt + '"></li>'
                 }
                 $("#gallery").empty().append(html);
 
@@ -411,6 +337,15 @@
                     else if(res.features[i].available_count !== null || 
                         res.features[i].price !== null
                     ) {
+                        
+                        $("#dynamic_multi_choice_features").append(
+                            '<div class="product-variant-selected-container spaceBetween hidden" >' +
+                            '<div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18">' + res.features[i].name + '</div>' +
+                            '<div class="line mr-15 ml-15"></div>' +
+                            '<div id="selected_option_for_feature_' + res.features[i].id + '"></div>' +
+                            '</div>'
+                        );
+
                         let vals = res.features[i].value.split('__')[0].split("$$");
                         
                         let prices = res.features[i].price == null ? null : res.features[i].price.split("$$");
@@ -419,8 +354,10 @@
                         options = '<div class="flex">'
                         for(var j = 0; j < vals.length; j++) {
 
-                            options += '<button data-val="' + vals[j] + '" name="productOption"';
+                            options += '<button data-id="' + res.features[i].id + '" data-val="' + vals[j] + '" name="productOption"';
                             if(j == 0) {
+
+                                $('#selected_option_for_feature_' + res.features[i].id).empty().append(vals[0]);
 
                                 if(prices != null) {
                                     options += 'data-price="' + prices[j] + '" id="productOption0' + j + '" class="selected">';
@@ -444,6 +381,7 @@
                         }
 
                         options += "</div>";
+
                     }
                     else {
                         if(res.features[i].show_in_top == 1) {
@@ -451,8 +389,8 @@
                             property += '<span class="title px-1">' + res.features[i].value + '</span></li>';
                         }
                         params += '<li>';
-                        params += '<span class="param-title">' + res.features[i].name + '</span>';
-                        params += '<span class="param-value">' + res.features[i].value + '</span>';
+                        params += '<span class="param-title colorBlueWhite font600">' + res.features[i].name + '</span>';
+                        params += '<span class="param-value fontSize16">' + res.features[i].value + '</span>';
                         params += '</li>';
                     }
 
@@ -471,13 +409,11 @@
         $(document).on("click","input[name='productColor']", function() {
             
 
-            if(prices != null) {
-                options += 'data-price="' + prices[j] + '" id="productOption0' + j + '" class="selected">';
-                $(".price").empty().append(prices[j]);
+            if($(this).attr('data-price') !== undefined) {
+                $(".price").empty().append($(this).attr('data-price'));
             }
             else {
-                options += 'data-count="' + counts[j] + '" id="productOption0' + j + '" class="selected">';
-                $("#availableCount").empty().append(counts[j]);
+                $("#availableCount").empty().append($(this).attr('data-count'));
             }
 
             let html = '<div class="product-option">';
@@ -497,7 +433,7 @@
             else
                 $("#availableCount").empty().append($(this).attr('data-count'));
             
-            
+            $('#selected_option_for_feature_' + $(this).attr('data-id')).empty().append($(this).attr('data-val'));
         });
         
         // $.ajax({
@@ -528,9 +464,9 @@
         let roundRatting=Math.floor('{{ $product['rate'] }}');
         for(var i = 5; i >= 1; i--) {
             if(i <= roundRatting)
-                star += '<i class="icon-visit-star me-1 fontSize15"></i>';
+                star += '<i class="icon-visit-star me-1 fontSize21"></i>';
             else
-                star += '<i class="icon-visit-staroutline me-1 fontSize15"></i>';
+                star += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
         }
         $(".rattingToStar").empty().append(star);
 

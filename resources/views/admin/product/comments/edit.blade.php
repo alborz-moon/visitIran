@@ -7,6 +7,12 @@
 @section('form')
 
     <center>
+        @if($errors->any())
+            {{ implode('', $errors->all(':message')) }}
+        @endif
+    </center>
+
+    <center>
         <p>کاربر مربوطه: {{ $item['user'] }}</p>
         <p>تاریخ ایجاد: {{ $item['created_at'] }}</p>
         <p>تاریخ تایید: {{ $item['status'] ? $item['confirmed_at'] : 'هنوز تایید نشده است' }}</p>
@@ -15,11 +21,6 @@
         {{ csrf_field() }}
 
         <div class="flex flex-col center gap10" style="margin: 10px">
-            
-            <div>
-                <label for="title">عنوان</label>
-                <input value="{{ $item['title'] }}" type="text" name="title" id="title" />
-            </div>
                 
             <div>
                 <label for="rate">امتیاز</label>
@@ -31,17 +32,24 @@
                 <textarea type="text" name="msg" id="msg">{{ $item['msg'] }}</textarea>
             </div>
 
-            <div>
+            <div style="display: block !important">
                 <label for="positive">نقاط قوت</label>
-                <textarea type="text" name="positive" id="positive">{{ $item['positive'] }}</textarea>
+                <?php $i = 0; ?>
+                @foreach ($item['positive'] as $itr)
+                    <input type="text" value="{{ $itr }}" name="positive[]" />
+                    <?php $i++; ?>
+                @endforeach
             </div>
 
 
-            <div>
+            <div style="display: block !important">
                 <label for="negative">نقاط ضعف</label>
-                <textarea type="text" name="negative" id="negative">{{ $item['negative'] }}</textarea>
+                <?php $i = 0; ?>
+                @foreach ($item['negative'] as $itr)
+                    <input type="text" value="{{ $itr }}" name="negative[]" />
+                    <?php $i++; ?>
+                @endforeach
             </div>
-
 
             <div>
                 <label for="status">وضعیت</label>

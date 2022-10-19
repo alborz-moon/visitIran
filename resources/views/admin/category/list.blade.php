@@ -35,7 +35,7 @@
                             <button onclick="$('#addBatchModal').removeClass('hidden')" class="btn btn-success">افزودن دسته ای</button>
                         </div>
 
-                        <div>
+                        <div class="flex flex-start gap10 margin20">
                             <label for="presentType">نوع نمایش</label>
                             <select id="presentType">
                                 <option value="card">کارتی</option>
@@ -49,6 +49,9 @@
                                     <div>{{$error}}</div>
                                 @endforeach
                             @else
+                                
+                                <center><p>تعداد کل: {{ count($categories) }}</p></center>
+
                                 <div id="card-view">
                                     @foreach($categories as $category)
                                         <div class="col-xs-12 col-lg-3" id="item_{{ $category['id'] }}">
@@ -74,11 +77,23 @@
                                     <table>
                                         <thead>
                                             <th>نام</th>
+                                            <th>تعداد زیردسته</th>
+                                            <th>تعداد ویژگی</th>
+                                            <th>تعداد محصول</th>
                                             <th>عملیات</th>
                                         </thead>
                                         @foreach($categories as $category)
                                             <tr id="item_{{ $category['id'] }}">
                                                 <td>{{ $category['name'] }}</td>
+                                                @if($category['has_sub'])
+                                                    <td>{{ $category['childs_count'] }}</td>
+                                                    <td>0</td>
+                                                    <td>0</td>
+                                                @else
+                                                    <td>0</td>
+                                                    <td>{{ $category['features_count'] }}</td>
+                                                    <td>{{ $category['products_count'] }}</td>
+                                                @endif
                                                 <td>
                                                     <div class="flex space-between flex-wrap gap10">
                                                         <button class="btn btn-primary" onclick="document.location.href = '{{ route('category.edit', ['category' => $category['id']]) }}'">مشاهده اطلاعات</button>

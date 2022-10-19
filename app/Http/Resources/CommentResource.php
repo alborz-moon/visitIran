@@ -20,7 +20,6 @@ class CommentResource extends JsonResource
             'id' => $this->id,
             'msg' => $this->msg,
             'rate' => $this->rate,
-            'title' => $this->title,
             'negative' => $this->negative == null ? [] : explode('$$$___$$$', $this->negative),
             'positive' => $this->positive == null ? [] : explode('$$$___$$$', $this->positive),
             'status' => $this->status,

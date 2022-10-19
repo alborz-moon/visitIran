@@ -37,6 +37,8 @@
         @endforeach
     @else
 
+        <p>تعداد کل: {{ $total_count }}</p>
+
         <h3 style="text-align: right">
             جست و جو پیشرفته
             <span data-status="close" style="cursor: pointer" id="toggleProSearchBtn" class="glyphicon glyphicon-chevron-down"></span>
