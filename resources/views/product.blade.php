@@ -166,7 +166,7 @@
                             <div class="product-tab-title">
                                 <div class="fontSize18 bold">بررسی {{ $product['name'] }}</div>
                             </div>
-                            <div class="expandable-text pt-1" style="height: auto;">
+                            <div class="expandable-text pt-1" style="height: 500px;">
                                 <div class="expandable-text_text">
                                     <p>
                                         {!! $product['introduce'] !!}
