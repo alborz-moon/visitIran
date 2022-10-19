@@ -68,8 +68,7 @@
                             <h2 id="productTitle" class="product-title">{{ $product['name'] }}</h2>
                             <div class="product-user-meta fa-num mb-4 spaceBetween">
                                 <span class="product-users-rating" >
-                                    <span class="rattingToStar">
-                                    </span>
+                                    <span class="rattingToStar"></span>
                                     <span class="fw-bold me-1 fontSize22 colorYellow">{{ $product['rate'] }}</span>
                                     <span class="text-muted fs-7">(از <span>{{ $product['all_rates_count'] }}</span> رای)</span>
                                 </span>
@@ -452,27 +451,6 @@
         //     }
         // });
 
-        $.ajax({
-            type: 'get',
-            url: '{{ route('api.product.comment.list', ['product' => $product['id']]) }}',
-            success: function(res) {
-                console.log(res.data);
-            }
-        });
-        
-        let star="";
-        let roundRatting=Math.floor('{{ $product['rate'] }}');
-        for(var i = 5; i >= 1; i--) {
-            if(i <= roundRatting)
-                star += '<i class="icon-visit-star me-1 fontSize21"></i>';
-            else
-                star += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
-        }
-        $(".rattingToStar").empty().append(star);
-
-        // if ('{{ $product['seller'] }}' !== ''){
-        //     $('.seller').removeClass('hidden');
-        // }
     });
 </script>
 

@@ -3,18 +3,22 @@
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="commentModalLabel">دیدگاه شما</h5>
-          {{-- <div class="d-flex" style="flex-direction:column">
-              <img src="#">
-              <p>عکس محصول</p>
-          </div> --}}
+            <div class="d-felx felxDirectionColumn">
+            <div class="d-flex">
+                <h5 class="modal-title" id="commentModalLabel">دیدگاه شما</h5>       
+            </div>                                     
+            <div class="d-flex">
+                <img class="b-0 commentImageProduct" src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />
+                <h5 class="fontSize16 align-self-end fontNormal mt-1">{{ $product['name'] }}</h5>
+            </div>
+            </div>
           <button id="close-comment-modal-btn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body p-0">
   <main class="page-content p-0">
       <div class="container">
           <!-- start of box -->
-          <div class="ui-box bg-white product-detail-container p-0 b-0">
+          <div class="ui-box bg-white product-detail-container p-0 b-0 boxShadowNone">
               <div class="ui-box-content">
                   <div class="row">
                       <div class="col-md-6 mb-md-0 mb-4">
@@ -65,10 +69,10 @@
                           
                       </div>
                       <div class="col-md-6 p-0">
-                          <div class="fs-8 fw-bold text-dark mb-3">
+                          <div class="fs-8 fw-bold text-dark mb-3 fontSize14">
                               دیگران را با نوشتن نظرات خود، برای انتخاب این محصول راهنمایی کنید.
                           </div>
-                          <div class="fs-7 fw-bold text-info mb-3">
+                          <div class="fs-7 fw-bold text-info mb-3 font400 fontSize12 colorYellow">
                               لطفا پیش از ارسال نظر، خلاصه قوانین زیر را مطالعه کنید:
                           </div>
                           <ul class="ps-4 text-secondary">
@@ -81,9 +85,6 @@
                               <li class="mb-3">در نظر داشته باشید هدف نهایی از ارائه‌ی نظر درباره‌ی کالا ارائه‌ی
                                   اطلاعات مشخص و
                                   دقیق برای راهنمایی سایر کاربران در فرآیند خرید یک محصول توسط ایشان است.</li>
-                              <li class="mb-3">با توجه به ساختار بخش نظرات، از پرسیدن سوال یا درخواست راهنمایی در
-                                  این بخش
-                                  خودداری کرده و سوالات خود را در بخش «پرسش و پاسخ» مطرح کنید.</li>
                           </ul>
                       </div>
                   </div>
@@ -105,7 +106,6 @@
           </div>
           <div class="text-end">
               <button id="submitComment" class="btn btn-primary">ثبت نظر 
-                  <i class="ri-send-plane-fill ms-2"></i>
               </button>
           </div>
           </div>
