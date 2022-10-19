@@ -451,27 +451,6 @@
         //     }
         // });
 
-        $.ajax({
-            type: 'get',
-            url: '{{ route('api.product.comment.list', ['product' => $product['id']]) }}',
-            success: function(res) {
-                console.log(res.data);
-            }
-        });
-        
-        let star="";
-        let roundRatting=Math.floor('{{ $product['rate'] }}');
-        for(var i = 5; i >= 1; i--) {
-            if(i <= roundRatting)
-                star += '<i class="icon-visit-star me-1 fontSize21"></i>';
-            else
-                star += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
-        }
-        $(".rattingToStar").empty().append(star);
-
-        // if ('{{ $product['seller'] }}' !== ''){
-        //     $('.seller').removeClass('hidden');
-        // }
     });
 </script>
 

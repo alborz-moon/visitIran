@@ -1,5 +1,5 @@
                     <!-- start of product-comments -->
-                    <div class="product-tab-content product-comments tab-content border-bottom pb-2 mb-4"
+                    <div class="product-tab-content product-comments tab-content border-bottom pb-2 mb-4 b-0"
                         id="scrollspyHeading4">
                         <div class="row">
                         <div class="product-user-meta fa-num mb-4 spaceBetween">
@@ -43,31 +43,38 @@
             'accept': 'application/json'
         },
         success: function(res) {
-            var html= "";
-            let star="";
+            
+            var html = "";
             
             if(res.status === "ok") {
-               for(var i = 0; i < res.data.length; i++) {
-
+                for(var i = 0; i < res.data.length; i++) {
                     let rate = res.data[i].rate;
-
-                   html += '<div class="comment">';
-                   html += '<div class="d-flex spaceBetween"><div><span class="comment-header colorBlack fontSize12 font400"><span class="font800 ml-5">از</span>' + res.data[i].user + '</span>';
-                   html += '<span class="m-3 colorBlack fontSize12 font400"><span class="font800 ml-5">در</span>';
-                   html +=  res.data[i].created_at + '</span></div><div><span>' +
-                
+                    html += '<div class="customBoxComment">';
+                    html += '<div class="comment">';
+                    html += '<div class="d-flex spaceBetween">';
+                    html += '<div>';
+                    html += '<span class="comment-header colorBlack fontSize12 font400">';
+                    html += '<span class="font800 ml-5">از</span>' + res.data[i].user + '</span>';
+                    html += '<span class="m-3 colorBlack fontSize12 font400">';
+                    html += '<span class="font800 ml-5">در</span>';
+                    html +=  res.data[i].created_at + '</span>';
+                    html += '</div>';
+                    html += '<div>';
+                    html += '<span>';
                     if(rate != null) {
-
-                        for(var i = 5; i >= 1; i--) {
-                            if(i <= rate)
+                        for(var j = 5; j >= 1; j--) {
+                            if(j <= rate)
                                 html += '<i class="icon-visit-star me-1 fontSize21"></i>';
                             else
                                 html += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
                         }
-                        
                     }
-
-                   html += '</span></div></div></div><hr><div class="comment-body">';
+                   html += '</span>';
+                   html += '</div>';
+                   html += '</div>';
+                   html += '</div>';
+                   html +='<div class="comment-body">';
+                   if(res.data[i].msg != null)
                    html += '<p>' + res.data[i].msg + '</p>';
                    html += '<ul>';
                     for(var j = 0; j < res.data[i].positive.length; j++) {
@@ -76,7 +83,9 @@
                     for(var j = 0; j < res.data[i].negative.length; j++) {
                         html += '<li class="comment-evaluation negative">' + res.data[i].negative[j] + '</li>';
                     }  
-                   html += '</ul></div></div>';
+                   html += '</ul></div>';
+                   html += '</div>';
+                   html += '</div>';
                }
                $("#comment").empty().append(html);
             }

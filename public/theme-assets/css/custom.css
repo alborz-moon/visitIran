@@ -180,6 +180,9 @@ hr {
 .bold {
     font-weight: bold;
 }
+.boxShadowNone {
+    box-shadow: none !important;
+}
 ul {
     list-style: none;
 }
@@ -1012,10 +1015,14 @@ figure .ck-widget {
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
 }
+.commentImageProduct {
+    width: 30px;
+    height: 30px;
+}
 .comments .comment {
     border-bottom: none;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 .comments .comment .comment-header {
     color: #a1a3a8;
@@ -1024,9 +1031,25 @@ figure .ck-widget {
     border-bottom: 0;
     padding: 10px 0;
 }
+.comments .comment .comment-body {
+    border-bottom: none;
+    padding: 6px;
+    font-size: 14px;
+}
 .comments .comment .comment-body ul li.comment-evaluation.positive::before {
     content: "\EA10";
     color: #25b31c;
+}
+.customBoxComment {
+    margin-bottom: 5px;
+    border: 1px solid #dedede;
+    padding: 8px;
+    box-shadow: 0px 3px 6px 0 #00000029;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
 }
 .content-line {
     height: 8px;
