@@ -92,7 +92,7 @@
 
                             </div>
 
-                            <div class="expandable-text mb-3" style="height: 95px;">
+                            <div class="expandable-text mb-3" style="height: 200px;">
                                 <div class="expandable-text_text">
                                     <div class="product-params">
                                         <div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18 whiteSpaceNoWrap">ویژگی ها
@@ -107,14 +107,14 @@
                                         <div class="line mr-15"></div> 
                                     </div>
                                 </div>
-                            <div class="product-additional-info-container mb-3">
-                                <span class="icon">
-                                    <i class="ri-information-line"></i>
-                                </span>
-                                <div class="product-additional-info">
-                                    <p>{{ $product['description'] }}</p>
+                                <div class="product-additional-info-container mb-3">
+                                    <span class="icon">
+                                        <i class="ri-information-line"></i>
+                                    </span>
+                                    <div class="product-additional-info">
+                                        <p>{{ $product['description'] }}</p>
+                                    </div>
                                 </div>
-                            </div>
                                 <div class="expandable-text-expand-btn d-flex justify-content-end">
                                     <span class="show-more">
                                         بیشتر <i class="ri-arrow-down-s-line"></i>
