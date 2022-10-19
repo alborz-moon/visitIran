@@ -593,6 +593,10 @@ ul {
 .justifyContentLeft {
     justify-content: left !important;
 }
+.product-detail-container .product-seller-info {
+    padding: 0;
+    background-color: #fafafa;
+}
 .product-detail-container
     .product-seller-info
     .product-seller-row
@@ -669,6 +673,11 @@ ul {
 .icon-visit-star,
 .icon-visit-staroutline {
     color: #c59358;
+}
+.product-gallery {
+    border: 1px solid #efefef;
+    border-radius: 20px;
+    box-shadow: 0 3px 6px 0 #00000029;
 }
 .product-gallery .gallery-thumbs ul li img {
     width: 65px;
