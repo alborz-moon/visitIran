@@ -1,4 +1,4 @@
-<footer class="page-footer pt-2 backgroundWhite b-0">
+<footer class="page-footer pt-2 backgroundWhite b-0" style="direction: rtl">
     <div class="container">
         <div class="d-flex spaceBetween alignItemsCenter">
             <span class="ui-box-title fontSize20"> <img class="p-2" src="{{ asset('./theme-assets/images/svg/headlineTitle.svg') }}" alt="">تماس با ما</span>        </div>
