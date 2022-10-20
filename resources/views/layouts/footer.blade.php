@@ -65,7 +65,7 @@
                         <div id="footerDesc" class="fs-7 text-secondary text-justify">
                         </div>
                     </div>
-                    <div class="expandable-text-expand-btn justify-content-start text-sm">
+                    <div class="expandable-text-expand-btn justify-content-start text-sm customFooterShowMore">
                         <span class="show-more active colorBlue hoverBold">
                             مشاهده بیشتر <i class="ri-arrow-down-s-line ms-2"></i>
                         </span>

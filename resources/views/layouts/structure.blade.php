@@ -336,11 +336,10 @@
             @yield('content')
         </div>
         <!-- end of page-content -->
-        @section('footer')
+    </div>
+            @section('footer')
             @include('layouts.footer')
         @show
-        
-    </div>
 
     <script src="{{ asset('theme-assets/js/dependencies/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/bootstrap-slider.min.js') }}"></script>
