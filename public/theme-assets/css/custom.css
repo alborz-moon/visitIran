@@ -1072,6 +1072,9 @@ figure .ck-widget {
     margin-bottom: 10px;
     border-radius: 8px;
 }
+.directionRTL {
+    direction: rtl !important;
+}
 .end {
     width: 40%;
 }
