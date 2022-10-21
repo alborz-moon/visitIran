@@ -47,7 +47,7 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::view('login', 'admin.login')->name('loginPage');
 
-Route::domain('localshop.com')->group(function() {
+Route::domain(Controller::$SHOP_SITE)->group(function() {
 
     Route::view('/', 'shop.welcome')->name('home');
 

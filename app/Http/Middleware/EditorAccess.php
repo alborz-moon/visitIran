@@ -29,7 +29,7 @@ class EditorAccess
         )
             return Redirect::route('403');
         
-        if($request->getHost() == 'localshop.com' && 
+        if($request->getHost() == Controller::$SHOP_SITE && 
             $user->access != User::$ACCESS_BOTH &&
             $user->access != User::$ACCESS_SHOP
         )
