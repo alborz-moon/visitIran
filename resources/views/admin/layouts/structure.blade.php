@@ -108,7 +108,7 @@
                 <div class="left-custom-menu-adp-wrap">
                     @if(Auth::check())
                         <ul class="nav navbar-nav left-sidebar-menu-pro">
-                            @if(Request::getHost() == Controller::$SHOP_SITE)
+                            @if(\App\Http\Controllers\Controller\Request::getHost() == Controller::$SHOP_SITE)
                                 <li class="nav-item"><a data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i></i> <span class="mini-dn">تنظیمات سیستمی</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                                     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                                         <a href="{{route('category.index')}}" class="dropdown-item">مدیریت دسته ها</a>
