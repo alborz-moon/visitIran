@@ -17,17 +17,14 @@ class SliderController extends Controller
      */
     public function index(Request $request)
     {    
-        if($request->user() != null && 
-            (
-                $request->user()->level == User::$ADMIN_LEVEL ||
-                $request->user()->level == User::$EDITOR_LEVEL 
-            )
-        ) {
-            $items = SliderResource::collection(Slider::all())->toArray($request);
-            return view('admin.slider.list', compact('items'));
-        }
+        if($request->getHost() == self::$EVENT_SITE)
+            return view('admin.slider.list', [
+                'items' => SliderResource::collection(Slider::event()->get())->toArray($request)
+            ]);
 
-        return SliderResource::collection(Slider::visible()->get())->additional(['status' => 'ok']);   
+        return view('admin.slider.list', [
+                'items' => SliderResource::collection(Slider::shop()->get())->toArray($request)
+            ]);
     }
 
     /**
@@ -35,9 +32,12 @@ class SliderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function list()
+    public function list(Request $request)
     {    
-        return SliderResource::collection(Slider::visible()->get())->additional(['status' => 'ok']);   
+        if($request->getHost() == self::$EVENT_SITE)
+            return SliderResource::collection(Slider::visible()->event()->orderBy('priority', 'desc')->get())->additional(['status' => 'ok']);
+
+        return SliderResource::collection(Slider::visible()->shop()->orderBy('priority', 'desc')->get())->additional(['status' => 'ok']);
     }
 
     
@@ -49,7 +49,9 @@ class SliderController extends Controller
      */
     public function edit(Slider $slider, Request $request)
     {
-        return view('admin.slider.create', ['item' => SliderResource::make($slider)->toArray($request)]);
+        return view('admin.slider.create', [
+            'item' => SliderResource::make($slider)->toArray($request)
+        ]);
     }
 
     /**
@@ -81,8 +83,8 @@ class SliderController extends Controller
             'visibility' => 'nullable|boolean',
         ];
         
-        // if(self::hasAnyExcept(array_keys($validator), $request->keys()))
-        //     abort(401);
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            abort(401);
 
         $request->validate($validator);
 
@@ -99,6 +101,7 @@ class SliderController extends Controller
             $request['img_small'] = str_replace('public/slider/', '', $request['img_small']);
         }
 
+        $request['site'] = $request->getHost() == self::$EVENT_SITE ? 'event' : 'shop';
         slider::create($request->toArray());
         return Redirect::route('slider.index');
     }

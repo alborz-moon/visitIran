@@ -18,8 +18,13 @@ class DatabaseSeeder extends Seeder
             // CategorySeeder::class,
             // SubCategorySeeder::class,
             // ProductSeeder::class,
-            UserSeeder::class,
-            ConfigSeeder::class,
+            // UserSeeder::class,
+            // ConfigSeeder::class,
+
+            FacilitySeeder::class,
+            EventTagSeeder::class,
+            LauncherSeeder::class,
+            EventSeeder::class
         ]);
     }
 }
