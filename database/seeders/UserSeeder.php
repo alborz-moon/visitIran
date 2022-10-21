@@ -15,25 +15,82 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        if(User::where('level', User::$ADMIN_LEVEL)->count() == 0) {
-            User::create([
-                'first_name' => 'admin',
-                'last_name' => 'admin',
-                'phone' => '09121111111',
-                'password' => Hash::make("123456"),
-                'level' => User::$ADMIN_LEVEL,
-                'status' => User::$ACTIVE
-            ]);
-            
-            User::create([
-                'first_name' => 'user',
-                'last_name' => 'user',
-                'phone' => '09122222222',
-                'password' => Hash::make("123456"),
-                'level' => User::$USER_LEVEL,
-                'status' => User::$ACTIVE
-            ]);
-        }
+        User::create([
+            'first_name' => 'admin',
+            'last_name' => 'admin',
+            'phone' => '09121111111',
+            'password' => Hash::make("123456"),
+            'level' => User::$ADMIN_LEVEL,
+            'status' => User::$ACTIVE
+        ]);
+
+        User::create([
+            'first_name' => 'admin2',
+            'last_name' => 'admin2',
+            'phone' => '09121234567',
+            'password' => Hash::make("123456"),
+            'level' => User::$ADMIN_LEVEL,
+            'access' => User::$ACCESS_EVENT,
+            'status' => User::$ACTIVE
+        ]);
+        
+        User::create([
+            'first_name' => 'admin3',
+            'last_name' => 'admin3',
+            'phone' => '09127654321',
+            'password' => Hash::make("123456"),
+            'level' => User::$ADMIN_LEVEL,
+            'access' => User::$ACCESS_SHOP,
+            'status' => User::$ACTIVE
+        ]);
+        
+        User::create([
+            'first_name' => 'editor',
+            'last_name' => 'editor',
+            'phone' => '09211234567',
+            'password' => Hash::make("123456"),
+            'level' => User::$EDITOR_LEVEL,
+            'access' => User::$ACCESS_BOTH,
+            'status' => User::$ACTIVE
+        ]);
+        
+        User::create([
+            'first_name' => 'finance',
+            'last_name' => 'finance',
+            'phone' => '09131234567',
+            'password' => Hash::make("123456"),
+            'level' => User::$FINANCE_LEVEL,
+            'access' => User::$ACCESS_BOTH,
+            'status' => User::$ACTIVE
+        ]);
+        
+        User::create([
+            'first_name' => 'report',
+            'last_name' => 'report',
+            'phone' => '09141234567',
+            'password' => Hash::make("123456"),
+            'level' => User::$REPORT_LEVEL,
+            'access' => User::$ACCESS_BOTH,
+            'status' => User::$ACTIVE
+        ]);
+        
+        User::create([
+            'first_name' => 'user',
+            'last_name' => 'user',
+            'phone' => '09122222222',
+            'password' => Hash::make("123456"),
+            'level' => User::$USER_LEVEL,
+            'status' => User::$ACTIVE
+        ]);
+        
+        User::create([
+            'first_name' => 'user',
+            'last_name' => 'blocked',
+            'phone' => '09212222222',
+            'password' => Hash::make("123456"),
+            'level' => User::$USER_LEVEL,
+            'status' => User::$NOT_ACTIVATE
+        ]);
 
         for($i = 0; $i < 100; $i++) {
 

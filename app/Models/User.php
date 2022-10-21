@@ -17,7 +17,11 @@ class User extends Authenticatable
     public static $EDITOR_LEVEL = 'editor';
     public static $NEWS_LEVEL = 'news';
     public static $USER_LEVEL = 'user';
+    public static $LAUNCHER_LEVEL = 'launcher';
 
+    public static $ACCESS_EVENT = 'event';
+    public static $ACCESS_SHOP = 'shop';
+    public static $ACCESS_BOTH = 'both';
 
     public static $NOT_ACTIVATE = 'init';
     public static $ACTIVE = 'active';

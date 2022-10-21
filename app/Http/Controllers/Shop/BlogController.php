@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shop;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\BlogDigest;
 use App\Http\Resources\BlogDigestUser;
 use App\Http\Resources\BlogResource;
@@ -172,8 +173,8 @@ class BlogController extends Controller
             $filename = str_replace('public/blogs/', '', $filename);   
 
             if($blog->img != null && !empty($blog->img) && 
-                file_exists(__DIR__ . '/../../../public/storage/blogs/' . $blog->img))
-                unlink(__DIR__ . '/../../../public/storage/blogs/' . $blog->img);
+                file_exists(__DIR__ . '/../../../../public/storage/blogs/' . $blog->img))
+                unlink(__DIR__ . '/../../../../public/storage/blogs/' . $blog->img);
 
             $blog->img = $filename;
         }
@@ -218,8 +219,8 @@ class BlogController extends Controller
         $blog->delete();
         
         if($blog->img != null && !empty($blog->img) &&
-            file_exists(__DIR__ . '/../../../public/storage/blogs/' . $blog->img))
-            unlink(__DIR__ . '/../../../public/storage/blogs/' . $blog->img);
+            file_exists(__DIR__ . '/../../../../public/storage/blogs/' . $blog->img))
+            unlink(__DIR__ . '/../../../../public/storage/blogs/' . $blog->img);
 
         return response()->json(['status' => 'ok']);
     }

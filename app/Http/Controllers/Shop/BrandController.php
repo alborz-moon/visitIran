@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shop;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\BrandResource;
 use App\Models\Brand;
 use Illuminate\Http\Request;
@@ -96,9 +97,9 @@ class BrandController extends Controller
             $filename = str_replace('public/brands/', '', $filename);
 
            if($brand->logo != null &&
-                file_exists(__DIR__ . '/../../../public/storage/brands/' . $brand->logo)
+                file_exists(__DIR__ . '/../../../../public/storage/brands/' . $brand->logo)
             ) {
-                unlink(__DIR__ . '/../../../public/storage/brands/' . $brand->logo);
+                unlink(__DIR__ . '/../../../../public/storage/brands/' . $brand->logo);
             }
 
             $brand->logo = $filename;
@@ -121,9 +122,9 @@ class BrandController extends Controller
     {
         $deleted = $brand->delete();
         if($deleted && $brand->logo != null && 
-            file_exists(__DIR__ . '/../../../public/storage/brands/' . $brand->logo)
+            file_exists(__DIR__ . '/../../../../public/storage/brands/' . $brand->logo)
         )
-            unlink(__DIR__ . '/../../../public/storage/brands/' . $brand->logo);
+            unlink(__DIR__ . '/../../../../public/storage/brands/' . $brand->logo);
 
         if($deleted)
             return response()->json(['status' => 'ok']);

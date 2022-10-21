@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
-class FinanceAccess
+class ReportAccess
 {
     /**
      * Handle an incoming request.
@@ -18,13 +18,14 @@ class FinanceAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        
         $user = $request->user();
 
         if($user == null || 
             (
                 $user->level != User::$ADMIN_LEVEL &&
-                $user->level != User::$FINANCE_LEVEL
+                $user->level != User::$EDITOR_LEVEL &&
+                $user->level != User::$FINANCE_LEVEL &&
+                $user->level != User::$REPORT_LEVEL
             )
         )
             return Redirect::route('403');

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shop;
 
+use App\Http\Controllers\Controller;
 use App\Exports\ProductExport;
 use App\Http\Resources\BrandResource;
 use App\Http\Resources\CategoryDigest;
@@ -507,8 +508,8 @@ class ProductController extends Controller
             $filename = str_replace('public/products/', '', $filename);   
                 
             if($product->img != null && !empty($product->img) && 
-                file_exists(__DIR__ . '/../../../public/storage/products/' . $product->img))
-                unlink(__DIR__ . '/../../../public/storage/products/' . $product->img);
+                file_exists(__DIR__ . '/../../../../public/storage/products/' . $product->img))
+                unlink(__DIR__ . '/../../../../public/storage/products/' . $product->img);
 
             $product->img = $filename;
         }
@@ -576,7 +577,7 @@ class ProductController extends Controller
         //         ]));
         
         if($user == null)
-            return view('product', [
+            return view('shop.product', [
                 'product' => array_merge(
                     ProductResourceForUsers::make($product)->toArray($request), [
                     'is_bookmark' => false,
@@ -587,7 +588,7 @@ class ProductController extends Controller
             ]);
             
         $comment = Comment::userComment($product->id, $user->id);
-        return view('product', [
+        return view('shop.product', [
             'product' => array_merge(
                 ProductResourceForUsers::make($product)->toArray($request), 
                 [
@@ -670,8 +671,8 @@ class ProductController extends Controller
         $deleted = $product->delete();
         if($deleted) {
             if($product->img != null && 
-                file_exists(__DIR__ . '/../../../public/storage/products/' . $product->img))
-                unlink(__DIR__ . '/../../../public/storage/products/' . $product->img);
+                file_exists(__DIR__ . '/../../../../public/storage/products/' . $product->img))
+                unlink(__DIR__ . '/../../../../public/storage/products/' . $product->img);
 
             return response()->json(['status' => 'ok']);
         }

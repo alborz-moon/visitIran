@@ -15,6 +15,15 @@ class Banner extends Model
         'img',
         'href',
         'alt',
-        'section'
+        'section',
+        'site'
     ];
+    
+    public function scopeEvent($query) {
+        return $query->where('site', 'event');
+    }
+    
+    public function scopeShop($query) {
+        return $query->where('site', 'shop');
+    }
 }

@@ -11,6 +11,9 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     
+    protected static $EVENT_SITE = 'localevent.com';
+    protected static $SHOP_SITE = 'localshop.com';
+    
     public static function hasAnyExcept($expected, $real) {
 
         foreach ($real as $itr) {

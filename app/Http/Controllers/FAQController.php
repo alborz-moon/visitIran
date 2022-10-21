@@ -16,20 +16,33 @@ class FAQController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->user() != null && 
-            (
-                $request->user()->level == User::$ADMIN_LEVEL ||
-                $request->user()->level == User::$EDITOR_LEVEL 
-            )
-        )
-            return view('admin.faq.list', ['items' => FAQ::all()]);
+        if($request->getHost() == self::$EVENT_SITE)
+           return view('admin.faq.list', ['items' => FAQ::event()->get()]);
         
+        return view('admin.faq.list', ['items' => FAQ::shop()->get()]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list(Request $request)
+    {
+        if($request->getHost() == self::$EVENT_SITE)
+            return response()->json(
+                [
+                    'status' => 'ok', 
+                    'data' => FAQ::visible()->event()->orderBy('priority', 'asc')->get()
+                ]
+            );
+
         return response()->json(
-            [
-                'status' => 'ok', 
-                'data' => FAQ::visible()->orderBy('priority', 'asc')->get()
-            ]
-        );
+                [
+                    'status' => 'ok', 
+                    'data' => FAQ::visible()->shop()->orderBy('priority', 'asc')->get()
+                ]
+            );
     }
 
     /**
@@ -62,6 +75,7 @@ class FAQController extends Controller
 
         $request->validate($validator);
 
+        $request['site'] = $request->getHost() == self::$EVENT_SITE ? 'event' : 'shop';
         FAQ::create($request->toArray());
         return Redirect::route('faq.index');
     }

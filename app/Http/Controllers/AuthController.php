@@ -26,8 +26,13 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        if($user->level != User::$USER_LEVEL)
-            return Redirect::route('panel');
+        if($user->level != User::$USER_LEVEL) {
+            
+            if($request->getHost() == 'localevent.com')
+                return Redirect::route('event.panel');
+
+            return Redirect::route('shop.panel');
+        }
 
         return Redirect::route('home');
     }

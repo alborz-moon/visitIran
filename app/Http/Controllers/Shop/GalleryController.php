@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shop;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\GalleryResource;
 use App\Models\Product;
 use App\Models\ProductGallery;
@@ -74,8 +75,8 @@ class GalleryController extends Controller
      */
     public function destroy(ProductGallery $productGallery)
     {
-        if(file_exists(__DIR__ . '/../../../public/storage/products/' . $productGallery->img))
-            unlink(__DIR__ . '/../../../public/storage/products/' . $productGallery->img);
+        if(file_exists(__DIR__ . '/../../../../public/storage/products/' . $productGallery->img))
+            unlink(__DIR__ . '/../../../../public/storage/products/' . $productGallery->img);
 
         $productGallery->delete();
         

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shop;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryDigest;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CategoryUserDigest;
@@ -223,8 +224,8 @@ class CategoryController extends Controller
             $filename = $request->image_file->store('public/categories');
             $filename = str_replace('public/categories/', '', $filename);
             
-            if($category->img != null && file_exists(__DIR__ . '/../../../public/storage/categories/' . $category->img))
-                unlink(__DIR__ . '/../../../public/storage/categories/' . $category->img);
+            if($category->img != null && file_exists(__DIR__ . '/../../../../public/storage/categories/' . $category->img))
+                unlink(__DIR__ . '/../../../../public/storage/categories/' . $category->img);
             
             $category->img = $filename;
         }
@@ -247,8 +248,8 @@ class CategoryController extends Controller
         if($category->products()->count() > 0)
             return response()->json(['status' => 'nok', 'msg' => 'لطفا ابتدا محصولات این دسته را حذف نمایید']);
 
-        if($category->img != null && file_exists(__DIR__ . '/../../../public/storage/categories/' . $category->img))
-            unlink(__DIR__ . '/../../../public/storage/categories/' . $category->img);
+        if($category->img != null && file_exists(__DIR__ . '/../../../../public/storage/categories/' . $category->img))
+            unlink(__DIR__ . '/../../../../public/storage/categories/' . $category->img);
 
         $category->delete();
         return response()->json(['status' => 'ok']);
