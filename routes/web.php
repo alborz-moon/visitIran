@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Shop\ProductController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,7 +107,8 @@ Route::get('/profile', function () {
     return view('profile');
 })->name('profile');
 
-Route::get('/404', function () {
+Route::get('/404', function ($request) {
+	dd($request->getHost());
     return view('404');
 })->name('404');
 
@@ -115,4 +117,3 @@ Route::get('/welcome', function () {
 })->name('welcome');
 
 Route::view('403', '403')->name('403');
-Route::view('404', '404')->name('404');
