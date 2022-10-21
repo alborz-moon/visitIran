@@ -1,4 +1,4 @@
-<footer class="page-footer pt-2 backgroundWhite b-0">
+<footer class="page-footer pt-2 backgroundWhite b-0" style="direction: rtl">
     <div class="container">
         <div class="d-flex spaceBetween alignItemsCenter">
             <span class="ui-box-title fontSize20"> <img class="p-2" src="{{ asset('./theme-assets/images/svg/headlineTitle.svg') }}" alt="">تماس با ما</span>        </div>
@@ -65,7 +65,7 @@
                         <div id="footerDesc" class="fs-7 text-secondary text-justify">
                         </div>
                     </div>
-                    <div class="expandable-text-expand-btn justify-content-start text-sm">
+                    <div class="expandable-text-expand-btn justify-content-start text-sm customFooterShowMore">
                         <span class="show-more active colorBlue hoverBold">
                             مشاهده بیشتر <i class="ri-arrow-down-s-line ms-2"></i>
                         </span>

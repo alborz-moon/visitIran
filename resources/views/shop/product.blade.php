@@ -33,7 +33,7 @@
                         <?php $i = 1; ?>
                         @foreach($product['parentPath'] as $path)
                             <li>
-                                <span>{{ $path }}</span>
+                                <a href="#" class="colorBlack btnHover">{{ $path }}</a>
                                 @if($i != count($product['parentPath']))
                                     <span> / </span>
                                 @endif
@@ -43,15 +43,16 @@
                     </ol>
                     @include('product.bookmark', ['product' => $product])
                 </nav>
+                
                 <!-- end of breadcrumb -->
-                    <div class="row">
+                    <div class="row mb-5">
                         <div class="col-lg-4 col-md-5 mb-md-0 mb-4">
                             <div class="ui-sticky ui-sticky-top">
                                 <!-- start of product-gallery -->
                                 <div class="product-gallery">
                                     
                                     <div class="gallery-img-container">
-                                        <div class="gallery-img" id="galleryMain">
+                                        <div class="gallery-img m-0" id="galleryMain">
                                             <img class="zoom-img b-0" src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />
                                         </div>
                                         <div class="gallery-thumbs overflowHidden">
@@ -92,7 +93,7 @@
 
                             </div>
 
-                            <div class="expandable-text mb-3" style="height: 95px;">
+                            <div class="expandable-text mb-3" style="height: 200px;">
                                 <div class="expandable-text_text">
                                     <div class="product-params">
                                         <div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18 whiteSpaceNoWrap">ویژگی ها
@@ -107,14 +108,14 @@
                                         <div class="line mr-15"></div> 
                                     </div>
                                 </div>
-                            <div class="product-additional-info-container mb-3">
-                                <span class="icon">
-                                    <i class="ri-information-line"></i>
-                                </span>
-                                <div class="product-additional-info">
-                                    <p>{{ $product['description'] }}</p>
+                                <div class="product-additional-info-container mb-3">
+                                    <span class="icon">
+                                        <i class="ri-information-line"></i>
+                                    </span>
+                                    <div class="product-additional-info">
+                                        <p>{{ $product['description'] }}</p>
+                                    </div>
                                 </div>
-                            </div>
                                 <div class="expandable-text-expand-btn d-flex justify-content-end">
                                     <span class="show-more">
                                         بیشتر <i class="ri-arrow-down-s-line"></i>
@@ -148,7 +149,7 @@
                             <div class="product-tabs overflowHidden">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="#scrollspyHeading1"
+                                        <a id="moveTopDeatails" class="nav-link active" href="#scrollspyHeading1"
                                             data-scroll="scrollspyHeading1">نقد و بررسی </a>
                                     </li>
                                     <li class="nav-item">
@@ -164,10 +165,10 @@
                             <!-- end of product-tabs -->
                         </div>
                         <!-- start of product-content-expert-summary -->
-                        <div class="product-tab-content product-content-expert-summary tab-content border-bottom pb-2 mb-4"
+                        <div class="details product-tab-content product-content-expert-summary tab-content border-bottom pb-2 mb-4"
                             id="scrollspyHeading1">
                             <div class="product-tab-title">
-                                <div class="fontSize18 bold">بررسی {{ $product['name'] }}</div>
+                                <div class="fontSize18 bold ">بررسی {{ $product['name'] }}</div>
                             </div>
                             <div class="expandable-text pt-1" style="height: 500px;">
                                 <div class="expandable-text_text">
@@ -467,6 +468,9 @@
         // if ('{{ $product['seller'] }}' !== ''){
         //     $('.seller').removeClass('hidden');
         // }
+        $(document).ready(function(){
+            $('body').scrollspy({offset: 150});
+        });
     });
 </script>
 

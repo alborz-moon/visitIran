@@ -1,4 +1,4 @@
-            <div class="container mb-5">
+            <div class="container mb-5" style="direction: rtl">
                 <div class="bg-white">
                     <div class="d-flex spaceBetween alignItemsCenter">
                         <span class="ui-box-title fontSize20"> 
