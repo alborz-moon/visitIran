@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\InfoBoxController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Shop\BlogController;
+use App\Http\Controllers\Shop\InfoBoxController;
+use App\Http\Controllers\Shop\ProductController;
 
 use Illuminate\Support\Facades\Route;
 

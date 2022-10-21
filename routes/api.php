@@ -3,6 +3,7 @@
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
@@ -37,6 +38,6 @@ Route::get('slider', [SliderController::class, 'list'])->name('api.slider');
 
 Route::post('submitMail', [MailController::class, 'submitMail'])->name('api.submitMail');
 
-Route::domain('localshop.com')->group(base_path('routes/shop_general_routes.php'));
+Route::domain(Controller::$SHOP_SITE)->group(base_path('routes/shop_general_routes.php'));
 
-Route::domain('localevent.com')->group(base_path('routes/event_general_routes.php'));
+Route::domain(Controller::$EVENT_SITE)->group(base_path('routes/event_general_routes.php'));

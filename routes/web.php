@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Shop\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -36,9 +37,9 @@ Route::middleware(['auth', 'editorLevelWithoutDomainCheck'])->prefix('admin')
 
 Route::middleware(['auth', 'editorLevel'])->prefix('admin')->group(function() {
 
-    Route::domain('localshop.com')->group(base_path('routes/shop_admin_routes.php'));
+    Route::domain(Controller::$SHOP_SITE)->group(base_path('routes/shop_admin_routes.php'));
     
-    Route::domain('localevent.com')->group(base_path('routes/event_admin_routes.php'));
+    Route::domain(Controller::$EVENT_SITE)->group(base_path('routes/event_admin_routes.php'));
 
 });
 
@@ -53,7 +54,7 @@ Route::domain('localshop.com')->group(function() {
     Route::get('/product/{product}/{slug}', [ProductController::class, 'showDetail'])->name('single-product');
 });
 
-Route::domain('localevent.com')->group(function() {
+Route::domain(Controller::$EVENT_SITE)->group(function() {
 
     Route::view('/', 'event.welcome')->name('event.home');
 

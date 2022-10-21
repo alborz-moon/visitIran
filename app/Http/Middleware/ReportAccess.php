@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class ReportAccess
         )
             return Redirect::route('403');
             
-        if($request->getHost() == 'localevent.com' && 
+        if($request->getHost() == Controller::$EVENT_SITE && 
             $user->access != User::$ACCESS_BOTH &&
             $user->access != User::$ACCESS_EVENT
         )
