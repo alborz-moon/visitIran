@@ -50,7 +50,6 @@
                             }
                             html += '</ul>';
                         }
-                        
                         html += '</li>';
                     }
                     $("#menu").empty().append(html);
