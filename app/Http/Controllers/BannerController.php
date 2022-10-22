@@ -18,17 +18,14 @@ class BannerController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->user() != null && 
-            (
-                $request->user()->level == User::$ADMIN_LEVEL ||
-                $request->user()->level == User::$EDITOR_LEVEL 
-            )
-        ) {
-            $items = BannerResource::collection(Banner::all())->toArray($request);
-            return view('admin.banner.list', compact('items'));
-        }
+        if($request->getHost() == self::$EVENT_SITE)
+            return view('admin.banner.list', [
+                'items' => BannerResource::collection(Banner::event()->get())->toArray($request)
+            ]);
 
-        return BannerResource::collection(Banner::all())->additional(['status' => 'ok']);
+        return view('admin.banner.list', [
+                'items' => BannerResource::collection(Banner::shop()->get())->toArray($request)
+            ]);
     }
 
     /**
@@ -36,9 +33,12 @@ class BannerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function list()
+    public function list(Request $request)
     {
-        return BannerResource::collection(Banner::all())->additional(['status' => 'ok']);
+        if($request->getHost() == self::$EVENT_SITE)
+            return BannerResource::collection(Banner::event()->get())->additional(['status' => 'ok']);
+            
+        return BannerResource::collection(Banner::shop()->get())->additional(['status' => 'ok']);
     }
 
 
@@ -74,6 +74,7 @@ class BannerController extends Controller
 
         $request['img'] = $request->image_file->store('public/banner');
         $request['img'] = str_replace('public/banner/', '', $request['img']);
+        $request['site'] = $request->getHost() == self::$EVENT_SITE ? 'event' : 'shop';
         
         Banner::create($request->toArray());
         return Redirect::route('banner.index');

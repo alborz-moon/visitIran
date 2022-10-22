@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminAccess
 {
@@ -17,9 +19,23 @@ class AdminAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->user() == null || $request->user()->level != User::$ADMIN_LEVEL)
-            return abort(401);
+        $user = $request->user();
+
+        if($user == null || $user->level != User::$ADMIN_LEVEL)
+            return Redirect::route('403');
+        
+        if($request->getHost() == Controller::$SHOP_SITE && 
+            $user->access != User::$ACCESS_BOTH &&
+            $user->access != User::$ACCESS_SHOP
+        )
+            return Redirect::route('403');
             
+        if($request->getHost() == Controller::$EVENT_SITE && 
+            $user->access != User::$ACCESS_BOTH &&
+            $user->access != User::$ACCESS_EVENT
+        )
+            return Redirect::route('403');
+
         return $next($request);
     }
 }

@@ -70,6 +70,9 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'adminLevel' => \App\Http\Middleware\AdminAccess::class,
         'editorLevel' => \App\Http\Middleware\EditorAccess::class,
+        'editorLevelWithoutDomainCheck' => \App\Http\Middleware\EditorAccessWithoutDomainCheck::class,
+        'reportLevel' => \App\Http\Middleware\ReportAccess::class,
+        'launcherLevel' => \App\Http\Middleware\LauncherAccess::class,
         'financeLevel' => \App\Http\Middleware\FinanceAccess::class,
         'active' => \App\Http\Middleware\ActiveAccount::class,
         'myAuth' => \App\Http\Middleware\MyAuth::class
