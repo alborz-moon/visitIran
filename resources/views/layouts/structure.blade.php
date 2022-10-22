@@ -173,7 +173,7 @@
                             <div class="vertical-menu minWidthUnset">
                             <a href="#" class="vertical-menu-btn p-0 m-0 colorWhite fontNormal"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt="">دسته بندی کالاها</a>
                             <div class="vertical-menu-items marginFromRightHeaderNegative custom-vertical-menu-items zIndex2 mt-10">
-                                <ul>
+                                {{-- <ul id='menu'>
                                     <li class="mega-menu-category show">
                                         <a href="#">صفحه های طراحی شده</a>
                                         <ul class="mega-menu">
@@ -209,7 +209,8 @@
                                     <li><a href="#">منسوجات</a></li>
                                     <li><a href="#">مینا کاری</a></li>
                                     <li><a href="#">منبت کاری</a></li>
-                                </ul>
+                                </ul> --}}
+                                @include('layouts.menu')
                             </div>
                         </div>                            
                     </li>
@@ -360,7 +361,8 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-    </script>        
+    </script>   
+  
     </script>
     @section('extraJS')
     @show

@@ -152,7 +152,7 @@
                                 <ul class="nav nav-pills">
                                     <li id="checkNavLink" class="nav-item">
                                         <a  class="nav-link active" href="#scrollspyHeading1"
-                                            >نقد و بررسی </a>
+                                            data-scroll="scrollspyHeading1">نقد و بررسی </a>
                                     </li>
                                     <li id="propertyNavLink" class="nav-item">
                                         <a class="nav-link" href="#scrollspyHeading3"
