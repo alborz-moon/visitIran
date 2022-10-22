@@ -111,9 +111,6 @@
                                     </div>
                                 </div>
                                 <div class="product-additional-info-container mb-3">
-                                    <span class="icon">
-                                        <i class="ri-information-line"></i>
-                                    </span>
                                     <div class="product-additional-info">
                                         <p>{{ $product['description'] }}</p>
                                     </div>
