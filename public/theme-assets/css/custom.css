@@ -1075,6 +1075,9 @@ figure .ck-widget {
 .directionRTL {
     direction: rtl !important;
 }
+.nav-link:hover {
+    color: #c59358;
+}
 .end {
     width: 40%;
 }
