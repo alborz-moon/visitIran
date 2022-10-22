@@ -3,6 +3,7 @@
 use App\Http\Controllers\Shop\BlogController;
 use App\Http\Controllers\Shop\InfoBoxController;
 use App\Http\Controllers\Shop\ProductController;
+use App\Http\Controllers\Shop\CategoryController;
 
 use Illuminate\Support\Facades\Route;
 

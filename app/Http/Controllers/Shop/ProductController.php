@@ -337,6 +337,7 @@ class ProductController extends Controller
 
         $validator = [
             'name' => 'required|string|min:2',
+            'slug' => 'nullable|string|min:2',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
             'seller_id' => 'nullable|exists:sellers,id',

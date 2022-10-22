@@ -40,11 +40,19 @@ class ProductResourceForUsers extends JsonResource
 
         $parentPath = [];
         array_push($parentPath, $this->name);
-        array_unshift($parentPath, $cat->name);
+        array_unshift($parentPath, [
+            'name' => $cat->name,
+            'slug' => $cat->name,
+            'id' => $cat->id,
+        ]);
         $tmpCat = $cat;
         while($tmpCat->parent_id != null) {
             $tmpCat = $tmpCat->parent;
-            array_unshift($parentPath, $tmpCat->name);
+            array_unshift($parentPath, [
+                'name' => $tmpCat->name,
+                'slug' => $tmpCat->name,
+                'id' => $tmpCat->id
+            ]);
         }
 
         return [
