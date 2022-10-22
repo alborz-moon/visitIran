@@ -438,21 +438,21 @@
             $('#selected_option_for_feature_' + $(this).attr('data-id')).empty().append($(this).attr('data-val'));
         });
         
-        // $.ajax({
-        //     type: 'post',
-        //     url: '{{ route('api.product.comment.store', ['product' => $product['id']]) }}',
-        //     data: {
-        //         'rate': 3,
-        //         'is_bookmark': 1,
-        //         'title': 'sample',
-        //         'negative': 'asdwqdwqdqwqwd',
-        //         'positive': 'sdffq',
-        //         'msg': 'sasds'
-        //     },  
-        //     success: function(res) {
-        //         alert(res);
-        //     }
-        // });
+        $.ajax({
+            type: 'post',
+            url: '{{ route('api.product.comment.store', ['product' => $product['id']]) }}',
+            data: {
+                'rate': 3,
+                'is_bookmark': 1,
+                'title': 'sample',
+                'negative': 'asdwqdwqdqwqwd',
+                'positive': 'sdffq',
+                'msg': 'sasds'
+            },  
+            success: function(res) {
+                alert(res);
+            }
+        });
 
         let star="";
         let roundRatting=Math.floor('{{ $product['rate'] }}');
