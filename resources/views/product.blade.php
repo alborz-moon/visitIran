@@ -149,8 +149,8 @@
                             <div class="product-tabs overflowHidden">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item">
-                                        <a id="moveTopDeatails" class="nav-link active" href="#scrollspyHeading1"
-                                            data-scroll="scrollspyHeading1">نقد و بررسی </a>
+                                        <a id="moveTopDeatails" class="nav-link active"
+                                            >نقد و بررسی </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#scrollspyHeading3"
@@ -468,9 +468,26 @@
         // if ('{{ $product['seller'] }}' !== ''){
         //     $('.seller').removeClass('hidden');
         // }
-        $(document).ready(function(){
-            $('body').scrollspy({offset: 150});
-        });
+        // $(document).ready(function(){
+        //     $('body').scrollspy({offset: 150});
+        // });
+        // $('#moveTopDeatails').click(function(){
+        //     $('#scrollspyHeading1').height();
+        // });
+
+function showHeight( element, height ) {
+  $( "#moveTopDeatails" ).text( "The height for the " + element + " is " + height + "px." );
+}
+$( "#scrollspyHeading1" ).click(function() {
+  showHeight( "paragraph", $( "p" ).height() );
+});
+// $( "#getd" ).click(function() {
+//   showHeight( "document", $( document ).height() );
+// });
+// $( "#getw" ).click(function() {
+//   showHeight( "window", $( window ).height() );
+// });
+
     });
 </script>
 
