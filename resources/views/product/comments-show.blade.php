@@ -10,7 +10,8 @@
                                 <span class="text-muted fs-7">(از <span>{{ $product['all_rates_count'] }}</span> رای)</span>
                             </span>
                             <span style="gap15">
-                                <a class="marginLeft15 btnHover colorBlack" href=""><i class="icon-visit-sort align-middle fontSize20 marginLeft15"></i>جدید ترین</a>
+                                <i class="icon-visit-sort align-middle fontSize20 marginLeft15 colorYellow"></i>
+                                <a class="marginLeft15 btnHover colorBlack" href="">جدید ترین</a>
                                 <a class="marginLeft15 btnHover colorBlack" href="">کمترین امتیاز</a>
                                 <a class="marginLeft15 btnHover colorBlack" href="">بیشترین امتیاز</a>
                             </span>

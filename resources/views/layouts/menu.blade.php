@@ -41,22 +41,12 @@
                         if (res.data.menu[i].subs.length != 0){
                             html += '<ul class="mega-menu">';
                             for(var j = 0; j < res.data.menu[i].subs.length; j++) {
-                                if(j==0){
                                     html += '<li class="parent"><a class="colorBlue customBold" href="#">' + res.data.menu[i].subs[j].name + '</a></li>';
-                                }else{
-                                    html += '<li><a href="#">' + res.data.menu[i].subs[j].name + '</a></li>';
+                                if (res.data.menu[i].subs[j].subs.length != 0){
+                                    for(var k = 0; k < res.data.menu[i].subs[j].subs.length; k++) {
+                                        html += '<li><a href="#">' + res.data.menu[i].subs[j].subs[k].name + '</a></li>';
+                                    }
                                 }
-                                // if (res.data.menu[i].subs[j].subs.length != 0){
-                                //     html += '<ul class="mega-menu">';
-                                //      for(var k = 0; k < res.data.menu[i].subs[j].subs.length; k++) {
-                                //          if(k == 0){
-                                //              html += '<li class="parent"><a class="colorBlue customBold" href="#">' + res.data.menu[i].subs[j].subs[k].name + '</a></li>';
-                                //          }else{
-                                //              html += '<li><a href="#">' + res.data.menu[i].subs[j].subs[k].name + '</a></li>';
-                                //          }
-                                //      }
-                                //      html += '</ul';
-                                //  }
                             }
                             html += '</ul>';
                         }
