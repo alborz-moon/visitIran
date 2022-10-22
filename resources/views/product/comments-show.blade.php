@@ -17,7 +17,7 @@
                         </div>
                             <div class="col-xl-3 col-lg-4 col-md-5 mb-3">
                                 <p class="bold fontSize12">شما هم درباره این کالا دیدگاه ثبت کنید</p>
-                                <button class="btn btn-primary w-100 mt-4" data-bs-toggle="modal" data-bs-target="#commentModal"> ثبت دیدگاه </button>
+                                <button class="btn btn-secondary w-100 mt-4" data-bs-toggle="modal" data-bs-target="#commentModal"> ثبت دیدگاه </button>
                                 <!-- Modal -->
                                 {{-- @include('layouts.ratting') --}}
                             </div>
