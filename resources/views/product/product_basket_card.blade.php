@@ -1,4 +1,4 @@
-<div class="product-seller-info ui-box">
+<div class="product-seller-info ui-box" style="background-color: #fff">
     <div class="seller-info-changeable">
         @if($product['seller'] !== '')
             <div class="product-seller-row seller">

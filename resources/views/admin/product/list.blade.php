@@ -329,7 +329,6 @@
     </script>
 
     <script>
-
         function buildQuery() {
             
             let query = new URLSearchParams();
@@ -354,9 +353,9 @@
             if(isInTopList !== 'all')
                 query.append('isInTopList', isInTopList);
                 
-            if(brand !== 'all')
+             if(brand !== 'all')
                 query.append('brand', brand);
-                
+               
             if(category !== 'all')
                 query.append('category', category);
 

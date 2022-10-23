@@ -2,20 +2,23 @@
 @extends('layouts.structure')
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
-            <div class="container mt-2">
+            <div class="container">
                 <div class="row">
                     <div class="col-xl-3 col-lg-4 col-md-5 responsive-sidebar">
+                        @include('sections.top_categories_products')
                         <div class="ui-sticky ui-sticky-top">
                             <div class="ui-box sidebar-widgets customFilter ">
+
                                 <!-- start of breadcrumb -->
-                                <nav class="mb-2 mt-3" aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        @foreach ($path as $itr)
-                                            <li class="breadcrumb-item"><a href="{{ $itr['href'] }}">{{ $itr['label'] }}</a></li>    
-                                        @endforeach
-                                    </ol>
-                                </nav>
+                                <ol class="breadcrumb">
+                                    @foreach ($path as $itr)
+                                        <li class="breadcrumb-item">
+                                            <a href="{{ $itr['href'] }}">{{ $itr['label'] }}</a>
+                                        </li>
+                                    @endforeach
+                                </ol>
                                 <!-- end of breadcrumb -->
+
                                 <!-- start of widget -->
                                 <div class="widget mb-3">
                                     <div class="spaceBetween">
@@ -23,7 +26,7 @@
                                         <a href="#" class="colorRed fontSize12 align-self-center">حذف نتایج</a>
                                     </div>
                                     <div class="colorBlue fontSize8 align-self-center">300 کالا</div>
-                                    <div class="widget-content widget--category-results">
+                                    {{-- <div class="widget-content widget--category-results">
                                         <ul>
                                             <li class="category--arrow-left">
                                                 <a href="#">دسته بندی کالا ها</a>
@@ -39,7 +42,7 @@
                                                 </ul>
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <!-- start of widget -->
                                 <div class="widget mb-3">
@@ -97,102 +100,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <!-- end of widget -->
                                 <!-- start of widget -->
-                                {{-- <div class="widget widget-collapse mb-3">
-                                    <div class="widget-title widget-title--collapse-btn" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseBrandFilter" aria-expanded="false"
-                                        aria-controls="collapseBrandFilter" role="button">برند</div>
-                                    <div class="widget-content widget--search collapse" id="collapseBrandFilter">
-                                        <form action="#" class="pt-2">
-                                            <div class="filter-options do-simplebar pt-2 mt-2">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="brandOption1">
-                                                    <label class="form-check-label d-block" for="brandOption1">
-                                                        <span class="d-flex align-items-center justify-content-between">
-                                                            <span>شیائومی</span>
-                                                            <span class="text-muted en_text fs-7">Xiaomi</span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="brandOption2">
-                                                    <label class="form-check-label d-block" for="brandOption2">
-                                                        <span class="d-flex align-items-center justify-content-between">
-                                                            <span>سامسونگ</span>
-                                                            <span class="text-muted en_text fs-7">Samsung</span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="brandOption3">
-                                                    <label class="form-check-label d-block" for="brandOption3">
-                                                        <span class="d-flex align-items-center justify-content-between">
-                                                            <span>اپل</span>
-                                                            <span class="text-muted en_text fs-7">Apple</span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="brandOption4">
-                                                    <label class="form-check-label d-block" for="brandOption4">
-                                                        <span class="d-flex align-items-center justify-content-between">
-                                                            <span>نوکیا</span>
-                                                            <span class="text-muted en_text fs-7">Nokia</span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="brandOption9">
-                                                    <label class="form-check-label d-block" for="brandOption9">
-                                                        <span class="d-flex align-items-center justify-content-between">
-                                                            <span>جی پلاس</span>
-                                                            <span class="text-muted en_text fs-7">G Plus</span>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <!-- end of widget -->
-                                <!-- start of widget -->
-                                <div class="widget widget-collapse">
-                                    <div class="widget-title widget-title--collapse-btn" data-bs-toggle="collapse"
-                                        data-bs-target="#collapsePriceFilter" aria-expanded="false"
-                                        aria-controls="collapsePriceFilter" role="button">محدوده قیمت </div>
-                                    <div class="widget-content widget--search fa-num collapse" id="collapsePriceFilter">
-                                        <form action="#" class="pt-2">
-                                            <div class="filter-price">
-                                                <div class="filter-slider">
-                                                    <div id="slider-non-linear-step" class="price-slider"></div>
-                                                </div>
-                                                <ul class="filter-range mb-4">
-                                                    <li>
-                                                        <input type="text" data-value="0" value="0" name="price[min]"
-                                                            data-range="0" class="js-slider-range-from"
-                                                            id="skip-value-lower" disabled>
-                                                        <span class="fontSize20 colorYellow">ت</span>
-                                                    </li>
-                                                    <li class="label fw-bold">تا</li>
-                                                    <li>
-                                                        <input type="text" data-value="17700000" value="17700000"
-                                                            name="price[max]" data-range="17700000"
-                                                            class="js-slider-range-to" id="skip-value-upper" disabled>
-                                                        <span class="fontSize20 colorYellow">ت</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <!-- end of widget --> --}}
-                                                                <!-- start of widget -->
                                 <div class="widget py-1 mt-3 mb-3">
                                     <div class="widget-content widget--filter-switcher">
                                         <div class="form-check form-switch mb-0">
@@ -233,222 +141,55 @@
                                         <div class="ui-box pt-3 pb-0 px-0 mb-4">
                                             <div class="ui-box-content">
                                                 <div class="row mx-0">
-                                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+                                                    {{-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
                                                         <!-- start of product-card -->
                                                         <div class="product-card customBorderBoxShadow">
                                                             <div class="product-thumbnail">
-                                                                <a href="#" target="_blank">
-                                                                    <img src="{{ asset('theme-assets/images/box/pic1.png') }}" alt="product title">
+                                                                <a>
+                                                                    <img id="{{ $key }}Img">
                                                                 </a>
                                                             </div>
                                                             <div class="product-card-body">
                                                                 <h2 class="product-title">
-                                                                    <a class="textColor fontSize12" href="#">سبد خرید با در چهار رنگ متفاوت سبد حصیری فامیلیران مدل تولک درب‌دار</a>
+                                                                    <a id="{{ $key }}Header" class="textColor fontSize12"></a>
                                                                 </h2>
                                                                 <div class="product-variant">
-                                                                    <span class="colorWhite customBoxLabel fontSize11">خاتم کاری</span>
+                                                                    <span id="{{ $key }}Tag" class="colorWhite customBoxLabel fontSize11"></span>
                                                                 </div>
-                                                                <div class="colorCircle"></div>
+                                                                <div id="{{ $key }}MultiColor" class="colorCircle hidden"></div>
                                                                 <div class="spaceBetween mt-3 mb-3">
-                                                                    <span class="fontSize11 colorRed whiteSpaceNoWrap">موجودی تنها دو عدد</span>
-                                                                    <span><i class="icon-visit-staroutline"></i><i class="icon-visit-staroutline"></i><i class="icon-visit-staroutline"></i><i class="icon-visit-star"></i><i class="icon-visit-star"></i></span>
+                                                                    <span id="{{ $key }}Critical" class="fontSize11 invisible colorRed whiteSpaceNoWrap">
+                                                                        <span>موجودی تنها</span>
+                                                                        <span>&nbsp;</span>
+                                                                        <span id="{{ $key }}CriticalCount"></span>
+                                                                        <span>&nbsp;</span>
+                                                                        <span>عدد</span>
+                                                                    </span>
+                                                                    <span id="{{ $key }}Rate"></span>
                                                                 </div>
                                                                 <div class="product-price fa-num">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <span class="fontSize15 pl-10 position-relative"><img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt=""><span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span></span>
-                                                                        <del class="customlineText textColor fontSize15">26,900,000</del>
+                                                                    <div id="{{ $key }}OffSection" class="hidden d-flex align-items-center">
+                                                                        <span class="fontSize15 pl-10 position-relative">
+                                                                            <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="">
+                                                                            <span id="{{ $key }}Off" class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span>
+                                                                        </span>
+                                                                        <del id="{{ $key }}PriceBeforeOff" class="customlineText textColor fontSize15">26,900,000</del>
                                                                     </div>
-                                                                    <div class="fontSize20">29999,249,000 <span
-                                                                            class="fontSize20 colorYellow">ت</span>
+                                                                    <div id="{{ $key }}PriceParent" class="fontSize20 hidden">
+                                                                        <span id="{{ $key }}Price"></span>
+                                                                        <span class="fontSize20 colorYellow">ت</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="product-card-footer mb-2">
-                                                                <div class="textColor"><span class="bold">از</span> تهران دستی</div>
+                                                                <div id="{{ $key }}SellerParent" class="textColor hidden">
+                                                                    <span class="bold">از</span>
+                                                                    <span id="{{ $key }}Seller"></span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <!-- end of product-card -->
-                                                    </div>
-                                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
-                                                        <!-- start of product-card -->
-                                                        <div class="product-card customBorderBoxShadow">
-                                                            <div class="product-thumbnail">
-                                                                <a href="#" target="_blank">
-                                                                    <img src="{{ asset('theme-assets/images/box/pic1.png') }}" alt="product title">
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-card-body">
-                                                                <h2 class="product-title">
-                                                                    <a class="textColor fontSize12" href="#">سبد خرید با در چهار رنگ متفاوت سبد حصیری فامیلیران مدل تولک درب‌دار</a>
-                                                                </h2>
-                                                                <div class="product-variant">
-                                                                    <span class="colorWhite customBoxLabel fontSize11">خاتم کاری</span>
-                                                                </div>
-                                                                <div class="colorCircle"></div>
-                                                                    <div class="spaceBetween mt-3 mb-3">
-                                                                    <span class="fontSize11 colorRed whiteSpaceNoWrap">موجودی تنها دو عدد</span>
-                                                                    <span class="whiteSpaceNoWrap"><i class="icon-visit-staroutline"></i><i class="icon-visit-staroutline"></i><i class="icon-visit-staroutline"></i><i class="icon-visit-star"></i><i class="icon-visit-star"></i></span>
-                                                                </div>
-                                                                <div class="product-price fa-num">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <span class="fontSize15 pl-10 position-relative"><img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt=""><span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span></span>
-                                                                        <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                    </div>
-                                                                    <div class="fontSize20">26,249,000 <span
-                                                                            class="fontSize20 colorYellow">ت</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-card-footer mb-2">
-                                                                <div class="textColor"><span class="bold">از</span> تهران دستی</div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end of product-card -->
-                                                    </div>
-                                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
-                                                        <!-- start of product-card -->
-                                                        <div class="product-card customBorderBoxShadow">
-                                                            <div class="product-thumbnail">
-                                                                <a href="#" target="_blank">
-                                                                    <img src="{{ asset('theme-assets/images/box/pic1.png') }}" alt="product title">
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-card-body">
-                                                                <h2 class="product-title">
-                                                                    <a class="textColor fontSize12" href="#">سبد خرید با در چهار رنگ متفاوت سبد حصیری فامیلیران مدل تولک درب‌دار</a>
-                                                                </h2>
-                                                                <div class="product-variant">
-                                                                    <span class="colorWhite customBoxLabel fontSize11">خاتم کاری</span>
-                                                                </div>
-                                                                <div class="colorCircle"></div>
-                                                                    <div class="spaceBetween mt-3 mb-3">
-                                                                    <span class="fontSize11 colorRed whiteSpaceNoWrap">موجودی تنها دو عدد</span>
-                                                                    <span class="whiteSpaceNoWrap"><i class="icon-visit-staroutline"></i><i class="icon-visit-staroutline"></i><i class="icon-visit-staroutline"></i><i class="icon-visit-star"></i><i class="icon-visit-star"></i></span>
-                                                                </div>
-                                                                <div class="product-price fa-num">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <span class="fontSize15 pl-10 position-relative"><img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt=""><span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span></span>
-                                                                        <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                    </div>
-                                                                    <div class="fontSize20">26,249,000 <span
-                                                                            class="fontSize20 colorYellow">ت</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-card-footer mb-2">
-                                                                <div class="textColor"><span class="bold">از</span> تهران دستی</div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end of product-card -->
-                                                    </div>
-                                                                                                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
-                                                        <!-- start of product-card -->
-                                                        <div class="product-card customBorderBoxShadow">
-                                                            <div class="product-thumbnail">
-                                                                <a href="#" target="_blank">
-                                                                    <img src="{{ asset('theme-assets/images/box/pic1.png') }}" alt="product title">
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-card-body">
-                                                                <h2 class="product-title">
-                                                                    <a class="textColor fontSize12" href="#">سبد خرید با در چهار رنگ متفاوت سبد حصیری فامیلیران مدل تولک درب‌دار</a>
-                                                                </h2>
-                                                                <div class="product-variant">
-                                                                    <span class="colorWhite customBoxLabel fontSize11">خاتم کاری</span>
-                                                                </div>
-                                                                <div class="colorCircle"></div>
-                                                                    <div class="spaceBetween mt-3 mb-3">
-                                                                    <span class="fontSize11 colorRed whiteSpaceNoWrap">موجودی تنها دو عدد</span>
-                                                                    <span class="whiteSpaceNoWrap"><i class="icon-visit-staroutline"></i><i class="icon-visit-staroutline"></i><i class="icon-visit-staroutline"></i><i class="icon-visit-star"></i><i class="icon-visit-star"></i></span>
-                                                                </div>
-                                                                <div class="product-price fa-num">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <span class="fontSize15 pl-10 position-relative"><img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt=""><span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span></span>
-                                                                        <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                    </div>
-                                                                    <div class="fontSize20">26,249,000 <span
-                                                                            class="fontSize20 colorYellow">ت</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-card-footer mb-2">
-                                                                <div class="textColor"><span class="bold">از</span> تهران دستی</div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end of product-card -->
-                                                    </div>
-                                                                                                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
-                                                        <!-- start of product-card -->
-                                                        <div class="product-card customBorderBoxShadow">
-                                                            <div class="product-thumbnail">
-                                                                <a href="#" target="_blank">
-                                                                    <img src="{{ asset('theme-assets/images/box/pic1.png') }}" alt="product title">
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-card-body">
-                                                                <h2 class="product-title">
-                                                                    <a class="textColor fontSize12" href="#">سبد خرید با در چهار رنگ متفاوت سبد حصیری فامیلیران مدل تولک درب‌دار</a>
-                                                                </h2>
-                                                                <div class="product-variant">
-                                                                    <span class="colorWhite customBoxLabel fontSize11">خاتم کاری</span>
-                                                                </div>
-                                                                <div class="colorCircle"></div>
-                                                                    <div class="spaceBetween mt-3 mb-3">
-                                                                    <span class="fontSize11 colorRed whiteSpaceNoWrap">موجودی تنها دو عدد</span>
-                                                                    <span class="whiteSpaceNoWrap"><i class="icon-visit-staroutline"></i><i class="icon-visit-staroutline"></i><i class="icon-visit-staroutline"></i><i class="icon-visit-star"></i><i class="icon-visit-star"></i></span>
-                                                                </div>
-                                                                <div class="product-price fa-num">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <span class="fontSize15 pl-10 position-relative"><img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt=""><span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span></span>
-                                                                        <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                    </div>
-                                                                    <div class="fontSize20">26,249,000 <span
-                                                                            class="fontSize20 colorYellow">ت</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-card-footer mb-2">
-                                                                <div class="textColor"><span class="bold">از</span> تهران دستی</div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end of product-card -->
-                                                    </div>
-                                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
-                                                        <!-- start of product-card -->
-                                                        <div class="product-card customBorderBoxShadow">
-                                                            <div class="product-thumbnail">
-                                                                <a href="#" target="_blank">
-                                                                    <img src="{{ asset('theme-assets/images/box/pic1.png') }}" alt="product title">
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-card-body">
-                                                                <h2 class="product-title">
-                                                                    <a class="textColor fontSize12" href="#">سبد خرید با در چهار رنگ متفاوت سبد حصیری فامیلیران مدل تولک درب‌دار</a>
-                                                                </h2>
-                                                                <div class="product-variant">
-                                                                    <span class="colorWhite customBoxLabel fontSize11">خاتم کاری</span>
-                                                                </div>
-                                                                <div class="colorCircle"></div>
-                                                                <div class="spaceBetween mt-3 mb-3">
-                                                                    <span class="fontSize11 colorRed whiteSpaceNoWrap">موجودی تنها دو عدد</span>
-                                                                    <span class="whiteSpaceNoWrap"><i class="icon-visit-staroutline"></i><i class="icon-visit-staroutline"></i><i class="icon-visit-staroutline"></i><i class="icon-visit-star"></i><i class="icon-visit-star"></i></span>
-                                                                </div>
-                                                                <div class="product-price fa-num">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <span class="fontSize15 pl-10 position-relative"><img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt=""><span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span></span>
-                                                                        <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                    </div>
-                                                                    <div class="fontSize20">28,249,000 <span
-                                                                            class="fontSize20 colorYellow">ت</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-card-footer mb-2">
-                                                                <div class="textColor"><span class="bold">از</span> تهران دستی</div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end of product-card -->
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -1615,6 +1356,283 @@ $(".child input").on('click',function(){
   }
 });
 </script>
+{{-- <script>
+
+    $(document).ready(function() {
+
+        let productId;
+        
+        try {
+            productId = location.pathname.split('/product/')[1].split('/')[0];
+        }
+        catch(e) {
+            document.location.href = '{{ route('home') }}';
+        }
+        
+        $.ajax({
+            type: 'get',
+            url: '{{ route('api.product.show') }}' + '/' + productId,
+            headers: {
+                'accept': 'application/json'
+            },
+            success: function(res) {
+                
+                let html = '';
+                for(var i = 0; i < res.galleries.length; i++) {
+                    html += '<li data-fancybox="gallery-a " data-src="' + res.galleries[i].img + '">'
+                    html += '<img class="customBoxShadowGallery" src="' + res.galleries[i].img + '" alt="' + res.galleries[i].alt + '"></li>'
+                }
+                $("#gallery").empty().append(html);
+
+                let options = '';
+                let colors = '';
+                let property = '';
+                let params = '';
+                for (var i = 0; i < res.features.length; i++) {
+
+                    if(res.features[i].name === 'multicolor') {
+                        
+                        $("#color-div").removeClass('hidden');
+                        let val_label = res.features[i].value.split('__');
+                        let prices = res.features[i].price !== undefined && 
+                            res.features[i].price !== null && res.features[i].price != '' ? 
+                                res.features[i].price.split('$$') : [];
+
+                        let colors_keys = val_label[0].split('$$');
+                        let colors_labels = val_label[1].split('$$');
+
+                        for(var j = 0; j < colors_keys.length; j++) {
+
+                            colors += '<div class="product-variant-item"><div class="custom-radio-circle">';
+                            colors += '<input data-label="' + colors_labels[j] + '" data-val="' + colors_keys[j] + '"" type="radio" class="custom-radio-circle-input" name="productColor"';
+                            if(j == 0) {
+
+                                if(prices.length > j)
+                                    colors += 'data-price="' + prices[j] + '" id="productColor0' + j + '" checked>';
+                                else
+                                    colors += 'data-price="" id="productColor0' + j + '" checked>';
+                                
+                                let html = '<div class="product-option">';
+                                html += '<span class="color" style="background-color: ' + colors_labels[j] + ';"></span>';
+                                html += '<span class="color-label ms-2">' + colors_keys[j] + '</span>';
+                                html += '</div>';
+
+                                $("#product_options").empty().append(html);
+
+                                $(".price").empty().append(prices[j]);
+                                $("#product-color-variant-selected").empty().append(colors_keys[j]);
+                            }
+                            else {
+                                
+                                if(prices.length > j)
+                                    colors += 'data-price="' + prices[j] + '" id="productColor0' + j + '">';
+                                else
+                                    colors += 'data-price="" id="productColor0' + j + '">';
+                            }
+
+                            colors += '<label for="productColor0' + j + '" class="custom-radio-circle-label"';
+                            colors += 'data-variant-label="' + colors_keys[j] + '">';
+                            colors += '<span class="color" style="background-color: ' + colors_labels[j] +';"';
+                            colors += 'data-bs-toggle="tooltip" data-bs-placement="bottom"';
+                            colors += 'title="' + colors_keys[j] + '" data-bs-original-title="' + colors_keys[j] + '" aria-label="' + colors_keys[j] + '"></span>';
+                            colors += '</label></div></div></div>';
+                        }
+
+                    }
+                    else if(res.features[i].available_count !== null || 
+                        res.features[i].price !== null
+                    ) {
+                        
+                        $("#dynamic_multi_choice_features").append(
+                            '<div class="product-variant-selected-container spaceBetween hidden" >' +
+                            '<div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18">' + res.features[i].name + '</div>' +
+                            '<div class="line mr-15 ml-15"></div>' +
+                            '<div id="selected_option_for_feature_' + res.features[i].id + '"></div>' +
+                            '</div>'
+                        );
+
+                        let vals = res.features[i].value.split('__')[0].split("$$");
+                        
+                        let prices = res.features[i].price == null ? null : res.features[i].price.split("$$");
+                        let counts = res.features[i].available_count == null ? null : res.features[i].available_count.split("$$");
+
+                        options = '<div class="flex">'
+                        for(var j = 0; j < vals.length; j++) {
+
+                            options += '<button data-id="' + res.features[i].id + '" data-val="' + vals[j] + '" name="productOption"';
+                            if(j == 0) {
+
+                                $('#selected_option_for_feature_' + res.features[i].id).empty().append(vals[0]);
+
+                                if(prices != null) {
+                                    options += 'data-price="' + prices[j] + '" id="productOption0' + j + '" class="selected">';
+                                    $(".price").empty().append(prices[j]);
+                                }
+                                else {
+                                    options += 'data-count="' + counts[j] + '" id="productOption0' + j + '" class="selected">';
+                                    $("#availableCount").empty().append(counts[j]);
+                                }
+                                
+                            }
+                            else {
+                                if(prices != null)
+                                    options += 'data-price="' + prices[j] + '" id="productOption0' + j + '">';
+                                else
+                                    options += 'data-count="' + counts[j] + '" id="productOption0' + j + '">';
+                            }
+
+                            options += vals[j] + "</button>";
+
+                        }
+
+                        options += "</div>";
+
+                    }
+                    else {
+                        if(res.features[i].show_in_top == 1) {
+                            property += '<li><span class="label colorBlueWhite px-1">' + res.features[i].name + '</span><span> : </span>';
+                            property += '<span class="title px-1">' + res.features[i].value + '</span></li>';
+                        }
+                        params += '<li>';
+                        params += '<span class="param-title colorBlueWhite font600">' + res.features[i].name + '</span>';
+                        params += '<span class="param-value fontSize16">' + res.features[i].value + '</span>';
+                        params += '</li>';
+                    }
+
+                }
+                $("#params-list-div").empty().append(params);
+                $("#property").empty().append(property);
+
+                if(colors != '')
+                    $("#product-colors-variants").empty().append(colors);
+
+                if(options !== '')
+                    $("#property").append(options);
+            }
+        });
+
+        $(document).on("click","input[name='productColor']", function() {
+            
+
+            if($(this).attr('data-price') !== undefined) {
+                $(".price").empty().append($(this).attr('data-price'));
+            }
+            else {
+                $("#availableCount").empty().append($(this).attr('data-count'));
+            }
+
+            let html = '<div class="product-option">';
+            html += '<span class="color" style="background-color: ' + $(this).attr('data-label') + ';"></span>';
+            html += '<span class="color-label ms-2">' + $(this).attr('data-val') + '</span>';
+            html += '</div>';
+
+            $("#product_options").empty().append(html);
+            $(".price").empty().append($(this).attr('data-price'));
+            $("#product-color-variant-selected").empty().append($(this).attr('data-val'));
+        });
+
+        $(document).on("click","button[name='productOption']", function() {
+
+            if($(this).attr('data-price') !== undefined)
+                $(".price").empty().append($(this).attr('data-price'));
+            else
+                $("#availableCount").empty().append($(this).attr('data-count'));
+            
+            $('#selected_option_for_feature_' + $(this).attr('data-id')).empty().append($(this).attr('data-val'));
+        });
+        let star="";
+        let roundRatting=Math.floor('{{ $product['rate'] }}');
+        for(var i = 5; i >= 1; i--) {
+            if(i <= roundRatting)
+                star += '<i class="icon-visit-star me-1 fontSize21"></i>';
+            else
+                star += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
+        }
+        $(".rattingToStar").empty().append(star);
+        $('#commentNavLink').click(function(){
+             $('html, body').animate({
+                'scrollTop': $('#scrollspyHeading4').offset().top - 210
+            });
+        });
+        
+        $('#propertyNavLink').click(function(){
+             $('html, body').animate({
+                'scrollTop': $('#scrollspyHeading3').offset().top - 210
+            });
+        });
+        
+        $('#checkNavLink').click(function(){
+             $('html, body').animate({
+                'scrollTop': $('#scrollspyHeading1').offset().top - 210
+            });
+        });
+});
+</script> --}}
+    <script>
+        function buildQuery() {
+            
+            let query = new URLSearchParams();
+            
+            let visibility = $("#visibilityFilter").val();
+            let isInTopList = $("#isInTopListFilter").val();
+            let brand = $("#brandFilter").val();
+            let category = $("#categoryFilter").val();
+            let off = $("#offFilter").val();
+            let comment = $("#commentFilter").val();
+            let max = $("#maxFilter").val();
+            let min = $("#minFilter").val();
+            let orderBy = $("#orderBy").val();
+            let orderByType = $("#orderByType").val();
+
+            let toCreatedAt = $("#toCreatedAt").val();
+            let fromCreatedAt = $("#fromCreatedAt").val();
+
+            if(visibility !== 'all')
+                query.append('visibility', visibility);
+                
+            if(isInTopList !== 'all')
+                query.append('isInTopList', isInTopList);
+                
+             if(brand !== 'all')
+                query.append('brand', brand);
+               
+            if(category !== 'all')
+                query.append('category', category);
+
+            if(max !== '')
+                query.append('max', max);
+                
+            if(min !== '')
+                query.append('min', min);
+
+            if(off !== 'all')
+                query.append('off', off);
+
+            if(comment !== 'all')
+                query.append('comment', comment);
+                
+            if(toCreatedAt !== '')
+                query.append('toCreatedAt', toCreatedAt);
+                
+            if(fromCreatedAt !== '')
+                query.append('fromCreatedAt', fromCreatedAt);
+
+            query.append('orderBy', orderBy);
+            query.append('orderByType', orderByType);
+
+            return query;
+        }
+
+        function filter() {
+            document.location.href = '{{ route('product.index') }}' + '?' + buildQuery().toString();
+        }
+        
+        function excel() {
+            window.open('{{ route('product.excel') }}' + '?' + buildQuery().toString(), '_blank');
+        }
+
+    </script>
+
     <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
 @stop
