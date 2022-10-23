@@ -10,7 +10,7 @@
                         سایت پاک
                         شده است.</div>
                     <div class="mb-5">
-                        <a href="#" class="btn btn-primary">برو به صفحه اصلی <i
+                        <a href="{{ request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE ? route('home') : route('event.home') }}" class="btn btn-primary">برو به صفحه اصلی <i
                                 class="ri-arrow-go-forward-line ms-2"></i></a>
                     </div>
                     <img src="./theme-assets/images/theme/404.png" class="img-fluid" alt="">

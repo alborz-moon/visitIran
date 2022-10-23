@@ -119,4 +119,4 @@ Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::view('403', '403')->name('403');
+Route::view('403', 'errors.403')->name('403');

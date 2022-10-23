@@ -7,6 +7,8 @@ use App\Http\Resources\CategoryDigest;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CategoryUserDigest;
 use App\Http\Resources\CategoryVeryDigest;
+use App\Http\Resources\FeatureResource;
+use App\Http\Resources\FeatureResourceUser;
 use App\Http\Resources\HeadCategoryResource;
 use App\Http\Resources\ProductDigestUser;
 use App\Imports\CategoryImport;
@@ -125,7 +127,10 @@ class CategoryController extends Controller
         ]);
 
         return view('shop', [
-            'path' => $path
+            'path' => $path,
+            'parent' => $category->parent_id == null ? null : $path[1],
+            'name' => $category->name,
+            'features' => FeatureResourceUser::collection($category->features()->multiChoice()->get())->toArray($request)
         ]);
     }
 

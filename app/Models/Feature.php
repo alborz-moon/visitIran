@@ -33,4 +33,8 @@ class Feature extends Model
     public function productFeatures() {
         return $this->hasMany(ProductFeatures::class, 'category_feature_id');
     }
+
+    public function scopeMultiChoice($query) {
+        return $query->where('answer_type', 'multi_choice');
+    }
 }

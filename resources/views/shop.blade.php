@@ -29,9 +29,11 @@
                                                 <a href="#">دسته بندی کالا ها</a>
                                                 <ul>
                                                     <li class="category--arrow-down">
-                                                        <a href="#">فرش</a>
+                                                        @if($parent != null)
+                                                            <a href="{{ $parent['href'] }}">{{ $parent['label'] }}</a>
+                                                        @endif
                                                         <ul>
-                                                            <li class="current">فرش دست بافت</li>
+                                                            <li class="current">{{ $name }}</li>
                                                         </ul>
                                                     </li>
                                                 </ul>
@@ -78,38 +80,19 @@
                                     <div class="widget-content widget--search collapse" id="collapseGrouping">
                                         <form action="#" class="pt-2">
                                             <div class="filter-options do-simplebar pt-2 mt-2">
-                                                <div class="parent form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""/>والد دسته اول
-                                                </div>
-                                                <div>
-                                                    <ul class="child form-check">
-                                                        <li class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="" />دسته اول
-                                                        </li>
-                                                        <li class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="" />دسته دوم
-                                                        </li>
-                                                        <li class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="" />دسته سوم
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="parent form-check mt-3">
-                                                    <input class="form-check-input" type="checkbox" value=""/>والد دسته دوم
-                                                </div>
-                                                <div>
-                                                    <ul class="child form-check">
-                                                        <li class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="" />دسته اول
-                                                        </li>
-                                                        <li class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="" />دسته دوم
-                                                        </li>
-                                                        <li class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="" />دسته سوم
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                @foreach ($features as $feature)
+                                                    <div class="parent form-check">
+                                                        <input class="form-check-input" type="checkbox" value=""/>{{ $feature['name'] }}
+                                                        <ul class="child form-check">
+                                                            @foreach ($feature['choices'] as $choice)
+                                                                <li class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" value="" />{{ $choice['key'] }}
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>    
+                                                @endforeach
+                                                
                                             </div>
                                         </form>
                                     </div>
