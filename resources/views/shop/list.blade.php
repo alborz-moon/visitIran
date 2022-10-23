@@ -142,7 +142,7 @@
                                             <div class="ui-box-content">
                                                 <div class="row mx-0">
                                                     
-                                                    <div id="products_div" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4 hidden">
+                                                    <div id="products_div" class="hidden">
                                                         @include('shop.productCard', ['key' => 'sample'])
                                                     </div>
 
@@ -536,6 +536,10 @@ $(".child input").on('click',function(){
 
         $(document).ready(function() {
             filter();
+
+            $("#orderBy").on('change', function() {
+                filter();
+            })
         });
 
         function filter() {
@@ -630,7 +634,7 @@ $(".child input").on('click',function(){
                     id +
                     "', '" +
                     elem.slug +
-                    '\')" class="cursorPointer customBox customWidthBox">' +
+                    '\')" class="cursorPointer col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">' +
                     newElem +
                     "</div>";
             });
