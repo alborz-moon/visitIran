@@ -28,24 +28,7 @@
                 <!-- start of product-detail-container -->
                 <!-- start of breadcrumb -->
                 <div class="product-detail-container mb-3">
-                <nav aria-label="breadcrumb" style="display: flex;justify-content:space-between;">
-                    <ol class="breadcrumb">
-                        <?php $i = 1; ?>
-                        @foreach($product['parentPath'] as $path)
-                            <li>
-                                @if($i != count($product['parentPath']))
-                                    <a href="{{route('single-category', ['category' => $path['id'], 'slug' => $path['slug']])}}" class="colorBlack btnHover">{{ $path['name'] }}</a>
-                                    <span> / </span>
-                                @else
-                                    <a class="colorBlack btnHover">{{ $path }}</a>
-                                @endif
-                            </li>
-                            <?php $i++; ?>
-                        @endforeach
-                    </ol>
-                    @include('product.bookmark', ['product' => $product])
-                </nav>
-                
+                    @include('layouts.breadcrumb',['product' => $product])
                 <!-- end of breadcrumb -->
                     <div class="row mb-5">
                         <div class="col-lg-4 col-md-5 mb-md-0 mb-4">
@@ -133,11 +116,6 @@
                         </div>
                     </div>
                 </div>
-                  {{-- "is_bookmark" => false
-                        "user_rate" => null
-                        "has_comment" => false
-                        "is_login" => true --}}
-                <!-- end of product-detail-container -->
                 @include('sections.top_products_slider', ['id' => 'most_seen_products_when_filled', 'api' => route('api.product.similars', ['product' => $product['id']]),
                     'key' => 'mostSeenProduct', 'title' => 'محصولات مشابه', 'not_fill_id' => 'most_seen_products_when_not_filled'])
 
@@ -227,36 +205,12 @@
                 </div>
             </div>
         </main>
-            <div class="remodal remodal-xs remodal-is-initialized remodal-is-opened" data-remodal-id="share-modal" data-remodal-options="hashTracking: false" tabindex="-1">
-                <div class="remodal-header">
-                    <div class="remodal-title">اشتراک‌گذاری</div>
-                    <button data-remodal-action="close" class="remodal-close"></button>
-                </div>
-                <div class="remodal-content">
-                    <div class="text-muted fs-7 fw-bold mb-3">
-                        با استفاده از روش‌های زیر می‌توانید این صفحه را با دوستان خود به اشتراک بگذارید.
-                    </div>
-                    <div class="d-flex align-items-center border-top border-bottom py-3 mb-3">
-                        <div class="widget flex-grow-1 border-0 p-0 me-2">
-                            <div class="widget-content widget-socials">
-                                <ul class="align-items-center">
-                                    <li><a href="#" class="d-inline-flex"><i class="ri-facebook-circle-fill"></i></a>
-                                    </li>
-                                    <li><a href="#" class="d-inline-flex"><i class="ri-instagram-fill"></i></a></li>
-                                    <li><a href="#" class="d-inline-flex"><i class="ri-twitter-fill"></i></a></li>
-                                    <li><a href="#" class="d-inline-flex"><i class="ri-telegram-fill"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="btn btn-sm btn-primary copy-url-btn" data-copy="https://www.google.com">کپی لینک
-                        </div>
-                    </div>
-                </div>
+            
 
 <script>
 
     $(document).ready(function() {
-        
+
         let productId;
         
         try {
@@ -437,23 +391,6 @@
             
             $('#selected_option_for_feature_' + $(this).attr('data-id')).empty().append($(this).attr('data-val'));
         });
-        
-        $.ajax({
-            type: 'post',
-            url: '{{ route('api.product.comment.store', ['product' => $product['id']]) }}',
-            data: {
-                'rate': 3,
-                'is_bookmark': 1,
-                'title': 'sample',
-                'negative': 'asdwqdwqdqwqwd',
-                'positive': 'sdffq',
-                'msg': 'sasds'
-            },  
-            success: function(res) {
-                alert(res);
-            }
-        });
-
         let star="";
         let roundRatting=Math.floor('{{ $product['rate'] }}');
         for(var i = 5; i >= 1; i--) {
@@ -463,19 +400,6 @@
                 star += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
         }
         $(".rattingToStar").empty().append(star);
-
-        // if ('{{ $product['seller'] }}' !== ''){
-        //     $('.seller').removeClass('hidden');
-        // }
-        // $(document).ready(function(){
-        //     $('body').scrollspy({offset: 150});
-        // });
-        // $('#moveTopDetails').click(function(){
-        //      $('html, body').stop().animate({
-        //         'scrollTop': $('#scrollspyHeading1').offset().top
-        //     });
-        // });
-
         $('#commentNavLink').click(function(){
              $('html, body').animate({
                 'scrollTop': $('#scrollspyHeading4').offset().top - 210
@@ -493,22 +417,7 @@
                 'scrollTop': $('#scrollspyHeading1').offset().top - 210
             });
         });
-        
-
-function showHeight( element, height ) {
-  $( "#moveTopDetails" ).text( "The height for the " + element + " is " + height + "px." );
-}
-$( "#scrollspyHeading1" ).click(function() {
-  showHeight( "paragraph", $( "p" ).height() );
 });
-// $( "#getd" ).click(function() {
-//   showHeight( "document", $( document ).height() );
-// });
-// $( "#getw" ).click(function() {
-//   showHeight( "window", $( window ).height() );
-// });
-
-    });
 </script>
 
 @stop
