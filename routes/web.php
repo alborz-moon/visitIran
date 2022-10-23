@@ -98,10 +98,6 @@ Route::get('/password-reset', function () {
     return view('password-reset');
 })->name('password-reset');
 
-Route::get('/shop', function () {
-    return view('shop');
-})->name('shop');
-
 Route::get('/contact-us', function () {
     return view('contact-us');
 })->name('contact-us');

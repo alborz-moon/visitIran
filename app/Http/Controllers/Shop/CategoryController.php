@@ -126,10 +126,11 @@ class CategoryController extends Controller
             'href' => route('single-category', ['category' => $category->id, 'slug' => $category->name])
         ]);
 
-        return view('shop', [
+        return view('shop.list', [
             'path' => $path,
             'parent' => $category->parent_id == null ? null : $path[1],
             'name' => $category->name,
+            'id' => $category->id,
             'features' => FeatureResourceUser::collection($category->features()->multiChoice()->get())->toArray($request)
         ]);
     }
