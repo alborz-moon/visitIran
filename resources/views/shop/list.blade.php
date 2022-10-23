@@ -146,8 +146,8 @@
                                                         @include('shop.productCard', ['key' => 'sample'])
                                                     </div>
 
-                                                    <div id="shimmer">
-                                                        @for($i = 0; $i < 5; $i++)
+                                                    <div id="shimmer" style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                                        @for($i = 0; $i < 6; $i++)
                                                             <a href="#" class="cursorPointer">
                                                                 <div class="swiper-slide customWidthBox">
                                                                 <!-- start of product-card -->
@@ -524,11 +524,11 @@ $(".child input").on('click',function(){
         function buildQuery() {
             
             let query = new URLSearchParams();
-            query.append('category', '{{ $id }}');
+            query.append('parent', '{{ $id }}');
             
             // let brand = $("#brandFilter").val();
-            // let off = $("#offFilter").val();
-            // let min = $("#minFilter").val();
+            let off = $("#has_selling_offs").prop('checked') ? 1 : 0;
+            let min = $("#has_selling_stock").prop('checked') ? 1 : 0;
             // let minPrice = $("#minPriceFilter").val();
             // let maxPrice = $("#maxPriceFilter").val();
             let orderBy = $("#orderBy").val();
@@ -537,8 +537,8 @@ $(".child input").on('click',function(){
             // if(brand !== 'all')
             //     query.append('brand', brand);
                 
-            // if(min !== '')
-            //     query.append('min', min);
+            if(min > 0)
+                query.append('min', min);
 
             // if(minPrice !== '')
             //     query.append('minPrice', minPrice);
@@ -546,8 +546,8 @@ $(".child input").on('click',function(){
             // if(maxPrice !== '')
             //     query.append('maxPrice', maxPrice);
 
-            // if(off !== 'all')
-            //     query.append('off', off);
+            if(off !== 0)
+                query.append('off', off);
 
             if(orderBy === 'sell_count_desc') {
                 query.append('orderBy', 'sell_count');
@@ -567,7 +567,16 @@ $(".child input").on('click',function(){
 
             $("#orderBy").on('change', function() {
                 filter();
-            })
+            });
+
+            $("#has_selling_stock").on('change', function() {
+                filter();
+            });
+            
+            $("#has_selling_offs").on('change', function() {
+                filter();
+            });
+
         });
 
         function filter() {
@@ -624,16 +633,16 @@ $(".child input").on('click',function(){
                     $("#" + prefix + "MultiColor").removeClass("hidden");
                 else $("#" + prefix + "MultiColor").addClass("hidden");
 
-                let zeroCapacity = false;
+                let zeroAvailableCount = false;
 
                 if (elem.is_in_critical) {
-                    $("#" + prefix + "CriticalCount").text(elem.capacity);
-                    if (elem.capacity == 0) zeroCapacity = true;
+                    $("#" + prefix + "CriticalCount").text(elem.available_count);
+                    if (elem.available_count == 0) zeroAvailableCount = true;
                     $("#" + prefix + "Critical").removeClass("invisible");
-                    if (zeroCapacity) $("#" + prefix + "Critical").text("اتمام موجودی");
+                    if (zeroAvailableCount) $("#" + prefix + "Critical").text("اتمام موجودی");
                 } else $("#" + prefix + "Critical").addClass("invisible");
 
-                if (elem.off != null && !zeroCapacity) {
+                if (elem.off != null && !zeroAvailableCount) {
                     $("#" + prefix + "OffSection").removeClass("hidden");
                     $("#" + prefix + "PriceBeforeOff").text(elem.price);
                     if (elem.off.type === "percent")
@@ -643,9 +652,9 @@ $(".child input").on('click',function(){
                     $("#" + prefix + "Price").text(elem.priceAfterOff);
                 } else {
                     $("#" + prefix + "OffSection").addClass("hidden");
-                    if (!zeroCapacity) $("#" + prefix + "Price").text(elem.price);
+                    if (!zeroAvailableCount) $("#" + prefix + "Price").text(elem.price);
                 }
-                if (!zeroCapacity)
+                if (!zeroAvailableCount)
                     $("#" + prefix + "PriceParent").removeClass("hidden");
 
                 let id = elem.id;

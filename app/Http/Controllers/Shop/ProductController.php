@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Shop;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Shop\Utility\ProductHelper;
 use App\Exports\ProductExport;
 use App\Http\Resources\BrandResource;
 use App\Http\Resources\CategoryDigest;
@@ -27,120 +27,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ProductController extends Controller
+class ProductController extends ProductHelper
 {
-
-    private function build_filters($request, $justVisibles=false) {
-        
-        $filters = Product::where('id', '>', '0');
-        $cat = $request->query('category', null);
-        $brand = $request->query('brand', null);
-        $seller = $request->query('seller', null);
-        $visibility = $request->query('visibility', null);
-        $orderBy = $request->query('orderBy', null);
-        $orderByType = $request->query('orderByType', null);
-        $isInTopList = $request->query('isInTopList', null);
-        $max = $request->query('max', null);
-        $min = $request->query('min', null);
-        $maxPrice = $request->query('maxPrice', null);
-        $minPrice = $request->query('minPirce', null);
-        $off = $request->query('off', null);
-        $comment = $request->query('comment', null);
-
-        $fromCreatedAt = $request->query('fromCreatedAt', null);
-        $toCreatedAt = $request->query('toCreatedAt', null);
-
-        if($cat != null)
-            $filters->where('category_id', $cat);
-            
-        if($brand != null)
-            $filters->where('brand_id', $brand);
-            
-        if($seller != null)
-            $filters->where('seller_id', $seller);
-            
-        if($isInTopList != null)
-            $filters->where('is_in_top_list', $isInTopList);
-            
-        if($fromCreatedAt != null)
-            $filters->whereDate('created_at', '>=', self::ShamsiToMilady($fromCreatedAt));
-            
-        if($toCreatedAt != null)
-            $filters->whereDate('created_at', '<=', self::ShamsiToMilady($toCreatedAt));
-
-        if($min != null)
-            $filters->where('available_count', '>=', $min);
-            
-        if($minPrice != null)
-            $filters->where('price', '>=', $minPrice);
-            
-        if($maxPrice != null)
-            $filters->where('price', '<=', $maxPrice);
-
-        $isAdmin = false;
-
-        if($request->user() != null && (
-            $request->user()->level == User::$ADMIN_LEVEL ||
-            $request->user()->level == User::$EDITOR_LEVEL
-        )) {
-            
-            $isAdmin = true;
-
-            if($visibility != null)
-                $filters->where('visibility', $visibility);
-                
-            if($comment != null) {
-                if($comment)
-                    $filters->where('new_comment_count', 0);
-                else
-                    $filters->where('new_comment_count', '>', 0);
-            }
-
-            if($off != null) {
-                $today = (int)self::getToday()['date'];
-                if($off)
-                    $filters->whereNotNull('off')->where('off_expiration', '>=', $today);
-                else
-                    $filters->where(function ($query) use ($today) {
-                        $query->whereNull('off')->orWhere('off_expiration', '<', $today);
-                    });
-            }
-                
-
-            if($max != null)
-                $filters->where('available_count', '<=', $max);
-
-        }
-        else
-            $filters->where('visibility', true);
-
-        if($justVisibles && $isAdmin)
-            $filters->where('visibility', true);
-
-        if($orderByType == null || (
-                $orderByType != 'asc' && 
-                $orderByType != 'desc'
-        ))
-            $orderByType = 'desc';
-
-        if($orderBy != null) {
-            if($orderBy == 'createdAt')
-                $filters->orderBy('id', $orderByType);
-            else if(in_array($orderBy, ['rate', 'seen', 'price', 
-                'rate_count', 'comment_count', 'new_comment_count', 'sell_count']))
-                $filters->orderBy($orderBy, $orderByType);
-        }
-        else {
-            $orderBy = 'createAt';
-            $orderByType = 'desc';
-            if($isAdmin)
-                $filters->orderBy('id', 'desc');
-            else
-                $filters->orderBy('priority', 'asc');
-        }
-
-        return $filters;
-    }
 
     /**
      * Display a listing of the resource.
@@ -178,7 +66,7 @@ class ProductController extends Controller
         $fromCreatedAt = $request->query('fromCreatedAt', null);
         $toCreatedAt = $request->query('toCreatedAt', null);
         
-        $filters = $this->build_filters($request);
+        $filters = self::build_filters($request);
         $products = $filters->paginate($limit == null ? 30 : $limit);
 
         if($request->user() != null && (
@@ -232,10 +120,9 @@ class ProductController extends Controller
      */
     public function list(Request $request)
     {
-        sleep(2);
         $limit = $request->query('limit', null);
         
-        $filters = $this->build_filters($request, true);
+        $filters = self::build_filters($request, true);
         $products = $filters->paginate($limit == null ? 30 : $limit);
 
         return response()->json([
@@ -282,7 +169,7 @@ class ProductController extends Controller
     }
 
     public function excel(Request $request) {
-        $filters = $this->build_filters($request);
+        $filters = self::build_filters($request);
         $products = ProductDigest::collection($filters->get())->toArray($request);
         $export = new ProductExport($products);
         return Excel::download($export, 'products.xlsx');
