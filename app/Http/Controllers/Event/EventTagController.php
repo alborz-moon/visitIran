@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EventTagResource;
+use App\Models\EventTag;
 use Illuminate\Http\Request;
 
 class EventTagController extends Controller
@@ -12,19 +14,12 @@ class EventTagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'status' => 'ok',
+            'data' => EventTagResource::collection(EventTag::all())->toArray($request)
+        ]);
     }
 
     /**
@@ -35,51 +30,57 @@ class EventTagController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validator = [
+            'label' => 'required|string|min:2'
+        ];
+        
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            abort(401);
+        
+        $request->validate($validator);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        EventTag::create($request->toArray());
+        return response()->json(['status' => 'ok']);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  EventTag $eventTag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EventTag $eventTag, Request $request)
     {
-        //
+        $validator = [
+            'label' => 'required|string|min:2'
+        ];
+        
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            abort(401);
+        
+        $request->validate($validator);
+        $eventTag->label = $request['label'];
+        $eventTag->save();
+        
+        return response()->json(['status' => 'ok']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  EventTag  $eventTag
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(EventTag $eventTag)
     {
-        //
+        $deleted = $eventTag->delete();
+        if($deleted)
+            return response()->json(['status' => 'ok']);
+            
+        return response()->json([
+            'status' => 'nok', 
+            'msg' => 'رویدادی از این آیتم استفاده می کند و امکان حذف آن وجود ندارد.'
+        ]);
     }
 }
