@@ -30,16 +30,17 @@ function renderProductSlider(data, prefix) {
             $("#" + prefix + "MultiColor").removeClass("hidden");
         else $("#" + prefix + "MultiColor").addClass("hidden");
 
-        let zeroCapacity = false;
+        let zeroAvailableCount = false;
 
         if (elem.is_in_critical) {
-            $("#" + prefix + "CriticalCount").text(elem.capacity);
-            if (elem.capacity == 0) zeroCapacity = true;
+            $("#" + prefix + "CriticalCount").text(elem.available_count);
+            if (elem.available_count == 0) zeroAvailableCount = true;
             $("#" + prefix + "Critical").removeClass("invisible");
-            if (zeroCapacity) $("#" + prefix + "Critical").text("اتمام موجودی");
+            if (zeroAvailableCount)
+                $("#" + prefix + "Critical").text("اتمام موجودی");
         } else $("#" + prefix + "Critical").addClass("invisible");
 
-        if (elem.off != null && !zeroCapacity) {
+        if (elem.off != null && !zeroAvailableCount) {
             $("#" + prefix + "OffSection").removeClass("hidden");
             $("#" + prefix + "PriceBeforeOff").text(elem.price);
             if (elem.off.type === "percent")
@@ -49,9 +50,9 @@ function renderProductSlider(data, prefix) {
             $("#" + prefix + "Price").text(elem.priceAfterOff);
         } else {
             $("#" + prefix + "OffSection").addClass("hidden");
-            if (!zeroCapacity) $("#" + prefix + "Price").text(elem.price);
+            if (!zeroAvailableCount) $("#" + prefix + "Price").text(elem.price);
         }
-        if (!zeroCapacity)
+        if (!zeroAvailableCount)
             $("#" + prefix + "PriceParent").removeClass("hidden");
 
         let id = elem.id;

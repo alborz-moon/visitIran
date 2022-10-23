@@ -37,19 +37,6 @@ class ProductController extends ProductHelper
      */
     public function index(Request $request)
     {
-
-        // $products = Product::all();
-        // foreach($products as $product) {
-        //     if($product->slug != null)
-        //         continue;
-
-        //     $product->slug = str_replace(' ', '_', $product->name);
-        //     $product->save();
-        // }
-
-        // if(1 == 1)
-        //     dd("salma");
-
         $limit = $request->query('limit', null);
         $cat = $request->query('category', null);
         $brand = $request->query('brand', null);
@@ -125,9 +112,42 @@ class ProductController extends ProductHelper
         $filters = self::build_filters($request, true);
         $products = $filters->paginate($limit == null ? 30 : $limit);
 
+        $data = ProductDigestUser::collection($products)->toArray($request);
+
+        $brands = [];
+        $allBrands = [];
+        
+        $sellers = [];
+        $allSellers = [];
+
+        foreach($data as $itr) {
+            if($itr['brand_id'] != null && 
+                !in_array($itr['brand_id'], $brands)) {
+                array_push($brands, $itr['brand_id']);
+                array_push($allBrands, [
+                    'id' => $itr['brand_id'],
+                    'name' => $itr['brand']
+                ]);
+            }
+        }
+
+        foreach($data as $itr) {
+            if($itr['seller_id'] != null && 
+                !in_array($itr['seller_id'], $sellers)) {
+                array_push($sellers, $itr['seller_id']);
+                array_push($allSellers, [
+                    'id' => $itr['seller_id'],
+                    'name' => $itr['seller']
+                ]);
+            }
+        }
+
         return response()->json([
             'status' => 'ok',
-            'data' =>  ProductDigestUser::collection($products)->toArray($request)
+            'count' => $products->count(),
+            'data' => $data,
+            'brands' => $allBrands,
+            'sellers' => $allSellers
         ]);
     }
 

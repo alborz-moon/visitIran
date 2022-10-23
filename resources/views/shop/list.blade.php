@@ -25,7 +25,7 @@
                                         <div class="widget-title m-0 b-0">فیلتر <span class="fontSize8 colorBlue">3 فیلتر</span></div>
                                         <a href="#" class="colorRed fontSize12 align-self-center">حذف نتایج</a>
                                     </div>
-                                    <div class="colorBlue fontSize8 align-self-center">300 کالا</div>
+                                    <div id="total_count" class="colorBlue fontSize8 align-self-center"></div>
                                     {{-- <div class="widget-content widget--category-results">
                                         <ul>
                                             <li class="category--arrow-left">
@@ -93,9 +93,10 @@
                                                                 </li>
                                                             @endforeach
                                                         </ul>
-                                                    </div>    
+                                                    </div>
                                                 @endforeach
-                                                
+                                                <div id="brands"></div>
+                                                <div id="sellers"></div>
                                             </div>
                                         </form>
                                     </div>
@@ -595,6 +596,37 @@ $(".child input").on('click',function(){
                     let html = renderProducts(res.data, 'sample');
                     $("#products_div").empty().append(html).removeClass('hidden');
                     $("#shimmer").addClass('hidden');
+                    $("#total_count").empty().append(res.count + " کالا");
+
+                    html = '<div class="parent form-check">';
+                    html += '<input class="form-check-input" type="checkbox" value=""/>برند';
+                    html += '<ul class="child form-check">';
+
+                    for(var i = 0; i < res.brands.length; i++) {
+                        html += '<li class="form-check">';
+                        html += '<input class="form-check-input" type="checkbox" value="" />' + res.brands[i]['name'];
+                        html += '</li>';
+                    }
+
+                    html += '</ul>';
+                    html += '</div>';
+
+                    $("#brands").empty().append(html);
+
+                    html = '<div class="parent form-check">';
+                    html += '<input class="form-check-input" type="checkbox" value=""/>فروشنده';
+                    html += '<ul class="child form-check">';
+                        
+                    for(var i = 0; i < res.sellers.length; i++) {
+                        html += '<li class="form-check">';
+                        html += '<input class="form-check-input" type="checkbox" value="" />' + res.sellers[i]['name'];
+                        html += '</li>';
+                    }
+                    
+                    html += '</ul>';
+                    html += '</div>';
+                    
+                    $("#sellers").empty().append(html);
                 }
             })
 
