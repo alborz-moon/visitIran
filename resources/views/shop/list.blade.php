@@ -142,8 +142,36 @@
                                             <div class="ui-box-content">
                                                 <div class="row mx-0">
                                                     
-                                                    <div id="products_div" class="hidden">
+                                                    <div id="sample_product" class="hidden">
                                                         @include('shop.productCard', ['key' => 'sample'])
+                                                    </div>
+
+                                                    <div id="shimmer">
+                                                        @for($i = 0; $i < 5; $i++)
+                                                            <a href="#" class="cursorPointer">
+                                                                <div class="swiper-slide customWidthBox">
+                                                                <!-- start of product-card -->
+                                                                <div class="product-card customBorderBoxShadow">
+                                                                    <div class="SimmerParent">
+                                                                    <div class="shimmerBG media pt-1">
+                                                                    </div>
+                                                                    <div class="p-32 mt-1">
+                                                                    <div class="shimmerBG title-line"></div>
+                                                                            <div class="shimmerBG content-line"></div>
+                                                
+                                                                    <div class="shimmerBG title-line"></div>
+                                                                    <div class="shimmerBG title-line py-2"></div>
+                                                                            <div class="shimmerBG content-line"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                </div>
+                                                                <!-- end of product-card -->
+                                                                </div>
+                                                            </a>
+                                                        @endfor
+                                                    </div>
+
+                                                    <div id="products_div" class="hidden" style="display: flex; flex-wrap: wrap; gap: 20px;">
                                                     </div>
 
                                                 </div>
@@ -544,6 +572,9 @@ $(".child input").on('click',function(){
 
         function filter() {
             
+            $("#products_div").addClass('hidden');
+            $("#shimmer").removeClass('hidden');
+
             $.ajax({
                 type: 'get',
                 url: '{{ route('api.product.list') }}' + '?' + buildQuery().toString(),
@@ -554,7 +585,7 @@ $(".child input").on('click',function(){
                     
                     let html = renderProducts(res.data, 'sample');
                     $("#products_div").empty().append(html).removeClass('hidden');
-
+                    $("#shimmer").addClass('hidden');
                 }
             })
 
@@ -642,6 +673,9 @@ $(".child input").on('click',function(){
             return html;
         }
 
+        function redirect(id, name) {
+            window.open('{{ route('home') }}' + "/product/" + id + "/" + name, "_blank");
+        }
 
     </script>
 
