@@ -33,9 +33,11 @@
                         <?php $i = 1; ?>
                         @foreach($product['parentPath'] as $path)
                             <li>
-                                <a href="#" class="colorBlack btnHover">{{ $path }}</a>
                                 @if($i != count($product['parentPath']))
+                                    <a href="{{route('single-category', ['category' => $path['id'], 'slug' => $path['slug']])}}" class="colorBlack btnHover">{{ $path['name'] }}</a>
                                     <span> / </span>
+                                @else
+                                    <a class="colorBlack btnHover">{{ $path }}</a>
                                 @endif
                             </li>
                             <?php $i++; ?>
@@ -109,9 +111,6 @@
                                     </div>
                                 </div>
                                 <div class="product-additional-info-container mb-3">
-                                    <span class="icon">
-                                        <i class="ri-information-line"></i>
-                                    </span>
                                     <div class="product-additional-info">
                                         <p>{{ $product['description'] }}</p>
                                     </div>
@@ -148,15 +147,15 @@
                             <!-- start of product-tabs -->
                             <div class="product-tabs overflowHidden">
                                 <ul class="nav nav-pills">
-                                    <li class="nav-item">
-                                        <a id="moveTopDeatails" class="nav-link active" href="#scrollspyHeading1"
+                                    <li id="checkNavLink" class="nav-item">
+                                        <a  class="nav-link active" href="#scrollspyHeading1"
                                             data-scroll="scrollspyHeading1">نقد و بررسی </a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li id="propertyNavLink" class="nav-item">
                                         <a class="nav-link" href="#scrollspyHeading3"
                                             data-scroll="scrollspyHeading3">مشخصات</a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li id="commentNavLink" class="nav-item">
                                         <a class="nav-link" href="#scrollspyHeading4"
                                             data-scroll="scrollspyHeading4">دیدگاه کاربران</a>
                                     </li>
@@ -196,10 +195,10 @@
                             <div class="expandable-text pt-1" style="height: auto">
                                 <div class="expandable-text_text fa-num">
                                     <!-- start of params-list -->
-                                    {{-- <div class="params-list">
-                                        <div class="params-list-title">مشخصات کلی</div>
+                                    <div class="params-list">
+                                        {{-- <div class="params-list-title">مشخصات کلی</div> --}}
                                         <ul id="params-list-div"></ul>
-                                    </div> --}}
+                                    </div>
                                     <!-- end of params-list -->
                                 </div>
                                 {{-- <div class="expandable-text-expand-btn justify-content-start text-sm">
@@ -439,21 +438,21 @@
             $('#selected_option_for_feature_' + $(this).attr('data-id')).empty().append($(this).attr('data-val'));
         });
         
-        // $.ajax({
-        //     type: 'post',
-        //     url: '{{ route('api.product.comment.store', ['product' => $product['id']]) }}',
-        //     data: {
-        //         'rate': 3,
-        //         'is_bookmark': 1,
-        //         'title': 'sample',
-        //         'negative': 'asdwqdwqdqwqwd',
-        //         'positive': 'sdffq',
-        //         'msg': 'sasds'
-        //     },  
-        //     success: function(res) {
-        //         alert(res);
-        //     }
-        // });
+        $.ajax({
+            type: 'post',
+            url: '{{ route('api.product.comment.store', ['product' => $product['id']]) }}',
+            data: {
+                'rate': 3,
+                'is_bookmark': 1,
+                'title': 'sample',
+                'negative': 'asdwqdwqdqwqwd',
+                'positive': 'sdffq',
+                'msg': 'sasds'
+            },  
+            success: function(res) {
+                alert(res);
+            }
+        });
 
         let star="";
         let roundRatting=Math.floor('{{ $product['rate'] }}');
@@ -468,9 +467,47 @@
         // if ('{{ $product['seller'] }}' !== ''){
         //     $('.seller').removeClass('hidden');
         // }
-        $(document).ready(function(){
-            $('body').scrollspy({offset: 150});
+        // $(document).ready(function(){
+        //     $('body').scrollspy({offset: 150});
+        // });
+        // $('#moveTopDetails').click(function(){
+        //      $('html, body').stop().animate({
+        //         'scrollTop': $('#scrollspyHeading1').offset().top
+        //     });
+        // });
+
+        $('#commentNavLink').click(function(){
+             $('html, body').animate({
+                'scrollTop': $('#scrollspyHeading4').offset().top - 210
+            });
         });
+        
+        $('#propertyNavLink').click(function(){
+             $('html, body').animate({
+                'scrollTop': $('#scrollspyHeading3').offset().top - 210
+            });
+        });
+        
+        $('#checkNavLink').click(function(){
+             $('html, body').animate({
+                'scrollTop': $('#scrollspyHeading1').offset().top - 210
+            });
+        });
+        
+
+function showHeight( element, height ) {
+  $( "#moveTopDetails" ).text( "The height for the " + element + " is " + height + "px." );
+}
+$( "#scrollspyHeading1" ).click(function() {
+  showHeight( "paragraph", $( "p" ).height() );
+});
+// $( "#getd" ).click(function() {
+//   showHeight( "document", $( document ).height() );
+// });
+// $( "#getw" ).click(function() {
+//   showHeight( "window", $( window ).height() );
+// });
+
     });
 </script>
 

@@ -525,6 +525,14 @@ ul {
     background-color: #009bb9 !important;
     color: #fff;
 }
+.btn.btn-secondary {
+    background-color: #c59358 !important;
+    color: #fff;
+}
+.btn.btn-secondary:hover {
+    background-color: #b48146 !important;
+    color: #fff;
+}
 .customFixedMenu {
     position: fixed !important;
     width: 100% !important;
@@ -1074,6 +1082,9 @@ figure .ck-widget {
 }
 .directionRTL {
     direction: rtl !important;
+}
+.nav-link:hover {
+    color: #c59358;
 }
 .end {
     width: 40%;

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -53,6 +54,8 @@ Route::domain(Controller::$SHOP_SITE)->group(function() {
     Route::view('/', 'shop.welcome')->name('home');
 
     Route::get('/product/{product}/{slug}', [ProductController::class, 'showDetail'])->name('single-product');
+
+    Route::get('/list/{category}/{slug}', [CategoryController::class, 'show'])->name('single-category');
 });
 
 Route::domain(Controller::$EVENT_SITE)->group(function() {
