@@ -142,7 +142,7 @@
                                             <div class="ui-box-content">
                                                 <div class="row mx-0">
                                                     
-                                                    <div id="sample_product" class="hidden">
+                                                    <div id="sample_product_div" class="hidden">
                                                         @include('shop.productCard', ['key' => 'sample'])
                                                     </div>
 
@@ -649,7 +649,7 @@ $(".child input").on('click',function(){
                     $("#" + prefix + "PriceParent").removeClass("hidden");
 
                 let id = elem.id;
-                var newElem = $("#products_div").html();
+                var newElem = $("#sample_product_div").html();
 
                 newElem = newElem
                     .replace(prefix + "Img", prefix + "Img_" + id)
