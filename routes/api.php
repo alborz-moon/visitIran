@@ -1,13 +1,12 @@
 <?php
 
 use App\Http\Controllers\BannerController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\InfoBoxController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +36,8 @@ Route::get('banner', [BannerController::class, 'list'])->name('api.banner');
 Route::get('slider', [SliderController::class, 'list'])->name('api.slider');
 
 Route::post('submitMail', [MailController::class, 'submitMail'])->name('api.submitMail');
+
+Route::get('infobox', [InfoBoxController::class, 'list'])->name('api.infobox');
 
 Route::domain(Controller::$SHOP_SITE)->group(base_path('routes/shop_general_routes.php'));
 

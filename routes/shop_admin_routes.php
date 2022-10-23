@@ -7,7 +7,6 @@ use App\Http\Controllers\Shop\CommentController;
 use App\Http\Controllers\Shop\ConfigController;
 use App\Http\Controllers\Shop\FeatureController;
 use App\Http\Controllers\Shop\GalleryController;
-use App\Http\Controllers\Shop\InfoBoxController;
 use App\Http\Controllers\Shop\OffController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\ProductFeatureController;
@@ -23,12 +22,6 @@ Route::post('brand/{brand}', [BrandController::class, 'update'])->name('brand.up
 Route::resource('seller', SellerController::class)->except(['show', 'update']);
 
 Route::post('seller/{seller}', [SellerController::class, 'update'])->name('seller.update');
-
-
-
-Route::resource('infobox', InfoBoxController::class)->except(['show', 'update']);
-
-Route::post('infobox/{infobox}', [InfoBoxController::class, 'update'])->name('infobox.update');
 
 
 

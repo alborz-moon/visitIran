@@ -19,6 +19,15 @@ class InfoBox extends Model
         'img_small',
         'href',
         'alt',
-        'collapse_from'
+        'collapse_from',
+        'site'
     ];
+    
+    public function scopeEvent($query) {
+        return $query->where('site', 'event');
+    }
+    
+    public function scopeShop($query) {
+        return $query->where('site', 'shop');
+    }
 }

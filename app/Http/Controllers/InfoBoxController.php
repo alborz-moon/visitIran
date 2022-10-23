@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Shop;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\InfoBoxResource;
 use App\Models\InfoBox;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
@@ -19,17 +17,12 @@ class InfoBoxController extends Controller
      */
     public function index(Request $request)
     {    
-        if($request->user() != null && 
-            (
-                $request->user()->level == User::$ADMIN_LEVEL ||
-                $request->user()->level == User::$EDITOR_LEVEL 
-            )
-        ) {
-            $items = InfoBoxResource::collection(InfoBox::all())->toArray($request);
-            return view('admin.infobox.list', compact('items'));
-        }
+        if($request->getHost() == self::$EVENT_SITE)
+            $items = InfoBoxResource::collection(InfoBox::event()->get())->toArray($request);
+        else
+            $items = InfoBoxResource::collection(InfoBox::shop()->get())->toArray($request);
 
-        return InfoBoxResource::make(InfoBox::first())->additional(['status' => 'ok']);   
+        return view('admin.infobox.list', compact('items'));
     }
 
     /**
@@ -37,10 +30,13 @@ class InfoBoxController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function list()
+    public function list(Request $request)
     {    
-        $info = InfoBox::first();
-        
+        if($request->getHost() == self::$EVENT_SITE)
+            $info = InfoBox::event()->first();
+        else
+            $info = InfoBox::shop()->first();
+
         if($info == null)
             return response()->json([
                 'status' => 'ok',
@@ -108,6 +104,7 @@ class InfoBoxController extends Controller
             $request['img_small'] = str_replace('public/infobox/', '', $request['img_small']);
         }
 
+        $request['site'] = $request->getHost() == self::$EVENT_SITE ? 'event' : 'shop';
         InfoBox::create($request->toArray());
         return Redirect::route('infobox.index');
     }
@@ -140,8 +137,8 @@ class InfoBoxController extends Controller
             $filename = $request->image_file_large->store('public/infobox');
             $filename = str_replace('public/infobox/', '', $filename);
 
-            if(file_exists(__DIR__ . '/../../../../public/storage/infobox/' . $infobox->img_large))
-                unlink(__DIR__ . '/../../../../public/storage/infobox/' . $infobox->img_large);
+            if(file_exists(__DIR__ . '/../../../public/storage/infobox/' . $infobox->img_large))
+                unlink(__DIR__ . '/../../../public/storage/infobox/' . $infobox->img_large);
             
             $infobox->img_large = $filename;
         }
@@ -150,8 +147,8 @@ class InfoBoxController extends Controller
             $filename = $request->image_file_mid->store('public/infobox');
             $filename = str_replace('public/infobox/', '', $filename);
             
-            if($infobox->img_mid != null && file_exists(__DIR__ . '/../../../../public/storage/infobox/' . $infobox->img_mid))
-                unlink(__DIR__ . '/../../../../public/storage/infobox/' . $infobox->img_mid);
+            if($infobox->img_mid != null && file_exists(__DIR__ . '/../../../public/storage/infobox/' . $infobox->img_mid))
+                unlink(__DIR__ . '/../../../public/storage/infobox/' . $infobox->img_mid);
             
             $infobox->img_mid = $filename;
         }
@@ -160,8 +157,8 @@ class InfoBoxController extends Controller
             $filename = $request->image_file_small->store('public/infobox');
             $filename = str_replace('public/infobox/', '', $filename);
             
-            if($infobox->img_small != null && file_exists(__DIR__ . '/../../../../public/storage/infobox/' . $infobox->img_small))
-                unlink(__DIR__ . '/../../../../public/storage/infobox/' . $infobox->img_small);
+            if($infobox->img_small != null && file_exists(__DIR__ . '/../../../public/storage/infobox/' . $infobox->img_small))
+                unlink(__DIR__ . '/../../../public/storage/infobox/' . $infobox->img_small);
             
             $infobox->img_small = $filename;
         }
@@ -182,14 +179,14 @@ class InfoBoxController extends Controller
      */
     public function destroy(InfoBox $infobox)
     {
-        if(file_exists(__DIR__ . '/../../../../public/storage/infobox/' . $infobox->img_large))
-            unlink(__DIR__ . '/../../../../public/storage/infobox/' . $infobox->img_large);
+        if(file_exists(__DIR__ . '/../../../public/storage/infobox/' . $infobox->img_large))
+            unlink(__DIR__ . '/../../../public/storage/infobox/' . $infobox->img_large);
 
-        if($infobox->img_mid != null && !empty($infobox->img_mid) && file_exists(__DIR__ . '/../../../../public/storage/infobox/' . $infobox->img_mid))
-            unlink(__DIR__ . '/../../../../public/storage/infobox/' . $infobox->img_mid);
+        if($infobox->img_mid != null && !empty($infobox->img_mid) && file_exists(__DIR__ . '/../../../public/storage/infobox/' . $infobox->img_mid))
+            unlink(__DIR__ . '/../../../public/storage/infobox/' . $infobox->img_mid);
 
-        if($infobox->img_small != null && !empty($infobox->img_small) && file_exists(__DIR__ . '/../../../../public/storage/infobox/' . $infobox->img_small))
-            unlink(__DIR__ . '/../../../../public/storage/infobox/' . $infobox->img_small);
+        if($infobox->img_small != null && !empty($infobox->img_small) && file_exists(__DIR__ . '/../../../public/storage/infobox/' . $infobox->img_small))
+            unlink(__DIR__ . '/../../../public/storage/infobox/' . $infobox->img_small);
 
         $infobox->delete();
         return response()->json(['status' => 'ok']);

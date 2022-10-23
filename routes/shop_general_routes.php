@@ -1,14 +1,11 @@
 <?php
 
 use App\Http\Controllers\Shop\BlogController;
-use App\Http\Controllers\Shop\InfoBoxController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\CommentController;
 
 use Illuminate\Support\Facades\Route;
-
-Route::get('infobox', [InfoBoxController::class, 'list'])->name('api.infobox');
 
 Route::get('blogs', [BlogController::class, 'list'])->name('api.blog.list');
 
