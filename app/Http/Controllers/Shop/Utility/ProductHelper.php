@@ -85,6 +85,16 @@ class ProductHelper extends Controller {
                 $filters->whereIn('category_id', $catIds);
             }
         }
+        
+        if($off != null) {
+            $today = (int)self::getToday()['date'];
+            if($off)
+                $filters->whereNotNull('off')->where('off_expiration', '>=', $today);
+            else
+                $filters->where(function ($query) use ($today) {
+                    $query->whereNull('off')->orWhere('off_expiration', '<', $today);
+                });
+        }
 
         $isAdmin = false;
 
@@ -104,18 +114,7 @@ class ProductHelper extends Controller {
                 else
                     $filters->where('new_comment_count', '>', 0);
             }
-
-            if($off != null) {
-                $today = (int)self::getToday()['date'];
-                if($off)
-                    $filters->whereNotNull('off')->where('off_expiration', '>=', $today);
-                else
-                    $filters->where(function ($query) use ($today) {
-                        $query->whereNull('off')->orWhere('off_expiration', '<', $today);
-                    });
-            }
                 
-
             if($max != null)
                 $filters->where('available_count', '<=', $max);
 
