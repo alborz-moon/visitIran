@@ -21,7 +21,8 @@ class HeadCategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'subs' => $subs
+            'subs' => $subs,
+            'href' => route('single-category', ['category' => $this->id, 'slug' => $this->name]),
         ];
     }
 }

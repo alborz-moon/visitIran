@@ -20,7 +20,9 @@ Route::get('products', [ProductController::class, 'list'])->name('api.product.li
 
 Route::get('similar_products/{product}', [ProductController::class, 'similars'])->name('api.product.similars');
 
-Route::get('category', [CategoryController::class, 'list'])->name('api.category');
+Route::get('category', [CategoryController::class, 'list'])->name('api.category.menu');
+
+Route::get('top-categories/{category?}', [CategoryController::class, 'top'])->name('api.category.top');
 
 Route::get('get_top_categories_products', [CategoryController::class, 'get_top_categories_products'])->name('api.get_top_categories_products');
 

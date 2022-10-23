@@ -96,18 +96,37 @@ class CategoryController extends Controller
 
     }
 
-    public function show(Category $category) {
+    public function show(Category $category, Request $request) {
         
-        dd($category);
         if(!$category->visibility)
-            return abort(401);
+            return Redirect::route('403');
 
-        // return response()->json(
-        //     [
-        //         'data' => CategoryDigest::collection($cats)->toArray($request),
-        //         'status' => 'ok'
-        //     ]
-        // );
+        $path = [
+            [
+                'label' => 'خانه',
+                'href' => route('home')
+            ]
+        ];
+
+        $currNode = $category;
+        while($currNode->parent_id != null) {
+            
+            $currNode = $currNode->parent;
+
+            array_push($path, [
+                'label' => $currNode->name,
+                'href' => route('single-category', ['category' => $currNode->id, 'slug' => $currNode->name])
+            ]);
+        }
+        
+        array_push($path, [
+            'label' => $category->name,
+            'href' => route('single-category', ['category' => $category->id, 'slug' => $category->name])
+        ]);
+
+        return view('shop', [
+            'path' => $path
+        ]);
     }
 
     public function sub(Category $category, Request $request) {
@@ -150,18 +169,27 @@ class CategoryController extends Controller
         );
     }
 
+    public function top(Request $request, Category $category = null) {
+
+        $cats = $category == null ? Category::visible()->top()->get() : 
+                Category::where('parent_id', $category->id)->visible()
+                    ->top()->get();
+
+        return response()->json(
+            [
+                'data' => CategoryUserDigest::collection($cats)->toArray($request),
+                'status' => 'ok'
+            ]
+        );
+    }
 
     public function list(Request $request) {
 
-        $cats = Category::visible()->top()->get();
         $menuCats = Category::visible()->head()->get();
 
         return response()->json(
             [
-                'data' => [
-                    "top" => CategoryUserDigest::collection($cats)->toArray($request),
-                    "menu" => HeadCategoryResource::collection($menuCats)->toArray($request),
-                ],
+                'data' => HeadCategoryResource::collection($menuCats)->toArray($request),
                 'status' => 'ok'
             ]
         );

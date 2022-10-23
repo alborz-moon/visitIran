@@ -21,25 +21,25 @@
 <script>
     $.ajax({
         type: 'get',
-        url: '{{ route('api.category') }}',
+        url: '{{ $category == null ? route('api.category.top') : route('api.category.top', ['category' => $category]) }}',
         headers: {
             'accept': 'application/json'
         },
         success: function(res) {
             var html='';
             if(res.status === "ok") {
-                if(res.data.top.length === 0) {
+                if(res.data.length === 0) {
                     $("#topCategoriesDiv").remove();
                     $("#cat").empty();
                     return;
-                }                         
-                for(var i = 0; i < res.data.top.length; i++) {
+                }
+                for(var i = 0; i < res.data.length; i++) {
                     html += '<div class="swiper-slide d-flex justify-content-center width-200">';
                     html += '<div class="banner-img ">';
-                    html += '<a target="_blank" href="#" class="tiles">';
-                    html +='<img class="imgResponsive borderRadius20" src="' + res.data.top[i].img + '" alt="' + res.data.top[i].alt + '">';
-                    html += '<div class="catDetails"><div class="catTitle"></div><div class="customDivCategory"><div class="catText mb-3">' + res.data.top[i].digest + '</div></div><div class="arrowLeftIcon backgroundGray p-0 customCategoryIconBack"><img src="{{ asset('theme-assets/images/svg/ionic-ios-arrow-round-back.svg') }}"></div></div>'
-                    html += '<div class="text-category position-absolute labelForCat"><h4 class="colorWhite fontSize14">' + res.data.top[i].name + '</h4></div>';
+                    html += '<a target="_blank" href="' + res.data[i].href + '" class="tiles">';
+                    html +='<img class="imgResponsive borderRadius20" src="' + res.data[i].img + '" alt="' + res.data[i].alt + '">';
+                    html += '<div class="catDetails"><div class="catTitle"></div><div class="customDivCategory"><div class="catText mb-3">' + res.data[i].digest + '</div></div><div class="arrowLeftIcon backgroundGray p-0 customCategoryIconBack"><img src="{{ asset('theme-assets/images/svg/ionic-ios-arrow-round-back.svg') }}"></div></div>'
+                    html += '<div class="text-category position-absolute labelForCat"><h4 class="colorWhite fontSize14">' + res.data[i].name + '</h4></div>';
                     html +='</a></div></div>';
                 }
                 $("#cat").empty().append(html);

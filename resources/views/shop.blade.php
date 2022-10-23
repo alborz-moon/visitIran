@@ -10,9 +10,9 @@
                                 <!-- start of breadcrumb -->
                                 <nav class="mb-2 mt-3" aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#">خانه</a></li>
-                                        <li class="breadcrumb-item"><a href="#">فرش</a></li>
-                                        <li class="breadcrumb-item"><a href="#">منسوجات</a></li>
+                                        @foreach ($path as $itr)
+                                            <li class="breadcrumb-item"><a href="{{ $itr['href'] }}">{{ $itr['label'] }}</a></li>    
+                                        @endforeach
                                     </ol>
                                 </nav>
                                 <!-- end of breadcrumb -->
