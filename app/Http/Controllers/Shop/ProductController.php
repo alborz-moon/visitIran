@@ -42,6 +42,8 @@ class ProductController extends Controller
         $isInTopList = $request->query('isInTopList', null);
         $max = $request->query('max', null);
         $min = $request->query('min', null);
+        $maxPrice = $request->query('maxPrice', null);
+        $minPrice = $request->query('minPirce', null);
         $off = $request->query('off', null);
         $comment = $request->query('comment', null);
 
@@ -65,6 +67,15 @@ class ProductController extends Controller
             
         if($toCreatedAt != null)
             $filters->whereDate('created_at', '<=', self::ShamsiToMilady($toCreatedAt));
+
+        if($min != null)
+            $filters->where('available_count', '>=', $min);
+            
+        if($minPrice != null)
+            $filters->where('price', '>=', $minPrice);
+            
+        if($maxPrice != null)
+            $filters->where('price', '<=', $maxPrice);
 
         $isAdmin = false;
 
@@ -98,9 +109,6 @@ class ProductController extends Controller
 
             if($max != null)
                 $filters->where('available_count', '<=', $max);
-                
-            if($min != null)
-                $filters->where('available_count', '>=', $min);
 
         }
         else
