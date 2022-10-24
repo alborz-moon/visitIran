@@ -35,11 +35,11 @@
                         </div>
                         <!-- end of form-element -->
                         <!-- start of verify-code-wrapper -->
-                        <div class="verify-code-wrapper mt-3 mb-5">
-                            <div class="d-flex align-items-center" dir="ltr">
+                        <div  class="verify-code-wrapper mt-3 mb-5">
+                            <div id="timer" class="d-flex align-items-center" dir="ltr">
                                 <span class="text-sm">مدت زمان باقیمانده</span>
                                 <span class="mx-2">|</span>
-                                <div id="timer--verify-code" data-minutes-left=1></div>
+                                <div id="timer--verify-code"></div>
                             </div>
                             <a href="#" class="send-again link">ارسال مجدد</a>
                         </div>
@@ -61,21 +61,23 @@
             </div>
             <!-- end of auth-container -->
         </main>
-    {{-- <script>
+    <script>
          $.ajax({
-             type: 'post',
+             type: 'get',
              url: '{{ route('api.login') }}',
              headers: {
                  'accept': 'application/json'
              },
              success: function(res) {
-                window.localStorage.setItem(key, value);
-                var html= "";
+                
                 if(res.status === "ok") {
-             }}
+                    timer = window.localStorage.getItem(key);
+                    $('#timer--verify-code').attr('data-seconds-left', 'timer');
+                }
+            }
          });
 
-    </script> --}}
+    </script>
 @stop
 @section('extraJS')
     @parent
