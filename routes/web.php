@@ -48,6 +48,8 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::view('login', 'admin.login')->name('loginPage');
 
+Route::view('verification', 'verification')->name('verification');
+
 Route::domain(Controller::$SHOP_SITE)->group(function() {
 
     Route::view('/', 'shop.welcome')->name('home');

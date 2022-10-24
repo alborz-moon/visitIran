@@ -16,7 +16,7 @@ class AuthController extends Controller
 {
 
     public function signUp(Request $request) {
-        
+
         $validator = [
             'phone' => 'required|unique:users,phone|regex:/(09)[0-9]{9}/',
         ];
@@ -53,7 +53,7 @@ class AuthController extends Controller
 
         $validator = [
             "code" => 'required|integer|min:111111|max:999999',
-            'phone' => 'required|regex:/(09)[0-9]{9}|exists:activations,phone',
+            'phone' => 'required|regex:/(09)[0-9]{9}/|exists:activation,phone',
         ];
 
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))

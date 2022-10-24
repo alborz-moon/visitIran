@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FAQController;
@@ -40,7 +41,9 @@ Route::post('submitMail', [MailController::class, 'submitMail'])->name('api.subm
 Route::get('infobox', [InfoBoxController::class, 'list'])->name('api.infobox');
 
 
-Route::post('login', [InfoBoxController::class, 'list'])->name('api.login');
+Route::post('login', [AuthController::class, 'signUp'])->name('api.login');
+
+Route::post('activate', [AuthController::class, 'activate'])->name('api.signup.verify');
 
 Route::domain(Controller::$SHOP_SITE)->group(base_path('routes/shop_general_routes.php'));
 

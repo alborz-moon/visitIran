@@ -9,12 +9,13 @@ class Activation extends Model
 {
     use HasFactory;
     
-    protected $table = 'activations';
+    protected $table = 'activation';
 
     protected $fillable = [
         'id',
         'phone',
-        'code'
+        'code',
+        'vc_expired_at'
     ];
 
     protected $hidden = [

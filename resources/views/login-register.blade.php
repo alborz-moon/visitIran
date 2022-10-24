@@ -36,24 +36,28 @@
             <!-- start of auth-container -->
         </main>
         <script>
-            let phone = $('#phone').value();
 
-            // $(document).ready(function() {
-            //     $("#login_submit").click(function(event) {
-            //         event.preventDefault();
-            //         $.ajax({
-            //             type: 'post',
-            //             url: '{{ route('api.login') }}',
-            //             headers: {
-            //                 'accept': 'application/json'
-            //             },
-            //             success: function(res) {
-            //                 window.localStorage.setItem(res, value);
-            //                 if(res.status === "ok") {               
-            //             }}
-            //         });
-            //     });
-            // });
+            $(document).ready(function() {
+                $("#login_submit").on('click', function() {
+                
+                    let phone = $('#phone').val();
+                        
+                    $.ajax({
+                        type: 'post',
+                        url: '{{ route('api.login') }}',
+                        data: {
+                            phone: phone
+                        },
+                        success: function(res) {
+                            if(res.status === "ok") {
+                                window.localStorage.setItem("phone", phone);
+                                window.localStorage.setItem("reminder", res.reminder);
+                                document.location.href = '{{route('verification')}}';
+                            }
+                        }
+                    });
+                });
+            });
         </script>
 @stop
 @section('extraJS')
