@@ -96,7 +96,7 @@
             </div>
         </div>
     <div class="product-seller--add-to-cart">
-        <a href="#" class="btn btn-primary backgroundColorBlue w-100" data-toast data-toast-type="success"
+        <a onclick="addToBasket()" class="btn btn-primary backgroundColorBlue w-100" data-toast data-toast-type="success"
             data-toast-color="green" data-toast-position="topRight"
             data-toast-icon="ri-check-fill" data-toast-title="موفق!"
             data-toast-message="به سبد اضافه شد!">
@@ -111,6 +111,7 @@
     
     $(".countPlus").on('click', function() {
         
+        alert("sd");
         let now = Date.now();
 
         if(now - lastChange < 50)
@@ -142,5 +143,26 @@
         });
 
     });
+
+    function addToBasket() {
+        
+        let basket = window.localStorage.getItem("basket");
+        if(basket === null || basket === undefined)
+            basket = [];
+
+        basket.push({
+            count: $("input[name='counter']").val(),
+            id: Date.now() + "_" + '{{ $product['id'] }}',
+            product_id: '{{ $product['id'] }}',
+            detail: {
+                'title': '{{ $product['name'] }}',
+                'img': '{{ $product['img'] }}',
+                'alt': '{{ $product['alt'] }}',
+                'href': '{{ url()->current() }}'
+            }
+        });
+
+        window.localStorage.setItem("basket", JSON.stringify(basket));
+    }
 
 </script>

@@ -74,35 +74,15 @@
                                     <i class="icon-visit-basket customHeader colorYellow"></i>
                                 </a>
                                 <div class="mini-cart">
+                                    
                                     <div class="mini-cart-header">
-                                        <span class="mini-cart-products-count fa-num">4 کالا</span>
+                                        <span id="basket-items-count" class="mini-cart-products-count fa-num"></span>
                                         <a href="{{route('cart')}}" class="btn btn-link px-0">مشاهده سبد خرید <i
                                                 class="ri-arrow-left-s-fill"></i></a>
                                     </div>
-                                    <div class="mini-cart-products do-simplebar">
-                                        <div class="mini-cart-product">
-                                            <div class="mini-cart-product-thumbnail">
-                                                <a href="#"><img src="#" alt=""></a>
-                                            </div>
-                                            <div class="mini-cart-product-detail">
-                                                <div class="mini-cart-product-brand"><a href="#">apple</a></div>
-                                                <div class="mini-cart-product-title">
-                                                    <a href="product-v1.html">گوشی موبایل اپل مدل iPhone 13 A2634 دو
-                                                        سیم‌ کارت ظرفیت 128
-                                                        گیگابایت و رم 4 گیگابایت</a>
-                                                </div>
-                                                <div class="mini-cart-purchase-info">
-                                                    <div class="mini-cart-product-meta">
-                                                        <span class="fa-num">1 عدد</span>
-                                                        <span class="color" style="background-color: #d4d4d4;"></span>
-                                                    </div>
-                                                    <div class="mini-cart-product-price fa-num">26,249,000 <span
-                                                            class="currency">تومان</span></div>
-                                                </div>
-                                                <button class="mini-cart-product-remove"></button>
-                                            </div>
-                                        </div>
-                                    </div>
+
+                                    <div id="basket-items"></div>
+                                    
                                     <div class="mini-cart-footer">
                                         <div class="mini-cart-total">
                                             <span class="mini-cart-total-label">مبلغ قابل پرداخت:</span>
@@ -114,42 +94,49 @@
                                 </div>
                             </div>
                             <div class="user-option user-option--account  paddingRight15">
-                                <a href="profile.html" class="user-option-btn user-option-btn--account gap10 btnHover textColor">
-                                    <i class="icon-visit-person customHeader"></i>ورود / ثبت نام
-                                </a>
-                                <div class="user-option--dropdown user-option--dropdown-right">
-                                    <div class="profile-user-info ui-box">
-                                        <div class="profile-detail">
-                                            <div class="d-flex align-items-center">
-                                                <div class="profile-avatar me-3">
-                                                    <img src="#" alt="avatar">
-                                                </div>
-                                                <div class="profile-info">
-                                                    <a href="#" class="text-decoration-none text-dark fw-bold mb-2">
-                                                        جلال
-                                                        بهرامی
-                                                        راد
-                                                    </a>
+                                @if(!Auth::check())
+                                    <a href="{{ route('login-register') }}" class="user-option-btn user-option-btn--account gap10 btnHover textColor">
+                                        <i class="icon-visit-person customHeader"></i>ورود / ثبت نام
+                                    </a>
+                                @else
+                                    <a href="{{ route('profile') }}" class="user-option-btn user-option-btn--account gap10 btnHover textColor">
+                                        <i class="icon-visit-person customHeader"></i>صفحه شخصی
+                                    </a>
+                                    <div class="user-option--dropdown user-option--dropdown-right">
+                                        <div class="profile-user-info ui-box">
+                                            <div class="profile-detail">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="profile-avatar me-3">
+                                                        <img src="#" alt="avatar">
+                                                    </div>
+                                                    <div class="profile-info">
+                                                        <a href="#" class="text-decoration-none text-dark fw-bold mb-2">
+                                                            جلال
+                                                            بهرامی
+                                                            راد
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <ul class="nav nav-items-with-icon flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{{route('cart-empty')}}"><i
+                                                            class="nav-link-icon ri-file-list-3-line"></i>
+                                                        سفارش
+                                                        های من
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{{ route('logout') }}"><i
+                                                            class="nav-link-icon ri-logout-box-r-line"></i>
+                                                        خروج
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <ul class="nav nav-items-with-icon flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="{{route('cart-empty')}}"><i
-                                                        class="nav-link-icon ri-file-list-3-line"></i>
-                                                    سفارش
-                                                    های من
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="{{ route('logout') }}"><i
-                                                        class="nav-link-icon ri-logout-box-r-line"></i>
-                                                    خروج
-                                                </a>
-                                            </li>
-                                        </ul>
                                     </div>
-                                </div>
+                                @endif
+                                
                             </div>
                         </div>
                     </div>
@@ -324,14 +311,27 @@
                             </a>
                         </div>
                         <div class="page-header--top-left">
-                            <a href="profile.html" class="user-option-btn user-option-btn--account gap10 d-flex ">
-                                    <span class=" d-flex colorWhite fontSize10 align-self-center btnHover pl-2"> <i class="icon-visit-person customHeader"></i>ورود / ثبت نام </span>
-                            </a>
+                            @if(!Auth::check())
+                                <a href="{{ route('login-register') }}" class="user-option-btn user-option-btn--account gap10 d-flex ">
+                                    <span class=" d-flex colorWhite fontSize10 align-self-center btnHover pl-2"> 
+                                        <i class="icon-visit-person customHeader"></i>ورود / ثبت نام 
+                                    </span>
+                                </a>
+                            @else
+                                <a href="{{ route('profile') }}" class="user-option-btn user-option-btn--account gap10 d-flex ">
+                                    <span class=" d-flex colorWhite fontSize10 align-self-center btnHover pl-2"> 
+                                        <i class="icon-visit-person customHeader"></i>صفحه شخصی
+                                    </span>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </header>
+        <div class="hidden" id="sample-mini-cart-products">
+            @include('shop.product.mini_card')
+        </div>
         <!-- start of page-content -->
        <div id="mainPageContent" class="mt-md-110">
             @yield('content')
@@ -355,11 +355,15 @@
     <script src="{{ asset('theme-assets/js/dependencies/simplebar.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/zoomsl.min.js') }}"></script>    
+    <script src="{{ asset('theme-assets/js/basket.js') }}"></script>    
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+        $(document).ready(function() {
+            refreshBasket();
         });
     </script>   
   

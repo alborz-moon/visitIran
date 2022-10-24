@@ -111,7 +111,7 @@
                         </div>
                         <div class="col-xl-3 col-lg-4">
                             <!-- start of product-seller-info -->
-                            @include('product.product_basket_card', ['product' => $product])
+                            @include('shop.product.product_basket_card', ['product' => $product])
                             <!-- end of product-seller-info -->
                         </div>
                     </div>
@@ -191,14 +191,14 @@
                         </div>
                         <!-- end of product-params -->
                         <!-- start of product-comments -->
-                        @include('product.write-comment', ['productId' => $product['id']])
-                        @include('product.comments-show', ['productId' => $product['id']])
+                        @include('shop.product.write-comment', ['productId' => $product['id']])
+                        @include('shop.product.comments-show', ['productId' => $product['id']])
                         <!-- end of product-comments -->
                     </div>
                     <div class="col-xl-3 col-lg-4 d-lg-block d-none">
                         <div class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">
                             <!-- start of product-seller-info -->
-                            @include('product.product_basket_card', ['product' => $product])
+                            @include('shop.product.product_basket_card', ['product' => $product])
                             <!-- end of product-seller-info -->
                         </div>
                     </div>

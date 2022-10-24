@@ -13,5 +13,5 @@
             <?php $i++; ?>
         @endforeach
     </ol>
-    @include('product.bookmark')
+    @include('shop.product.bookmark')
 </nav>

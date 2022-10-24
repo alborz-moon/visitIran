@@ -51,6 +51,7 @@
                         success: function(res) {
                             if(res.status === "ok") {
                                 window.localStorage.setItem("phone", phone);
+                                window.localStorage.setItem("createdAt", Date.now());
                                 window.localStorage.setItem("reminder", res.reminder);
                                 document.location.href = '{{route('verification')}}';
                             }

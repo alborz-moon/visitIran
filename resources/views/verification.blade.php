@@ -11,10 +11,9 @@
                     <!-- start of form-element -->
                     <div class="form-element-row mb-3">
                         <p>
-                            حساب کاربری با شماره موبایل <span class="border-bottom">۰۹۰۰۰۰۰۰۰۰۰</span> وجود ندارد.
                             برای ایجاد
                             حساب
-                            کاربری، لطفا
+                            کاربری/ ورود، لطفا
                             کد ارسال شده را وارد نمایید.
                         </p>
                     </div>
@@ -40,7 +39,7 @@
                             <span class="mx-2">|</span>
                             <div id="timer--verify-code"></div>
                         </div>
-                        <a href="#" class="send-again link">ارسال مجدد</a>
+                        <a id="send-again-btn" style="cursor: pointer" class="send-again link">ارسال مجدد</a>
                     </div>
                     <!-- end of verify-code-wrapper -->
                     <!-- start of form-element -->
@@ -50,7 +49,7 @@
                     <!-- end of form-element -->
                     <!-- start of form-element -->
                     <div class="form-element-row">
-                        <a href="#" class="link mx-auto">ویرایش شماره موبایل <i class="ri-pencil-fill ms-1"></i></a>
+                        <a href="{{ route('login-register') }}" class="link mx-auto">ویرایش شماره موبایل <i class="ri-pencil-fill ms-1"></i></a>
                     </div>
                     
                     <!-- end of auth-form -->
@@ -63,11 +62,15 @@
         
         let timer;
         let phone;
+        let createdAt;
 
         $(document).ready(function() {
-            timer = window.localStorage.getItem("reminder");
+            
+            createdAt = window.localStorage.getItem("createdAt");
             phone = window.localStorage.getItem("phone");
-            $('#timer--verify-code').attr('data-seconds-left', timer);
+            timer = window.localStorage.getItem("reminder");
+            
+            $('#timer--verify-code').attr('data-seconds-left', timer - (Date.now() - createdAt) / 1000);
 
             $("#confirmBtn").on('click', function() {
                 
@@ -86,6 +89,29 @@
                         }
                     }
                 });
+            });
+
+            $("#send-again-btn").on('click', function() {
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{ route('api.login') }}',
+                    data: {
+                        phone: phone
+                    },
+                    success: function(res) {
+                        if(res.status === "ok") {
+                            reminder = res.reminder;
+                            createdAt = Date.now();
+                            window.localStorage.setItem("reminder", res.reminder);
+                            window.localStorage.setItem("createdAt", Date.now());
+
+                            $('#timer--verify-code').attr('data-seconds-left', timer - (Date.now() - createdAt) / 1000);
+                        }
+                    }
+                });
+
+
             });
 
         });
