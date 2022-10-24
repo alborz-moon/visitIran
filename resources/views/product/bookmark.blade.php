@@ -20,13 +20,13 @@
                 <div class="widget-content widget-socials">
                     <ul  class="align-items-center">
                         <li>
-                            <a id="whatsapp" href="#" class="d-inline-flex"><i class="ri-whatsapp-fill"></i></a>
+                            <a id="whatsapp" href="#" class="d-inline-flex share-link"><i class="ri-whatsapp-fill"></i></a>
                         </li>
                         <li>
-                            <a id="telegram" onclick="telegram_click()" class="d-inline-flex"><i class="ri-telegram-fill"></i></a>
+                            <a id="telegram" class="d-inline-flex share-link-telegram"><i class="ri-telegram-fill"></i></a>
                         </li>
                         <li>
-                            <a href="#" class="d-inline-flex"><i class="ri-instagram-fill"></i></a>
+                            <a href="#" class="d-inline-flex share-link"><i class="ri-instagram-fill"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -40,9 +40,7 @@
 <script>
 var $temp = $("<input>");
 var $url = $(location).attr('href');
-    // function telegram_click(){
-    //     $('#telegram').attr('href','https://telegram.me/share/url?url='$url'&text=سایت میراث فرهنگی و گردشگری');
-    // };
+
 $('.clipboard').on('click', function() {
     $("body").append($temp);
     $temp.val($url).select();
@@ -72,4 +70,15 @@ $('.clipboard').on('click', function() {
             }
         });
     }
+    $(document).ready(function() {
+
+    $('#telegram').click(function(){
+        $('.share-link-telegram').attr("href","https://telegram.me/share/url?url=" + $url + "&text=سایت میراث");
+    });
+
+    $('#whatsapp').click(function(){
+        $('.share-link-telegram').attr("href","https://telegram.me/share/url?url=" + $url + "&text=سایت میراث");
+    });
+
+});
 </script>

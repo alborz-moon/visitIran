@@ -8,15 +8,15 @@
                 <!-- start of auth-box -->
                 <div class="auth-box ui-box">
                     <!-- start of auth-form -->
-                    <form action="#" class="auth-form">
+                    {{-- <form action="api/auth" class="auth-form" method=""> --}}
                         <!-- start of form-element -->
                         <div class="form-element-row mb-5">
-                            <input type="text" class="form-control" placeholder="شماره موبایل یا ایمیل">
+                            <input id="phone" type="text" class="form-control" placeholder="شماره موبایل یا ایمیل">
                         </div>
                         <!-- end of form-element -->
                         <!-- start of form-element -->
                         <div class="form-element-row mb-3">
-                            <button class="btn btn-primary">ادامه</button>
+                            <button id="login_submit" class="btn btn-primary">ادامه</button>
                         </div>
                         <!-- end of form-element -->
                         <!-- start of form-element -->
@@ -28,13 +28,33 @@
                             </div>
                         </div>
                         <!-- end of form-element -->
-                    </form>
+                    {{-- </form> --}}
                     <!-- end of auth-form -->
                 </div>
                 <!-- end of auth-box -->
             </div>
             <!-- start of auth-container -->
         </main>
+        <script>
+            let phone = $('#phone').value();
+
+            // $(document).ready(function() {
+            //     $("#login_submit").click(function(event) {
+            //         event.preventDefault();
+            //         $.ajax({
+            //             type: 'post',
+            //             url: '{{ route('api.login') }}',
+            //             headers: {
+            //                 'accept': 'application/json'
+            //             },
+            //             success: function(res) {
+            //                 window.localStorage.setItem(res, value);
+            //                 if(res.status === "ok") {               
+            //             }}
+            //         });
+            //     });
+            // });
+        </script>
 @stop
 @section('extraJS')
     @parent
