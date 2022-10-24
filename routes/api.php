@@ -39,6 +39,9 @@ Route::post('submitMail', [MailController::class, 'submitMail'])->name('api.subm
 
 Route::get('infobox', [InfoBoxController::class, 'list'])->name('api.infobox');
 
+
+Route::post('login', [InfoBoxController::class, 'list'])->name('api.login');
+
 Route::domain(Controller::$SHOP_SITE)->group(base_path('routes/shop_general_routes.php'));
 
 Route::domain(Controller::$EVENT_SITE)->group(base_path('routes/event_general_routes.php'));

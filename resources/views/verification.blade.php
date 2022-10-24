@@ -61,6 +61,21 @@
             </div>
             <!-- end of auth-container -->
         </main>
+    {{-- <script>
+         $.ajax({
+             type: 'post',
+             url: '{{ route('api.login') }}',
+             headers: {
+                 'accept': 'application/json'
+             },
+             success: function(res) {
+                window.localStorage.setItem(key, value);
+                var html= "";
+                if(res.status === "ok") {
+             }}
+         });
+
+    </script> --}}
 @stop
 @section('extraJS')
     @parent

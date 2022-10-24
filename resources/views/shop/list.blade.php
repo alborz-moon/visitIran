@@ -180,7 +180,7 @@
                                                         @include('shop.productCard', ['key' => 'sample'])
                                                     </div>
 
-                                                    <div id="shimmer" style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                                    <div id="shimmer" style="display: flex; flex-wrap: wrap; gap: 0px;">
                                                         @for($i = 0; $i < 6; $i++)
                                                             <a href="#" class="cursorPointer">
                                                                 <div class="swiper-slide customWidthBox">
@@ -205,7 +205,7 @@
                                                         @endfor
                                                     </div>
 
-                                                    <div id="products_div" class="hidden" style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                                    <div id="products_div" class="hidden" style="display: flex; flex-wrap: wrap; gap: 0px;">
                                                     </div>
 
                                                 </div>
