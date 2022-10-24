@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddThumbnailInProductsTable extends Migration
+class AddVcExpiredAtInActivationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddThumbnailInProductsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->string('thumbnail')->nullable();
+        Schema::table('activation', function (Blueprint $table) {
+            $table->bigInteger('vc_expired_at');
         });
     }
 
@@ -25,8 +25,8 @@ class AddThumbnailInProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('thumbnail');
+        Schema::table('activation', function (Blueprint $table) {
+            $table->dropColumn('vc_expired_at');
         });
     }
 }

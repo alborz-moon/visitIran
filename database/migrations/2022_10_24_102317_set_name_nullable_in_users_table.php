@@ -1,11 +1,10 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeUserAccesses2InUsersTable extends Migration
+class SetNameNullableInUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,13 +14,9 @@ class ChangeUserAccesses2InUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('level', 
-                [
-                    User::$ADMIN_LEVEL, User::$EDITOR_LEVEL, User::$REPORT_LEVEL,
-                    User::$USER_LEVEL, User::$NEWS_LEVEL, User::$FINANCE_LEVEL,
-                    User::$LAUNCHER_LEVEL
-                ]
-            )->default(User::$USER_LEVEL);
+            $table->string('first_name')->nullable()->change();
+            $table->string('last_name')->nullable()->change();
+            $table->string('password')->nullable()->change();
         });
     }
 
@@ -33,7 +28,9 @@ class ChangeUserAccesses2InUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('level');
+            $table->string('first_name')->change();
+            $table->string('last_name')->change();
+            $table->string('password')->change();
         });
     }
 }
