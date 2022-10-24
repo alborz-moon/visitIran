@@ -41,7 +41,7 @@ class ProductHelper extends Controller {
         $max = $request->query('max', null);
         $min = $request->query('min', null);
         $maxPrice = $request->query('maxPrice', null);
-        $minPrice = $request->query('minPirce', null);
+        $minPrice = $request->query('minPrice', null);
         $off = $request->query('off', null);
         $comment = $request->query('comment', null);
 

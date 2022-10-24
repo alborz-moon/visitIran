@@ -101,6 +101,39 @@
                                         </form>
                                     </div>
                                 </div>
+
+                                <!-- start of widget -->
+                                <div class="widget widget-collapse">
+                                    <div class="widget-title widget-title--collapse-btn" data-bs-toggle="collapse"
+                                        data-bs-target="#collapsePriceFilter" aria-expanded="false"
+                                        aria-controls="collapsePriceFilter" role="button">محدوده قیمت </div>
+                                    <div class="widget-content widget--search fa-num collapse" id="collapsePriceFilter">
+                                        <form action="#" class="pt-2">
+                                            <div class="filter-price">
+                                                <div class="filter-slider">
+                                                    <div id="slider-non-linear-step" class="price-slider"></div>
+                                                </div>
+                                                <ul class="filter-range mb-4">
+                                                    <li>
+                                                        <input type="text" data-value="0" value="0" name="price[min]"
+                                                            data-range="0" class="js-slider-range-from"
+                                                            id="skip-value-lower" disabled>
+                                                        <span class="fontSize20 colorYellow">ت</span>
+                                                    </li>
+                                                    <li class="label fw-bold">تا</li>
+                                                    <li>
+                                                        <input type="text" data-value="17700000" value="17700000"
+                                                            name="price[max]" data-range="17700000"
+                                                            class="js-slider-range-to" id="skip-value-upper" disabled>
+                                                        <span class="fontSize20 colorYellow">ت</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- end of widget -->
+                               
                                 <!-- start of widget -->
                                 <div class="widget py-1 mt-3 mb-3">
                                     <div class="widget-content widget--filter-switcher">
@@ -530,10 +563,9 @@ $(".child input").on('click',function(){
             // let brand = $("#brandFilter").val();
             let off = $("#has_selling_offs").prop('checked') ? 1 : 0;
             let min = $("#has_selling_stock").prop('checked') ? 1 : 0;
-            // let minPrice = $("#minPriceFilter").val();
-            // let maxPrice = $("#maxPriceFilter").val();
+            let minPrice = $("#skip-value-lower").val().replaceAll(",", "");
+            let maxPrice = $("#skip-value-upper").val().replaceAll(",", "");
             let orderBy = $("#orderBy").val();
-            // let orderByType = $("#orderByType").val();
 
             // if(brand !== 'all')
             //     query.append('brand', brand);
@@ -541,11 +573,11 @@ $(".child input").on('click',function(){
             if(min > 0)
                 query.append('min', min);
 
-            // if(minPrice !== '')
-            //     query.append('minPrice', minPrice);
+            if(minPrice !== '')
+                query.append('minPrice', minPrice);
 
-            // if(maxPrice !== '')
-            //     query.append('maxPrice', maxPrice);
+            if(maxPrice !== '')
+                query.append('maxPrice', maxPrice);
 
             if(off !== 0)
                 query.append('off', off);
@@ -575,6 +607,14 @@ $(".child input").on('click',function(){
             });
             
             $("#has_selling_offs").on('change', function() {
+                filter();
+            });
+
+            $(document).on('mouseup', ".noUi-handle-upper", function(){
+                filter();
+            });
+            
+            $(document).on('mouseup', ".noUi-handle-lower", function(){
                 filter();
             });
 
