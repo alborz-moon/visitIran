@@ -163,6 +163,7 @@
         });
 
         window.localStorage.setItem("basket", JSON.stringify(basket));
+        refreshBasket();
     }
 
 </script>

@@ -98,6 +98,12 @@ ul {
 .clear {
     clear: both;
 }
+.colorText {
+    color: #555a5d !important;
+}
+.checkout-bill .checkout-bill-row .checkout-bill-row-label {
+    color: #555a5d !important;
+}
 @font-face {
     font-family: IRANSans;
     font-style: normal;
