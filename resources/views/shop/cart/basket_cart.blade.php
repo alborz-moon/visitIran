@@ -33,23 +33,9 @@
                 این مبلغ اضافه خواهد شد
             </div>
             <div class="checkout-bill-row checkout-bill-action">
-                <a href="#" class="btn btn-block btn-primary">ادامه فرایند خرید</a>
+                <a href="{{ $nextUrl }}" class="btn btn-block btn-primary">ادامه فرایند خرید</a>
             </div>
         </div>
         <!-- end of checkout-bill -->
-        <!-- start of widget -->
-        <div class="widget p-0">
-            <div class="widget-content widget--free-shipping">
-                <div class="free-shipping--detail">
-                    <div class="title">ارسال رایگان سفارش</div>
-                    <div class="subtitle">سفارش‌های بالای ۳۰۰ هزار تومان</div>
-                </div>
-                <div class="free-shipping--banner">
-                    <img src="./theme-assets/images/theme/free-shipping--banner.png"
-                        alt="ارسال رایگان سفارش">
-                </div>
-            </div>
-        </div>
-        <!-- end of widget -->
     </div>
 </div>
