@@ -131,27 +131,7 @@
         
          let msg = $("#comment-msg").val();
          if(msg.length == 0) {
-            // $('#submitComment').attr('data-toast', true).attr('data-toast-type', 'success')
-            // .attr('data-toast-color', 'red').attr('data-toast-position', 'right')
-            // .attr('data-toast-icon', 'ri-check-fill').attr('data-toast-title', 'موفق!')
-            // .attr('data-toast-message', 'دیدگاه شما ثبت شد!');
-            s = {
-                rtl: true,
-                class: "iziToast-" + "danger",
-                title: "ناموفق",
-                message: "لطفا قسمت متن نظر را خالی نگذارید !",
-                animateInside: !1,
-                position: "topRight",
-                progressBar: !1,
-                icon: 'ri-close-fill',
-                timeout: 3200,
-                transitionIn: "fadeInLeft",
-                transitionOut: "fadeOut",
-                transitionInMobile: "fadeIn",
-                transitionOutMobile: "fadeOut",
-                color: "red",
-                };
-            iziToast.show(s);
+            showErr("لطفا قسمت متن نظر را خالی نگذارید !");
             return;
          }    
 

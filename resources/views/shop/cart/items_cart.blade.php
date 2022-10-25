@@ -13,22 +13,22 @@
                         <div class="cart-item--thumbnail">
                             <a class="position-relative" href="#">
                                 <img id="full-basket-item-img">
-                                    <span class="colorWhite customCartLabel fontSize11 position-absolute t-0 r-0">عنوان محصول</span>
+                                    <span id="full-basket-item-category" class="colorWhite customCartLabel fontSize11 position-absolute t-0 r-0"></span>
                             </a>
                         </div>
                         <div class="cart-item--detail">
                             <h2 class="cart-item--title mb-2"><a id="full-basket-item-href" href="#"></a></h2>
                             <div class="cart-item--variant mb-2" style="margin-right: 50px">
-                                <span class="color" style="background-color: #fad7c2;"></span>
-                                <span class="ms-1">طلایی</span>
+                                <span id="full-basket-item-color" class="color hidden"></span>
+                                <span id="full-basket-item-color-label" class="ms-1 hidden"></span>
                             </div>
                             <div class="cart-item--data mb-1">
                                 <ul>
-                                    <li>
-                                        <i class="icon-visit-store colorYellow d-flex productIcon"></i><span class="colorBlack fontSize13"> seller</span>
+                                    <li id="full-basket-item-seller-parent" class="hidden">
+                                        <i class="icon-visit-store colorYellow d-flex productIcon"></i><span id="full-basket-item-seller" class="colorBlack fontSize13"> seller</span>
                                     </li>
-                                    <li>
-                                        <i class="icon-visit-verified colorYellow d-flex productIcon"></i><span class="colorBlack fontSize13">دارای 18 ماه گارانتی</span>
+                                    <li id="full-basket-item-guarantee-parent" class="hidden">
+                                        <i class="icon-visit-verified colorYellow d-flex productIcon"></i><span id="full-basket-item-guarantee" class="colorBlack fontSize13">دارای 18 ماه گارانتی</span>
                                     </li>
                                     <li>
                                         <i class="icon-visit-original colorYellow d-flex productIcon"></i><span class="colorBlack fontSize13">تضمین اصالت</span>
@@ -44,12 +44,12 @@
                                         <div class="num-block fa-num me-3">
                                             <span class="num-in">
                                                 <span class="icon-visit-Exclusion1 countPlus customColorBlack d-contents"></span>
-                                                <input name="counter" type="text" value="1" readonly="">
+                                                <input id="full-basket-item-count" name="counter" type="text" readonly="">
                                                 <span class="icon-visit-Exclusion2 countMinus customColorBlack d-contents"></span>
                                             </span>
                                         </div>
                                     </div>
-                                    <button class="btn btn-link btn-sm text-secondary position-absolute t-0 l-0"><i
+                                    <button id="full-basket-item-remove-btn" class="btn btn-link btn-sm text-secondary position-absolute t-0 l-0"><i
                                             class="ri-delete-bin-5-line me-1"></i><span>حذف</span></button>
                                 </div>
                                 <div class="product-seller-row product-seller-row--price pt-2">
@@ -65,7 +65,7 @@
                                         </div>
                                     </div>
                                     <div class="product-seller-row--price-now fa-num ">
-                                        <span class="price fontSize21 bold">9000000</span>
+                                        <span id="full-basket-item-price" class="price fontSize21 bold">9000000</span>
                                         <span class="currency fontSize21 bold colorYellow">ت</span>
                                     </div>
                                     </div>

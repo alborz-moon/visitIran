@@ -86,7 +86,7 @@
                                     <div class="mini-cart-footer">
                                         <div class="mini-cart-total">
                                             <span class="mini-cart-total-label">مبلغ قابل پرداخت:</span>
-                                            <span class="mini-cart-total-value fa-num">83,678,000 <span
+                                            <span id="mini-cart-total-value" class="mini-cart-total-value fa-num"><span
                                                     class="currency">تومان</span></span>
                                         </div>
                                         <a href="#" class="btn btn-primary">ورود و ثبت سفارش</a>
@@ -362,9 +362,63 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
         $(document).ready(function() {
             refreshBasket();
         });
+        
+        Number.prototype.formatPrice = function(decPlaces, thouSeparator, decSeparator) {
+            var n = this,
+                decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
+                decSeparator = decSeparator == undefined ? "." : decSeparator,
+                thouSeparator = thouSeparator == undefined ? "," : thouSeparator,
+                sign = n < 0 ? "-" : "",
+                i = parseInt(n = Math.abs(+n || 0).toFixed(decPlaces)) + "",
+                j = (j = i.length) > 3 ? j % 3 : 0;
+            return sign + (j ? i.substr(0, j) + thouSeparator : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thouSeparator) + (decPlaces ? decSeparator + Math.abs(n - i).toFixed(decPlaces).slice(2) : "");
+        };
+
+        function showErr(msg) {
+            s = {
+                rtl: true,
+                class: "iziToast-" + "danger",
+                title: "ناموفق",
+                message: msg,
+                animateInside: !1,
+                position: "topRight",
+                progressBar: !1,
+                icon: 'ri-close-fill',
+                timeout: 3200,
+                transitionIn: "fadeInLeft",
+                transitionOut: "fadeOut",
+                transitionInMobile: "fadeIn",
+                transitionOutMobile: "fadeOut",
+                color: "red",
+                };
+            iziToast.show(s);
+        }
+
+        function showSuccess(msg) {
+            s = {
+                rtl: true,
+                class: "iziToast-" + "danger",
+                title: "موفق!",
+                message: msg,
+                animateInside: !1,
+                position: "topRight",
+                progressBar: !1,
+                icon: 'ri-check-fill',
+                timeout: 3200,
+                transitionIn: "fadeInLeft",
+                transitionOut: "fadeOut",
+                transitionInMobile: "fadeIn",
+                transitionOutMobile: "fadeOut",
+                color: "green",
+                type: 'success'
+                };
+            iziToast.show(s);
+        }
+
     </script>   
   
     </script>
