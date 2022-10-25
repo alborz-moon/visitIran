@@ -9,7 +9,6 @@
                     <div class="product-seller-row-detail-title">{{ $product['seller'] }}</div>
                 </div>
             </div>
-            
         @endif
         <hr>
         @if ($product['guarantee'] !== null)
@@ -84,14 +83,14 @@
             </div>
         @endif
         <div class="product-seller-row product-remaining-in-stock spaceBetween">
-            <div class="bold customColorBlack d-flex align-items-center ">
+            <div class="bold textColor d-flex align-items-center ">
                 <div>تعداد سفارش :</div>                                            
             </div>
             <div class="num-block fa-num me-3">
                 <span class="num-in">
-                    <span class="icon-visit-Exclusion1 countPlus customColorBlack d-contents"></span>
+                    <span class="icon-visit-Exclusion1 countPlus customColorBlack d-flex justify-content-center align-items-center"></span>
                     <input name="counter" type="text" value="1" readonly="">
-                    <span class="icon-visit-Exclusion2 countMinus customColorBlack d-contents"></span>
+                    <span class="icon-visit-Exclusion2 countMinus customColorBlack d-flex justify-content-center align-items-center"></span>
                 </span>
             </div>
         </div>
@@ -110,8 +109,7 @@
     var lastChange = -1;
     
     $(".countPlus").on('click', function() {
-        
-        alert("sd");
+
         let now = Date.now();
 
         if(now - lastChange < 50)
