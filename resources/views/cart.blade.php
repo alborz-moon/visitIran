@@ -5,7 +5,7 @@
             <div class="container">
                 <div class="row">
                     @include('shop.cart.items_cart')
-                    @include('shop.cart.basket_cart')
+                    @include('shop.cart.basket_cart', ['nextUrl' => route('shipping')])
                 </div>
             </div>
         </main>

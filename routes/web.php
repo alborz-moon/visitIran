@@ -57,6 +57,11 @@ Route::domain(Controller::$SHOP_SITE)->group(function() {
     Route::get('/product/{product}/{slug}', [ProductController::class, 'showDetail'])->name('single-product');
 
     Route::get('/list/{category}/{slug}', [CategoryController::class, 'show'])->name('single-category');
+
+    Route::get('shipping', function () {return view('shop.shipping');})->name('shipping');
+
+    Route::get('payment', function () {return view('shop.payment');})->name('payment');
+    
 });
 
 Route::domain(Controller::$EVENT_SITE)->group(function() {
