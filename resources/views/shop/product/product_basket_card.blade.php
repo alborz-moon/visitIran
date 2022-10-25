@@ -96,11 +96,7 @@
             </div>
         </div>
     <div class="product-seller--add-to-cart">
-<<<<<<< HEAD:resources/views/product/product_basket_card.blade.php
-        <a id="addto-basket" href="#" class="btn btn-primary backgroundColorBlue w-100" data-toast data-toast-type="success"
-=======
         <a onclick="addToBasket()" class="btn btn-primary backgroundColorBlue w-100" data-toast data-toast-type="success"
->>>>>>> 0ecac436464ddfef68290a7efd6be51acc1cb145:resources/views/shop/product/product_basket_card.blade.php
             data-toast-color="green" data-toast-position="topRight"
             data-toast-icon="ri-check-fill" data-toast-title="موفق!"
             data-toast-message="به سبد اضافه شد!">
@@ -147,13 +143,6 @@
         });
 
     });
-<<<<<<< HEAD:resources/views/product/product_basket_card.blade.php
-    $(document).ready(function() {
-                $("#addto-basket").on('click', function() {                    
-                    
-                });
-            });
-=======
 
     function addToBasket() {
         
@@ -176,5 +165,4 @@
         window.localStorage.setItem("basket", JSON.stringify(basket));
     }
 
->>>>>>> 0ecac436464ddfef68290a7efd6be51acc1cb145:resources/views/shop/product/product_basket_card.blade.php
 </script>
