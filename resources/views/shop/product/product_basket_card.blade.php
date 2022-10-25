@@ -96,7 +96,11 @@
             </div>
         </div>
     <div class="product-seller--add-to-cart">
+<<<<<<< HEAD:resources/views/product/product_basket_card.blade.php
         <a id="addto-basket" href="#" class="btn btn-primary backgroundColorBlue w-100" data-toast data-toast-type="success"
+=======
+        <a onclick="addToBasket()" class="btn btn-primary backgroundColorBlue w-100" data-toast data-toast-type="success"
+>>>>>>> 0ecac436464ddfef68290a7efd6be51acc1cb145:resources/views/shop/product/product_basket_card.blade.php
             data-toast-color="green" data-toast-position="topRight"
             data-toast-icon="ri-check-fill" data-toast-title="موفق!"
             data-toast-message="به سبد اضافه شد!">
@@ -111,6 +115,7 @@
     
     $(".countPlus").on('click', function() {
         
+        alert("sd");
         let now = Date.now();
 
         if(now - lastChange < 50)
@@ -142,9 +147,34 @@
         });
 
     });
+<<<<<<< HEAD:resources/views/product/product_basket_card.blade.php
     $(document).ready(function() {
                 $("#addto-basket").on('click', function() {                    
                     
                 });
             });
+=======
+
+    function addToBasket() {
+        
+        let basket = window.localStorage.getItem("basket");
+        if(basket === null || basket === undefined)
+            basket = [];
+
+        basket.push({
+            count: $("input[name='counter']").val(),
+            id: Date.now() + "_" + '{{ $product['id'] }}',
+            product_id: '{{ $product['id'] }}',
+            detail: {
+                'title': '{{ $product['name'] }}',
+                'img': '{{ $product['img'] }}',
+                'alt': '{{ $product['alt'] }}',
+                'href': '{{ url()->current() }}'
+            }
+        });
+
+        window.localStorage.setItem("basket", JSON.stringify(basket));
+    }
+
+>>>>>>> 0ecac436464ddfef68290a7efd6be51acc1cb145:resources/views/shop/product/product_basket_card.blade.php
 </script>
