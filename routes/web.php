@@ -57,6 +57,11 @@ Route::domain(Controller::$SHOP_SITE)->group(function() {
     Route::get('/product/{product}/{slug}', [ProductController::class, 'showDetail'])->name('single-product');
 
     Route::get('/list/{category}/{slug}', [CategoryController::class, 'show'])->name('single-category');
+
+    Route::get('/basket', function () {
+        return view('shop.basket');
+    })->name('cart');
+
 });
 
 Route::domain(Controller::$EVENT_SITE)->group(function() {
@@ -65,9 +70,6 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
 
 });
 
-Route::get('/cart', function () {
-    return view('cart');
-})->name('cart');
 
 Route::get('/cart-empty', function () {
     return view('cart-empty');

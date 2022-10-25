@@ -4,7 +4,11 @@
         <main class="page-content">
             <div class="container">
                 <div class="row">
-                    @include('shop.cart.items_cart')
+                    <div class="hidden" id="sample_full_basket_item">
+                        @include('shop.cart.items_cart')
+                    </div>
+                    <div id="full_basket_items" class="col-xl-9 col-lg-8">
+                    </div>
                     @include('shop.cart.basket_cart')
                 </div>
             </div>
@@ -19,13 +23,10 @@
     @parent
     <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
-@stop
 
-<script>
-    let basket = window.localStorage.getItem("basket");
-    if (basket === null || basket === undefined) {
-        return;
-    }
-    basket = JSON.parse(basket);
-    let prefix = "mini-cart-products";
-</script>
+    <script>
+        $(document).ready(function() {
+            renderBasket();
+        })
+    </script>
+@stop

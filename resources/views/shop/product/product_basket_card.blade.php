@@ -149,6 +149,8 @@
         let basket = window.localStorage.getItem("basket");
         if(basket === null || basket === undefined)
             basket = [];
+        else
+            basket = JSON.parse(basket);
 
         basket.push({
             count: $("input[name='counter']").val(),

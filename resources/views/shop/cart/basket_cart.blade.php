@@ -4,7 +4,7 @@
         <div class="checkout-bill ui-box bg-white mb-5">
             <div class="checkout-bill-row py-20">
                 <div class="checkout-bill-row-label fontSize15 bold colorText">تعداد کل کالا</div>
-                <div class="checkout-bill-row-value fontSize15 bold colorText"><span class="fs-6">کالا 4</span> 
+                <div class="checkout-bill-row-value fontSize15 bold colorText"><span id="full_basket_count_items" class="fs-6"></span> 
                 </div>
             </div>
             <hr>

@@ -4,7 +4,6 @@
             <a href="#"><img id="mini-cart-products-img" src="#" alt=""></a>
         </div>
         <div class="mini-cart-product-detail">
-            <div class="mini-cart-product-brand"><a id="mini-cart-products-brand" href="#">apple</a></div>
             <div class="mini-cart-product-title">
                 <a id="mini-cart-products-href">گوشی موبایل اپل مدل iPhone 13 A2634 دو
                     سیم‌ کارت ظرفیت 128
@@ -15,10 +14,13 @@
                     <span id="mini-cart-products-count" class="fa-num">1 عدد</span>
                     <span class="color" style="background-color: #d4d4d4;"></span>
                 </div>
-                <div id="mini-cart-products-price" class="mini-cart-product-price fa-num">26,249,000 <span
-                        class="currency">تومان</span></div>
+                
             </div>
-            <button class="mini-cart-product-remove"></button>
+            
+            <div id="mini-cart-products-price" class="mini-cart-product-price fa-num text-align-left">26,249,000 <span
+                class="currency">تومان</span></div>
+            <button id="mini-cart-products-remove-btn" class="mini-cart-product-remove"></button>
+
         </div>
     </div>
 </div>
