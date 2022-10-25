@@ -20,3 +20,12 @@
     <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
 @stop
+
+<script>
+    let basket = window.localStorage.getItem("basket");
+    if (basket === null || basket === undefined) {
+        return;
+    }
+    basket = JSON.parse(basket);
+    let prefix = "mini-cart-products";
+</script>
