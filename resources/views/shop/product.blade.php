@@ -179,14 +179,6 @@
                                     </div>
                                     <!-- end of params-list -->
                                 </div>
-                                {{-- <div class="expandable-text-expand-btn justify-content-start text-sm">
-                                    <span class="show-more active">
-                                        نمایش همه مشخصات کالا <i class="ri-arrow-down-s-line ms-2"></i>
-                                    </span>
-                                    <span class="show-less d-none">
-                                        فقط نمایش مشخصات کلی کالا <i class="ri-arrow-up-s-line ms-2"></i>
-                                    </span>
-                                </div> --}}
                             </div>
                         </div>
                         <!-- end of product-params -->
@@ -400,23 +392,47 @@
                 star += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
         }
         $(".rattingToStar").empty().append(star);
-        $('#commentNavLink').click(function(){
-             $('html, body').animate({
-                'scrollTop': $('#scrollspyHeading4').offset().top - 210
-            });
-        });
-        
-        $('#propertyNavLink').click(function(){
-             $('html, body').animate({
-                'scrollTop': $('#scrollspyHeading3').offset().top - 210
-            });
-        });
-        
-        $('#checkNavLink').click(function(){
-             $('html, body').animate({
-                'scrollTop': $('#scrollspyHeading1').offset().top - 210
-            });
-        });
+        $(document).ready(function(){
+            var width= $(document).width();
+            if (width < 768){
+                $('#commentNavLink').click(function(){
+                     $('html, body').animate({
+                        'scrollTop': $('#scrollspyHeading4').offset().top - 60
+                    });
+                });
+                
+                $('#propertyNavLink').click(function(){
+                     $('html, body').animate({
+                        'scrollTop': $('#scrollspyHeading3').offset().top - 60
+                    });
+                });
+                
+                $('#checkNavLink').click(function(){
+                     $('html, body').animate({
+                        'scrollTop': $('#scrollspyHeading1').offset().top - 60
+                    });
+                });
+                
+            }else{
+                $('#commentNavLink').click(function(){
+                     $('html, body').animate({
+                        'scrollTop': $('#scrollspyHeading4').offset().top - 210
+                    });
+                });
+
+                $('#propertyNavLink').click(function(){
+                     $('html, body').animate({
+                        'scrollTop': $('#scrollspyHeading3').offset().top - 210
+                    });
+                });
+
+                $('#checkNavLink').click(function(){
+                     $('html, body').animate({
+                        'scrollTop': $('#scrollspyHeading1').offset().top - 210
+                    });
+                });
+            } 
+        })
 });
 </script>
 

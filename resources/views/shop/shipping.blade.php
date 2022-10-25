@@ -3,7 +3,7 @@
         <main class="page-content">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-9 col-lg-8 mb-lg-0 mb-4">
+                    <div class="col-xl-9 col-lg-8 col-md-6 mb-lg-0 mb-4">
                         <!-- start of box => user-address-selected -->
                         <div class="ui-box bg-white user-address-selected mb-5">
                             <div class="ui-box-title">آدرس تحویل سفارش</div>

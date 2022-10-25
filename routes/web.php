@@ -110,9 +110,7 @@ Route::get('/contact-us', function () {
     return view('contact-us');
 })->name('contact-us');
 
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile');
+Route::view('profile', 'profile')->name('profile');
 
 Route::get('/404', function ($request) {
 	dd($request->getHost());

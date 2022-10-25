@@ -85,7 +85,7 @@
                     },
                     success: function(res) {
                         if(res.status === "ok") {
-                            document.location.href = '{{route('home')}}';
+                            document.location.href = '{{ route('come') }}';
                         }
                     }
                 });

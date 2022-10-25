@@ -1,4 +1,4 @@
-<div class="col-xl-3 col-lg-4">
+<div class="col-xl-3 col-lg-4 col-md-6">
     <div class="ui-sticky ui-sticky-top">
         <!-- start of checkout-bill -->
         <div class="checkout-bill ui-box bg-white mb-5">
