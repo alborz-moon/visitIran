@@ -117,7 +117,7 @@
         });
     });
 
-    $(".Minus").on('click', function() {
+    $(".countMinus").on('click', function() {
                 
         let now = Date.now();
 
