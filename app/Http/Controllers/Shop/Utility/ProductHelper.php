@@ -81,7 +81,7 @@ class ProductHelper extends Controller {
                 $filters->where('id', '<', 0);
             else {
                 if($parentCat->products()->count() > 0)
-                    $filters->where('category_id', $cat);
+                    $filters->where('category_id', $parentCat->id);
                 else {
                     $filters->where('is_in_top_list', true);
                     $catIds = self::get_all_subs_ids($parentCat);
