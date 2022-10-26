@@ -54,6 +54,10 @@ class User extends Authenticatable
         return $this->hasMany(Purchase::class);
     }
 
+    public function addresses() {
+        return $this->hasMany(Address::class);
+    }
+
     public function scopeActive($query) {
         return $query->where('status', '=', User::$ACTIVE);
     }

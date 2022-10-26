@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\commentResourceWithProduct;
 use App\Http\Resources\ProductDigestUser;
 use App\Models\Comment;
 use App\Models\Product;
@@ -14,8 +15,13 @@ class ProfileController extends Controller
         return view('shop.profile.profile-addresses');
     }
 
-    public function comments() {
-        return view('shop.profile.profile-comments');
+    public function comments(Request $request) {
+        $comments = commentResourceWithProduct::collection
+        (
+            Comment::where('user_id', $request->user()->id)->whereNotNull('msg')->get()
+        )->toArray($request);
+        dd($comments);
+        return view('shop.profile.profile-comments', compact('comments'));
     }
      
     public function favorites(Request $request) {
