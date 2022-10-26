@@ -4,11 +4,13 @@
         <main class="page-content">
             <div class="container">
                 <div class="row">
-
-                    <div class="hidden" id="sample_full_basket_item">
-                        @include('shop.cart.items_cart')
-                    </div>
-                    <div id="full_basket_items" class="col-xl-9 col-lg-8">
+                    <div class="col-xl-9 col-lg-8">
+                        @include('shop.layouts.process', ['step' => 'basket'])
+                        <div id="full_basket_items">
+                            <div class="hidden" id="sample_full_basket_item">
+                                @include('shop.cart.items_cart')
+                            </div>
+                        </div>
                     </div>
                     @include('shop.cart.basket_cart', ['nextUrl' => route('shipping')])
 

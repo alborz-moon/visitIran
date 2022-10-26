@@ -13,7 +13,7 @@
                         <div class="cart-item--thumbnail">
                             <a class="position-relative" href="#">
                                 <img id="full-basket-item-img">
-                                    <span id="full-basket-item-category" class="colorWhite customCartLabel fontSize11 position-absolute t-0 r-0"></span>
+                                <span id="full-basket-item-category" class="colorWhite customCartLabel fontSize11 position-absolute t-0 r-0"></span>
                             </a>
                         </div>
                         <div class="cart-item--detail">

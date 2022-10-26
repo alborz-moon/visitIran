@@ -12,7 +12,7 @@
                         اکنون می‌توانید به صفحه‌ای که در آن بودید بازگردید و یا با تکمیل اطلاعات حساب کاربری خود به کلیه
                         امکانات و سرویس‌ها و سرویس‌های وابسته به آن دسترسی داشته باشید
                     </div>
-                    <a href='{{ route('profile') }}' class="btn btn-block btn-primary mb-3"><i class="ri-user-6-fill me-2"></i> تکمیل حساب
+                    <a href='{{ route('profile.personal-info') }}' class="btn btn-block btn-primary mb-3"><i class="ri-user-6-fill me-2"></i> تکمیل حساب
                         کاربری</a>
                     <div class="text-center">
                         <a href='{{ route('home') }}' class="link">بازگشت به صفحه‌ای که در آن بودید</a>

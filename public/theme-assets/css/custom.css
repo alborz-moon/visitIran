@@ -714,6 +714,9 @@ ul {
     padding: 0px;
     margin-left: 10px;
 }
+.select2-container {
+    z-index: unset !important;
+}
 .product-gallery .gallery-img {
     padding: 0 !important;
     border-radius: 0;

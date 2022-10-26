@@ -5,6 +5,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xl-9 col-lg-8 col-md-6 mb-lg-0 mb-4">
+                        @include('shop.layouts.process', ['step' => 'payment'])
                         <div class="row">
                             <div class="col-xl-6 col-md-12">
                                 <!-- start of box => payment-methods -->
