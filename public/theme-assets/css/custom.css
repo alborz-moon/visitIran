@@ -703,7 +703,6 @@ ul {
 }
 .product-gallery {
     border: 1px solid #efefef;
-    border-radius: 20px;
     box-shadow: 0 3px 6px 0 #00000029;
 }
 .product-gallery .gallery-thumbs ul li img {
@@ -715,6 +714,22 @@ ul {
     padding: 0px;
     margin-left: 10px;
 }
+.product-gallery .gallery-img {
+    padding: 0 !important;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+}
+.product-gallery .gallery-img img {
+    max-width: 100%;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+}
 .customBoxShadowGallery {
     box-shadow: 0px 3px 6px 0px #00000029;
 }
@@ -724,7 +739,7 @@ ul {
 .product-gallery .gallery-thumbs ul li:last-child::before {
     content: "\EF78";
     font-family: remixicon;
-    content: "عکس بیشتر";
+    content: "مشاهده عکس ها";
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

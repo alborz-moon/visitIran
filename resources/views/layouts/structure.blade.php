@@ -158,7 +158,7 @@
                             </li>
                             <li class="nav-item align-self-center">
                             <div class="vertical-menu minWidthUnset">
-                            <a href="#" class="vertical-menu-btn p-0 m-0 colorWhite fontNormal"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt="">دسته بندی کالاها</a>
+                            <a class="vertical-menu-btn p-0 m-0 colorWhite fontNormal"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt="">دسته بندی کالاها</a>
                             <div class="vertical-menu-items marginFromRightHeaderNegative custom-vertical-menu-items zIndex2 mt-10">
                                 {{-- <ul id='menu'>
                                     <li class="mega-menu-category show">
@@ -224,7 +224,6 @@
                 </div>
             </div>
             <!-- end of page-header-top -->
-
         </header>
         <!-- end of page-header -->
         <header class="page-header-responsive d-md-none p-0">

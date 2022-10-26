@@ -37,7 +37,7 @@
                                 <div class="product-gallery">
                                     
                                     <div class="gallery-img-container">
-                                        <div class="gallery-img m-0" id="galleryMain">
+                                        <div class="gallery-img m-0 p-0" id="galleryMain">
                                             <img class="zoom-img b-0" src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />
                                         </div>
                                         <div class="gallery-thumbs overflowHidden">
