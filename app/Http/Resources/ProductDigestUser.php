@@ -52,7 +52,8 @@ class ProductDigestUser extends JsonResource
             'price' => number_format($this->price, 0),
             'off' => $off,
             'priceAfterOff' => number_format($priceAfterOff, 0),
-            'has_multi_color' => $multiColor
+            'has_multi_color' => $multiColor,
+            'href' => route('single-product', ['product' => $this->id, 'slug' => $this->slug == null ? $this->name : $this->slug])
         ];
     }
 }

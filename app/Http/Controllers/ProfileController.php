@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductDigestUser;
+use App\Models\Comment;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -15,8 +18,16 @@ class ProfileController extends Controller
         return view('shop.profile.profile-comments');
     }
      
-    public function favorites() {
-        return view('shop.profile.profile-favorites');
+    public function favorites(Request $request) {
+        
+        $products = ProductDigestUser::collection
+        (
+            Product::whereIn('id', 
+                Comment::where('user_id', $request->user()->id)->where('is_bookmark', true)->pluck('product_id')->toArray()
+            )->get()
+        )->toArray($request);
+        dd($products);
+        return view('shop.profile.profile-favorites', compact('products'));
     }
 
     public function myOrderDetail() {
