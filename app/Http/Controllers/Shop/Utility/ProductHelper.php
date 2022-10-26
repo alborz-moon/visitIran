@@ -76,13 +76,17 @@ class ProductHelper extends Controller {
             $filters->where('price', '<=', $maxPrice);
 
         if($parent != null) {
-            $filters->where('is_in_top_list', true);
             $parentCat = Category::whereId($parent)->first();
             if($parentCat == null)
                 $filters->where('id', '<', 0);
             else {
-                $catIds = self::get_all_subs_ids($parentCat);
-                $filters->whereIn('category_id', $catIds);
+                if($parentCat->products()->count() > 0)
+                    $filters->where('category_id', $parentCat->id);
+                else {
+                    $filters->where('is_in_top_list', true);
+                    $catIds = self::get_all_subs_ids($parentCat);
+                    $filters->whereIn('category_id', $catIds);
+                }
             }
         }
         
