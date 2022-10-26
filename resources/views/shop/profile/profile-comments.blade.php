@@ -5,11 +5,11 @@
             <div class="container">
                 <div class="row mb-5">
                     @include('shop.profile.layouts.profile_menu')
-                                        <div class="col-xl-9 col-lg-8 col-md-7">
+                    <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="ui-box bg-white mb-5">
                             <div class="ui-box-title">نظرات</div>
                             <div class="ui-box-content comments">
-                                <div class="row">
+                                <div class="row" id="profile-commnet">
                                     <div class="col-lg-6 mb-4">
                                         <div class="border rounded p-3">
                                             <a href="#" class="d-flex align-items-center link pb-3">
@@ -145,3 +145,21 @@
     <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
 @stop
+
+        <script>
+         $.ajax({
+             type: 'get',
+             url: '{{ route('api.slider') }}',
+             headers: {
+                 'accept': 'application/json'
+             },
+             success: function(res) {
+                 var html= "";
+                 if(res.status === "ok") {
+                     
+                        $("#slider").empty().append(html);
+                 }
+             }
+         });
+
+    </script>
