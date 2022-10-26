@@ -17,7 +17,18 @@
     <meta name="keywords" content="{{ $product['keywords'] }}" />
     {{-- <meta property="article:tag" content="{{ $product['tags'] }}"/> --}}
 
-    <script>var productPrefixRoute = '{{ route('home') }}' + "/product";</script>
+    <script>
+        let productPrefixRoute = '{{ route('home') }}' + "/product";
+        let finalAvailableCount = parseInt('{{ $product['available_count'] }}');
+        
+        let wantedCount = 1;
+        let lastChangeWantedCount = -1;
+        let wantedColor = undefined;
+        let wantedColorLabel = undefined;
+        let wantedFeature = undefined;
+        let finalPrice = '{{ $product['price'] }}';
+
+    </script>
 
 @stop
 
@@ -261,6 +272,8 @@
                                 html += '</div>';
 
                                 $("#product_options").empty().append(html);
+                                wantedColor = colors_labels[j];
+                                finalPrice = prices[j];
 
                                 $(".price").empty().append(prices[j]);
                                 $("#product-color-variant-selected").empty().append(colors_keys[j]);
@@ -358,14 +371,18 @@
             
 
             if($(this).attr('data-price') !== undefined) {
-                $(".price").empty().append($(this).attr('data-price'));
+                finalPrice = $(this).attr('data-price');
+                $(".price").empty().append(finalPrice);
             }
             else {
-                $("#availableCount").empty().append($(this).attr('data-count'));
+                finalAvailableCount = $(this).attr('data-count');
+                $("#availableCount").empty().append(finalAvailableCount);
             }
 
+            wantedColor = $(this).attr('data-label');
+
             let html = '<div class="product-option">';
-            html += '<span class="color" style="background-color: ' + $(this).attr('data-label') + ';"></span>';
+            html += '<span class="color" style="background-color: ' + wantedColor + ';"></span>';
             html += '<span class="color-label ms-2">' + $(this).attr('data-val') + '</span>';
             html += '</div>';
 

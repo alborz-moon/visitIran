@@ -95,55 +95,54 @@
             </div>
         </div>
     <div class="product-seller--add-to-cart">
-        <a onclick="addToBasket()" class="btn btn-primary backgroundColorBlue w-100" data-toast data-toast-type="success"
-            data-toast-color="green" data-toast-position="topRight"
-            data-toast-icon="ri-check-fill" data-toast-title="موفق!"
-            data-toast-message="به سبد اضافه شد!">
+        <a onclick="addToBasket()" class="btn btn-primary backgroundColorBlue w-100">
             افزودن به سبد خرید
         </a>
     </div>
 </div>
 <script>
-
-    var count = 1;
-    var lastChange = -1;
     
     $(".countPlus").on('click', function() {
 
         let now = Date.now();
 
-        if(now - lastChange < 50)
+        if(now - lastChangeWantedCount < 50)
             return;
 
-        lastChange = now;
+        lastChangeWantedCount = now;
         
-        count++;
+        wantedCount++;
         $("input[name='counter']").each(function() {
-            $(this).val(count);
+            $(this).val(wantedCount);
         });
     });
 
-    $(".countMinus").on('click', function() {
+    $(".Minus").on('click', function() {
                 
         let now = Date.now();
 
-        if(now - lastChange < 50)
+        if(now - lastChangeWantedCount < 50)
             return;
 
-        lastChange = now;
+        lastChangeWantedCount = now;
 
-        if(count == 1)
+        if(wantedCount == 1)
             return;
 
-        count--;
+        wantedCount--;
         $("input[name='counter']").each(function() {
-            $(this).val(count);
+            $(this).val(wantedCount);
         });
 
     });
 
     function addToBasket() {
         
+        if(finalAvailableCount !== -1 && wantedCount > finalAvailableCount) {
+            showErr("تعداد انتخابی از تعداد موجودی بیشتر است!");
+            return;
+        }
+
         let basket = window.localStorage.getItem("basket");
         if(basket === null || basket === undefined)
             basket = [];
@@ -151,18 +150,28 @@
             basket = JSON.parse(basket);
 
         basket.push({
-            count: $("input[name='counter']").val(),
+            count: wantedCount,
+            color: wantedColor,
+            colorLabel: wantedColorLabel,
             id: Date.now() + "_" + '{{ $product['id'] }}',
             product_id: '{{ $product['id'] }}',
             detail: {
                 'title': '{{ $product['name'] }}',
                 'img': '{{ $product['img'] }}',
                 'alt': '{{ $product['alt'] }}',
-                'href': '{{ url()->current() }}'
+                'href': '{{ url()->current() }}',
+                'price': '{{ $product['price'] }}',
+                'seller': '{{ $product['seller'] }}',
+                'category': '{{ $product['category'] }}',
+                'brand': '{{ $product['brand'] }}',
+                'guarantee': '{{ isset($product['guarantee']) ? $product['guarantee'] : null }}',
+                'off_type': '{{ isset($product['off']) ? $product['off']['type'] : null }}',
+                'off_value': '{{ isset($product['off']) ? $product['off']['value'] : null }}',
             }
         });
 
         window.localStorage.setItem("basket", JSON.stringify(basket));
+        showSuccess('به سبد اضافه شد!');
         refreshBasket();
     }
 
