@@ -146,20 +146,3 @@
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
 @stop
 
-        <script>
-         $.ajax({
-             type: 'get',
-             url: '{{ route('api.slider') }}',
-             headers: {
-                 'accept': 'application/json'
-             },
-             success: function(res) {
-                 var html= "";
-                 if(res.status === "ok") {
-                     
-                        $("#slider").empty().append(html);
-                 }
-             }
-         });
-
-    </script>

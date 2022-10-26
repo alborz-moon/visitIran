@@ -26,7 +26,7 @@ class ProfileController extends Controller
                 Comment::where('user_id', $request->user()->id)->where('is_bookmark', true)->pluck('product_id')->toArray()
             )->get()
         )->toArray($request);
-        dd($products);
+        // dd($products);
         return view('shop.profile.profile-favorites', compact('products'));
     }
 
