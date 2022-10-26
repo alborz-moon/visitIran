@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Shop;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CommentDigest;
 use App\Http\Resources\CommentResource;
+use App\Http\Resources\commentResourceWithProduct;
 use App\Http\Resources\CommentUserResource;
 use App\Models\Comment;
 use App\Models\Product;
@@ -87,6 +88,20 @@ class CommentController extends Controller
             'productName' => $product->name,
             'fromCreatedAtFilter' => $fromCreatedAt,
             'toCreatedAtFilter' => $toCreatedAt,
+        ]);
+    }
+
+
+
+    public function getMyComments(Request $request) {
+        $comments = commentResourceWithProduct::collection
+        (
+            Comment::where('user_id', $request->user()->id)->whereNotNull('msg')->get()
+        )->toArray($request);
+
+        return response()->json([
+            'status' => 'ok',
+            'data' => $comments
         ]);
     }
 

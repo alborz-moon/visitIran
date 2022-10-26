@@ -16,12 +16,14 @@ class ProfileController extends Controller
     }
 
     public function comments(Request $request) {
-        $comments = commentResourceWithProduct::collection
-        (
-            Comment::where('user_id', $request->user()->id)->whereNotNull('msg')->get()
-        )->toArray($request);
-        dd($comments);
-        return view('shop.profile.profile-comments', compact('comments'));
+        // $comments = commentResourceWithProduct::collection
+        // (
+        //     Comment::where('user_id', $request->user()->id)->whereNotNull('msg')->get()
+        // )->toArray($request);
+        // dd($comments);
+        // return view('shop.profile.profile-comments', compact('comments'));
+        
+        return view('shop.profile.profile-comments');
     }
      
     public function favorites(Request $request) {

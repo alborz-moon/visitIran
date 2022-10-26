@@ -34,6 +34,7 @@ Route::middleware(['myAuth'])->group(function() {
 
     });
     
+    Route::get('/getMyComments', [CommentController::class, 'list'])->name('api.comment.my');
 });
 
 ?>

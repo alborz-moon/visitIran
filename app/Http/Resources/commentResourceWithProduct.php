@@ -29,7 +29,7 @@ class commentResourceWithProduct extends JsonResource
             'rate' => $this->rate,
             'negative' => $negative,
             'positive' => $positive,
-            'product' => $product->title,
+            'product' => $product->name,
             'href' => route('single-product', ['product' => $product->id, 'slug' => $product->slug == null ? $product->name : $product->slug]),
             'created_at' => Controller::MiladyToShamsi($this->created_at)
         ];
