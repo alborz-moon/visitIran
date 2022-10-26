@@ -80,7 +80,7 @@ class ProductHelper extends Controller {
             if($parentCat == null)
                 $filters->where('id', '<', 0);
             else {
-                if($parentCat->products()->count > 0)
+                if($parentCat->products()->count() > 0)
                     $filters->where('category_id', $cat);
                 else {
                     $filters->where('is_in_top_list', true);
