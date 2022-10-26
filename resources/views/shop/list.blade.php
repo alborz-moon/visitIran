@@ -122,8 +122,8 @@
                                                     </li>
                                                     <li class="label fw-bold">تا</li>
                                                     <li>
-                                                        <input type="text" data-value="17700000" value="17700000"
-                                                            name="price[max]" data-range="17700000"
+                                                        <input type="text" data-value="2100000000" value="2100000000"
+                                                            name="price[max]" data-range="2100000000"
                                                             class="js-slider-range-to" id="skip-value-upper" disabled>
                                                         <span class="fontSize20 colorYellow">ت</span>
                                                     </li>
