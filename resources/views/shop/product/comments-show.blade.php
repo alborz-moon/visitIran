@@ -44,9 +44,7 @@
             'accept': 'application/json'
         },
         success: function(res) {
-            
             var html = "";
-            
             if(res.status === "ok") {
                 for(var i = 0; i < res.data.length; i++) {
                     let rate = res.data[i].rate;

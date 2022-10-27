@@ -27,9 +27,7 @@
     @parent
     <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
-@stop
-
-<script>
+    <script>
      $.ajax({
         type: 'get',
         url: '{{ route('api.comment.my') }}',
@@ -43,7 +41,7 @@
                     html +='<div class="col-lg-6 mb-4">';
                     html +='<div class="border rounded p-3">';
                     html +='<a href="#" class="d-flex align-items-center link pb-3">';
-                    html +='<img src="./theme-assets/images/carts/02.jpg" width="60" alt="">';
+                    html +='<img src="' + res.data[i].img + '" width="60" alt="">';
                     html +='<span class="fs-7 fw-bold"> و رم 4 گیگابایت</span>';
                     html +='</a>';
                     html +='<div class="comment">';
@@ -66,3 +64,5 @@
         }
      });
 </script>
+@stop
+
