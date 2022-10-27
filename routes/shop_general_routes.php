@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Shop\BlogController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\CategoryController;
@@ -35,6 +36,8 @@ Route::middleware(['myAuth'])->group(function() {
     });
     
     Route::get('/getMyComments', [CommentController::class, 'list'])->name('api.comment.my');
+    
+    Route::resource('/address', AddressController::class)->except('edit', 'show', 'create');
 });
 
 ?>
