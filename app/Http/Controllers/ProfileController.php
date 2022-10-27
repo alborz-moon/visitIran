@@ -15,27 +15,12 @@ class ProfileController extends Controller
         return view('shop.profile.profile-addresses');
     }
 
-    public function comments(Request $request) {
-        // $comments = commentResourceWithProduct::collection
-        // (
-        //     Comment::where('user_id', $request->user()->id)->whereNotNull('msg')->get()
-        // )->toArray($request);
-        // dd($comments);
-        // return view('shop.profile.profile-comments', compact('comments'));
-        
+    public function comments() {
         return view('shop.profile.profile-comments');
     }
      
     public function favorites(Request $request) {
-        
-        $products = ProductDigestUser::collection
-        (
-            Product::whereIn('id', 
-                Comment::where('user_id', $request->user()->id)->where('is_bookmark', true)->pluck('product_id')->toArray()
-            )->get()
-        )->toArray($request);
-        // dd($products);
-        return view('shop.profile.profile-favorites', compact('products'));
+        return view('shop.profile.profile-favorites');
     }
 
     public function myOrderDetail() {

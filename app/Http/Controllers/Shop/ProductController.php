@@ -595,4 +595,21 @@ class ProductController extends ProductHelper
 
         return response()->json(['status' => 'nok', 'msg' => 'خطا در حذف محصول موردنظر']);
     }
+
+    public function getMyBookmarks(Request $request) {
+
+        $products = ProductDigestUser::collection
+        (
+            Product::whereIn('id', 
+                Comment::where('user_id', $request->user()->id)->where('is_bookmark', true)->pluck('product_id')->toArray()
+            )->get()
+        )->toArray($request);
+
+        return response()->json(
+            [
+                'status' => 'ok',
+                'data' => $products
+            ]
+        );
+    }
 }

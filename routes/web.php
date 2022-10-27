@@ -68,31 +68,35 @@ Route::domain(Controller::$SHOP_SITE)->group(function() {
 
     Route::view('payment', 'shop.payment')->name('payment');
     
-    Route::prefix('profile')->group(function() {
-        
-        Route::get('/', [ProfileController::class, 'profile'])->name('profile.main');
+    Route::middleware(['myAuth'])->group(function() {
 
-        Route::get('/addresses', [ProfileController::class, 'addresses'])->name('profile.addresses');
+        Route::prefix('profile')->group(function() {
+            
+            Route::get('/', [ProfileController::class, 'profile'])->name('profile.main');
+
+            Route::get('/addresses', [ProfileController::class, 'addresses'])->name('profile.addresses');
+            
+            Route::get('/comments', [ProfileController::class, 'comments'])->name('profile.comments');
+            
+            Route::get('/favorites', [ProfileController::class, 'favorites'])->name('profile.favorites');
+                    
+            Route::get('/my-order-detail', [ProfileController::class, 'myOrderDetail'])->name('profile.my-order-detail');
+            
+            Route::get('/my-orders', [ProfileController::class, 'myOrders'])->name('profile.my-orders');
+            
+            Route::get('/notification', [ProfileController::class, 'notification'])->name('profile.notification');
+            
+            Route::get('/personal-info', [ProfileController::class, 'personalInfo'])->name('profile.personal-info');
+            
+            Route::get('/tickets-add', [ProfileController::class, 'ticketsAdd'])->name('profile.tickets-add');
+            
+            Route::get('/tickets-detail', [ProfileController::class, 'ticketsDetail'])->name('profile.tickets-detail');
+            
+            Route::get('/tickets', [ProfileController::class, 'tickets'])->name('profile.tickets');
+            
+            Route::get('/history', [ProfileController::class, 'history'])->name('profile.history');
+        });
         
-        Route::get('/comments', [ProfileController::class, 'comments'])->name('profile.comments');
-        
-        Route::get('/favorites', [ProfileController::class, 'favorites'])->name('profile.favorites');
-                
-        Route::get('/my-order-detail', [ProfileController::class, 'myOrderDetail'])->name('profile.my-order-detail');
-        
-        Route::get('/my-orders', [ProfileController::class, 'myOrders'])->name('profile.my-orders');
-        
-        Route::get('/notification', [ProfileController::class, 'notification'])->name('profile.notification');
-        
-        Route::get('/personal-info', [ProfileController::class, 'personalInfo'])->name('profile.personal-info');
-        
-        Route::get('/tickets-add', [ProfileController::class, 'ticketsAdd'])->name('profile.tickets-add');
-        
-        Route::get('/tickets-detail', [ProfileController::class, 'ticketsDetail'])->name('profile.tickets-detail');
-        
-        Route::get('/tickets', [ProfileController::class, 'tickets'])->name('profile.tickets');
-        
-        Route::get('/history', [ProfileController::class, 'history'])->name('profile.history');
     });
 
 });
