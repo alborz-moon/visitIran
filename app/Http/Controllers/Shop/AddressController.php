@@ -45,7 +45,15 @@ class AddressController extends Controller
             'address' => 'required|string|min:2',
         ];
 
-        
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator);
+
+        $request['user_id'] = $request->user()->id;
+        Address::create($request->toArray());
+
+        return response()->json(['status' => 'ok']);
     }
 
     /**
@@ -59,8 +67,23 @@ class AddressController extends Controller
     {
         if($request->user()->id != $address->user_id)
             abort(401);
-
         
+        $validator = [
+            'name' => 'required|string|min:2',
+            'x' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],             'long' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
+            'y' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],             'long' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
+            'recv_name' => 'required|string|min:2',
+            'recv_last_name' => 'required|string|min:2',
+            'recv_phone' => 'required|regex:/(09)[0-9]{9}/',
+            'city_id' => 'required|exists:cities,id',
+            'postal_code' => 'required|regex:/[1-9][0-9]{9}/',
+            'address' => 'required|string|min:2',
+        ];
+        
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator);
     }
 
     /**
@@ -73,7 +96,7 @@ class AddressController extends Controller
     public function destroy(Request $request, Address $address)
     {
         if($request->user()->id != $address->user_id)
-            abort(401);
+            return abort(401);
         
         $address->delete();
         return response()->json(['status' => 'ok']);

@@ -56,30 +56,40 @@
     @parent
     <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
+        
+    <script>
+        $.ajax({
+            type: 'get',
+            url: '{{ route('api.product.my') }}',
+            headers: {
+                'accept': 'application/json'
+            },
+            success: function(res) {
+                var html= "";
+                if(res.status === "ok") {
+                    for(var i = 0; i < res.data.length; i++) {
+                        html +='<div class="col-md-6 mb-3">';
+                        html +='<div class="product-list-item border-bottom pb-3">';
+                        html +='<div class="thumbnail">';
+                        html +='<a href="#"><img src="./theme-assets/images/carts/01.jpg" alt=""></a>';
+                        html +='</div>';
+                        html +='<div class="detail">';
+                        html +='<a href="#" class="title fs-7 fw-bold mb-2">هدفون بGalaxy</a>';
+                        html +='<div class="price fa-num">';
+                        html +='<span class="fw-bold">2,110,000</span>';
+                        html +='<span class="currency">تومان</span>';
+                        html +='</div>';
+                        html +='<div class="action">';
+                        html +='<a href="#" class="btn btn-circle btn-outline-light" data-remodal-target="remove-from-favorite-modal">';
+                        html +='<i class="ri-close-line"></i>';
+                        html +='</a>';
+                        html +='</div>';
+                        html +='</div>';
+                        html +='</div>';
+                        html +='</div>';
+                    }
+                }
+            }
+        });
+    </script>
 @stop
-
-<script>
-             if(res.status === "ok") {
-                 for(var i = 0; i < res.data.length; i++) {
-                    html +='<div class="col-md-6 mb-3">';
-                    html +='<div class="product-list-item border-bottom pb-3">';
-                    html +='<div class="thumbnail">';
-                    html +='<a href="#"><img src="./theme-assets/images/carts/01.jpg" alt=""></a>';
-                    html +='</div>';
-                    html +='<div class="detail">';
-                    html +='<a href="#" class="title fs-7 fw-bold mb-2">هدفون بGalaxy</a>';
-                    html +='<div class="price fa-num">';
-                    html +='<span class="fw-bold">2,110,000</span>';
-                    html +='<span class="currency">تومان</span>';
-                    html +='</div>';
-                    html +='<div class="action">';
-                    html +='<a href="#" class="btn btn-circle btn-outline-light" data-remodal-target="remove-from-favorite-modal">';
-                    html +='<i class="ri-close-line"></i>';
-                    html +='</a>';
-                    html +='</div>';
-                    html +='</div>';
-                    html +='</div>';
-                    html +='</div>';
-                 }
-             }
-</script>

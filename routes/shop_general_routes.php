@@ -37,6 +37,8 @@ Route::middleware(['myAuth'])->group(function() {
     
     Route::get('/getMyComments', [CommentController::class, 'getMyComments'])->name('api.comment.my');
     
+    Route::get('/getMyBookmarks', [ProductController::class, 'getMyBookmarks'])->name('api.product.my');
+    
     Route::resource('/address', AddressController::class)->except('edit', 'show', 'create');
 });
 
