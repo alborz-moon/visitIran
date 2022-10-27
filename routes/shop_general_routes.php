@@ -39,9 +39,11 @@ Route::middleware(['myAuth'])->group(function() {
     
     Route::get('/getMyBookmarks', [ProductController::class, 'getMyBookmarks'])->name('api.product.my');
     
-    Route::resource('address', AddressController::class)->except('edit', 'show', 'create', 'update');
+    Route::resource('address', AddressController::class)->only('store', 'index');
     
     Route::post('address/{address?}', [AddressController::class, 'update'])->name('address.update');
+
+    Route::delete('address/{address?}', [AddressController::class, 'destroy'])->name('address.destroy');
 
 });
 

@@ -600,6 +600,8 @@
     <script>
 
         //Edit route: route('address.update') + "/" + addressId
+        //delete route: route('address.destroy') + "/" + addressId
+        // notice: delete route ajax type should be delete
 
         function getCities(stateId) {
 

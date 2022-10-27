@@ -63,9 +63,9 @@ class AddressController extends Controller
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Address $address)
+    public function update(Request $request, Address $address = null)
     {
-        if($request->user()->id != $address->user_id)
+        if($address == null || $request->user()->id != $address->user_id)
             abort(401);
         
         $validator = [
@@ -104,9 +104,9 @@ class AddressController extends Controller
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Address $address)
+    public function destroy(Request $request, Address $address = null)
     {
-        if($request->user()->id != $address->user_id)
+        if($address == null || $request->user()->id != $address->user_id)
             return abort(401);
         
         $address->delete();
