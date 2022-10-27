@@ -35,7 +35,7 @@ Route::middleware(['myAuth'])->group(function() {
 
     });
     
-    Route::get('/getMyComments', [CommentController::class, 'list'])->name('api.comment.my');
+    Route::get('/getMyComments', [CommentController::class, 'getMyComments'])->name('api.comment.my');
     
     Route::resource('/address', AddressController::class)->except('edit', 'show', 'create');
 });

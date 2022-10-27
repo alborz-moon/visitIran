@@ -94,6 +94,7 @@ class CommentController extends Controller
 
 
     public function getMyComments(Request $request) {
+        
         $comments = commentResourceWithProduct::collection
         (
             Comment::where('user_id', $request->user()->id)->whereNotNull('msg')->get()
