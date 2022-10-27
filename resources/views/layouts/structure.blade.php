@@ -99,7 +99,7 @@
                                         <i class="icon-visit-person customHeader"></i>ورود / ثبت نام
                                     </a>
                                 @else
-                                    <a href="{{ route('profile') }}" class="user-option-btn user-option-btn--account gap10 btnHover textColor">
+                                    <a href="{{ route('profile.personal-info') }}" class="user-option-btn user-option-btn--account gap10 btnHover textColor">
                                         <i class="icon-visit-person customHeader"></i>صفحه شخصی
                                     </a>
                                     <div class="user-option--dropdown user-option--dropdown-right">
