@@ -2,24 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\commentResourceWithProduct;
-use App\Http\Resources\ProductDigestUser;
-use App\Models\Comment;
-use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Models\State;
 
 class ProfileController extends Controller
 {
     
     public function addresses() {
-        return view('shop.profile.profile-addresses');
+        $states = State::orderBy('name', 'asc')->get();
+        return view('shop.profile.profile-addresses', compact('states'));
     }
 
     public function comments() {
         return view('shop.profile.profile-comments');
     }
      
-    public function favorites(Request $request) {
+    public function favorites() {
         return view('shop.profile.profile-favorites');
     }
 

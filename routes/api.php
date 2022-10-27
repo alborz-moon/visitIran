@@ -40,6 +40,8 @@ Route::post('submitMail', [MailController::class, 'submitMail'])->name('api.subm
 
 Route::get('infobox', [InfoBoxController::class, 'list'])->name('api.infobox');
 
+Route::get('cities', [HomeController::class, 'getCities'])->name('api.cities');
+
 
 Route::post('login', [AuthController::class, 'signUp'])->name('api.login');
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Config;
+use App\Models\State;
 use Category;
 use Illuminate\Http\Request;
 
@@ -34,5 +35,18 @@ class HomeController extends Controller
             'status' => 'ok',
             'data' => Config::first()->desc_default
         ]);
+    }
+
+    public function getCities(Request $request) {
+        
+        $request->validate([
+            'state_id' => 'required|exists:mysql2.states,id'
+        ]);
+
+        return response()->json([
+            'status' => 'ok',
+            'data' => State::whereId($request['state_id'])->first()->cities()->orderBy('name', 'asc')->get()
+        ]);
+
     }
 }

@@ -340,15 +340,11 @@
                                         <!-- start of form-element -->
                                         <div class="form-element-row">
                                             <label class="label fs-7">استان</label>
-                                            <select class="select2" name="state02" id="state02">
+                                            <select onchange="getCities($(this).val())" class="select2" name="state02" id="state02">
                                                 <option value="0">انتخاب کنید</option>
-                                                <option value="0">خراسان شمالی</option>
-                                                <option value="0">خراسان رضوی</option>
-                                                <option value="0">تهران</option>
-                                                <option value="0">شیراز</option>
-                                                <option value="0">اصفهان</option>
-                                                <option value="0">تبریز</option>
-                                                <option value="0">مازندران</option>
+                                                @foreach ($states as $state)
+                                                    <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <!-- end of form-element -->
@@ -357,13 +353,7 @@
                                         <!-- start of form-element -->
                                         <div class="form-element-row">
                                             <label class="label fs-7">شهر</label>
-                                            <select class="select2" name="city02" id="city02">
-                                                <option value="0">انتخاب کنید</option>
-                                                <option value="0">بجنورد</option>
-                                                <option value="0">شیروان</option>
-                                                <option value="0">اسفراین</option>
-                                                <option value="0">فاروج</option>
-                                                <option value="0">گرمه</option>
+                                            <select onchange="submitAjax($(this).val())" class="select2" name="city02" id="city02">
                                             </select>
                                         </div>
                                         <!-- end of form-element -->
@@ -605,4 +595,77 @@
     @parent
     <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
+
+    <script>
+
+        //Edit route: route('address.update') + "/" + addressId
+
+        function getCities(stateId) {
+
+            if(stateId == 0) {
+                $("#city02").empty();
+                return;
+            }
+
+            $.ajax({
+                type: 'get',
+                url: '{{ route('api.cities') }}',
+                data: {
+                    state_id: stateId
+                },
+                success: function(res) {
+
+                    if(res.status !== 'ok') {
+                        $("#city02").empty();
+                        return;
+                    }
+
+                    let html = '<option value="0">انتخاب کنید</option>';
+                    res.data.forEach(elem => {
+                        html += '<option value="' + elem.id + '">' + elem.name + '</option>';
+                    });
+                    
+                    $("#city02").empty().append(html);
+                }
+            })
+
+        }
+
+        $(document).ready(function() {
+            $.ajax({
+                type: 'get',
+                url: '{{ route('address.index') }}',
+                headers: {
+                    'accept': 'application/json'
+                },
+                success: function(res) {
+                    console.log(res);
+                }
+            });
+        });
+
+        function submitAjax(cityId) {
+            
+            $.ajax({
+                type: 'post',
+                url: '{{ route('address.store') }}',
+                data: {
+                    x: 23.3,
+                    y: 43.44,
+                    name: 'خانه',
+                    postal_code: '1971932997',
+                    address: 'asdqwdqw',
+                    recv_name: 'asdwq',
+                    recv_last_name: 'sadwqeq',
+                    recv_phone: '09213234323',
+                    city_id: cityId,
+                },
+                success: function(res) {
+                    console.log(res);
+                }
+            });
+        }
+
+    </script>
+
 @stop
