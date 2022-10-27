@@ -340,7 +340,8 @@
                                         <!-- start of form-element -->
                                         <div class="form-element-row">
                                             <label class="label fs-7">استان</label>
-                                            <select onchange="getCities($(this).val())" class="select2" name="state02" id="state02">
+                                            {{-- onchange="getCities($(this).val())" --}}
+                                            <select class="select2" name="state02" id="state02">
                                                 <option value="0">انتخاب کنید</option>
                                                 @foreach ($states as $state)
                                                     <option value="{{ $state->id }}">{{ $state->name }}</option>
