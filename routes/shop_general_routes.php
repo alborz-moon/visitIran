@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AddressController;
+use App\Http\Controllers\Shop\AddressController;
 use App\Http\Controllers\Shop\BlogController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\CategoryController;
