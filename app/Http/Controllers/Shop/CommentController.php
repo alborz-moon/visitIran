@@ -50,7 +50,7 @@ class CommentController extends Controller
 
         if($rate != null && $rate)
             $comments = $comments->whereNotNull('rate');
-        else
+        else if($rate != null && !$rate)
             $comments = $comments->whereNull('rate');
 
         if($max != null)
@@ -72,7 +72,7 @@ class CommentController extends Controller
             $orderByType = $orderByType == null || $orderByType == 'desc' || $orderByType != 'asc' ? 'desc' : 'asc';
             $comments->orderBy($orderBy, $orderByType);
         }
-        
+
         $tmp = $comments->paginate(20);
 
         return view('admin.product.comments.list', [

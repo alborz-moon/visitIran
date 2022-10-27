@@ -38,7 +38,8 @@ class AuthController extends Controller
             }
         }
 
-        $rand = random_int(111111, 999999);
+        // $rand = random_int(111111, 999999);
+        $rand = 111111;
         $request['code'] = $rand;
         $request['vc_expired_at'] = Carbon::now()->addMinutes(2)->timestamp;
 

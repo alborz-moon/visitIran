@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AddressResource;
 use App\Models\Address;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,12 @@ class AddressController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
+        return response()->json(
+            [
+                'status' => 'ok',
+                'data' => AddressResource::collection($user->addresses)->toArray($request)
+            ]
+        );
     }
 
     /**
