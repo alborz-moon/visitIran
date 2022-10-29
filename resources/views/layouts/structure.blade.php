@@ -103,7 +103,7 @@
                                         <i class="icon-visit-person customHeader"></i>صفحه شخصی
                                     </a>
                                     <div class="user-option--dropdown user-option--dropdown-right">
-                                        <div class="profile-user-info ui-box">
+                                        <div class="profile-user-info ui-box customUiBox">
                                             <div class="profile-detail">
                                                 <div class="d-flex align-items-center">
                                                     <div class="profile-avatar me-3">

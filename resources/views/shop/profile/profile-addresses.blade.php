@@ -1,6 +1,10 @@
 
 @extends('layouts.structure')
 @section('content')
+        <script>
+            let mode = 'create';
+            let selectedAddrId;
+        </script>
         <main class="page-content">
             <div class="container">
                 <div class="row mb-5">

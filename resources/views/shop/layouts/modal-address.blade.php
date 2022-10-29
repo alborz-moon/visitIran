@@ -100,10 +100,21 @@
     </div>
 </div>
     <script>
-
-        //Edit route: route('address.update') + "/" + addressId
-        //delete route: route('address.destroy') + "/" + addressId
-        // notice: delete route ajax type should be delete
+        
+        function asd() {
+            alert("dqw");
+            $("#recv_name").val('');
+            $("#lastName").val('');
+            $("#name").val('');
+            $("#postalCode").val('');
+            $("#fullAddress").val('');
+            $("#phone").val('');
+            $("#state02").val('');
+            $("#city02").val('');
+            $("#x").val('');
+            $("#y").val('');
+            mode = 'create';
+        }
 
         function getCities(stateId, selectedCity=undefined) {
 
@@ -163,7 +174,7 @@
 
                 $.ajax({
                     type: 'post',
-                    url: '{{ route('address.store') }}',
+                    url: mode === 'create' ? '{{ route('address.store') }}' : '{{ route('address.update') }}' + '/' + selectedAddrId,
                     data: {
                         x: 23.3,
                         y: 43.44,

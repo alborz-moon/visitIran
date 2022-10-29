@@ -1,14 +1,11 @@
 <!-- start of user-address-items -->
-<div class="user-address-items">
+<div  class="user-address-items">
     <div class="d-flex" id="user-address-items"></div>
-    <!-- start of user-add-address-btn-container -->
-    <div class="user-address-item user-add-address-btn-container">
-        <button class="user-add-address-btn"
-            data-remodal-target="add-address-modal-fields-with-map">
-            <i class="ri-add-line icon"></i>
-            <span>آدرس جدید</span>
-        </button>
+    <div class="d-flex" id="newAddress">
+        
     </div>
+    <!-- start of user-add-address-btn-container -->
+    
     <!-- end of user-add-address-btn-container -->
 </div>
 <!-- end of user-address-items -->
@@ -43,6 +40,7 @@
             },
             success: function(res) {
                 var html = '';
+                var newAddress ='';
                 if(res.status == "ok") {
                     myAddresses = res.data;
                     for(var i = 0; i < res.data.length; i++) {
@@ -66,13 +64,17 @@
                     }
                     $("#user-address-items").empty().append(html);
                     
+                    // newAddress += '<div class="user-address-item hidden user-add-address-btn-container">';
+                    // newAddress += '<button onclick="asd()" id="asdqw" class="user-add-address-btn" data-remodal-target="add-address-modal-fields-with-map">';
+                    // newAddress += '<i class="ri-add-line icon"></i>';
+                    // newAddress += '<span>آدرس جدید</span>';
+                    // newAddress += '</button>';
+                    // newAddress += '</div>';
+                    //  $("#newAddress").append(newAddress);
                 }
             }
         });
-
-        let selectedAddrId;
         
-
         $(document).on('click', '#sure-delete', function() {
             $.ajax({
                 type: 'delete',
@@ -88,17 +90,15 @@
                 }
             });
         });
-
         $(document).on('click', '.remove-modal-address', function() {
             selectedAddrId = $(this).attr('data-id');
         });
-
         $(document).on('click', '.edit-modal-address', function() {
-            
-            let addrId = $(this).attr('data-id');
+            selectedAddrId = $(this).attr('data-id');
+            mode = 'edit;'
             // address.destroy
             let address = myAddresses.find((elem, index) => {
-                return elem.id == addrId;
+                return elem.id == selectedAddrId;
             });
             $("#recv_name").val(address.recv_name);
             $("#lastName").val(address.recv_last_name);
