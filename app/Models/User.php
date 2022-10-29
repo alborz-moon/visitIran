@@ -23,6 +23,10 @@ class User extends Authenticatable
     public static $ACCESS_SHOP = 'shop';
     public static $ACCESS_BOTH = 'both';
 
+
+    public static $PAYMENT_BACK_WALLET = 'WALLET';
+    public static $PAYMENT_BACK_ONLINE = 'ONLINE';
+
     public static $NOT_ACTIVATE = 'init';
     public static $ACTIVE = 'active';
 

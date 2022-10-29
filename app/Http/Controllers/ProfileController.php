@@ -3,10 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\State;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
     
+    public function editInfo(Request $request) {
+
+        $validator = [
+            'first_name' => 'nullable|string|min:2',
+            'last_name' => 'nullable|string|min:2',
+            'mail' => 'nullable|email',
+            'nid' => 'nullable|regex:/[0-9]{10}/',
+            'birth_day' => 'nullable|date',
+            'payment_back' => ['nullable', Rule::in([User::$PAYMENT_BACK_WALLET, User::$PAYMENT_BACK_ONLINE])],
+        ];
+
+        $request->validate($validator);
+
+        $user = $request->user();
+        // if($request->has('nid') && )
+
+    }
+
     public function addresses() {
         $states = State::orderBy('name', 'asc')->get();
         return view('shop.profile.profile-addresses', compact('states'));
