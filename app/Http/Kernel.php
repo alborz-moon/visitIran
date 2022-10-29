@@ -75,6 +75,7 @@ class Kernel extends HttpKernel
         'launcherLevel' => \App\Http\Middleware\LauncherAccess::class,
         'financeLevel' => \App\Http\Middleware\FinanceAccess::class,
         'active' => \App\Http\Middleware\ActiveAccount::class,
-        'myAuth' => \App\Http\Middleware\MyAuth::class
+        'myAuth' => \App\Http\Middleware\MyAuth::class,
+        'completeInfo' => \App\Http\Middleware\CheckCompleteInfo::class,
     ];
 }
