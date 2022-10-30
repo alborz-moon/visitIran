@@ -1192,6 +1192,11 @@ figure .ck-widget {
         max-width: 1500px !important;
     }
 } */
+@media (max-width: 576px) {
+    .listing-products .product-card {
+        display: block !important;
+    }
+}
 @media (max-width: 992px) {
     .checkout-bill {
         display: unset;
