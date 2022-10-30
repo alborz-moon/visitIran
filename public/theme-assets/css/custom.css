@@ -1182,7 +1182,7 @@ figure .ck-widget {
 /* .checkout-bill .checkout-bill-row .checkout-bill-row-label {
     color: #555a5d !important;
 } */
-@media (min-width: 1600px) {
+/* @media (min-width: 1600px) {
     .container,
     .container-lg,
     .container-md,
@@ -1191,7 +1191,7 @@ figure .ck-widget {
     .container-xxl {
         max-width: 1500px !important;
     }
-}
+} */
 @media (max-width: 992px) {
     .checkout-bill {
         display: unset;
