@@ -205,7 +205,7 @@
                                                         @endfor
                                                     </div>
 
-                                                    <div id="products_div" class="hidden p-0" style="display: flex; flex-wrap: wrap; gap: 0px;">
+                                                    <div id="products_div" class="hidden p-0" style="display: flex; flex-wrap: wrap; gap: 5px;">
                                                     </div>
 
                                                 </div>
@@ -312,7 +312,7 @@
                 </div>
             </div>
             <!-- start of quick-view-modal -->
-            <div class="remodal remodal-lg" data-remodal-id="quick-view-modal"
+            {{-- <div class="remodal remodal-lg" data-remodal-id="quick-view-modal"
                 data-remodal-options="hashTracking: false">
                 <div class="remodal-header">
                     <button data-remodal-action="close" class="remodal-close"></button>
@@ -503,7 +503,7 @@
                     <button data-remodal-action="cancel" class="btn btn-sm btn-outline-light px-3 me-2">بستن</button>
                     <a href="#" class="btn btn-sm btn-primary px-3">دیدن محصول</a>
                 </div>
-            </div>
+            </div> --}}
             <!-- end of quick-view-modal -->
         </main>
 @stop
@@ -746,7 +746,7 @@ $(".child input").on('click',function(){
                     id +
                     "', '" +
                     elem.slug +
-                    '\')" class="cursorPointer col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">' +
+                    '\')" class="cursorPointer">' +
                     newElem +
                     "</div>";
             });
