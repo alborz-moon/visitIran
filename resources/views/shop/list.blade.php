@@ -4,7 +4,7 @@
         <main class="page-content TopParentBannerMoveOnTop">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-3 responsive-sidebar">
+                    <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar">
                         {{-- @include('sections.top_categories_products') --}}
                         <div class="ui-sticky ui-sticky-top">
                             <div class="ui-box sidebar-widgets customFilter ">
@@ -162,7 +162,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-9 col-lg-9 col-md-9">
+                    <div class="col-xl-9 col-lg-9 col-md-8">
                         <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar">فیلتر پیشرفته
                             <i class="ri-equalizer-fill ms-1"></i></button>
                         <div class="listing-products">
@@ -746,7 +746,7 @@ $(".child input").on('click',function(){
                     id +
                     "', '" +
                     elem.slug +
-                    '\')" class="cursorPointer col-12 mb-4">' +
+                    '\')" class="cursorPointer mb-4">' +
                     newElem +
                     "</div>";
             });
