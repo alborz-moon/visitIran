@@ -420,7 +420,7 @@ ul {
     -ms-border-radius: 0;
     -o-border-radius: 0;
 }
-.overflowHidden {
+.overFlowHidden {
     overflow: hidden;
 }
 .noWrap {
@@ -556,8 +556,8 @@ ul {
     border: 1px solid #dedede;
     border-radius: 15px;
     box-shadow: 0 3px 6px 0px #00000029;
-    max-width: 235px !important;
-    min-width: 235px !important;
+    max-width: 250px !important;
+    min-width: 250px !important;
     height: 400px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
@@ -573,6 +573,18 @@ ul {
     background-image: url("../../theme-assets//images/color-circle.png");
     background-position: center;
     background-size: cover;
+}
+.cardBlog {
+    height: 400px;
+    background-color: white;
+    transition: 0.3s linear;
+    -webkit-transition: 0.3s cubic-bezier(0, 0, 0.14, 0.12);
+    -moz-transition: 0.3s linear;
+    -ms-transition: 0.3s linear;
+    -o-transition: 0.3s linear;
+}
+.cardBlog:hover {
+    box-shadow: 0 3px 6px 0px #00000029;
 }
 .customBorderBoxShadow:hover,
 .customBoxNews:hover {
@@ -1077,8 +1089,11 @@ figure .ck-widget {
     margin-top: 10px;
     height: 200px;
 }
-.p-32 {
-    padding: 15px;
+.pr-15 {
+    padding-right: 15px;
+}
+.lineHeight2 {
+    line-height: 2;
 }
 .title-line {
     height: 30px;

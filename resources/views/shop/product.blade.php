@@ -51,7 +51,7 @@
                                         <div class="gallery-img m-0 p-0" id="galleryMain">
                                             <img class="zoom-img b-0" src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />
                                         </div>
-                                        <div class="gallery-thumbs overflowHidden">
+                                        <div class="gallery-thumbs overFlowHidden">
                                             <ul id="gallery">
                                             </ul>
                                         </div>
@@ -134,7 +134,7 @@
                     <div class="col-xl-9 col-lg-8">
                         <div class="ui-sticky ui-sticky-top mb-4 StickyMenuMoveOnTop">
                             <!-- start of product-tabs -->
-                            <div class="product-tabs overflowHidden">
+                            <div class="product-tabs overFlowHidden">
                                 <ul class="nav nav-pills">
                                     <li id="checkNavLink" class="nav-item">
                                         <a  class="nav-link active" href="#scrollspyHeading1"

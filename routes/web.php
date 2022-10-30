@@ -66,6 +66,10 @@ Route::domain(Controller::$SHOP_SITE)->group(function() {
 
     Route::view('shipping', 'shop.shipping')->name('shipping');
 
+    Route::view('/blog',  'shop.blog')->name('blog');
+
+    Route::view('/blog-list',  'shop.blog-list')->name('blog-list');
+
     Route::view('payment', 'shop.payment')->name('payment');
     
     Route::middleware(['myAuth'])->group(function() {
@@ -95,6 +99,7 @@ Route::domain(Controller::$SHOP_SITE)->group(function() {
             Route::get('/tickets', [ProfileController::class, 'tickets'])->name('profile.tickets');
             
             Route::get('/history', [ProfileController::class, 'history'])->name('profile.history');
+
         });
         
     });

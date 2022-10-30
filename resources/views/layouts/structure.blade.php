@@ -160,43 +160,6 @@
                             <div class="vertical-menu minWidthUnset">
                             <a class="vertical-menu-btn p-0 m-0 colorWhite fontNormal"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt="">دسته بندی کالاها</a>
                             <div class="vertical-menu-items marginFromRightHeaderNegative custom-vertical-menu-items zIndex2 mt-10">
-                                {{-- <ul id='menu'>
-                                    <li class="mega-menu-category show">
-                                        <a href="#">صفحه های طراحی شده</a>
-                                        <ul class="mega-menu">
-                                            <li class="parent"><a class="colorBlue customBold" href="#">صفحه زده شده </a></li>
-                                            <li><a href="{{route('404')}}"">404</a></li>
-                                            <li><a href="{{route('cart-empty')}}">سبد خرید خالی</a></li>
-                                            <li><a href="{{route('checkout-successful')}}">خرید موفق</a></li>
-                                            <li><a href="{{route('checkout-unsuccessful')}}">سبد ناموفق</a></li>
-                                            <li><a href="{{route('come')}}">حوش آمد گویی</a></li>
-                                            <li><a href="{{route('contact-us')}}">تماس با ما</a></li>
-                                            <li><a href="{{route('home')}}">خانه</a></li>
-                                            <li><a href="{{route('login-register')}}">ورود / ثبت نام</a></li>
-                                            <li><a href="{{route('password-reset')}}">پسورد</a></li>
-                                            
-                                            <li><a href="{{route('profile')}}">پروفایل</a></li>
-                                            <li><a href="{{route('shop')}}">لیست محصول</a></li>
-                                            <li><a href="{{route('verification')}}">کد ارسالی ورفیکشن</a></li>
-                                            <li><a href="{{route('welcome')}}">صحفه اصلی</a></li>
-                                    </ul>
-                                    </li>
-                                    <li class="mega-menu-category">
-                                        <a href="#">دسته بندی محصولات</a>
-                                        <ul class="mega-menu">
-                                            <li class="parent"><a class="colorBlue customBold" href="#">فرش</a></li>
-                                            <li><a href="#">منسوجات</a></li>
-                                            <li><a href="#">منزل و دکوراسیون</a></li>
-                                            <li><a href="#">ابزار</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">فرش</a></li>
-                                    <li><a href="#">ابزار</a></li>
-                                    <li><a href="#">منزل و دکوراسیون</a></li>
-                                    <li><a href="#">منسوجات</a></li>
-                                    <li><a href="#">مینا کاری</a></li>
-                                    <li><a href="#">منبت کاری</a></li>
-                                </ul> --}}
                                 @include('layouts.menu')
                             </div>
                         </div>                            
