@@ -11,14 +11,14 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     
-    public static $EVENT_SITE = 'bogenstudio.at';
-    public static $SHOP_SITE = 'shop.bogenstudio.com';
+    // public static $EVENT_SITE = 'bogenstudio.at';
+    // public static $SHOP_SITE = 'shop.bogenstudio.com';
 
     // public static $EVENT_SITE = 'localevent.com';
     // public static $SHOP_SITE = 'localshop.com';
     
-    // public static $EVENT_SITE = 'myevent.com';
-    // public static $SHOP_SITE = 'myshop.com';
+    public static $EVENT_SITE = 'myevent.com';
+    public static $SHOP_SITE = 'myshop.com';
     
     public static function hasAnyExcept($expected, $real) {
 
@@ -26,7 +26,6 @@ class Controller extends BaseController
             if($itr !== '_token' && !in_array($itr, $expected))
                 return true;
         }
-
         return false;
     }
 
