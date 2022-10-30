@@ -746,7 +746,7 @@ $(".child input").on('click',function(){
                     id +
                     "', '" +
                     elem.slug +
-                    '\')" class="cursorPointer">' +
+                    '\')" class="cursorPointer col-12 mb-4">' +
                     newElem +
                     "</div>";
             });
