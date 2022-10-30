@@ -173,7 +173,7 @@
                                     <div class="tab-pane fade show active" id="most-visited" role="tabpanel"
                                         aria-labelledby="most-visited-tab">
                                         <div class="ui-box pt-3 pb-0 px-0 mb-4">
-                                            <div class="ui-box-content">
+                                            <div class="ui-box-content p-0">
                                                 <div class="row mx-0">
                                                     
                                                     <div id="sample_product_div" class="hidden">
@@ -205,7 +205,7 @@
                                                         @endfor
                                                     </div>
 
-                                                    <div id="products_div" class="hidden" style="display: flex; flex-wrap: wrap; gap: 0px;">
+                                                    <div id="products_div" class="hidden p-0" style="display: flex; flex-wrap: wrap; gap: 0px;">
                                                     </div>
 
                                                 </div>
