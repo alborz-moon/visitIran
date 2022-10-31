@@ -88,6 +88,7 @@
                             for(var i = 0; i < res.data.length; i++) {
                                 html += '<div class="col-lg-4 col-md-6 col-sm-12">';
                                 html += '<div class="cardBlog mb-4">';
+                                html += '<a href="' + res.data[i].href + '">';
                                 html += '<div class="d-flex">';
                                 html += '<a href="' + res.data[i].href + '" class="w-100 m-3">';
                                 html += '<img class="w-100 h-100" src="' + res.data[i].img + '" style="height:250px!important" alt="' + res.data[i].alt + '">';
@@ -98,9 +99,12 @@
                                 html += '<p>' + res.data[i].digest + '</p>';
                                 html += '</div>';
                                 html += '<div class="overFlowHidden mx-3 mb-3"><p>' + res.data[i].slug + '</p>';
-                                html += '</div>';
-                                html += '</div>';
-                                html += '</div>';
+                                    html += '</div>';
+                                    html += '</div>';
+                                    html += '</div>';
+                                    html += '<a href="' + res.data[i].href + '">';
+                                    html += '<div class="cursorPointer arrowLeftIcon positionAbsolute customArrowLeftIcon backGray customIconBottom12"><img src="src="{{ asset('theme-assets/images/svg/ionic-ios-arrow-round-back.svg') }}"></div>';
+                                    html += '</a>';
                             }
                         $("#blogList").empty().append(html);
                     }

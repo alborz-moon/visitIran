@@ -13,7 +13,6 @@
             <div class="swiper-wrapper">
                 @for($i = 0; $i < 5; $i++)
                     <!-- Slides -->
-                    <!-- Slides -->
                     <a href="#" class="cursorPointer">
                         <div class="swiper-slide customWidthBox">
                         <!-- start of product-card -->

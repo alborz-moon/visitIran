@@ -4,7 +4,7 @@
         <!-- start of product-card -->
         <div class="product-card customBoxNews">
             <div>
-                <a id="newsHref" href="#">
+                <a class="newsHref" href="#">
                     <img id="newsImg" class="customImgNews">
                 </a>
             </div>
@@ -20,9 +20,11 @@
                 </div>
             </div>
             <div class="product-card-footer d-flex justify-content-end">
+                <a class="newsHref" href="#"> 
                     <div class="cursorPointer arrowLeftIcon positionAbsolute customArrowLeftIcon backGray customIconBottom12">
                     <img src="{{ asset('theme-assets/images/svg/ionic-ios-arrow-round-back.svg') }}">
-                </div>
+                    </div>
+                </a>
             </div>
         </div>
         <!-- end of product-card -->
@@ -53,7 +55,7 @@
                 let data = res.data;
                 let html = '';
                 data.forEach(elem => {
-                    $("#newsHref").attr('href', elem.href);
+                    $(".newsHref").attr('href', elem.href);
                     $("#newsImg").attr('src', elem.img).attr('alt', elem.alt);
                     $("#newsHeader").text(elem.header);
                     $("#newsDigest").text(elem.digest);

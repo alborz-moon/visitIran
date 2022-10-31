@@ -1,4 +1,22 @@
 @extends('layouts.structure')
+@section('seo')
+    <title>غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال</title>
+    <meta property="og:title" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
+    <meta name="twitter:title" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
+    <meta property="og:site_name" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
+
+    
+    <meta property="og:image" content="{{ $blog['img'] }}"/>
+    <meta property="og:image:secure_url" content="{{ $blog['img'] }}"/>
+    <meta name="twitter:image" content="{{ $blog['img'] }}"/>
+    <meta property="og:description" content="{{ $blog['digest'] }}" />
+    <meta name="twitter:description" content="{{ $blog['digest'] }}" />
+    <meta name="description" content="{{ $blog['digest'] }}"/>
+
+    <meta name="keywords" content="{{ $blog['keywords'] }}" />
+    <meta property="article:tag" content="{{ $blog['article_tags'] }}"/>
+
+@stop
 @section('content')
             <main class="page-content">
             <div class="container">
@@ -11,7 +29,7 @@
                             </div>
                             <div class="d-flex spaceBetween overFlowHidden mx-3 mt-3">
                                 <p>{{ $blog['created_at'] }}</p>
-                                <p class="border px-4 py-1 borderRadius15"></p>
+                                <p class="border px-4 py-1 borderRadius15">{{ $blog['tags'] }}</p>
                             </div>
                             <hr>
                             <h3 class="my-5">{{ $blog['header'] }}</h3>
@@ -48,18 +66,18 @@
                 var html = '';
                 if(res.status === "ok") {
                     for(var i = 0; i < res.data.length; i++) {
-                        html += '<div class="container p-0 m-0 py-3">';
+                        html += '<a href="' + res.data[i].href + '"><div class="container p-0 m-0 py-3">';
                         html += '<div class="row p-0 m-0">';
                         html += '<div class="col-4 p-0 m-0">';
                         html += '<div><img class="w-100 h-100" src="' + res.data[i].img + '" alt="' + res.data[i].alt + '"></div>';
                         html += '</div>'
                         html += '<div class="col-8 p-0 m-0">';
-                        html += '<div style="height: 60px" class="d-flex justify-content-center align-items-center" >';
+                        html += '<div style="height: 60px" class="d-flex justify-content-start align-items-center" >';
                         html += '<h6  class="fontSize12 bold pr-15 overFlowHidden lineHeight2">' + res.data[i].header + '</h6>';
                         html += '</div>';
                         html += '</div>';
                         html += '</div>';
-                        html += '</div>';
+                        html += '</div></a>';
                         html += '<hr>';
                     }
                     $("#blogListInfo").empty().append(html);
