@@ -1,118 +1,107 @@
+
 @extends('layouts.structure')
 @section('content')
-            <main class="page-content">
+        <main class="page-content">
             <div class="container">
+                <!-- start of box => contact-us -->
                 <h3 class="mt-2 mb-5">اتاق خبر</h3>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-9 col-md-8 col-sm-12 mb-4">
-                            <div>
-                                <img class="w-100 h-100" src="https://wallpaperaccess.com/full/295829.jpg" alt="">
+                <div class="d-flex justifuy-content-spacebeween align-item-center mb-5">
+                    <select class="jet-select__control w-100 py-2 px-5" name="category">
+					    <option data-label="دسته‌بندی‌ها">دسته‌بندی‌ها</option>
+						<option data-label="اطلاع رسانی‌ها">اطلاع رسانی‌ها</option>
+						<option data-label="بیانیه‌های مطبوعاتی">بیانیه‌های مطبوعاتی</option>
+						<option data-label="جشنواره‌ها">جشنواره‌ها</option>
+						<option data-label="دیگر رسانه‌ها">دیگر رسانه‌ها</option>
+						<option data-label="راهنما‌ها">راهنما‌ها</optionvalue=>
+						<option data-label="رویداد‌ها">رویداد‌ها</option>
+						<option data-label="عمومی">عمومی</option>
+						<option data-label="کارآفرینان ایرانی">کارآفرینان ایرانی</option>
+						<option data-label="گزارش‌ها">گزارش‌ها</option>
+						<option data-label="گفتگوها">گفتگوها</option>
+						<option data-label="مسؤولیت‌های اجتماعی">مسؤولیت‌های اجتماعی</option>
+			        </select>
+                    <select id="orderBy" class="jet-sorting-select w-100 py-2 px-5" name="select-name">
+						<option value="-1">مرتب سازی</option>
+						<option value="header_asc">عنوان</option>
+						<option value="createdAt_desc">جدیدترین‌ها</option>
+						<option value="seen_desc">پربازدیدترین‌ها</option>
+					</select>
+               		<input class="jet-search-filter__input w-100 py-2 px-5 d-none d-lg-block" type="search" autocomplete="off" value="" placeholder="جست‌وجو بر اساس کلمات کلیدی">
+                </div>
+                    <div class="container mb-5">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="cardBlog mb-4">
+                                    <div class="d-flex">
+                                        <a class="w-100 m-3">
+                                            <img class="w-100 h-100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNicpQQAwnjSYPlBlCDUbfF1JbbZUMHZZOpQ&usqp=CAU" style="height:250px!important" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="overFlowHidden mx-3 mb-3" style="height: 60px">
+                                        <h6>
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                        </h6>
+                                    </div>
+                                    <div class="overFlowHidden mx-3 mb-3">
+                                        <p>تاریخ امروز 8 آبان</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="d-flex spaceBetween overFlowHidden mx-3 mt-3">
-                                <p>8 آبان 1401</p>
-                                <p class="border px-4 py-1 borderRadius15">8</p>
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="cardBlog mb-4">
+                                    <div class="d-flex">
+                                        <a class="w-100 m-3">
+                                            <img class="w-100 h-100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNicpQQAwnjSYPlBlCDUbfF1JbbZUMHZZOpQ&usqp=CAU" style="height:250px!important" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="overFlowHidden mx-3 mb-3" style="height: 60px">
+                                        <h6>
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                        </h6>
+                                    </div>
+                                    <div class="overFlowHidden mx-3 mb-3">
+                                        <p>تاریخ امروز 8 آبان</p>
+                                    </div>
+                                </div>
                             </div>
-                            <hr>
-                            <h3 class="my-5">تولد دوباره مشاغل محلی</h3>
-                            <p>کسب‌وکارهای کوچک و بزرگ بومی با ثبت نام در پلتفرم‌های آنلاین می‌توانند به بازار فروش برابر دسترسی داشته باشند
-
-تصور کنید! چشم‌تان را باز کرده‌اید و ربات‌های شخصی صبحانه‌ی شما را به‌تخت می‌آورند؛ تنها خمیازه کشیدن شما کافی است که حس‌گرها متوجه بیدار شدن، سلامت و بیماری و نیاز شما شوند؛ روایتی شاید نه چندان تخلیلی از دنیای علم. تا دو دهه‌ی آینده هوش مصنوعی، همه‌چیز را تغییر خواهد داد. اطلاعات یا همان داده‌ها منبع ضروری تحول در دنیای امروزی‌اند، همان‌طور که نیروی بخار پیش‌برنده‌ی قرن نوزدهم بود و نفت همین نقش را در قرن بیستم بازی می‌کرد و قرن بیست‌ویکم در دست اعجاز داده‌ها خواهد بود. داده‌ها می‌خواهند امور سخت را آسان کنند؛ چیزهای پرهزینه را ارزان کنند و برای فراوانی کمیاب‌ها، چاره‌اندیشی کنند. داده نوید بهشت نمی‌دهد، هوش مصنوعی فقر و مرگ‌ومیر را ریشه‌کن نمی‌کند، کلاشینکف‌ها زمین نمی‌نشینند اما همه‌چیز به کمک داده‎ها بهینه می‌شود و شاید همین‎جاست که امور بهتر شود. برای همین باید این گفته را دقیق‌تر و با تأمل بیش‌تری بتوانیم تکرار کنیم که اگر همه‌ی زنان و مردان جهان تلفن هوشمند داشته باشند، زندگی آن‌ها متحول خواهد شد. این سکانس اول این گزارش است. داستان داده‌ها، هوش مصنوعی، ربات‌ها و… را لحظه‌ای نگه دارید.</p>
-                            <h3 class="my-5">تولد دوباره مشاغل محلی</h3>
-                            <p>کسب‌وکارهای کوچک و بزرگ بومی با ثبت نام در پلتفرم‌های آنلاین می‌توانند به بازار فروش برابر دسترسی داشته باشند
-
-تصور کنید! چشم‌تان را باز کرده‌اید و ربات‌های شخصی صبحانه‌ی شما را به‌تخت می‌آورند؛ تنها خمیازه کشیدن شما کافی است که حس‌گرها متوجه بیدار شدن، سلامت و بیماری و نیاز شما شوند؛ روایتی شاید نه چندان تخلیلی از دنیای علم. تا دو دهه‌ی آینده هوش مصنوعی، همه‌چیز را تغییر خواهد داد. اطلاعات یا همان داده‌ها منبع ضروری تحول در دنیای امروزی‌اند، همان‌طور که نیروی بخار پیش‌برنده‌ی قرن نوزدهم بود و نفت همین نقش را در قرن بیستم بازی می‌کرد و قرن بیست‌ویکم در دست اعجاز داده‌ها خواهد بود. داده‌ها می‌خواهند امور سخت را آسان کنند؛ چیزهای پرهزینه را ارزان کنند و برای فراوانی کمیاب‌ها، چاره‌اندیشی کنند. داده نوید بهشت نمی‌دهد، هوش مصنوعی فقر و مرگ‌ومیر را ریشه‌کن نمی‌کند، کلاشینکف‌ها زمین نمی‌نشینند اما همه‌چیز به کمک داده‎ها بهینه می‌شود و شاید همین‎جاست که امور بهتر شود. برای همین باید این گفته را دقیق‌تر و با تأمل بیش‌تری بتوانیم تکرار کنیم که اگر همه‌ی زنان و مردان جهان تلفن هوشمند داشته باشند، زندگی آن‌ها متحول خواهد شد. این سکانس اول این گزارش است. داستان داده‌ها، هوش مصنوعی، ربات‌ها و… را لحظه‌ای نگه دارید.</p>
-                        
-                            <h3 class="my-5">تولد دوباره مشاغل محلی</h3>
-                            <p>کسب‌وکارهای کوچک و بزرگ بومی با ثبت نام در پلتفرم‌های آنلاین می‌توانند به بازار فروش برابر دسترسی داشته باشند
-
-تصور کنید! چشم‌تان را باز کرده‌اید و ربات‌های شخصی صبحانه‌ی شما را به‌تخت می‌آورند؛ تنها خمیازه کشیدن شما کافی است که حس‌گرها متوجه بیدار شدن، سلامت و بیماری و نیاز شما شوند؛ روایتی شاید نه چندان تخلیلی از دنیای علم. تا دو دهه‌ی آینده هوش مصنوعی، همه‌چیز را تغییر خواهد داد. اطلاعات یا همان داده‌ها منبع ضروری تحول در دنیای امروزی‌اند، همان‌طور که نیروی بخار پیش‌برنده‌ی قرن نوزدهم بود و نفت همین نقش را در قرن بیستم بازی می‌کرد و قرن بیست‌ویکم در دست اعجاز داده‌ها خواهد بود. داده‌ها می‌خواهند امور سخت را آسان کنند؛ چیزهای پرهزینه را ارزان کنند و برای فراوانی کمیاب‌ها، چاره‌اندیشی کنند. داده نوید بهشت نمی‌دهد، هوش مصنوعی فقر و مرگ‌ومیر را ریشه‌کن نمی‌کند، کلاشینکف‌ها زمین نمی‌نشینند اما همه‌چیز به کمک داده‎ها بهینه می‌شود و شاید همین‎جاست که امور بهتر شود. برای همین باید این گفته را دقیق‌تر و با تأمل بیش‌تری بتوانیم تکرار کنیم که اگر همه‌ی زنان و مردان جهان تلفن هوشمند داشته باشند، زندگی آن‌ها متحول خواهد شد. این سکانس اول این گزارش است. داستان داده‌ها، هوش مصنوعی، ربات‌ها و… را لحظه‌ای نگه دارید.</p>
-                        
-                        </div>
-                        <div class="col-lg-3 col-md-4 d-none d-md-block">
-                            <div style="position: sticky;top:150px">
-                                <div class="title mb-3">پر بازدیدترین‌ها</div>
-                                <hr>
-                                <div class="container p-0 m-0 py-3">
-                                    <div class="row p-0 m-0">
-                                        <div class="col-4 p-0 m-0">
-                                            <div>
-                                                <img class="w-100 h-100" src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col-8 p-0 m-0">
-                                            <div style="height: 60px" class="d-flex justify-content-center align-items-center" >
-                                                <h6  class="fontSize12 bold pr-15 overFlowHidden lineHeight2">برای فرصت‌های شغلی اقدام می‌کند.</h6>
-                                            </div>
-                                        </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="cardBlog mb-4">
+                                    <div class="d-flex">
+                                        <a class="w-100 m-3">
+                                            <img class="w-100 h-100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNicpQQAwnjSYPlBlCDUbfF1JbbZUMHZZOpQ&usqp=CAU" style="height:250px!important" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="overFlowHidden mx-3 mb-3" style="height: 60px">
+                                        <h6>
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                        </h6>
+                                    </div>
+                                    <div class="overFlowHidden mx-3 mb-3">
+                                        <p>تاریخ امروز 8 آبان</p>
                                     </div>
                                 </div>
-                                <hr>
-                                <div class="container p-0 m-0 py-3">
-                                    <div class="row p-0 m-0">
-                                        <div class="col-4 p-0 m-0">
-                                            <div>
-                                                <img class="w-100 h-100" src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col-8 p-0 m-0">
-                                            <div style="height: 60px" class="d-flex justify-content-center align-items-center" >
-                                                <h6  class="fontSize12 bold pr-15 overFlowHidden lineHeight2">برای فرصت‌های شغلی اقدام می‌کند.</h6>
-                                            </div>
-                                        </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="cardBlog mb-4">
+                                    <div class="d-flex">
+                                        <a class="w-100 m-3">
+                                            <img class="w-100 h-100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNicpQQAwnjSYPlBlCDUbfF1JbbZUMHZZOpQ&usqp=CAU" style="height:250px!important" alt="">
+                                        </a>
                                     </div>
-                                </div>
-                                <hr>
-                                <div class="container p-0 m-0 py-3">
-                                    <div class="row p-0 m-0">
-                                        <div class="col-4 p-0 m-0">
-                                            <div>
-                                                <img class="w-100 h-100" src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col-8 p-0 m-0">
-                                            <div style="height: 60px" class="d-flex justify-content-center align-items-center" >
-                                                <h6  class="fontSize12 bold pr-15 overFlowHidden lineHeight2">برای فرصت‌های شغلی اقدام می‌کند.</h6>
-                                            </div>
-                                        </div>
+                                    <div class="overFlowHidden mx-3 mb-3" style="height: 60px">
+                                        <h6>
+                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                        </h6>
                                     </div>
-                                </div>
-                                <hr>
-                                <div class="container p-0 m-0 py-3">
-                                    <div class="row p-0 m-0">
-                                        <div class="col-4 p-0 m-0">
-                                            <div>
-                                                <img class="w-100 h-100" src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col-8 p-0 m-0">
-                                            <div style="height: 60px" class="d-flex justify-content-center align-items-center" >
-                                                <h6  class="fontSize12 bold pr-15 overFlowHidden lineHeight2">برای فرصت‌های شغلی اقدام مsdfsdfs asdf asdf asdf asdf asd ی‌کند.</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="container p-0 m-0 py-3">
-                                    <div class="row p-0 m-0">
-                                        <div class="col-4 p-0 m-0">
-                                            <div>
-                                                <img class="w-100 h-100" src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col-8 p-0 m-0">
-                                            <div style="height: 60px" class="d-flex justify-content-center align-items-center" >
-                                                <h6  class="fontSize12 bold pr-15 overFlowHidden">برای فرصت‌های شغلی اقدام می‌کند.</h6>
-                                            </div>
-                                        </div>
+                                    <div class="overFlowHidden mx-3 mb-3">
+                                        <p>تاریخ امروز 8 آبان</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
-        </main
+        </main>
 @stop
 
 @section('footer')
@@ -123,4 +112,53 @@
     @parent
     <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
+
+    <script>
+        
+        $(document).ready(function() {
+
+            filter();
+
+            $("#orderBy").on('change', function() {
+               filter() ;
+            });
+
+            function buildQuery() {
+            
+                let query = new URLSearchParams();
+                
+                let orderBy = $("#orderBy").val();
+                    
+                if(orderBy != -1) {
+                    let s = orderBy.split('_');
+                    query.append('orderBy', s[0]);
+                    query.append('orderByType', s[1]);
+                }
+
+                return query;
+            }
+
+            $.ajax({
+                type: 'get',
+                url: '{{ route('api.blog.getDistinctTags') }}',
+                success: function(res) {
+                    console.log(res);
+                }
+            });
+
+            function filter() {
+                
+                $.ajax({
+                    type: 'get',
+                    url: '{{ route('api.blog.list') }}' + "?" + buildQuery(),
+                    success: function(res) {
+                        console.log(res);
+                    }
+                });
+
+            }
+        });
+
+    </script>
+
 @stop

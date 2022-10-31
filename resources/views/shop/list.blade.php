@@ -555,45 +555,45 @@ $(".child input").on('click',function(){
        if(status) parentinput.prop('checked',false);
   }
 });
-        function buildQuery() {
+    function buildQuery() {
+        
+        let query = new URLSearchParams();
+        query.append('parent', '{{ $id }}');
+        
+        // let brand = $("#brandFilter").val();
+        let off = $("#has_selling_offs").prop('checked') ? 1 : 0;
+        let min = $("#has_selling_stock").prop('checked') ? 1 : 0;
+        let minPrice = $("#skip-value-lower").val().replaceAll(",", "");
+        let maxPrice = $("#skip-value-upper").val().replaceAll(",", "");
+        let orderBy = $("#orderBy").val();
+
+        // if(brand !== 'all')
+        //     query.append('brand', brand);
             
-            let query = new URLSearchParams();
-            query.append('parent', '{{ $id }}');
-            
-            // let brand = $("#brandFilter").val();
-            let off = $("#has_selling_offs").prop('checked') ? 1 : 0;
-            let min = $("#has_selling_stock").prop('checked') ? 1 : 0;
-            let minPrice = $("#skip-value-lower").val().replaceAll(",", "");
-            let maxPrice = $("#skip-value-upper").val().replaceAll(",", "");
-            let orderBy = $("#orderBy").val();
+        if(min > 0)
+            query.append('min', min);
 
-            // if(brand !== 'all')
-            //     query.append('brand', brand);
-                
-            if(min > 0)
-                query.append('min', min);
+        if(minPrice !== '')
+            query.append('minPrice', minPrice);
 
-            if(minPrice !== '')
-                query.append('minPrice', minPrice);
+        if(maxPrice !== '')
+            query.append('maxPrice', maxPrice);
 
-            if(maxPrice !== '')
-                query.append('maxPrice', maxPrice);
+        if(off !== 0)
+            query.append('off', off);
 
-            if(off !== 0)
-                query.append('off', off);
-
-            if(orderBy === 'sell_count_desc') {
-                query.append('orderBy', 'sell_count');
-                query.append('orderByType', 'desc');
-            }
-            else {
-                let s = orderBy.split('_');
-                query.append('orderBy', s[0]);
-                query.append('orderByType', s[1]);
-            }
-
-            return query;
+        if(orderBy === 'sell_count_desc') {
+            query.append('orderBy', 'sell_count');
+            query.append('orderByType', 'desc');
         }
+        else {
+            let s = orderBy.split('_');
+            query.append('orderBy', s[0]);
+            query.append('orderByType', s[1]);
+        }
+
+        return query;
+    }
 
         $(document).ready(function() {
             filter();

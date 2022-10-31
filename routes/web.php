@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Shop\BlogController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -66,7 +67,7 @@ Route::domain(Controller::$SHOP_SITE)->group(function() {
 
     Route::view('shipping', 'shop.shipping')->name('shipping');
 
-    Route::view('/blog',  'shop.blog')->name('blog');
+    Route::get('/blog/{blog}/{slug}',  [BlogController::class, 'show'])->name('blog');
 
     Route::view('/blog-list',  'shop.blog-list')->name('blog-list');
 

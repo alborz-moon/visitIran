@@ -12,6 +12,8 @@ Route::get('blogs', [BlogController::class, 'list'])->name('api.blog.list');
 
 Route::get('blog/{blog?}', [BlogController::class, 'show'])->name('api.blog.show');
 
+Route::get('blogs/getDistinctTags', [BlogController::class, 'distinctTags'])->name('api.blog.getDistinctTags');
+
 Route::get('product/{product?}', [ProductController::class, 'show'])->name('api.product.show');
 
 Route::get('products', [ProductController::class, 'list'])->name('api.product.list');
