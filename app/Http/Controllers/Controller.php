@@ -14,11 +14,11 @@ class Controller extends BaseController
     // public static $EVENT_SITE = 'bogenstudio.at';
     // public static $SHOP_SITE = 'shop.bogenstudio.com';
 
-    // public static $EVENT_SITE = 'localevent.com';
-    // public static $SHOP_SITE = 'localshop.com';
+    public static $EVENT_SITE = 'localevent.com';
+    public static $SHOP_SITE = 'localshop.com';
     
-    public static $EVENT_SITE = 'myevent.com';
-    public static $SHOP_SITE = 'myshop.com';
+    // public static $EVENT_SITE = 'myevent.com';
+    // public static $SHOP_SITE = 'myshop.com';
     
     public static function hasAnyExcept($expected, $real) {
 
@@ -46,6 +46,16 @@ class Controller extends BaseController
         return false;
     }
     
+    public static function getPersianDate($date){
+
+        include_once 'jdate.php';
+        $e = '';
+        $e .= jdate('d', '', $date->timestamp) . ' ';
+        $e .= jdate('F', '', $date->timestamp) . ' ';
+        $e .= jdate('Y', '', $date->timestamp);
+        return $e;
+    }
+
     public static function MiladyToShamsi($date){
         include_once 'jdate.php';
         $date = explode(' ', $date);

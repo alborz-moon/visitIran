@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BlogResource extends JsonResource
@@ -26,7 +27,8 @@ class BlogResource extends JsonResource
             'tags' => $this->tags,
             'article_tags' => $this->article_tags,
             'alt' => $this->alt,
-            'slug' => $this->slug
+            'slug' => $this->slug,
+            'created_at' => Controller::getPersianDate($this->created_at)
         ];
     }
 }

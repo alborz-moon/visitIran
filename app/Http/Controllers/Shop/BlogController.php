@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Shop;
 
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\Shop\Utility\BlogHelper;
 use App\Http\Resources\BlogDigest;
 use App\Http\Resources\BlogDigestUser;
