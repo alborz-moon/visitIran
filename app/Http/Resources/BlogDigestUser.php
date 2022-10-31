@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BlogDigestUser extends JsonResource
@@ -25,6 +26,7 @@ class BlogDigestUser extends JsonResource
                 $this->slug == null ? $this->header : $this->slug]
             ),
             'slug' => $this->slug == null ? $this->header : $this->slug,
+            'created_at' => Controller::getPersianDate($this->created_at)
         ];
     }
 }
