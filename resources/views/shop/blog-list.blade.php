@@ -1,4 +1,3 @@
-
 @extends('layouts.structure')
 @section('content')
         <main class="page-content">
@@ -68,9 +67,7 @@
                 type: 'get',
                 url: '{{ route('api.blog.getDistinctTags') }}',
                 success: function(res) {
-
                     var option = '<option value="-1">دسته بندی</option>';
-
                     if(res.status === "ok") {
 
                         for(var i = 0; i < res.tags.length; i++)
@@ -86,7 +83,6 @@
                     type: 'get',
                     url: '{{ route('api.blog.list') }}' + "?" + buildQuery(),
                     success: function(res) {
-                        console.log(res);
                         var html = '';
                         if(res.status === "ok") {
                             for(var i = 0; i < res.data.length; i++) {
