@@ -37,8 +37,10 @@
         
         $(document).ready(function() {
 
-            filter();
-
+            // filter();
+            $("#setDistinctTags").on('change', function() {
+               filter() ;
+            });
             $("#orderBy").on('change', function() {
                filter() ;
             });
@@ -48,15 +50,27 @@
                 let query = new URLSearchParams();
                 
                 let orderBy = $("#orderBy").val();
-                    
+                let setDistinctTags =('#setDistinctTags').val()    
+                if (setDistinctTags === '')
                 if(orderBy != -1) {
                     let s = orderBy.split('_');
                     query.append('orderBy', s[0]);
                     query.append('orderByType', s[1]);
                 }
+                if(orderBy === 'header_asc') {
+                    query.append('orderBy', 'header');
+                    query.append('orderByType', 'asc');
+                }
+                if(orderBy === 'createdAt_desc') {
+                    query.append('orderBy', 'createdAt');
+                    query.append('orderByType', 'desc');
+                }
+                if(orderBy === 'seen_desc') {
+                    query.append('orderBy', 'seen');
+                    query.append('orderByType', 'desc');
+                }    
                 return query;
             }
-
             $.ajax({
                 type: 'get',
                 url: '{{ route('api.blog.getDistinctTags') }}',
