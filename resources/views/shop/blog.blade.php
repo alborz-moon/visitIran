@@ -46,9 +46,6 @@
             url: '{{ route('api.blog.list') }}',
             success: function(res) {
                 var html = '';
-                console.log('====================================');
-                console.log(res);
-                console.log('====================================');
                 if(res.status === "ok") {
                     for(var i = 0; i < res.data.length; i++) {
                         html += '<div class="container p-0 m-0 py-3">';
@@ -58,14 +55,14 @@
                         html += '</div>'
                         html += '<div class="col-8 p-0 m-0">';
                         html += '<div style="height: 60px" class="d-flex justify-content-center align-items-center" >';
-                        html += '<h6  class="fontSize12 bold pr-15 overFlowHidden lineHeight2">' + res.data[i].digest + '</h6>';
+                        html += '<h6  class="fontSize12 bold pr-15 overFlowHidden lineHeight2">' + res.data[i].header + '</h6>';
                         html += '</div>';
                         html += '</div>';
                         html += '</div>';
                         html += '</div>';
                         html += '<hr>';
                     }
-                $("#blogListInfo").empty().append(html);
+                    $("#blogListInfo").empty().append(html);
                 }
             }
                 });

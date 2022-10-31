@@ -95,10 +95,10 @@
                                 html += '</div>';
                                 html += '<div class="overFlowHidden mx-3 mb-3" style="height: 60px">';
                                 html += '<h6>' + res.data[i].header + '</h6>';
-                                // html += '<p>' + res.data[i].digest + '</p>';
+                                html += '<p>' + res.data[i].digest + '</p>';
                                 html += '</div>';
-                                // html += '<div class="overFlowHidden mx-3 mb-3"><p>' + res.data[i].slug + '</p>';
-                                // html += '</div>';
+                                html += '<div class="overFlowHidden mx-3 mb-3"><p>' + res.data[i].slug + '</p>';
+                                html += '</div>';
                                 html += '</div>';
                                 html += '</div>';
                             }
