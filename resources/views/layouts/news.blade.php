@@ -53,7 +53,7 @@
                 let data = res.data;
                 let html = '';
                 data.forEach(elem => {
-                    $("#newsHref").attr('href', '{{ route('api.blog.show') }}' + '/' + elem.id);
+                    $("#newsHref").attr('href', elem.href);
                     $("#newsImg").attr('src', elem.img).attr('alt', elem.alt);
                     $("#newsHeader").text(elem.header);
                     $("#newsDigest").text(elem.digest);
