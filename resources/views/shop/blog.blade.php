@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-lg-3 col-md-4 d-none d-md-block">
                             <div style="position: sticky;top:150px">
-                                <div class="title mb-3">پر بازدیدترین‌ها</div>
+                                <div class="title mb-3">تازه ترین ها</div>
                                 <hr>
                                 <div id="blogListInfo">
 
