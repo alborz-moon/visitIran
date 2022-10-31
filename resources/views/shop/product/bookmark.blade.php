@@ -6,36 +6,7 @@
     @endif
     <button data-remodal-target="share-modal" class="ri-stackshare-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
 </span>
-<div class="remodal remodal-xs remodal-is-initialized remodal-is-opened" data-remodal-id="share-modal" data-remodal-options="hashTracking: false" tabindex="-1">
-    <div class="remodal-header">
-        <div class="remodal-title">اشتراک‌گذاری</div>
-        <button data-remodal-action="close" class="remodal-close"></button>
-    </div>
-    <div class="remodal-content">
-        <div class="text-muted fs-7 fw-bold mb-3">
-            با استفاده از روش‌های زیر می‌توانید این صفحه را با دوستان خود به اشتراک بگذارید.
-        </div>
-        <div class="d-flex align-items-center border-top border-bottom py-3 mb-3">
-            <div class="widget flex-grow-1 border-0 p-0 me-2">
-                <div class="widget-content widget-socials">
-                    <ul  class="align-items-center">
-                        <li>
-                            <a id="whatsapp" href="#" class="d-inline-flex share-link"><i class="ri-whatsapp-fill"></i></a>
-                        </li>
-                        <li>
-                            <a id="telegram" class="d-inline-flex share-link-telegram"><i class="ri-telegram-fill"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" class="d-inline-flex share-link"><i class="ri-instagram-fill"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="btn btn-sm btn-primary copy-url-btn clipboard" data-copy="">کپی لینک
-            </div> 
-        </div>
-    </div>
-</div>
+
 
 <script>
 var $temp = $("<input>");
