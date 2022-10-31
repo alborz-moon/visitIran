@@ -79,8 +79,10 @@ class ProfileController extends Controller
     }
     
     
-    public function personalInfo() {
-        return view('shop.profile.profile-personal-info');
+    public function personalInfo(Request $request) {
+        return view('shop.profile.profile-personal-info', [
+            'user' => $request->user()
+        ]);
     }
 
     public function ticketsAdd() {

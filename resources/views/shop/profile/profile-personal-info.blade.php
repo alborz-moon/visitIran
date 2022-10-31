@@ -1,5 +1,5 @@
-
 @extends('layouts.structure')
+
 @section('content')
         <main class="page-content">
             <div class="container">
@@ -18,7 +18,7 @@
                                                     data-remodal-target="personal-info-fullname-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
-                                            <div class="fs-6 fw-bold text-muted">جلال بهرامی راد</div>
+                                            <div class="fs-6 fw-bold text-muted">{{ $user->first_name . ' ' . $user->last_name }}</div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -51,7 +51,7 @@
                                                     data-remodal-target="personal-info-email-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
-                                            <div class="fs-6 fw-bold text-muted">example@example.com</div>
+                                            <div class="fs-6 fw-bold text-muted">{{ $user->mail }}</div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -76,7 +76,7 @@
                                             <div class="fs-6 fw-bold text-muted">-</div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+                                    {{-- <div class="col-lg-6 mb-3">
                                         <div class="border-bottom py-2">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <div class="fs-7 fw-bold text-dark">رمز عبور</div>
@@ -86,7 +86,12 @@
                                             </div>
                                             <div class="fs-6 fw-bold text-muted">-</div>
                                         </div>
+                                    </div> --}}
+                                    
+                                    <div>
+                                        <button onclick="submit()" class="btn btn-sm btn-primary px-3">ثبت</button>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -103,11 +108,11 @@
                 <div class="remodal-content">
                     <div class="form-element-row mb-3">
                         <label class="label fs-7">نام</label>
-                        <input type="text" class="form-control" placeholder="نام">
+                        <input id="first_name" value="{{ $user->first_name }}" type="text" class="form-control" placeholder="نام">
                     </div>
                     <div class="form-element-row">
                         <label class="label fs-7">نام خانوادگی</label>
-                        <input type="text" class="form-control" placeholder="نام خانوادگی">
+                        <input id="last_name" value="{{ $user->last_name }}" type="text" class="form-control" placeholder="نام خانوادگی">
                     </div>
                 </div>
                 <div class="remodal-footer">
@@ -287,8 +292,10 @@
                 <div class="remodal-footer">
                     <button class="btn btn-sm btn-primary px-3">ثبت</button>
                 </div>
+                
             </div>
             <!-- end of personal-info-change-password-modal -->
+
         </main>
         
 @stop
@@ -301,4 +308,23 @@
     @parent
     <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
+
+    <script>
+
+        function submit() {
+            $.ajax({
+                type: 'post',
+                url: '{{ route('api.editInfo') }}',
+                data: {
+                    'first_name': $('#first_name').val(),
+                    'last_name': $('#last_name').val(),
+                },
+                success: function(res) {
+                    if(res.status === 'ok')
+                        showSuccess('عملیات موردنظر باموفقیت انجام شد.');
+                }
+            })
+        }
+
+    </script>
 @stop

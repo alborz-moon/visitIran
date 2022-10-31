@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\InfoBoxController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,9 @@ Route::post('submitMail', [MailController::class, 'submitMail'])->name('api.subm
 Route::get('infobox', [InfoBoxController::class, 'list'])->name('api.infobox');
 
 Route::get('cities', [HomeController::class, 'getCities'])->name('api.cities');
+
+
+Route::post('editInfo', [ProfileController::class, 'editInfo'])->name('api.editInfo');
 
 
 Route::post('login', [AuthController::class, 'signUp'])->name('api.login');

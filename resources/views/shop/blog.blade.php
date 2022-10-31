@@ -10,7 +10,7 @@
                                 <img class="w-100 h-100" src="{{ $blog['img'] }}" alt="{{ $blog['alt'] }}">
                             </div>
                             <div class="d-flex spaceBetween overFlowHidden mx-3 mt-3">
-                                <p></p>
+                                <p>{{ $blog['created_at'] }}</p>
                                 <p class="border px-4 py-1 borderRadius15"></p>
                             </div>
                             <hr>
