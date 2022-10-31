@@ -24,8 +24,33 @@ class ProfileController extends Controller
         $request->validate($validator);
 
         $user = $request->user();
-        // if($request->has('nid') && )
 
+        if($request->has('nid') && $request['nid'] != $user->nid) {
+            if(User::where('nid', $request['nid'])->count() > 0)
+                return response()->json([
+                    'status' => 'nok',
+                    'msg' => 'کد ملی وارد شده در سیستم موجود است'
+                ]);
+        }
+        
+        if($request->has('mail') && $request['mail'] != $user->nid) {
+            if(User::where('mail', $request['mail'])->count() > 0)
+                return response()->json([
+                    'status' => 'nok',
+                    'msg' => 'ایمیل وارد شده در سیستم موجود است'
+                ]);
+        }
+
+        foreach($request->keys() as $key) {
+            
+            if($key == '_token')
+                continue;
+
+            $user[$key] = $request[$key];
+        }
+
+        $user->save();
+        return response()->json(['status' => 'ok']);
     }
 
     public function addresses() {
