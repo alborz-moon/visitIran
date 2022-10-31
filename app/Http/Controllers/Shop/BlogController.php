@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Shop\Utility\BlogHelper;
 use App\Http\Resources\BlogDigest;
 use App\Http\Resources\BlogDigestUser;
 use App\Http\Resources\BlogResource;
 use App\Imports\BlogImport;
 use App\Models\Blog;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
-class BlogController extends Controller
+class BlogController extends BlogHelper
 {
     /**
      * Display a listing of the resource.
@@ -21,23 +21,11 @@ class BlogController extends Controller
      */
     public function index(Request $request)
     {
-        
-        if($request->user() != null && 
-            (
-                $request->user()->level == User::$ADMIN_LEVEL ||
-                $request->user()->level == User::$EDITOR_LEVEL 
-            )
-        ) {
-            return view('admin.blogs.list', [
-                'items' => BlogDigest::collection(Blog::all())->toArray($request)
-            ]);
-        }
-
-        return response()->json([
-            'status' => 'ok',
-            'data' => BlogDigestUser::collection(Blog::orderBy('priority', 'asc')->take(6)->get())->toArray($request)
+        return view('admin.blogs.list', [
+            'items' => BlogDigest::collection(Blog::all())->toArray($request)
         ]);
     }
+
 
     /**
      * Display a listing of the resource.
@@ -46,9 +34,11 @@ class BlogController extends Controller
      */
     public function list(Request $request)
     {
+        $filter = self::build_filters($request, true);
+
         return response()->json([
             'status' => 'ok',
-            'data' => BlogDigestUser::collection(Blog::orderBy('priority', 'asc')->take(6)->get())->toArray($request)
+            'data' => BlogDigestUser::collection($filter->get())->toArray($request)
         ]);
     }
 
@@ -197,16 +187,43 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Blog $blog = null)
+    public function show(Blog $blog, string $slug, Request $request)
     {
-        if($blog == null)
-            abort(401);
+        if(!$blog->visibility || 
+            ($slug !== $blog->header && $slug !== $blog->slug)
+        )
+            return Redirect::route('403');
+
+        return view('shop.blog', [
+            'blog' => BlogResource::make($blog)->toArray($request)
+        ]);
+    }
+
+    
+    /**
+     * Show the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function distinctTags()
+    {
+        $blogs = Blog::visible()->select('tags')->get();
+        $distinctTags = [];
+
+        foreach($blogs as $blog) {
+            $tags = explode(',', $blog->tags);
+            foreach($tags as $tag) {
+                if(!empty($tag) && !in_array($tag, $distinctTags))
+                    array_push($distinctTags, $tag);
+            }
+        }
 
         return response()->json([
             'status' => 'ok',
-            'data' => BlogResource::make($blog)->toJson()
+            'tags' => $distinctTags
         ]);
     }
+
 
     /**
      * Remove the specified resource from storage.

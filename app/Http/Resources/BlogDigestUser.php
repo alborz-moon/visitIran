@@ -21,6 +21,9 @@ class BlogDigestUser extends JsonResource
             'alt' => $this->alt,
             'tags' => $this->tags,
             'digest' => $this->digest,
+            'href' => route('blog', ['blog' => $this->id, 'slug' => 
+                $this->slug == null ? $this->header : $this->slug]
+            ),
             'slug' => $this->slug == null ? $this->header : $this->slug,
         ];
     }

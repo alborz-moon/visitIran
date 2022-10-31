@@ -24,4 +24,8 @@ class Blog extends Model
         'slug'
     ];
 
+    public function scopeVisible($query) {
+        return $query->where('visibility', true);
+    }
+
 }
