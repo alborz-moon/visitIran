@@ -69,11 +69,11 @@
                         html += '<a href="' + res.data[i].href + '"><div class="container p-0 m-0 py-3">';
                         html += '<div class="row p-0 m-0">';
                         html += '<div class="col-4 p-0 m-0">';
-                        html += '<div><img class="w-100 h-100" src="' + res.data[i].img + '" alt="' + res.data[i].alt + '"></div>';
+                        html += '<div><img class="blogImgSize" src="' + res.data[i].img + '" alt="' + res.data[i].alt + '"></div>';
                         html += '</div>'
                         html += '<div class="col-8 p-0 m-0">';
                         html += '<div style="height: 60px" class="d-flex justify-content-start align-items-center" >';
-                        html += '<h6  class="fontSize12 bold pr-15 overFlowHidden lineHeight2">' + res.data[i].header + '</h6>';
+                        html += '<h6  class="fontSize12 bold pr-15 overFlowHidden lineHeight2 colorBlack">' + res.data[i].header + '</h6>';
                         html += '</div>';
                         html += '</div>';
                         html += '</div>';
