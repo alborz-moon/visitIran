@@ -33,7 +33,7 @@ class BlogController extends BlogHelper
      */
     public function list(Request $request)
     {
-        sleep(100);
+        // sleep(100);
         $filter = self::build_filters($request, true);
 
         return response()->json([

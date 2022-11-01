@@ -16,7 +16,24 @@
                		<input class="jet-search-filter__input w-100 py-2 px-5 d-none d-lg-block" type="search" autocomplete="off" value="" placeholder="جست‌وجو بر اساس کلمات کلیدی">
                 </div>
                     <div class="container mb-5">
-                        <div id="blogList" class="row">
+                        <div id="shimmer-blog-list" class="row">
+                            @for($i = 0; $i < 5; $i++)
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="cardBlog SimmerParent">
+                            <a href="" class="w-100 p-3 pb-0">
+                            <div class="d-flex ">
+                                <div class="shimmerBG w-100 h-100" style="height:250px!important"></div>
+                            </div>
+                            </a>
+                            <a href="" class="w-100 p-3"><div class="overFlowHidden mx-3 mb-3" style="height: 90px">
+                                <div class="shimmerBG title-line m-2"></div>
+                                <div class="shimmerBG content-line m-5"></div>
+                            </div></a>
+                            </div>
+                            </div>
+                            @endfor   
+                        </div>
+                        <div id="blogList" class="row blog-list-hidden">
                         </div>
                     </div>
             </div>
@@ -37,7 +54,8 @@
         $(document).ready(function() {
 
             filter();
-
+            $(".blog-list-hidden").addClass('hidden');
+            $("#shimmer-blog-list").removeClass('hidden');
             $("#distinctTags").on('change', function() {
                filter();
             });
@@ -84,6 +102,8 @@
                     url: '{{ route('api.blog.list') }}' + "?" + buildQuery(),
                     success: function(res) {
                         var html = '';
+                        $(".blog-list-hidden").empty().append(html).removeClass('hidden');
+                        $("#shimmer-blog-list").addClass('hidden');
                         if(res.status === "ok") {
                             for(var i = 0; i < res.data.length; i++) {
                                 html += '<div class="col-lg-4 col-md-6 col-sm-12">';
@@ -93,7 +113,7 @@
                                 html += '<img class="w-100 h-100" src="' + res.data[i].img + '" style="height:250px!important" alt="' + res.data[i].alt + '">';
                                 html += '</div>';
                                 html += '</a>';
-                                html += '<a href="' + res.data[i].href + '" class="w-100 p-3 pt-0"><div class="overFlowHidden mx-3 mb-3" style="height: 90px">';
+                                html += '<a href="' + res.data[i].href + '" class="w-100 p-3"><div class="overFlowHidden mx-3 mb-3" style="height: 90px">';
                                 html += '<h6 class="colorBlack">' + res.data[i].header + '</h6>';
                                 html += '<p class="colorBlack">' + res.data[i].digest + '</p>';
                                 html += '</div></a>';
