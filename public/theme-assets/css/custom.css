@@ -323,8 +323,8 @@ ul {
     width: 100% !important;
 }
 .blogImgSize {
-    width: 100px;
-    height: 60px;
+    width: 100px !important;
+    height: 60px !important;
 }
 .b-0 {
     border: 0 !important;
@@ -560,8 +560,8 @@ ul {
     border: 1px solid #dedede;
     border-radius: 15px;
     box-shadow: 0 3px 6px 0px #00000029;
-    max-width: 250px !important;
-    min-width: 237px !important;
+    max-width: 242px !important;
+    min-width: 242px !important;
     height: 400px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;

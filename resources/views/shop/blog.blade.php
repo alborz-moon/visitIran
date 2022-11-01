@@ -29,7 +29,7 @@
                             </div>
                             <div class="d-flex spaceBetween overFlowHidden mx-3 mt-3">
                                 <p>{{ $blog['created_at'] }}</p>
-                                <p class="border px-4 py-1 borderRadius15">{{ $blog['tags'] }}</p>
+                                <p class="border px-4 py-1 borderRadius15">{{ $blog['created_at'] }}</p>
                             </div>
                             <hr>
                             <h3 class="my-5">{{ $blog['header'] }}</h3>
@@ -39,7 +39,24 @@
                             <div style="position: sticky;top:150px">
                                 <div class="title mb-3">تازه ترین ها</div>
                                 <hr>
-                                <div id="blogListInfo">
+                                    <div id="shimmer-blog" style="display: flex; flex-wrap: wrap; gap: 0px;">
+                                        @for($i = 0; $i < 5; $i++)                                                
+                                            <div class="container p-0 m-0 py-3 SimmerParent">
+                                                <div class="row p-0 m-0">
+                                                <div class="col-4 p-0 m-0">
+                                                <div class="shimmerBG pt-1 blogImgSize"></div>
+                                                </div>
+                                                <div class="col-8 p-0 m-0">
+                                                <div style="height: 60px" class="d-flex justify-content-start align-items-center" >
+                                                <div class="shimmerBG content-line"></div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        @endfor
+                                    </div>
+                                <div id="blogListInfo" class="blog-card-hidden">
 
                                 </div>
                             </div>
@@ -59,11 +76,15 @@
     <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
     <script>
+        $(".blog-card-hidden").addClass('hidden');
+        $("#shimmer-blog").removeClass('hidden');
         $.ajax({
             type: 'get',
             url: '{{ route('api.blog.list') }}',
             success: function(res) {
                 var html = '';
+                $(".blog-card-hidden").empty().append(html).removeClass('hidden');
+                $("#shimmer-blog").addClass('hidden');
                 if(res.status === "ok") {
                     for(var i = 0; i < res.data.length; i++) {
                         html += '<a href="' + res.data[i].href + '"><div class="container p-0 m-0 py-3">';

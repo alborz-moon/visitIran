@@ -21,14 +21,13 @@
                             <div class="shimmerBG media pt-1">
                             </div>
                             <div class="p-32 mt-1">
-                            <div class="shimmerBG title-line"></div>
-                                    <div class="shimmerBG content-line"></div>
-        
-                            <div class="shimmerBG title-line"></div>
-                            <div class="shimmerBG title-line py-2"></div>
-                                    <div class="shimmerBG content-line"></div>
-                                    </div>
+                                <div class="shimmerBG title-line"></div>
+                                <div class="shimmerBG content-line"></div>
+                                <div class="shimmerBG title-line"></div>
+                                <div class="shimmerBG title-line py-2"></div>
+                                <div class="shimmerBG content-line"></div>
                                 </div>
+                            </div>
                         </div>
                         <!-- end of product-card -->
                         </div>
