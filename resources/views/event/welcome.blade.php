@@ -7,6 +7,7 @@
         var eventPrefixRoute = '{{ route('home') }}' + "/event";
     </script>
                 @include('event.layouts.slider')
+                @include('event.layouts.searchbar')
                 @include('event.layouts.box', ['id' => 'latest_events_when_not_filled', 'title' => 'تازه ترین ها'])
                 @include('event.layouts.box', ['id' => 'most_like_events_when_not_filled', 'title' => 'محبوب ترین ها'])
                 @include('event.layouts.box', ['id' => 'most_seen_events_when_not_filled', 'title' => 'پر بازدید ترین ها'])

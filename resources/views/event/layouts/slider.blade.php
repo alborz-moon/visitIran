@@ -466,16 +466,7 @@
         -webkit-align-items: center;
         align-items: center;
     }
-    @media (max-width:768px) {
-        .custom-swiper-container{
-            height: auto;
-            width:auto;
-        }
-        .customEventImgSizeSlider{
-            width: auto;
-            height: auto;
-        }
-    } 
+
 </style>
 <!-- Slider main container -->
 <div class="w-100 p-0 TopParentBannerMoveOnTop">
