@@ -500,16 +500,16 @@
                  if(res.status === "ok") {
                       if (width > 1000) {
                          for(var i = 0; i < res.data.length; i++) {
-                             html += '<div class="custom-swiper-slide"><img class="customEventImgSizeSlider" src="' + res.data[i].img_large + '" alt="' + res.data[i].alt + '"></div>';
+                             html += '<div class="custom-swiper-slide"><a href="' + res.data[i].href + '"><img class="customEventImgSizeSlider" src="' + res.data[i].img_large + '" alt="' + res.data[i].alt + '"></a></div>';
                          }
                       }else if (width > 520) {
                       
                           for(var i = 0; i < res.data.length; i++) {
-                             html += '<div class="custom-swiper-slide"><img class="customEventImgSizeSlider" src="' + res.data[i].img_mid + '" alt="' + res.data[i].alt + '"></div>';
+                             html += '<div class="custom-swiper-slide"><a href="' + res.data[i].href + '"><img class="customEventImgSizeSlider" src="' + res.data[i].img_mid + '" alt="' + res.data[i].alt + '"></a></div>';
                           }
                       }else {
                           for(var i = 0; i < res.data.length; i++) {
-                              html += '<div class="custom-swiper-slide"><img class="customEventImgSizeSlider" src="' + res.data[i].img_small + '" alt="' + res.data[i].alt + '"></div>';
+                              html += '<div class="custom-swiper-slide"><a href="' + res.data[i].href + '"><img class="customEventImgSizeSlider" src="' + res.data[i].img_small + '" alt="' + res.data[i].alt + '"></a></div>';
                           }
                       } 
                     $("#sliderEvent").empty().append(html);

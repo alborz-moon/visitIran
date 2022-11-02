@@ -24,11 +24,11 @@
                                 </div>
                                 <div class="product-card-body">
                                     <h2 class="product-title">
-                                        <a id="{{ $key }}Header" class="textColor fontSize12 bold"></a>
+                                        <a id="{{ $key }}Header" class="textColor fontSize14 bold"></a>
                                     </h2>
                                     <h2 class="product-title">
-                                        <span class="fontSize10">شروع</span>
-                                        <a id="{{ $key }}Header2" class="textColor fontSize12"></a>
+                                        <span class="fontSize14">شروع</span>
+                                        <a id="{{ $key }}Header2" class="textColor fontSize14"></a>
                                     </h2>
                                     <div class="product-variant">
                                         <span id="{{ $key }}Tag" class="colorWhite customBoxLabel fontSize11"></span>
