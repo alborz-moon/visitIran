@@ -2,7 +2,7 @@
 
 @section('content')
 
-@include('layouts.slider')    
+{{-- @include('layouts.slider')     --}}
     <script>
         var eventPrefixRoute = '{{ route('home') }}' + "/event";
     </script>
@@ -10,7 +10,6 @@
                 @include('event.layouts.box', ['id' => 'latest_events_when_not_filled', 'title' => 'تازه ترین ها'])
                 @include('event.layouts.box', ['id' => 'most_like_events_when_not_filled', 'title' => 'محبوب ترین ها'])
                 @include('event.layouts.box', ['id' => 'most_seen_events_when_not_filled', 'title' => 'پر بازدید ترین ها'])
-                
                 @include('sections.top_events_slider', [
                     'id' => 'latest_events_when_filled', 
                     'searchKey' => 'createdAt', 'key' => 'latestEvent', 
@@ -23,7 +22,7 @@
                     'key' => 'mostSeenEvent', 'title' => 'پر بازدیدترین ها', 'not_fill_id' => 'most_seen_events_when_not_filled'])
                 
                 @include('layouts.banner')
-
+                @include('layouts.news')
                 {{-- @include('sections.top_categories_events') --}}
             
 @stop
