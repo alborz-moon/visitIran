@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="{{ asset('theme-assets/css/theme.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/visitiran.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/custom.css') }}">
+        <link rel="stylesheet" href="{{ asset('theme-assets/slick-1.8.1/slick/slick.css') }}">
     
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script src="{{ asset('theme-assets/js/dependencies/jquery-3.6.0.min.js') }}"></script>

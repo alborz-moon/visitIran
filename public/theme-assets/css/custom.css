@@ -326,6 +326,10 @@ ul {
     width: 100px !important;
     height: 60px !important;
 }
+.customWidthSlider {
+    width: 100%;
+    height: 380px;
+}
 .b-0 {
     border: 0 !important;
 }
@@ -568,6 +572,33 @@ ul {
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
 }
+.customEventBorderBox {
+    border: 1px solid #dedede;
+    border-radius: 15px;
+    box-shadow: 0 3px 6px 0px #00000029;
+    max-width: 340px !important;
+    min-width: 340px !important;
+    height: 360px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
+.customBoxSlider {
+    width: 670px !important;
+}
+.customSlider {
+    border: 1px solid #dedede;
+    border-radius: 15px;
+    box-shadow: 0 3px 6px 0px #00000029;
+    max-width: 670px !important;
+    min-width: 670px !important;
+    height: 380px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
 .colorCircle {
     position: absolute;
     width: 17px;
@@ -591,7 +622,8 @@ ul {
     box-shadow: 0 3px 6px 0px #00000029;
 }
 .customBorderBoxShadow:hover,
-.customBoxNews:hover {
+.customBoxNews:hover,
+.customEventBorderBox:hover {
     /* border: 4px solid #dedede; */
     box-shadow: 0px 0px 6px 4px #00000029;
 }
@@ -955,6 +987,10 @@ select:focus-visible {
     opacity: 100% !important;
 }
 .customWidthBox {
+    width: 250px !important;
+    margin-left: 10px;
+}
+.customEventWidthBox {
     width: 250px !important;
     margin-left: 10px;
 }

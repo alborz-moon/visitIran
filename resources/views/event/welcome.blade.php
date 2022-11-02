@@ -6,11 +6,10 @@
     <script>
         var eventPrefixRoute = '{{ route('home') }}' + "/event";
     </script>
-                {{-- @include('layouts.tiles') --}}
-
-                @include('layouts.box', ['id' => 'latest_events_when_not_filled', 'title' => 'تازه ترین ها'])
-                @include('layouts.box', ['id' => 'most_like_events_when_not_filled', 'title' => 'محبوب ترین ها'])
-                @include('layouts.box', ['id' => 'most_seen_events_when_not_filled', 'title' => 'پر بازدید ترین ها'])
+                @include('event.layouts.slider')
+                @include('event.layouts.box', ['id' => 'latest_events_when_not_filled', 'title' => 'تازه ترین ها'])
+                @include('event.layouts.box', ['id' => 'most_like_events_when_not_filled', 'title' => 'محبوب ترین ها'])
+                @include('event.layouts.box', ['id' => 'most_seen_events_when_not_filled', 'title' => 'پر بازدید ترین ها'])
                 
                 @include('sections.top_events_slider', [
                     'id' => 'latest_events_when_filled', 
@@ -39,5 +38,4 @@
     <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
     <script src="{{ asset('theme-assets/js/home.js') }}"></script>
-
 @stop
