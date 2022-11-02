@@ -89,11 +89,16 @@ function renderEventSlider(data, prefix) {
             .attr("src", elem.img)
             .attr("alt", elem.alt);
         $("#" + prefix + "Header").text(elem.name);
+        $("#" + prefix + "Header2").text(elem.name);
         $("#" + prefix + "Tag").text(elem.category);
 
         if (elem.launcher !== "") {
             $("#" + prefix + "LauncherParent").removeClass("hidden");
             $("#" + prefix + "Launcher").text(elem.launcher);
+        }
+        if (elem.launcher2 !== "") {
+            $("#" + prefix + "LauncherParent2").removeClass("hidden");
+            $("#" + prefix + "Launcher2").text(elem.launcher);
         }
 
         let starHtml = "";
@@ -138,6 +143,7 @@ function renderEventSlider(data, prefix) {
         newElem = newElem
             .replace(prefix + "Img", prefix + "Img_" + id)
             .replace(prefix + "Header", prefix + "Header_" + id)
+            .replace(prefix + "Header2", prefix + "Header2_" + id)
             .replace(prefix + "Tag", prefix + "Tag_" + id)
             .replace(prefix + "Critical", prefix + "Critical_" + id)
             .replace(prefix + "CriticalCount", prefix + "CriticalCount_" + id)
@@ -148,7 +154,7 @@ function renderEventSlider(data, prefix) {
             id +
             "', '" +
             elem.slug +
-            '\')" class="cursorPointer swiper-slide customBox customWidthBox">' +
+            '\')" class="cursorPointer swiper-slide customBox customEventWidthBox">' +
             newElem +
             "</div>";
     });

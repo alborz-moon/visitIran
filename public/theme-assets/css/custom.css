@@ -990,8 +990,12 @@ select:focus-visible {
     width: 250px !important;
     margin-left: 10px;
 }
+.mx-n15 {
+    margin-left: -15px;
+    margin-right: -15px;
+}
 .customEventWidthBox {
-    width: 250px !important;
+    width: 340px !important;
     margin-left: 10px;
 }
 .customBtnAddress {

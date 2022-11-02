@@ -13,33 +13,26 @@
                 <!-- Additional required wrapper -->
                 <div id="{{ $key }}sSlider" class="swiper-wrapper">
                     <!-- Slides -->
-                    <div id="{{ $key }}sSample" class="hidden">
+                    <div id="{{ $key }}sSample" class="hidden customEventWidthBox">
                         <div>
                             <!-- start of product-card -->
-                            <div class="product-card customBorderBoxShadow">
-                                <div class="product-thumbnail">
+                            <div class="product-card customEventBorderBox">
+                                <div class="product-thumbnail mx-n15">
                                     <a>
-                                        <img id="{{ $key }}Img">
+                                        <img style="width: 300px;height: 180px;max-width: 300px !important;" id="{{ $key }}Img">
                                     </a>
                                 </div>
                                 <div class="product-card-body">
                                     <h2 class="product-title">
                                         <a id="{{ $key }}Header" class="textColor fontSize12"></a>
                                     </h2>
+                                    <h2 class="product-title">
+                                        <a id="{{ $key }}Header2" class="textColor fontSize12">شروع  پنج شنبه 21 مهرماه 1401 ساعت 17 </a>
+                                    </h2>
                                     <div class="product-variant">
                                         <span id="{{ $key }}Tag" class="colorWhite customBoxLabel fontSize11"></span>
                                     </div>
                                     <div id="{{ $key }}MultiColor" class="colorCircle hidden"></div>
-                                    <div class="spaceBetween mt-3 mb-3">
-                                        <span id="{{ $key }}Critical" class="fontSize11 invisible colorRed whiteSpaceNoWrap">
-                                            <span>موجودی تنها</span>
-                                            <span>&nbsp;</span>
-                                            <span id="{{ $key }}CriticalCount"></span>
-                                            <span>&nbsp;</span>
-                                            <span>عدد</span>
-                                        </span>
-                                        <span id="{{ $key }}Rate"></span>
-                                    </div>
                                     <div class="product-price fa-num">
                                         <div id="{{ $key }}OffSection" class="hidden d-flex align-items-center">
                                             <span class="fontSize15 pl-10 position-relative">
@@ -56,8 +49,12 @@
                                 </div>
                                 <div class="product-card-footer mb-2">
                                     <div id="{{ $key }}LauncherParent" class="textColor hidden">
-                                        <span class="bold">از</span>
+                                        <span class="bold">مکان </span>
                                         <span id="{{ $key }}Launcher"></span>
+                                    </div>
+                                    <div id="{{ $key }}LauncherParent2" class="textColor hidden">
+                                        <span class="bold">برگزار کننده</span>
+                                        <span id="{{ $key }}Launcher2"></span>
                                     </div>
                                 </div>
                             </div>
@@ -103,18 +100,18 @@
 
                         breakpoints: {
                         1200: {
-                            slidesPerView: 5,
+                            slidesPerView: 3.5,
                         },
                         992: {
                             slidesPerView: 3,
                             spaceBetween: 10,
                         },
                         576: {
-                            slidesPerView: 3,
-                            spaceBetween: 10,
+                            slidesPerView: 2.4,
+                            spaceBetween: 5,
                         },
                         480: {
-                            slidesPerView: 2,
+                            slidesPerView: 1,
                             spaceBetween: 8,
                         },
                         },

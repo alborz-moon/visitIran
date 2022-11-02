@@ -11,7 +11,7 @@
         <div class="swiper product-swiper-slider">
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
-                @for($i = 0; $i < 5; $i++)
+                @for($i = 0; $i < 4; $i++)
                     <!-- Slides -->
                     <a href="#" class="cursorPointer">
                         <div class="swiper-slide customEventWidthBox">
@@ -20,12 +20,10 @@
                             <div class="SimmerParent">
                             <div class="shimmerBG media pt-1">
                             </div>
-                            <div class="p-32 mt-1">
-                                <div class="shimmerBG title-line"></div>
-                                <div class="shimmerBG content-line"></div>
-                                <div class="shimmerBG title-line"></div>
-                                <div class="shimmerBG title-line py-2"></div>
-                                <div class="shimmerBG content-line"></div>
+                            <div class="p-32 mt-4">
+                                <div class="shimmerBG title-line mt-3"></div>
+                                <div class="shimmerBG content-line mt-3"></div>
+                                <div class="shimmerBG title-line mt-3"></div>
                                 </div>
                             </div>
                         </div>
