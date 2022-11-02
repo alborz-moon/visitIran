@@ -451,7 +451,7 @@
         text-align: center;
         font-size: 18px;
         background: #fff;
-        width: 250px;
+        width: 680px;
         /* Center slide text vertically */
         display: -webkit-box;
         display: -ms-flexbox;
