@@ -107,8 +107,8 @@
   touch-action: pan-x;
 }
 /* Arrows */
-.swiper-button-prev,
-.swiper-button-next {
+.custom-custom-swiper-button-prev,
+.custom-swiper-button-next {
   position: absolute;
   top: 50%;
   width: 27px;
@@ -122,38 +122,38 @@
   background-position: center;
   background-repeat: no-repeat;
 }
-.swiper-button-prev.swiper-button-disabled,
-.swiper-button-next.swiper-button-disabled {
+.custom-custom-swiper-button-prev.swiper-button-disabled,
+.custom-swiper-button-next.swiper-button-disabled {
   opacity: 0.35;
   cursor: auto;
   pointer-events: none;
 }
-.swiper-button-prev,
-.custom-swiper-container-rtl .swiper-button-next {
+.custom-custom-swiper-button-prev,
+.custom-swiper-container-rtl .custom-swiper-button-next {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23007aff'%2F%3E%3C%2Fsvg%3E");
   left: 10px;
   right: auto;
 }
-.swiper-button-prev.swiper-button-black,
-.custom-swiper-container-rtl .swiper-button-next.swiper-button-black {
+.custom-custom-swiper-button-prev.swiper-button-black,
+.custom-swiper-container-rtl .custom-swiper-button-next.swiper-button-black {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23000000'%2F%3E%3C%2Fsvg%3E");
 }
-.swiper-button-prev.swiper-button-white,
-.custom-swiper-container-rtl .swiper-button-next.swiper-button-white {
+.custom-custom-swiper-button-prev.swiper-button-white,
+.custom-swiper-container-rtl .custom-swiper-button-next.swiper-button-white {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E");
 }
-.swiper-button-next,
-.custom-swiper-container-rtl .swiper-button-prev {
+.custom-swiper-button-next,
+.custom-swiper-container-rtl .custom-custom-swiper-button-prev {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23007aff'%2F%3E%3C%2Fsvg%3E");
   right: 10px;
   left: auto;
 }
-.swiper-button-next.swiper-button-black,
-.custom-swiper-container-rtl .swiper-button-prev.swiper-button-black {
+.custom-swiper-button-next.swiper-button-black,
+.custom-swiper-container-rtl .custom-custom-swiper-button-prev.swiper-button-black {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23000000'%2F%3E%3C%2Fsvg%3E");
 }
-.swiper-button-next.swiper-button-white,
-.custom-swiper-container-rtl .swiper-button-prev.swiper-button-white {
+.custom-swiper-button-next.swiper-button-white,
+.custom-swiper-container-rtl .custom-custom-swiper-button-prev.swiper-button-white {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E");
 }
 /* Pagination Styles */
@@ -4346,8 +4346,8 @@ else if (typeof define === 'function' && define.amd) {
     paginationType: "bullets",
     
     // Navigation arrows
-    nextButton: '.swiper-button-next',
-    prevButton: '.swiper-button-prev',
+    nextButton: '.custom-swiper-button-next',
+    prevButton: '.custom-custom-swiper-button-prev',
     
     // And if we need scrollbar
     // scrollbar: '.swiper-scrollbar',
