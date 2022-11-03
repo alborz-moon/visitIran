@@ -51,7 +51,7 @@
                                                     data-remodal-target="personal-info-email-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
-                                            <div class="fs-6 fw-bold text-muted">{{ $user->mail }}</div>
+                                            <div id="setValEmail" class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -65,7 +65,7 @@
                                             <div id="setValBrithday" class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+                                    {{-- <div class="col-lg-6 mb-3">
                                         <div class="border-bottom py-2">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <div class="fs-7 fw-bold text-dark">روش بازگرداندن وجه</div>
@@ -75,7 +75,7 @@
                                             </div>
                                             <div class="fs-6 fw-bold text-muted">-</div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     {{-- <div class="col-lg-6 mb-3">
                                         <div class="border-bottom py-2">
                                             <div class="d-flex align-items-center justify-content-between">
@@ -171,11 +171,11 @@
                 </div>
                 <div class="remodal-content">
                     <div class="form-element-row mb-3">
-                        <input type="text" class="form-control" placeholder="">
+                        <input id="email_info" type="email" class="form-control" placeholder="">
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button class="btn btn-sm btn-primary px-3">تایید</button>
+                    <button onclick="getValEmail()" class="btn btn-sm btn-primary px-3">تایید</button>
                 </div>
             </div>
             <!-- end of personal-info-email-modal -->
@@ -228,7 +228,7 @@
             </div>
             <!-- end of personal-info-birth-modal -->
             <!-- start of personal-info-returned-modal -->
-            <div class="remodal remodal-xs" data-remodal-id="personal-info-returned-modal"
+            {{-- <div class="remodal remodal-xs" data-remodal-id="personal-info-returned-modal"
                 data-remodal-options="hashTracking: false">
                 <div class="remodal-header">
                     <button data-remodal-action="close" class="remodal-close"></button>
@@ -266,7 +266,7 @@
                 <div class="remodal-footer">
                     <button class="btn btn-sm btn-primary px-3">ثبت</button>
                 </div>
-            </div>
+            </div> --}}
             <!-- end of personal-info-returned-modal -->
             <!-- start of personal-info-change-password-modal -->
             <div class="remodal remodal-xs" data-remodal-id="personal-info-change-password-modal"
@@ -292,7 +292,6 @@
                 <div class="remodal-footer">
                     <button class="btn btn-sm btn-primary px-3">ثبت</button>
                 </div>
-                
             </div>
             <!-- end of personal-info-change-password-modal -->
 
@@ -328,6 +327,10 @@
         function getValPersonal_code() {
             var personal_code = $('#personal_code').val();
             $('#setValPersonal_code').text(personal_code);
+        }
+        function getValEmail() {
+            var email = $('#email_info').val();
+            $('#setValEmail').text(email);
         }
         function submit() {
             $.ajax({
