@@ -11,11 +11,11 @@
     </div>
 </div>
 
-    <!-- Swiper JS -->
+    <!-- EventSwiper JS -->
     <script>
 /**
  * 
- * Swiper 3.0.8
+ * EventSwiper 3.0.8
  * Most modern mobile touch slider and framework with hardware accelerated transitions
  * 
  * https://www.idangero.us/swiper/
@@ -31,10 +31,10 @@
 (function () {
     'use strict';
     /*===========================
-    Swiper
+    EventSwiper
     ===========================*/
-    var Swiper = function (container, params) {
-        if (!(this instanceof Swiper)) return new Swiper(container, params);
+    var EventSwiper = function (container, params) {
+        if (!(this instanceof EventSwiper)) return new EventSwiper(container, params);
 
         var defaults = {
             direction: 'horizontal',
@@ -213,7 +213,7 @@
             }
         }
         
-        // Swiper
+        // EventSwiper
         var s = this;
         
         // Version
@@ -236,7 +236,7 @@
         }
         if (!$) return;
         
-        // Export it to Swiper instance
+        // Export it to EventSwiper instance
         s.$ = $;
         /*=========================
           Preparation - Define Container, Wrapper and Pagination
@@ -245,7 +245,7 @@
         if (s.container.length === 0) return;
         if (s.container.length > 1) {
             s.container.each(function () {
-                new Swiper(this, params);
+                new EventSwiper(this, params);
             });
             return;
         }
@@ -2422,12 +2422,12 @@
                 }
                 if (s.isArray(controlled)) {
                     for (var i = 0; i < controlled.length; i++) {
-                        if (controlled[i] !== byController && controlled[i] instanceof Swiper) {
+                        if (controlled[i] !== byController && controlled[i] instanceof EventSwiper) {
                             setControlledTranslate(controlled[i]);
                         }
                     }
                 }
-                else if (controlled instanceof Swiper && byController !== controlled) {
+                else if (controlled instanceof EventSwiper && byController !== controlled) {
                     setControlledTranslate(controlled);
                 }
             },
@@ -2446,12 +2446,12 @@
                 }
                 if (s.isArray(controlled)) {
                     for (i = 0; i < controlled.length; i++) {
-                        if (controlled[i] !== byController && controlled[i] instanceof Swiper) {
+                        if (controlled[i] !== byController && controlled[i] instanceof EventSwiper) {
                             setControlledTransition(controlled[i]);
                         }
                     }
                 }
-                else if (controlled instanceof Swiper && byController !== controlled) {
+                else if (controlled instanceof EventSwiper && byController !== controlled) {
                     setControlledTransition(controlled);
                 }
             }
@@ -3034,7 +3034,7 @@
     /*==================================================
         Prototype
     ====================================================*/
-    Swiper.prototype = {
+    EventSwiper.prototype = {
         isSafari: (function () {
             var ua = navigator.userAgent.toLowerCase();
             return (ua.indexOf('safari') >= 0 && ua.indexOf('chrome') < 0 && ua.indexOf('android') < 0);
@@ -3756,7 +3756,7 @@
         lib.fn.swiper = function (params) {
             var firstInstance;
             lib(this).each(function () {
-                var s = new Swiper(this, params);
+                var s = new EventSwiper(this, params);
                 if (!firstInstance) firstInstance = s;
             });
             return firstInstance;
@@ -3821,19 +3821,19 @@
         
     
 
-    window.Swiper = Swiper;
+    window.EventSwiper = EventSwiper;
 })();
 /*===========================
-Swiper AMD Export
+EventSwiper AMD Export
 ===========================*/
 if (typeof(module) !== 'undefined')
 {
-    module.exports = window.Swiper;
+    module.exports = window.EventSwiper;
 }
 else if (typeof define === 'function' && define.amd) {
     define([], function () {
         'use strict';
-        return window.Swiper;
+        return window.EventSwiper;
     });
 }
 
@@ -3872,7 +3872,7 @@ else if (typeof define === 'function' && define.amd) {
                     $("#sliderEvent").empty().append(html);
 
                     var widths = $(document).ready().width();
-                    var mySwiper = new Swiper ('.custom-swiper-container', {
+                    var mySwiper = new EventSwiper ('.custom-swiper-container', {
                         speed: 400,
                         spaceBetween: 50,
                         initialSlide: 0,
