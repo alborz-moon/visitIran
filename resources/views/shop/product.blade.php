@@ -20,14 +20,12 @@
     <script>
         let productPrefixRoute = '{{ route('home') }}' + "/product";
         let finalAvailableCount = parseInt('{{ $product['available_count'] }}');
-        
         let wantedCount = 1;
         let lastChangeWantedCount = -1;
         let wantedColor = undefined;
         let wantedColorLabel = undefined;
         let wantedFeature = undefined;
         let finalPrice = '{{ $product['price'] }}';
-
     </script>
 
 @stop

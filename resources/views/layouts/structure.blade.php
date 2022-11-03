@@ -32,12 +32,9 @@
     <link rel="stylesheet" href="{{ asset('theme-assets/css/theme.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/visitiran.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/custom.css') }}">
-    <link rel="stylesheet" href="{{ asset('theme-assets/slick-1.8.1/slick/slick.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('theme-assets/slick-1.8.1/slick/slick-theme.css') }}"/>
     
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script src="{{ asset('theme-assets/js/dependencies/jquery-3.6.0.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('theme-assets/slick-1.8.1/slick/slick.min.js') }}"></script>
     @section('seo')
     @show
 
@@ -178,7 +175,7 @@
                         <div class="page-header--top-left">
                             <ul class="nav nav-light justify-content-end">
                                 <li class="nav-item d-md-none d-lg-block">
-                                    <a class="nav-link" href="#">تازه‌ها</a>
+                                    <a class="nav-link" href="{{ route('blog-list') }}">تازه‌ها</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">درباره ما</a>
