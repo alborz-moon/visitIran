@@ -43,8 +43,7 @@
                         <div class="col-lg-4 col-md-5 mb-md-0 mb-4">
                             <div class="ui-sticky ui-sticky-top">
                                 <!-- start of product-gallery -->
-                                <div class="product-gallery">
-                                    
+                                <div class="product-gallery"> 
                                     <div class="gallery-img-container">
                                         <div class="gallery-img m-0 p-0" id="galleryMain">
                                             <img class="zoom-img b-0" src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />

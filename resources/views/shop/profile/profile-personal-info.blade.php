@@ -13,12 +13,12 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class="border-bottom py-2">
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <div class="fs-7 fw-bold text-dark">نام و نام خانوادگی</div>
+                                                <div  class="fs-7 fw-bold text-dark">نام و نام خانوادگی</div>
                                                 <button class="btn btn-circle btn-outline-light"
                                                     data-remodal-target="personal-info-fullname-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
-                                            <div class="fs-6 fw-bold text-muted">{{ $user->first_name . ' ' . $user->last_name }}</div>
+                                            <div id="setValName" class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -29,7 +29,7 @@
                                                     data-remodal-target="personal-info-national-id-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
-                                            <div class="fs-6 fw-bold text-muted">-</div>
+                                            <div id="setValPersonal_code" class="fs-6 fw-bold text-muted">-</div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -40,7 +40,7 @@
                                                     data-remodal-target="personal-info-phone-number-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
-                                            <div class="fs-6 fw-bold text-muted">09xxxxxxxxx</div>
+                                            <div id="setValPhone" class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -62,7 +62,7 @@
                                                     data-remodal-target="personal-info-birth-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
-                                            <div class="fs-6 fw-bold text-muted">-</div>
+                                            <div id="setValBrithday" class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
+                    <button onclick="getValName()" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
                 </div>
             </div>
             <!-- end of personal-info-fullname-modal -->
@@ -124,16 +124,16 @@
             <div class="remodal remodal-xs" data-remodal-id="personal-info-national-id-modal"
                 data-remodal-options="hashTracking: false">
                 <div class="remodal-header">
-                    <div class="remodal-title">کد ملی</div>
+                    <div  class="remodal-title">کد ملی</div>
                     <button data-remodal-action="close" class="remodal-close"></button>
                 </div>
                 <div class="remodal-content">
                     <div class="form-element-row mb-3">
-                        <input type="text" class="form-control" placeholder="">
+                        <input id="personal_code" type="tel" maxlength="10" class="form-control" placeholder="">
                     </div>
                     <div class="form-element-row">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="foreigner">
+                            <input id="personal_code_checkbox" class="form-check-input" type="checkbox" value="" id="foreigner">
                             <label class="form-check-label fs-7 fw-bold" for="foreigner">
                                 تبعه غیر‌ایرانی فاقد کد ملی هستم.
                             </label>
@@ -141,7 +141,7 @@
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
+                    <button onclick="getValPersonal_code()" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
                 </div>
             </div>
             <!-- end of personal-info-national-id-modal -->
@@ -154,11 +154,11 @@
                 </div>
                 <div class="remodal-content">
                     <div class="form-element-row mb-3">
-                        <input type="text" class="form-control" placeholder="">
+                        <input id="phone_info" type="tel" maxlength="11" class="form-control" placeholder="">
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button class="btn btn-sm btn-primary px-3">دریافت کد تایید و تغییر شماره</button>
+                    <button onclick="getValPhone()" class="btn btn-sm btn-primary px-3">تغییر شماره</button>
                 </div>
             </div>
             <!-- end of personal-info-phone-number-modal -->
@@ -191,39 +191,39 @@
                         <div class="col-4">
                             <div class="form-element-row">
                                 <label class="label fs-7">سال</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="Brithday_year" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-element-row">
                                 <label class="label fs-7">ماه</label>
-                                <select class="select2" name="month" id="month">
+                                <select class="select2" name="month" id="Brithday_month">
                                     <option value="0">ماه</option>
-                                    <option value="0">فروردین</option>
-                                    <option value="0">اردیبهشت</option>
-                                    <option value="0">خرداد</option>
-                                    <option value="0">تیر</option>
-                                    <option value="0">مرداد</option>
-                                    <option value="0">شهریور</option>
-                                    <option value="0">مهر</option>
-                                    <option value="0">آبان</option>
-                                    <option value="0">آ‌ذر</option>
-                                    <option value="0">دی</option>
-                                    <option value="0">بهمن</option>
-                                    <option value="0">اسفند</option>
+                                    <option value="1">فروردین</option>
+                                    <option value="2">اردیبهشت</option>
+                                    <option value="3">خرداد</option>
+                                    <option value="4">تیر</option>
+                                    <option value="5">مرداد</option>
+                                    <option value="6">شهریور</option>
+                                    <option value="7">مهر</option>
+                                    <option value="8">آبان</option>
+                                    <option value="9">آ‌ذر</option>
+                                    <option value="10">دی</option>
+                                    <option value="11">بهمن</option>
+                                    <option value="12">اسفند</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-element-row">
                                 <label class="label fs-7">روز</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input id="Brithday_day" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button class="btn btn-sm btn-primary px-3">ثبت تاریخ تولد</button>
+                    <button onclick="getValBrithday()" class="btn btn-sm btn-primary px-3">ثبت تاریخ تولد</button>
                 </div>
             </div>
             <!-- end of personal-info-birth-modal -->
@@ -251,7 +251,7 @@
                         </label>
                     </div>
                     <div class="custom-radio-outline">
-                        <input type="radio" class="custom-radio-outline-input" name="checkoutPayment"
+                        <input  type="radio" class="custom-radio-outline-input" name="checkoutPayment"
                             id="checkoutPayment02">
                         <label for="checkoutPayment02" class="custom-radio-outline-label">
                             <span class="label">
@@ -310,14 +310,32 @@
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
 
     <script>
-
+        function getValName() {
+            var name = $('#first_name').val();
+            var last = $('#last_name').val();
+            $('#setValName').text(name + ' ' + last);
+        }
+        function getValPhone() {
+            var phone = $('#phone_info').val();
+            $('#setValPhone').text(phone);
+        }
+        function getValBrithday() {
+            var year = $('#Brithday_year').val();
+            var month = $('#Brithday_month').val();
+            var day =$('#Brithday_day').val();
+            $('#setValBrithday').text(year + '/' + month + '/' + day);
+        }
+        function getValPersonal_code() {
+            var personal_code = $('#personal_code').val();
+            $('#setValPersonal_code').text(personal_code);
+        }
         function submit() {
             $.ajax({
                 type: 'post',
                 url: '{{ route('api.editInfo') }}',
                 data: {
-                    'first_name': $('#first_name').val(),
-                    'last_name': $('#last_name').val(),
+                    'first_name': name,
+                    'last_name': last,
                 },
                 success: function(res) {
                     if(res.status === 'ok')
