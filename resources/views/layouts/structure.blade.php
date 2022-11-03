@@ -314,7 +314,7 @@
     <script src="{{ asset('theme-assets/js/dependencies/remodal.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/select2.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/simplebar.min.js') }}"></script>
-    <script src="{{ asset('theme-assets/js/dependencies/swiper-bundle.min.js') }}"></script>
+    {{-- <script src="{{ asset('theme-assets/js/dependencies/swiper-bundle.min.js') }}"></script> --}}
     <script src="{{ asset('theme-assets/js/dependencies/zoomsl.min.js') }}"></script>    
     <script src="{{ asset('theme-assets/js/basket.js') }}"></script>    
     <script type="text/javascript">

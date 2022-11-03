@@ -2,7 +2,6 @@
 
 @section('content')
 
-{{-- @include('layouts.slider')     --}}
     <script>
         var eventPrefixRoute = '{{ route('home') }}' + "/event";
     </script>
