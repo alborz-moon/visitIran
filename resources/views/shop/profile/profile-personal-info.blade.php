@@ -18,7 +18,7 @@
                                                     data-remodal-target="personal-info-fullname-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
-                                            <div id="setValName" class="fs-6 fw-bold text-muted"></div>
+                                            <div id="nameVal" class="fs-6 fw-bold text-muted">{{ $user->first_name . ' ' . $user->last_name }}</div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -29,7 +29,7 @@
                                                     data-remodal-target="personal-info-national-id-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
-                                            <div id="setValPersonal_code" class="fs-6 fw-bold text-muted">-</div>
+                                            <div id="nid" class="fs-6 fw-bold text-muted">{{ $user->nid != null ? $user->nid : '-' }}</div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -40,7 +40,7 @@
                                                     data-remodal-target="personal-info-phone-number-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
-                                            <div id="setValPhone" class="fs-6 fw-bold text-muted"></div>
+                                            <div id="phoneVal" class="fs-6 fw-bold text-muted">{{ $user->phone != null ? $user->phone : '-' }}</div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -51,7 +51,9 @@
                                                     data-remodal-target="personal-info-email-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
-                                            <div id="setValEmail" class="fs-6 fw-bold text-muted"></div>
+                                            <div id="emailVal" class="fs-6 fw-bold text-muted">
+                                                {{ $user->mail != null ? $user->mail : '-' }}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -62,7 +64,7 @@
                                                     data-remodal-target="personal-info-birth-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
-                                            <div id="setValBrithday" class="fs-6 fw-bold text-muted"></div>
+                                            <div id="brithdayVal" class="fs-6 fw-bold text-muted">{{ $birth_day == null ? '' : $user->birth_day }}</div>
                                         </div>
                                     </div>
                                     {{-- <div class="col-lg-6 mb-3">
@@ -116,7 +118,7 @@
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button onclick="getValName()" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
+                    <button onclick="setValName()" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
                 </div>
             </div>
             <!-- end of personal-info-fullname-modal -->
@@ -141,7 +143,7 @@
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button onclick="getValPersonal_code()" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
+                    <button onclick="setValPersonal_code()" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
                 </div>
             </div>
             <!-- end of personal-info-national-id-modal -->
@@ -158,10 +160,11 @@
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button onclick="getValPhone()" class="btn btn-sm btn-primary px-3">تغییر شماره</button>
+                    <button onclick="setValPhone()" class="btn btn-sm btn-primary px-3">تغییر شماره</button>
                 </div>
             </div>
             <!-- end of personal-info-phone-number-modal -->
+
             <!-- start of personal-info-email-modal -->
             <div class="remodal remodal-xs" data-remodal-id="personal-info-email-modal"
                 data-remodal-options="hashTracking: false">
@@ -174,11 +177,14 @@
                         <input id="email_info" type="email" class="form-control" placeholder="">
                     </div>
                 </div>
+
                 <div class="remodal-footer">
-                    <button onclick="getValEmail()" class="btn btn-sm btn-primary px-3">تایید</button>
+                    <button onclick="setValEmail()" class="btn btn-sm btn-primary px-3">تایید</button>
                 </div>
+
             </div>
             <!-- end of personal-info-email-modal -->
+
             <!-- start of personal-info-birth-modal -->
             <div class="remodal remodal-xs" data-remodal-id="personal-info-birth-modal"
                 data-remodal-options="hashTracking: false">
@@ -191,7 +197,7 @@
                         <div class="col-4">
                             <div class="form-element-row">
                                 <label class="label fs-7">سال</label>
-                                <input id="Brithday_year" type="text" class="form-control" placeholder="">
+                                <input value="{{ $birth_day != null ? $birth_day[0] : '' }}" id="Brithday_year" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-4">
@@ -199,31 +205,31 @@
                                 <label class="label fs-7">ماه</label>
                                 <select class="select2" name="month" id="Brithday_month">
                                     <option value="0">ماه</option>
-                                    <option value="1">فروردین</option>
-                                    <option value="2">اردیبهشت</option>
-                                    <option value="3">خرداد</option>
-                                    <option value="4">تیر</option>
-                                    <option value="5">مرداد</option>
-                                    <option value="6">شهریور</option>
-                                    <option value="7">مهر</option>
-                                    <option value="8">آبان</option>
-                                    <option value="9">آ‌ذر</option>
-                                    <option value="10">دی</option>
-                                    <option value="11">بهمن</option>
-                                    <option value="12">اسفند</option>
+                                    <option {{ ($birth_day != null && $birth_day[1] == 1) ? 'selected' : '' }} value="1">فروردین</option>
+                                    <option {{ ($birth_day != null && $birth_day[1] == 2) ? 'selected' : '' }} value="2">اردیبهشت</option>
+                                    <option {{ ($birth_day != null && $birth_day[1] == 3) ? 'selected' : '' }} value="3">خرداد</option>
+                                    <option {{ ($birth_day != null && $birth_day[1] == 4) ? 'selected' : '' }} value="4">تیر</option>
+                                    <option {{ ($birth_day != null && $birth_day[1] == 5) ? 'selected' : '' }} value="5">مرداد</option>
+                                    <option {{ ($birth_day != null && $birth_day[1] == 6) ? 'selected' : '' }} value="6">شهریور</option>
+                                    <option {{ ($birth_day != null && $birth_day[1] == 7) ? 'selected' : '' }} value="7">مهر</option>
+                                    <option {{ ($birth_day != null && $birth_day[1] == 8) ? 'selected' : '' }} value="8">آبان</option>
+                                    <option {{ ($birth_day != null && $birth_day[1] == 9) ? 'selected' : '' }} value="9">آ‌ذر</option>
+                                    <option {{ ($birth_day != null && $birth_day[1] == 10) ? 'selected' : '' }} value="10">دی</option>
+                                    <option {{ ($birth_day != null && $birth_day[1] == 11) ? 'selected' : '' }} value="11">بهمن</option>
+                                    <option {{ ($birth_day != null && $birth_day[1] == 12) ? 'selected' : '' }} value="12">اسفند</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-element-row">
                                 <label class="label fs-7">روز</label>
-                                <input id="Brithday_day" type="text" class="form-control" placeholder="">
+                                <input id="Brithday_day" value="{{ $birth_day != null ? $birth_day[2] : '' }}" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button onclick="getValBrithday()" class="btn btn-sm btn-primary px-3">ثبت تاریخ تولد</button>
+                    <button onclick="setValBrithday()" class="btn btn-sm btn-primary px-3">ثبت تاریخ تولد</button>
                 </div>
             </div>
             <!-- end of personal-info-birth-modal -->
@@ -309,37 +315,71 @@
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
 
     <script>
-        function getValName() {
+        function setValName() {
             var name = $('#first_name').val();
             var last = $('#last_name').val();
-            $('#setValName').text(name + ' ' + last);
+            $('#nameVal').text(name + ' ' + last);
+            $(".remodal-close").click();
         }
-        function getValPhone() {
-            var phone = $('#phone_info').val();
-            $('#setValPhone').text(phone);
+
+        function setValPhone() {
+            $('#phoneVal').text($('#phone_info').val());
+            $(".remodal-close").click();
         }
-        function getValBrithday() {
+
+        function setValBrithday() {
+            
             var year = $('#Brithday_year').val();
             var month = $('#Brithday_month').val();
             var day =$('#Brithday_day').val();
-            $('#setValBrithday').text(year + '/' + month + '/' + day);
+
+            $('#brithdayVal').text(year + '/' + month + '/' + day);
+            $(".remodal-close").click();
         }
-        function getValPersonal_code() {
-            var personal_code = $('#personal_code').val();
-            $('#setValPersonal_code').text(personal_code);
+
+        function setValPersonal_code() {
+            $('#nid').text($('#personal_code').val());
+            $(".remodal-close").click();
         }
-        function getValEmail() {
-            var email = $('#email_info').val();
-            $('#setValEmail').text(email);
+
+        function setValEmail() {
+            $('#emailVal').text($('#email_info').val());
+            $(".remodal-close").click();
         }
+
         function submit() {
+
+            let data = {};
+            
+            let first_name = $("#first_name").val();
+            let last_name = $('#last_name').val();
+            let nid = $('#personal_code').val();
+            let mail = $('#email_info').val();
+            let phone = $('#phone_info').val();
+            let birthday = $('#brithdayVal').text();
+            
+            if(birthday !== undefined && birthday !== '')
+                data.birth_day = birthday;
+
+            if(nid !== undefined && nid !== '')
+                data.nid = nid;
+
+            if(mail !== undefined && mail !== '')
+                data.mail = mail;
+                
+            if(phone !== undefined && phone !== '')
+                data.phone = phone;
+            
+            if(first_name !== undefined && first_name !== '')
+                data.first_name = first_name;
+                
+            if(last_name !== undefined && last_name !== '')
+                data.last_name = last_name;
+
             $.ajax({
                 type: 'post',
                 url: '{{ route('api.editInfo') }}',
-                data: {
-                    'first_name': name,
-                    'last_name': last,
-                },
+                data: data,
                 success: function(res) {
                     if(res.status === 'ok')
                         showSuccess('عملیات موردنظر باموفقیت انجام شد.');

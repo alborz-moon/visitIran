@@ -3,12 +3,9 @@
         <div class="profile-user-info py-3 ui-box bg-white">
             <div class="profile-detail">
                 <div class="d-flex align-items-center">
-                    <div class="profile-avatar me-3"><img
-                            src="./theme-assets/images/avatar/default.png" alt="avatar">
-                    </div>
+                    
                     <div class="profile-info">
-                        <a class="text-decoration-none text-dark fw-bold mb-2">جلال بهرامی
-                            راد</a>
+                        <a class="text-decoration-none text-dark fw-bold mb-2">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</a>
                         <div class="text-muted fs-7 fw-bold">۰۹xxxxxxxxx</div>
                     </div>
                 </div>

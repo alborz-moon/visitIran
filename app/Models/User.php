@@ -41,7 +41,10 @@ class User extends Authenticatable
         'phone',
         'level',
         'password',
-        'status'
+        'status',
+        'nid',
+        'birth_day',
+        'mail',
     ];
 
     /**

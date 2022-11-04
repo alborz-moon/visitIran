@@ -88,7 +88,11 @@
                                             <span id="mini-cart-total-value" class="mini-cart-total-value fa-num"><span
                                                     class="currency">تومان</span></span>
                                         </div>
-                                        <a href="#" class="btn btn-primary">ورود و ثبت سفارش</a>
+                                        @if(Auth::check())
+                                            <a href="{{ route('cart') }}" class="btn btn-primary">ثبت سفارش</a>
+                                        @else
+                                            <a href="{{ route('login') }}" class="btn btn-primary">ورود و ثبت سفارش</a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -105,21 +109,17 @@
                                         <div class="profile-user-info ui-box customUiBox">
                                             <div class="profile-detail">
                                                 <div class="d-flex align-items-center">
-                                                    <div class="profile-avatar me-3">
-                                                        <img src="#" alt="avatar">
-                                                    </div>
+                                                    
                                                     <div class="profile-info">
                                                         <a href="#" class="text-decoration-none text-dark fw-bold mb-2">
-                                                            جلال
-                                                            بهرامی
-                                                            راد
+                                                            {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
                                                         </a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <ul class="nav nav-items-with-icon flex-column">
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="{{route('cart-empty')}}"><i
+                                                    <a class="nav-link" href="{{route('cart')}}"><i
                                                             class="nav-link-icon ri-file-list-3-line"></i>
                                                         سفارش
                                                         های من

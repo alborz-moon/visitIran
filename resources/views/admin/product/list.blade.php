@@ -337,6 +337,7 @@
             let isInTopList = $("#isInTopListFilter").val();
             let brand = $("#brandFilter").val();
             let category = $("#categoryFilter").val();
+            let seller = $("#sellerFilter").val();
             let off = $("#offFilter").val();
             let comment = $("#commentFilter").val();
             let max = $("#maxFilter").val();
@@ -358,6 +359,9 @@
                
             if(category !== 'all')
                 query.append('category', category);
+                
+            if(seller !== 'all')
+                query.append('seller', seller);
 
             if(max !== '')
                 query.append('max', max);

@@ -93,7 +93,7 @@ class AddressController extends Controller
             $address[$key] = $request[$key];
         }
 
-        $request->save();
+        $address->save();
         return response()->json(['status' => 'ok']);
     }
 

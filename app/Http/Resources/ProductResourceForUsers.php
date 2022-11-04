@@ -28,7 +28,8 @@ class ProductResourceForUsers extends JsonResource
             }
         }
         
-        $off = $this->activeOff();
+        $off = $this->activeOff($request->user == null ? null : $request->user->id);
+        // dd($off);
 
         $priceAfterOff = $this->price;
         if($off != null && $off['type'] === 'value')
