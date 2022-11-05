@@ -7,7 +7,6 @@
                 <div class="auth-title mb-3">تایید شماره موبایل</div>
                 <!-- start of auth-box -->
                 <div class="auth-box ui-box">
-                    
                     <!-- start of form-element -->
                     <div class="form-element-row mb-3">
                         <p>
@@ -121,6 +120,4 @@
 @stop
 @section('extraJS')
     @parent
-    <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
-    <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
 @stop

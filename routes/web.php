@@ -113,6 +113,8 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
 
     Route::view('/event','event.event')->name('event');
 
+    Route::view('/launcher','event.launcher.launcher-register')->name('launcher');
+
 });
 
 

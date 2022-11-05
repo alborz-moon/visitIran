@@ -275,11 +275,17 @@ ul {
 .verticalAlign-2 {
     vertical-align: -2px;
 }
+.text-align-end {
+    text-align: end;
+}
 .mr-15 {
     margin-right: 15px;
 }
 .mr-70 {
     margin-right: 70px;
+}
+.mr-90 {
+    margin-right: 90px;
 }
 .ml-15 {
     margin-left: 15px;
@@ -815,6 +821,14 @@ ul {
     -ms-border-radius: 0px;
     -o-border-radius: 0px;
 }
+.boxShadow {
+    box-shadow: 0px 3px 6px 0px #00000029;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
 .customBoxShadowGallery {
     box-shadow: 0px 3px 6px 0px #00000029;
 }
@@ -1131,6 +1145,29 @@ figure .ck-widget {
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
 }
+.timeLineEvent {
+    background-color: rgb(197, 197, 197);
+    width: 2px;
+    height: 100px;
+    right: 23px;
+}
+.timeLineEventMiniCircle {
+    background-color: rgb(197, 197, 197);
+    width: 5px;
+    height: 5px;
+    right: 23px;
+}
+.userLuncher {
+    z-index: 2;
+    width: 47px;
+    height: 47px;
+    border-radius: 50%;
+    background-color: #c59358;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
 @media (min-width: 768px) {
     .mt-md-110 {
         margin-top: 110px;
@@ -1257,7 +1294,9 @@ figure .ck-widget {
 .num-block .num-in {
     height: unset !important;
 }
-
+.flexDirecionColumn {
+    flex-direction: column !important;
+}
 .between {
     display: flex;
     justify-content: space-between;

@@ -100,7 +100,7 @@
                     </div>
                 </div>
             </div>
-                        <!-- start of personal-info-fullname-modal -->
+            <!-- start of personal-info-fullname-modal -->
             <div class="remodal remodal-xs" data-remodal-id="personal-info-fullname-modal"
                 data-remodal-options="hashTracking: false">
                 <div class="remodal-header">
