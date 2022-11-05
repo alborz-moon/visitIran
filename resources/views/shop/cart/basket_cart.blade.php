@@ -10,20 +10,20 @@
             <hr>
             <div class="checkout-bill-row py-20">
                 <div class="checkout-bill-row-label fontSize15 bold colorText">مجموع قیمت</div>
-                <div class="checkout-bill-row-value fontSize15 bold colorText"><span class="fs-6 text-danger">۵,۰۰۰</span>
+                <div class="checkout-bill-row-value fontSize15 bold colorText"><span id="full_basket_total_price" class="fs-6 text-danger"></span>
                     <span class="currency text-danger fontSize15 bold colorYellow">ت</span></div>
             </div>
             <hr>
             <div class="checkout-bill-row py-20">
                 <div class="checkout-bill-row-label fontSize15 bold colorRed">مجموع تخفیف</div>
-                <div class="checkout-bill-row-value fontSize15 bold colorRed"><span class="fs-6">۴۲,۴۱۵,۰۰۰</span> <span
+                <div class="checkout-bill-row-value fontSize15 bold colorRed"><span id="full_basket_total_off" class="fs-6"></span> <span
                         class="currency fontSize15 bold colorYellow">ت</span>
                 </div>
             </div>
             <hr>
             <div class="checkout-bill-row py-20">
                 <div class="checkout-bill-row-label fontSize15 bold colorText">قیمت کل</div>
-                <div class="checkout-bill-row-value fontSize15 bold colorText"><span class="fs-6">۴۲,۴۱۵,۰۰۰</span> <span
+                <div class="checkout-bill-row-value fontSize15 bold colorText"><span id="full_basket_total_after_price" class="fs-6"></span> <span
                         class="currency fontSize15 bold colorYellow">ت</span>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                 این مبلغ اضافه خواهد شد
             </div>
             <div class="checkout-bill-row checkout-bill-action">
-                <a href="{{ $nextUrl }}" class="btn btn-block btn-primary">ادامه فرایند خرید</a>
+                <a id="{{ $nextBtnId }}" class="btn btn-block btn-primary">ادامه فرایند خرید</a>
             </div>
         </div>
         <!-- end of checkout-bill -->

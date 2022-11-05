@@ -51,8 +51,8 @@
                     for(var i = 0; i < res.data.length; i++) {
                         html +='<div id="address-card-' + res.data[i].id + '" class="user-address-item">';
                         html +='<div class="custom-radio-box">';
-                        html +='<input type="radio" class="custom-radio-box-input" name="userAddress" id="userAddress01">';
-                        html +='<label for="userAddress01" class="custom-radio-box-label" data-placeholder="انتخاب به عنوان آدرس پیش فرض" data-placeholder-checked="آدرس پیش فرض من است">';
+                        html +='<input type="radio" class="custom-radio-box-input" name="userAddress" value="' + res.data[i].id + '" id="userAddress' + res.data[i].id + '">';
+                        html +='<label for="userAddress' + res.data[i].id + '" class="custom-radio-box-label" data-placeholder="انتخاب به عنوان آدرس پیش فرض" data-placeholder-checked="آدرس پیش فرض من است">';
                         html +='<span class="d-block user-address-recipient mb-2">' + res.data[i].name + '</span>';
                         html +='<span class="d-block user-contact-items fa-num mb-3">';
                         html +='<span class="user-contact-item"><i class="ri-phone-line icon"></i><span class="value">' + res.data[i].recv_phone + '</span></span>';
@@ -110,6 +110,8 @@
             $("#state02").val(address.state_id).change();
             $("#x").val(address.x);
             $("#y").val(address.y);
+            x = address.x;
+            y = address.y;
             getCities(address.state_id, address.city_id);
         });
     })

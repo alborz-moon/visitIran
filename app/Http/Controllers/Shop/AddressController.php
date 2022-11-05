@@ -78,6 +78,7 @@ class AddressController extends Controller
             'city_id' => 'required|exists:mysql2.cities,id',
             'postal_code' => 'required|regex:/[1-9][0-9]{9}/',
             'address' => 'required|string|min:2',
+            'is_defailt' => 'nullable|boolean'
         ];
         
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))

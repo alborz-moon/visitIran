@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Shop\BlogController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
+use App\Models\State;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,7 +66,10 @@ Route::domain(Controller::$SHOP_SITE)->group(function() {
         return view('shop.basket');
     })->name('cart');
 
-    Route::view('shipping', 'shop.shipping')->name('shipping');
+    Route::get('shipping', function() {
+        $states = State::orderBy('name', 'asc')->get();
+        return view('shop.shipping', compact('states'));
+    })->name('shipping');
 
     Route::get('/blog/{blog}/{slug}',  [BlogController::class, 'show'])->name('blog');
 

@@ -11,6 +11,7 @@
                 <div class="mini-cart-product-meta">
                     <span id="mini-cart-products-count" class="fa-num"></span>
                     <span id="mini-cart-products-color" class="color hidden"></span>
+                    <span id="mini-cart-products-feature" class="fa-num hidden"></span>
                 </div>
                 
             </div>

@@ -14,8 +14,8 @@ class AddAdditionalFieldsInAddressTable extends Migration
     public function up()
     {
         Schema::table('address', function (Blueprint $table) {
-            $table->float('x');
-            $table->float('y');
+            $table->double('x');
+            $table->double('y');
             $table->unsignedInteger('city_id');
             $table->string('recv_name');
             $table->string('recv_last_name');

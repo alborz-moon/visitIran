@@ -17,6 +17,7 @@ use App\Imports\ProductImport;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\Config;
 use App\Models\Product;
 use App\Models\PurchaseItems;
 use App\Models\Seller;
@@ -452,8 +453,6 @@ class ProductController extends ProductHelper
         if(!$product->visibility)
             return Redirect::route('home');
 
-        // sleep(10);
-
         return response()->json([
             'status' => 'ok', 
             'galleries' => GalleryResource::collection($product->galleries()->orderBy('priority', 'asc')->get())->toArray($request),
@@ -496,10 +495,11 @@ class ProductController extends ProductHelper
             return view('shop.product', [
                 'product' => array_merge(
                     ProductResourceForUsers::make($product)->toArray($request), [
-                    'is_bookmark' => false,
-                    'user_rate' => null,
-                    'has_comment' => false,
+                        'is_bookmark' => false,
+                        'user_rate' => null,
+                        'has_comment' => false,
                     ]), 
+                    'critical_point' => Config::first()->critical_point,
                     'is_login' => false,
             ]);
             
@@ -511,7 +511,9 @@ class ProductController extends ProductHelper
                     'is_bookmark' => $comment != null && $comment->is_bookmark != null ? $comment->is_bookmark : false,
                     'user_rate' => $comment != null ? $comment->rate : null,
                     'has_comment' => $comment != null && $comment->msg != null,
-                ]), 'is_login' => true,
+                ]), 
+                'is_login' => true,
+                'critical_point' => Config::first()->critical_point,
         ]);
     }
 
