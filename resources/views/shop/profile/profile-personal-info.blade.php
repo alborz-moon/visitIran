@@ -311,9 +311,6 @@
 
 @section('extraJS')
     @parent
-    <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
-    <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
-
     <script>
         function setValName() {
             var name = $('#first_name').val();

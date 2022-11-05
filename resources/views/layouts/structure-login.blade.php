@@ -37,6 +37,8 @@
     <script src="{{ asset('theme-assets/js/dependencies/simplebar.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/zoomsl.min.js') }}"></script>
+    <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
+    <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
     @section('extraJS')
     @show
 </body>

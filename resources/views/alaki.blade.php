@@ -33,5 +33,4 @@
         }).addTo(map);
 
     </script>
-
 @stop

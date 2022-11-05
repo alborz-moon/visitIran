@@ -317,6 +317,8 @@
     <script src="{{ asset('theme-assets/js/dependencies/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('theme-assets/js/dependencies/zoomsl.min.js') }}"></script>    
     <script src="{{ asset('theme-assets/js/basket.js') }}"></script>    
+    <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
+    <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {

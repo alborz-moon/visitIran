@@ -258,8 +258,28 @@ ul {
     box-shadow: 0px 3px 6px #00000029 !important;
     opacity: 1;
 }
+.buttonBasketEvent {
+    padding: 5px;
+    border: 1px solid #efefef;
+    margin-right: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.paddingRight5 {
+    padding-right: 5px;
+}
+.verticalAlign-2 {
+    vertical-align: -2px;
+}
 .mr-15 {
     margin-right: 15px;
+}
+.mr-70 {
+    margin-right: 70px;
 }
 .ml-15 {
     margin-left: 15px;
@@ -297,6 +317,9 @@ ul {
 .colorBlack {
     color: #555a5d !important;
 }
+.colorGray {
+    color: #858585 !important;
+}
 .customColorBlack {
     color: #b4b4b4;
 }
@@ -325,6 +348,10 @@ ul {
 .blogImgSize {
     width: 100px !important;
     height: 60px !important;
+}
+.imgSizeEvent {
+    max-width: 990px !important;
+    max-height: 600px !important;
 }
 .customWidthSlider {
     width: 100%;
@@ -508,6 +535,9 @@ ul {
 .backgroundWhite {
     background-color: #eaeaea;
 }
+.backgroundYellow {
+    background-color: #c59358;
+}
 .customFilterGray {
     background-color: #efefef;
     padding: 0 15px;
@@ -658,6 +688,9 @@ ul {
 }
 .alignSelfEnd {
     align-self: end;
+}
+.felxDirectionColumn {
+    flex-direction: column;
 }
 .spaceBetween {
     display: flex !important;
@@ -1089,6 +1122,15 @@ figure .ck-widget {
 .marginLeft15 {
     margin-left: 15px;
 }
+.userCircleSize {
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
 @media (min-width: 768px) {
     .mt-md-110 {
         margin-top: 110px;
@@ -1100,6 +1142,9 @@ figure .ck-widget {
     }
     .marginTopMediaQuaryForSlider {
         margin-top: 42px;
+    }
+    .p-sm-0 {
+        padding: 0;
     }
 }
 .SimmerParent {

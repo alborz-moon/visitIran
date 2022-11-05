@@ -111,7 +111,7 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
 
     Route::view('/', 'event.welcome')->name('event.home');
 
-    Route::view('/', 'event.event')->name('event.event');
+    Route::view('/event','event.event')->name('event');
 
 });
 
