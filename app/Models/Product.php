@@ -92,10 +92,11 @@ class Product extends Model
         return $features;
     }
 
-    public function activeOff() {
+    public function activeOff($userId) {
+
+        $today = (int)Controller::getToday()['date'];
 
         if($this->off != null) {
-            $today = (int)Controller::getToday()['date'];
             if((int)$this->off_expiration >= $today)
                 return [
                     'type' => $this->off_type,
@@ -103,5 +104,30 @@ class Product extends Model
                 ];
         }
 
+        $off = Off::where('off_expiration', '>', $today)
+            ->where(function($query) {
+                return $query->where('category_id', $this->category_id)
+                    ->orWhereNull('category_id');
+            })->where(function($query) {
+                return $query->where('brand_id', $this->brand_id)
+                    ->orWhereNull('brand_id');
+            })->where(function($query) {
+                return $query->where('seller_id', $this->seller_id)
+                    ->orWhereNull('seller_id');
+            })->where(function($query) use ($userId) {
+                return $query->where('user_id', $userId)
+                    ->orWhereNull('user_id');
+            })->orderBy('amount', 'desc')->get();
+
+        // dd($this->seller_id);
+
+        if($off != null && count($off) > 0) {
+            return [
+                'type' => $off[0]->off_type,
+                'value' => $off[0]->amount
+            ];
+        }
+
+        return null;
     }
 }

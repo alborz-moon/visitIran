@@ -2,13 +2,19 @@
 <div  class="user-address-items">
     <div class="d-flex" id="user-address-items"></div>
     <div class="d-flex" id="newAddress">
-        
+        <div class="user-address-item user-add-address-btn-container">
+            <button onclick="emptyFields()" class="user-add-address-btn" data-remodal-target="add-address-modal-fields-with-map">
+                <i class="ri-add-line icon"></i>
+                <span>آدرس جدید</span>
+            </button>
+        </div>
     </div>
     <!-- start of user-add-address-btn-container -->
     
     <!-- end of user-add-address-btn-container -->
 </div>
 <!-- end of user-address-items -->
+
  <!-- start of remove-from-addresses-modal -->
  <div class="remodal remodal-xs" data-remodal-id="remove-from-addresses-modal"
      data-remodal-options="hashTracking: false">
@@ -40,7 +46,6 @@
             },
             success: function(res) {
                 var html = '';
-                var newAddress ='';
                 if(res.status == "ok") {
                     myAddresses = res.data;
                     for(var i = 0; i < res.data.length; i++) {
@@ -56,21 +61,14 @@
                         html +='<span class="d-flex align-items-center justify-content-end">';
                         html +='<a href="#" data-id=' + res.data[i].id + ' class="remove-modal-address link border-bottom-0 fs-7 fw-bold" data-remodal-target="remove-from-addresses-modal">حذف</a>';
                         html +='<span class="text-secondary mx-2">|</span>';
-                        html +='<a href="#" data-id=' + res.data[i].id + ' class="edit-modal-address link border-bottom-0 fs-7 fw-bold" data-remodal-target="edit-address-modal">ویرایش</a>';
+                        html +='<a href="#" data-id=' + res.data[i].id + ' class="edit-modal-address link border-bottom-0 fs-7 fw-bold" data-remodal-target="add-address-modal-fields-with-map">ویرایش</a>';
                         html +='</span>';
                         html +='</label>';
                         html +='</div>';
                         html +='</div>';
                     }
+
                     $("#user-address-items").empty().append(html);
-                    
-                    // newAddress += '<div class="user-address-item hidden user-add-address-btn-container">';
-                    // newAddress += '<button onclick="asd()" id="asdqw" class="user-add-address-btn" data-remodal-target="add-address-modal-fields-with-map">';
-                    // newAddress += '<i class="ri-add-line icon"></i>';
-                    // newAddress += '<span>آدرس جدید</span>';
-                    // newAddress += '</button>';
-                    // newAddress += '</div>';
-                    //  $("#newAddress").append(newAddress);
                 }
             }
         });
@@ -93,13 +91,16 @@
         $(document).on('click', '.remove-modal-address', function() {
             selectedAddrId = $(this).attr('data-id');
         });
+
         $(document).on('click', '.edit-modal-address', function() {
+
             selectedAddrId = $(this).attr('data-id');
             mode = 'edit;'
-            // address.destroy
+
             let address = myAddresses.find((elem, index) => {
                 return elem.id == selectedAddrId;
             });
+
             $("#recv_name").val(address.recv_name);
             $("#lastName").val(address.recv_last_name);
             $("#name").val(address.name);
@@ -109,7 +110,6 @@
             $("#state02").val(address.state_id).change();
             $("#x").val(address.x);
             $("#y").val(address.y);
-            $(".user-add-address-btn").click();
             getCities(address.state_id, address.city_id);
         });
     })

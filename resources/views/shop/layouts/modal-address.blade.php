@@ -6,7 +6,7 @@
     </div>
     <div class="remodal-content">
         <div class="row">
-            <div class="col-md-8 mb-md-0 mb-4">
+            <div class="col-md-12 mb-md-0 mb-4">
                 <!-- start of add-address-form -->
                 <form action="#" class="add-address-form">
                     <div class="row">
@@ -86,12 +86,10 @@
                 </form>
                 <!-- end of add-address-form -->
             </div>
-            <div class="col-md-4">
-                <div class="map-container bg-light my-3">
-                    <!-- map -->
-                    <div class="hoverBoxShadow backgroundColorBlue textColor w-100 h-100 d-flex justify-content-center align-items-center colorWhite">نقشه</div>
-                </div>
-            </div>
+
+            {{-- <div class="col-md-12">
+                <div id="map" style="width: 100%; height: 300px">نقشه</div>
+            </div> --}}
         </div>
     </div>
     <div class="remodal-footer">
@@ -99,10 +97,10 @@
         <button id="submitAddress" class="btn btn-sm btn-primary px-3">ثبت</button>
     </div>
 </div>
+
     <script>
-        
-        function asd() {
-            alert("dqw");
+            
+        function emptyFields() {
             $("#recv_name").val('');
             $("#lastName").val('');
             $("#name").val('');
@@ -151,17 +149,6 @@
         }
 
         $(document).ready(function() {
-
-            // $.ajax({
-            //     type: 'get',
-            //     url: '{{ route('address.index') }}',
-            //     headers: {
-            //         'accept': 'application/json'
-            //     },
-            //     success: function(res) {
-            //         console.log(res);
-            //     }
-            // });
 
             $("#submitAddress").on('click', function() {
                 let recv_name = $('#recv_name').val();

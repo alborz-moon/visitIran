@@ -72,7 +72,7 @@
                 <span></span>
             </div>
         @endif
-        @if($product['available_count']  > 0)
+        @if($product['available_count'] > 0)
             <div id="availableCount" class="product-seller-row product-remaining-in-stock">
                 <span>تنها <span class="mx-2">{{ $product['available_count'] }}</span> عدد در انبار باقیست - پیش از
                     اتمام بخرید</span>
@@ -82,24 +82,28 @@
                 <span>اتمام موجودی</span>
             </div>
         @endif
-        <div class="product-seller-row product-remaining-in-stock spaceBetween">
-            <div class="bold textColor d-flex align-items-center ">
-                <div>تعداد سفارش :</div>                                            
+
+        @if($product['available_count'] != 0)
+            <div class="product-seller-row product-remaining-in-stock spaceBetween">
+                <div class="bold textColor d-flex align-items-center ">
+                    <div>تعداد سفارش :</div>                                            
+                </div>
+                <div class="num-block fa-num me-3">
+                    <span class="num-in">
+                        <span class="icon-visit-Exclusion1 countPlus customColorBlack d-flex justify-content-center align-items-center"></span>
+                        <input name="counter" type="text" value="1" readonly="">
+                        <span class="icon-visit-Exclusion2 countMinus customColorBlack d-flex justify-content-center align-items-center"></span>
+                    </span>
+                </div>
             </div>
-            <div class="num-block fa-num me-3">
-                <span class="num-in">
-                    <span class="icon-visit-Exclusion1 countPlus customColorBlack d-flex justify-content-center align-items-center"></span>
-                    <input name="counter" type="text" value="1" readonly="">
-                    <span class="icon-visit-Exclusion2 countMinus customColorBlack d-flex justify-content-center align-items-center"></span>
-                </span>
+
+            <div class="product-seller--add-to-cart">
+                <a onclick="addToBasket()" class="btn btn-primary backgroundColorBlue w-100">
+                    افزودن به سبد خرید
+                </a>
             </div>
-        </div>
-    <div class="product-seller--add-to-cart">
-        <a onclick="addToBasket()" class="btn btn-primary backgroundColorBlue w-100">
-            افزودن به سبد خرید
-        </a>
+        @endif
     </div>
-</div>
 <script>
     
     $(".countPlus").on('click', function() {

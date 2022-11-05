@@ -12,6 +12,9 @@ function renderProductSlider(data, prefix) {
         if (elem.seller !== "") {
             $("#" + prefix + "SellerParent").removeClass("hidden");
             $("#" + prefix + "Seller").text(elem.seller);
+        } else {
+            $("#" + prefix + "SellerParent").addClass("hidden");
+            $("#" + prefix + "Seller").text("");
         }
 
         let starHtml = "";

@@ -112,7 +112,31 @@ function refreshBasket() {
 
         newElem = replaceIds(prefix, newElem, id);
 
-        totalPrice += elem.count * parseInt(elem.detail.price.replace(",", ""));
+        if (
+            elem.detail.off_type === undefined ||
+            elem.detail.off_type === null ||
+            elem.detail.off_type === "" ||
+            elem.detail.off_type === "null"
+        )
+            totalPrice +=
+                elem.count * parseInt(elem.detail.price.replace(",", ""));
+        else {
+            if (elem.detail.off_type === "percent") {
+                priceAfter =
+                    ((100 - parseInt(elem.detail.off_value)) *
+                        parseInt(elem.detail.price.replace(",", ""))) /
+                    100;
+            } else {
+                priceAfter = Math.max(
+                    0,
+                    parseInt(elem.detail.price.replace(",", "")) -
+                        parseInt(elem.detail.off_value)
+                );
+            }
+
+            totalPrice += elem.count * priceAfter;
+        }
+
         html += newElem;
     });
 
@@ -122,6 +146,7 @@ function refreshBasket() {
     $("#mini-cart-total-value")
         .empty()
         .append(totalPrice.formatPrice(0, ",", ""));
+
     $("#basket-items").empty().append(html);
 }
 

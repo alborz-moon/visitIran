@@ -122,6 +122,7 @@ Route::get('/cart-empty', function () {
 
 
 Route::view('alaki', 'alaki');
+
 Route::get('/checkout-successful', function () {
     return view('checkout-successful');
 })->name('checkout-successful');

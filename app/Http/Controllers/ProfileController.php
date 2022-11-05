@@ -80,9 +80,15 @@ class ProfileController extends Controller
     
     
     public function personalInfo(Request $request) {
-        return view('shop.profile.profile-personal-info', [
-            'user' => $request->user()
-        ]);
+        
+        $user = $request->user();
+        $birth_day = $user->birth_day;
+
+        if($birth_day != null) {
+           $birth_day = explode('/', $birth_day);
+        }
+
+        return view('shop.profile.profile-personal-info', compact('user', 'birth_day'));
     }
 
     public function ticketsAdd() {
