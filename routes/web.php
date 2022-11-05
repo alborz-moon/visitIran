@@ -119,6 +119,8 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
 
     Route::view('/launcher','event.launcher.launcher-register')->name('launcher');
 
+    Route::view('/finance','event.launcher.launcher-finance')->name('finance');
+
 });
 
 
