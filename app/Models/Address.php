@@ -23,6 +23,7 @@ class Address extends Model
         'recv_name',
         'recv_last_name',
         'recv_phone',
+        'is_default'
     ];
     
     public function city() {

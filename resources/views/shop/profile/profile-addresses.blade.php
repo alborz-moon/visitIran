@@ -1,12 +1,28 @@
 
 @extends('layouts.structure')
 
-@section('content')
+@section('header')
+
+    @parent
+
+    <script src="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.js"></script>
+    <link
+      href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
 
     <script>
+        let step = 0;
+        let x = undefined;
+        let y = undefined;
         let mode = 'create';
         let selectedAddrId;
     </script>
+
+@stop
+
+@section('content')
+
     <main class="page-content">
         <div class="container">
             <div class="row mb-5">
@@ -19,12 +35,6 @@
                         <div class="ui-box-content">
                             @include('shop.layouts.user-address-items')
                         </div>
-                    </div>
-
-                    <script src="https://cdn.parsimap.ir/third-party/leaflet/plugins/parsimap-tile/v1.0.0/parsimap-tile.js"></script>
-
-                    <div class="col-md-12">
-                        <div id="map" style="width: 100%; height: 300px"></div>
                     </div>
                 
                 </div>

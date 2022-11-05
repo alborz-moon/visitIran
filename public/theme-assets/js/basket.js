@@ -18,7 +18,7 @@ function setVals(prefix, elem, complete = false) {
         elem.detail.off_type === "null"
     ) {
         $("#" + prefix + "-price").text(elem.detail.price);
-        priceAfter = elem.detail.price;
+        priceAfter = elem.detail.price.replace(",", "");
     } else {
         if (elem.detail.off_type === "percent") {
             priceAfter =
@@ -36,11 +36,25 @@ function setVals(prefix, elem, complete = false) {
         $("#" + prefix + "-price").text(priceAfter.formatPrice(0, ",", "."));
     }
 
-    if (elem.color !== undefined)
+    if (elem.color !== undefined) {
+        $("#" + prefix + "-color-parent").removeClass("hidden");
         $("#" + prefix + "-color")
             .css("background-color", elem.color)
             .removeClass("hidden");
-    else $("#" + prefix + "-color").addClass("hidden");
+    } else {
+        $("#" + prefix + "-color-parent").addClass("hidden");
+        $("#" + prefix + "-color").addClass("hidden");
+    }
+
+    if (elem.detail.feature !== undefined) {
+        $("#" + prefix + "-feature-parent").removeClass("hidden");
+        $("#" + prefix + "-feature")
+            .text(elem.detail.feature)
+            .removeClass("hidden");
+    } else {
+        $("#" + prefix + "-feature-parent").addClass("hidden");
+        $("#" + prefix + "-feature").addClass("hidden");
+    }
 
     $("#" + prefix + "-remove-btn").attr("data-id", id);
 
@@ -57,6 +71,27 @@ function setVals(prefix, elem, complete = false) {
             $("#" + prefix + "-seller-parent").removeClass("hidden");
         } else $("#" + prefix + "-seller-parent").addClass("hidden");
         $("#" + prefix + "-count").attr("value", elem.count);
+
+        if (elem.colorLabel !== undefined)
+            $("#" + prefix + "-color-label")
+                .text(elem.colorLabel)
+                .removeClass("hidden");
+        else $("#" + prefix + "-color-label").addClass("hidden");
+
+        if (priceAfter != parseInt(elem.detail.price.replace(",", ""))) {
+            $("#" + prefix + "-price-before-off")
+                .removeClass("hidden")
+                .text(elem.detail.price);
+            $("#" + prefix + "-off-section").removeClass("hidden");
+            $("#" + prefix + "-off-amount").text(elem.detail.off_value + " %");
+        } else {
+            $("#" + prefix + "-off-section").addClass("hidden");
+            $("#" + prefix + "-price-before-off").addClass("hidden");
+        }
+
+        $("#" + prefix + "-plus-btn").attr("data-id", elem.id);
+        $("#" + prefix + "-minus-btn").attr("data-id", elem.id);
+        $("#" + prefix + "-remove-btn").attr("data-id", elem.id);
     } else {
         $("#" + prefix + "-count").text(elem.count + " عدد");
     }
@@ -84,6 +119,8 @@ function replaceIds(prefix, newElem, id, complete = false) {
                 prefix + "-seller-parent-" + id
             )
             .replace(prefix + "-guarantee", prefix + "-guarantee-" + id)
+            .replace(prefix + "-plus-btn", prefix + "-plus-btn-" + id)
+            .replace(prefix + "-minus-btn", prefix + "-minus-btn-" + id)
             .replace(
                 prefix + "-guarantee-parent",
                 prefix + "-guarantee-parent-" + id
@@ -162,7 +199,6 @@ $(document).ready(function () {
         basket = basket.filter((elem) => {
             return elem.id !== wantedId;
         });
-        console.log(basket);
 
         window.localStorage.setItem("basket", JSON.stringify(basket));
         refreshBasket();
@@ -172,18 +208,31 @@ $(document).ready(function () {
 function renderBasket() {
     let basket = window.localStorage.getItem("basket");
 
-    if (basket === null || basket === undefined) {
+    if (
+        basket === null ||
+        basket === undefined ||
+        basket === "" ||
+        JSON.parse(basket).length === 0
+    ) {
         $("#full_basket_count_items").empty().append("0 کالا");
         $("#full_basket_items").empty();
+        $("#empty-basket").removeClass("hidden");
+        $("#full-basket").addClass("hidden");
+        refreshBasket();
         return;
     }
 
     basket = JSON.parse(basket);
+
     let prefix = "full-basket-item";
     let html = "";
+    let totalPricesAfterOff = 0;
+    let totalPrices = 0;
 
     basket.forEach((elem) => {
-        setVals(prefix, elem, true);
+        totalPricesAfterOff += setVals(prefix, elem, true) * elem.count;
+        totalPrices +=
+            parseInt(elem.detail.price.replace(",", "")) * elem.count;
         let id = elem.id;
         var newElem = $("#sample_full_basket_item").html();
 
@@ -195,5 +244,158 @@ function renderBasket() {
     $("#full_basket_count_items")
         .empty()
         .append(basket.length + " کالا");
+
+    $("#full_basket_total_after_price")
+        .empty()
+        .append(totalPricesAfterOff.formatPrice(0, ",", "."));
+
+    $("#full_basket_total_price")
+        .empty()
+        .append(totalPrices.formatPrice(0, ",", "."));
+
+    $("#full_basket_total_off")
+        .empty()
+        .append((totalPrices - totalPricesAfterOff).formatPrice(0, ",", "."));
+
     $("#full_basket_items").empty().append(html);
+
+    refreshBasket();
+}
+
+$(document).on("click", ".countPlus", function () {
+    let basket = window.localStorage.getItem("basket");
+
+    if (
+        basket === null ||
+        basket === undefined ||
+        basket === "" ||
+        JSON.parse(basket).length === 0
+    )
+        return;
+
+    basket = JSON.parse(basket);
+    let id = $(this).attr("data-id");
+    let c = parseInt($("#full-basket-item-count-" + id).val()) + 1;
+
+    basket.forEach((elem) => {
+        if (elem.id === id) elem.count = c;
+    });
+
+    window.localStorage.setItem("basket", JSON.stringify(basket));
+    renderBasket();
+});
+
+$(document).on("click", ".countMinus", function () {
+    let basket = window.localStorage.getItem("basket");
+
+    if (
+        basket === null ||
+        basket === undefined ||
+        basket === "" ||
+        JSON.parse(basket).length === 0
+    )
+        return;
+
+    basket = JSON.parse(basket);
+    let id = $(this).attr("data-id");
+    let c = parseInt($("#full-basket-item-count-" + id).val());
+    if (c === 1) return;
+
+    c--;
+
+    basket.forEach((elem) => {
+        if (elem.id === id) elem.count = c;
+    });
+
+    window.localStorage.setItem("basket", JSON.stringify(basket));
+    renderBasket();
+});
+
+$(document).on("click", ".removeBasketItemBtn", function () {
+    let basket = window.localStorage.getItem("basket");
+
+    if (
+        basket === null ||
+        basket === undefined ||
+        basket === "" ||
+        JSON.parse(basket).length === 0
+    )
+        return;
+
+    basket = JSON.parse(basket);
+    let id = $(this).attr("data-id");
+
+    window.localStorage.setItem(
+        "basket",
+        JSON.stringify(basket.filter((elem) => elem.id !== id))
+    );
+    renderBasket();
+});
+
+function renderPaymentCard() {
+    let basket = window.localStorage.getItem("basket");
+
+    if (
+        basket === null ||
+        basket === undefined ||
+        basket === "" ||
+        JSON.parse(basket).length === 0
+    ) {
+        $("#full_basket_count_items").empty().append("0 کالا");
+        $("#full_basket_items").empty();
+        $("#empty-basket").removeClass("hidden");
+        $("#full-basket").addClass("hidden");
+        return;
+    }
+
+    basket = JSON.parse(basket);
+
+    let totalPricesAfterOff = 0;
+    let totalPrices = 0;
+
+    basket.forEach((elem) => {
+        let priceAfter;
+
+        if (
+            elem.detail.off_type === undefined ||
+            elem.detail.off_type === null ||
+            elem.detail.off_type === "" ||
+            elem.detail.off_type === "null"
+        ) {
+            priceAfter = elem.detail.price.replace(",", "");
+        } else {
+            if (elem.detail.off_type === "percent") {
+                priceAfter =
+                    ((100 - parseInt(elem.detail.off_value)) *
+                        parseInt(elem.detail.price.replace(",", ""))) /
+                    100;
+            } else {
+                priceAfter = Math.max(
+                    0,
+                    parseInt(elem.detail.price.replace(",", "")) -
+                        parseInt(elem.detail.off_value)
+                );
+            }
+        }
+
+        totalPricesAfterOff += priceAfter * elem.count;
+        totalPrices +=
+            parseInt(elem.detail.price.replace(",", "")) * elem.count;
+    });
+
+    $("#full_basket_count_items")
+        .empty()
+        .append(basket.length + " کالا");
+
+    $("#full_basket_total_after_price")
+        .empty()
+        .append(totalPricesAfterOff.formatPrice(0, ",", "."));
+
+    $("#full_basket_total_price")
+        .empty()
+        .append(totalPrices.formatPrice(0, ",", "."));
+
+    $("#full_basket_total_off")
+        .empty()
+        .append((totalPrices - totalPricesAfterOff).formatPrice(0, ",", "."));
 }

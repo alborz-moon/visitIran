@@ -18,7 +18,11 @@
                         </div>
                         <div class="cart-item--detail">
                             <h2 class="cart-item--title mb-2"><a id="full-basket-item-href" href="#"></a></h2>
-                            <div class="cart-item--variant mb-2" style="margin-right: 50px">
+                            {{-- style="margin-right: 50px" --}}
+                            <div id="full-basket-item-feature-parent" class="cart-item--variant mb-2 hidden">
+                                <span id="full-basket-item-feature" class="ms-1 hidden"></span>
+                            </div>
+                            <div id="full-basket-item-color-parent" class="cart-item--variant mb-2 hidden">
                                 <span id="full-basket-item-color" class="color hidden"></span>
                                 <span id="full-basket-item-color-label" class="ms-1 hidden"></span>
                             </div>
@@ -43,29 +47,29 @@
                                         </div>
                                         <div class="num-block fa-num me-3">
                                             <span class="num-in">
-                                                <span class="icon-visit-Exclusion1 countPlus customColorBlack d-contents"></span>
-                                                <input id="full-basket-item-count" name="counter" type="text" readonly="">
-                                                <span class="icon-visit-Exclusion2 countMinus customColorBlack d-contents"></span>
+                                                <span id="full-basket-item-plus-btn" class="icon-visit-Exclusion1 countPlus customColorBlack d-flex justify-content-center align-items-center"></span>
+                                                <input id="full-basket-item-count" name="counter" type="text" value="1" readonly="">
+                                                <span id="full-basket-item-minus-btn" class="icon-visit-Exclusion2 countMinus customColorBlack d-flex justify-content-center align-items-center"></span>
                                             </span>
                                         </div>
                                     </div>
-                                    <button id="full-basket-item-remove-btn" class="btn btn-link btn-sm text-secondary position-absolute t-0 l-0"><i
+                                    <button id="full-basket-item-remove-btn" class="removeBasketItemBtn btn btn-link btn-sm text-secondary position-absolute t-0 l-0"><i
                                             class="ri-delete-bin-5-line me-1"></i><span>حذف</span></button>
                                 </div>
                                 <div class="product-seller-row product-seller-row--price pt-2">
                                     <div class="product-price fa-num">
-                                        <div id="OffSection" class="d-flex align-items-center">
+                                        <div id="full-basket-item-off-section" class="d-flex align-items-center hidden">
                                             <div class="fontSize15 pl-10 position-relative">
                                                 <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="" width="45">
-                                                <span id="Off" class="position-absolute fontSize10 colorWhite r-0 customOff">
-                                                        <span>%</span>
+                                                <span class="position-absolute fontSize10 colorWhite r-0 customOff">
+                                                        <span id="full-basket-item-off-amount">%</span>
                                                 </span>
                                             </div>
-                                            <del id="PriceBeforeOff" class="customlineText textColor fontSize21 bold">15000</del>
+                                            <del id="full-basket-item-price-before-off" class="customlineText textColor fontSize21 bold"></del>
                                         </div>
                                     </div>
                                     <div class="product-seller-row--price-now fa-num ">
-                                        <span id="full-basket-item-price" class="price fontSize21 bold">9000000</span>
+                                        <span id="full-basket-item-price" class="price fontSize21 bold"></span>
                                         <span class="currency fontSize21 bold colorYellow">ت</span>
                                     </div>
                                     </div>
@@ -79,41 +83,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    var count = 1;
-    var lastChange = -1;
-    
-    $(".countPlus").on('click', function() {
-        let now = Date.now();
-
-        if(now - lastChange < 50)
-            return;
-
-        lastChange = now;
-        
-        count++;
-        $("input[name='counter']").each(function() {
-            $(this).val(count);
-        });
-    });
-
-    $(".countMinus").on('click', function() {
-                
-        let now = Date.now();
-
-        if(now - lastChange < 50)
-            return;
-
-        lastChange = now;
-
-        if(count == 1)
-            return;
-
-        count--;
-        $("input[name='counter']").each(function() {
-            $(this).val(count);
-        });
-
-    });
-</script>

@@ -1,4 +1,25 @@
 @extends('layouts.structure')
+
+@section('header')
+
+    @parent
+
+    <script src="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.js"></script>
+    <link
+      href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+
+    <script>
+        let step = 0;
+        let x = undefined;
+        let y = undefined;
+        let mode = 'create';
+        let selectedAddrId;
+    </script>
+
+@stop
+
 @section('content')
         <main class="page-content">
             <div class="container">
@@ -9,28 +30,13 @@
                         <div class="ui-box bg-white user-address-selected mb-5">
                             <div class="ui-box-title">آدرس تحویل سفارش</div>
                             <div class="ui-box-content">
-                                <!-- start of user-addresses-container -->
-                                <div class="user-addresses-container">
-                                    <!-- start of user-address -->
-                                    <div class="user-address">
-                                        <div class="user-address-recipient mb-2">خراسان شمالی،بجنورد</div>
-                                        <span class="d-block user-contact-items fa-num mb-3">
-                                            <span class="user-contact-item">
-                                                <i class="ri-user-line icon"></i>
-                                                <span class="value">جلال بهرامی راد</span>
-                                            </span>
-                                        </span>
-                                        <a href="#" class="link border-bottom-0 fs-7 fw-bold" data-btn-box
-                                            data-parent=".user-address-selected"
-                                            data-target="#change-user-address">تغییر یا ویرایش آدرس <i
-                                                class="ri-arrow-left-s-fill"></i></a>
-                                    </div>
-                                    <!-- end of user-address -->
-                                </div>
-                                <!-- end of user-addresses-container -->
+                                @include('shop.layouts.user-address-items')
                             </div>
                         </div>
                         <!-- end of box => user-address-selected -->
+
+                        @include('shop.layouts.modal-address')
+
                         <!-- start of box => user-addresses -->
                         <div class="ui-box bg-white user-addresses d-none mb-5" id="change-user-address">
                             <div class="ui-box-title">
@@ -227,7 +233,7 @@
                                                                 <div class="checkout-time-label">پنج شنبه</div>
                                                                 <div class="checkout-time-date">30 دی</div>
                                                                 <div class="custom-radio-btn">
-                                                                    <input type="radio" class="custom-radio-btn-input"
+                                                                    <input value="پنج شنبه 30 دی ساعت ۱۰ تا ۲۳" type="radio" class="custom-radio-btn-input"
                                                                         name="checkoutTime" id="checkoutTime02">
                                                                     <label for="checkoutTime02"
                                                                         class="custom-radio-btn-label">
@@ -243,7 +249,7 @@
                                                                 <div class="checkout-time-label text-danger">جمعه</div>
                                                                 <div class="checkout-time-date">1 بهمن</div>
                                                                 <div class="custom-radio-btn">
-                                                                    <input type="radio" class="custom-radio-btn-input"
+                                                                    <input value="جمعه ۱ بهمن ساعت ۱۰ تا ۲۳" type="radio" class="custom-radio-btn-input"
                                                                         name="checkoutTime" id="checkoutTime03">
                                                                     <label for="checkoutTime03"
                                                                         class="custom-radio-btn-label">
@@ -259,7 +265,7 @@
                                                                 <div class="checkout-time-label">شنبه</div>
                                                                 <div class="checkout-time-date">2 بهمن</div>
                                                                 <div class="custom-radio-btn">
-                                                                    <input type="radio" class="custom-radio-btn-input"
+                                                                    <input value="شنبه ۲ بهمن ساعت ۱۰ تا ۲۳" type="radio" class="custom-radio-btn-input"
                                                                         name="checkoutTime" id="checkoutTime04">
                                                                     <label for="checkoutTime04"
                                                                         class="custom-radio-btn-label">
@@ -289,120 +295,10 @@
                         <a href='{{ route('cart') }}' class="link border-bottom-0"><i class="ri-arrow-right-s-fill"></i> بازگشت به سبد
                             خرید</a>
                     </div>
-                    @include('shop.cart.basket_cart', ['nextUrl' => route('payment')])
+                    @include('shop.cart.basket_cart', ['nextBtnId' => 'saveAddrAndTimeBtn'])
                 </div>
             </div>
-            <!-- start of remove-from-addresses-modal -->
-            <div class="remodal remodal-xs" data-remodal-id="remove-from-addresses-modal"
-                data-remodal-options="hashTracking: false">
-                <div class="remodal-header">
-                    <button data-remodal-action="close" class="remodal-close"></button>
-                </div>
-                <div class="remodal-content">
-                    <div class="text-muted fs-7 fw-bold mb-3">
-                        آیا مطمئنید که این آدرس حذف شود؟
-                    </div>
-                </div>
-                <div class="remodal-footer">
-                    <button data-remodal-action="cancel" class="btn btn-sm btn-outline-light px-3 me-2">خیر</button>
-                    <button class="btn btn-sm btn-primary px-3">بله</button>
-                </div>
-            </div>
-            <!-- end of remove-from-addresses-modal -->
-            <!-- start of add-address-modal-fields-with-map -->
-            <div class="remodal remodal-lg" data-remodal-id="add-address-modal-fields-with-map"
-                data-remodal-options="hashTracking: false">
-                <div class="remodal-header">
-                    <button data-remodal-action="close" class="remodal-close"></button>
-                    <div class="remodal-title">افزودن آدرس جدید</div>
-                </div>
-                <div class="remodal-content">
-                    <div class="row">
-                        <div class="col-md-8 mb-md-0 mb-4">
-                            <!-- start of add-address-form -->
-                            <form action="#" class="add-address-form">
-                                <div class="row">
-                                    <div class="col-lg-6 mb-3">
-                                        <!-- start of form-element -->
-                                        <div class="form-element-row">
-                                            <label class="label fs-7">نام گیرنده</label>
-                                            <input type="text" class="form-control" placeholder="نام">
-                                        </div>
-                                        <!-- end of form-element -->
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <!-- start of form-element -->
-                                        <div class="form-element-row">
-                                            <label class="label fs-7">نام خانوادگی گیرنده</label>
-                                            <input type="text" class="form-control" placeholder="نام خانوادگی">
-                                        </div>
-                                        <!-- end of form-element -->
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <!-- start of form-element -->
-                                        <div class="form-element-row">
-                                            <label class="label fs-7">استان</label>
-                                            <select class="select2" name="state02" id="state02">
-                                                <option value="0">انتخاب کنید</option>
-                                                <option value="0">خراسان شمالی</option>
-                                            </select>
-                                        </div>
-                                        <!-- end of form-element -->
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <!-- start of form-element -->
-                                        <div class="form-element-row">
-                                            <label class="label fs-7">شهر</label>
-                                            <select class="select2" name="city02" id="city02">
-                                                <option value="0">انتخاب کنید</option>
-                                                <option value="0">بجنورد</option>
-                                            </select>
-                                        </div>
-                                        <!-- end of form-element -->
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <!-- start of form-element -->
-                                        <div class="form-element-row">
-                                            <label class="label fs-7">شماره موبایل</label>
-                                            <input type="text" class="form-control" placeholder="مثال: ۰۹۱۲۳۴۵۶۷۸۹">
-                                        </div>
-                                        <!-- end of form-element -->
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <!-- start of form-element -->
-                                        <div class="form-element-row">
-                                            <label class="label fs-7">کدپستی</label>
-                                            <input type="text" class="form-control"
-                                                placeholder="کدپستی باید ۱۰ رقم و بدون خط تیره باشد">
-                                        </div>
-                                        <!-- end of form-element -->
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <!-- start of form-element -->
-                                        <div class="form-element-row">
-                                            <label class="label fs-7">آدرس</label>
-                                            <textarea rows="5" class="form-control" placeholder="آدرس کامل"></textarea>
-                                        </div>
-                                        <!-- end of form-element -->
-                                    </div>
-                                </div>
-                            </form>
-                            <!-- end of add-address-form -->
-                        </div>
-                        <div class="col-md-4">
-                            <div class="map-container bg-light my-3">
-                                <!-- map -->
-                                <div class="hoverBoxShadow backgroundColorBlue textColor w-100 h-100 d-flex justify-content-center align-items-center colorWhite">نقشه</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="remodal-footer">
-                    <button data-remodal-action="cancel" class="btn btn-sm btn-outline-light px-3 me-2">بستن</button>
-                    <button data-remodal-action="confirm" class="btn btn-sm btn-primary px-3">ثبت</button>
-                </div>
-            </div>
-            <!-- end of add-address-modal-fields-with-map -->
+            
         </main>
 @stop
 
@@ -412,4 +308,39 @@
 
 @section('extraJS')
     @parent
+
+    <script src="{{ asset('theme-assets/js/basket.js') }}"></script>
+
+    <script>
+        renderPaymentCard();
+
+        $(document).on('click', "#saveAddrAndTimeBtn", function() {
+            
+            let time = $("input[name='checkoutTime']:checked").val();
+
+            if(time === undefined) {
+                showErr('لطفا زمان تحویل موردنظر خود را انتخاب نمایید.');
+                return;
+            }
+
+            let address = $("input[name='userAddress']:checked").val();
+            
+            if(address === undefined) {
+                showErr('لطفا آدرس موردنظر خود را انتخاب نمایید.');
+                return;
+            }
+            
+            window.localStorage.setItem(
+                "time",time
+            );
+
+            window.localStorage.setItem(
+                "address",address
+            );
+
+            window.location.href = '{{ route('payment') }}';
+
+        });
+
+    </script>
 @stop

@@ -273,11 +273,18 @@
 
                     if(res.features[i].name === 'multicolor') {
                         
+                        console.log(res.features[i]);
+
                         $("#color-div").removeClass('hidden');
                         let val_label = res.features[i].value.split('__');
+
                         let prices = res.features[i].price !== undefined && 
                             res.features[i].price !== null && res.features[i].price != '' ? 
-                                res.features[i].price.split('$$') : [];
+                                res.features[i].price.split('$$') : null;
+
+                        let counts = res.features[i].available_count === undefined || 
+                                    res.features[i].available_count == null ? null : 
+                                    res.features[i].available_count.split("$$");
 
                         let colors_keys = val_label[0].split('$$');
                         let colors_labels = val_label[1].split('$$');
@@ -288,10 +295,24 @@
                             colors += '<input data-label="' + colors_labels[j] + '" data-val="' + colors_keys[j] + '"" type="radio" class="custom-radio-circle-input" name="productColor"';
                             if(j == 0) {
 
-                                if(prices.length > j)
-                                    colors += 'data-price="' + prices[j] + '" id="productColor0' + j + '" checked>';
-                                else
-                                    colors += 'data-price="" id="productColor0' + j + '" checked>';
+                                if(prices !== null) {
+                                    if(prices.length > j)
+                                        colors += 'data-price="' + prices[j] + '" id="productColor0' + j + '" checked>';
+                                    else
+                                        colors += 'data-price="" id="productColor0' + j + '" checked>';
+
+                                    finalPrice = prices[j];
+                                    $(".price").empty().append(prices[j]);
+                                }
+                                else if(counts !== null) {
+                                    if(counts.length > j)
+                                        colors += 'data-count="' + counts[j] + '" id="productColor0' + j + '" checked>';
+                                    else
+                                        colors += 'data-count="" id="productColor0' + j + '" checked>';
+
+                                    finalAvailableCount = counts[j];
+                                    showAvailableCount(parseInt(finalAvailableCount));
+                                }
                                 
                                 let html = '<div class="product-option">';
                                 html += '<span class="color" style="background-color: ' + colors_labels[j] + ';"></span>';
@@ -300,17 +321,23 @@
 
                                 $("#product_options").empty().append(html);
                                 wantedColor = colors_labels[j];
-                                finalPrice = prices[j];
-
-                                $(".price").empty().append(prices[j]);
+                                wantedColorLabel = colors_keys[j];
                                 $("#product-color-variant-selected").empty().append(colors_keys[j]);
+
                             }
                             else {
-                                
-                                if(prices.length > j)
-                                    colors += 'data-price="' + prices[j] + '" id="productColor0' + j + '">';
-                                else
-                                    colors += 'data-price="" id="productColor0' + j + '">';
+                                if(prices !== null) {
+                                    if(prices.length > j)
+                                        colors += 'data-price="' + prices[j] + '" id="productColor0' + j + '">';
+                                    else
+                                        colors += 'data-price="" id="productColor0' + j + '">';
+                                }
+                                else {
+                                    if(counts.length > j)
+                                        colors += 'data-count="' + counts[j] + '" id="productColor0' + j + '">';
+                                    else
+                                        colors += 'data-count="" id="productColor0' + j + '">';
+                                }
                             }
 
                             colors += '<label for="productColor0' + j + '" class="custom-radio-circle-label"';
@@ -346,14 +373,17 @@
                             if(j == 0) {
 
                                 $('#selected_option_for_feature_' + res.features[i].id).empty().append(vals[0]);
+                                wantedFeature = vals[0];
 
                                 if(prices != null) {
                                     options += 'data-price="' + prices[j] + '" id="productOption0' + j + '" class="selected">';
                                     $(".price").empty().append(prices[j]);
+                                    finalPrice = prices[j];
                                 }
                                 else {
                                     options += 'data-count="' + counts[j] + '" id="productOption0' + j + '" class="selected">';
-                                    $("#availableCount").empty().append(counts[j]);
+                                    finalAvailableCount = counts[j];
+                                    showAvailableCount(parseInt(finalAvailableCount));
                                 }
                                 
                             }
@@ -394,8 +424,51 @@
             }
         });
 
+
+        let critical_point = parseInt('{{ $critical_point }}');
+
+        function showAvailableCount(count) {
+
+            if(count > critical_point) {
+                $(".show_if_available").removeClass('hidden');
+                $(".availableCount").empty().append('<span></span>');
+            }
+            else if(count === 0) {
+                $(".show_if_available").addClass('hidden');
+                $(".availableCount").empty().append('<span>اتمام موجودی</span>');
+            }
+            else {
+                $(".show_if_available").removeClass('hidden');
+                $(".availableCount").empty().append('<span>تنها <span class="mx-2">' + count + '</span>عدد در انبار باقیست - پیش از اتمام بخرید</span>');
+            }
+
+        }
+
+
         $(document).on("click","input[name='productColor']", function() {
             
+            if($(this).attr('data-price') !== undefined) {
+                finalPrice = $(this).attr('data-price');
+                $(".price").empty().append(finalPrice);
+            }
+            else {
+                finalAvailableCount = $(this).attr('data-count');
+                showAvailableCount(parseInt(finalAvailableCount));
+            }
+
+            wantedColor = $(this).attr('data-label');
+            wantedColorLabel = $(this).attr('data-val');
+
+            let html = '<div class="product-option">';
+            html += '<span class="color" style="background-color: ' + wantedColor + ';"></span>';
+            html += '<span class="color-label ms-2">' + wantedColorLabel + '</span>';
+            html += '</div>';
+
+            $("#product_options").empty().append(html);
+            $("#product-color-variant-selected").empty().append($(this).attr('data-val'));
+        });
+
+        $(document).on("click","button[name='productOption']", function() {
 
             if($(this).attr('data-price') !== undefined) {
                 finalPrice = $(this).attr('data-price');
@@ -403,30 +476,14 @@
             }
             else {
                 finalAvailableCount = $(this).attr('data-count');
-                $("#availableCount").empty().append(finalAvailableCount);
+                showAvailableCount(parseInt(finalAvailableCount));
             }
-
-            wantedColor = $(this).attr('data-label');
-
-            let html = '<div class="product-option">';
-            html += '<span class="color" style="background-color: ' + wantedColor + ';"></span>';
-            html += '<span class="color-label ms-2">' + $(this).attr('data-val') + '</span>';
-            html += '</div>';
-
-            $("#product_options").empty().append(html);
-            $(".price").empty().append($(this).attr('data-price'));
-            $("#product-color-variant-selected").empty().append($(this).attr('data-val'));
-        });
-
-        $(document).on("click","button[name='productOption']", function() {
-
-            if($(this).attr('data-price') !== undefined)
-                $(".price").empty().append($(this).attr('data-price'));
-            else
-                $("#availableCount").empty().append($(this).attr('data-count'));
             
-            $('#selected_option_for_feature_' + $(this).attr('data-id')).empty().append($(this).attr('data-val'));
+            wantedFeature = $(this).attr('data-val');
+            $('#selected_option_for_feature_' + $(this).attr('data-id')).empty().append(wantedFeature);
+
         });
+
         let star="";
         let roundRatting=Math.floor('{{ $product['rate'] }}');
         for(var i = 5; i >= 1; i--) {

@@ -233,7 +233,7 @@
                         <td>{{ $item['comment_count'] == 0 ? 'کامنتی ثبت نشده است' : 'تعداد کل: ' . $item['comment_count'] . ' تعداد تایید نشده:' . $item['new_comment_count'] }}</td>
                         <td>
                             <div class="flex gap10">
-                                <input style="width: 40px" type="number" value="{{ $item['available_count'] }}" id="available_count_{{ $item['id'] }}" />
+                                <input style="width: 60px" type="number" value="{{ $item['available_count'] }}" id="available_count_{{ $item['id'] }}" />
                                 <button data-id={{ $item['id'] }} class="saveBtn btn btn-primary">ثبت تغییر</button>
                             </div>
                         </td>
