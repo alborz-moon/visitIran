@@ -3,8 +3,7 @@
 <div class="container">
         <main class="page-content">
             <div class="container">
-
-                <div id="empty-basket" class="row hidden">
+                <div class="row">
                     <div class="col-12">
                         <!-- start of nav-tabs -->
                         <nav>
@@ -75,24 +74,10 @@
                         <!-- end of tab-content -->
                     </div>
                 </div>
-
-                <div id="full-basket" class="row">
-                    <div class="col-xl-9 col-lg-8">
-                        @include('shop.layouts.process', ['step' => 'basket'])
-                        
-                        <div class="hidden" id="sample_full_basket_item">
-                            @include('shop.cart.items_cart')
-                        </div>
-
-                        <div id="full_basket_items"></div>
-                        
-                    </div>
-                    @include('shop.cart.basket_cart', ['nextUrl' => route('shipping')])
-
-                </div>
             </div>
         </main>
-        @stop
+</div>
+@stop
 
 @section('footer')
     @parent
@@ -100,9 +85,4 @@
 
 @section('extraJS')
     @parent
-    <script>
-        $(document).ready(function() {
-            renderBasket();
-        })
-    </script>
 @stop

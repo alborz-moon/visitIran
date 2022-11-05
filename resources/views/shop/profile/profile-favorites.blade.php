@@ -43,10 +43,7 @@
 @stop
 
 @section('extraJS')
-    @parent
-    <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
-    <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
-        
+    @parent        
     <script>
         $.ajax({
             type: 'get',
