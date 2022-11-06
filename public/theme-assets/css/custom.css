@@ -850,6 +850,16 @@ ul {
     -ms-border-radius: 15px‌ !important;
     -o-border-radius: 15px‌ !important;
 }
+.checkout-steps {
+    max-width: 500px;
+}
+.checkout-steps li {
+    flex: 0 0 24%;
+}
+.checkout-steps li.checkout-step-active::before {
+    background-color: #a499ff !important;
+    z-index: 1 !important;
+}
 .customUiBox {
     border-radius: 15px;
     -webkit-border-radius: 15px;
@@ -1103,6 +1113,48 @@ figure .ck-widget {
     background-color: #00b2bc;
     border-color: #00b2bc;
 }
+.myView {
+    align-items: stretch;
+    border: 0px solid black;
+    box-sizing: border-box;
+    display: flex;
+    flex-basis: auto;
+    flex-direction: column;
+    flex-shrink: 0;
+    margin: 0px;
+    min-height: 0px;
+    min-width: 0px;
+    padding: 0px;
+    position: relative;
+    z-index: unset;
+}
+.phoneView {
+    align-items: stretch;
+    border: 0px solid black;
+    box-sizing: border-box;
+    display: flex;
+    flex-basis: auto;
+    margin: 0px;
+    min-height: 0px;
+    min-width: 0px;
+    padding: 0px;
+    position: relative;
+    z-index: unset;
+    flex-flow: row wrap;
+    flex-shrink: 1;
+}
+.item-button {
+    border: 1px solid #e4e4e4;
+    padding-right: 10px;
+    align-items: center;
+    min-width: 140px;
+    height: 50px;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
 .boxLoadingEmptyContent {
     content: " ";
     opacity: 0.3;
@@ -1317,6 +1369,12 @@ figure .ck-widget {
 }
 .flexDirectionColumnR {
     flex-direction: column-reverse;
+}
+.justifySelfStart {
+    justify-self: flex-start !important;
+}
+.justifySelfEnd {
+    justify-self: end !important;
 }
 .py-20 {
     padding-bottom: 20px !important;

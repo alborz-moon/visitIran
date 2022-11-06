@@ -19,8 +19,8 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class="border-bottom py-2">
                                             <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <div  class="fs-7 fw-bold text-dark">نام و نام خانوادگی</div>
+                                            <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between">
+                                                <div class="fs-7 fw-bold text-dark">نام و نام خانوادگی</div>
                                                 <button class="btn btn-circle btn-outline-light"
                                                     data-remodal-target="personal-info-fullname-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
@@ -33,7 +33,7 @@
                                             <div  class="fs-7 text-dark">شماره تلفن همراه</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="phone_info" type="tel" maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
-                                                <button class="btn btn-circle btn-outline-light">
+                                                <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -45,7 +45,7 @@
                                             <div  class="fs-7 text-dark">پست الکترونیک</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="email_info" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
-                                                <button class="btn btn-circle btn-outline-light">
+                                                <button class="btn btn-circle btn-outline-light hidden" >
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -55,7 +55,7 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class="border-bottom py-2">
                                             <div  class="fs-7 text-dark">تاریخ تولد</div>
-                                            <div class="d-flex align-items-center justify-content-between">
+                                            <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between">
                                                 <div class="fs-7 fw-bold text-dark">تاریخ تولد</div>
                                                 <button class="btn btn-circle btn-outline-light"
                                                     data-remodal-target="personal-info-birth-modal"><i
@@ -69,7 +69,7 @@
                                             <div  class="fs-7 text-dark">کد ملی</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input  type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
-                                                <button class="btn btn-circle btn-outline-light">
+                                                <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -88,8 +88,8 @@
                                             <div  class="fs-7 text-dark">نوع شخصیت</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select class="selectStyle">
-                                                    <option value="card">کارتی</option>
-                                                    <option value="table">جدولی</option>
+                                                    <option value="real">حقیقی</option>
+                                                    <option value="unreal">حقوقی</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -106,7 +106,7 @@
                                             <div  class="fs-7 text-dark">نام حقوقی</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input  type="text" class="form-control" style="direction: rtl" placeholder="نام حقوقی">
-                                                <button class="btn btn-circle btn-outline-light">
+                                                <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -129,7 +129,7 @@
                                             <div  class="fs-7 text-dark">شماره اقتصادی</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input  type="text" class="form-control" style="direction: rtl" placeholder="شماره اقتصادی">
-                                                <button class="btn btn-circle btn-outline-light">
+                                                <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -141,7 +141,7 @@
                                             <div  class="fs-7 text-dark">کد پستی</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input  type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
-                                                <button class="btn btn-circle btn-outline-light">
+                                                <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -176,7 +176,7 @@
                                             <div  class="fs-7 text-dark">آدرس</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <textarea  type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
-                                                <button class="btn btn-circle btn-outline-light">
+                                                <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -201,7 +201,7 @@
                                             <div  class="fs-7 text-dark">وب سایت</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input  type="text" class="form-control" style="direction: rtl" placeholder="وب سایت">
-                                                <button class="btn btn-circle btn-outline-light">
+                                                <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -213,7 +213,7 @@
                                             <div  class="fs-7 text-dark">ایمیل</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input  type="text" class="form-control" style="direction: rtl" placeholder="ایمیل">
-                                                <button class="btn btn-circle btn-outline-light">
+                                                <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -225,7 +225,7 @@
                                             <div  class="fs-7 text-dark">تلفن</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input  type="text" class="form-control" style="direction: rtl" placeholder="تلفن">
-                                                <button class="btn btn-circle btn-outline-light">
+                                                <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -243,8 +243,8 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">روزنامه تاسیس</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" disabled placeholder="روزنامه تاسیس">
-                                                <button class="btn btn-circle btn-outline-light"  data-remodal-target="personal-add-file-modal">
+                                                <input  type="file" class="form-control" style="direction: rtl" placeholder="روزنامه تاسیس">
+                                                <button class="btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -255,7 +255,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">آخرین تغییرات</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" disabled placeholder="آخرین تغییرات">
+                                                <input  type="file" class="form-control" style="direction: rtl" placeholder="آخرین تغییرات">
                                                 <button class="btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -265,10 +265,10 @@
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">روزنامه تاسیس</div>
+                                            <div  class="fs-7 text-dark">مجوز - در صورت وجود</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" disabled placeholder="روزنامه تاسیس">
-                                                <button class="btn btn-circle btn-outline-light"  data-remodal-target="personal-add-file-modal">
+                                                <input  type="file" class="form-control" style="direct placeholder="انتخاب فایل">
+                                                <button class="btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -279,7 +279,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">کارت ملی رابط</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" disabled placeholder="کارت ملی رابط">
+                                                <input  type="file" class="form-control" style="direct placeholder="کارت ملی رابط">
                                                 <button class="btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>

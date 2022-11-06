@@ -14,14 +14,14 @@
                         </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">اطلاعات مالی <span class="fontSize12 colorBlack">شماره شبا حتما باید به نام برگزار کننده بوده و بدون IR وارد شود</span></div>
-                            <div class="ui-box-content">
+                            <div class="ui-box-content">                  
                                 <div class="row">
                                     <div class="col-lg-12 mb-3">
                                         <div class="border-bottom py-2">
                                             <div  class="fs-7 text-dark">شماره شبا</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <div  class="fs-7 fw-bold text-dark">شماره شبا</div>
-                                                <button class="btn btn-circle btn-outline-light"
+                                                <input type="text" class="form-control" style="direction: rtl" placeholder="شماره شبا">
+                                                <button class="btn btn-circle btn-outline-light hidden"
                                                     data-remodal-target="personal-info-fullname-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
@@ -33,7 +33,7 @@
                                             <div  class="fs-7 text-dark">نام بانک</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="phone_info" type="tel" maxlength="11" class="form-control" style="direction: rtl" placeholder="نام بانک">
-                                                <button class="btn btn-circle btn-outline-light">
+                                                <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
