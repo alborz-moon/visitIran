@@ -101,9 +101,9 @@
                                         <div class="border-bottom py-2">
                                             <div  class="fs-7 text-dark">نوع شخصیت</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select id="launcherType" class="selectStyle">
-                                                    <option value="real">حقیقی</option>
-                                                    <option value="unreal">حقوقی</option>
+                                                <select id="launcherType" class="selectStyle hoghoghiOrHaghighi">
+                                                    <option value="haghighi">حقیقی</option>
+                                                    <option value="hoghoghi">حقوقی</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -131,7 +131,7 @@
                                         <div class="border-bottom py-2">
                                             <div  class="fs-7 text-dark">نوع شرکت</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select id="launcherType" class="selectStyle">
+                                                <select id="companyType" class="selectStyle">
                                                     <option value="card">نوع شرکت</option>
                                                     <option value="table">نوع شرکت 2</option>
                                                 </select>
@@ -163,21 +163,10 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
-                                            <div  class="fs-7 text-dark">استان</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <select class="selectStyle">
-                                                    <option value="card">انتخاب</option>
-                                                    <option value="table">شیراز</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
                                         <!-- start of form-element -->
                                         <div class="form-element-row">
                                             <label class="label fs-7">استان</label>
-
+                                            
                                             <select onchange="getCities($(this).val())" class="select2" name="state02" id="state02">
                                                 <option value="0">انتخاب کنید</option>
                                                 @foreach ($states as $state)
@@ -187,18 +176,28 @@
                                         </div>
                                         <!-- end of form-element -->
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+                                    <div id="ha" class="col-lg-6 mb-3">
                                         <!-- start of form-element -->
                                         <div class="form-element-row">
                                             <div class="form-element-row">
                                                 <label class="label fs-7">شهر</label>
-                                                <select class="select2" name="city02" id="city02">
+                                                <select class="select2 launcherCityID" name="city02" id="city02">
                                                 </select>
                                             </div>
                                         </div>
                                         <!-- end of form-element -->
                                     </div>
-
+                                    <div class="col-lg-12 mb-3">
+                                        <div class="border-bottom py-1">
+                                            <div  class="fs-7 text-dark">آدرس</div>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <textarea id="launcherAddress" type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
+                                                <button class="btn btn-circle btn-outline-light hidden">
+                                                    <i class="ri-ball-pen-fill"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-12 mb-3">
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">نقشه</div>
@@ -217,7 +216,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">وب سایت</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="وب سایت">
+                                                <input id="launcherSite" type="text" class="form-control" style="direction: rtl" placeholder="وب سایت">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -227,9 +226,9 @@
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">ایمیل</div>
+                                            <div class="fs-7 text-dark">ایمیل</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="ایمیل">
+                                                <input id="launcherEmail" type="text" class="form-control" style="direction: rtl" placeholder="ایمیل">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -252,64 +251,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="ui-box bg-white mb-5 boxShadow">
-                            <div class="ui-box-title">مدارک <span class="fontNormal fontSize12 mx-2">حداکثر 6 مگابایت و در فرمت های jpg, zip , pdf</span></div>
-                            <div class="ui-box-content">
-                                <div class="row">
-                                    <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">روزنامه تاسیس</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="file" class="form-control" style="direction: rtl" placeholder="روزنامه تاسیس">
-                                                <button class="btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">آخرین تغییرات</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="file" class="form-control" style="direction: rtl" placeholder="آخرین تغییرات">
-                                                <button class="btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">مجوز - در صورت وجود</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="file" class="form-control" style="direct placeholder="انتخاب فایل">
-                                                <button class="btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">کارت ملی رابط</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="file" class="form-control" style="direct placeholder="کارت ملی رابط">
-                                                <button class="btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="spaceBetween mb-2">
+                            <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</button>
+                            <button class="btn btn-sm btn-primary px-5">مرحله بعد</button>
                         </div>
                         <div class="d-flex justify-content-end">
-                            {{-- onclick="window.location.href = '{{ route('finance') }}';" --}}
-                            <button id="sumbmit" class="btn btn-sm btn-primary px-3">ارسال برای بازبینی</button>
+                            <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>
                         </div>
                     </div>
             </div>
@@ -429,21 +376,7 @@
     <script>
         let x;
         let y;
-        $(document).ready(function(){
-            $('#getName').on('click',function(){
-                var name = $('#name').val();
-                var last = $('#last').val();
-                $('.setName').val(name +' ' + last );
-                $(".remodal-close").click();
-            })
-            $('#setUserBirthDay').on('click',function(){
-                var year = $('#Brithday_year').val();
-                var month = $('#Brithday_month').val();
-                var day =$('#Brithday_day').val();
-                $('.userBirthDay').val(year + '/' + month + '/' + day);
-                $(".remodal-close").click();
-            })
-            function getCities(stateId, selectedCity=undefined) {   
+            function getCities(stateId, selectedCity=undefined) {
                 if(stateId == 0) {
                     $("#city02").empty();
                     return;
@@ -461,7 +394,6 @@
                         }   
                         let html = '<option value="0">انتخاب کنید</option>';
                         res.data.forEach(elem => {
-
                             if(selectedCity !== undefined && elem.id === selectedCity)
                                 html += '<option selected value="' + elem.id + '">' + elem.name + '</option>';
                             else
@@ -471,21 +403,117 @@
                     }
                 });
             }
+        $(document).ready(function(){
+            $('#getName').on('click',function(){
+                var name = $('#name').val();
+                var last = $('#last').val();
+                $('.setName').val(name +' ' + last );
+                $(".remodal-close").click();
+            })
+            $('#setUserBirthDay').on('click',function(){
+                var year = $('#Brithday_year').val();
+                var month = $('#Brithday_month').val();
+                var day =$('#Brithday_day').val();
+                $('.userBirthDay').val(year + '/' + month + '/' + day);
+                $(".remodal-close").click();
+            })
+            $('.hoghoghiOrHaghighi').on('change',function(){
+                var hoghoghiOrHaghighi = $('#hoghoghiOrHaghighi').val();
+                if (hoghoghiOrHaghighi=== 'haghighi'){
+                    // show or hide class for haghighi
+                    $('#ha').addClass('hidden');
+                }else if(hoghoghiOrHaghighi=== 'hoghoghi'){
+                    // show or hide class for hoghoghi
+                    $('.haghighi').addClass('hidden');
+                }else{
+                    // hide All
+                }
+            })
             $('#sumbmit').on('click',function(){
                 var setName = $('.setName').val();
-                var LauncherPhone = $('#LauncherPhone').val();
                 var userEmail = $('#userEmail').val();
                 var userBirthDay = $('.userBirthDay').val();
                 var nid = $('#nid').val();
                 var companyName = $('#companyName').val();
                 var launcherType = $('#launcherType').val();
+                var companyType = $('#companyType').val();
                 var code = $('#code').val();
                 var postalCode = $('#postalCode').val();
-                var nid = $('#nid').val();
-                var nid = $('#nid').val();
-                console.log('====================================');
-                console.log(setName,LauncherPhone,userBirthDay,userEmail,launcherType);
-                console.log('====================================');
+                var launcherCityID = $('.launcherCityID').val();
+                var launcherSite = $('#launcherSite').val();
+                var launcherEmail = $('#launcherEmail').val();
+                var LauncherPhone = $('#LauncherPhone').val();
+                var launcherAddress = $('#launcherAddress').val();
+
+                // var setName = "Alborz";
+                // var userEmail = "Moon@yahoo.com";
+                // var userBirthDay = "1374/11/03";
+                // var nid = "0018374921";
+                // var companyName = "mooon";
+                // var launcherType = "hoghoghi";
+                // var companyType = "شرکت2";
+                // var code = "1000000000";
+                // var postalCode = "1234567890";
+                // var launcherCityID = 1;
+                // var launcherSite = "www.google.com";
+                // var launcherEmail = "alborz@gmail.com";
+                // var LauncherPhone = "09224786125";
+                // var launcherAddress = "شسیتمشس یمنشس بسشی شسیهخب شسیب  سیشتنمبتنشسیابتناتناطزرات شتسیاب تنسارتنزط نتشسبنتسشی";
+
+                if(x === undefined || y === undefined) {
+                    showErr("لطفا مکان موردنظر خود را از روی نقضه انتخاب کنید");
+                    return;
+                }
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{ route('launcher.store') }}',
+                    data: {
+                        launcher_x: x,
+                        launcher_y: y,
+                        user_email: userEmail,
+                        user_birth_day: userBirthDay,
+                        user_NID: nid,
+                        company_name: companyName,
+                        code: code,
+                        postal_code: postalCode,
+                        launcher_city_id: launcherCityID,
+                        launcher_site: launcherSite,
+                        launcher_email: launcherEmail,
+                        launcher_phone: LauncherPhone,
+                        launcher_type: launcherType,
+                        launcher_address: launcherAddress,
+                        company_type:companyType,
+                    },
+                    success: function(res) {
+                        if(res.status === "ok") {
+                            window.location.href = '{{ route('document') }}';
+                        }
+                        else
+                            showErr(res.msg);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        
+                        var errs = XMLHttpRequest.responseJSON.errors;
+
+                        if(errs instanceof Object) {
+                            var errsText = '';
+
+                            Object.keys(errs).forEach(function(key) {
+                                errsText += key + " : " + errs[key];
+                            });
+                            showErr(errsText);    
+                        }
+                        else {
+                            var errsText = '';
+
+                            for(let i = 0; i < errs.length; i++)
+                                errsText += errs[i].value;
+                            
+                            showErr(errsText);
+                        }
+                    }
+                });
             })
         })
         

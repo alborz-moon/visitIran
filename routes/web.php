@@ -123,6 +123,7 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
         return view('event.launcher.launcher-register', compact('states'));
     })->name('launcher');
 
+    Route::view('/launcher-document','event.launcher.launcher-document')->name('document');
 
     Route::view('/launcher-finance','event.launcher.launcher-finance')->name('finance');
 

@@ -58,8 +58,8 @@ class LauncherController extends Controller
             $request['code'] = null;
         }
 
-        // $request['user_id'] = $request->user()->id;
-        $request['user_id'] = 1;
+        $request['user_id'] = $request->user()->id;
+        
         try {
             $launcher = Launcher::create($request->toArray());
 
