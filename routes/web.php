@@ -117,7 +117,12 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
 
     Route::view('/event','event.event')->name('event');
 
-    Route::view('/launcher-register','event.launcher.launcher-register')->name('launcher');
+
+    Route::get('/launcher-register', function() {
+        $states = State::orderBy('name', 'asc')->get();
+        return view('event.launcher.launcher-register', compact('states'));
+    })->name('launcher');
+
 
     Route::view('/launcher-finance','event.launcher.launcher-finance')->name('finance');
 
