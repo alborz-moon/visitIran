@@ -117,6 +117,22 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
 
     Route::view('/event','event.event')->name('event');
 
+    Route::view('/launcher-register','event.launcher.launcher-register')->name('launcher');
+
+    Route::view('/launcher-finance','event.launcher.launcher-finance')->name('finance');
+
+    Route::view('/launcher-create-event','event.launcher.launcher-create-event')->name('create-event');
+
+    Route::view('/launcher-create-time','event.launcher.launcher-create-time')->name('create-time');
+
+    Route::view('/launcher-create-contact','event.launcher.launcher-create-contact')->name('create-contact');
+
+   Route::view('/launcher-create-info','event.launcher.launcher-create-info')->name('create-info');
+
+   Route::view('/launcher-show-events','event.launcher.launcher-show-events')->name('show-events');
+
+
+
 });
 
 
