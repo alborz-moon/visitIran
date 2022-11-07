@@ -218,7 +218,6 @@
 
                     if(x !== undefined && y !== undefined) {
                         marker = new mapboxgl.Marker();
-                        console.log({lng: y, lat: x});
                         marker.setLngLat({lng: y, lat: x}).addTo(map);
                     }
 
@@ -229,7 +228,6 @@
                         
                         //add marker
                         marker = new mapboxgl.Marker();
-                        console.log(e.lngLat);
                         marker.setLngLat(e.lngLat).addTo(map);
 
                         x = e.lngLat.lat;

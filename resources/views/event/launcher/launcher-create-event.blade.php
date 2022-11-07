@@ -22,7 +22,7 @@
                                 <a href="#"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
                             </li>
                         </ul>
-                        <button class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</button>
+                        <a href="{{ route('create-time') }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</ش>
                     </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">اطلاعات کلی</div>
@@ -340,7 +340,7 @@
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
+                    <button onclick="window.location.href = '{{ route('create-time') }}';" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
                 </div>
             </div>
         <!-- end of personal-info-fullname-modal -->

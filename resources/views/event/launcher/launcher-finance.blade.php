@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                         </div>
-                                                <div class="ui-box bg-white mb-5">
+                        <div class="ui-box bg-white mb-5">
                             <div class="ui-box-title align-items-center justify-content-between">
                                 شماره حساب های موجود
                             </div>

@@ -7,7 +7,7 @@
                 @include('event.launcher.launcher-menu')     
                 <div class="col-xl-9 col-lg-8 col-md-7">
                     <div class="d-flex spaceBetween align-items-center">
-                        <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
+                        <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد</span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
                             <li class="checkout-step-active">
                                 <a href="#"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
@@ -22,7 +22,7 @@
                                 <a href="#"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
                             </li>
                         </ul>
-                        <button class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</button>
+                        <a href="{{ route('create-contact') }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
                     </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">توضیحات</div>
@@ -61,7 +61,7 @@
                         </div>
                         <div class="spaceBetween mb-2">
                             <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
-                            <button class="btn btn-sm btn-primary px-5">مرحله بعد</button>
+                            <button onclick="window.location.href = '{{ route('show-events') }}';" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
                         </div> 
                         <div class="d-flex justify-content-end">
                             <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>

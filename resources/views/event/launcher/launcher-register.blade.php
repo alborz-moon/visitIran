@@ -1,5 +1,19 @@
 
 @extends('layouts.structure')
+
+
+@section('header')
+
+    @parent
+
+    <script src="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.js"></script>
+    <link
+      href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+
+@stop
+
 @section('content')
         <main class="page-content">
         <div class="container">
@@ -185,7 +199,7 @@
                                     <div class="col-lg-12 mb-3">
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">نقشه</div>
-                                            <div class="w-100 d-flex justify-content-center align-items-center colorWhite" style="height: 250px;background-color:#00b2bc">نقشه</div>
+                                            <div id="launchermap" style="width: 100%; height: 250px"></div>
                                         </div>
                                     </div>
                                     
@@ -291,7 +305,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-sm btn-primary px-3">ارسال برای بازبینی</button>
+                            <button onclick="window.location.href = '{{ route('finance') }}';" class="btn btn-sm btn-primary px-3">ارسال برای بازبینی</button>
                         </div>
                     </div>
             </div>
@@ -401,6 +415,45 @@
                 </div>
             </div>
         <!-- end of personal-info-fullname-modal -->
+        
+<script src="https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/parsimap-geocoder/v1.0.0/parsimap-geocoder.js"></script>
+<link
+  href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/parsimap-geocoder/v1.0.0/parsimap-geocoder.css"
+  rel="stylesheet"
+/>
+
+    <script>
+        let x;
+        let y;
+        mapboxgl.setRTLTextPlugin(
+            'https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+            null,
+        );
+        const map = new mapboxgl.Map({
+            container: 'launchermap',
+            style: 'https://api.parsimap.ir/styles/parsimap-streets-v11?key=p1c7661f1a3a684079872cbca20c1fb8477a83a92f',
+            center: x !== undefined && y !== undefined ? [y, x] : [51.4, 35.7],
+            zoom: 13,
+        });
+        var marker = undefined;
+        if(x !== undefined && y !== undefined) {
+            marker = new mapboxgl.Marker();
+            marker.setLngLat({lng: y, lat: x}).addTo(map);
+        }
+        function addMarker(e){
+            
+            if (marker !== undefined)
+                marker.remove();
+            //add marker
+            marker = new mapboxgl.Marker();
+            marker.setLngLat(e.lngLat).addTo(map);
+            x = e.lngLat.lat;
+            y = e.lngLat.lng;
+        }
+        map.on('click', addMarker);
+        const control = new ParsimapGeocoder();
+        map.addControl(control);
+    </script>
 @stop
 
 @section('footer')
@@ -409,4 +462,5 @@
 
 @section('extraJS')
     @parent
+    
 @stop
