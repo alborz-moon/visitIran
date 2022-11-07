@@ -36,7 +36,11 @@ class LauncherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $validator = [];
+
+        $request->validate();
+
     }
 
     /**
