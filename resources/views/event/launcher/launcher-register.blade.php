@@ -31,10 +31,10 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
                                             <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between">
-                                                <div class="fs-7 fw-bold text-dark">نام و نام خانوادگی</div>
+                                                <input type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
                                                 <button class="btn btn-circle btn-outline-light"
                                                     data-remodal-target="personal-info-fullname-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
@@ -46,7 +46,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">شماره تلفن همراه</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="phone_info" type="tel" maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
+                                                <input type="tel" maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -58,7 +58,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">پست الکترونیک</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="email_info" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
+                                                <input  id="userEmail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
                                                 <button class="btn btn-circle btn-outline-light hidden" >
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -67,10 +67,10 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">تاریخ تولد</div>
                                             <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between">
-                                                <div class="fs-7 fw-bold text-dark">تاریخ تولد</div>
+                                                <input type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد">
                                                 <button class="btn btn-circle btn-outline-light"
                                                     data-remodal-target="personal-info-birth-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
@@ -82,7 +82,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">کد ملی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
+                                                <input id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -101,7 +101,7 @@
                                         <div class="border-bottom py-2">
                                             <div  class="fs-7 text-dark">نوع شخصیت</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select class="selectStyle">
+                                                <select id="launcherType" class="selectStyle">
                                                     <option value="real">حقیقی</option>
                                                     <option value="unreal">حقوقی</option>
                                                 </select>
@@ -119,7 +119,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">نام حقوقی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="نام حقوقی">
+                                                <input id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام حقوقی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -131,7 +131,7 @@
                                         <div class="border-bottom py-2">
                                             <div  class="fs-7 text-dark">نوع شرکت</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select class="selectStyle">
+                                                <select id="launcherType" class="selectStyle">
                                                     <option value="card">نوع شرکت</option>
                                                     <option value="table">نوع شرکت 2</option>
                                                 </select>
@@ -142,7 +142,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">شماره اقتصادی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="شماره اقتصادی">
+                                                <input id="code" type="text" class="form-control" style="direction: rtl" placeholder="شماره اقتصادی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -154,7 +154,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">کد پستی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
+                                                <input id="postalCode" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -174,28 +174,31 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
-                                            <div  class="fs-7 text-dark">شهر</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <select class="selectStyle">
-                                                    <option value="card">تهران</option>
-                                                    <option value="table">کرج</option>
+                                        <!-- start of form-element -->
+                                        <div class="form-element-row">
+                                            <label class="label fs-7">استان</label>
+
+                                            <select onchange="getCities($(this).val())" class="select2" name="state02" id="state02">
+                                                <option value="0">انتخاب کنید</option>
+                                                @foreach ($states as $state)
+                                                    <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <!-- end of form-element -->
+                                    </div>
+                                    <div class="col-lg-6 mb-3">
+                                        <!-- start of form-element -->
+                                        <div class="form-element-row">
+                                            <div class="form-element-row">
+                                                <label class="label fs-7">شهر</label>
+                                                <select class="select2" name="city02" id="city02">
                                                 </select>
                                             </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
+                                        <!-- end of form-element -->
                                     </div>
-                                    <div class="col-lg-12 mb-3">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">آدرس</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <textarea  type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
-                                                <button class="btn btn-circle btn-outline-light hidden">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div class="col-lg-12 mb-3">
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">نقشه</div>
@@ -238,7 +241,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">تلفن</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="تلفن">
+                                                <input id="LauncherPhone" type="text" class="form-control" style="direction: rtl" placeholder="تلفن">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -305,7 +308,8 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <button onclick="window.location.href = '{{ route('finance') }}';" class="btn btn-sm btn-primary px-3">ارسال برای بازبینی</button>
+                            {{-- onclick="window.location.href = '{{ route('finance') }}';" --}}
+                            <button id="sumbmit" class="btn btn-sm btn-primary px-3">ارسال برای بازبینی</button>
                         </div>
                     </div>
             </div>
@@ -321,15 +325,15 @@
                 <div class="remodal-content">
                     <div class="form-element-row mb-3">
                         <label class="label fs-7">نام</label>
-                        <input  value="" type="text" class="form-control" placeholder="نام">
+                        <input id="name" value="" type="text" class="form-control" placeholder="نام">
                     </div>
                     <div class="form-element-row">
                         <label class="label fs-7">نام خانوادگی</label>
-                        <input type="text" class="form-control" placeholder="نام خانوادگی">
+                        <input id="last" type="text" class="form-control" placeholder="نام خانوادگی">
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
+                    <button id="getName" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
                 </div>
             </div>
         <!-- end of personal-info-fullname-modal -->
@@ -377,7 +381,7 @@
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button onclick="setValBrithday()" class="btn btn-sm btn-primary px-3">ثبت تاریخ تولد</button>
+                    <button id="setUserBirthDay" class="btn btn-sm btn-primary px-3">ثبت تاریخ تولد</button>
                 </div>
             </div>
             <!-- end of personal-info-birth-modal -->
@@ -425,6 +429,66 @@
     <script>
         let x;
         let y;
+        $(document).ready(function(){
+            $('#getName').on('click',function(){
+                var name = $('#name').val();
+                var last = $('#last').val();
+                $('.setName').val(name +' ' + last );
+                $(".remodal-close").click();
+            })
+            $('#setUserBirthDay').on('click',function(){
+                var year = $('#Brithday_year').val();
+                var month = $('#Brithday_month').val();
+                var day =$('#Brithday_day').val();
+                $('.userBirthDay').val(year + '/' + month + '/' + day);
+                $(".remodal-close").click();
+            })
+            function getCities(stateId, selectedCity=undefined) {   
+                if(stateId == 0) {
+                    $("#city02").empty();
+                    return;
+                }
+                $.ajax({
+                    type: 'get',
+                    url: '{{ route('api.cities') }}',
+                    data: {
+                        state_id: stateId
+                    },
+                    success: function(res) {    
+                        if(res.status !== 'ok') {
+                            $("#city02").empty();
+                            return;
+                        }   
+                        let html = '<option value="0">انتخاب کنید</option>';
+                        res.data.forEach(elem => {
+
+                            if(selectedCity !== undefined && elem.id === selectedCity)
+                                html += '<option selected value="' + elem.id + '">' + elem.name + '</option>';
+                            else
+                                html += '<option value="' + elem.id + '">' + elem.name + '</option>';
+                        });
+                        $("#city02").empty().append(html);
+                    }
+                });
+            }
+            $('#sumbmit').on('click',function(){
+                var setName = $('.setName').val();
+                var LauncherPhone = $('#LauncherPhone').val();
+                var userEmail = $('#userEmail').val();
+                var userBirthDay = $('.userBirthDay').val();
+                var nid = $('#nid').val();
+                var companyName = $('#companyName').val();
+                var launcherType = $('#launcherType').val();
+                var code = $('#code').val();
+                var postalCode = $('#postalCode').val();
+                var nid = $('#nid').val();
+                var nid = $('#nid').val();
+                console.log('====================================');
+                console.log(setName,LauncherPhone,userBirthDay,userEmail,launcherType);
+                console.log('====================================');
+            })
+        })
+        
         mapboxgl.setRTLTextPlugin(
             'https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
             null,
