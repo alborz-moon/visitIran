@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\LauncherFirstStepResource;
 use App\Models\Launcher;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -84,9 +85,15 @@ class LauncherController extends Controller
      * @param  \App\Models\Launcher  $launcher
      * @return \Illuminate\Http\Response
      */
-    public function show(Launcher $launcher)
+    public function show(Request $request, Launcher $launcher)
     {
-        //
+        if($request->user()->id != $launcher->user_id)
+            return abort(401);
+
+        return response()->json([
+            'status' => 'ok',
+            'data' => LauncherFirstStepResource::make($launcher)->toArray($request)
+        ]);
     }
 
     /**
