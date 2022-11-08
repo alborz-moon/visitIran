@@ -26,7 +26,7 @@
                       if(res.status === "ok") {
                             if(res.data.length === 0) {
                                 $(".showTopBanner").remove();
-                                $(".TopParentBannerMoveOnTop").addClass("p-0");
+                                
                                 return;
                             }
                            if (width > 1000) {
