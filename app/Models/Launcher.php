@@ -42,6 +42,14 @@ class Launcher extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+
+    public function certs() {
+        return $this->hasMany(LauncherCert::class);
+    }
+
+    public function banks() {
+        return $this->hasMany(LauncherBank::class);
+    }
     
     public function city() {
         return $this->belongsTo(City::class, 'launcher_city_id', 'id');
