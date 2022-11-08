@@ -1,19 +1,13 @@
 
 @extends('layouts.structure')
-
-
 @section('header')
-
     @parent
-
     <script src="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.js"></script>
     <link
       href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.css"
       rel="stylesheet"
     />
-
 @stop
-
 @section('content')
         <main class="page-content">
         <div class="container">
@@ -23,7 +17,7 @@
                         <div class="alert alert-warning alert-dismissible fade show mb-5 d-flex align-items-center spaceBetween" role="alert">
                             <div>
                                 در حال حاضر حساب کاربری شما غیر فعال است. پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
-                            </div>
+                            </div> 
                             <a href="#" class="btn btn-sm btn-primary mx-3">تیکت ها</a>                        
                         </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
@@ -101,7 +95,7 @@
                                         <div class="border-bottom py-2">
                                             <div  class="fs-7 text-dark">نوع شخصیت</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select id="launcherType" class="selectStyle hoghoghiOrHaghighi">
+                                                <select id="launcherType" class="selectStyle">
                                                     <option value="haghighi">حقیقی</option>
                                                     <option value="hoghoghi">حقوقی</option>
                                                 </select>
@@ -115,7 +109,7 @@
                             <div class="ui-box-title">اطلاعات برگزار کننده</div>
                             <div class="ui-box-content">
                                 <div class="row">
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-6 mb-3 hoghoghi_fields">
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">نام حقوقی</div>
                                             <div class="d-flex align-items-center justify-content-between">
@@ -127,7 +121,19 @@
                                             <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-6 mb-3 haghighi_fields">
+                                        <div class="border-bottom py-1">
+                                            <div  class="fs-7 text-dark">نام برگزار کننده</div>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <input id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام برگزار کننده">
+                                                <button class="btn btn-circle btn-outline-light hidden">
+                                                    <i class="ri-ball-pen-fill"></i>
+                                                </button>
+                                            </div>
+                                            <div class="fs-6 fw-bold text-muted"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-3 hoghoghi_fields">
                                         <div class="border-bottom py-2">
                                             <div  class="fs-7 text-dark">نوع شرکت</div>
                                             <div class="d-flex align-items-center justify-content-between">
@@ -138,7 +144,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-6 mb-3 hoghoghi_fields">
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">شماره اقتصادی</div>
                                             <div class="d-flex align-items-center justify-content-between">
@@ -253,7 +259,7 @@
                         </div>
                         <div class="spaceBetween mb-2">
                             <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</button>
-                            <button class="btn btn-sm btn-primary px-5">مرحله بعد</button>
+                            <button id="sumbmit" onclick="{{ route('document') }}" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
                         </div>
                         <div class="d-flex justify-content-end">
                             <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>
@@ -417,14 +423,16 @@
                 $('.userBirthDay').val(year + '/' + month + '/' + day);
                 $(".remodal-close").click();
             })
-            $('.hoghoghiOrHaghighi').on('change',function(){
-                var hoghoghiOrHaghighi = $('#hoghoghiOrHaghighi').val();
-                if (hoghoghiOrHaghighi=== 'haghighi'){
+            $('#launcherType').on('change',function(){
+                var LauncherType = $('#launcherType').val();
+                if (LauncherType === 'haghighi'){
                     // show or hide class for haghighi
-                    $('#ha').addClass('hidden');
-                }else if(hoghoghiOrHaghighi=== 'hoghoghi'){
+                    $(".hoghoghi_fields").addClass('hidden');
+                    $(".haghighi_fields").removeClass('hidden');
+                }else if(LauncherType === 'hoghoghi'){
                     // show or hide class for hoghoghi
-                    $('.haghighi').addClass('hidden');
+                    $(".hoghoghi_fields").removeClass('hidden');
+                    $(".haghighi_fields").addClass('hidden');
                 }else{
                     // hide All
                 }

@@ -1,7 +1,7 @@
 
 @extends('layouts.structure')
 @section('content')
-        <main class="page-content">
+        <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
             <div class="row mb-5">
                 @include('event.launcher.launcher-menu')     
@@ -13,7 +13,7 @@
                             <a href="#" class="btn btn-sm btn-primary mx-3">تیکت ها</a>                        
                         </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
-                            <div class="ui-box-title">مدارک <span class="fontNormal fontSize12 mx-2">حداکثر 6 مگابایت و در فرمت های jpg, zip , pdf</span></div>
+                            <div class="ui-box-title">مدارک<span class="fontNormal fontSize12 mx-2">حداکثر 6 مگابایت و در فرمت های jpg, zip , pdf</span></div>
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
