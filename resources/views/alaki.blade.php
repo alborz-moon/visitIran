@@ -9,10 +9,8 @@
     <script>
         var myPreventionFlag = false;
     </script>
-
     <link rel="stylesheet" href="{{URL::asset('theme-assets/bootstrap-datepicker.css?v=1')}}">
     <script async src="{{URL::asset("theme-assets//bootstrap-datepicker.js")}}"></script>
-
 @stop
 
 
@@ -31,7 +29,6 @@
         </div>
     </div>
 </div>
-
     <div style="margin: 100px">
         <div id="date_btn_start_edit">تاریخ شروع</div>
         <label class="tripCalenderSection">
@@ -39,16 +36,13 @@
             <input id="date_input_start" class="tripDateInput" placeholder="13xx/xx/xx" required readonly type="text">
         </label>
     </div>
-    
     <script>
-
         var datePickerOptions = {
             numberOfMonths: 1,
             showButtonPanel: true,
             dateFormat: "yy/mm/dd"
         };
         $("#date_input_start").datepicker(datePickerOptions);
-
         Dropzone.options.myAwesomeDropzone = {
             paramName: "img_file", // The name that will be used to transfer the file
             maxFilesize: 1, // MB

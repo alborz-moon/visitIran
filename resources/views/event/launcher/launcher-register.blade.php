@@ -109,9 +109,9 @@
                             <div class="ui-box-title">اطلاعات برگزار کننده</div>
                             <div class="ui-box-content">
                                 <div class="row">
-                                    <div class="col-lg-6 mb-3 hoghoghi_fields">
+                                    <div class="col-lg-6 mb-3 haghighi_fields">
                                         <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">نام حقوقی</div>
+                                            <div class="fs-7 text-dark">نام حقوقی</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام حقوقی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
@@ -246,7 +246,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">تلفن</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="LauncherPhone" type="text" class="form-control" style="direction: rtl" placeholder="تلفن">
+                                                <input id="launcherPhone" type="text" class="form-control" style="direction: rtl" placeholder="تلفن">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -262,7 +262,7 @@
                             <button id="sumbmit" onclick="{{ route('document') }}" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>
+                            <a href="" class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</ش>
                         </div>
                     </div>
             </div>
@@ -471,7 +471,7 @@
                 }
                 $.ajax({
                     type: 'post',
-                    url: '{{ route('launcher.store') }}',
+                    url: '{{ $mode == 'create' ? route('launcher.store') : route('launcher.update', ['launcher' => $formId]) }}',
                     data: {
                         launcher_x: x,
                         launcher_y: y,
@@ -532,10 +532,7 @@
             zoom: 13,
         });
         var marker = undefined;
-        if(x !== undefined && y !== undefined) {
-            marker = new mapboxgl.Marker();
-            marker.setLngLat({lng: y, lat: x}).addTo(map);
-        }
+        
         function addMarker(e){
             if (marker !== undefined)
                 marker.remove();
@@ -560,7 +557,46 @@
     
     @if($mode == 'edit')
         <script>
-            // {{$formId}}
+            $.ajax({
+                type: 'get',
+                url: '{{ route('launcher.show', ['launcher' => $formId]) }}',
+                success: function (res) {
+                    console.log('====================================');
+                    console.log(res);
+                    console.log('====================================');
+                    x = res.data.launcher_x;
+                    y = res.data.launcher_y;
+
+                    const map = new mapboxgl.Map({
+                        container: 'launchermap',
+                        style: 'https://api.parsimap.ir/styles/parsimap-streets-v11?key=p1c7661f1a3a684079872cbca20c1fb8477a83a92f',
+                        center: x !== undefined && y !== undefined ? [y, x] : [51.4, 35.7],
+                        zoom: 13,
+                    });
+                    if(x !== undefined && y !== undefined) {
+                        marker = new mapboxgl.Marker();
+                        marker.setLngLat({lng: y, lat: x}).addTo(map);
+                    }
+                    map.on('click', addMarker);
+                    const control = new ParsimapGeocoder();
+                    map.addControl(control);
+                    $("#postalCode").val(res.data.postal_code);
+                    $("#code").val(res.data.code);
+                    $("#companyName").val(res.data.company_name);
+                    $("#companyType").val(res.data.company_type);
+                    $("#launcherAddress").val(res.data.launcher_address);
+                    $("#launcherCityId").val(res.data.launcher_city_id);
+                    $("#launcherEmail").val(res.data.launcher_email);
+                    $("#launcherPhone").val(res.data.launcher_phone);
+                    $("#launcherSite").val(res.data.launcher_site);
+                    $("#launcherType").val(res.data.launcher_type);
+                    $("#nid").val(res.data.user_NID);
+                    $("#userEmail").val(res.data.user_email);
+                    $("#companyType").val(res.data.company_type);
+                    $(".userBirthDay").val(res.data.user_birth_day);
+                }
+            })
+
         </script>
     @endif
 

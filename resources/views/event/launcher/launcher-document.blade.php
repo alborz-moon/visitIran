@@ -1,5 +1,10 @@
 
 @extends('layouts.structure')
+    <script src="{{asset('theme-assets/dropzone/dropzone.js?v=1.2')}}"></script>
+    <link rel="stylesheet" href="{{asset("theme-assets/dropzone/dropzone.css")}}">
+    <script>
+        var myPreventionFlag = false;
+    </script>
 @section('content')
         <main class="page-content">
         <div class="container">
@@ -17,51 +22,59 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">روزنامه تاسیس</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input type="file" class="form-control" style="direction: rtl" placeholder="روزنامه تاسیس">
-                                                <button class="btn btn-circle btn-outline-light hidden">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
+                                        <div class="uploadBody">
+                                            <div class="uploadBorder">
+                                                <div class="uploadBodyBox">
+                                                    <div class="uploadTitleText">بارگذاری فایل روزنامه تاسیس </div>
+                                                    <form action="{{route('api.testUpload')}}" class="dropzone uploadBox" id="my-awesome-dropzone">
+                                                        {{csrf_field()}}
+                                                    </form>
+                                                    <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
+                                                    <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div>
+                                                </div>
                                             </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">آخرین تغییرات</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="file" class="form-control" style="direction: rtl" placeholder="آخرین تغییرات">
-                                                <button class="btn btn-circle btn-outline-light hidden">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
+                                        <div class="uploadBody">
+                                            <div class="uploadBorder">
+                                                <div class="uploadBodyBox">
+                                                    <div class="uploadTitleText">بارگذاری فایل آخرین تغییرات</div>
+                                                    <form action="{{route('api.testUpload')}}" class="dropzone uploadBox" id="my-awesome-dropzone">
+                                                        {{csrf_field()}}
+                                                    </form>
+                                                    <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
+                                                    <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div>
+                                                </div>
                                             </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">مجوز - در صورت وجود</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="file" class="form-control" style="direct placeholder="انتخاب فایل">
-                                                <button class="btn btn-circle btn-outline-light hidden">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
+                                        <div class="uploadBody">
+                                            <div class="uploadBorder">
+                                                <div class="uploadBodyBox">
+                                                    <div class="uploadTitleText">بارگذاری فایل مجوز - در صورت وجود</div>
+                                                    <form action="{{route('api.testUpload')}}" class="dropzone uploadBox" id="my-awesome-dropzone">
+                                                        {{csrf_field()}}
+                                                    </form>
+                                                    <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
+                                                    <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div>
+                                                </div>
                                             </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">کارت ملی رابط</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="file" class="form-control" style="direct placeholder="کارت ملی رابط">
-                                                <button class="btn btn-circle btn-outline-light hidden">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
+                                        <div class="uploadBody">
+                                            <div class="uploadBorder">
+                                                <div class="uploadBodyBox">
+                                                    <div class="uploadTitleText">بارگذاری فایل کارت ملی رابط</div>
+                                                    <form action="{{route('api.testUpload')}}" class="dropzone uploadBox" id="my-awesome-dropzone">
+                                                        {{csrf_field()}}
+                                                    </form>
+                                                    <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
+                                                    <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div>
+                                                </div>
                                             </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -89,4 +102,55 @@
 
 @section('extraJS')
     @parent
+        <script>
+        Dropzone.options.myAwesomeDropzone = {
+            paramName: "img_file", // The name that will be used to transfer the file
+            maxFilesize: 1, // MB
+            timeout: 180000,
+            parallelUploads: 1,
+            chunking: false,
+            forceChunking: false,
+            accept: function(file, done) {
+                done();
+            },
+            init: function () {
+                this.on('completemultiple', function () {
+                    // if(myPreventionFlag)
+                    //     $("#dropZoneErr").removeClass('hidden');
+                    // else
+                    //     location.reload();
+                });
+                this.on("queuecomplete", function (file) {
+                    // if(myPreventionFlag)
+                    //     $("#dropZoneErr").removeClass('hidden');
+                    // else
+                    //     location.reload();
+                });
+                this.on("complete", function (file) {
+                    // if(myPreventionFlag)
+                    //     $("#dropZoneErr").removeClass('hidden');
+                    // else
+                    //     location.reload();
+                });
+                this.on("success", function (file) {
+                    // if(myPreventionFlag)
+                    //     $("#dropZoneErr").removeClass('hidden');
+                    // else
+                    //     location.reload();
+                });
+                this.on("canceled", function (file) {
+                    // if(myPreventionFlag)
+                    //     $("#dropZoneErr").removeClass('hidden');
+                    // else
+                    //     location.reload();
+                });
+                this.on("error", function (file) {
+                    // if(myPreventionFlag)
+                    //     $("#dropZoneErr").removeClass('hidden');
+                    // else
+                    //     location.reload();
+                });
+            }
+        };
+    </script>
 @stop
