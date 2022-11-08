@@ -28,6 +28,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+Route::post('testUpload', [HomeController::class, 'testUpload'])->name('api.testUpload');
+
 
 Route::get('getDesc/{category?}', [HomeController::class, 'getDesc'])->name('api.getDesc');
 

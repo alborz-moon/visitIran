@@ -16,7 +16,19 @@ class HomeController extends Controller
             'upload' => 'required|image'
         ]);
 
-        $filename = $request->upload->save('public/ck');
+        $filename = $request->upload->store('public/ck');
+        $filename = str_replace('public/ck/', '', $filename);
+
+        return response()->json(['status' => 'ok', 'url' => asset('storage/ck/' . $filename)]);
+    }
+    
+    public function testUpload(Request $request) {
+
+        $request->validate([
+            'img_file' => 'required|image'
+        ]);
+
+        $filename = $request->img_file->store('public/ck');
         $filename = str_replace('public/ck/', '', $filename);
 
         return response()->json(['status' => 'ok', 'url' => asset('storage/ck/' . $filename)]);
