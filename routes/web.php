@@ -120,8 +120,15 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
 
     Route::get('/launcher-register', function() {
         $states = State::orderBy('name', 'asc')->get();
-        return view('event.launcher.launcher-register', compact('states'));
+        $mode = 'create';
+        return view('event.launcher.launcher-register', compact('states', 'mode'));
     })->name('launcher');
+
+    
+    Route::get('/launcher-edit-register/{formId}', function ($formId) {
+        $states = State::orderBy('name', 'asc')->get();
+        return view('event.launcher.launcher-register', ['mode' => 'edit', 'states' => $states, 'formId' => $formId]);
+    })->name('launcher-edit');
 
     Route::view('/launcher-document','event.launcher.launcher-document')->name('document');
 

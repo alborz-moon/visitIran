@@ -378,7 +378,6 @@
   href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/parsimap-geocoder/v1.0.0/parsimap-geocoder.css"
   rel="stylesheet"
 />
-
     <script>
         let x;
         let y;
@@ -452,7 +451,6 @@
                 var launcherEmail = $('#launcherEmail').val();
                 var LauncherPhone = $('#LauncherPhone').val();
                 var launcherAddress = $('#launcherAddress').val();
-
                 // var setName = "Alborz";
                 // var userEmail = "Moon@yahoo.com";
                 // var userBirthDay = "1374/11/03";
@@ -467,12 +465,10 @@
                 // var launcherEmail = "alborz@gmail.com";
                 // var LauncherPhone = "09224786125";
                 // var launcherAddress = "شسیتمشس یمنشس بسشی شسیهخب شسیب  سیشتنمبتنشسیابتناتناطزرات شتسیاب تنسارتنزط نتشسبنتسشی";
-
                 if(x === undefined || y === undefined) {
                     showErr("لطفا مکان موردنظر خود را از روی نقضه انتخاب کنید");
                     return;
                 }
-
                 $.ajax({
                     type: 'post',
                     url: '{{ route('launcher.store') }}',
@@ -541,7 +537,6 @@
             marker.setLngLat({lng: y, lat: x}).addTo(map);
         }
         function addMarker(e){
-            
             if (marker !== undefined)
                 marker.remove();
             //add marker
@@ -563,4 +558,10 @@
 @section('extraJS')
     @parent
     
+    @if($mode == 'edit')
+        <script>
+            // {{$formId}}
+        </script>
+    @endif
+
 @stop
