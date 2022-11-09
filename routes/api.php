@@ -27,9 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::post('testUpload', [HomeController::class, 'testUpload'])->name('api.testUpload');
-
 
 Route::get('getDesc/{category?}', [HomeController::class, 'getDesc'])->name('api.getDesc');
 
@@ -45,9 +43,7 @@ Route::get('infobox', [InfoBoxController::class, 'list'])->name('api.infobox');
 
 Route::get('cities', [HomeController::class, 'getCities'])->name('api.cities');
 
-
 Route::post('editInfo', [ProfileController::class, 'editInfo'])->name('api.editInfo');
-
 
 Route::post('login', [AuthController::class, 'signUp'])->name('api.login');
 

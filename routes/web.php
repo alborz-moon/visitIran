@@ -130,7 +130,9 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
         return view('event.launcher.launcher-register', ['mode' => 'edit', 'states' => $states, 'formId' => $formId]);
     })->name('launcher-edit');
 
-    Route::view('/launcher-document','event.launcher.launcher-document')->name('document');
+    Route::get('/launcher-document/{formId}',function($formId) {
+        return view('event.launcher.launcher-document', compact('formId'));
+    })->name('document');
 
     Route::get('/launcher-finance/{formId}', function($formId) {
         return view('event.launcher.launcher-finance', compact('formId'));

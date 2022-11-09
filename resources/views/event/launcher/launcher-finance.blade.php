@@ -116,7 +116,6 @@
 
 
         let totalRows = 0;
-
         $(document).ready(function() {
             $.ajax({
              type: 'get',
@@ -141,11 +140,46 @@
                 }
             });
         });
-        function selectBtn(){
+        function deleteShaba(idx, bankId){
+            $.ajax({
+            type: 'delete',
+            url: '{{ route('launcher_bank_accounts.destroy') }}' + "/" + bankId,
+            headers: {
+                'accept': 'application/json'
+            },
+            success: function(res) {
+                console.log('====================================');
+                console.log(res);
+                console.log('====================================');
+                if(res.status === "ok") {
+                     $("#delete_row_" + idx).remove();
+                }
+            }
+            });
+        };
+        function changeDefault(idx, bankId) {
+            $.ajax({
+             type: 'post',
+             url: '{{ route('launcher_bank_accounts.update') }}' + '/' + bankId,
+             data: {
+                is_default: 1
+             },
+             headers: {
+                 'accept': 'application/json'
+             },
+            success: function(res) {
+                if(res.status === "ok") {
+                    $(".is_dafult_bank_account").removeClass('btn-dark').addClass('btn-light');
+                    $("#choose_default_" + idx).addClass('btn-dark').removeClass('btn-light');
+                }
+            }
+            });
         }
+
+
         function addNewRow(i, data) {
-            let html = '<tr>';
-            html += '<td class="fa-num">'  + (i + 1 )+ '</td>';
+            let html = '<tr id="delete_row_'+ i +'">';
+            html += '<td class="fa-num">'  + (i + 1 ) + '</td>';
             html += '<td class="fa-num">' + data.shaba_no + '</td>';
             html += '<td>';
             html += '</td>';
@@ -158,8 +192,11 @@
             }
             html += '<td class="fa-num">' + data.created_at + '</td>';
             html += '<td>';
-            html += '<button onclick="selectBtn()" id="choose' + i + '" class="btn btn-circle btn-light my-1"><i class="icon-visit-Exclusion1"></i></button>';
-            html += '<a href="#" class="btn btn-circle btn-danger my-1"><i class="ri-close-line"></i></a>';
+            if(data.is_default)
+                html += '<button id="choose_default_' + i + '" class="is_dafult_bank_account btn btn-circle btn-dark my-1"><i class="ri-close-line"></i></button>';
+            else
+                html += '<button onclick="changeDefault(\'' + i + '\', \'' + data.id + '\')" id="choose_default_' + i + '" class="is_dafult_bank_account btn btn-circle btn-light my-1"><i class="ri-close-line"></i></button>';
+            html += '<button onclick="deleteShaba(\'' + i + '\', \'' + data.id + '\')" class="btn btn-circle btn-danger my-1"><i class="ri-close-line"></i></button>';
             html += '</td>';
             html += '</tr>';
             return html;

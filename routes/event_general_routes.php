@@ -17,7 +17,11 @@ Route::get('events', [EventController::class, 'list'])->name('api.event.list');
 
     Route::resource('launcher.launcher_certifications', LauncherCertificationsController::class)->only('store', 'destroy')->shallow();
 
-    Route::resource('launcher.launcher_bank_accounts', LauncherBankAccountsController::class)->only('store', 'destroy', 'update', 'index')->shallow();
+    Route::resource('launcher.launcher_bank_accounts', LauncherBankAccountsController::class)->only('store', 'index')->shallow();
+
+    Route::post('launcher/launcher_bank_accounts/{launcher_bank?}', [LauncherBankAccountsController::class, 'update'])->name('launcher_bank_accounts.update');
+    
+    Route::delete('launcher/launcher_bank_accounts/{launcher_bank?}', [LauncherBankAccountsController::class, 'destroy'])->name('launcher_bank_accounts.destroy');
 
 // });
 
