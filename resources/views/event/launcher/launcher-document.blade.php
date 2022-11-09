@@ -26,7 +26,7 @@
                                             <div class="uploadBorder">
                                                 <div class="uploadBodyBox">
                                                     <div class="uploadTitleText">بارگذاری فایل روزنامه تاسیس </div>
-                                                    <form action="{{route('api.testUpload')}}" class="dropzone uploadBox" id="my-awesome-dropzone">
+                                                    <form id="my-awesome-dropzone action="{{route('launcher.launcher_bank_accounts.index',['launcher' => $formId])}}" class="dropzone uploadBox" id="my-awesome-dropzone">
                                                         {{csrf_field()}}
                                                     </form>
                                                     <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
@@ -105,7 +105,7 @@
         <script>
         Dropzone.options.myAwesomeDropzone = {
             paramName: "img_file", // The name that will be used to transfer the file
-            maxFilesize: 1, // MB
+            maxFilesize: 6, // MB
             timeout: 180000,
             parallelUploads: 1,
             chunking: false,

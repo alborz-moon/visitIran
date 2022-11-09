@@ -132,7 +132,9 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
 
     Route::view('/launcher-document','event.launcher.launcher-document')->name('document');
 
-    Route::view('/launcher-finance','event.launcher.launcher-finance')->name('finance');
+    Route::get('/launcher-finance/{formId}', function($formId) {
+        return view('event.launcher.launcher-finance', compact('formId'));
+    })->name('finance');
 
     Route::view('/launcher-create-event','event.launcher.launcher-create-event')->name('create-event');
 

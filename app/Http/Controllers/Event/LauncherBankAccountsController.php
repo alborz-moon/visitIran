@@ -21,7 +21,10 @@ class LauncherBankAccountsController extends Controller
         if($request->user()->id != $launcher->user_id)
             return abort(401);
 
-        return LauncherBankAccountResource::collection($launcher->banks)->toArray($request);
+        return response()->json([
+            'status' => 'ok',
+            'data' => LauncherBankAccountResource::collection($launcher->banks)->toArray($request)
+        ]);
 
     }
 
@@ -46,6 +49,7 @@ class LauncherBankAccountsController extends Controller
         $request['launcher_id'] = $launcher->id;
 
         $bank = LauncherBank::create($request->toArray());
+        $bank->status = 'pending';
 
         return response()->json([
             'status' => 'ok',
