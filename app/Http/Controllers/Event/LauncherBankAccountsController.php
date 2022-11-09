@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\LauncherBankAccountResource;
 use App\Models\Launcher;
 use App\Models\LauncherBank;
 use Illuminate\Http\Request;
@@ -16,7 +17,12 @@ class LauncherBankAccountsController extends Controller
      */
     public function index(Request $request, Launcher $launcher)
     {
-        //
+        
+        if($request->user()->id != $launcher->user_id)
+            return abort(401);
+
+        return LauncherBankAccountResource::collection($launcher->banks)->toArray($request);
+
     }
 
     
@@ -39,10 +45,12 @@ class LauncherBankAccountsController extends Controller
         $request->validate($validator);
         $request['launcher_id'] = $launcher->id;
 
-        LauncherBank::create($request->toArray());
+        $bank = LauncherBank::create($request->toArray());
 
         return response()->json([
-            'status' => 'ok'
+            'status' => 'ok',
+            'data' => 
+                LauncherBankAccountResource::make($bank)->toArray($request)
         ]);
 
     }
