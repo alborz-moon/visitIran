@@ -22,7 +22,7 @@
                                 <a href="#"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
                             </li>
                         </ul>
-                        <button class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</button>
+                        <a href="{{ route('create-time') }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
                     </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">جلسات برگزاری</div>
@@ -139,7 +139,7 @@
                         </div>
                         <div class="spaceBetween mb-2">
                             <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
-                            <button class="btn btn-sm btn-primary px-5">مرحله بعد</button>
+                            <button onclick="window.location.href = '{{ route('create-info') }}';" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
                         </div> 
                         <div class="d-flex justify-content-end">
                             <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>

@@ -1109,6 +1109,9 @@ figure .ck-widget {
     color: #212121;
     padding: 0;
 }
+.whiteSpaceNoWrap {
+    white-space: nowrap;
+}
 .page-item.active .page-link {
     background-color: #00b2bc;
     border-color: #00b2bc;

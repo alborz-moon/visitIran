@@ -1,5 +1,13 @@
 
 @extends('layouts.structure')
+@section('header')
+    @parent
+    <script src="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.js"></script>
+    <link
+      href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+@stop
 @section('content')
         <main class="page-content">
         <div class="container">
@@ -9,7 +17,7 @@
                         <div class="alert alert-warning alert-dismissible fade show mb-5 d-flex align-items-center spaceBetween" role="alert">
                             <div>
                                 در حال حاضر حساب کاربری شما غیر فعال است. پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
-                            </div>
+                            </div> 
                             <a href="#" class="btn btn-sm btn-primary mx-3">تیکت ها</a>                        
                         </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
@@ -17,10 +25,10 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
                                             <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between">
-                                                <div class="fs-7 fw-bold text-dark">نام و نام خانوادگی</div>
+                                                <input type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
                                                 <button class="btn btn-circle btn-outline-light"
                                                     data-remodal-target="personal-info-fullname-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
@@ -32,7 +40,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">شماره تلفن همراه</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="phone_info" type="tel" maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
+                                                <input type="tel" maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -44,7 +52,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">پست الکترونیک</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="email_info" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
+                                                <input  id="userEmail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
                                                 <button class="btn btn-circle btn-outline-light hidden" >
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -53,10 +61,10 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">تاریخ تولد</div>
                                             <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between">
-                                                <div class="fs-7 fw-bold text-dark">تاریخ تولد</div>
+                                                <input type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد">
                                                 <button class="btn btn-circle btn-outline-light"
                                                     data-remodal-target="personal-info-birth-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
@@ -68,7 +76,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">کد ملی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
+                                                <input id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -87,9 +95,9 @@
                                         <div class="border-bottom py-2">
                                             <div  class="fs-7 text-dark">نوع شخصیت</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select class="selectStyle">
-                                                    <option value="real">حقیقی</option>
-                                                    <option value="unreal">حقوقی</option>
+                                                <select id="launcherType" class="selectStyle">
+                                                    <option value="haghighi">حقیقی</option>
+                                                    <option value="hoghoghi">حقوقی</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -101,11 +109,11 @@
                             <div class="ui-box-title">اطلاعات برگزار کننده</div>
                             <div class="ui-box-content">
                                 <div class="row">
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-6 mb-3 haghighi_fields">
                                         <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">نام حقوقی</div>
+                                            <div class="fs-7 text-dark">نام حقوقی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="نام حقوقی">
+                                                <input id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام حقوقی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -113,22 +121,34 @@
                                             <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-6 mb-3 haghighi_fields">
+                                        <div class="border-bottom py-1">
+                                            <div  class="fs-7 text-dark">نام برگزار کننده</div>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <input id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام برگزار کننده">
+                                                <button class="btn btn-circle btn-outline-light hidden">
+                                                    <i class="ri-ball-pen-fill"></i>
+                                                </button>
+                                            </div>
+                                            <div class="fs-6 fw-bold text-muted"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mb-3 hoghoghi_fields">
                                         <div class="border-bottom py-2">
                                             <div  class="fs-7 text-dark">نوع شرکت</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select class="selectStyle">
+                                                <select id="companyType" class="selectStyle">
                                                     <option value="card">نوع شرکت</option>
                                                     <option value="table">نوع شرکت 2</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-6 mb-3 hoghoghi_fields">
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">شماره اقتصادی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="شماره اقتصادی">
+                                                <input id="code" type="text" class="form-control" style="direction: rtl" placeholder="شماره اقتصادی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -140,7 +160,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">کد پستی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
+                                                <input id="postalCode" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -149,33 +169,35 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
-                                            <div  class="fs-7 text-dark">استان</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <select class="selectStyle">
-                                                    <option value="card">انتخاب</option>
-                                                    <option value="table">شیراز</option>
-                                                </select>
-                                            </div>
+                                        <!-- start of form-element -->
+                                        <div class="form-element-row">
+                                            <label class="label fs-7">استان</label>
+                                            
+                                            <select onchange="getCities($(this).val())" class="select2" name="state02" id="state02">
+                                                <option value="0">انتخاب کنید</option>
+                                                @foreach ($states as $state)
+                                                    <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
+                                        <!-- end of form-element -->
                                     </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
-                                            <div  class="fs-7 text-dark">شهر</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <select class="selectStyle">
-                                                    <option value="card">تهران</option>
-                                                    <option value="table">کرج</option>
+                                    <div id="ha" class="col-lg-6 mb-3">
+                                        <!-- start of form-element -->
+                                        <div class="form-element-row">
+                                            <div class="form-element-row">
+                                                <label class="label fs-7">شهر</label>
+                                                <select class="select2 launcherCityID" name="city02" id="city02">
                                                 </select>
                                             </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
+                                        <!-- end of form-element -->
                                     </div>
                                     <div class="col-lg-12 mb-3">
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">آدرس</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <textarea  type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
+                                                <textarea id="launcherAddress" type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -185,7 +207,7 @@
                                     <div class="col-lg-12 mb-3">
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">نقشه</div>
-                                            <div class="w-100 d-flex justify-content-center align-items-center colorWhite" style="height: 250px;background-color:#00b2bc">نقشه</div>
+                                            <div id="launchermap" style="width: 100%; height: 250px"></div>
                                         </div>
                                     </div>
                                     
@@ -200,7 +222,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">وب سایت</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="وب سایت">
+                                                <input id="launcherSite" type="text" class="form-control" style="direction: rtl" placeholder="وب سایت">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -210,9 +232,9 @@
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">ایمیل</div>
+                                            <div class="fs-7 text-dark">ایمیل</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="ایمیل">
+                                                <input id="launcherEmail" type="text" class="form-control" style="direction: rtl" placeholder="ایمیل">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -224,7 +246,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">تلفن</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="تلفن">
+                                                <input id="launcherPhone" type="text" class="form-control" style="direction: rtl" placeholder="تلفن">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -235,63 +257,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="ui-box bg-white mb-5 boxShadow">
-                            <div class="ui-box-title">مدارک <span class="fontNormal fontSize12 mx-2">حداکثر 6 مگابایت و در فرمت های jpg, zip , pdf</span></div>
-                            <div class="ui-box-content">
-                                <div class="row">
-                                    <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">روزنامه تاسیس</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="file" class="form-control" style="direction: rtl" placeholder="روزنامه تاسیس">
-                                                <button class="btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">آخرین تغییرات</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="file" class="form-control" style="direction: rtl" placeholder="آخرین تغییرات">
-                                                <button class="btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">مجوز - در صورت وجود</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="file" class="form-control" style="direct placeholder="انتخاب فایل">
-                                                <button class="btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">کارت ملی رابط</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="file" class="form-control" style="direct placeholder="کارت ملی رابط">
-                                                <button class="btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="spaceBetween mb-2">
+                            <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</button>
+                            <button id="sumbmit" onclick="{{ route('document') }}" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-sm btn-primary px-3">ارسال برای بازبینی</button>
+                            <a href="" class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</ش>
                         </div>
                     </div>
             </div>
@@ -307,15 +278,15 @@
                 <div class="remodal-content">
                     <div class="form-element-row mb-3">
                         <label class="label fs-7">نام</label>
-                        <input  value="" type="text" class="form-control" placeholder="نام">
+                        <input id="name" value="" type="text" class="form-control" placeholder="نام">
                     </div>
                     <div class="form-element-row">
                         <label class="label fs-7">نام خانوادگی</label>
-                        <input type="text" class="form-control" placeholder="نام خانوادگی">
+                        <input id="last" type="text" class="form-control" placeholder="نام خانوادگی">
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
+                    <button id="getName" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
                 </div>
             </div>
         <!-- end of personal-info-fullname-modal -->
@@ -363,7 +334,7 @@
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button onclick="setValBrithday()" class="btn btn-sm btn-primary px-3">ثبت تاریخ تولد</button>
+                    <button id="setUserBirthDay" class="btn btn-sm btn-primary px-3">ثبت تاریخ تولد</button>
                 </div>
             </div>
             <!-- end of personal-info-birth-modal -->
@@ -401,6 +372,180 @@
                 </div>
             </div>
         <!-- end of personal-info-fullname-modal -->
+        
+<script src="https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/parsimap-geocoder/v1.0.0/parsimap-geocoder.js"></script>
+<link
+  href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/parsimap-geocoder/v1.0.0/parsimap-geocoder.css"
+  rel="stylesheet"
+/>
+    <script>
+        let x;
+        let y;
+            function getCities(stateId, selectedCity=undefined) {
+                if(stateId == 0) {
+                    $("#city02").empty();
+                    return;
+                }
+                $.ajax({
+                    type: 'get',
+                    url: '{{ route('api.cities') }}',
+                    data: {
+                        state_id: stateId
+                    },
+                    success: function(res) {    
+                        if(res.status !== 'ok') {
+                            $("#city02").empty();
+                            return;
+                        }   
+                        let html = '<option value="0">انتخاب کنید</option>';
+                        res.data.forEach(elem => {
+                            if(selectedCity !== undefined && elem.id === selectedCity)
+                                html += '<option selected value="' + elem.id + '">' + elem.name + '</option>';
+                            else
+                                html += '<option value="' + elem.id + '">' + elem.name + '</option>';
+                        });
+                        $("#city02").empty().append(html);
+                    }
+                });
+            }
+        $(document).ready(function(){
+            $('#getName').on('click',function(){
+                var name = $('#name').val();
+                var last = $('#last').val();
+                $('.setName').val(name +' ' + last );
+                $(".remodal-close").click();
+            })
+            $('#setUserBirthDay').on('click',function(){
+                var year = $('#Brithday_year').val();
+                var month = $('#Brithday_month').val();
+                var day =$('#Brithday_day').val();
+                $('.userBirthDay').val(year + '/' + month + '/' + day);
+                $(".remodal-close").click();
+            })
+            $('#launcherType').on('change',function(){
+                var LauncherType = $('#launcherType').val();
+                if (LauncherType === 'haghighi'){
+                    // show or hide class for haghighi
+                    $(".hoghoghi_fields").addClass('hidden');
+                    $(".haghighi_fields").removeClass('hidden');
+                }else if(LauncherType === 'hoghoghi'){
+                    // show or hide class for hoghoghi
+                    $(".hoghoghi_fields").removeClass('hidden');
+                    $(".haghighi_fields").addClass('hidden');
+                }else{
+                    // hide All
+                }
+            })
+            $('#sumbmit').on('click',function(){
+                var setName = $('.setName').val();
+                var userEmail = $('#userEmail').val();
+                var userBirthDay = $('.userBirthDay').val();
+                var nid = $('#nid').val();
+                var companyName = $('#companyName').val();
+                var launcherType = $('#launcherType').val();
+                var companyType = $('#companyType').val();
+                var code = $('#code').val();
+                var postalCode = $('#postalCode').val();
+                var launcherCityID = $('.launcherCityID').val();
+                var launcherSite = $('#launcherSite').val();
+                var launcherEmail = $('#launcherEmail').val();
+                var LauncherPhone = $('#LauncherPhone').val();
+                var launcherAddress = $('#launcherAddress').val();
+                // var setName = "Alborz";
+                // var userEmail = "Moon@yahoo.com";
+                // var userBirthDay = "1374/11/03";
+                // var nid = "0018374921";
+                // var companyName = "mooon";
+                // var launcherType = "hoghoghi";
+                // var companyType = "شرکت2";
+                // var code = "1000000000";
+                // var postalCode = "1234567890";
+                // var launcherCityID = 1;
+                // var launcherSite = "www.google.com";
+                // var launcherEmail = "alborz@gmail.com";
+                // var LauncherPhone = "09224786125";
+                // var launcherAddress = "شسیتمشس یمنشس بسشی شسیهخب شسیب  سیشتنمبتنشسیابتناتناطزرات شتسیاب تنسارتنزط نتشسبنتسشی";
+                if(x === undefined || y === undefined) {
+                    showErr("لطفا مکان موردنظر خود را از روی نقضه انتخاب کنید");
+                    return;
+                }
+                $.ajax({
+                    type: 'post',
+                    url: '{{ $mode == 'create' ? route('launcher.store') : route('launcher.update', ['launcher' => $formId]) }}',
+                    data: {
+                        launcher_x: x,
+                        launcher_y: y,
+                        user_email: userEmail,
+                        user_birth_day: userBirthDay,
+                        user_NID: nid,
+                        company_name: companyName,
+                        code: code,
+                        postal_code: postalCode,
+                        launcher_city_id: launcherCityID,
+                        launcher_site: launcherSite,
+                        launcher_email: launcherEmail,
+                        launcher_phone: LauncherPhone,
+                        launcher_type: launcherType,
+                        launcher_address: launcherAddress,
+                        company_type:companyType,
+                    },
+                    success: function(res) {
+                        if(res.status === "ok") {
+                            window.location.href = '{{ route('document') }}';
+                        }
+                        else
+                            showErr(res.msg);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        
+                        var errs = XMLHttpRequest.responseJSON.errors;
+
+                        if(errs instanceof Object) {
+                            var errsText = '';
+
+                            Object.keys(errs).forEach(function(key) {
+                                errsText += key + " : " + errs[key];
+                            });
+                            showErr(errsText);    
+                        }
+                        else {
+                            var errsText = '';
+
+                            for(let i = 0; i < errs.length; i++)
+                                errsText += errs[i].value;
+                            
+                            showErr(errsText);
+                        }
+                    }
+                });
+            })
+        })
+        
+        mapboxgl.setRTLTextPlugin(
+            'https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+            null,
+        );
+        const map = new mapboxgl.Map({
+            container: 'launchermap',
+            style: 'https://api.parsimap.ir/styles/parsimap-streets-v11?key=p1c7661f1a3a684079872cbca20c1fb8477a83a92f',
+            center: x !== undefined && y !== undefined ? [y, x] : [51.4, 35.7],
+            zoom: 13,
+        });
+        var marker = undefined;
+        
+        function addMarker(e){
+            if (marker !== undefined)
+                marker.remove();
+            //add marker
+            marker = new mapboxgl.Marker();
+            marker.setLngLat(e.lngLat).addTo(map);
+            x = e.lngLat.lat;
+            y = e.lngLat.lng;
+        }
+        map.on('click', addMarker);
+        const control = new ParsimapGeocoder();
+        map.addControl(control);
+    </script>
 @stop
 
 @section('footer')
@@ -409,4 +554,50 @@
 
 @section('extraJS')
     @parent
+    
+    @if($mode == 'edit')
+        <script>
+            $.ajax({
+                type: 'get',
+                url: '{{ route('launcher.show', ['launcher' => $formId]) }}',
+                success: function (res) {
+                    console.log('====================================');
+                    console.log(res);
+                    console.log('====================================');
+                    x = res.data.launcher_x;
+                    y = res.data.launcher_y;
+
+                    const map = new mapboxgl.Map({
+                        container: 'launchermap',
+                        style: 'https://api.parsimap.ir/styles/parsimap-streets-v11?key=p1c7661f1a3a684079872cbca20c1fb8477a83a92f',
+                        center: x !== undefined && y !== undefined ? [y, x] : [51.4, 35.7],
+                        zoom: 13,
+                    });
+                    if(x !== undefined && y !== undefined) {
+                        marker = new mapboxgl.Marker();
+                        marker.setLngLat({lng: y, lat: x}).addTo(map);
+                    }
+                    map.on('click', addMarker);
+                    const control = new ParsimapGeocoder();
+                    map.addControl(control);
+                    $("#postalCode").val(res.data.postal_code);
+                    $("#code").val(res.data.code);
+                    $("#companyName").val(res.data.company_name);
+                    $("#companyType").val(res.data.company_type);
+                    $("#launcherAddress").val(res.data.launcher_address);
+                    $("#launcherCityId").val(res.data.launcher_city_id);
+                    $("#launcherEmail").val(res.data.launcher_email);
+                    $("#launcherPhone").val(res.data.launcher_phone);
+                    $("#launcherSite").val(res.data.launcher_site);
+                    $("#launcherType").val(res.data.launcher_type);
+                    $("#nid").val(res.data.user_NID);
+                    $("#userEmail").val(res.data.user_email);
+                    $("#companyType").val(res.data.company_type);
+                    $(".userBirthDay").val(res.data.user_birth_day);
+                }
+            })
+
+        </script>
+    @endif
+
 @stop
