@@ -19,7 +19,8 @@ class LauncherBankAccountResource extends JsonResource
             'id' => $this->id,
             'shaba_no' => $this->shaba_no,
             'status' => $this->status,
-            'created_at' => Controller::getPersianDate($this->created_at)
+            'created_at' => Controller::getPersianDate($this->created_at),
+            'is_default' => $this->is_default,
         ];
     }
 }

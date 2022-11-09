@@ -17,4 +17,8 @@ class LauncherBank extends Model
         'confirmed_at',
         'status'
     ];
+
+    public function launcher() {
+        return $this->belongsTo(Launcher::class);
+    }
 }
