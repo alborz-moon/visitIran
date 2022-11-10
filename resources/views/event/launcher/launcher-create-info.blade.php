@@ -4,6 +4,11 @@
     @parent
     <link rel="stylesheet" href="{{asset('theme-assets/bootstrap-datepicker.css?v=1')}}">
     <script src="{{asset("theme-assets//bootstrap-datepicker.js")}}"></script>
+    <script src="{{asset('theme-assets/dropzone/dropzone.js?v=1.2')}}"></script>
+    <link rel="stylesheet" href="{{asset("theme-assets/dropzone/dropzone.css")}}">
+    <script>
+        var myPreventionFlag = false;
+    </script>
 @stop
 @section('content')
         <main class="page-content">
@@ -48,17 +53,18 @@
                         </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">گالری عکس</div>
-                            <div class="ui-box-content">
-                                <div class="row">
-                                    <div class="col-lg-12 mb-3">
-                                        <div class="border-bottom py-1">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="file" class="form-control" style="direction: rtl" placeholder="انتخاب فایل">
-                                                <button class="btn btn-circle btn-outline-light hidden">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
+                            <div class="col-lg-6 mb-3">
+                                <div>
+                                    <div class="uploadBody">
+                                        <div class="uploadBorder">
+                                            <div class="uploadBodyBox">
+                                                <div class="uploadTitleText">بارگذاری عکس های گالری</div>
+                                                <form action="{{route('api.testUpload')}}" class="dropzone uploadBox" id="gallery-Form">
+                                                    {{csrf_field()}}
+                                                </form>
+                                                <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
+                                                <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div>
                                             </div>
-                                            <div class="fs-6 fw-bold text-muted">اندازه فایل تا 6mb</div>
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +93,7 @@
                         <label class="label fs-7">تاریخ</label>
                         <label class="tripCalenderSection">
                             <span class="calendarIcon"></span>
-                            <input id="date_input_create_event_start" class="tripDateInput form-control" placeholder="13xx/xx/xx" required readonly type="text">
+                            <input id="date_input_create_event_start" style="direction: ltr" class="tripDateInput form-control" placeholder="13xx/xx/xx" required readonly type="text">
                         </label>
                     </div>
                     <div class="form-element-row">
@@ -138,7 +144,66 @@
             dateFormat: "yy/mm/dd"
         };
         $("#date_input_create_event_start").datepicker(datePickerOptions);
-
+        
+        Dropzone.options.galleryForm = {
+                    paramName: "file_jpg", // The name that will be used to transfer the file
+                    maxFilesize: 6, // MB
+                    timeout: 180000,
+                    parallelUploads: 1,
+                    chunking: false,
+                    forceChunking: false,
+                    uploadMultiple: false,
+                    maxFiles: 1,
+                    accept: function(file, done) {
+                        done();
+                    },
+                    init: function () {
+                        
+                        this.on('completemultiple', function () {
+                            
+                            // if(myPreventionFlag)
+                            //     $("#dropZoneErr").removeClass('hidden');
+                            // else
+                            //     location.reload();
+                            // showSuccess('با موفقیت آپلود شد');
+                        });
+                        this.on("queuecomplete", function (file) {
+                            
+                            // if(myPreventionFlag)
+                            //     $("#dropZoneErr").removeClass('hidden');
+                            // else
+                            //     location.reload();
+                        });
+                        this.on("complete", function (file) {
+                            
+                            // if(myPreventionFlag)
+                            //     $("#dropZoneErr").removeClass('hidden');
+                            // else
+                            //     location.reload();
+                        });
+                        this.on("success", function (file) {
+                            
+                            // if(myPreventionFlag)
+                            //     $("#dropZoneErr").removeClass('hidden');
+                            // else
+                            //     location.reload();
+                        });
+                        this.on("canceled", function (file) {
+                            
+                            // if(myPreventionFlag)
+                            //     $("#dropZoneErr").removeClass('hidden');
+                            // else
+                            //     location.reload();
+                        });
+                        this.on("error", function (file) {
+                            
+                            // if(myPreventionFlag)
+                            //     $("#dropZoneErr").removeClass('hidden');
+                            // else
+                            //     location.reload();
+                        });
+                    }
+                };
         function removeItem1(){
             $('#removeItem1').remove();
         }

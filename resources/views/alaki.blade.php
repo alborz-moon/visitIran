@@ -15,20 +15,20 @@
 
 
 @section('content')
-<div style="margin-top: 100px">
-    <div class="uploadBody">
-        <div class="uploadBorder">
-            <div class="uploadBodyBox">
-                <div class="uploadTitleText">بارگذاری فایل محتوا</div>
-                <form action="{{route('api.testUpload')}}" class="dropzone uploadBox" id="my-awesome-dropzone">
-                    {{csrf_field()}}
-                </form>
-                <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
-                <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div>
+    <div style="margin-top: 100px">
+        <div class="uploadBody">
+            <div class="uploadBorder">
+                <div class="uploadBodyBox">
+                    <div class="uploadTitleText">بارگذاری فایل محتوا</div>
+                    <form action="{{route('api.testUpload')}}" class="dropzone uploadBox" id="my-awesome-dropzone">
+                        {{csrf_field()}}
+                    </form>
+                    <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
+                    <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div>
+                </div>
             </div>
         </div>
     </div>
-</div>
     <div style="margin: 100px">
         <div id="date_btn_start_edit">تاریخ شروع</div>
         <label class="tripCalenderSection">

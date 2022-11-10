@@ -21,7 +21,7 @@
                             <a href="#" class="btn btn-sm btn-primary mx-3">تیکت ها</a>                        
                         </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
-                            <div class="ui-box-title">اطلاعات شخصی</div>
+                            <div class="ui-box-title">اطلاعات رابط</div>
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">

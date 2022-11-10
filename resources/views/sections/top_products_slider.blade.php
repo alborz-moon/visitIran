@@ -48,7 +48,6 @@
                     {
                         // Optional parameters
                         spaceBetween: 10,
-
                         // Navigation arrows
                         navigation: {
                         nextEl: ".swiper-button-next",
@@ -73,7 +72,7 @@
                         },
                         },
                     }
-                    );
+                );
             }
         });
     });
