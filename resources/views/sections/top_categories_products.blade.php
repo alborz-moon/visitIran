@@ -109,6 +109,38 @@
                     
                 });
                 $("#top_categories_products_sliders").empty().append(html);
+
+                const productSpecialsSwiperSlider = new Swiper(
+                    ".product-swiper-slider",
+                    {
+                        // Optional parameters
+                        spaceBetween: 10,
+
+                        // Navigation arrows
+                        navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev",
+                        },
+
+                        breakpoints: {
+                        1200: {
+                            slidesPerView: 5,
+                        },
+                        992: {
+                            slidesPerView: 3,
+                            spaceBetween: 10,
+                        },
+                        576: {
+                            slidesPerView: 3,
+                            spaceBetween: 10,
+                        },
+                        480: {
+                            slidesPerView: 2,
+                            spaceBetween: 8,
+                        },
+                        },
+                    }
+                );
             }
         });
     });
