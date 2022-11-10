@@ -259,10 +259,10 @@
                         </div>
                         <div class="spaceBetween mb-2">
                             <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</button>
-                            <button id="sumbmit" onclick="{{ route('document') }}" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
+                            <button id="submit" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <a href="" class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</ش>
+                            <a href="" class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</a>
                         </div>
                     </div>
             </div>
@@ -436,7 +436,7 @@
                     // hide All
                 }
             })
-            $('#sumbmit').on('click',function(){
+            $('#submit').on('click',function(){
                 var setName = $('.setName').val();
                 var userEmail = $('#userEmail').val();
                 var userBirthDay = $('.userBirthDay').val();
@@ -491,7 +491,7 @@
                     },
                     success: function(res) {
                         if(res.status === "ok") {
-                            window.location.href = '{{ route('document') }}';
+                            window.location.href = '{{ route('launcher-document') }}' ;
                         }
                         else
                             showErr(res.msg);

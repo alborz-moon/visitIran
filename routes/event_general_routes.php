@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('events', [EventController::class, 'list'])->name('api.event.list');
 
 
-// Route::middleware(['myAuth'])->group(function() {
+Route::middleware(['myAuth'])->group(function() {
 
     Route::resource('launcher', LauncherController::class)->except('edit', 'create', 'update');
 
@@ -23,7 +23,7 @@ Route::get('events', [EventController::class, 'list'])->name('api.event.list');
     
     Route::delete('launcher/launcher_bank_accounts/{launcher_bank?}', [LauncherBankAccountsController::class, 'destroy'])->name('launcher_bank_accounts.destroy');
 
-// });
+});
 
 
 ?>
