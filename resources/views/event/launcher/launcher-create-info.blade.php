@@ -1,5 +1,10 @@
 
 @extends('layouts.structure')
+@section('header')
+    @parent
+    <link rel="stylesheet" href="{{asset('theme-assets/bootstrap-datepicker.css?v=1')}}">
+    <script src="{{asset("theme-assets//bootstrap-datepicker.js")}}"></script>
+@stop
 @section('content')
         <main class="page-content">
         <div class="container">
@@ -80,7 +85,10 @@
                 <div class="remodal-content">
                     <div class="form-element-row mb-3">
                         <label class="label fs-7">تاریخ</label>
-                        <input  value="" type="date" class="form-control" placeholder="؟؟/؟؟/؟؟؟؟">
+                        <label class="tripCalenderSection">
+                            <span class="calendarIcon"></span>
+                            <input id="date_input_create_event_start" class="tripDateInput form-control" placeholder="13xx/xx/xx" required readonly type="text">
+                        </label>
                     </div>
                     <div class="form-element-row">
                         <label class="label fs-7">زمان شروع</label>
@@ -124,6 +132,13 @@
 @section('extraJS')
     @parent
     <script>
+        var datePickerOptions = {
+            numberOfMonths: 1,
+            showButtonPanel: true,
+            dateFormat: "yy/mm/dd"
+        };
+        $("#date_input_create_event_start").datepicker(datePickerOptions);
+
         function removeItem1(){
             $('#removeItem1').remove();
         }

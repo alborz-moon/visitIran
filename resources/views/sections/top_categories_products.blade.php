@@ -108,8 +108,6 @@
                     html += '<div class="w-100 mb-5">' + newElem + '</div>';
                     
                 });
-
-
                 $("#top_categories_products_sliders").empty().append(html);
             }
         });
