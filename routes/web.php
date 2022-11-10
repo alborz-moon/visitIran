@@ -118,36 +118,43 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
     Route::view('/event','event.event')->name('event');
 
 
-    Route::get('/launcher-register', function() {
-        $states = State::orderBy('name', 'asc')->get();
-        $mode = 'create';
-        return view('event.launcher.launcher-register', compact('states', 'mode'));
-    })->name('launcher');
+    Route::middleware(['myAuth'])->group(function() {
 
+        Route::get('/launcher-register', function() {
+            $states = State::orderBy('name', 'asc')->get();
+            $mode = 'create';
+            return view('event.launcher.launcher-register', compact('states', 'mode'));
+        })->name('launcher');
+
+        
+        Route::get('/launcher-edit-register/{formId}', function ($formId) {
+            $states = State::orderBy('name', 'asc')->get();
+            return view('event.launcher.launcher-register', ['mode' => 'edit', 'states' => $states, 'formId' => $formId]);
+        })->name('launcher-edit');
+
+        Route::get('/launcher-document/{formId?}',function($formId=null) {
+            
+            if($formId == null)
+                return view('errors.403');
+
+            return view('event.launcher.launcher-document', compact('formId'));
+        })->name('launcher-document');
+
+        Route::get('/launcher-finance/{formId}', function($formId) {
+            return view('event.launcher.launcher-finance', compact('formId'));
+        })->name('finance');
+
+        Route::view('/launcher-create-event','event.launcher.launcher-create-event')->name('create-event');
+
+        Route::view('/launcher-create-time','event.launcher.launcher-create-time')->name('create-time');
     
-    Route::get('/launcher-edit-register/{formId}', function ($formId) {
-        $states = State::orderBy('name', 'asc')->get();
-        return view('event.launcher.launcher-register', ['mode' => 'edit', 'states' => $states, 'formId' => $formId]);
-    })->name('launcher-edit');
-
-    Route::get('/launcher-document/{formId}',function($formId) {
-        return view('event.launcher.launcher-document', compact('formId'));
-    })->name('document');
-
-    Route::get('/launcher-finance/{formId}', function($formId) {
-        return view('event.launcher.launcher-finance', compact('formId'));
-    })->name('finance');
-
-    Route::view('/launcher-create-event','event.launcher.launcher-create-event')->name('create-event');
-
-    Route::view('/launcher-create-time','event.launcher.launcher-create-time')->name('create-time');
-
-    Route::view('/launcher-create-contact','event.launcher.launcher-create-contact')->name('create-contact');
-
-   Route::view('/launcher-create-info','event.launcher.launcher-create-info')->name('create-info');
-
-   Route::view('/launcher-show-events','event.launcher.launcher-show-events')->name('show-events');
-
+        Route::view('/launcher-create-contact','event.launcher.launcher-create-contact')->name('create-contact');
+    
+       Route::view('/launcher-create-info','event.launcher.launcher-create-info')->name('create-info');
+    
+       Route::view('/launcher-show-events','event.launcher.launcher-show-events')->name('show-events');
+       
+    });
 
 
 });
