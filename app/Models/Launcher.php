@@ -11,6 +11,9 @@ class Launcher extends Model
     protected $connection = 'mysql2';
     
     protected $fillable = [
+        'first_name',
+        'last_name',
+        'phone',
         'user_id',
         'status',
         'user_NID',
