@@ -30,8 +30,7 @@
                                             <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between">
                                                 <input type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
                                                 <button class="btn btn-circle btn-outline-light"
-                                                    data-remodal-target="personal-info-fullname-modal"><i
-                                                        class="ri-ball-pen-fill"></i></button>
+                                                    data-remodal-target="personal-info-fullname-modal"><i                                                       class="ri-ball-pen-fill"></i></button>
                                             </div>
                                             <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
@@ -45,7 +44,7 @@
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
-                                            <div id="phoneVal" class="fs-6 fw-bold text-muted"></div>
+                                            <div id="phone" class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -96,6 +95,7 @@
                                             <div  class="fs-7 text-dark">نوع شخصیت</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select id="launcherType" class="selectStyle">
+                                                    <option value="selectType" selected>انتخاب کنید</option>
                                                     <option value="haghighi">حقیقی</option>
                                                     <option value="hoghoghi">حقوقی</option>
                                                 </select>
@@ -105,11 +105,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="ui-box bg-white mb-5 boxShadow">
+                        <div class="ui-box bg-white mb-5 boxShadow hidden_all_fields hidden">
                             <div class="ui-box-title">اطلاعات برگزار کننده</div>
                             <div class="ui-box-content">
                                 <div class="row">
-                                    <div class="col-lg-6 mb-3 haghighi_fields">
+                                    <div class="col-lg-6 mb-3 hoghoghi_fields">
                                         <div class="border-bottom py-1">
                                             <div class="fs-7 text-dark">نام حقوقی</div>
                                             <div class="d-flex align-items-center justify-content-between">
@@ -214,7 +214,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="ui-box bg-white mb-5 boxShadow">
+                        <div class="ui-box bg-white mb-5 boxShadow hidden_all_fields hidden">
                             <div class="ui-box-title">اطلاعات تماس</div>
                             <div class="ui-box-content">
                                 <div class="row">
@@ -428,15 +428,21 @@
                     // show or hide class for haghighi
                     $(".hoghoghi_fields").addClass('hidden');
                     $(".haghighi_fields").removeClass('hidden');
+                    $(".hidden_all_fields").removeClass('hidden');
                 }else if(LauncherType === 'hoghoghi'){
                     // show or hide class for hoghoghi
                     $(".hoghoghi_fields").removeClass('hidden');
                     $(".haghighi_fields").addClass('hidden');
-                }else{
+                    $(".hidden_all_fields").removeClass('hidden');
+                }else if(LauncherType === 'selectType'){
                     // hide All
+                    $(".hidden_all_fields").addClass('hidden');           
                 }
             })
             $('#submit').on('click',function(){
+                var name = $('#name').val();
+                var last = $('#last').val();
+                var phone =$('#phone').val();
                 var setName = $('.setName').val();
                 var userEmail = $('#userEmail').val();
                 var userBirthDay = $('.userBirthDay').val();
@@ -473,6 +479,9 @@
                     type: 'post',
                     url: '{{ $mode == 'create' ? route('launcher.store') : route('launcher.update', ['launcher' => $formId]) }}',
                     data: {
+                        first_name: name,
+                        last_name: last,
+                        phone: phone,
                         launcher_x: x,
                         launcher_y: y,
                         user_email: userEmail,
