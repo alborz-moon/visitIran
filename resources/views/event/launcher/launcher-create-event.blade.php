@@ -22,7 +22,7 @@
                                 <a href="#"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
                             </li>
                         </ul>
-                        <a href="{{ route('create-time') }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</ش>
+                        <a href="{{ route('create-time') }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
                     </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">اطلاعات کلی</div>
@@ -179,7 +179,7 @@
                             <div class="ui-box-title">اطلاعات رویداد حضوری</div>
                             <div class="ui-box-content">
                                 <div class="row">
-                                                                        <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-6 mb-3">
                                         <div class="border-bottom py-2">
                                             <div  class="fs-7 text-dark">استان</div>
                                             <div class="d-flex align-items-center justify-content-between">

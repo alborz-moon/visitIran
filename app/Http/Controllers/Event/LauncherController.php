@@ -32,7 +32,7 @@ class LauncherController extends Controller
         $validator = [
             'first_name' => 'required|string|min:2',
             'last_name' => 'required|string|min:2',
-            'phone' => 'required|regex:/(09)[0-9]{9}/|unique:events.launchers,phone',
+            'phone' => 'required|regex:/(09)[0-9]{9}/|unique:mysql2.launchers,phone',
             'user_NID' => 'required|regex:/[0-9]{10}/',
             'user_email' => 'required|email',
             'user_birth_day' => 'required|date',

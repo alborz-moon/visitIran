@@ -39,12 +39,12 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">شماره تلفن همراه</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input type="tel" maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
+                                                <input id="phone" type="tel"  maxlength="11" class="form-control " style="direction: rtl" placeholder="شماره تلفن همراه">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
-                                            <div id="phone" class="fs-6 fw-bold text-muted"></div>
+                                            <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
@@ -246,11 +246,12 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">تلفن</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="launcherPhone" type="text" class="form-control" style="direction: rtl" placeholder="تلفن">
+                                                <input id="launcherPhone" type="text" class="form-control setEnter" style="direction: rtl" placeholder="تلفن">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
+                                            <div id="addTell" class="d-flex gap15"></div>
                                             <div class="fontSize14 colorBlack">در صورت وجود بیش از یک تلفن، آن ها را با فاصله از هم جدا نمایید.همچنین پیش شماره کشور و شهر نیز وارد شود. مانند +982111111111</div>
                                         </div>
                                     </div>
@@ -475,10 +476,7 @@
                     showErr("لطفا مکان موردنظر خود را از روی نقضه انتخاب کنید");
                     return;
                 }
-                $.ajax({
-                    type: 'post',
-                    url: '{{ $mode == 'create' ? route('launcher.store') : route('launcher.update', ['launcher' => $formId]) }}',
-                    data: {
+                let data = {
                         first_name: name,
                         last_name: last,
                         phone: phone,
@@ -487,8 +485,6 @@
                         user_email: userEmail,
                         user_birth_day: userBirthDay,
                         user_NID: nid,
-                        company_name: companyName,
-                        code: code,
                         postal_code: postalCode,
                         launcher_city_id: launcherCityID,
                         launcher_site: launcherSite,
@@ -496,8 +492,17 @@
                         launcher_phone: LauncherPhone,
                         launcher_type: launcherType,
                         launcher_address: launcherAddress,
-                        company_type:companyType,
-                    },
+                    };
+                if(launcherType === "hoghoghi") {
+                    data.company_name = companyName;
+                    data.code = code;
+                    data.company_type = companyType;
+                }
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{ $mode == 'create' ? route('launcher.store') : route('launcher.update', ['launcher' => $formId]) }}',
+                    data: data,
                     success: function(res) {
                         if(res.status === "ok") {
                             window.location.href = '{{ route('launcher-document') }}' ;
@@ -541,7 +546,6 @@
             zoom: 13,
         });
         var marker = undefined;
-        
         function addMarker(e){
             if (marker !== undefined)
                 marker.remove();
@@ -566,6 +570,21 @@
     
     @if($mode == 'edit')
         <script>
+            $(document).ready(function(){
+                $(".setEnter").keyup(function (e) {
+                    var html= '';
+                    if ($(".setEnter").is(":focus") && (e.keyCode == 13)) {
+                        var launchPhone=$(".setEnter").val();
+                        alert(launchPhone);
+                        html += '<div class="item-button spaceBetween colorBlack">' + launchPhone + '';
+                        html += '<button class="btn btn-outline-light">';
+                        html += '<i class="ri-close-line"></i>';
+                        html += '</button>';
+                        html += '</div>';
+                        $("#addTell").append(html);
+                    }
+                });
+            });
             $.ajax({
                 type: 'get',
                 url: '{{ route('launcher.show', ['launcher' => $formId]) }}',

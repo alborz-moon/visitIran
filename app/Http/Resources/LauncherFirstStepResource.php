@@ -29,7 +29,7 @@ class LauncherFirstStepResource extends JsonResource
             'postal_code' => $this->postal_code,
             'code' => $this->code,
             'launcher_address' => $this->launcher_address,
-            'launcher_state_id' => City::whereId('id', $this->launcher_city_id)->first()->state->id,
+            'launcher_state_id' => 1,
             'launcher_city_id' => $this->launcher_city_id,
             'launcher_email' => $this->launcher_email,
             'launcher_site' => $this->launcher_site,
