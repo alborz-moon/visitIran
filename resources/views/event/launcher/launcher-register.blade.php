@@ -568,23 +568,27 @@
 @section('extraJS')
     @parent
     
+    <script>
+        $(document).ready(function(){
+            $(".setEnter").keyup(function (e) {
+                var html= '';
+                if ($(".setEnter").is(":focus") && (e.keyCode == 13)) {
+                    var launchPhone=$(".setEnter").val();
+                    alert(launchPhone);
+                    html += '<div class="item-button spaceBetween colorBlack">' + launchPhone + '';
+                    html += '<button class="btn btn-outline-light">';
+                    html += '<i class="ri-close-line"></i>';
+                    html += '</button>';
+                    html += '</div>';
+                    $("#addTell").append(html);
+                }
+            });
+        });
+    </script>
+
     @if($mode == 'edit')
         <script>
-            $(document).ready(function(){
-                $(".setEnter").keyup(function (e) {
-                    var html= '';
-                    if ($(".setEnter").is(":focus") && (e.keyCode == 13)) {
-                        var launchPhone=$(".setEnter").val();
-                        alert(launchPhone);
-                        html += '<div class="item-button spaceBetween colorBlack">' + launchPhone + '';
-                        html += '<button class="btn btn-outline-light">';
-                        html += '<i class="ri-close-line"></i>';
-                        html += '</button>';
-                        html += '</div>';
-                        $("#addTell").append(html);
-                    }
-                });
-            });
+            
             $.ajax({
                 type: 'get',
                 url: '{{ route('launcher.show', ['launcher' => $formId]) }}',
