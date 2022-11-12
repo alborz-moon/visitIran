@@ -13,15 +13,22 @@ Route::middleware(['myAuth'])->group(function() {
 
     Route::resource('launcher', LauncherController::class)->except('edit', 'create', 'update');
 
-    Route::post('launcher/{launcher}', [LauncherController::class, 'update'])->name('launcher.update');
+    Route::prefix('launcher')->group(function() {
+
+        Route::post('/{launcher}', [LauncherController::class, 'update'])->name('launcher.update');
+
+        Route::get('/{launcher}/files', [LauncherController::class, 'showFiles'])->name('launcher.files');
+
+        Route::post('/launcher_bank_accounts/{launcher_bank?}', [LauncherBankAccountsController::class, 'update'])->name('launcher_bank_accounts.update');
+    
+        Route::delete('/launcher_bank_accounts/{launcher_bank?}', [LauncherBankAccountsController::class, 'destroy'])->name('launcher_bank_accounts.destroy');
+
+    });
+
 
     Route::resource('launcher.launcher_certifications', LauncherCertificationsController::class)->only('store', 'destroy')->shallow();
 
     Route::resource('launcher.launcher_bank_accounts', LauncherBankAccountsController::class)->only('store', 'index')->shallow();
-
-    Route::post('launcher/launcher_bank_accounts/{launcher_bank?}', [LauncherBankAccountsController::class, 'update'])->name('launcher_bank_accounts.update');
-    
-    Route::delete('launcher/launcher_bank_accounts/{launcher_bank?}', [LauncherBankAccountsController::class, 'destroy'])->name('launcher_bank_accounts.destroy');
 
 });
 

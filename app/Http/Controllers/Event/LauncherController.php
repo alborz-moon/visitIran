@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\LauncherFilesResource;
 use App\Http\Resources\LauncherFirstStepResource;
 use App\Models\Launcher;
 use Illuminate\Http\Request;
@@ -20,6 +21,25 @@ class LauncherController extends Controller
         //
     }
 
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Launcher  $launcher
+     * @return \Illuminate\Http\Response
+     */
+    public function showFiles(Request $request, Launcher $launcher)
+    {
+        
+        if($request->user()->id != $launcher->user_id)
+            return abort(401);
+
+        return response()->json([
+            'status' => 'ok',
+            'data' => LauncherFilesResource::make($launcher)->toArray($request)
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -33,8 +53,8 @@ class LauncherController extends Controller
             'first_name' => 'required|string|min:2',
             'last_name' => 'required|string|min:2',
             'phone' => 'required|regex:/(09)[0-9]{9}/|unique:mysql2.launchers,phone',
-            'user_NID' => 'required|regex:/[0-9]{10}/',
-            'user_email' => 'required|email',
+            'user_NID' => 'required|regex:/[0-9]{10}/|unique:mysql2.launchers,user_NID',
+            'user_email' => 'required|email|unique:mysql2.launchers,user_email',
             'user_birth_day' => 'required|date',
             'launcher_type' => ['required', Rule::in(['haghighi', 'hoghoghi'])],
             'company_name' => 'required_if:launcher_type,hoghoghi|string|min:2',
@@ -44,7 +64,8 @@ class LauncherController extends Controller
             'launcher_address' => 'required|string|min:2',
             'launcher_email' => 'nullable|email',
             'launcher_site' => 'nullable|string|min:2',
-            'launcher_phone' => 'nullable|numeric',
+            'launcher_phone' => 'nullable|array|min:1',
+            'launcher_phone.*' => 'required|numeric|digits_between:7,10',
             'launcher_city_id' => 'required|exists:mysql2.cities,id',
             'launcher_x' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'launcher_y' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
@@ -64,6 +85,15 @@ class LauncherController extends Controller
 
         $request['user_id'] = $request->user()->id;
         
+        if($request->has('launcher_phone')) {
+            $launcher_phone_str = "";
+
+            foreach($request['launcher_phone'] as $itr)
+                $launcher_phone_str .= $itr . '__';
+            
+            $request['launcher_phone'] = substr($launcher_phone_str, 0, strlen($launcher_phone_str) - 2);
+        }
+
         try {
             $launcher = Launcher::create($request->toArray());
 
@@ -126,7 +156,8 @@ class LauncherController extends Controller
             'launcher_address' => 'nullable|string|min:2',
             'launcher_email' => 'nullable|email',
             'launcher_site' => 'nullable|string|min:2',
-            'launcher_phone' => 'nullable|numeric',
+            'launcher_phone' => 'nullable|array|min:1',
+            'launcher_phone.*' => 'required|numeric|digits_between:7,10',
             'launcher_city_id' => 'nullable|exists:mysql2.cities,id',
             'launcher_x' => ['nullable','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'launcher_y' => ['nullable','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
@@ -139,6 +170,31 @@ class LauncherController extends Controller
             return abort(401);
 
         $request->validate($validator);
+
+        if($request->has('phone') && $request['phone'] != $launcher->phone && 
+            Launcher::where('phone', $request['phone'])->count() > 0
+        )
+            return response()->json([
+                'status' => 'nok',
+                'msg' => 'شماره وارد شده برای رابط در سیستم موجود است.'
+            ]);
+
+        if($request->has('user_NID') && $request['user_NID'] != $launcher->user_NID && 
+            Launcher::where('user_NID', $request['user_NID'])->count() > 0
+        )
+            return response()->json([
+                'status' => 'nok',
+                'msg' => 'کد ملی وارد شده برای رابط در سیستم موجود است.'
+            ]);
+
+
+        if($request->has('user_email') && $request['user_email'] != $launcher->user_email && 
+            Launcher::where('user_email', $request['user_email'])->count() > 0
+        )
+            return response()->json([
+                'status' => 'nok',
+                'msg' => 'ایمیل وارد شده برای رابط در سیستم موجود است.'
+            ]);
 
         if($request['launcher_type'] == 'haghighi') {
             $request['company_name'] = null;

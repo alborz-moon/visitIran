@@ -29,11 +29,12 @@ class LauncherFirstStepResource extends JsonResource
             'postal_code' => $this->postal_code,
             'code' => $this->code,
             'launcher_address' => $this->launcher_address,
-            'launcher_state_id' => 1,
+            'launcher_state_id' => $this->launcher_city_id == null ? -1 : 
+                City::where('id', $this->launcher_city_id)->first()->state_id,
             'launcher_city_id' => $this->launcher_city_id,
             'launcher_email' => $this->launcher_email,
             'launcher_site' => $this->launcher_site,
-            'launcher_phone' => $this->launcher_phone,
+            'launcher_phone' => $this->launcher_phone != null ? explode('__', $this->launcher_phone) : [],
             'launcher_x' => $this->launcher_x,
             'launcher_y' => $this->launcher_y
         ];

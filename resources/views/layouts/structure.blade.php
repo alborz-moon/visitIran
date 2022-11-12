@@ -319,6 +319,7 @@
     <script src="{{ asset('theme-assets/js/basket.js') }}"></script>    
     <script src="{{ asset('theme-assets/js/theme.js') }}"></script>
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
+
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {
@@ -340,6 +341,16 @@
                 j = (j = i.length) > 3 ? j % 3 : 0;
             return sign + (j ? i.substr(0, j) + thouSeparator : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thouSeparator) + (decPlaces ? decSeparator + Math.abs(n - i).toFixed(decPlaces).slice(2) : "");
         };
+
+
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
 
         function showErr(msg) {
             s = {

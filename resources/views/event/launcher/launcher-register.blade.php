@@ -75,7 +75,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">کد ملی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
+                                                <input onkeypress="return isNumber(event)" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -380,35 +380,39 @@
   rel="stylesheet"
 />
     <script>
+        
         let x;
         let y;
-            function getCities(stateId, selectedCity=undefined) {
-                if(stateId == 0) {
-                    $("#city02").empty();
-                    return;
-                }
-                $.ajax({
-                    type: 'get',
-                    url: '{{ route('api.cities') }}',
-                    data: {
-                        state_id: stateId
-                    },
-                    success: function(res) {    
-                        if(res.status !== 'ok') {
-                            $("#city02").empty();
-                            return;
-                        }   
-                        let html = '<option value="0">انتخاب کنید</option>';
-                        res.data.forEach(elem => {
-                            if(selectedCity !== undefined && elem.id === selectedCity)
-                                html += '<option selected value="' + elem.id + '">' + elem.name + '</option>';
-                            else
-                                html += '<option value="' + elem.id + '">' + elem.name + '</option>';
-                        });
-                        $("#city02").empty().append(html);
-                    }
-                });
+        var map = undefined;
+        
+        function getCities(stateId, selectedCity=undefined) {
+            if(stateId == 0) {
+                $("#city02").empty();
+                return;
             }
+            $.ajax({
+                type: 'get',
+                url: '{{ route('api.cities') }}',
+                data: {
+                    state_id: stateId
+                },
+                success: function(res) {    
+                    if(res.status !== 'ok') {
+                        $("#city02").empty();
+                        return;
+                    }   
+                    let html = '<option value="0">انتخاب کنید</option>';
+                    res.data.forEach(elem => {
+                        if(selectedCity !== undefined && elem.id === selectedCity)
+                            html += '<option selected value="' + elem.id + '">' + elem.name + '</option>';
+                        else
+                            html += '<option value="' + elem.id + '">' + elem.name + '</option>';
+                    });
+                    $("#city02").empty().append(html);
+                }
+            });
+        }
+
         $(document).ready(function(){
             var tels = [];
             var i = 1;
@@ -452,24 +456,61 @@
                 $('.userBirthDay').val(year + '/' + month + '/' + day);
                 $(".remodal-close").click();
             })
+
             $('#launcherType').on('change',function(){
+
                 var LauncherType = $('#launcherType').val();
-                if (LauncherType === 'haghighi'){
+
+                if (LauncherType === 'haghighi') {
                     // show or hide class for haghighi
                     $(".hoghoghi_fields").addClass('hidden');
                     $(".haghighi_fields").removeClass('hidden');
                     $(".hidden_all_fields").removeClass('hidden');
-                }else if(LauncherType === 'hoghoghi'){
+                } else if(LauncherType === 'hoghoghi'){
                     // show or hide class for hoghoghi
                     $(".hoghoghi_fields").removeClass('hidden');
                     $(".haghighi_fields").addClass('hidden');
                     $(".hidden_all_fields").removeClass('hidden');
-                }else if(LauncherType === 'selectType'){
+                } else if(LauncherType === 'selectType'){
                     // hide All
                     $(".hidden_all_fields").addClass('hidden');           
                 }
-            })
-            $('#submit').on('click',function(){
+
+
+                if(map === undefined) {
+
+                    mapboxgl.setRTLTextPlugin(
+                        'https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+                        null,
+                    );
+
+                    map = new mapboxgl.Map({
+                        container: 'launchermap',
+                        style: 'https://api.parsimap.ir/styles/parsimap-streets-v11?key=p1c7661f1a3a684079872cbca20c1fb8477a83a92f',
+                        center: x !== undefined && y !== undefined ? [y, x] : [51.4, 35.7],
+                        zoom: 13,
+                    });
+                    var marker = undefined;
+                    function addMarker(e){
+                        if (marker !== undefined)
+                            marker.remove();
+                        //add marker
+                        marker = new mapboxgl.Marker();
+                        marker.setLngLat(e.lngLat).addTo(map);
+                        x = e.lngLat.lat;
+                        y = e.lngLat.lng;
+                    }
+                    map.on('click', addMarker);
+                    const control = new ParsimapGeocoder();
+                    map.addControl(control);
+
+                }
+
+            });
+
+
+            $('#submit').on('click',function() {
+
                 var name = $('#name').val();
                 var last = $('#last').val();
                 var phone =$('#phone').val();
@@ -486,7 +527,12 @@
                 var launcherSite = $('#launcherSite').val();
                 var launcherEmail = $('#launcherEmail').val();
                 var LauncherPhone = $('#LauncherPhone').val();
+                
+                if(LauncherPhone !== undefined && LauncherPhone.length > 0)
+                    tels.push(LauncherPhone);
+
                 var launcherAddress = $('#launcherAddress').val();
+
                 // var setName = "Alborz";
                 // var userEmail = "Moon@yahoo.com";
                 // var userBirthDay = "1374/11/03";
@@ -501,27 +547,30 @@
                 // var launcherEmail = "alborz@gmail.com";
                 // var tels = "09224786125";
                 // var launcherAddress = "شسیتمشس یمنشس بسشی شسیهخب شسیب  سیشتنمبتنشسیابتناتناطزرات شتسیاب تنسارتنزط نتشسبنتسشی";
+
                 if(x === undefined || y === undefined) {
                     showErr("لطفا مکان موردنظر خود را از روی نقضه انتخاب کنید");
                     return;
                 }
+                
                 let data = {
-                        first_name: name,
-                        last_name: last,
-                        phone: phone,
-                        launcher_x: x,
-                        launcher_y: y,
-                        user_email: userEmail,
-                        user_birth_day: userBirthDay,
-                        user_NID: nid,
-                        postal_code: postalCode,
-                        launcher_city_id: launcherCityID,
-                        launcher_site: launcherSite,
-                        launcher_email: launcherEmail,
-                        launcher_phone: tels,
-                        launcher_type: launcherType,
-                        launcher_address: launcherAddress,
-                    };
+                    first_name: name,
+                    last_name: last,
+                    phone: phone,
+                    launcher_x: x,
+                    launcher_y: y,
+                    user_email: userEmail,
+                    user_birth_day: userBirthDay,
+                    user_NID: nid,
+                    postal_code: postalCode,
+                    launcher_city_id: launcherCityID,
+                    launcher_site: launcherSite,
+                    launcher_email: launcherEmail,
+                    launcher_phone: tels,
+                    launcher_type: launcherType,
+                    launcher_address: launcherAddress,
+                };
+
                 if(launcherType === "hoghoghi") {
                     data.company_name = companyName;
                     data.code = code;
@@ -534,7 +583,15 @@
                     data: data,
                     success: function(res) {
                         if(res.status === "ok") {
-                            window.location.href = '{{ route('launcher-document') }}' ;
+                            
+                            let launcher_id;
+
+                            if('{{ $mode }}' === 'create')
+                                launcher_id = res.id;
+                            else
+                                launcher_id = '{{ $formId }}';
+                             
+                            window.location.href = '{{ route('launcher-document') }}' + "/" + launcher_id;
                         }
                         else
                             showErr(res.msg);
@@ -564,29 +621,6 @@
             })
         })
         
-        mapboxgl.setRTLTextPlugin(
-            'https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
-            null,
-        );
-        const map = new mapboxgl.Map({
-            container: 'launchermap',
-            style: 'https://api.parsimap.ir/styles/parsimap-streets-v11?key=p1c7661f1a3a684079872cbca20c1fb8477a83a92f',
-            center: x !== undefined && y !== undefined ? [y, x] : [51.4, 35.7],
-            zoom: 13,
-        });
-        var marker = undefined;
-        function addMarker(e){
-            if (marker !== undefined)
-                marker.remove();
-            //add marker
-            marker = new mapboxgl.Marker();
-            marker.setLngLat(e.lngLat).addTo(map);
-            x = e.lngLat.lat;
-            y = e.lngLat.lng;
-        }
-        map.on('click', addMarker);
-        const control = new ParsimapGeocoder();
-        map.addControl(control);
     </script>
 @stop
 
@@ -607,9 +641,6 @@
                 type: 'get',
                 url: '{{ route('launcher.show', ['launcher' => $formId]) }}',
                 success: function (res) {
-                    console.log('====================================');
-                    console.log(res);
-                    console.log('====================================');
                     x = res.data.launcher_x;
                     y = res.data.launcher_y;
                     const map = new mapboxgl.Map({
