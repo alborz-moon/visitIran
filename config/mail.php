@@ -33,6 +33,14 @@ return [
     |
     */
 
+    'stream' => [
+        'ssl' => [
+            'allow_self_signed' => true,
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+        ],
+    ],
+
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
@@ -44,6 +52,8 @@ return [
             'timeout' => null,
             'auth_mode' => null,
         ],
+
+
 
         'ses' => [
             'transport' => 'ses',
