@@ -22,6 +22,9 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
+                                        <div id="companyNewspaper" class="boxGallery">
+                                        </div>
+                                        
                                         <div class="uploadBody">
                                             <div class="uploadBorder">
                                                 <div class="uploadBodyBox">
@@ -29,13 +32,17 @@
                                                     <form id="newspaper-form" action="{{ route('launcher.update',['launcher' => $formId]) }}" class="dropzone uploadBox">
                                                         {{csrf_field()}}
                                                     </form>
-                                                    {{-- <div id="dropZoneNewspaper" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
-                                                    <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div> --}}
+                                                    {{-- <div id="dropZoneNewspaper" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div> --}}
+                                                    {{-- <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div> --}}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
+                                        
+                                        <div id="companyLastChanges" class="boxGallery">
+                                        </div>
+
                                         <div class="uploadBody">
                                             <div class="uploadBorder">
                                                 <div class="uploadBodyBox">
@@ -50,6 +57,8 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
+                                        <div id="certifications" class="boxGallery">
+                                        </div>
                                         <div class="uploadBody">
                                             <div class="uploadBorder">
                                                 <div class="uploadBodyBox">
@@ -64,6 +73,8 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
+                                        <div id="userNIDCard" class="boxGallery">
+                                        </div>
                                         <div class="uploadBody">
                                             <div class="uploadBorder">
                                                 <div class="uploadBodyBox">
@@ -85,7 +96,7 @@
                 </div>
                 <div class="spaceBetween mb-2">
                     <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
-                    <button onclick="sendimg()" class="btn btn-sm btn-primary px-5">ارسال برای بازبینی</button>
+                    <button onclick="sendimg()" class="btn btn-sm btn-primary px-5">مرحله</button>
                 </div>
                 </div>
             </div>
@@ -101,7 +112,41 @@
     @parent
         <script>
             $(document).ready(function(){
-                
+                $.ajax({
+                type: 'get',
+                url: '{{ route('launcher.files', ['launcher' => $formId]) }}',
+                headers: {
+                    'accept': 'application/json'
+                },
+                success: function(res) {
+
+                    var html= "";
+                    var companyNewspaper="";
+                    var userNIDCard ="";
+                    var certifications="";
+                    if(res.status === "ok") {      
+                        if (res.data.company_last_changes.length !== 0 ){
+                            html += '<div class="square"><img class="w-100 h-100" src="' + res.data.company_last_changes + '" alt=""></div>';
+                            $("#companyLastChanges").empty().append(html);
+                        }
+                        if (res.data.company_newspaper.length !== 0 ){
+                            companyNewspaper += '<div class="square"><img class="w-100 h-100" src="' + res.data.company_newspaper + '" alt=""></div>';
+                            $("#companyNewspaper").empty().append(companyNewspaper);
+                        }
+                        if (res.data.user_NID_card.length !== 0 ){
+                            userNIDCard += '<div class="square"><img class="w-100 h-100" src="' + res.data.user_NID_card + '" alt=""></div>';
+                            $("#userNIDCard").empty().append(userNIDCard);
+                        }
+                        if (res.data.certifications.length !== 0 ){
+                            for(var i = 0; i < res.data.certifications.length; i++ ){
+                                certifications += '<div class="square"><img class="w-100 h-100" src="' + res.data.certifications[i].file + '" alt=""></div>';
+                                $("#certifications").empty().append(certifications);
+                            }
+                        }
+                           
+                    }
+                }
+                });
             });
             Dropzone.options.newspaperForm = {
                 paramName: "company_newspaper_file", // The name that will be used to transfer the file
@@ -118,10 +163,10 @@
                 init: function () {
                     
                     this.on('completemultiple', function () {
-                        if(myPreventionFlag)
-                            $("#dropZoneNewspaper").removeClass('hidden');
-                        else
-                            location.reload();
+                        // if(myPreventionFlag)
+                        //     $("#dropZoneNewspaper").removeClass('hidden');
+                        // else
+                        //     location.reload();
                     });
                     this.on("queuecomplete", function (file) {
                         // if(myPreventionFlag)
@@ -130,11 +175,12 @@
                         //     location.reload();
                     });
                     this.on("complete", function (file) {
-                        if(myPreventionFlag)
-                            $("#dropZoneNewspaper").removeClass('hidden');
-                            showSuccess('با موفقیت بارگذاری شد.');
-                        else
-                            location.reload();
+                        // if(myPreventionFlag) {
+                        //     $("#dropZoneNewspaper").removeClass('hidden');
+                        //     showSuccess('با موفقیت بارگذاری شد.');
+                        // }
+                        // else
+                        //     location.reload();
                     });
                     this.on("success", function (file) {
                         // if(myPreventionFlag)
@@ -164,8 +210,7 @@
                 parallelUploads: 1,
                 chunking: false,
                 forceChunking: false,
-                uploadMultiple: true,
-                maxFiles: 1,
+                // maxFiles: 1,
                 accept: function(file, done) {
                     done();
                 },

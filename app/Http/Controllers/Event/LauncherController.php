@@ -55,7 +55,7 @@ class LauncherController extends Controller
             'phone' => 'required|regex:/(09)[0-9]{9}/|unique:mysql2.launchers,phone',
             'user_NID' => 'required|regex:/[0-9]{10}/|unique:mysql2.launchers,user_NID',
             'user_email' => 'required|email|unique:mysql2.launchers,user_email',
-            'user_birth_day' => 'required|date',
+            'user_birth_day' => 'required', //|date
             'launcher_type' => ['required', Rule::in(['haghighi', 'hoghoghi'])],
             'company_name' => 'required_if:launcher_type,hoghoghi|string|min:2',
             'company_type' => 'required_if:launcher_type,hoghoghi|string|min:2',
@@ -65,7 +65,7 @@ class LauncherController extends Controller
             'launcher_email' => 'nullable|email',
             'launcher_site' => 'nullable|string|min:2',
             'launcher_phone' => 'nullable|array|min:1',
-            'launcher_phone.*' => 'required|numeric|digits_between:7,10',
+            'launcher_phone.*' => 'required|numeric|digits_between:7,11',
             'launcher_city_id' => 'required|exists:mysql2.cities,id',
             'launcher_x' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'launcher_y' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
@@ -147,7 +147,7 @@ class LauncherController extends Controller
             'phone' => 'nullable|regex:/(09)[0-9]{9}/',
             'user_NID' => 'nullable|regex:/[0-9]{10}/',
             'user_email' => 'nullable|email',
-            'user_birth_day' => 'nullable|date',
+            'user_birth_day' => 'nullable', //|date
             'launcher_type' => ['nullable', Rule::in(['haghighi', 'hoghoghi'])],
             'company_name' => 'nullable|string|min:2',
             'company_type' => 'nullable|string|min:2',
@@ -157,7 +157,7 @@ class LauncherController extends Controller
             'launcher_email' => 'nullable|email',
             'launcher_site' => 'nullable|string|min:2',
             'launcher_phone' => 'nullable|array|min:1',
-            'launcher_phone.*' => 'required|numeric|digits_between:7,10',
+            'launcher_phone.*' => 'required|numeric|digits_between:7,11',
             'launcher_city_id' => 'nullable|exists:mysql2.cities,id',
             'launcher_x' => ['nullable','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'launcher_y' => ['nullable','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
@@ -203,6 +203,15 @@ class LauncherController extends Controller
             $request['code'] = null;
         }
 
+        if($request->has('launcher_phone')) {
+            $launcher_phone_str = "";
+
+            foreach($request['launcher_phone'] as $itr)
+                $launcher_phone_str .= $itr . '__';
+            
+            $request['launcher_phone'] = substr($launcher_phone_str, 0, strlen($launcher_phone_str) - 2);
+        }
+        
         if($request->has('company_newspaper_file')) {
          
             $filename = $request->company_newspaper_file->store('public/launchers');
