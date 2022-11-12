@@ -410,6 +410,35 @@
                 });
             }
         $(document).ready(function(){
+            var tels = [];
+            var i = 1;
+            $(document).on('click', '.remove-tel-btn', function () { 
+                let id = $(this).attr('data-id');
+                tels = tels.filter((elem, index) => {
+                    return elem.id != id;
+                });
+                $("#tel-modal-" + id).remove();
+             });
+
+            $(".setEnter").keyup(function (e) {
+                var html= '';
+                if ($(".setEnter").is(":focus") && (e.keyCode == 13)) {
+                    var launchPhone = $(".setEnter").val();
+                    i++;
+                    tels.push({
+                        id: i,
+                        val: launchPhone
+                    });
+                    html += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + launchPhone + '';
+                    html += '<button class="btn btn-outline-light">';
+                    html += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
+                    html += '</button>';
+                    html += '</div>';
+                    $("#addTell").append(html);
+                    $('.setEnter').val('');
+                }
+            });
+
             $('#getName').on('click',function(){
                 var name = $('#name').val();
                 var last = $('#last').val();
@@ -470,7 +499,7 @@
                 // var launcherCityID = 1;
                 // var launcherSite = "www.google.com";
                 // var launcherEmail = "alborz@gmail.com";
-                // var LauncherPhone = "09224786125";
+                // var tels = "09224786125";
                 // var launcherAddress = "شسیتمشس یمنشس بسشی شسیهخب شسیب  سیشتنمبتنشسیابتناتناطزرات شتسیاب تنسارتنزط نتشسبنتسشی";
                 if(x === undefined || y === undefined) {
                     showErr("لطفا مکان موردنظر خود را از روی نقضه انتخاب کنید");
@@ -489,7 +518,7 @@
                         launcher_city_id: launcherCityID,
                         launcher_site: launcherSite,
                         launcher_email: launcherEmail,
-                        launcher_phone: LauncherPhone,
+                        launcher_phone: tels,
                         launcher_type: launcherType,
                         launcher_address: launcherAddress,
                     };
@@ -569,37 +598,7 @@
     @parent
     
     <script>
-        var tels = [];
-        var i = 1;
-        $(document).ready(function(){
 
-            $(document).on('click', '.remove-tel-btn', function () { 
-                let id = $(this).attr('data-id');
-                tels = tels.filter((elem, index) => {
-                    return elem.id != id;
-                });
-                $("#tel-modal-" + id).remove();
-             });
-
-            $(".setEnter").keyup(function (e) {
-                var html= '';
-                if ($(".setEnter").is(":focus") && (e.keyCode == 13)) {
-                    var launchPhone = $(".setEnter").val();
-                    i++;
-                    tels.push({
-                        id: i,
-                        val: launchPhone
-                    });
-                    html += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + launchPhone + '';
-                    html += '<button class="btn btn-outline-light">';
-                    html += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
-                    html += '</button>';
-                    html += '</div>';
-                    $("#addTell").append(html);
-                    $('.setEnter').val('');
-                }
-            });
-        });
     </script>
 
     @if($mode == 'edit')
@@ -613,7 +612,6 @@
                     console.log('====================================');
                     x = res.data.launcher_x;
                     y = res.data.launcher_y;
-
                     const map = new mapboxgl.Map({
                         container: 'launchermap',
                         style: 'https://api.parsimap.ir/styles/parsimap-streets-v11?key=p1c7661f1a3a684079872cbca20c1fb8477a83a92f',
