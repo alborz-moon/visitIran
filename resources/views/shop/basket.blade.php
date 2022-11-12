@@ -87,7 +87,7 @@
                         <div id="full_basket_items"></div>
                         
                     </div>
-                    @include('shop.cart.basket_cart', ['nextUrl' => route('shipping')])
+                    @include('shop.cart.basket_cart', ['nextBtnId' => 'goToShipingBtn'])
 
                 </div>
             </div>
@@ -103,6 +103,10 @@
     <script>
         $(document).ready(function() {
             renderBasket();
+
+            $("#").on('click', function() {
+                document.location.href = '{{ route('shipping') }}';
+            })
         })
     </script>
 @stop

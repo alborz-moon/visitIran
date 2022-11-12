@@ -76,7 +76,7 @@
                         <a href='{{ route('shipping') }}' class="link border-bottom-0"><i class="ri-arrow-right-s-fill"></i> بازگشت به شیوه ی
                             ارسال</a>
                     </div>
-                    @include('shop.cart.basket_cart', ['nextUrl' => route('event.home')])
+                    @include('shop.cart.basket_cart', ['nextBtnId' => 'goToPaymentBtn'])
                 </div>
             </div>
         </main>
