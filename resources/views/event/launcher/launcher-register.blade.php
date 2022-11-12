@@ -569,18 +569,34 @@
     @parent
     
     <script>
+        var tels = [];
+        var i = 1;
         $(document).ready(function(){
+
+            $(document).on('click', '.remove-tel-btn', function () { 
+                let id = $(this).attr('data-id');
+                tels = tels.filter((elem, index) => {
+                    return elem.id != id;
+                });
+                $("#tel-modal-" + id).remove();
+             });
+
             $(".setEnter").keyup(function (e) {
                 var html= '';
                 if ($(".setEnter").is(":focus") && (e.keyCode == 13)) {
-                    var launchPhone=$(".setEnter").val();
-                    alert(launchPhone);
-                    html += '<div class="item-button spaceBetween colorBlack">' + launchPhone + '';
+                    var launchPhone = $(".setEnter").val();
+                    i++;
+                    tels.push({
+                        id: i,
+                        val: launchPhone
+                    });
+                    html += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + launchPhone + '';
                     html += '<button class="btn btn-outline-light">';
-                    html += '<i class="ri-close-line"></i>';
+                    html += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
                     html += '</button>';
                     html += '</div>';
                     $("#addTell").append(html);
+                    $('.setEnter').val('');
                 }
             });
         });
@@ -588,7 +604,6 @@
 
     @if($mode == 'edit')
         <script>
-            
             $.ajax({
                 type: 'get',
                 url: '{{ route('launcher.show', ['launcher' => $formId]) }}',
