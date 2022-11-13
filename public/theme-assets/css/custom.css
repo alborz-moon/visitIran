@@ -341,6 +341,9 @@ ul {
 .marginTopNegative5 {
     margin-top: -5px;
 }
+.marginTop9 {
+    margin-top: 9px;
+}
 .marginTop10 {
     margin-top: 10px;
 }
@@ -355,9 +358,24 @@ ul {
     width: 100px !important;
     height: 60px !important;
 }
+.boxGallery {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 1px solid #efefef;
+    padding: 15px;
+}
 .imgSizeEvent {
     max-width: 990px !important;
     max-height: 600px !important;
+}
+.square {
+    width: 96px;
+    height: 96px;
+    background-size: contain;
+    overflow: hidden;
+    background-position: center;
 }
 .customWidthSlider {
     width: 100%;
@@ -698,6 +716,9 @@ ul {
 .felxDirectionColumn {
     flex-direction: column;
 }
+.flexWrap {
+    flex-wrap: wrap !important;
+}
 .spaceBetween {
     display: flex !important;
     justify-content: space-between !important;
@@ -745,6 +766,9 @@ ul {
     top: 2px;
     font-weight: 500;
     font-size: 15px !important;
+}
+.customSteps li {
+    flex: 0 0 33% !important;
 }
 .customlineText {
     text-decoration-color: red;

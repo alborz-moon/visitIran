@@ -15,9 +15,9 @@ class LauncherFilesResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'company_newspaper' => asset('storage/launchers/' . $this->company_newspaper),
-            'company_last_changes' => asset('storage/launchers/' . $this->company_last_changes),
-            'user_NID_card' => asset('storage/launchers/' . $this->user_NID_card),
+            'company_newspaper' => $this->company_newspaper == null ? '' : asset('storage/launchers/' . $this->company_newspaper),
+            'company_last_changes' => $this->company_last_changes == null ? '' : asset('storage/launchers/' . $this->company_last_changes),
+            'user_NID_card' => $this->user_NID_card == null ? '' : asset('storage/launchers/' . $this->user_NID_card),
             'certifications' => CertificateResource::collection($this->certs)->toArray($request)
         ];
     }

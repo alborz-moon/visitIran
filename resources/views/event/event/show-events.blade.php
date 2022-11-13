@@ -61,7 +61,7 @@
 </style>
 @extends('layouts.structure')
 @section('content')
-        <main class="page-content">
+        <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
             <div class="row mb-5">
                 @include('event.launcher.launcher-menu')     

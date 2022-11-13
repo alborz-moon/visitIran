@@ -20,20 +20,47 @@ class ProductDigestUser extends JsonResource
         $features = $this->featuresWithValue();
         $multiColor = false;
 
+        $price = $this->price;
+        $count = $this->available_count;
+        $change_price = false;
+        $change_count = false;
+
         foreach($features as $feature) {
+            
+            if($feature->price != null) {
+                $prices = explode("$$", $feature->price);
+                foreach($prices as $p) {
+                    $p = (int)str_replace(",", "", $p);
+                    if(!$change_price || $p < $price) {
+                        $price = $p;
+                        $change_price = true;
+                    }
+                }
+            }
+
+            if($feature->available_count != null) {
+                
+                $counts = explode("$$", $feature->available_count);
+                foreach($counts as $c) {
+                    if(!$change_count || $c > $count) {
+                        $count = $c;
+                        $change_count = true;
+                    }
+                }
+            }
+
             if($feature->name == 'multicolor') {
                 $multiColor = true;
-                break;
             }
         }
-        
+
         $off = $this->activeOff($request->user == null ? null : $request->user->id);
 
-        $priceAfterOff = $this->price;
+        $priceAfterOff = $price;
         if($off != null && $off['type'] === 'value')
-            $priceAfterOff = $this->price - $off['value'];
+            $priceAfterOff = $price - $off['value'];
         else if($off != null)
-            $priceAfterOff = $this->price * (100 - $off['value']) / 100;
+            $priceAfterOff = $price * (100 - $off['value']) / 100;
 
         return [
             'id' => $this->id,
@@ -47,9 +74,9 @@ class ProductDigestUser extends JsonResource
             'seller' => $this->seller_id == null ? '' : $this->seller->name,
             'seller_id' => $this->seller_id,
             'category' => $this->category->name,
-            'is_in_critical' => $this->available_count <= $config->critical_point,
-            'available_count' => $this->available_count <= $config->critical_point ? $this->available_count : -1,
-            'price' => number_format($this->price, 0),
+            'is_in_critical' => $count <= $config->critical_point,
+            'available_count' => $count <= $config->critical_point ? $count : -1,
+            'price' => number_format($price, 0),
             'off' => $off,
             'priceAfterOff' => number_format($priceAfterOff, 0),
             'has_multi_color' => $multiColor,

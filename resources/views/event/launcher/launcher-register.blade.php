@@ -39,7 +39,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">شماره تلفن همراه</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="phone" type="tel"  maxlength="11" class="form-control " style="direction: rtl" placeholder="شماره تلفن همراه">
+                                                <input id="phone" type="tel" minlength="7"  maxlength="11" class="form-control " style="direction: rtl" placeholder="شماره تلفن همراه">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -148,7 +148,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">شماره اقتصادی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="code" type="text" class="form-control" style="direction: rtl" placeholder="شماره اقتصادی">
+                                                <input onkeypress="return isNumber(event)" id="code" type="text" class="form-control" style="direction: rtl" placeholder="شماره اقتصادی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -160,7 +160,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">کد پستی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="postalCode" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
+                                                <input onkeypress="return isNumber(event)" maxlength="10" id="postalCode" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -246,7 +246,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">تلفن</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="launcherPhone" type="text" class="form-control setEnter" style="direction: rtl" placeholder="تلفن">
+                                                <input onkeypress="return isNumber(event)" minlength="7" maxlength="11" id="launcherPhone" type="text" class="form-control setEnter" style="direction: rtl" placeholder="تلفن">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -380,12 +380,13 @@
   rel="stylesheet"
 />
     <script>
-        
+
+        var tels = [];
         let x;
         let y;
         var map = undefined;
         
-        function getCities(stateId, selectedCity=undefined) {
+        function getCities(stateId, selectedCity = undefined) {
             if(stateId == 0) {
                 $("#city02").empty();
                 return;
@@ -414,7 +415,7 @@
         }
 
         $(document).ready(function(){
-            var tels = [];
+            
             var i = 1;
             $(document).on('click', '.remove-tel-btn', function () { 
                 let id = $(this).attr('data-id');
@@ -428,6 +429,10 @@
                 var html= '';
                 if ($(".setEnter").is(":focus") && (e.keyCode == 13)) {
                     var launchPhone = $(".setEnter").val();
+                    if(launchPhone.length < 7 || launchPhone.length > 11) {
+                        showErr('شماره موردنظر معتبر نمی باشد.');
+                        return;
+                    }
                     i++;
                     tels.push({
                         id: i,
@@ -459,23 +464,22 @@
 
             $('#launcherType').on('change',function(){
 
-                var LauncherType = $('#launcherType').val();
+                var launcherType = $('#launcherType').val();
 
-                if (LauncherType === 'haghighi') {
+                if (launcherType === 'haghighi') {
                     // show or hide class for haghighi
                     $(".hoghoghi_fields").addClass('hidden');
                     $(".haghighi_fields").removeClass('hidden');
                     $(".hidden_all_fields").removeClass('hidden');
-                } else if(LauncherType === 'hoghoghi'){
+                } else if(launcherType === 'hoghoghi'){
                     // show or hide class for hoghoghi
                     $(".hoghoghi_fields").removeClass('hidden');
                     $(".haghighi_fields").addClass('hidden');
                     $(".hidden_all_fields").removeClass('hidden');
-                } else if(LauncherType === 'selectType'){
+                } else if(launcherType === 'selectType'){
                     // hide All
                     $(".hidden_all_fields").addClass('hidden');           
                 }
-
 
                 if(map === undefined) {
 
@@ -491,6 +495,13 @@
                         zoom: 13,
                     });
                     var marker = undefined;
+
+                    
+                    if(x !== undefined && y !== undefined) {
+                        marker = new mapboxgl.Marker();
+                        marker.setLngLat({lng: y, lat: x}).addTo(map);
+                    }
+
                     function addMarker(e){
                         if (marker !== undefined)
                             marker.remove();
@@ -526,10 +537,13 @@
                 var launcherCityID = $('.launcherCityID').val();
                 var launcherSite = $('#launcherSite').val();
                 var launcherEmail = $('#launcherEmail').val();
-                var LauncherPhone = $('#LauncherPhone').val();
+                var launcherPhone = $('#launcherPhone').val();
                 
-                if(LauncherPhone !== undefined && LauncherPhone.length > 0)
-                    tels.push(LauncherPhone);
+                if(launcherPhone !== undefined && launcherPhone.length > 0)
+                    tels.push({
+                        id: 222222222,
+                        val: launcherPhone
+                    });
 
                 var launcherAddress = $('#launcherAddress').val();
 
@@ -566,7 +580,9 @@
                     launcher_city_id: launcherCityID,
                     launcher_site: launcherSite,
                     launcher_email: launcherEmail,
-                    launcher_phone: tels,
+                    launcher_phone: tels.map((elem, index) => {
+                        return elem.val;
+                    }),
                     launcher_type: launcherType,
                     launcher_address: launcherAddress,
                 };
@@ -589,7 +605,7 @@
                             if('{{ $mode }}' === 'create')
                                 launcher_id = res.id;
                             else
-                                launcher_id = '{{ $formId }}';
+                                launcher_id = '{{ isset($formId) ? $formId : -1 }}';
                              
                             window.location.href = '{{ route('launcher-document') }}' + "/" + launcher_id;
                         }
@@ -630,10 +646,6 @@
 
 @section('extraJS')
     @parent
-    
-    <script>
-
-    </script>
 
     @if($mode == 'edit')
         <script>
@@ -643,33 +655,42 @@
                 success: function (res) {
                     x = res.data.launcher_x;
                     y = res.data.launcher_y;
-                    const map = new mapboxgl.Map({
-                        container: 'launchermap',
-                        style: 'https://api.parsimap.ir/styles/parsimap-streets-v11?key=p1c7661f1a3a684079872cbca20c1fb8477a83a92f',
-                        center: x !== undefined && y !== undefined ? [y, x] : [51.4, 35.7],
-                        zoom: 13,
-                    });
-                    if(x !== undefined && y !== undefined) {
-                        marker = new mapboxgl.Marker();
-                        marker.setLngLat({lng: y, lat: x}).addTo(map);
-                    }
-                    map.on('click', addMarker);
-                    const control = new ParsimapGeocoder();
-                    map.addControl(control);
+                    $('#name').val(res.data.first_name);
+                    $('#last').val(res.data.last_name);
+                    $('.setName').val(res.data.first_name + ' ' + res.data.last_name)
+                    $('#phone').val(res.data.phone);
                     $("#postalCode").val(res.data.postal_code);
                     $("#code").val(res.data.code);
                     $("#companyName").val(res.data.company_name);
                     $("#companyType").val(res.data.company_type);
                     $("#launcherAddress").val(res.data.launcher_address);
-                    $("#launcherCityId").val(res.data.launcher_city_id);
+                    $(".launcherCityID").val(res.data.launcher_city_id);
+                    
                     $("#launcherEmail").val(res.data.launcher_email);
-                    $("#launcherPhone").val(res.data.launcher_phone);
+                    // $("#launcherPhone").val(res.data.launcher_phone);
+                    var showPhone = '';
+                    for(i = 0 ; i < res.data.launcher_phone.length; i++){
+                        showPhone += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + res.data.launcher_phone[i] + '';
+                        showPhone += '<button class="btn btn-outline-light">';
+                        showPhone += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
+                        showPhone += '</button>';
+                        showPhone += '</div>';
+                        // tels.push
+                        
+                        tels.push({
+                            id: i,
+                            val: res.data.launcher_phone[i]
+                        });
+                    };
+                    $("#addTell").append(showPhone);
                     $("#launcherSite").val(res.data.launcher_site);
-                    $("#launcherType").val(res.data.launcher_type);
+                    $("#launcherType").val(res.data.launcher_type).change();
                     $("#nid").val(res.data.user_NID);
                     $("#userEmail").val(res.data.user_email);
                     $("#companyType").val(res.data.company_type);
                     $(".userBirthDay").val(res.data.user_birth_day);
+                    $("#state02").val(res.data.launcher_state_id).change();
+                    getCities(res.data.launcher_state_id, res.data.launcher_city_id);
                 }
             })
 

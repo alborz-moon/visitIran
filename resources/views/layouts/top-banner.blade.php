@@ -26,7 +26,7 @@
                       if(res.status === "ok") {
                             if(res.data.length === 0) {
                                 $(".showTopBanner").remove();
-                                
+                                $('.TopParentBannerMoveOnTop').css('marginTop','-60px');
                                 return;
                             }
                            if (width > 1000) {
