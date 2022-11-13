@@ -5,15 +5,15 @@
                 <a href="#" class="logo"><img src="./theme-assets/images/logo-dark.svg" width="150" alt=""></a>
             </div>
         </div>
-        <ul class="checkout-steps">
-            <li id="chooseBuy" class="checkout-step-active">
+        <ul class="checkout-steps customSteps">
+            <li id="chooseBuy" class="checkout-step-active ">
                 <a href="#"><span class="checkout-step-title" data-title="تکمیل فرایند خرید"></span></a>
             </li>
-            <li class="{{ $step == 'shipping' || $step == 'payment' ? 'checkout-step-active' : '' }}">
+            <li class="{{ $step == 'shipping' || $step == 'payment ' ? 'checkout-step-active ' : '' }}">
                 <a href="#"><span class="{{ $step == 'shipping' ? 'checkout-step-title' : '' }}" data-title="اطلاعات ارسال"></span></a>
             </li>
             <li class="{{ $step == 'payment' ? 'checkout-step-active' : '' }}">
-                <a href="#"><span class="{{ $step == 'payment' ? 'checkout-step-title' : '' }}" data-title="پرداخت"></span></a>
+                <a href="#"><span class="{{ $step == 'payment ' ? 'checkout-step-title ' : '' }}" data-title="پرداخت"></span></a>
             </li>
         </ul>
     </div>

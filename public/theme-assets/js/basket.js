@@ -12,14 +12,15 @@ function setVals(prefix, elem, complete = false) {
     let priceAfter;
 
     if (
-        elem.detail.off_type === undefined ||
-        elem.detail.off_type === null ||
-        elem.detail.off_type === "" ||
-        elem.detail.off_type === "null"
+        elem.detail.price !== undefined &&
+        (elem.detail.off_type === undefined ||
+            elem.detail.off_type === null ||
+            elem.detail.off_type === "" ||
+            elem.detail.off_type === "null")
     ) {
         $("#" + prefix + "-price").text(elem.detail.price);
         priceAfter = elem.detail.price.replace(",", "");
-    } else {
+    } else if (elem.detail.price !== undefined) {
         if (elem.detail.off_type === "percent") {
             priceAfter =
                 ((100 - parseInt(elem.detail.off_value)) *

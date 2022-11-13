@@ -767,6 +767,9 @@ ul {
     font-weight: 500;
     font-size: 15px !important;
 }
+.customSteps li {
+    flex: 0 0 33% !important;
+}
 .customlineText {
     text-decoration-color: red;
     text-decoration-line: line-through;
