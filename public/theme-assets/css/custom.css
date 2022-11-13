@@ -716,6 +716,9 @@ ul {
 .felxDirectionColumn {
     flex-direction: column;
 }
+.flexWrap {
+    flex-wrap: wrap !important;
+}
 .spaceBetween {
     display: flex !important;
     justify-content: space-between !important;

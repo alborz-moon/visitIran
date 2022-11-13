@@ -1,7 +1,7 @@
 
 @extends('layouts.structure')
 @section('content')
-        <main class="page-content">
+        <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
             <div class="row mb-5">
                 @include('event.launcher.launcher-menu')     
@@ -10,16 +10,16 @@
                         <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
                             <li class="checkout-step-active">
-                                <a href="#"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
-                            </li>
-                            <li class="checkout-step-active">
-                                <a href="#"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
-                            </li>
-                            <li class="checkout-step-active">
-                                <a href="#"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
+                                <a href="{{ route('create-event') }}"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
                             </li>
                             <li>
-                                <a href="#"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
+                                <a href="{{ route('create-time') }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
+                            </li>
+                            <li>
+                                <a><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
+                            </li>
+                            <li>
+                                <a href="{{ route('create-info') }}"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
                             </li>
                         </ul>
                         <a href="{{ route('create-time') }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>

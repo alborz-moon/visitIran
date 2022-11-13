@@ -1,7 +1,15 @@
 
 @extends('layouts.structure')
+@section('header')
+    @parent
+    <script src="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.js"></script>
+    <link
+      href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+@stop
 @section('content')
-        <main class="page-content">
+        <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
             <div class="row mb-5">
                 @include('event.launcher.launcher-menu')     
@@ -10,19 +18,19 @@
                         <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
                             <li class="checkout-step-active">
-                                <a href="#"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
+                                <a><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
                             </li>
                             <li>
-                                <a href="#"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
+                                <a href="{{ route('create-time') }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
                             </li>
                             <li>
-                                <a href="#"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
+                                <a href="{{ route('create-contact') }}"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
                             </li>
                             <li>
-                                <a href="#"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
+                                <a href="{{ route('create-info') }}"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
                             </li>
                         </ul>
-                        <a href="{{ route('create-time') }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
+                        <a href="#" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18 d-none">بازگشت</a>
                     </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">اطلاعات کلی</div>
@@ -65,34 +73,27 @@
                                         <div class="border-bottom py-2">
                                             <div  class="fs-7 text-dark">موضوع</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select class="selectStyle">
-                                                    <option value="">موضوع</option>
-                                                    <option value="">2</option>
+                                                <select class="select2 w-100" name="" id="topicEvent">
+                                                    <option value="0" selected>انتخاب کنید</option>
+                                                    <option value="1">1موضوع</option>
+                                                    <option value="2">2موضوع</option>
+                                                    <option value="3">3موضوع</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="d-flex gap15 mt-2">
-                                            <div id="removeItem1" class="item-button spaceBetween colorBlack">
-                                                آموووووزش1
-                                                <button onclick="removeItem1()" class="btn btn-outline-light">
-                                                    <i class="ri-close-line"></i>
-                                                </button>
-                                            </div>
-                                            <div id="removeItem1" class="item-button spaceBetween colorBlack">
-                                                آموووووزش1
-                                                <button onclick="removeItem1()" class="btn btn-outline-light">
-                                                    <i class="ri-close-line"></i>
-                                                </button>
-                                            </div>
+                                        <div class="d-flex flexWrap gap15 mt-2" id="addTopic">
+                                
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <div class="border-bottom py-2">
                                             <div  class="fs-7 text-dark">زبان</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select class="selectStyle">
-                                                    <option value="real">1</option>
-                                                    <option value="unreal">2</option>
+                                                <select class="select2 w-100" name="" id="">
+                                                    <option value="0"selected>انتخاب کنید</option>
+                                                    <option value="1">فارسی</option>
+                                                    <option value="2">ترکی</option>
+                                                    <option value="3">انگلیسی</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -240,7 +241,7 @@
                                     <div class="col-lg-12 mb-3">
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">نقشه</div>
-                                            <div class="w-100 d-flex justify-content-center align-items-center colorWhite" style="height: 250px;background-color:#00b2bc">نقشه</div>
+                                            <div id="launchermap" style="width: 100%; height: 250px"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -369,22 +370,75 @@
 
 @section('extraJS')
     @parent
+    <script src="https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/parsimap-geocoder/v1.0.0/parsimap-geocoder.js"></script>
+    <link
+      href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/parsimap-geocoder/v1.0.0/parsimap-geocoder.css"
+      rel="stylesheet"
+    />
     <script>
-        function removeItem1(){
-            $('#removeItem1').remove();
-        }
-        function removeItem2(){
-            $('#removeItem2').remove();
-        }
-        function removeItem3(){
-            $('#removeItem3').remove();
-        }
-        function removeItem4(){
-            $('#removeItem4').remove();
-        }
-        function removeItem5(){
-            $('#removeItem5').remove();
-        }
+        var map = undefined;
+        var x;
+        var y;
+        
+        $(document).ready(function(){
+            var topic ="";
+            var addTopic = '';
+            var arryTopic = [];
+            var i = 0;
+            $('#topicEvent').on('change',function(){
+                topic = $('#topicEvent').val();
+
+                if (topic != 0){
+                    i++;
+                    arryTopic.push(
+                        {
+                            id: i,
+                            value: topic
+                        }
+                    )
+                    addTopic += '<div id="removeItem ' + topic + '" class="item-button spaceBetween colorBlack">' + topic + '';
+                    addTopic +='<button onclick="removeItem()" class="btn btn-outline-light">'; 
+                    addTopic += '<i class="ri-close-line"></i>'
+                    addTopic += '</button></div>';
+                
+                    $('#addTopic').empty().append(addTopic);
+                }
+            })
+            function removeItam(){
+
+            }
+            if(map === undefined) {
+                mapboxgl.setRTLTextPlugin(
+                    'https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+                    null,
+                );
+                map = new mapboxgl.Map({
+                    container: 'launchermap',
+                    style: 'https://api.parsimap.ir/styles/parsimap-streets-v11?key=p1c7661f1a3a684079872cbca20c1fb8477a83a92f',
+                    center: x !== undefined && y !== undefined ? [y, x] : [51.4, 35.7],
+                    zoom: 13,
+                });
+                var marker = undefined;
+                
+                if(x !== undefined && y !== undefined) {
+                    marker = new mapboxgl.Marker();
+                    marker.setLngLat({lng: y, lat: x}).addTo(map);
+                }
+                function addMarker(e){
+                    if (marker !== undefined)
+                        marker.remove();
+                    //add marker
+                    marker = new mapboxgl.Marker();
+                    marker.setLngLat(e.lngLat).addTo(map);
+                    x = e.lngLat.lat;
+                    y = e.lngLat.lng;
+                }
+                map.on('click', addMarker);
+                const control = new ParsimapGeocoder();
+                map.addControl(control);
+            }
+
+        })
         $('#onlineOrOffline').on('change',function(){
             onlineOrOffline = $('#onlineOrOffline').val();
             if (onlineOrOffline=== 'online'){
