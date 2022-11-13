@@ -104,7 +104,7 @@
         $(document).ready(function() {
             renderBasket();
 
-            $("#").on('click', function() {
+            $("#goToShipingBtn").on('click', function() {
                 document.location.href = '{{ route('shipping') }}';
             })
         })

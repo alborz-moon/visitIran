@@ -39,8 +39,14 @@ function renderProductSlider(data, prefix) {
             $("#" + prefix + "CriticalCount").text(elem.available_count);
             if (elem.available_count == 0) zeroAvailableCount = true;
             $("#" + prefix + "Critical").removeClass("invisible");
-            if (zeroAvailableCount)
-                $("#" + prefix + "Critical").text("اتمام موجودی");
+
+            if (zeroAvailableCount) {
+                $("#" + prefix + "AvailableJust").addClass("hidden");
+                $("#" + prefix + "FinishAvailable").removeClass("hidden");
+            } else {
+                $("#" + prefix + "AvailableJust").removeClass("hidden");
+                $("#" + prefix + "FinishAvailable").addClass("hidden");
+            }
         } else $("#" + prefix + "Critical").addClass("invisible");
 
         if (elem.off != null && !zeroAvailableCount) {
