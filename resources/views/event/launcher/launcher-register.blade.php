@@ -299,7 +299,7 @@
                     <button data-remodal-action="close" class="remodal-close"></button>
                 </div>
                 <div class="remodal-content">
-                    <div class="row">
+                    <div class="row d-flex flexDirectionRowReverse">
                         <div class="col-4">
                             <div class="form-element-row">
                                 <label class="label fs-7">سال</label>

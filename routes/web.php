@@ -144,7 +144,11 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
             return view('event.launcher.launcher-finance', compact('formId'));
         })->name('finance');
 
-        Route::view('/create-event','event.event.create-event')->name('create-event');
+        Route::get('/create-event', function() {
+            $states = State::orderBy('name', 'asc')->get();
+            $mode = 'create';
+            return view('event.event.create-event', compact('states', 'mode'));
+        })->name('create-event');
 
         Route::view('/create-time','event.event.create-time')->name('create-time');
     

@@ -1,5 +1,12 @@
 
 @extends('layouts.structure')
+@section('header')
+
+    @parent
+
+    <link rel="stylesheet" href="{{URL::asset('theme-assets/bootstrap-datepicker.css?v=1')}}">
+    <script src="{{URL::asset("theme-assets//bootstrap-datepicker.js")}}"></script>
+@stop
 @section('content')
             <main class="page-content">
             <div class="container">
@@ -108,4 +115,31 @@
 
 @section('extraJS')
     @parent
+    <script> 
+        $(document).ready(function(){
+            
+            
+            $(document).on('click', "#startSessionBtn", function () {
+                var timeStart =$('#time_input_start').val();
+                var dateStart = $('#date_input_start').val();
+                alert(timeStart + ' ' + dateStart);
+                    $('#setDateStart').val(timeStart + ' ' + dateStart);                
+                    $(".remodal-close").click();
+            });
+            $(document).on('click', "#stopSessionBtn", function () {
+                var timeStop = $('#time_input_stop').val();
+                var dateStop = $('#date_input_stop').val();
+                alert(timeStop + ' ' + dateStop);
+                    $('#setDateStop').val(timeStop + ' ' + dateStop);
+                    $$(".remodal-close").click();               
+            });
+        });
+        var datePickerOptions = {
+            numberOfMonths: 1,
+            showButtonPanel: true,
+            dateFormat: "yy/mm/dd"
+        };
+        $("#date_input_start").datepicker(datePickerOptions);
+        $("#date_input_stop").datepicker(datePickerOptions);
+    </script>
 @stop
