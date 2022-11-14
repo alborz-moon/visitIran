@@ -134,15 +134,15 @@
                             <div class="product-tabs overFlowHidden">
                                 <ul class="nav nav-pills">
                                     <li id="checkNavLink" class="nav-item">
-                                        <a  class="nav-link active" href="#scrollspyHeading1"
+                                        <a id="nav1" class="nav-link .my-nav-link active" href="#scrollspyHeading1"
                                             data-scroll="scrollspyHeading1">نقد و بررسی </a>
                                     </li>
                                     <li id="propertyNavLink" class="nav-item">
-                                        <a class="nav-link" href="#scrollspyHeading3"
+                                        <a id="nav2" class="nav-link .my-nav-link" href="#scrollspyHeading3"
                                             data-scroll="scrollspyHeading3">مشخصات</a>
                                     </li>
                                     <li id="commentNavLink" class="nav-item">
-                                        <a class="nav-link" href="#scrollspyHeading4"
+                                        <a id="nav3" class="nav-link .my-nav-link" href="#scrollspyHeading4"
                                             data-scroll="scrollspyHeading4">دیدگاه کاربران</a>
                                     </li>
                                 </ul>
@@ -155,9 +155,9 @@
                             <div class="product-tab-title">
                                 <div class="fontSize18 bold ">بررسی {{ $product['name'] }}</div>
                             </div>
-                            <div class="expandable-text pt-1" style="height: 500px;">
-                                <div class="expandable-text_text">
-                                    <p>
+                            <div class="expandable-text pt-1" >
+                                <div class="expandable-text_text" id="checkHeight">
+                                    <p id="getInnerHeight">
                                         {!! $product['introduce'] !!}
                                     </p>
                                 </div>
@@ -416,11 +416,21 @@
                 $("#params-list-div").empty().append(params);
                 $("#property").empty().append(property);
 
+                
+
                 if(colors != '')
                     $("#product-colors-variants").empty().append(colors);
 
                 if(options !== '')
                     $("#property").append(options);
+                //getInnerHeight
+                    heightTag = $('#getInnerHeight').height();
+                    alert(heightTag);
+                    if (heightTag < 400) {
+                        $('#checkHeight').css('height','auto');
+                    }else{
+                        $('#checkHeight').css('height','400px');
+                    }
             }
         });
 
@@ -493,7 +503,21 @@
                 star += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
         }
         $(".rattingToStar").empty().append(star);
-        $(document).ready(function(){
+        
+            $('#nav1').on('click',function(){
+                $(".my-nav-link").removeClass('active');    
+                $('#nav1').addClass('active');
+            });
+
+            $('#nav2').on('click',function(){
+                $(".my-nav-link").removeClass('active');
+                $('#nav2').addClass('active');
+            });
+
+            $('#nav3').on('click',function(){
+                $(".my-nav-link").removeClass('active');
+                $('#nav3').addClass('active');
+            });
             var width= $(document).width();
             if (width < 768){
                 $('#commentNavLink').click(function(){
@@ -533,7 +557,6 @@
                     });
                 });
             } 
-        })
 });
 </script>
 

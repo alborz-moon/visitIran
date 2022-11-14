@@ -149,25 +149,10 @@
             url: '{{ route('api.product.comment.store', ['product' => $productId]) }}',
             data: data,  
             success: function(res) {
-                if(res.status === 'ok')
-                    s = {
-                        rtl: true,
-                        class: "iziToast-" + "success",
-                        title: "موفق",
-                        message: "دیدگاه شما ثبت شد!",
-                        animateInside: !1,
-                        position: "topRight",
-                        progressBar: !1,
-                        icon: 'ri-close-fill',
-                        timeout: 3200,
-                        transitionIn: "fadeInLeft",
-                        transitionOut: "fadeOut",
-                        transitionInMobile: "fadeIn",
-                        transitionOutMobile: "fadeOut",
-                        color: "green",
-                    };
-                    iziToast.show(s);
+                if(res.status === 'ok') {
+                    showSuccess("دیدگاه شما ثبت شد!");
                     $("#close-comment-modal-btn").click();
+                }
             }
         });
 

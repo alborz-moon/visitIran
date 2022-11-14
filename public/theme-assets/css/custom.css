@@ -168,8 +168,14 @@ hr {
 .fontSize22 {
     font-size: 22px !important;
 }
+.fontSize28 {
+    font-size: 28px !important;
+}
 .fontSize30 {
     font-size: 30px !important;
+}
+.fontSize35 {
+    font-size: 35px !important;
 }
 .fontNormal {
     font-weight: normal !important;
@@ -194,6 +200,9 @@ ul {
 }
 .padding0 {
     padding: 0;
+}
+.padding2 {
+    padding: 2px;
 }
 .borderNone {
     border: none !important;
@@ -867,6 +876,15 @@ ul {
 .customBoxShadowGallery {
     box-shadow: 0px 3px 6px 0px #00000029;
 }
+.textStyle {
+    color: #666;
+    line-height: 35px;
+    font-weight: 500;
+    font-size: 14px;
+}
+.customBoxShadow {
+    box-shadow: 0px 3px 6px 0px #00000029;
+}
 .hoverBoxShadow:hover {
     box-shadow: 0px 3px 6px 0px #00000029;
 }
@@ -1228,6 +1246,7 @@ figure .ck-widget {
 }
 .userCircleSize {
     width: 33px;
+    min-width: 33px;
     height: 33px;
     border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -1372,11 +1391,17 @@ figure .ck-widget {
 .directionRTL {
     direction: rtl !important;
 }
-.nav-link:hover {
-    color: #c59358;
+.nav .nav-link:hover {
+    color: #c59358 !important;
+}
+.nav .nav-link:active {
+    color: #c59358 !important;
 }
 .end {
     width: 40%;
+}
+.top30 {
+    top: 30px;
 }
 .m-t-24 {
     margin-top: 10px;
