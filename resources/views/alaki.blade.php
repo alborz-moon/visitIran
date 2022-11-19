@@ -114,6 +114,7 @@
             dateFormat: "yy/mm/dd"
         };
         $("#date_input_start").datepicker(datePickerOptions);
+        
         Dropzone.options.myAwesomeDropzone = {
             paramName: "img_file", // The name that will be used to transfer the file
             maxFilesize: 1, // MB

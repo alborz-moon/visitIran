@@ -42,7 +42,7 @@
                                                         بررسی</span></td>
                                                 <td class="fa-num">1400 دی 26</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-circle btn-info my-1"><i
+                                                    <a href="{{ route('profile.tickets-detail') }}" class="btn btn-circle btn-info my-1"><i
                                                             class="ri-eye-line"></i></a>
                                                     <a href="#" class="btn btn-circle btn-danger my-1"><i
                                                             class="ri-close-line"></i></a>
@@ -57,7 +57,7 @@
                                                         شد</span></td>
                                                 <td class="fa-num">1400 دی 26</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-circle btn-info my-1"><i
+                                                    <a href="{{ route('profile.tickets-detail') }}" class="btn btn-circle btn-info my-1"><i
                                                             class="ri-eye-line"></i></a>
                                                     <a href="#" class="btn btn-circle btn-danger my-1"><i
                                                             class="ri-close-line"></i></a>
@@ -72,7 +72,7 @@
                                                         class="badge bg-danger rounded-pill">بسته</span></td>
                                                 <td class="fa-num">1400 دی 26</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-circle btn-info my-1"><i
+                                                    <a href="{{ route('profile.tickets-detail') }}" class="btn btn-circle btn-info my-1"><i
                                                             class="ri-eye-line"></i></a>
                                                     <a href="#" class="btn btn-circle btn-danger my-1"><i
                                                             class="ri-close-line"></i></a>
@@ -87,7 +87,7 @@
                                                         بررسی</span></td>
                                                 <td class="fa-num">1400 دی 26</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-circle btn-info my-1"><i
+                                                    <a href="{{ route('profile.tickets-detail') }}" class="btn btn-circle btn-info my-1"><i
                                                             class="ri-eye-line"></i></a>
                                                     <a href="#" class="btn btn-circle btn-danger my-1"><i
                                                             class="ri-close-line"></i></a>
@@ -102,7 +102,7 @@
                                                         بررسی</span></td>
                                                 <td class="fa-num">1400 دی 26</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-circle btn-info my-1"><i
+                                                    <a href="{{ route('profile.tickets-detail') }}" class="btn btn-circle btn-info my-1"><i
                                                             class="ri-eye-line"></i></a>
                                                     <a href="#" class="btn btn-circle btn-danger my-1"><i
                                                             class="ri-close-line"></i></a>
