@@ -56,30 +56,34 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 mb-4">
-                <div class="expandable-text pt-1" style="height: 100px;">
-                    <div class="expandable-text_text fa-num">
-                        <div class="fs-6 fw-bold mb-2">سامانه فروش صنایع دستی و هنرهای تزئینی 
+    </div>
+        <div class="customBackgroundWhite">
+            <div class="container p-4">
+                <div class="col-lg-12 mb-4">
+                    <div class="expandable-text pt-1" style="height: 100px;">
+                        <div class="expandable-text_text fa-num">
+                            <div class="fs-6 fw-bold mb-2">سامانه فروش صنایع دستی و هنرهای تزئینی 
+                            </div>
+                            <div id="footerDesc" class="fs-7 text-secondary text-justify">
+                            </div>
                         </div>
-                        <div id="footerDesc" class="fs-7 text-secondary text-justify">
+                        <div class="customBackgroundWhite expandable-text-expand-btn justify-content-start text-sm">
+                            <span class="show-more active colorBlue hoverBold">
+                                مشاهده بیشتر <i class="ri-arrow-down-s-line ms-2"></i>
+                            </span>
+                            <span class="show-less d-none colorBlue hoverBold">
+                                بستن <i class="ri-arrow-up-s-line ms-2"></i>
+                            </span>
                         </div>
-                    </div>
-                    <div class="expandable-text-expand-btn justify-content-start text-sm customFooterShowMore">
-                        <span class="show-more active colorBlue hoverBold">
-                            مشاهده بیشتر <i class="ri-arrow-down-s-line ms-2"></i>
-                        </span>
-                        <span class="show-less d-none colorBlue hoverBold">
-                            بستن <i class="ri-arrow-up-s-line ms-2"></i>
-                        </span>
                     </div>
                 </div>
             </div>
         </div>
+        
         <div class="copy-right text-center text-muted py-3">
             کلیه حقوق این سایت به متعلق به شرکت سیسوتک می باشد
         </div>
-    </div>
+    
 </footer>
 <script>
 

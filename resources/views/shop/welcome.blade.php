@@ -13,15 +13,15 @@
                 @include('layouts.box', ['id' => 'most_seen_products_when_not_filled', 'title' => 'پر بازدید ترین ها'])
                 
                 @include('sections.top_products_slider', ['id' => 'latest_products_when_filled', 'searchKey' => 'createdAt', 
-                    'key' => 'latestProduct', 'title' => 'تازه ترین ها', 'not_fill_id' => 'latest_products_when_not_filled'])
-                @include('sections.top_products_slider', ['id' => 'most_like_products_when_filled', 'searchKey' => 'rate', 
-                    'key' => 'mostLikeProduct', 'title' => 'محبوب ترین ها', 'not_fill_id' => 'most_like_products_when_not_filled'])
+                    'key' => 'latestProduct', 'title' => 'تازه ترین ها', 'not_fill_id' => 'latest_products_when_not_filled', 'href' => route('single-category', ['category' => null, 'slug' => ''])])
+                {{-- @include('sections.top_products_slider', ['id' => 'most_like_products_when_filled', 'searchKey' => 'rate', 
+                    'key' => 'mostLikeProduct', 'title' => 'محبوب ترین ها', 'not_fill_id' => 'most_like_products_when_not_filled', 'href' => route('single-category')])
                 @include('sections.top_products_slider', ['id' => 'most_seen_products_when_filled', 'searchKey' => 'seen', 
-                    'key' => 'mostSeenProduct', 'title' => 'پر بازدیدترین ها', 'not_fill_id' => 'most_seen_products_when_not_filled'])
+                    'key' => 'mostSeenProduct', 'title' => 'پر بازدیدترین ها', 'not_fill_id' => 'most_seen_products_when_not_filled', 'href' => route('single-category')]) --}}
                 
                 @include('layouts.banner')
 
-                @include('sections.top_categories_products')
+                @include('sections.top_categories_products', ['href' => 'www.google.com'])
 
                 @include('layouts.news')
                 <!-- end of box => categories-slider -->

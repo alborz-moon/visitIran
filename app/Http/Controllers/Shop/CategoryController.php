@@ -98,10 +98,20 @@ class CategoryController extends Controller
 
     }
 
-    public function show(Category $category, Request $request) {
+    public function show(Category $category=null, Request $request) {
         
-        if(!$category->visibility)
+        if($category != null && !$category->visibility)
             return Redirect::route('403');
+
+        if($category == null)
+        
+        return view('shop.list', [
+            'path' => [],
+            'parent' => null,
+            'name' => '',
+            'id' => -1,
+            'features' => []
+        ]);
 
         $path = [
             [

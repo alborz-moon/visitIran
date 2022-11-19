@@ -48,7 +48,14 @@
     <div class="page-wrapper">
         <!-- start of page-header -->
         <header class="page-header d-md-block d-none customFixedMenu">
-            @include('layouts.top-banner')
+            {{-- @include('layouts.top-banner') --}}
+            <!-- start banner -->
+            <div class="alert banner-container alert-dismissible fade show showTopBanner hidden" role="alert" id="topBanner">
+                <a href="#" target="_blank" id="" class="banner-placement rounded-0 infobox"
+                    style="height: 60px;"></a>
+                <button id="close" type="button" class="btn-close customCloseIconBanner p-0" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <!-- end banner -->
                         <!-- start of page-header-middle -->
             <div class="page-header--middle customBackgroundWhite">
                 <div class="container heightHeader customBackgroundWhite">
@@ -153,18 +160,18 @@
                     <div class="d-flex align-items-center">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a class="nav-link colorWhite" href="{{ route('home') }}"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/home.svg') }}" alt="">صفحه اصلی</a>
+                                <a class="custom-nav-link hoverBold1 colorWhite" href="{{ route('home') }}"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/home.svg') }}" alt="">صفحه اصلی</a>
                             </li>
                             <li class="nav-item align-self-center">
                             <div class="vertical-menu minWidthUnset">
-                            <a class="vertical-menu-btn p-0 m-0 colorWhite fontNormal"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt="">دسته بندی کالاها</a>
+                            <a class="vertical-menu-btn p-0 m-0 colorWhite fontNormal cursorPointer hoverBold1"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt="">دسته بندی کالاها</a>
                             <div class="vertical-menu-items marginFromRightHeaderNegative custom-vertical-menu-items zIndex2 mt-10">
                                 @include('layouts.menu')
                             </div>
                         </div>                            
                     </li>
                             <li class="nav-item">
-                                <a class="nav-link colorWhite fontNormal" href="index-1.html"><img class="iconSvg customIconTag" src="{{ asset('theme-assets/images/svg/label.svg') }}" alt="">پیشنهاد های ویژه</a>
+                                <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="index-1.html"><img class="iconSvg customIconTag" src="{{ asset('theme-assets/images/svg/label.svg') }}" alt="">پیشنهاد های ویژه</a>
                             </li>
                         </ul>
                     </div>
@@ -175,10 +182,10 @@
                         <div class="page-header--top-left">
                             <ul class="nav nav-light justify-content-end">
                                 <li class="nav-item d-md-none d-lg-block">
-                                    <a class="nav-link" href="{{ route('blog-list') }}">تازه‌ها</a>
+                                    <a class=" custom-nav-link colorWhite hoverBold1" href="{{ route('blog-list') }}">تازه‌ها</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">درباره ما</a>
+                                    <a class=" custom-nav-link colorWhite hoverBold1" href="#">درباره ما</a>
                                 </li>
                             </ul>
                         </div>
@@ -189,7 +196,14 @@
         </header>
         <!-- end of page-header -->
         <header class="page-header-responsive d-md-none p-0">
-            @include('layouts.top-banner')
+            {{-- @include('layouts.top-banner') --}}
+            <!-- start banner -->
+            <div class="alert banner-container alert-dismissible fade show showTopBanner hidden" role="alert" id="topBanner">
+                <a href="#" target="_blank" id="" class="banner-placement rounded-0 infobox"
+                    style="height: 60px;"></a>
+                <button id="close" type="button" class="btn-close customCloseIconBanner p-0" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <!-- end banner -->
             <div class="page-header-responsive-row">
                 <div class="d-flex align-items-center">
                     <div class="navigation-container">
@@ -392,10 +406,41 @@
                 };
             iziToast.show(s);
         }
+        $(document).ready(function() {
+                    $('#close').on('click', function() {
+                        $('#SliderParent').addClass('marginTopMediaQuaryForSlider');
+                        $('.TopParentBannerMoveOnTop').addClass('marginTopMediaQuaryForSlider');
+                        $('.StickyMenuMoveOnTop').addClass('stickyTop')
+                    })
+                });
+                var width = window.innerWidth;
+              $.ajax({
+                  type: 'get',
+                  url: '{{ route('api.infobox') }}',
+                  headers: {
+                      'accept': 'application/json'
+                  },
+                  success: function(res) {
+                      if(res.status === "ok") {
+                            if(res.data.length === 0) {
+                                $(".showTopBanner").remove();
+                                $('.TopParentBannerMoveOnTop').css('marginTop','-60px');
+                                $('.StickyMenuMoveOnTop').css('top', '90px');
 
+                                return;
+                            }
+                            $('.showTopBanner').removeClass('hidden');
+                            if (width > 1000) {
+                                $(".infobox").css('background-image', "url(" + res.data.img_large + ")").attr('href', res.data.href);
+                            }else if(width > 768){
+                               $(".infobox").css('background-image', "url(" + res.data.img_mid + ")").attr('href', res.data.href);
+                            }else{
+                               $(".infobox").css('background-image', "url(" + res.data.img_small + ")").attr('href', res.data.href);
+                            }
+                      }
+                  }
+              });
     </script>   
-  
-    </script>
     @section('extraJS')
     @show
 </body>

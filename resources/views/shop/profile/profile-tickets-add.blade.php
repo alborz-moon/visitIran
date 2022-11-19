@@ -1,8 +1,9 @@
-
 @extends('layouts.structure')
+
 @section('header')
 
     @parent
+
     <script src="{{asset('theme-assets/dropzone/dropzone.js?v=1.2')}}"></script>
     <link rel="stylesheet" href="{{asset("theme-assets/dropzone/dropzone.css")}}">
     <script>
@@ -26,7 +27,7 @@
                                 کند.)</div>
                             <div class="ui-box-content">
                                 <!-- start of add-ticket-form -->
-                                <form action="#" class="add-ticket-form">
+                                {{-- <form action="/sad" class="add-ticket-form"> --}}
                                     <div class="row">
                                         <div class="col-md-12">
                                             <!-- start of form-element -->
@@ -81,27 +82,27 @@
                                             <!-- end of form-element -->
                                         </div>
                                         <div class="col-12">
-                                            <!-- start of form-element -->
-                                                <div class="uploadBody">
-                                                    <div class="uploadBorder">
-                                                        <div class="uploadBodyBox">
-                                                            <div class="uploadTitleText">بارگذاری فایل محتوا</div>
-                                                            <form action="{{route('api.testUpload')}}" class="dropzone uploadBox" id="my-awesome-dropzone">
-                                                                {{csrf_field()}}
-                                                            </form>
-                                                            <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
-                                                            <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div>
-                                                        </div>
+                                            
+                                            <div class="uploadBody">
+                                                <div class="uploadBorder">
+                                                    <div class="uploadBodyBox">
+                                                        <div class="uploadTitleText">بارگذاری فایل محتواasdasd</div>
+                                                        <form action="{{route('api.testUpload')}}" class="dropzone uploadBox" id="my-awesome-dropzone">
+                                                            {{csrf_field()}}
+                                                        </form>
+                                                        <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
+                                                        <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div>
                                                     </div>
                                                 </div>
-                                            <!-- end of form-element -->
+                                            </div>
+
                                         </div>
                                         <div class="col-12 text-end">
                                             <button type="submit" class="btn btn-primary px-4">ثبت و ارسال <i
                                                     class="ri-ball-pen-line ms-2"></i></button>
                                         </div>
                                     </div>
-                                </form>
+                                {{-- </form> --}}
                                 <!-- end of add-ticket-form -->
                             </div>
                         </div>
@@ -109,16 +110,9 @@
                 </div>
             </div>
         </main>
-@stop
 
-@section('footer')
-    @parent
-@stop
-
-@section('extraJS')
-    @parent
-    <script>
-        Dropzone.options.myAwesomeDropzone = {
+        <script>
+            Dropzone.options.myAwesomeDropzone = {
             paramName: "img_file", // The name that will be used to transfer the file
             maxFilesize: 1, // MB
             timeout: 180000,
@@ -167,5 +161,16 @@
                 });
             }
         };
+            </script>
+@stop
+
+@section('footer')
+    @parent
+@stop
+
+@section('extraJS')
+    @parent
+    <script>
+        
     </script>
 @stop

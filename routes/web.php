@@ -59,7 +59,7 @@ Route::domain(Controller::$SHOP_SITE)->group(function() {
 
     Route::get('/product/{product}/{slug}', [ProductController::class, 'showDetail'])->name('single-product');
 
-    Route::get('/list/{category}/{slug}', [CategoryController::class, 'show'])->name('single-category');
+    Route::get('/list/{category?}/{slug}', [CategoryController::class, 'show'])->name('single-category');
 
 
     Route::get('/basket', function () {
@@ -117,6 +117,9 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
 
     Route::view('/event','event.event')->name('event');
 
+    Route::view('/follow','event.follow')->name('follow');
+
+    Route::view('/list','event.list')->name('event-list');
 
     Route::middleware(['myAuth'])->group(function() {
 

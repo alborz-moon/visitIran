@@ -15,7 +15,7 @@
                             <div class="d-flex justify-content-center align-items-center customBoxShadowGallery mb-3 imgSizeEvent">
                                 <img class="w-100 h-100 p-4" src="{{ asset('theme-assets/images/banner/013.jpg') }}" alt="">
                             </div>
-                                                        <div class="customBoxShadowGallery">
+                            <div class="customBoxShadowGallery">
                                 <div class="d-flex alignItemsCenter mb-4">
                                     <span class="ui-box-title fontSize20"> 
                                         <img class="p-2" src="{{ asset('./theme-assets/images/svg/headlineTitle.svg') }}" alt="">ثبت نام حضوری
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-3">
+                        <div class="col-xl-3 col-lg-3 p-0">
                             <div class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">
                                 <div class="d-flex justify-content-end">
                                     <span>
@@ -217,7 +217,7 @@
                                 </div>
                                 <!-- end of product-seller-info -->
                                 <!-- start of product-seller-info -->
-                                <div class="product-seller-info ui-box">
+                                <div class="product-seller-info ui-box p-0">
                                     <div class="seller-info-changeable">
                                         <div class="product-seller-row p-0">
                                             <div class="product-seller-row-icon marginTop9">

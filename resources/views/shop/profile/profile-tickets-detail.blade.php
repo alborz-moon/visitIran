@@ -71,6 +71,8 @@
                                             </div>
                                             <!-- end of form-element -->
                                         </div>
+                                        {{-- for test --}}
+                                    </form> 
                                         <div class="col-12">
                                             <!-- start of form-element -->
                                                 <div class="uploadBody">
@@ -92,7 +94,8 @@
                                                     class="ri-ball-pen-line ms-2"></i></button>
                                         </div>
                                     </div>
-                                </form>
+                                {{-- </form> --}}
+
                                 <!-- end of add-ticket-form -->
                             </div>
                         </div>
