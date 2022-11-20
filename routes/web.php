@@ -59,7 +59,9 @@ Route::domain(Controller::$SHOP_SITE)->group(function() {
 
     Route::get('/product/{product}/{slug}', [ProductController::class, 'showDetail'])->name('single-product');
 
-    Route::get('/list/{category?}/{slug}', [CategoryController::class, 'show'])->name('single-category');
+    Route::get('/list/{category}/{slug}', [CategoryController::class, 'show'])->name('single-category');
+    
+    Route::get('/list/{orderBy}', [CategoryController::class, 'allCategories'])->name('category.list');
 
 
     Route::get('/basket', function () {

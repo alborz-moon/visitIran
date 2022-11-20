@@ -14,6 +14,10 @@
     <meta name="twitter:description" content="{{ $product['digest'] }}" />
     <meta name="description" content="{{ $product['digest'] }}"/>
 
+    <style>
+
+    </style>
+
     <meta name="keywords" content="{{ $product['keywords'] }}" />
     {{-- <meta property="article:tag" content="{{ $product['tags'] }}"/> --}}
 
@@ -83,17 +87,18 @@
                             </div>
                             
                             <div id="dynamic_multi_choice_features">
-
+                                
                             </div>
-
-                            <div class="expandable-text mb-3" style="height: 200px;">
+                            <ul class="" >
+                            </ul>
+                            <select id="sizes" class="select2 w-100"></select>
+                            <div class="expandable-text mb-3" style="height: 260px;">
                                 <div class="expandable-text_text">
                                     <div class="product-params">
                                         <div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18 whiteSpaceNoWrap">ویژگی ها
                                             <div class="line mr-15"></div> 
                                         </div>
-                                        <ul id="property">
-                                        </ul>
+
                                     </div>
                                 </div>
                                 <div class="mb-3 mt-3">
@@ -155,13 +160,12 @@
                             <div class="product-tab-title">
                                 <div class="fontSize18 bold ">بررسی {{ $product['name'] }}</div>
                             </div>
-                            <div class="expandable-text pt-1" >
-                                <div class="expandable-text_text" id="checkHeight">
-                                    <p id="getInnerHeight">
-                                        {!! $product['introduce'] !!}
-                                    </p>
+                            <div class="pt-1" id="intro-container-parent">
+
+                                <div id="intro-container" class="expandable-text_text">
+                                    {!! $product['introduce'] !!}
                                 </div>
-                                <div class="expandable-text-expand-btn justify-content-start text-sm d-flex justify-content-end">
+                                <div id="show-more-container-for-intro" class="expandable-text-expand-btn justify-content-start text-sm d-flex justify-content-end hidden">
                                     <span class="show-more active">
                                         ادامه مطلب <i class="ri-arrow-down-s-line ms-2"></i>
                                     </span>
@@ -241,6 +245,22 @@
 
     $(document).ready(function() {
 
+        let introHeight = $('#intro-container').height();
+        
+        if (introHeight >= 400) {
+            $("#show-more-container-for-intro").removeClass('hidden');
+        }
+            
+        $("#show-more-container-for-intro .show-more").on('click', function() {
+            $('#intro-container-parent').addClass('max-height-auto');
+            $('#intro-container').addClass('max-height-auto');
+        });
+        
+        $("#show-more-container-for-intro .show-less").on('click', function() {
+            $('#intro-container-parent').removeClass('max-height-auto');
+            $('#intro-container').removeClass('max-height-auto');
+        });
+
         let productId;
         
         try {
@@ -259,11 +279,24 @@
             success: function(res) {
                 
                 let html = '';
-                for(var i = 0; i < res.galleries.length; i++) {
-                    html += '<li data-fancybox="gallery-a " data-src="' + res.galleries[i].img + '">'
-                    html += '<img class="customBoxShadowGallery" src="' + res.galleries[i].img + '" alt="' + res.galleries[i].alt + '"></li>'
+                    for(var i = 0; i < res.galleries.length; i++) {
+                        if(i == res.galleries.length - 1) {
+                            if(res.galleries.length > 5)
+                                html += '<li class="moreImg" data-fancybox="gallery-a " data-src="' + res.galleries[i].img + '">';
+                            else 
+                                html += '<li class="notMoreImg" data-fancybox="gallery-a " data-src="' + res.galleries[i].img + '">';
+                        }
+                        else
+                            html += '<li data-fancybox="gallery-a " data-src="' + res.galleries[i].img + '">';
+                    html += '<img class="customBoxShadowGallery" src="' + res.galleries[i].img + '" alt="' + res.galleries[i].alt + '"></li>';
                 }
+
                 $("#gallery").empty().append(html);
+
+                // if(res.galleries.length > 1) {
+                //     $(".product-gallery .gallery-thumbs ul li:last-child").addClass('more-img');
+                // }
+
 
                 let options = '';
                 let colors = '';
@@ -361,12 +394,19 @@
                             '</div>'
                         );
 
+                        let unit = res.features[i].value.split(' ');
+                        if(unit.length > 1)
+                            unit = unit[1];
+                        else
+                            unit = undefined;
+
                         let vals = res.features[i].value.split('__')[0].split("$$");
                         
                         let prices = res.features[i].price == null ? null : res.features[i].price.split("$$");
                         let counts = res.features[i].available_count == null ? null : res.features[i].available_count.split("$$");
 
-                        options = '<div class="flex">'
+                        options = '<div class="flex">';
+
                         for(var j = 0; j < vals.length; j++) {
 
                             options += '<button data-id="' + res.features[i].id + '" data-val="' + vals[j] + '" name="productOption"';
@@ -385,7 +425,6 @@
                                     finalAvailableCount = counts[j];
                                     showAvailableCount(parseInt(finalAvailableCount));
                                 }
-                                
                             }
                             else {
                                 if(prices != null)
@@ -393,44 +432,39 @@
                                 else
                                     options += 'data-count="' + counts[j] + '" id="productOption0' + j + '">';
                             }
-
                             options += vals[j] + "</button>";
-
                         }
 
                         options += "</div>";
-
                     }
                     else {
-                        if(res.features[i].show_in_top == 1) {
-                            property += '<li><span class="label colorBlueWhite px-1">' + res.features[i].name + '</span><span> : </span>';
-                            property += '<span class="title px-1">' + res.features[i].value + '</span></li>';
+                        if(res.features[i].show_in_top == 1 || 1 == 1) {
+                            // property += '<li><span class="label colorBlueWhite px-1">' + res.features[i].name + '</span><span> : </span>';
+                            // property += '<span class="title px-1">' + res.features[i].value + '</span></li>';
+                            
+                            property += '<option value="' + res.features[i].value + '">' + res.features[i].name + '</option>';
                         }
+
                         params += '<li>';
                         params += '<span class="param-title colorBlueWhite font600">' + res.features[i].name + '</span>';
                         params += '<span class="param-value fontSize16">' + res.features[i].value + '</span>';
                         params += '</li>';
+                    
+                        }   
                     }
 
-                }
-                $("#params-list-div").empty().append(params);
-                $("#property").empty().append(property);
-
-                
-
-                if(colors != '')
+                    $("#params-list-div").empty().append(params);
+                    
+                    
+                    if(colors != '')
                     $("#product-colors-variants").empty().append(colors);
-
-                if(options !== '')
-                    $("#property").append(options);
-                //getInnerHeight
-                    heightTag = $('#getInnerHeight').height();
-                    alert(heightTag);
-                    if (heightTag < 400) {
-                        $('#checkHeight').css('height','auto');
-                    }else{
-                        $('#checkHeight').css('height','400px');
-                    }
+                    
+                    console.log('====================================');
+                    console.log(property);
+                    console.log('====================================');
+                    $("#sizes").empty().append(property);
+                        
+                
             }
         });
 

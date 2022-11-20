@@ -89,7 +89,7 @@
                 margin-left: 15px;
                 margin-bottom: 10px;
                 cursor: pointer;
-                opacity: .7;
+                opacity: 0.7;
 
                 &:last-child {
                     margin-left: 0;
@@ -104,7 +104,7 @@
                         position: absolute;
                         width: 35px;
                         height: 35px;
-                        background-color: rgba(115, 114, 115, .6);
+                        background-color: rgba(115, 114, 115, 0.6);
                         border-radius: 50%;
                         font-size: 21px;
                     }
@@ -155,7 +155,7 @@
         position: relative;
 
         &::before {
-            content: '';
+            content: "";
             position: absolute;
             right: 0;
             width: 100%;
@@ -509,7 +509,7 @@
         .suppliers-item-col--action {
             text-align: left;
 
-            @media(max-width: 480px) {
+            @media (max-width: 480px) {
                 .btn {
                     display: flex;
                     background-color: $color-primary;
@@ -536,7 +536,7 @@
             transition: unset;
 
             &::after {
-                content: '';
+                content: "";
                 position: absolute;
                 right: 0;
                 left: 0;
@@ -574,7 +574,7 @@
                 display: flex;
                 line-height: 50px;
 
-                @media (max-width:576px) {
+                @media (max-width: 576px) {
                     flex-wrap: wrap;
                 }
 
@@ -583,7 +583,7 @@
                     font-weight: bold;
                     color: #a1a3a8;
 
-                    @media (max-width:576px) {
+                    @media (max-width: 576px) {
                         flex: 0 0 100%;
                     }
                 }
@@ -597,7 +597,6 @@
 
     &.product-content-expert-summary,
     &.product-content-expert-articles {
-
         h1,
         h2,
         h3,
@@ -961,7 +960,7 @@
         .slider-handle {
             width: 19px;
             height: 19px;
-            box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .2);
+            box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
             background: #35ccde;
             top: -3px;
         }

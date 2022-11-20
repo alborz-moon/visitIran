@@ -10,7 +10,7 @@
     </span>
     <div class="row">
         <div class="col-sm-12 col-md-3 mb-3">
-            <select class="select2 seachbar-select w-100" placeholder="asdf" name="state">
+            <select class="select2 seachbar-select w-100" placeholder="" name="state">
                 <option selected value="1">نام رویداد</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
@@ -18,7 +18,7 @@
             </select>
         </div>
         <div class="col-sm-12 col-md-3 mb-3">
-            <select class="select2 seachbar-select w-100" aria-placeholder="asdadw" name="">
+            <select class="select2 seachbar-select w-100" aria-placeholder="" name="">
                 <option selected value="1">برگزار کننده</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
@@ -26,7 +26,7 @@
             </select>
         </div>
         <div class="col-sm-12 col-md-3 mb-3">
-            <select class="select2 seachbar-select w-100" aria-placeholder="asdadw" name="">
+            <select class="select2 seachbar-select w-100" aria-placeholder="" name="">
                 <option selected value="1">محل برگزاری</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
@@ -36,7 +36,7 @@
         <div class="col-sm-6 col-md-2 mb-3">
             <label class="tripCalenderSection">
                 <span class="calendarIcon"></span>
-                <input id="date_input_start" class="tripDateInput form-control customBackgroundWhite" placeholder="تاریخ برگزاری" required readonly type="text">
+                <input id="date_input_start" class="tripDateInput form-control customBackgroundWhite customSearchBorder" placeholder="تاریخ برگزاری" required readonly type="text">
             </label>
         </div>
         <div class="col-sm-6 col-md-1 mb-3 m-auto">

@@ -622,6 +622,9 @@ ul {
 .paddingRight15 {
     padding-right: 15px;
 }
+.margin6 {
+    margin: 6px !important;
+}
 .colorYellow {
     color: #c59358 !important;
 }
@@ -718,6 +721,7 @@ ul {
 .cardBlog {
     height: 400px;
     background-color: white;
+    /* margin-bottom: 12px !important; */
     transition: 0.3s linear;
     -webkit-transition: 0.3s cubic-bezier(0, 0, 0.14, 0.12);
     -moz-transition: 0.3s linear;
@@ -836,6 +840,15 @@ ul {
 .customArrowLeftIcon {
     bottom: 20px;
     left: 23px;
+    transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    -webkit-transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    -moz-transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    -ms-transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    -o-transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    -webkit-transition: 0.3s;
+}
+.customArrowLeftIcon:hover {
+    background-color: #212121 !important;
 }
 .customArrowRightIcon {
     bottom: 20px;
@@ -869,8 +882,11 @@ ul {
     color: #c59358;
 }
 .product-gallery {
-    border: 1px solid #efefef;
-    box-shadow: 0 3px 6px 0 #00000029;
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    -ms-border-radius: 0 !important;
+    -o-border-radius: 0 !important;
 }
 .product-gallery .gallery-thumbs ul li img {
     width: 65px;
@@ -955,13 +971,18 @@ ul {
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
 }
-.product-gallery .gallery-thumbs ul li:last-child::before {
-    content: "\EF78";
-    font-family: remixicon;
-    content: "مشاهده عکس ها";
+
+.notMoreImg::before {
+    content: unset !important;
+}
+.moreImg::before {
+    content: "\EF78" !important;
+    /* font-family: remixicon;
+
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: flex-end;
@@ -969,21 +990,22 @@ ul {
     -ms-flex-pack: center;
     justify-content: center;
     color: #fff;
+
     position: absolute;
     width: 65px;
     height: 65px;
     background-color: rgba(115, 114, 115, 0.541);
     border-radius: 0%;
     font-size: 11px;
+
     padding-bottom: 10px;
     -webkit-border-radius: 0%;
     -moz-border-radius: 0%;
     -ms-border-radius: 0%;
-    -o-border-radius: 0%;
-    font-family: IRANSans;
-    font-weight: bold;
+    -o-border-radius: 0%; */
 }
-.product-gallery .gallery-thumbs ul li:last-child::after {
+
+/* .product-gallery .gallery-thumbs ul li:last-child::after {
     content: "\EF78";
     font-family: remixicon;
     -webkit-box-align: center;
@@ -1005,7 +1027,7 @@ ul {
     -o-border-radius: 50%;
     margin-bottom: 20px;
     padding: 1px 4px 0px 0px;
-}
+} */
 
 .customImgNews {
     max-width: 300px !important;
@@ -1282,6 +1304,16 @@ figure .ck-widget {
     height: 200px;
     max-width: 200px !important;
 }
+.textAlignJustify {
+    text-align: justify;
+}
+.customSearchBorder {
+    border-color: #cbcbcb;
+    margin-left: 5px !important;
+}
+.product-card .product-title {
+    height: 40px;
+}
 .product-detail-container .product-title {
     height: 62px;
     font-size: 20px;
@@ -1508,6 +1540,29 @@ figure .ck-widget {
 }
 .colorText {
     color: #555a5d !important;
+}
+#intro-container-parent {
+    max-height: 450px;
+    overflow: hidden;
+    position: relative;
+}
+#intro-container {
+    max-height: 400px;
+    overflow: hidden;
+    line-height: 35px;
+    font-weight: 500;
+    font-size: 14px;
+}
+.max-height-auto {
+    max-height: 100000px !important;
+}
+.show-more,
+.show-less,
+.link {
+    color: #00b2bc;
+}
+.link {
+    border-bottom: 0;
 }
 /* .checkout-bill .checkout-bill-row .checkout-bill-row-label {
     color: #555a5d !important;

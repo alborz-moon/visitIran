@@ -26,13 +26,13 @@
                                         <a href="#" class="colorRed fontSize12 align-self-center">حذف نتایج</a>
                                     </div>
                                     <div id="total_count" class="colorBlue fontSize8 align-self-center"></div>
-                                    {{-- <div class="widget-content widget--category-results">
+                                    <div class="widget-content widget--category-results">
                                         <ul>
                                             <li class="category--arrow-left">
                                                 <a href="#">دسته بندی کالا ها</a>
                                                 <ul>
                                                     <li class="category--arrow-down">
-                                                        @if($parent != null)
+                                                        @if(isset($parent) && $parent != null)
                                                             <a href="{{ $parent['href'] }}">{{ $parent['label'] }}</a>
                                                         @endif
                                                         <ul>
@@ -42,7 +42,7 @@
                                                 </ul>
                                             </li>
                                         </ul>
-                                    </div> --}}
+                                    </div>
                                 </div>
                                 <!-- start of widget -->
                                 <div class="widget mb-3">
@@ -50,12 +50,12 @@
                                         <form action="#">
                                             <div class="form-element-row">
                                                 <select id="orderBy" class="form-select b-0 p-2" aria-label="Default select example">
-                                                  <option selected value="price_desc">گران ترین</option>
-                                                  <option value="price_asc">ارزان ترین</option>
-                                                  <option value="createdAt_desc">جدید ترین</option>
-                                                  <option value="rate_desc">محبوب ترین</option>
-                                                  <option value="sell_count_desc">پرفروش ترین</option>
-                                                  <option value="seen_desc">پربازدید ترین</option>
+                                                  <option {{isset($orderBy) && $orderBy === 'price' ? 'selected' : ''}} value="price_desc">گران ترین</option>
+                                                  <option {{isset($orderBy) && $orderBy === 'price' ? 'selected' : ''}} value="price_asc">ارزان ترین</option>
+                                                  <option {{isset($orderBy) && $orderBy === 'createdAt' ? 'selected' : ''}} value="createdAt_desc">جدید ترین</option>
+                                                  <option {{isset($orderBy) && $orderBy === 'rate' ? 'selected' : ''}} value="rate_desc">محبوب ترین</option>
+                                                  <option {{isset($orderBy) && $orderBy === 'sellCount' ? 'selected' : ''}} value="sell_count_desc">پرفروش ترین</option>
+                                                  <option {{isset($orderBy) && $orderBy === 'seen' ? 'selected' : ''}} value="seen_desc">پربازدید ترین</option>
                                                 </select>
                                             </div>
                                         </form>
@@ -558,8 +558,10 @@ $(".child input").on('click',function(){
     function buildQuery() {
         
         let query = new URLSearchParams();
-        query.append('parent', '{{ $id }}');
-        
+        @if(isset($id))
+            query.append('parent', '{{ $id }}');
+        @endif
+
         // let brand = $("#brandFilter").val();
         let off = $("#has_selling_offs").prop('checked') ? 1 : 0;
         let min = $("#has_selling_stock").prop('checked') ? 1 : 0;

@@ -98,20 +98,10 @@ class CategoryController extends Controller
 
     }
 
-    public function show(Category $category=null, Request $request) {
+    public function show(Category $category, Request $request) {
         
-        if($category != null && !$category->visibility)
+        if(!$category->visibility)
             return Redirect::route('403');
-
-        if($category == null)
-        
-        return view('shop.list', [
-            'path' => [],
-            'parent' => null,
-            'name' => '',
-            'id' => -1,
-            'features' => []
-        ]);
 
         $path = [
             [
@@ -144,6 +134,20 @@ class CategoryController extends Controller
             'features' => FeatureResourceUser::collection($category->features()->multiChoice()->get())->toArray($request)
         ]);
     }
+
+    
+    public function allCategories(string $orderBy, Request $request) {
+        
+        
+        return view('shop.list', [
+            'path' => [],
+            'orderBy' => $orderBy,
+            'name' => 'تازه ترین ها',
+            'features' => []
+        ]);
+
+    }
+
 
     public function sub(Category $category, Request $request) {
         return view('admin.category.list', [

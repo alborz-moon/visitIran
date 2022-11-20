@@ -42,6 +42,21 @@
             <input id="date_input_start" class="tripDateInput" placeholder="13xx/xx/xx" required readonly type="text">
         </label>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">1</div>
+            <div class="col-4">2</div>
+            <div class="col-4">3</div>
+        </div>
+        <div class="row">
+            <div class="col-2">1</div>
+            <div class="col-2">2</div>
+            <div class="col-2">3</div>
+            <div class="col-2">4</div>
+            <div class="col-2">5</div>
+            <div class="col-2">6</div>
+        </div>
+    </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
   let lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));

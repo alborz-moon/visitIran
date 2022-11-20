@@ -18,9 +18,9 @@
 
 @stop
 @section('content')
-            <main class="page-content">
+            <main class="page-content TopParentBannerMoveOnTop">
             <div class="container">
-                <h3 class="mt-2 mb-5">اخبار</h3>
+                <h3 class="mt-4 mb-2">اخبار</h3>
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-9 col-md-8 col-sm-12 mb-4">
@@ -29,7 +29,7 @@
                             </div>
                             <div class="d-flex spaceBetween overFlowHidden mx-3 mt-3">
                                 <p>{{ $blog['created_at'] }}</p>
-                                <p class="border px-4 py-1 borderRadius15">{{ $blog['created_at'] }}</p>
+                                <p class="border px-4 py-1 borderRadius15">{{ $blog['tags'] }}</p>
                             </div>
                             <hr>
                             <h3 class="my-5">{{ $blog['header'] }}</h3>
