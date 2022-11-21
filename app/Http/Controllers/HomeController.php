@@ -56,10 +56,7 @@ class HomeController extends Controller
             'state_id' => 'required|exists:mysql2.states,id'
         ];
 
-        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
-            return abort(401);
-
-        $validator = Validator::make($request->route()->parameters(), $validator);
+        $validator = Validator::make($request->query(), $validator);
 
         if ($validator->fails()) {
                 return response()->json($validator->errors(), 400);
