@@ -54,6 +54,8 @@ Route::domain(Controller::$SHOP_SITE)->group(base_path('routes/shop_general_rout
 
 Route::domain(Controller::$EVENT_SITE)->group(base_path('routes/event_general_routes.php'));
 
-Route::resource('form', FormController::class)->only('index', 'store', 'update', 'destroy');
+Route::resource('form', FormController::class)->only('index', 'store', 'destroy');
+
+Route::post('form/{form}', [FormController::class, 'update']);
 
 Route::get('get-all-states', [FormController::class, 'getAllStates']);
