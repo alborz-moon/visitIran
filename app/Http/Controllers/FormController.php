@@ -77,7 +77,7 @@ class FormController extends Controller
         $request->validate($validator);
 
         foreach($request->keys() as $key)
-            $form[$key] = $request[$key];
+            $product[$key] = $request[$key];
 
         $form->save();
         return response()->json([
