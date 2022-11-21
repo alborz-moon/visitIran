@@ -59,7 +59,7 @@ class HomeController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $validator = Validator::make($request->all(), $validator);
+        $validator = Validator::make($request->route()->parameters(), $validator);
 
         if ($validator->fails()) {
                 return response()->json($validator->errors(), 400);
