@@ -89,7 +89,7 @@ class FormController extends Controller
         ];
 
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
-            abort(401);
+            return abort(401);
 
 
         $validator = Validator::make($request->all(), $validator);
@@ -99,7 +99,7 @@ class FormController extends Controller
         }
 
         foreach($request->keys() as $key)
-            $product[$key] = $request[$key];
+            $form[$key] = $request[$key];
 
         $form->save();
         return response()->json([
