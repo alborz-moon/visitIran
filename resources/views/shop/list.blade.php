@@ -2,15 +2,12 @@
 @extends('layouts.structure')
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
-            <div class="container">
+            <div class="container mt-3">
                 <div class="row">
                     <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar">
                         {{-- @include('sections.top_categories_products') --}}
-                        <div class="ui-sticky ui-sticky-top">
-                            <div class="ui-box sidebar-widgets customFilter ">
-
-                                <!-- start of breadcrumb -->
-                                <ol class="breadcrumb">
+                        <!-- start of breadcrumb -->
+                                <ol class="breadcrumb mt-1">
                                     @foreach ($path as $itr)
                                         <li class="breadcrumb-item">
                                             <a href="{{ $itr['href'] }}">{{ $itr['label'] }}</a>
@@ -18,14 +15,15 @@
                                     @endforeach
                                 </ol>
                                 <!-- end of breadcrumb -->
-
+                        <div class="ui-sticky ui-sticky-top">
+                            <div class="ui-box sidebar-widgets customFilter ">
                                 <!-- start of widget -->
                                 <div class="widget mb-3">
                                     <div class="spaceBetween">
-                                        <div class="widget-title m-0 b-0">فیلتر <span class="fontSize8 colorBlue">3 فیلتر</span></div>
+                                        <div class="widget-title m-0 b-0">فیلتر <span class="fontSize12 colorBlue">3 فیلتر</span></div>
                                         <a href="#" class="colorRed fontSize12 align-self-center">حذف نتایج</a>
                                     </div>
-                                    <div id="total_count" class="colorBlue fontSize8 align-self-center"></div>
+                                    <div id="total_count" class="colorBlue fontSize12 align-self-center"></div>
                                     <div class="widget-content widget--category-results">
                                         <ul>
                                             <li class="category--arrow-left">
@@ -44,6 +42,60 @@
                                         </ul>
                                     </div>
                                 </div>
+                            <!-- start of widget -->
+                                <div class="widget widget-collapse mb-3">
+                                    <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseGrouping9" aria-expanded="false"
+                                        aria-controls="collapseGrouping9" role="button">فروشنده<i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span></div>
+                                    <div class="widget-content widget--search collapse" id="collapseGrouping9">
+                                        <form action="#" class="pt-2">
+                                            <div class="filter-options do-simplebar pt-2 mt-2">
+                                                @foreach ($features as $feature)
+                                                    <div class="parent form-check">
+                                                        <input class="form-check-input" type="checkbox" value=""/>{{ $feature['name'] }}
+                                                        <ul class="child form-check">
+                                                            @foreach ($feature['choices'] as $choice)
+                                                                <li class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" value="" />{{ $choice['key'] }}
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                @endforeach
+                                                <div id="brands"></div>
+                                                <div id="sellers"></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- start of widget -->
+                                <!-- start of widget -->
+                                <div class="widget widget-collapse mb-3">
+                                    <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseGrouping8" aria-expanded="false"
+                                        aria-controls="collapseGrouping8" role="button">برند<i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span></div>
+                                    <div class="widget-content widget--search collapse" id="collapseGrouping8">
+                                        <form action="#" class="pt-2">
+                                            <div class="filter-options do-simplebar pt-2 mt-2">
+                                                @foreach ($features as $feature)
+                                                    <div class="parent form-check">
+                                                        <input class="form-check-input" type="checkbox" value=""/>{{ $feature['name'] }}
+                                                        <ul class="child form-check">
+                                                            @foreach ($feature['choices'] as $choice)
+                                                                <li class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" value="" />{{ $choice['key'] }}
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                @endforeach
+                                                <div id="brands"></div>
+                                                <div id="sellers"></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- start of widget -->
                                 <!-- start of widget -->
                                 <div class="widget mb-3">
                                     <div class="widget-title b-0" > نحوه نمایش :</div>
@@ -79,7 +131,7 @@
                                 <div class="widget widget-collapse mb-3">
                                     <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
                                         data-bs-target="#collapseGrouping" aria-expanded="false"
-                                        aria-controls="collapseGrouping" role="button">دسته بندی <i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize8">1 فیلتر</span></div>
+                                        aria-controls="collapseGrouping" role="button">دسته بندی <i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span></div>
                                     <div class="widget-content widget--search collapse" id="collapseGrouping">
                                         <form action="#" class="pt-2">
                                             <div class="filter-options do-simplebar pt-2 mt-2">
@@ -101,7 +153,6 @@
                                         </form>
                                     </div>
                                 </div>
-
                                 <!-- start of widget -->
                                 <div class="widget widget-collapse">
                                     <div class="widget-title widget-title--collapse-btn" data-bs-toggle="collapse"
@@ -172,10 +223,10 @@
                                     <!-- start of tab-pane -->
                                     <div class="tab-pane fade show active" id="most-visited" role="tabpanel"
                                         aria-labelledby="most-visited-tab">
-                                        <div class="ui-box pt-3 pb-0 px-0 mb-4">
+                                        <div class="ui-box pb-0 px-0 mb-4">
                                             <div class="ui-box-content p-0">
                                                 <div class="row mx-0">
-                                                    
+                                                    <div id="nothingToShow" class="hidden">محصولی برای نمایش موجود نیست</div>
                                                     <div id="sample_product_div" class="hidden">
                                                         @include('shop.productCard', ['key' => 'sample'])
                                                     </div>
@@ -634,7 +685,13 @@ $(".child input").on('click',function(){
                     
                     if(res.status !== "ok")
                         return;
-                    
+                        var length = res.data.length
+
+                        if (length == 0){
+                            $("#shimmer").addClass('hidden');
+                            $('#nothingToShow').removeClass('hidden')
+                            return
+                        }
                     let html = renderProducts(res.data, 'sample');
                     $("#products_div").empty().append(html).removeClass('hidden');
                     $("#shimmer").addClass('hidden');

@@ -1,12 +1,11 @@
 @extends('layouts.structure')
 
 @section('seo')
-    <title>غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال</title>
-    <meta property="og:title" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
-    <meta name="twitter:title" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
-    <meta property="og:site_name" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
+    <title>ویزیت ایران | {{ $product['name'] }}</title>
+    <meta property="og:title" content="{{ $product['name'] }}" />
+    <meta name="twitter:title" content="{{ $product['name'] }}" />
+    <meta property="og:site_name" content="{{ $product['name'] }}" />
 
-    
     <meta property="og:image" content="{{ $product['img'] }}"/>
     <meta property="og:image:secure_url" content="{{ $product['img'] }}"/>
     <meta name="twitter:image" content="{{ $product['img'] }}"/>
@@ -89,17 +88,18 @@
                             <div id="dynamic_multi_choice_features">
                                 
                             </div>
-                            <ul class="" >
-                            </ul>
-                            <select id="sizes" class="select2 w-100"></select>
-                            <div class="expandable-text mb-3" style="height: 260px;">
+
+                            <div class="expandable-text mb-3" style="height: 200px;">
                                 <div class="expandable-text_text">
                                     <div class="product-params">
                                         <div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18 whiteSpaceNoWrap">ویژگی ها
-                                            <div class="line mr-15"></div> 
+                                            <div class="line mr-15"></div>  
                                         </div>
 
+                                        <ul id="properties" >
+                                        </ul>
                                     </div>
+
                                 </div>
                                 <div class="mb-3 mt-3">
                                     <div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18">توضیحات  
@@ -298,7 +298,6 @@
                 // }
 
 
-                let options = '';
                 let colors = '';
                 let property = '';
                 let params = '';
@@ -386,85 +385,87 @@
                         res.features[i].price !== null
                     ) {
                         
-                        $("#dynamic_multi_choice_features").append(
-                            '<div class="product-variant-selected-container spaceBetween hidden" >' +
-                            '<div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18">' + res.features[i].name + '</div>' +
-                            '<div class="line mr-15 ml-15"></div>' +
-                            '<div id="selected_option_for_feature_' + res.features[i].id + '"></div>' +
-                            '</div>'
-                        );
-
                         let unit = res.features[i].value.split(' ');
                         if(unit.length > 1)
                             unit = unit[1];
                         else
                             unit = undefined;
 
+                        let optionHtml = '<div class="product-variant-selected-container spaceBetween hidden" >' +
+                            '<div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18">' + res.features[i].name + '</div>' +
+                            '<div class="line mr-15 ml-15"></div>' +
+                            '<div><span id="selected_option_for_feature_' + res.features[i].id + '"></span><span>&nbsp;</span>';
+
+                        if(unit !== undefined)
+                            optionHtml += '<span>' + unit + '</span>';
+
+                        optionHtml += '</div>';
+                        optionHtml += '</div>';
+                        optionHtml += '<select name="productOption" data-id="' + res.features[i].id + '" id="dynamic_options_' + res.features[i].id + '" class="select2 form-control widthAuto mb-4"></select>';
+
+                        $("#dynamic_multi_choice_features").append(optionHtml);
+
                         let vals = res.features[i].value.split('__')[0].split("$$");
                         
                         let prices = res.features[i].price == null ? null : res.features[i].price.split("$$");
                         let counts = res.features[i].available_count == null ? null : res.features[i].available_count.split("$$");
 
-                        options = '<div class="flex">';
+                        let sizes = "";
 
                         for(var j = 0; j < vals.length; j++) {
 
-                            options += '<button data-id="' + res.features[i].id + '" data-val="' + vals[j] + '" name="productOption"';
+                            sizes += '<option value="' + vals[j] + '" ';
+
                             if(j == 0) {
 
                                 $('#selected_option_for_feature_' + res.features[i].id).empty().append(vals[0]);
                                 wantedFeature = vals[0];
 
                                 if(prices != null) {
-                                    options += 'data-price="' + prices[j] + '" id="productOption0' + j + '" class="selected">';
+                                    sizes += 'data-price="' + prices[j] + '"';
                                     $(".price").empty().append(prices[j]);
                                     finalPrice = prices[j];
                                 }
                                 else {
-                                    options += 'data-count="' + counts[j] + '" id="productOption0' + j + '" class="selected">';
+                                    sizes += 'data-count="' + counts[j] + '"';
                                     finalAvailableCount = counts[j];
                                     showAvailableCount(parseInt(finalAvailableCount));
                                 }
                             }
                             else {
                                 if(prices != null)
-                                    options += 'data-price="' + prices[j] + '" id="productOption0' + j + '">';
+                                    sizes += 'data-price="' + prices[j] + '"';
                                 else
-                                    options += 'data-count="' + counts[j] + '" id="productOption0' + j + '">';
+                                    sizes += 'data-count="' + counts[j] + '"';
                             }
-                            options += vals[j] + "</button>";
-                        }
-
-                        options += "</div>";
-                    }
-                    else {
-                        if(res.features[i].show_in_top == 1 || 1 == 1) {
-                            // property += '<li><span class="label colorBlueWhite px-1">' + res.features[i].name + '</span><span> : </span>';
-                            // property += '<span class="title px-1">' + res.features[i].value + '</span></li>';
                             
-                            property += '<option value="' + res.features[i].value + '">' + res.features[i].name + '</option>';
+                            sizes += '>' + vals[j] + '</option>';
                         }
 
-                        params += '<li>';
-                        params += '<span class="param-title colorBlueWhite font600">' + res.features[i].name + '</span>';
-                        params += '<span class="param-value fontSize16">' + res.features[i].value + '</span>';
-                        params += '</li>';
+                        $("#dynamic_options_" + res.features[i].id).append(sizes);
+                    }
                     
-                        }   
+                    else if(res.features[i].show_in_top == 1) {
+                        
+                        property += '<li><span class="label colorBlueWhite px-1">' + res.features[i].name + '</span><span> : </span>';
+                        property += '<span class="title px-1">' + res.features[i].value + '</span></li>';
+                        
                     }
 
-                    $("#params-list-div").empty().append(params);
-                    
-                    
-                    if(colors != '')
-                    $("#product-colors-variants").empty().append(colors);
-                    
-                    console.log('====================================');
-                    console.log(property);
-                    console.log('====================================');
-                    $("#sizes").empty().append(property);
-                        
+                    params += '<li>';
+                    params += '<span class="param-title colorBlueWhite font600">' + res.features[i].name + '</span>';
+                    params += '<span class="param-value fontSize16">' + res.features[i].value + '</span>';
+                    params += '</li>';
+                }
+
+                $("#params-list-div").empty().append(params);
                 
+                
+                if(colors != '')
+                    $("#product-colors-variants").empty().append(colors);
+                
+
+                $("#properties").append(property);
             }
         });
 
@@ -512,18 +513,21 @@
             $("#product-color-variant-selected").empty().append($(this).attr('data-val'));
         });
 
-        $(document).on("click","button[name='productOption']", function() {
+        $(document).on("change","select[name='productOption']", function() {
+            
+            let selectedOption = $(this).find(":selected");
 
-            if($(this).attr('data-price') !== undefined) {
-                finalPrice = $(this).attr('data-price');
+            if(selectedOption.attr('data-price') !== undefined) {
+                finalPrice = selectedOption.attr('data-price');
                 $(".price").empty().append(finalPrice);
             }
             else {
-                finalAvailableCount = $(this).attr('data-count');
+                finalAvailableCount = selectedOption.attr('data-count');
                 showAvailableCount(parseInt(finalAvailableCount));
             }
             
-            wantedFeature = $(this).attr('data-val');
+            wantedFeature = selectedOption.text();
+            
             $('#selected_option_for_feature_' + $(this).attr('data-id')).empty().append(wantedFeature);
 
         });

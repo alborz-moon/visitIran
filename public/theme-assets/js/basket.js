@@ -130,6 +130,11 @@ function replaceIds(prefix, newElem, id, complete = false) {
 }
 
 function refreshBasket() {
+    let basketItems = JSON.parse(window.localStorage.getItem("basket")).length;
+    if (basketItems > 0) {
+        $("#basketItems").removeClass("hidden").text(basketItems);
+    }
+
     let basket = window.localStorage.getItem("basket");
 
     if (basket === null || basket === undefined) {

@@ -1070,6 +1070,36 @@ ul {
 .page-header .page-header--bottom .vertical-menu:hover .vertical-menu-items {
     margin-right: -285px;
 }
+#nothingToShow {
+    width: 100%;
+    height: calc(100vh - 100px);
+    color: #555a5d;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.user-options
+    .user-option
+    .mini-cart
+    .mini-cart-products
+    .mini-cart-product
+    .mini-cart-product-detail
+    .mini-cart-purchase-info
+    .mini-cart-product-meta
+    span::after {
+    content: "";
+    margin-right: 5px;
+    margin-left: 5px;
+}
+.page-header
+    .page-header--bottom
+    .vertical-menu
+    .vertical-menu-items
+    .mega-menu
+    li.parent {
+    padding: 0px 0;
+}
 .customIconTag {
     vertical-align: -6px;
 }
@@ -1123,7 +1153,11 @@ select:focus-visible {
 .ui-sticky.ui-sticky-top {
     top: 150px;
 }
-.btnHover:hover {
+.btnHover:hover .textColor {
+    color: #c59358 !important;
+}
+.btnHover:hover,
+.btnHover .hoverGold:hover {
     color: #c59358 !important;
 }
 /* icon Hover */
@@ -1540,6 +1574,36 @@ figure .ck-widget {
 }
 .colorText {
     color: #555a5d !important;
+}
+.widthAuto {
+    width: auto;
+}
+.addBasket {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    background-color: red;
+    border-radius: 50%;
+    top: -5px;
+    left: -10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 12px;
+}
+.customBasket:hover {
+    transform: rotate(30deg);
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+}
+.customRemoveBtn {
+    background-color: #fff !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 #intro-container-parent {
     max-height: 450px;
