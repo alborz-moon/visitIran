@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\FormResource;
 use App\Models\Form;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule as ValidationRule;
 
 class FormController extends Controller
@@ -30,7 +31,6 @@ class FormController extends Controller
      */
     public function store(Request $request)
     {
-        
         $validator = [
             'first_name' => 'required|string|min:2',
             'last_name' => 'required|string|min:2',
@@ -41,9 +41,14 @@ class FormController extends Controller
         ];
 
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
-            abort(401);
+            return abort(401);
 
-        $request->validate($validator);
+
+	$validator = Validator::make($request->all(), $validator);
+
+	if ($validator->fails()) {
+    		return response()->json($validator->errors(), 400);
+	}
 
         $form = Form::create($request->toArray());
         return response()->json([

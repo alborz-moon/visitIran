@@ -14,9 +14,9 @@ class AddNameAndPhoneToLaunchersTable extends Migration
     public function up()
     {
         Schema::connection('mysql2')->table('launchers', function (Blueprint $table) {
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('phone')->unique();
+//            $table->string('first_name');
+//            $table->string('last_name');
+//            $table->string('phone')->unique();
         });
     }
 
@@ -28,10 +28,10 @@ class AddNameAndPhoneToLaunchersTable extends Migration
     public function down()
     {
         Schema::connection('mysql2')->table('launchers', function (Blueprint $table) {
-            $table->dropColumn('first_name');
-            $table->dropColumn('last_name');
-            $table->dropUnique(['phone']);
-            $table->dropColumn('phone');
+//            $table->dropColumn('first_name');
+//            $table->dropColumn('last_name');
+//            $table->dropUnique(['phone']);
+//            $table->dropColumn('phone');
         });
     }
 }
