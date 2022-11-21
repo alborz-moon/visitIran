@@ -14,6 +14,20 @@ class FormResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        
+        $city = $this->city;
+
+        return [
+            'id' => $this->id,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'bio' => $this->bio,
+            'phone' => $this->phone,
+            'role' => $this->role,
+            'city' => [
+                'id' => $city->id,
+                'name' => $city->name
+            ]
+        ];
     }
 }

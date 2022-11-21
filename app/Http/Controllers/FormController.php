@@ -4,12 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\FormResource;
 use App\Models\Form;
+use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule as ValidationRule;
 
 class FormController extends Controller
 {
+
+    public function getAllStates() {
+        
+        $states = State::all();
+        return response()->json([
+            'status' => 'ok',
+            'data' => $states
+        ]);
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -44,11 +56,11 @@ class FormController extends Controller
             return abort(401);
 
 
-	$validator = Validator::make($request->all(), $validator);
+        $validator = Validator::make($request->all(), $validator);
 
-	if ($validator->fails()) {
-    		return response()->json($validator->errors(), 400);
-	}
+        if ($validator->fails()) {
+                return response()->json($validator->errors(), 400);
+        }
 
         $form = Form::create($request->toArray());
         return response()->json([
@@ -79,7 +91,12 @@ class FormController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
+
+        $validator = Validator::make($request->all(), $validator);
+
+        if ($validator->fails()) {
+                return response()->json($validator->errors(), 400);
+        }
 
         foreach($request->keys() as $key)
             $product[$key] = $request[$key];

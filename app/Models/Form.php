@@ -19,4 +19,9 @@ class Form extends Model
         'bio'
     ];
 
+
+    public function city() {
+        return $this->belongsTo(City::class);
+    }
+
 }
