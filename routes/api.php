@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FAQController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\SliderController;
@@ -52,3 +53,5 @@ Route::post('activate', [AuthController::class, 'activate'])->name('api.signup.v
 Route::domain(Controller::$SHOP_SITE)->group(base_path('routes/shop_general_routes.php'));
 
 Route::domain(Controller::$EVENT_SITE)->group(base_path('routes/event_general_routes.php'));
+
+Route::resource('form', FormController::class)->only('index', 'store', 'update', 'destroy');
