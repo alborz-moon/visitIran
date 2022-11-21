@@ -6,6 +6,7 @@ use App\Models\Config;
 use App\Models\State;
 use Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -51,9 +52,18 @@ class HomeController extends Controller
 
     public function getCities(Request $request) {
         
-        $request->validate([
+        $validator = [
             'state_id' => 'required|exists:mysql2.states,id'
-        ]);
+        ];
+
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $validator = Validator::make($request->all(), $validator);
+
+        if ($validator->fails()) {
+                return response()->json($validator->errors(), 400);
+        }
 
         return response()->json([
             'status' => 'ok',
