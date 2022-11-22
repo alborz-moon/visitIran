@@ -1,16 +1,13 @@
 @extends('layouts.structure')
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
-            <div class="container">
+            <div class="container mt-3">
                 <div class="row">
                     @include('event.layouts.searchbar')
                     <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar">
                         {{-- @include('sections.top_categories_products') --}}
-                        <div class="ui-sticky ui-sticky-top">
-                            <div class="ui-box sidebar-widgets customFilter ">
-
-                                <!-- start of breadcrumb -->
-                                <ol class="breadcrumb">
+                        <!-- start of breadcrumb -->
+                                <ol class="breadcrumb mt-1">
                                     {{-- @foreach ($path as $itr) --}}
                                     <li class="breadcrumb-item">
                                             <a href=""></a>
@@ -18,14 +15,15 @@
                                     {{-- @endforeach --}}
                                 </ol>
                                 <!-- end of breadcrumb -->
-
+                        <div class="ui-sticky ui-sticky-top">
+                            <div class="ui-box sidebar-widgets customFilter ">
                                 <!-- start of widget -->
                                 <div class="widget mb-3">
                                     <div class="spaceBetween">
-                                        <div class="widget-title m-0 b-0">فیلتر <span class="fontSize8 colorBlue">3 فیلتر</span></div>
+                                        <div class="widget-title m-0 b-0">فیلتر <span class="fontSize12 colorBlue">3 فیلتر</span></div>
                                         <a href="#" class="colorRed fontSize12 align-self-center">حذف نتایج</a>
                                     </div>
-                                    <div id="total_count" class="colorBlue fontSize8 align-self-center"></div>
+                                    <div id="total_count" class="colorBlue fontSize12 align-self-center"></div>
                                     {{-- <div class="widget-content widget--category-results">
                                         <ul>
                                             <li class="category--arrow-left">
@@ -79,7 +77,7 @@
                                 <div class="widget widget-collapse mb-3">
                                     <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
                                         data-bs-target="#collapseGrouping" aria-expanded="false"
-                                        aria-controls="collapseGrouping" role="button">دسته بندی <i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize8">1 فیلتر</span></div>
+                                        aria-controls="collapseGrouping" role="button">دسته بندی <i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span></div>
                                     <div class="widget-content widget--search collapse" id="collapseGrouping">
                                         <form action="#" class="pt-2">
                                             <div class="filter-options do-simplebar pt-2 mt-2">

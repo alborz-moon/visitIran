@@ -27,7 +27,7 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#00B2BC">
     {{-- logo --}}
-    <title>ویزیت ایران | خانه</title>
+    
     <link rel="stylesheet" href="{{ asset('theme-assets/css/dependencies.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/theme.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/visitiran.css') }}">
@@ -36,6 +36,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script src="{{ asset('theme-assets/js/dependencies/jquery-3.6.0.min.js') }}"></script>
     @section('seo')
+        <title>ویزیت ایران | خانه</title>
     @show
 
     @section('header')
@@ -77,7 +78,8 @@
                             </div>
                             <div class="user-option user-option--cart customBorderLeft1">
                                 <a href="{{route('cart')}}" class="user-option-btn user-option-btn--cart">
-                                    <i class="icon-visit-basket customHeader colorYellow"></i>
+                                    <i class="icon-visit-basket customHeader colorYellow customBasket"></i>
+                                    <div id="basketItems" class="addBasket hidden"></div>
                                 </a>
                                 <div class="mini-cart">
                                     
@@ -98,18 +100,18 @@
                                         @if(Auth::check())
                                             <a href="{{ route('cart') }}" class="btn btn-primary">ثبت سفارش</a>
                                         @else
-                                            <a href="{{ route('login') }}" class="btn btn-primary">ورود و ثبت سفارش</a>
+                                            <a href="{{ route('login-register') }}" class="btn btn-primary">ورود و ثبت سفارش</a>
                                         @endif
                                     </div>
                                 </div>
                             </div>
-                            <div class="user-option user-option--account  paddingRight15">
+                            <div class="user-option user-option--account  paddingRight15 btnHover">
                                 @if(!Auth::check())
-                                    <a href="{{ route('login-register') }}" class="user-option-btn user-option-btn--account gap10 btnHover textColor">
+                                    <a href="{{ route('login-register') }}" class="user-option-btn user-option-btn--account gap10 hoverGold textColor">
                                         <i class="icon-visit-person customHeader"></i>ورود / ثبت نام
                                     </a>
                                 @else
-                                    <a href="{{ route('profile.personal-info') }}" class="user-option-btn user-option-btn--account gap10 btnHover textColor">
+                                    <a href="{{ route('profile.personal-info') }}" class="user-option-btn user-option-btn--account gap10 hoverGold textColor">
                                         <i class="icon-visit-person customHeader"></i>صفحه شخصی
                                     </a>
                                     <div class="user-option--dropdown user-option--dropdown-right">
@@ -281,20 +283,20 @@
                             <a href="profile.html" class="user-option-btn user-option-btn--search gap10">
                                 <img class="customIconHeadLine" src="{{ asset('theme-assets/images/svg/search.svg') }}" alt="">
                             </a>
-                            <a href="{{route('cart')}}" class="user-option-btn user-option-btn--cart">
+                            <a href="{{route('cart')}}" class="user-option-btn user-option-btn--cart customBasket">
                                 <img class="customIconHeadLine" src=""{{ asset('theme-assets/images/svg/basket.svg') }} alt="">
                             </a>
                         </div>
                         <div class="page-header--top-left">
                             @if(!Auth::check())
-                                <a href="{{ route('login-register') }}" class="user-option-btn user-option-btn--account gap10 d-flex ">
-                                    <span class=" d-flex colorWhite fontSize10 align-self-center btnHover pl-2"> 
+                                <a href="{{ route('login-register') }}" class="user-option-btn user-option-btn--account gap10 d-flex btnHover">
+                                    <span class=" d-flex colorWhite fontSize10 align-self-center pl-2"> 
                                         <i class="icon-visit-person customHeader"></i>ورود / ثبت نام 
                                     </span>
                                 </a>
                             @else
-                                <a href="{{ route('profile') }}" class="user-option-btn user-option-btn--account gap10 d-flex ">
-                                    <span class=" d-flex colorWhite fontSize10 align-self-center btnHover pl-2"> 
+                                <a href="{{ route('profile') }}" class="user-option-btn user-option-btn--account gap10 d-flex btnHover">
+                                    <span class=" d-flex colorWhite fontSize10 align-self-center pl-2"> 
                                         <i class="icon-visit-person customHeader"></i>صفحه شخصی
                                     </span>
                                 </a>
