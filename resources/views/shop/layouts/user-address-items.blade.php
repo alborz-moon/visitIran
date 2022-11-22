@@ -3,7 +3,7 @@
     <div class="d-flex" id="user-address-items"></div>
     <div class="d-flex" id="newAddress">
         <div class="user-address-item user-add-address-btn-container">
-            <button onclick="emptyFields()" class="user-add-address-btn" data-remodal-target="add-address-modal-fields-with-map">
+            <button onclick="emptyFields()" class="user-add-address-btn heightAddressBox" data-remodal-target="add-address-modal-fields-with-map">
                 <i class="ri-add-line icon"></i>
                 <span>آدرس جدید</span>
             </button>
@@ -52,22 +52,28 @@
                         html +='<div id="address-card-' + res.data[i].id + '" class="user-address-item">';
                         html +='<div class="custom-radio-box">';
                         html +='<input type="radio" class="custom-radio-box-input" name="userAddress" value="' + res.data[i].id + '" id="userAddress' + res.data[i].id + '">';
-                        html +='<label for="userAddress' + res.data[i].id + '" class="custom-radio-box-label" data-placeholder="انتخاب به عنوان آدرس پیش فرض" data-placeholder-checked="آدرس پیش فرض من است">';
+
+                        if(res.data[i].is_default == 1)
+                            html +='<label id="selectedAddress" for="userAddress' + res.data[i].id + '" class="custom-radio-box-label heightAddressBox" data-placeholder="انتخاب پیش فرض" data-placeholder-checked="انتخاب شده">';
+                        else
+                            html +='<label id="selectedAddress" for="userAddress' + res.data[i].id + '" class="custom-radio-box-label heightAddressBox" data-placeholder-checked="انتخاب شده">';
+
                         html +='<span class="d-block user-address-recipient mb-2">' + res.data[i].name + '</span>';
-                        html +='<span class="d-block user-contact-items fa-num mb-3">';
-                        html +='<span class="user-contact-item"><i class="ri-phone-line icon"></i><span class="value">' + res.data[i].recv_phone + '</span></span>';
-                        html +='<span class="user-contact-item"><i class="ri-user-line icon"></i><span class="value">' + res.data[i].recv_name + res.data[i].recv_last_name + '</span></span>';
+                        html +='<span class="d-block user-contact-items fa-num mb-1">';
+                            html +='<span class="user-contact-item"><i class="icon-visit-person icon colorYellow fontSize18 mt-1"></i><span class="value textColor fontSize15">' + res.data[i].recv_name + res.data[i].recv_last_name + '</span></span>';
+                        html +='<span class="user-contact-item"><i class="icon-visit-mail icon colorYellow fontSize18 mt-1"></i><span class="value textColor fontSize15">' + res.data[i].recv_phone + '</span></span>';
+                        html +='<span class="user-contact-item"><i class="icon-visit-phone icon colorYellow fontSize18 mt-1"></i><span class="value textColor fontSize15">' + res.data[i].recv_phone + '</span></span>';
                         html +='</span>';
                         html +='<span class="d-flex align-items-center justify-content-end">';
-                        html +='<a href="#" data-id=' + res.data[i].id + ' class="remove-modal-address link border-bottom-0 fs-7 fw-bold" data-remodal-target="remove-from-addresses-modal">حذف</a>';
+                        html +='<a href="#" data-id=' + res.data[i].id + ' class="remove-modal-address link border-bottom-0 fs-7 fw-bold colorRed" data-remodal-target="remove-from-addresses-modal">حذف <i class="icon-visit-delete px-2 mt-1 mt-1 icon colorRed fontSize18"></i></a>';
                         html +='<span class="text-secondary mx-2">|</span>';
-                        html +='<a href="#" data-id=' + res.data[i].id + ' class="edit-modal-address link border-bottom-0 fs-7 fw-bold" data-remodal-target="add-address-modal-fields-with-map">ویرایش</a>';
+                        html +='<a href="#" data-id=' + res.data[i].id + ' class="edit-modal-address link border-bottom-0 fs-7 fw-bold" data-remodal-target="add-address-modal-fields-with-map"> ویرایش<i class="icon-visit-edit px-2 mt-1 mt-1 fontSize18"></i></a>';
                         html +='</span>';
                         html +='</label>';
                         html +='</div>';
                         html +='</div>';
                     }
-
+                    $('#selectedAddress').css('backgroundColor','#c59358')
                     $("#user-address-items").empty().append(html);
                 }
             }

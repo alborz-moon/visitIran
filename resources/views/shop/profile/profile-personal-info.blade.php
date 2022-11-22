@@ -1,8 +1,8 @@
 @extends('layouts.structure')
 
 @section('content')
-        <main class="page-content">
-            <div class="container">
+        <main class="page-content TopParentBannerMoveOnTop">
+            <div class="container mt-3">
                 <div class="row mb-5">
                     @include('shop.profile.layouts.profile_menu')
                     <div class="col-xl-9 col-lg-8 col-md-7">
@@ -11,60 +11,68 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <div  class="fs-7 fw-bold text-dark">نام و نام خانوادگی</div>
+                                        <div class="border-bottom py-1">
+                                            <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
+                                            <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between">
+                                                <input id="nameVal" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
                                                 <button class="btn btn-circle btn-outline-light"
-                                                    data-remodal-target="personal-info-fullname-modal"><i
-                                                        class="ri-ball-pen-fill"></i></button>
+                                                    data-remodal-target="personal-info-fullname-modal"><i class="ri-ball-pen-fill"></i>
+                                                </button>
                                             </div>
-                                            <div id="nameVal" class="fs-6 fw-bold text-muted">{{ $user->first_name . ' ' . $user->last_name }}</div>
+                                            {{-- {{ $user->nid != null ? $user->nid : '-' }} --}}
+                                            <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="border-bottom py-1">
+                                            <div  class="fs-7 text-dark">کد ملی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <div class="fs-7 fw-bold text-dark">کد ملی</div>
-                                                <button class="btn btn-circle btn-outline-light"
-                                                    data-remodal-target="personal-info-national-id-modal"><i
-                                                        class="ri-ball-pen-fill"></i></button>
+                                                <input onkeypress="return isNumber(event)" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
+                                                <button class="btn btn-circle btn-outline-light hidden">
+                                                    <i class="ri-ball-pen-fill"></i>
+                                                </button>
                                             </div>
-                                            <div id="nid" class="fs-6 fw-bold text-muted">{{ $user->nid != null ? $user->nid : '-' }}</div>
+                                            {{-- {{ $user->phone != null ? $user->phone : '-' }} --}}
+                                            <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="border-bottom py-1">
+                                            <div  class="fs-7 text-dark">شماره تلفن همراه</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <div class="fs-7 fw-bold text-dark">شماره تلفن همراه</div>
-                                                <button class="btn btn-circle btn-outline-light"
-                                                    data-remodal-target="personal-info-phone-number-modal"><i
-                                                        class="ri-ball-pen-fill"></i></button>
+                                                <input id="phone" type="tel" minlength="7"  maxlength="11" class="form-control " style="direction: rtl" placeholder="شماره تلفن همراه">
+                                                <button class="btn btn-circle btn-outline-light hidden">
+                                                    <i class="ri-ball-pen-fill"></i>
+                                                </button>
                                             </div>
-                                            <div id="phoneVal" class="fs-6 fw-bold text-muted">{{ $user->phone != null ? $user->phone : '-' }}</div>
+                                            {{-- {{ $user->nid != null ? $user->nid : '-' }} --}}
+                                            <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="border-bottom py-1">
+                                            <div  class="fs-7 text-dark">پست الکترونیک</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <div class="fs-7 fw-bold text-dark">پست الکترونیک</div>
-                                                <button class="btn btn-circle btn-outline-light"
-                                                    data-remodal-target="personal-info-email-modal"><i
-                                                        class="ri-ball-pen-fill"></i></button>
+                                                <input  onkeypress="return isEmail(event) || isNumber(event)" id="userEmail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
+                                                <button class="btn btn-circle btn-outline-light hidden" >
+                                                    <i class="ri-ball-pen-fill"></i>
+                                                </button>
                                             </div>
-                                            <div id="emailVal" class="fs-6 fw-bold text-muted">
-                                                {{ $user->mail != null ? $user->mail : '-' }}
-                                            </div>
+                                            {{-- {{ $user->mail != null ? $user->mail : '-' }} --}}
+                                            <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <div class="fs-7 fw-bold text-dark">تاریخ تولد</div>
+                                        <div class="border-bottom py-1">
+                                            <div  class="fs-7 text-dark">تاریخ تولد</div>
+                                            <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between">
+                                                <input id="brithdayVal" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد">
                                                 <button class="btn btn-circle btn-outline-light"
                                                     data-remodal-target="personal-info-birth-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
-                                            <div id="brithdayVal" class="fs-6 fw-bold text-muted">{{ $birth_day == null ? '' : $user->birth_day }}</div>
+                                            {{-- {{ $birth_day == null ? '' : $user->birth_day }} --}}
+                                            <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
                                     {{-- <div class="col-lg-6 mb-3">
@@ -197,7 +205,7 @@
                         <div class="col-4">
                             <div class="form-element-row">
                                 <label class="label fs-7">سال</label>
-                                <input value="{{ $birth_day != null ? $birth_day[0] : '' }}" id="Brithday_year" type="text" class="form-control" placeholder="">
+                                <input onkeypress="return isNumber(event)" minlength="4" maxlength="4" value="{{ $birth_day != null ? $birth_day[0] : '' }}" id="Brithday_year" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-4">
@@ -223,7 +231,7 @@
                         <div class="col-4">
                             <div class="form-element-row">
                                 <label class="label fs-7">روز</label>
-                                <input id="Brithday_day" value="{{ $birth_day != null ? $birth_day[2] : '' }}" type="text" class="form-control" placeholder="">
+                                <input id="Brithday_day" onkeypress="return isNumber(event)" minlength="2" maxlength="2" value="{{ $birth_day != null ? $birth_day[2] : '' }}" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -315,22 +323,19 @@
         function setValName() {
             var name = $('#first_name').val();
             var last = $('#last_name').val();
-            $('#nameVal').text(name + ' ' + last);
-            $(".remodal-close").click();
-        }
-
-        function setValPhone() {
-            $('#phoneVal').text($('#phone_info').val());
+            console.log('====================================');
+            console.log(name + ' ' + last);
+            console.log('====================================');
+            $('#nameVal').val(name + ' ' + last);
             $(".remodal-close").click();
         }
 
         function setValBrithday() {
-            
             var year = $('#Brithday_year').val();
             var month = $('#Brithday_month').val();
             var day =$('#Brithday_day').val();
 
-            $('#brithdayVal').text(year + '/' + month + '/' + day);
+            $('#brithdayVal').val(year + '/' + month + '/' + day);
             $(".remodal-close").click();
         }
 

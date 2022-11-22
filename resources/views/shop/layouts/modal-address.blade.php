@@ -12,7 +12,7 @@
             
                 <div class="row">
                     <!-- start of form-element -->
-                        <div class="form-element-row">
+                        <div class="form-element-row mb-3">
                             <label class="label fs-7">نام آدرس</label>
                             <input id="name" type="text" class="form-control" placeholder="نام">
                         </div>
@@ -62,7 +62,7 @@
                         <!-- start of form-element -->
                         <div class="form-element-row">
                             <label class="label fs-7">شماره موبایل</label>
-                            <input id="phone" type="text" class="form-control" placeholder="مثال: ۰۹۱۲۳۴۵۶۷۸۹">
+                            <input onkeypress="return isNumber(event)" minlength="8" maxlength="11" id="phone" type="text" class="form-control" placeholder="مثال: ۰۹۱۲۳۴۵۶۷۸۹">
                         </div>
                         <!-- end of form-element -->
                     </div>
@@ -70,7 +70,7 @@
                         <!-- start of form-element -->
                         <div class="form-element-row">
                             <label  class="label fs-7">کدپستی</label>
-                            <input id="postalCode" type="text" class="form-control"
+                            <input onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="postalCode" type="text" class="form-control"
                                 placeholder="کدپستی باید ۱۰ رقم و بدون خط تیره باشد">
                         </div>
                         <!-- end of form-element -->

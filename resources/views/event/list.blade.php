@@ -10,8 +10,8 @@
                                 <ol class="breadcrumb mt-1">
                                     {{-- @foreach ($path as $itr) --}}
                                     <li class="breadcrumb-item">
-                                            <a href=""></a>
-                                        </li>
+                                        <a href=""></a>
+                                    </li>
                                     {{-- @endforeach --}}
                                 </ol>
                                 <!-- end of breadcrumb -->

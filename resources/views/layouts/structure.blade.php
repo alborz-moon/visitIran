@@ -358,8 +358,19 @@
             return sign + (j ? i.substr(0, j) + thouSeparator : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thouSeparator) + (decPlaces ? decSeparator + Math.abs(n - i).toFixed(decPlaces).slice(2) : "");
         };
 
+        
+
+        function isEmail(evt) {
+            
+            if(evt.key === '@' || evt.key === '.' || evt.key === '_' || evt.key === '-' )
+                return true;
+
+            return /^[a-zA-Z]+$/.test(evt.key);
+        }
+
 
         function isNumber(evt) {
+
             evt = (evt) ? evt : window.event;
             var charCode = (evt.which) ? evt.which : evt.keyCode;
             if (charCode > 31 && (charCode < 48 || charCode > 57)) {

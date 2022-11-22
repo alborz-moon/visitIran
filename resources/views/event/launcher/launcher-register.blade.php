@@ -51,7 +51,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">پست الکترونیک</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  id="userEmail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
+                                                <input onkeypress="return isEmail(event) || isNumber(event)" id="userEmail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
                                                 <button class="btn btn-circle btn-outline-light hidden" >
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -75,7 +75,7 @@
                                         <div class="border-bottom py-1">
                                             <div  class="fs-7 text-dark">کد ملی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input onkeypress="return isNumber(event)" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
+                                                <input onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -303,7 +303,7 @@
                         <div class="col-4">
                             <div class="form-element-row">
                                 <label class="label fs-7">سال</label>
-                                <input value="" id="Brithday_year" type="text" class="form-control" placeholder="">
+                                <input onkeypress="return isNumber(event)" minlength="4" maxlength="4" value="" id="Brithday_year" type="text" minlength="4" maxlength="10" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-4">
@@ -329,7 +329,7 @@
                         <div class="col-4">
                             <div class="form-element-row">
                                 <label class="label fs-7">روز</label>
-                                <input id="Brithday_day" value="" type="text" class="form-control" placeholder="">
+                                <input onkeypress="return isNumber(event)" minlength="2" maxlength="2" id="Brithday_day" value="" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                     </div>

@@ -30,6 +30,7 @@ class commentResourceWithProduct extends JsonResource
             'negative' => $negative,
             'positive' => $positive,
             'product' => $product->name,
+            'img' => $this->img == null ? asset('default.png') : asset('storage/products/' . $this->img),
             'href' => route('single-product', ['product' => $product->id, 'slug' => $product->slug == null ? $product->name : $product->slug]),
             'created_at' => Controller::MiladyToShamsi($this->created_at)
         ];

@@ -130,11 +130,6 @@ function replaceIds(prefix, newElem, id, complete = false) {
 }
 
 function refreshBasket() {
-    let basketItems = JSON.parse(window.localStorage.getItem("basket")).length;
-    if (basketItems > 0) {
-        $("#basketItems").removeClass("hidden").text(basketItems);
-    }
-
     let basket = window.localStorage.getItem("basket");
 
     if (basket === null || basket === undefined) {
@@ -144,6 +139,11 @@ function refreshBasket() {
     }
 
     basket = JSON.parse(basket);
+
+    if (basket.length > 0) {
+        $("#basketItems").removeClass("hidden").text(basket.length);
+    }
+
     let prefix = "mini-cart-products";
     let html = "";
     let totalPrice = 0;
