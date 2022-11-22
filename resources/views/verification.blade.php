@@ -4,7 +4,17 @@
             <main class="page-content page-auth">
             <!-- start of auth-container -->
             <div class="auth-container">
-                <div class="auth-title mb-3">تایید شماره موبایل</div>
+                <div class="d-flex">
+                    <div class="logo-container logo-box me-3 logoImgFromTop">
+                            <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="120" alt="">
+                    </div>
+                    <div>
+                        <div class="notification-item--text colorYellow bold"> ویزیت ایران </div>
+                        <div class="notification-item--text fontSize12"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
+                        <div class="notification-item--text fontSize18 bold mt-3 mb-3">ورود / ثبت نام</div>
+                    </div>
+                </div>
+                {{-- <div class="mt-3 mb-3">رمز یکبار مصرف به شماره تلفن 09121111111 ارسال شد. </div> --}}
                 <!-- start of auth-box -->
                 <div class="auth-box ui-box">
                     <!-- start of form-element -->
@@ -38,7 +48,7 @@
                             <span class="mx-2">|</span>
                             <div id="timer--verify-code"></div>
                         </div>
-                        <a id="send-again-btn" style="cursor: pointer" class="send-again link">ارسال مجدد</a>
+                        <a id="send-again-btn" style="cursor: pointer" class="send-again hoverBoldYellow colorYellow">ارسال مجدد</a>
                     </div>
                     <!-- end of verify-code-wrapper -->
                     <!-- start of form-element -->
@@ -48,7 +58,7 @@
                     <!-- end of form-element -->
                     <!-- start of form-element -->
                     <div class="form-element-row">
-                        <a href="{{ route('login-register') }}" class="link mx-auto">ویرایش شماره موبایل <i class="ri-pencil-fill ms-1"></i></a>
+                        <a href="{{ route('login-register') }}" class="hoverBoldYellow colorYellow mx-auto">ویرایش شماره موبایل <i class="ri-pencil-fill ms-1"></i></a>
                     </div>
                     
                     <!-- end of auth-form -->

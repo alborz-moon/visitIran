@@ -36,15 +36,13 @@
             var html= "";
             if(res.status === "ok") {
                 for(var i = 0; i < res.data.length; i++) {
-                    html +='<div class="col-lg-6 mb-4">';
+                    html +='<div class="col-lg-12 mb-4">';
                     html +='<div class="border rounded p-3">';
-                    html +='<a href="' + res.data[i].href + '" class="d-flex align-items-center link pb-3">';
-                    html +='<img src="' + res.data[i].img + '" width="60" alt="">';
-                    html +='<span class="fs-7 fw-bold">' + res.data[i].product + '</span>';
+                    html +='<div class="spaceBetween"';
+                    html +='<div><a href="' + res.data[i].href + '" class="d-flex align-items-center colorBlack bold pb-3">';
+                    html +='<img src="' + res.data[i].img + '" width="60" height="60" alt="">';
+                    html +='<span class="fs-7 fw-bold px-3">' + res.data[i].product + '</span>';
                     html +='</a>';
-                    html +='<div class="comment">';
-                    html +='<div class="comment-header"><span> در ' + res.data[i].created_at + '</span></div>';
-                    html +='<div class="comment-body"><p>' + res.data[i].msg + '</p>';
                     html += '<div class="d-flex align-items-center justify-content-center">';
                     if(res.data[i].rate != null) {
                         for(var j = 5; j >= 1; j--) {
@@ -55,7 +53,10 @@
                             }
                         }
                     }
-                    html += '</div>';
+                    html += '</div></div>';
+                    html +='<div class="comment">';
+                    html +='<div class="comment-header"><span> در ' + res.data[i].created_at + '</span></div>';
+                    html +='<div class="comment-body"><p>' + res.data[i].msg + '</p>';
                     html +='<ul>';
                     for(var j = 0; j < res.data[i].positive.length; j++) {
                         html += '<li class="comment-evaluation positive">' + res.data[i].positive[j] + '</li>';
@@ -66,7 +67,7 @@
                     html +='</ul>';
                     html +='</div>';
                     html +='<div class="d-flex align-items-center justify-content-end">';
-                    html +='<a href="#" class="btn btn-link text-danger">حذف <i class="ri-delete-bin-5-line ms-1"></i></a>';
+                    html +='<a href="#" class="btn btn-link colorRed">حذف <i class="icon-visit-delete colorRed mt-1 ms-1"></i></a>';
                     html +='</div>';
                     html +='</div>';
                     html +='</div>';

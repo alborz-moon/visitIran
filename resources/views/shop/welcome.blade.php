@@ -6,7 +6,7 @@
     <script>
         var productPrefixRoute = '{{ route('home') }}' + "/product";
     </script>
-                @include('layouts.tiles', ['category' => null])
+                @include('layouts.tiles', ['category' => null,'mode' => 'welcome'])
 
                 @include('layouts.box', ['id' => 'latest_products_when_not_filled', 'title' => 'تازه ترین ها'])
                 @include('layouts.box', ['id' => 'most_like_products_when_not_filled', 'title' => 'محبوب ترین ها'])

@@ -4,7 +4,16 @@
             <main class="page-content page-auth">
             <!-- start of auth-container -->
             <div class="auth-container">
-                <div class="auth-title mb-3">بازیابی رمز عبور</div>
+                <div class="d-flex">
+                    <div class="logo-container logo-box me-3 logoImgFromTop">
+                            <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="120" alt="">
+                    </div>
+                    <div>
+                        <div class="notification-item--text colorYellow bold"> ویزیت ایران </div>
+                        <div class="notification-item--text fontSize12"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
+                        <div class="notification-item--text fontSize18 bold mt-3 mb-3">بازیابی رمز عبور</div>
+                    </div>
+                </div>
                 <!-- start of auth-box -->
                 <div class="auth-box ui-box">
                     <!-- start of auth-form -->

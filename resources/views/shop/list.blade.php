@@ -1,20 +1,41 @@
 
 @extends('layouts.structure')
+@section('seo')
+    <title>ویزیت ایران | از ایران ویزیت</title>
+    <meta property="og:title" content="از ایران ویزیت" />
+    <meta name="twitter:title" content="از ایران ویزیت" />
+    <meta property="og:site_name" content="از ایران ویزیت" />
+
+    <meta property="og:image" content="از ایران ویزیت"/>
+    <meta property="og:image:secure_url" content="از ایران ویزیت"/>
+    <meta name="twitter:image" content="از ایران ویزیت"/>
+    <meta property="og:description" content="از ایران ویزیت" />
+    <meta name="twitter:description" content="از ایران ویزیت" />
+    <meta name="description" content="از ایران ویزیت"/>
+
+    <style>
+
+    </style>
+
+    <meta name="keywords" content="از ایران ویزیت" />
+    {{-- <meta property="article:tag" content="{{ $product['tags'] }}"/> --}}
+@stop
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
             <div class="container mt-3">
                 <div class="row">
+                        <!-- start of breadcrumb -->
+                            <ol class="breadcrumb mt-1">
+                                @foreach ($path as $itr)
+                                    <li class="breadcrumb-item">
+                                        <a href="{{ $itr['href'] }}">{{ $itr['label'] }}</a>
+                                    </li>
+                                @endforeach
+                            </ol>
+                        <!-- end of breadcrumb -->
+                    @include('layouts.tiles', ['category' => null, 'mode' => 'list'])
                     <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar">
                         {{-- @include('sections.top_categories_products') --}}
-                        <!-- start of breadcrumb -->
-                                <ol class="breadcrumb mt-1">
-                                    @foreach ($path as $itr)
-                                        <li class="breadcrumb-item">
-                                            <a href="{{ $itr['href'] }}">{{ $itr['label'] }}</a>
-                                        </li>
-                                    @endforeach
-                                </ol>
-                                <!-- end of breadcrumb -->
                         <div class="ui-sticky ui-sticky-top">
                             <div class="ui-box sidebar-widgets customFilter ">
                                 <!-- start of widget -->
@@ -216,6 +237,7 @@
                     <div class="col-xl-9 col-lg-9 col-md-8 px-0">
                         <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar">فیلتر پیشرفته
                             <i class="ri-equalizer-fill ms-1"></i></button>
+                            
                         <div class="listing-products">
                             <div class="listing-products-content">
                                 <!-- start of tab-content -->
@@ -223,7 +245,7 @@
                                     <!-- start of tab-pane -->
                                     <div class="tab-pane fade show active" id="most-visited" role="tabpanel"
                                         aria-labelledby="most-visited-tab">
-                                        <div class="ui-box pb-0 px-0 mb-4">
+                                        <div class="ui-box customListUIBoxPadding mb-4">
                                             <div class="ui-box-content p-0">
                                                 <div class="row mx-0">
                                                     <div id="nothingToShow" class="hidden">محصولی برای نمایش موجود نیست</div>
@@ -685,13 +707,13 @@ $(".child input").on('click',function(){
                     
                     if(res.status !== "ok")
                         return;
-                        var length = res.data.length
-
-                        if (length == 0){
-                            $("#shimmer").addClass('hidden');
-                            $('#nothingToShow').removeClass('hidden')
-                            return
-                        }
+                    
+                    var length = res.data.length
+                    if (length == 0){
+                        $("#shimmer").addClass('hidden');
+                        $('#nothingToShow').removeClass('hidden')
+                        return
+                    }
                     let html = renderProducts(res.data, 'sample');
                     $("#products_div").empty().append(html).removeClass('hidden');
                     $("#shimmer").addClass('hidden');

@@ -248,6 +248,13 @@
                     return true;
                 }
 
+                function isEN(evt) {
+                    console.log('====================================');
+                    console.log(evt);
+                    console.log('====================================');
+                    // return /^[a-zA-Z]+$/.test(evt.);
+                }
+
                 let removeURL;
                 let itemID;
                 let item;

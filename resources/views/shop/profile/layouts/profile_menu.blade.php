@@ -6,7 +6,7 @@
                     
                     <div class="profile-info">
                         <a class="text-decoration-none text-dark fw-bold mb-2">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</a>
-                        <div class="text-muted fs-7 fw-bold">۰۹xxxxxxxxx</div>
+                        <div class="text-muted fw-bold bold">0912123456789</div>
                     </div>
                 </div>
             </div>

@@ -457,7 +457,7 @@ ul {
     margin-right: 15px;
     width: 160px;
     height: 37px;
-    background-color: #555a5d5c;
+    background-color: #000000b0;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     bottom: 12px;
@@ -481,7 +481,7 @@ ul {
     padding: 10px;
     width: 160px;
     height: 222px;
-    background-color: #555a5dba;
+    background-color: #000000b0;
     margin: 15px;
     overflow: hidden;
     border-radius: 20px;
@@ -649,6 +649,28 @@ ul {
 .btn.btn-primary {
     background-color: #00b2bc;
     color: #fff;
+}
+.custom-radio-box
+    .custom-radio-box-input:checked
+    + .custom-radio-box-label::after {
+    content: attr(data-placeholder-checked);
+    color: rgb(255, 255, 255);
+    background-color: #c59358;
+    padding: 5px 25px;
+}
+.custom-radio-box .custom-radio-box-label::after {
+    content: attr(data-placeholder);
+    color: #525252;
+    position: absolute;
+    right: 35px;
+    top: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    background-color: #efefef;
+    padding: 5px 25px;
+}
+.custom-radio-box .custom-radio-box-label::before {
+    display: none;
 }
 .btn.btn-primary:hover {
     background-color: #009bb9 !important;
@@ -847,7 +869,8 @@ ul {
     -o-transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
     -webkit-transition: 0.3s;
 }
-.customArrowLeftIcon:hover {
+.customArrowLeftIcon:hover,
+.customArrowRightIcon:hover {
     background-color: #212121 !important;
 }
 .customArrowRightIcon {
@@ -1079,6 +1102,12 @@ ul {
     justify-content: center;
     align-items: center;
 }
+.customListUIBoxPadding {
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
 .user-options
     .user-option
     .mini-cart
@@ -1152,6 +1181,10 @@ select:focus-visible {
 }
 .ui-sticky.ui-sticky-top {
     top: 150px;
+}
+.btnHoverBlue:hover {
+    color: #0089b7 !important;
+    font-weight: 700;
 }
 .btnHover:hover .textColor {
     color: #c59358 !important;
@@ -1230,6 +1263,13 @@ select:focus-visible {
 .customBtnAddress {
     position: inherit !important;
     width: 90px !important;
+}
+.hoverBoldYellow:hover {
+    font-weight: 600 !important;
+    color: #c59358 !important;
+}
+.heightAddressBox {
+    height: 210px !important;
 }
 .hoverBold:hover {
     font-weight: 600 !important;
@@ -1624,9 +1664,10 @@ figure .ck-widget {
 .show-less,
 .link {
     color: #00b2bc;
-}
-.link {
     border-bottom: 0;
+}
+.link:hover {
+    color: #0089b7 !important;
 }
 /* .checkout-bill .checkout-bill-row .checkout-bill-row-label {
     color: #555a5d !important;
