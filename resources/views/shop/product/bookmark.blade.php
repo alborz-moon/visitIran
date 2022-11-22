@@ -4,7 +4,7 @@
     @else
         <button  id="bookmark" onclick="call_bookmark()" class="ri-bookmark-fill fontSize30 b-0 colorYellow btnHover backColorWhite"></button>
     @endif
-    <button data-remodal-target="share-modal" class="ri-stackshare-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
+    <button data-remodal-target="share-modal" class="icon-visit-share fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
 </span>
 
 

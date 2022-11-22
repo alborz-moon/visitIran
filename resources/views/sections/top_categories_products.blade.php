@@ -7,7 +7,7 @@
                     <img class="p-2" src="{{ asset('./theme-assets/images/svg/headlineTitle.svg') }}" alt="">
                     <span id="sampleSliderTitle"></span>
                 </span>
-                <span class="alignItemsCenter colorBlue"><a class="hoverBold" href="">مشاهده همه</a></span>
+                <span class="alignItemsCenter colorBlue"><a class="hoverBold" href="{{ isset($href) ? $href : '' }}">مشاهده همه</a></span>
             </div>
             <div class="ui-box-content">
                 <!-- Slider main container -->

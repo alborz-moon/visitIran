@@ -4,9 +4,21 @@
         <main class="page-content page-auth">
             <!-- start of auth-container -->
             <div class="auth-container">
-                <div class="auth-title mb-3">ورود / ثبت نام</div>
+                <div class="d-flex">
+                    <div class="logo-container logo-box me-3 logoImgFromTop">
+                            <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="120" alt="">
+                    </div>
+                    <div>
+                        <div class="notification-item--text colorYellow bold"> ویزیت ایران </div>
+                        <div class="notification-item--text fontSize12"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
+                        <div class="notification-item--text fontSize18 bold mt-3 mb-3">ورود / ثبت نام</div>
+                    </div>
+                </div>
+                
                 <!-- start of auth-box -->
                 <div class="auth-box ui-box">
+                    <div class="bold">سلام</div>
+                    <div class="mb-4">لطفا شماره موبایل خود را وارد نمایید. </div>
                     <!-- start of auth-form -->
                     {{-- <form action="api/auth" class="auth-form" method=""> --}}
                         <!-- start of form-element -->
@@ -21,10 +33,10 @@
                         <!-- end of form-element -->
                         <!-- start of form-element -->
                         <div class="form-element-row">
-                            <div>با ورود و یا ثبت نام در سایت شما <a href="#" class="link">شرایط و
+                            <div>با ورود و یا ثبت نام در سایت شما <a href="#">شرایط و
                                     قوانین</a> استفاده
                                 از تمام سرویس های
-                                سایت و <a href="#" class="link">قوانین حریم خصوصی</a> آن را می‌پذیرید.
+                                سایت و <a href="#">قوانین حریم خصوصی</a> آن را می‌پذیرید.
                             </div>
                         </div>
                         <!-- end of form-element -->

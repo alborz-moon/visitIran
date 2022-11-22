@@ -15,10 +15,10 @@
                 </div>
                 
             </div>
-            
-            <div id="mini-cart-products-price" class="mini-cart-product-price fa-num text-align-left"> <span
-                class="currency">تومان</span></div>
-            <button id="mini-cart-products-remove-btn" class="mini-cart-product-remove"></button>
+            <div id="mini-cart-products-price" class="mini-cart-product-price fa-num text-align-left">
+                <span class="currency">تومان</span>
+            </div>
+            <button id="mini-cart-products-remove-btn" class="mini-cart-product-remove colorYellow customRemoveBtn"></button>
 
         </div>
     </div>

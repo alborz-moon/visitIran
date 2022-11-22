@@ -135,6 +135,20 @@ class CategoryController extends Controller
         ]);
     }
 
+    
+    public function allCategories(string $orderBy, Request $request) {
+        
+        
+        return view('shop.list', [
+            'path' => [],
+            'orderBy' => $orderBy,
+            'name' => 'تازه ترین ها',
+            'features' => []
+        ]);
+
+    }
+
+
     public function sub(Category $category, Request $request) {
         return view('admin.category.list', [
                 'categories' => CategoryDigest::collection($category->sub()->get())->toArray($request),

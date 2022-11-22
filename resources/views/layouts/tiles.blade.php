@@ -1,14 +1,15 @@
-<div class="w-100 backgroundWhite">
-    <div class="container">
-    <div id="topCategoriesDiv" class="mb-5 p-0">
+<div class="w-100 {{ $mode == 'welcome' ? 'backgroundWhite' : '' }}">
+    <div class="container {{ $mode == 'list' ? 'm-0 p-0' : '' }}">
+        
+    <div id="topCategoriesDiv" class="{{ $mode == 'welcome' ? 'mb-5 p-0' : 'm-0 p-0' }}">
        <div class="ui-box-content p-0 pb-1">
            <!-- Slider main container -->
-           <div class="swiper product-swiper-slider">
+           <div class="swiper product-swiper-slider {{ $mode == 'list' ? 'p-0 pb-2' : '' }}">
                <!-- Additional required wrapper -->
                <div id="cat" class="swiper-wrapper">
                </div>
                <!-- If we need pagination -->
-               <div class="swiper-pagination"></div>
+               <div class="swiper-pagination {{ $mode == 'list' ? 'd-none' : 'm-0 p-0' }}"></div>
                <!-- If we need navigation buttons -->
                <div class="swiper-button-prev"></div>
                <div class="swiper-button-next"></div>
@@ -38,7 +39,13 @@
                     html += '<div class="banner-img ">';
                     html += '<a target="_blank" href="' + res.data[i].href + '" class="tiles">';
                     html +='<img class="imgResponsive borderRadius20" src="' + res.data[i].img + '" alt="' + res.data[i].alt + '">';
-                    html += '<div class="catDetails"><div class="catTitle"></div><div class="customDivCategory"><div class="catText mb-3">' + res.data[i].digest + '</div></div><div class="arrowLeftIcon backgroundGray p-0 customCategoryIconBack"><img src="{{ asset('theme-assets/images/svg/ionic-ios-arrow-round-back.svg') }}"></div></div>'
+                    html += '<div class="catDetails"><div class="catTitle"></div><div class="customDivCategory">';
+                        if (res.data[i].digest !== undefined){
+                            html += '<div class="catText mb-3">' + res.data[i].digest + '</div>';
+                        }else if (res.data[i].digest == undefined){
+                            html += '<div class="catText mb-3">برای مشاهده دسته بندی کلیک کنید</div>';
+                        }
+                    html += '</div><div class="arrowLeftIcon backgroundGray p-0 customCategoryIconBack"><img src="{{ asset("theme-assets/images/svg/ionic-ios-arrow-round-back.svg") }}"></div></div>';
                     html += '<div class="text-category position-absolute labelForCat"><h4 class="colorWhite fontSize14">' + res.data[i].name + '</h4></div>';
                     html +='</a></div></div>';
                 }

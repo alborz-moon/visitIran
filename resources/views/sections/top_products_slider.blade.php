@@ -5,7 +5,7 @@
             <span class="ui-box-title fontSize20"> 
                 <img class="p-2" src="{{ asset('./theme-assets/images/svg/headlineTitle.svg') }}" alt="">{{ $title }}
             </span>
-            <span class="alignItemsCenter colorBlue"><a class="hoverBold" href="">مشاهده همه</a></span>
+            <span class="alignItemsCenter colorBlue"><a target="_blank" class="hoverBold" href="{{ isset($href) ? $href : '' }}">مشاهده همه</a></span>
         </div>
         <div class="ui-box-content">
             <!-- Slider main container -->
@@ -34,6 +34,7 @@
 <script>
 
     $(document).ready(function() {
+
         $.ajax({
             type: 'get',
             url: '{{ isset($api) ? $api : route('api.product.list', ['orderBy' => $searchKey, 'limit' => 8]) }}',

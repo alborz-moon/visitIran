@@ -60,6 +60,8 @@ Route::domain(Controller::$SHOP_SITE)->group(function() {
     Route::get('/product/{product}/{slug}', [ProductController::class, 'showDetail'])->name('single-product');
 
     Route::get('/list/{category}/{slug}', [CategoryController::class, 'show'])->name('single-category');
+    
+    Route::get('/list/{orderBy}', [CategoryController::class, 'allCategories'])->name('category.list');
 
 
     Route::get('/basket', function () {
@@ -117,6 +119,9 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
 
     Route::view('/event','event.event')->name('event');
 
+    Route::view('/follow','event.follow')->name('follow');
+
+    Route::view('/list','event.list')->name('event-list');
 
     Route::middleware(['myAuth'])->group(function() {
 
@@ -144,7 +149,11 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
             return view('event.launcher.launcher-finance', compact('formId'));
         })->name('finance');
 
-        Route::view('/create-event','event.event.create-event')->name('create-event');
+        Route::get('/create-event', function() {
+            $states = State::orderBy('name', 'asc')->get();
+            $mode = 'create';
+            return view('event.event.create-event', compact('states', 'mode'));
+        })->name('create-event');
 
         Route::view('/create-time','event.event.create-time')->name('create-time');
     

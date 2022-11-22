@@ -11,6 +11,12 @@
     </script>
     <link rel="stylesheet" href="{{URL::asset('theme-assets/bootstrap-datepicker.css?v=1')}}">
     <script async src="{{URL::asset("theme-assets//bootstrap-datepicker.js")}}"></script>
+    <style>
+        /* img {
+          min-height: 100px;
+        } */
+    </style>
+    <script src="{{URL::asset("theme-assets/js/lozad.min.js")}}"></script>
 @stop
 
 
@@ -19,7 +25,7 @@
         <div class="uploadBody">
             <div class="uploadBorder">
                 <div class="uploadBodyBox">
-                    <div class="uploadTitleText">بارگذاری فایل محتوا</div>
+                    <div class="uploadTitleText">بارگذاری فایل محتواasdasd</div>
                     <form action="{{route('api.testUpload')}}" class="dropzone uploadBox" id="my-awesome-dropzone">
                         {{csrf_field()}}
                     </form>
@@ -36,13 +42,66 @@
             <input id="date_input_start" class="tripDateInput" placeholder="13xx/xx/xx" required readonly type="text">
         </label>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">1</div>
+            <div class="col-4">2</div>
+            <div class="col-4">3</div>
+        </div>
+        <div class="row">
+            <div class="col-2">1</div>
+            <div class="col-2">2</div>
+            <div class="col-2">3</div>
+            <div class="col-2">4</div>
+            <div class="col-2">5</div>
+            <div class="col-2">6</div>
+        </div>
+    </div>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+  let lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+  let active = false;
+
+  const lazyLoad = function() {
+    if (active === false) {
+      active = true;
+
+      setTimeout(function() {
+        lazyImages.forEach(function(lazyImage) {
+          if ((lazyImage.getBoundingClientRect().top <= window.innerHeight && lazyImage.getBoundingClientRect().bottom >= 0) && getComputedStyle(lazyImage).display !== "none") {
+            lazyImage.src = lazyImage.dataset.src;
+            lazyImage.srcset = lazyImage.dataset.srcset;
+            lazyImage.classList.remove("lazy");
+
+            lazyImages = lazyImages.filter(function(image) {
+              return image !== lazyImage;
+            });
+
+            if (lazyImages.length === 0) {
+              document.removeEventListener("scroll", lazyLoad);
+              window.removeEventListener("resize", lazyLoad);
+              window.removeEventListener("orientationchange", lazyLoad);
+            }
+          }
+        });
+
+        active = false;
+      }, 200);
+    }
+  };
+
+  document.addEventListener("scroll", lazyLoad);
+  window.addEventListener("resize", lazyLoad);
+  window.addEventListener("orientationchange", lazyLoad);
+});
+
         var datePickerOptions = {
             numberOfMonths: 1,
             showButtonPanel: true,
             dateFormat: "yy/mm/dd"
         };
         $("#date_input_start").datepicker(datePickerOptions);
+        
         Dropzone.options.myAwesomeDropzone = {
             paramName: "img_file", // The name that will be used to transfer the file
             maxFilesize: 1, // MB

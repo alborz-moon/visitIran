@@ -1,5 +1,5 @@
             <!-- start banner -->
-            <div class="alert banner-container alert-dismissible fade show showTopBanner" role="alert" id="topBanner">
+            <div class="alert banner-container alert-dismissible fade show showTopBanner hidden" role="alert" id="topBanner">
                 <a href="#" target="_blank" id="" class="banner-placement rounded-0 infobox"
                     style="height: 60px;"></a>
                 <button id="close" type="button" class="btn-close customCloseIconBanner p-0" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -27,15 +27,18 @@
                             if(res.data.length === 0) {
                                 $(".showTopBanner").remove();
                                 $('.TopParentBannerMoveOnTop').css('marginTop','-60px');
+                                $('.StickyMenuMoveOnTop').css('top', '90px');
+
                                 return;
                             }
-                           if (width > 1000) {
-                               $(".infobox").css('background-image', "url(" + res.data.img_large + ")").attr('href', res.data.href);
-                           }else if(width > 768){
-                              $(".infobox").css('background-image', "url(" + res.data.img_mid + ")").attr('href', res.data.href);
-                           }else{
-                              $(".infobox").css('background-image', "url(" + res.data.img_small + ")").attr('href', res.data.href);
-                           }
+                            $('.showTopBanner').removeClass('hidden');
+                            if (width > 1000) {
+                                $(".infobox").css('background-image', "url(" + res.data.img_large + ")").attr('href', res.data.href);
+                            }else if(width > 768){
+                               $(".infobox").css('background-image', "url(" + res.data.img_mid + ")").attr('href', res.data.href);
+                            }else{
+                               $(".infobox").css('background-image', "url(" + res.data.img_small + ")").attr('href', res.data.href);
+                            }
                       }
                   }
               });

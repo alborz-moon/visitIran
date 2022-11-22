@@ -1,18 +1,21 @@
 @extends('layouts.structure')
 
 @section('seo')
-    <title>غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال</title>
-    <meta property="og:title" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
-    <meta name="twitter:title" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
-    <meta property="og:site_name" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
+    <title>ویزیت ایران | {{ $product['name'] }}</title>
+    <meta property="og:title" content="{{ $product['name'] }}" />
+    <meta name="twitter:title" content="{{ $product['name'] }}" />
+    <meta property="og:site_name" content="{{ $product['name'] }}" />
 
-    
     <meta property="og:image" content="{{ $product['img'] }}"/>
     <meta property="og:image:secure_url" content="{{ $product['img'] }}"/>
     <meta name="twitter:image" content="{{ $product['img'] }}"/>
     <meta property="og:description" content="{{ $product['digest'] }}" />
     <meta name="twitter:description" content="{{ $product['digest'] }}" />
     <meta name="description" content="{{ $product['digest'] }}"/>
+
+    <style>
+
+    </style>
 
     <meta name="keywords" content="{{ $product['keywords'] }}" />
     {{-- <meta property="article:tag" content="{{ $product['tags'] }}"/> --}}
@@ -83,18 +86,20 @@
                             </div>
                             
                             <div id="dynamic_multi_choice_features">
-
+                                
                             </div>
 
                             <div class="expandable-text mb-3" style="height: 200px;">
                                 <div class="expandable-text_text">
                                     <div class="product-params">
                                         <div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18 whiteSpaceNoWrap">ویژگی ها
-                                            <div class="line mr-15"></div> 
+                                            <div class="line mr-15"></div>  
                                         </div>
-                                        <ul id="property">
+
+                                        <ul id="properties" >
                                         </ul>
                                     </div>
+
                                 </div>
                                 <div class="mb-3 mt-3">
                                     <div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18">توضیحات  
@@ -134,15 +139,15 @@
                             <div class="product-tabs overFlowHidden">
                                 <ul class="nav nav-pills">
                                     <li id="checkNavLink" class="nav-item">
-                                        <a  class="nav-link active" href="#scrollspyHeading1"
+                                        <a id="nav1" class="nav-link .my-nav-link active" href="#scrollspyHeading1"
                                             data-scroll="scrollspyHeading1">نقد و بررسی </a>
                                     </li>
                                     <li id="propertyNavLink" class="nav-item">
-                                        <a class="nav-link" href="#scrollspyHeading3"
+                                        <a id="nav2" class="nav-link .my-nav-link" href="#scrollspyHeading3"
                                             data-scroll="scrollspyHeading3">مشخصات</a>
                                     </li>
                                     <li id="commentNavLink" class="nav-item">
-                                        <a class="nav-link" href="#scrollspyHeading4"
+                                        <a id="nav3" class="nav-link .my-nav-link" href="#scrollspyHeading4"
                                             data-scroll="scrollspyHeading4">دیدگاه کاربران</a>
                                     </li>
                                 </ul>
@@ -155,13 +160,12 @@
                             <div class="product-tab-title">
                                 <div class="fontSize18 bold ">بررسی {{ $product['name'] }}</div>
                             </div>
-                            <div class="expandable-text pt-1" style="height: 500px;">
-                                <div class="expandable-text_text">
-                                    <p>
-                                        {!! $product['introduce'] !!}
-                                    </p>
+                            <div class="pt-1" id="intro-container-parent">
+
+                                <div id="intro-container" class="expandable-text_text">
+                                    {!! $product['introduce'] !!}
                                 </div>
-                                <div class="expandable-text-expand-btn justify-content-start text-sm d-flex justify-content-end">
+                                <div id="show-more-container-for-intro" class="expandable-text-expand-btn justify-content-start text-sm d-flex justify-content-end hidden">
                                     <span class="show-more active">
                                         ادامه مطلب <i class="ri-arrow-down-s-line ms-2"></i>
                                     </span>
@@ -241,6 +245,22 @@
 
     $(document).ready(function() {
 
+        let introHeight = $('#intro-container').height();
+        
+        if (introHeight >= 400) {
+            $("#show-more-container-for-intro").removeClass('hidden');
+        }
+            
+        $("#show-more-container-for-intro .show-more").on('click', function() {
+            $('#intro-container-parent').addClass('max-height-auto');
+            $('#intro-container').addClass('max-height-auto');
+        });
+        
+        $("#show-more-container-for-intro .show-less").on('click', function() {
+            $('#intro-container-parent').removeClass('max-height-auto');
+            $('#intro-container').removeClass('max-height-auto');
+        });
+
         let productId;
         
         try {
@@ -259,13 +279,25 @@
             success: function(res) {
                 
                 let html = '';
-                for(var i = 0; i < res.galleries.length; i++) {
-                    html += '<li data-fancybox="gallery-a " data-src="' + res.galleries[i].img + '">'
-                    html += '<img class="customBoxShadowGallery" src="' + res.galleries[i].img + '" alt="' + res.galleries[i].alt + '"></li>'
+                    for(var i = 0; i < res.galleries.length; i++) {
+                        if(i == res.galleries.length - 1) {
+                            if(res.galleries.length > 5)
+                                html += '<li class="moreImg" data-fancybox="gallery-a " data-src="' + res.galleries[i].img + '">';
+                            else 
+                                html += '<li class="notMoreImg" data-fancybox="gallery-a " data-src="' + res.galleries[i].img + '">';
+                        }
+                        else
+                            html += '<li data-fancybox="gallery-a " data-src="' + res.galleries[i].img + '">';
+                    html += '<img class="customBoxShadowGallery" src="' + res.galleries[i].img + '" alt="' + res.galleries[i].alt + '"></li>';
                 }
+
                 $("#gallery").empty().append(html);
 
-                let options = '';
+                // if(res.galleries.length > 1) {
+                //     $(".product-gallery .gallery-thumbs ul li:last-child").addClass('more-img');
+                // }
+
+
                 let colors = '';
                 let property = '';
                 let params = '';
@@ -353,74 +385,87 @@
                         res.features[i].price !== null
                     ) {
                         
-                        $("#dynamic_multi_choice_features").append(
-                            '<div class="product-variant-selected-container spaceBetween hidden" >' +
+                        let unit = res.features[i].value.split(' ');
+                        if(unit.length > 1)
+                            unit = unit[1];
+                        else
+                            unit = undefined;
+
+                        let optionHtml = '<div class="product-variant-selected-container spaceBetween hidden" >' +
                             '<div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18">' + res.features[i].name + '</div>' +
                             '<div class="line mr-15 ml-15"></div>' +
-                            '<div id="selected_option_for_feature_' + res.features[i].id + '"></div>' +
-                            '</div>'
-                        );
+                            '<div><span id="selected_option_for_feature_' + res.features[i].id + '"></span><span>&nbsp;</span>';
+
+                        if(unit !== undefined)
+                            optionHtml += '<span>' + unit + '</span>';
+
+                        optionHtml += '</div>';
+                        optionHtml += '</div>';
+                        optionHtml += '<select name="productOption" data-id="' + res.features[i].id + '" id="dynamic_options_' + res.features[i].id + '" class="select2 form-control widthAuto mb-4"></select>';
+
+                        $("#dynamic_multi_choice_features").append(optionHtml);
 
                         let vals = res.features[i].value.split('__')[0].split("$$");
                         
                         let prices = res.features[i].price == null ? null : res.features[i].price.split("$$");
                         let counts = res.features[i].available_count == null ? null : res.features[i].available_count.split("$$");
 
-                        options = '<div class="flex">'
+                        let sizes = "";
+
                         for(var j = 0; j < vals.length; j++) {
 
-                            options += '<button data-id="' + res.features[i].id + '" data-val="' + vals[j] + '" name="productOption"';
+                            sizes += '<option value="' + vals[j] + '" ';
+
                             if(j == 0) {
 
                                 $('#selected_option_for_feature_' + res.features[i].id).empty().append(vals[0]);
                                 wantedFeature = vals[0];
 
                                 if(prices != null) {
-                                    options += 'data-price="' + prices[j] + '" id="productOption0' + j + '" class="selected">';
+                                    sizes += 'data-price="' + prices[j] + '"';
                                     $(".price").empty().append(prices[j]);
                                     finalPrice = prices[j];
                                 }
                                 else {
-                                    options += 'data-count="' + counts[j] + '" id="productOption0' + j + '" class="selected">';
+                                    sizes += 'data-count="' + counts[j] + '"';
                                     finalAvailableCount = counts[j];
                                     showAvailableCount(parseInt(finalAvailableCount));
                                 }
-                                
                             }
                             else {
                                 if(prices != null)
-                                    options += 'data-price="' + prices[j] + '" id="productOption0' + j + '">';
+                                    sizes += 'data-price="' + prices[j] + '"';
                                 else
-                                    options += 'data-count="' + counts[j] + '" id="productOption0' + j + '">';
+                                    sizes += 'data-count="' + counts[j] + '"';
                             }
-
-                            options += vals[j] + "</button>";
-
+                            
+                            sizes += '>' + vals[j] + '</option>';
                         }
 
-                        options += "</div>";
-
+                        $("#dynamic_options_" + res.features[i].id).append(sizes);
                     }
-                    else {
-                        if(res.features[i].show_in_top == 1) {
-                            property += '<li><span class="label colorBlueWhite px-1">' + res.features[i].name + '</span><span> : </span>';
-                            property += '<span class="title px-1">' + res.features[i].value + '</span></li>';
-                        }
-                        params += '<li>';
-                        params += '<span class="param-title colorBlueWhite font600">' + res.features[i].name + '</span>';
-                        params += '<span class="param-value fontSize16">' + res.features[i].value + '</span>';
-                        params += '</li>';
+                    
+                    else if(res.features[i].show_in_top == 1) {
+                        
+                        property += '<li><span class="label colorBlueWhite px-1">' + res.features[i].name + '</span><span> : </span>';
+                        property += '<span class="title px-1">' + res.features[i].value + '</span></li>';
+                        
                     }
 
+                    params += '<li>';
+                    params += '<span class="param-title colorBlueWhite font600">' + res.features[i].name + '</span>';
+                    params += '<span class="param-value fontSize16">' + res.features[i].value + '</span>';
+                    params += '</li>';
                 }
-                $("#params-list-div").empty().append(params);
-                $("#property").empty().append(property);
 
+                $("#params-list-div").empty().append(params);
+                
+                
                 if(colors != '')
                     $("#product-colors-variants").empty().append(colors);
+                
 
-                if(options !== '')
-                    $("#property").append(options);
+                $("#properties").append(property);
             }
         });
 
@@ -468,18 +513,21 @@
             $("#product-color-variant-selected").empty().append($(this).attr('data-val'));
         });
 
-        $(document).on("click","button[name='productOption']", function() {
+        $(document).on("change","select[name='productOption']", function() {
+            
+            let selectedOption = $(this).find(":selected");
 
-            if($(this).attr('data-price') !== undefined) {
-                finalPrice = $(this).attr('data-price');
+            if(selectedOption.attr('data-price') !== undefined) {
+                finalPrice = selectedOption.attr('data-price');
                 $(".price").empty().append(finalPrice);
             }
             else {
-                finalAvailableCount = $(this).attr('data-count');
+                finalAvailableCount = selectedOption.attr('data-count');
                 showAvailableCount(parseInt(finalAvailableCount));
             }
             
-            wantedFeature = $(this).attr('data-val');
+            wantedFeature = selectedOption.text();
+            
             $('#selected_option_for_feature_' + $(this).attr('data-id')).empty().append(wantedFeature);
 
         });
@@ -493,7 +541,21 @@
                 star += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
         }
         $(".rattingToStar").empty().append(star);
-        $(document).ready(function(){
+        
+            $('#nav1').on('click',function(){
+                $(".my-nav-link").removeClass('active');    
+                $('#nav1').addClass('active');
+            });
+
+            $('#nav2').on('click',function(){
+                $(".my-nav-link").removeClass('active');
+                $('#nav2').addClass('active');
+            });
+
+            $('#nav3').on('click',function(){
+                $(".my-nav-link").removeClass('active');
+                $('#nav3').addClass('active');
+            });
             var width= $(document).width();
             if (width < 768){
                 $('#commentNavLink').click(function(){
@@ -533,7 +595,6 @@
                     });
                 });
             } 
-        })
 });
 </script>
 

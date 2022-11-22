@@ -1,4 +1,4 @@
-<div class="w-100 mb-5 backgroundWhite">
+<div class="w-100 mb-5 backgroundWhite banner">
     <div class="container">
         <div class="row mb-3 customPaddingTopBottom10">
             <div class="col-md-6 mb-lg-0 mb-3">
@@ -33,7 +33,9 @@
             },
             success: function(res) {
                 if(res.status === "ok") {
-
+                    if(res.data.length === 0) {
+                        $('.banner').addClass('hidden');
+                    }
                     if(res.data.length > 0)
                         $("#banner1").attr('href', res.data[0].href).attr('src', res.data[0].img);
 

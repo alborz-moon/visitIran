@@ -1,5 +1,12 @@
 
 @extends('layouts.structure')
+@section('header')
+
+    @parent
+
+    <link rel="stylesheet" href="{{URL::asset('theme-assets/bootstrap-datepicker.css?v=1')}}">
+    <script src="{{URL::asset("theme-assets//bootstrap-datepicker.js")}}"></script>
+@stop
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
@@ -32,9 +39,9 @@
                                         <div data-remodal-target="time-and-date-start-modal" class="fs-7 text-dark">تاریخ و ساعت شروع</div>
                                         <div class="border-bottom py-2">
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input data-remodal-target="time-and-date-start-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت شروع">
-                                                <button data-remodal-target="time-and-date-start-modal" class="btn btn-circle btn-outline-light"><i
-                                                        class="ri-ball-pen-fill"></i></button>
+                                                <input id="setDateStart" data-remodal-target="time-and-date-start-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت شروع">
+                                                <button data-remodal-target="time-and-date-start-modal" class="btn btn-circle btn-outline-light d-none">
+                                                    <i class="ri-ball-pen-fill"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -42,8 +49,8 @@
                                         <div class="border-bottom py-2">
                                             <div data-remodal-target="time-and-date-stop-modal" class="fs-7 text-dark">تاریخ و ساعت پایان</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input data-remodal-target="time-and-date-stop-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت پایان">
-                                                <button data-remodal-target="time-and-date-stop-modal" class="btn btn-circle btn-outline-light"><i
+                                                <input id="setDateStop" data-remodal-target="time-and-date-stop-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت پایان">
+                                                <button data-remodal-target="time-and-date-stop-modal" class="btn btn-circle btn-outline-light d-none"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
                                         </div>
@@ -142,17 +149,20 @@
                     <button data-remodal-action="close" class="remodal-close"></button>
                 </div>
                 <div class="remodal-content">
-                    <div class="form-element-row mb-3">
-                        <label class="label fs-7">تاریخ</label>
-                        <input  value="" type="date" class="form-control" placeholder="؟؟/؟؟/؟؟؟؟">
+                    <div>
+                        <div id="date_btn_start_edit" class="label fs-7 font600">تاریخ شروع</div>
+                        <label class="tripCalenderSection w-100">
+                            <span class="calendarIcon"></span>
+                            <input id="date_input_start" class="tripDateInput w-100 form-control directionLtr backColorWhite" placeholder="13xx/xx/xx" required readonly type="text">
+                        </label>
                     </div>
                     <div class="form-element-row">
                         <label class="label fs-7">زمان شروع</label>
-                        <input type="time" class="form-control" placeholder="؟؟:؟؟">
+                        <input id="time_input_start" type="time" data-clear-btn="true" class="form-control" placeholder="؟؟:؟؟">
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
+                    <button id="startSessionBtn" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
                 </div>
             </div>
         <!-- end of personal-info-fullname-modal -->
@@ -160,21 +170,24 @@
             <div class="remodal remodal-xs" data-remodal-id="time-and-date-stop-modal"
                 data-remodal-options="hashTracking: false">
                 <div class="remodal-header">
-                    <div class="remodal-title">تاریخ و ساعت پایان</div>
+                    <div class="label fs-7">تاریخ و ساعت پایان</div>
                     <button data-remodal-action="close" class="remodal-close"></button>
                 </div>
                 <div class="remodal-content">
                     <div class="form-element-row mb-3">
-                        <label class="label fs-7">تاریخ پایان</label>
-                        <input  value="" type="date" class="form-control" placeholder="؟؟/؟؟/؟؟؟؟">
+                        <label class="label fs-7 font600">تاریخ پایان</label>
+                        <label class="tripCalenderSection w-100">
+                            <span class="calendarIcon"></span>
+                            <input id="date_input_stop" class="tripDateInput w-100 form-control directionLtr backColorWhite" placeholder="13xx/xx/xx" required readonly type="text">
+                        </label>
                     </div>
                     <div class="form-element-row">
                         <label class="label fs-7">زمان پایان</label>
-                        <input type="time" class="form-control" placeholder="؟؟:؟؟">
+                        <input id="time_input_stop" type="time" class="form-control" placeholder="؟؟:؟؟">
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
+                    <button id="stopSessionBtn" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
                 </div>
             </div>
         <!-- end of personal-info-fullname-modal -->
@@ -187,31 +200,31 @@
 
 @section('extraJS')
     @parent
-    <script>
-        function removeItem1(){
-            $('#removeItem1').remove();
-        }
-        function removeItem2(){
-            $('#removeItem2').remove();
-        }
-        function removeItem3(){
-            $('#removeItem3').remove();
-        }
-        function removeItem4(){
-            $('#removeItem4').remove();
-        }
-        function removeItem5(){
-            $('#removeItem5').remove();
-        }
-        $('#onlineOrOffline').on('change',function(){
-            onlineOrOffline = $('#onlineOrOffline').val();
-            if (onlineOrOffline=== 'online'){
-                // show or hide class for online
-            }else if(onlineOrOffline=== 'offline'){
-                // show or hide class for offline
-            }else{
-                // hide All
-            }
-        })
+    <script> 
+        $(document).ready(function(){
+            
+            
+            $(document).on('click', "#startSessionBtn", function () {
+                var timeStart =$('#time_input_start').val();
+                var dateStart = $('#date_input_start').val();
+                alert(timeStart + ' ' + dateStart);
+                    $('#setDateStart').val(timeStart + ' ' + dateStart);                
+                    $(".remodal-close").click();
+            });
+            $(document).on('click', "#stopSessionBtn", function () {
+                var timeStop = $('#time_input_stop').val();
+                var dateStop = $('#date_input_stop').val();
+                alert(timeStop + ' ' + dateStop);
+                    $('#setDateStop').val(timeStop + ' ' + dateStop);
+                    $$(".remodal-close").click();               
+            });
+        });
+        var datePickerOptions = {
+            numberOfMonths: 1,
+            showButtonPanel: true,
+            dateFormat: "yy/mm/dd"
+        };
+        $("#date_input_start").datepicker(datePickerOptions);
+        $("#date_input_stop").datepicker(datePickerOptions);
     </script>
 @stop

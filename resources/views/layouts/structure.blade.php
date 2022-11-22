@@ -27,7 +27,7 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#00B2BC">
     {{-- logo --}}
-    <title>ویزیت ایران | خانه</title>
+    
     <link rel="stylesheet" href="{{ asset('theme-assets/css/dependencies.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/theme.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/visitiran.css') }}">
@@ -36,6 +36,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script src="{{ asset('theme-assets/js/dependencies/jquery-3.6.0.min.js') }}"></script>
     @section('seo')
+        <title>ویزیت ایران | خانه</title>
     @show
 
     @section('header')
@@ -48,7 +49,14 @@
     <div class="page-wrapper">
         <!-- start of page-header -->
         <header class="page-header d-md-block d-none customFixedMenu">
-            @include('layouts.top-banner')
+            {{-- @include('layouts.top-banner') --}}
+            <!-- start banner -->
+            <div class="alert banner-container alert-dismissible fade show showTopBanner hidden" role="alert" id="topBanner">
+                <a href="#" target="_blank" id="" class="banner-placement rounded-0 infobox"
+                    style="height: 60px;"></a>
+                <button id="close" type="button" class="btn-close customCloseIconBanner p-0" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <!-- end banner -->
                         <!-- start of page-header-middle -->
             <div class="page-header--middle customBackgroundWhite">
                 <div class="container heightHeader customBackgroundWhite">
@@ -70,7 +78,8 @@
                             </div>
                             <div class="user-option user-option--cart customBorderLeft1">
                                 <a href="{{route('cart')}}" class="user-option-btn user-option-btn--cart">
-                                    <i class="icon-visit-basket customHeader colorYellow"></i>
+                                    <i class="icon-visit-basket customHeader colorYellow customBasket"></i>
+                                    <div id="basketItems" class="addBasket hidden"></div>
                                 </a>
                                 <div class="mini-cart">
                                     
@@ -91,18 +100,18 @@
                                         @if(Auth::check())
                                             <a href="{{ route('cart') }}" class="btn btn-primary">ثبت سفارش</a>
                                         @else
-                                            <a href="{{ route('login') }}" class="btn btn-primary">ورود و ثبت سفارش</a>
+                                            <a href="{{ route('login-register') }}" class="btn btn-primary">ورود و ثبت سفارش</a>
                                         @endif
                                     </div>
                                 </div>
                             </div>
-                            <div class="user-option user-option--account  paddingRight15">
+                            <div class="user-option user-option--account  paddingRight15 btnHover">
                                 @if(!Auth::check())
-                                    <a href="{{ route('login-register') }}" class="user-option-btn user-option-btn--account gap10 btnHover textColor">
+                                    <a href="{{ route('login-register') }}" class="user-option-btn user-option-btn--account gap10 hoverGold textColor">
                                         <i class="icon-visit-person customHeader"></i>ورود / ثبت نام
                                     </a>
                                 @else
-                                    <a href="{{ route('profile.personal-info') }}" class="user-option-btn user-option-btn--account gap10 btnHover textColor">
+                                    <a href="{{ route('profile.personal-info') }}" class="user-option-btn user-option-btn--account gap10 hoverGold textColor">
                                         <i class="icon-visit-person customHeader"></i>صفحه شخصی
                                     </a>
                                     <div class="user-option--dropdown user-option--dropdown-right">
@@ -153,18 +162,18 @@
                     <div class="d-flex align-items-center">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a class="nav-link colorWhite" href="{{ route('home') }}"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/home.svg') }}" alt="">صفحه اصلی</a>
+                                <a class="custom-nav-link hoverBold1 colorWhite" href="{{ route('home') }}"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/home.svg') }}" alt="">صفحه اصلی</a>
                             </li>
                             <li class="nav-item align-self-center">
                             <div class="vertical-menu minWidthUnset">
-                            <a class="vertical-menu-btn p-0 m-0 colorWhite fontNormal"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt="">دسته بندی کالاها</a>
+                            <a class="vertical-menu-btn p-0 m-0 colorWhite fontNormal cursorPointer hoverBold1"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt="">دسته بندی کالاها</a>
                             <div class="vertical-menu-items marginFromRightHeaderNegative custom-vertical-menu-items zIndex2 mt-10">
                                 @include('layouts.menu')
                             </div>
                         </div>                            
                     </li>
                             <li class="nav-item">
-                                <a class="nav-link colorWhite fontNormal" href="index-1.html"><img class="iconSvg customIconTag" src="{{ asset('theme-assets/images/svg/label.svg') }}" alt="">پیشنهاد های ویژه</a>
+                                <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="index-1.html"><img class="iconSvg customIconTag" src="{{ asset('theme-assets/images/svg/label.svg') }}" alt="">پیشنهاد های ویژه</a>
                             </li>
                         </ul>
                     </div>
@@ -175,10 +184,10 @@
                         <div class="page-header--top-left">
                             <ul class="nav nav-light justify-content-end">
                                 <li class="nav-item d-md-none d-lg-block">
-                                    <a class="nav-link" href="{{ route('blog-list') }}">تازه‌ها</a>
+                                    <a class=" custom-nav-link colorWhite hoverBold1" href="{{ route('blog-list') }}">تازه‌ها</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">درباره ما</a>
+                                    <a class=" custom-nav-link colorWhite hoverBold1" href="#">درباره ما</a>
                                 </li>
                             </ul>
                         </div>
@@ -189,7 +198,14 @@
         </header>
         <!-- end of page-header -->
         <header class="page-header-responsive d-md-none p-0">
-            @include('layouts.top-banner')
+            {{-- @include('layouts.top-banner') --}}
+            <!-- start banner -->
+            <div class="alert banner-container alert-dismissible fade show showTopBanner hidden" role="alert" id="topBanner">
+                <a href="#" target="_blank" id="" class="banner-placement rounded-0 infobox"
+                    style="height: 60px;"></a>
+                <button id="close" type="button" class="btn-close customCloseIconBanner p-0" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <!-- end banner -->
             <div class="page-header-responsive-row">
                 <div class="d-flex align-items-center">
                     <div class="navigation-container">
@@ -267,20 +283,20 @@
                             <a href="profile.html" class="user-option-btn user-option-btn--search gap10">
                                 <img class="customIconHeadLine" src="{{ asset('theme-assets/images/svg/search.svg') }}" alt="">
                             </a>
-                            <a href="{{route('cart')}}" class="user-option-btn user-option-btn--cart">
+                            <a href="{{route('cart')}}" class="user-option-btn user-option-btn--cart customBasket">
                                 <img class="customIconHeadLine" src=""{{ asset('theme-assets/images/svg/basket.svg') }} alt="">
                             </a>
                         </div>
                         <div class="page-header--top-left">
                             @if(!Auth::check())
-                                <a href="{{ route('login-register') }}" class="user-option-btn user-option-btn--account gap10 d-flex ">
-                                    <span class=" d-flex colorWhite fontSize10 align-self-center btnHover pl-2"> 
+                                <a href="{{ route('login-register') }}" class="user-option-btn user-option-btn--account gap10 d-flex btnHover">
+                                    <span class=" d-flex colorWhite fontSize10 align-self-center pl-2"> 
                                         <i class="icon-visit-person customHeader"></i>ورود / ثبت نام 
                                     </span>
                                 </a>
                             @else
-                                <a href="{{ route('profile') }}" class="user-option-btn user-option-btn--account gap10 d-flex ">
-                                    <span class=" d-flex colorWhite fontSize10 align-self-center btnHover pl-2"> 
+                                <a href="{{ route('profile') }}" class="user-option-btn user-option-btn--account gap10 d-flex btnHover">
+                                    <span class=" d-flex colorWhite fontSize10 align-self-center pl-2"> 
                                         <i class="icon-visit-person customHeader"></i>صفحه شخصی
                                     </span>
                                 </a>
@@ -342,8 +358,19 @@
             return sign + (j ? i.substr(0, j) + thouSeparator : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thouSeparator) + (decPlaces ? decSeparator + Math.abs(n - i).toFixed(decPlaces).slice(2) : "");
         };
 
+        
+
+        function isEmail(evt) {
+            
+            if(evt.key === '@' || evt.key === '.' || evt.key === '_' || evt.key === '-' )
+                return true;
+
+            return /^[a-zA-Z]+$/.test(evt.key);
+        }
+
 
         function isNumber(evt) {
+
             evt = (evt) ? evt : window.event;
             var charCode = (evt.which) ? evt.which : evt.keyCode;
             if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -392,10 +419,41 @@
                 };
             iziToast.show(s);
         }
+        $(document).ready(function() {
+                    $('#close').on('click', function() {
+                        $('#SliderParent').addClass('marginTopMediaQuaryForSlider');
+                        $('.TopParentBannerMoveOnTop').addClass('marginTopMediaQuaryForSlider');
+                        $('.StickyMenuMoveOnTop').addClass('stickyTop')
+                    })
+                });
+                var width = window.innerWidth;
+              $.ajax({
+                  type: 'get',
+                  url: '{{ route('api.infobox') }}',
+                  headers: {
+                      'accept': 'application/json'
+                  },
+                  success: function(res) {
+                      if(res.status === "ok") {
+                            if(res.data.length === 0) {
+                                $(".showTopBanner").remove();
+                                $('.TopParentBannerMoveOnTop').css('marginTop','-60px');
+                                $('.StickyMenuMoveOnTop').css('top', '90px');
 
+                                return;
+                            }
+                            $('.showTopBanner').removeClass('hidden');
+                            if (width > 1000) {
+                                $(".infobox").css('background-image', "url(" + res.data.img_large + ")").attr('href', res.data.href);
+                            }else if(width > 768){
+                               $(".infobox").css('background-image', "url(" + res.data.img_mid + ")").attr('href', res.data.href);
+                            }else{
+                               $(".infobox").css('background-image', "url(" + res.data.img_small + ")").attr('href', res.data.href);
+                            }
+                      }
+                  }
+              });
     </script>   
-  
-    </script>
     @section('extraJS')
     @show
 </body>
