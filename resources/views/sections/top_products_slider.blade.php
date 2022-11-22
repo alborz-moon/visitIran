@@ -34,6 +34,7 @@
 <script>
 
     $(document).ready(function() {
+
         $.ajax({
             type: 'get',
             url: '{{ isset($api) ? $api : route('api.product.list', ['orderBy' => $searchKey, 'limit' => 8]) }}',
