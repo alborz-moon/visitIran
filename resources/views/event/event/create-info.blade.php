@@ -18,7 +18,7 @@
                 @include('event.launcher.launcher-menu')     
                 <div class="col-xl-9 col-lg-8 col-md-7">
                     <div class="d-flex spaceBetween align-items-center">
-                        <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد</span>
+                        <span class="colorBlack  fontSize15 bold d-none d-md-block fontSize16 bold">ایجاد رویداد</span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
                             <li class="checkout-step-active">
                                 <a href="{{ route('create-event') }}"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
@@ -40,7 +40,7 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-12 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <textarea type="text" class="form-control" style="direction: rtl" placeholder="توضیحات"></textarea>
                                                 <button class="btn btn-circle btn-outline-light hidden">
@@ -54,7 +54,7 @@
                         </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">گالری عکس</div>
-                                <div class="col-lg-6 mb-3">
+                                <div class="col-lg-12 mb-3">
                                     <div id="certifications" class="boxGallery">
                                     </div>
                                     <div class="uploadBody">
@@ -107,7 +107,7 @@
                 chunking: false,
                 forceChunking: false,
                 uploadMultiple: false,
-                maxFiles: 5,
+                maxFiles: 15,
                 accept: function(file, done) {
                     done();
                 },
@@ -126,6 +126,9 @@
                         //     location.reload();
                     });
                     this.on("complete", function (file) {
+                        // myDropzone.on("complete", function(file) {
+                        //   myDropzone.removeFile(file);
+                        // });
                         // if(myPreventionFlag)
                         //     $("#dropZoneErr").removeClass('hidden');
                         // else

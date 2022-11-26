@@ -9,11 +9,11 @@
                         {{-- @include('shop.product.bookmark') --}}
                         <div class="col-lg-9 col-md-12 mb-md-0 mb-4">
                             <!-- start of product-gallery -->
-                            <div class="bold colorBlack">گردشگری چیست ?</div>
-                            <div class="colorBlack">کد : <span>17486931867</span></div>
+                            <div class="bold colorBlack fontSize20">گردشگری چیست ?</div>
+                            <div class="colorBlack fontSize15">کد : <span>17486931867</span></div>
 
                             <div class="d-flex justify-content-center align-items-center customBoxShadowGallery mb-3 imgSizeEvent">
-                                <img class="w-100 h-100 p-4" src="{{ asset('theme-assets/images/banner/013.jpg') }}" alt="">
+                                <img class="w-100 h-100 pt-0 p-4" src="{{ asset('theme-assets/images/banner/013.jpg') }}" alt="">
                             </div>
                             <div class="customBoxShadowGallery">
                                 <div class="d-flex alignItemsCenter mb-4">
@@ -91,9 +91,9 @@
                                     <div class="seller-info-changeable">
                                             <div class="d-flex align-items-center">
                                                 <div class="userCircleSize backgroundYellow mx-3 position-relative">
-                                                    <i class="icon-visit-organization fontSize28 colorWhite position-absolute padding2"></i>
+                                                    <i class="icon-visit-organization fontSize28 colorWhite position-absolute padding10 "></i>
                                                 </div>
-                                                <div class="d-flex felxDirectionColumn">
+                                                <div class="d-flex felxDirectionColumn marginTop8">
                                                     <div class="fontSize15 bold colorBlack">Onix code</div>
                                                     <div class="d-flex mt-2">
                                                         <div class=" align-items-center px-2 px-2 fontSize15 colorYellow"><i class=" fontSize15 icon-visit-star me-1 fontSize14 verticalAlign-2"></i> 4.9</div>
@@ -313,7 +313,7 @@
                                     <!-- end of product-tabs -->
                                 </div>
                                 <!-- start of product-content-expert-summary -->
-                                <div class="details product-tab-content product-content-expert-summary tab-content border-bottom pb-2 mb-4"
+                                <div class="details product-tab-content product-content-expert-summary tab-content pb-2 mb-4"
                                     id="scrollspyHeading1">
                                     <div class="product-tab-title">
                                         {{-- {{ $product['name'] }} --}}
@@ -339,7 +339,7 @@
                                 </div>
                                 <!-- end of product-content-expert-summary -->
                                 <!-- start of product-params -->
-                                <div class="product-tab-content product-params tab-content border-bottom pb-2 mb-4"
+                                <div class="product-tab-content product-params tab-content pb-2 mb-4"
                                     id="scrollspyHeading3">
                                     <div class="product-tab-title">
                                         {{-- {{ $product['name'] }} --}}
@@ -357,7 +357,7 @@
                                 </div>
                                 <!-- end of product-params -->
                                 <!-- start of product-params -->
-                                <div class="product-tab-content product-params tab-content border-bottom pb-2 mb-4"
+                                <div class="product-tab-content product-params tab-content pb-2 mb-4"
                                     id="scrollspyHeading4">
                                     <div class="product-tab-title">
                                         {{-- {{ $product['name'] }} --}}

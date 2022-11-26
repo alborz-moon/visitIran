@@ -17,7 +17,7 @@
                             <div class="ui-box-content">                  
                                 <div class="row">
                                     <div class="col-lg-12 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div  class="fs-7 text-dark">شماره شبا</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="shabaNo" type="text" class="form-control" style="direction: rtl" placeholder="شماره شبا">

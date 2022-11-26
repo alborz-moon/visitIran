@@ -21,7 +21,7 @@
             </div>
             <div class="product-card-footer d-flex justify-content-end">
                 <a class="newsHref" href="#"> 
-                    <div class="cursorPointer arrowLeftIcon positionAbsolute customArrowLeftIcon backGray customIconBottom12">
+                    <div  class="cursorPointer arrowLeftIcon positionAbsolute customArrowLeftIcon backGray customIconBottom12">
                     <img src="{{ asset('theme-assets/images/svg/ionic-ios-arrow-round-back.svg') }}">
                     </div>
                 </a>

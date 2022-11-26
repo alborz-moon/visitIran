@@ -1,4 +1,4 @@
-<div class="col-xl-3 col-lg-4 col-md-5 mb-md-0 mb-3 TopParentBannerMoveOnTop">
+<div class="col-xl-3 col-lg-4 col-md-5 mb-md-0 mb-3">
     <div class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">
         <div class="profile-user-info py-3 ui-box bg-white">
             <div class="profile-detail">

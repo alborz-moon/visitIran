@@ -6,8 +6,15 @@ function renderProductSlider(data, prefix) {
         $("#" + prefix + "Img")
             .attr("src", elem.img)
             .attr("alt", elem.alt);
+
         $("#" + prefix + "Header").text(elem.name);
-        $("#" + prefix + "Tag").text(elem.category);
+
+        if (elem.category !== "") {
+            $("#" + prefix + "Tag").removeClass("hidden");
+            $("#" + prefix + "Tag").text(elem.category);
+        } else {
+            $("#" + prefix + "Tag").addClass("hidden");
+        }
 
         if (elem.seller !== "") {
             $("#" + prefix + "SellerParent").removeClass("hidden");

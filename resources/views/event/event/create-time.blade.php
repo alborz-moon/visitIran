@@ -37,7 +37,7 @@
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
                                         <div data-remodal-target="time-and-date-start-modal" class="fs-7 text-dark">تاریخ و ساعت شروع</div>
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="setDateStart" data-remodal-target="time-and-date-start-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت شروع">
                                                 <button data-remodal-target="time-and-date-start-modal" class="btn btn-circle btn-outline-light d-none">
@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div data-remodal-target="time-and-date-stop-modal" class="fs-7 text-dark">تاریخ و ساعت پایان</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="setDateStop" data-remodal-target="time-and-date-stop-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت پایان">
@@ -61,9 +61,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="ui-box bg-white mb-5">
+                        <div class="ui-box bg-white mb-5 b-0 p-0">
                             <div class="ui-box-title align-items-center justify-content-between">
-                                شماره حساب های موجود
+                                جلسات
                             </div>
                             <div class="ui-box-content">
                                 <div class="table-responsive">
@@ -75,7 +75,6 @@
                                                 <th> تاریخ شروع  </th>
                                                 <th> تاریخ پایان  </th>
                                                 <th>وضعیت</th>
-                                                <th>آخرین بروزرسانی</th>
                                                 <th>عملیات</th>
                                             </tr>
                                         </thead>
@@ -86,43 +85,14 @@
                                                 <td class="fa-num">پشتیبانی</td>
                                                 <td class="fa-num">کالای غیراصل</td>
                                                 <td class="fa-num"><span class="badge bg-success rounded-pill">پاسخ داده
-                                                        شد</span></td>
-                                                <td class="fa-num">1400 دی 26</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-circle btn-info my-1"><i
-                                                            class="ri-eye-line"></i></a>
-                                                    <a href="#" class="btn btn-circle btn-danger my-1"><i
-                                                            class="ri-close-line"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fa-num">1</td>
-                                                <td class="fa-num">1400 دی 25</td>
-                                                <td class="fa-num">پشتیبانی</td>
-                                                <td class="fa-num">کالای غیراصل</td>
-                                                <td class="fa-num"><span
-                                                        class="badge bg-danger rounded-pill">بسته</span></td>
-                                                <td class="fa-num">1400 دی 26</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-circle btn-info my-1"><i
-                                                            class="ri-eye-line"></i></a>
-                                                    <a href="#" class="btn btn-circle btn-danger my-1"><i
-                                                            class="ri-close-line"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fa-num">1</td>
-                                                <td class="fa-num">1400 دی 25</td>
-                                                <td class="fa-num">پشتیبانی</td>
-                                                <td class="fa-num">کالای غیراصل</td>
-                                                <td class="fa-num"><span class="badge bg-warning rounded-pill">در حال
+                                                        شد</span><span
+                                                        class="badge bg-danger rounded-pill">بسته</span><span class="badge bg-warning rounded-pill">در حال
                                                         بررسی</span></td>
-                                                <td class="fa-num">1400 دی 26</td>
                                                 <td>
                                                     <a href="#" class="btn btn-circle btn-info my-1"><i
-                                                            class="ri-eye-line"></i></a>
+                                                            class="icon-visit-edit marginTop7"></i></a>
                                                     <a href="#" class="btn btn-circle btn-danger my-1"><i
-                                                            class="ri-close-line"></i></a>
+                                                            class="icon-visit-delete marginTop7"></i></a>
                                                 </td>
                                             </tr>
                                         </tbody>

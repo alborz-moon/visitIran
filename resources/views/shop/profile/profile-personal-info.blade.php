@@ -11,12 +11,12 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class="py-1">
                                             <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
                                             <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between">
                                                 <input id="nameVal" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
-                                                <button class="btn btn-circle btn-outline-light"
-                                                    data-remodal-target="personal-info-fullname-modal"><i class="ri-ball-pen-fill"></i>
+                                                <button id="editBtnName" class="btn btn-circle btn-outline-light hidden"
+                                                    data-remodal-target="personal-info-fullname-modal "><i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
                                             {{-- {{ $user->nid != null ? $user->nid : '-' }} --}}
@@ -24,7 +24,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class="py-1">
                                             <div  class="fs-7 text-dark">کد ملی</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input onkeypress="return isNumber(event)" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
@@ -37,7 +37,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class="py-1">
                                             <div  class="fs-7 text-dark">شماره تلفن همراه</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="phone" type="tel" minlength="7"  maxlength="11" class="form-control " style="direction: rtl" placeholder="شماره تلفن همراه">
@@ -50,7 +50,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class="py-1">
                                             <div  class="fs-7 text-dark">پست الکترونیک</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input  onkeypress="return isEmail(event) || isNumber(event)" id="userEmail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
@@ -63,11 +63,11 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class="py-1">
                                             <div  class="fs-7 text-dark">تاریخ تولد</div>
                                             <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between">
                                                 <input id="brithdayVal" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد">
-                                                <button class="btn btn-circle btn-outline-light"
+                                                <button id="editBtnBirdthday" class="btn btn-circle btn-outline-light hidden"
                                                     data-remodal-target="personal-info-birth-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
@@ -76,7 +76,7 @@
                                         </div>
                                     </div>
                                     {{-- <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <div class="fs-7 fw-bold text-dark">روش بازگرداندن وجه</div>
                                                 <button class="btn btn-circle btn-outline-light"
@@ -87,7 +87,7 @@
                                         </div>
                                     </div> --}}
                                     {{-- <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <div class="fs-7 fw-bold text-dark">رمز عبور</div>
                                                 <button class="btn btn-circle btn-outline-light"
@@ -118,7 +118,7 @@
                 <div class="remodal-content">
                     <div class="form-element-row mb-3">
                         <label class="label fs-7">نام</label>
-                        <input id="first_name" value="{{ $user->first_name }}" type="text" class="form-control" placeholder="نام">
+                        <input  id="first_name" value="{{ $user->first_name }}" type="text" class="form-control" placeholder="نام">
                     </div>
                     <div class="form-element-row">
                         <label class="label fs-7">نام خانوادگی</label>
@@ -323,10 +323,9 @@
         function setValName() {
             var name = $('#first_name').val();
             var last = $('#last_name').val();
-            console.log('====================================');
-            console.log(name + ' ' + last);
-            console.log('====================================');
-            $('#nameVal').val(name + ' ' + last);
+            nameVal = $('#nameVal');
+            nameVal.val(name + ' ' + last);
+            $('#editBtnName').removeClass('hidden');
             $(".remodal-close").click();
         }
 
@@ -334,7 +333,7 @@
             var year = $('#Brithday_year').val();
             var month = $('#Brithday_month').val();
             var day =$('#Brithday_day').val();
-
+            $('#editBtnBirdthday').removeClass('hidden');
             $('#brithdayVal').val(year + '/' + month + '/' + day);
             $(".remodal-close").click();
         }
@@ -384,7 +383,10 @@
                 data: data,
                 success: function(res) {
                     if(res.status === 'ok')
+                        // $('#editBtnName').removeClass('hidden');
+                        // $('#editBtnBirdthday').removeClass('hidden');
                         showSuccess('عملیات موردنظر باموفقیت انجام شد.');
+
                 }
             })
         }

@@ -215,14 +215,14 @@
                                 <!-- start of tab-content -->
                                 <div class="tab-content" id="shipping-type-tabContent">
                                     <!-- start of tab-pane -->
-                                    <div class="tab-pane py-4 fade show active" id="shipping-type-1" role="tabpanel"
+                                    <div class="tab-pane fade show active" id="shipping-type-1" role="tabpanel"
                                         aria-labelledby="shipping-type-1">
                                         <!-- start of checkout-pack -->
                                         <div class="checkout-pack">
                                             <div class="checkout-pack-content">
-                                                <div class="d-flex align-items-center mb-4"><i
+                                                {{-- <div class="d-flex align-items-center mb-4"><i
                                                         class="ri-time-line text-muted me-2"></i> انتخاب زمان ارسال
-                                                </div>
+                                                </div> --}}
                                                 <!-- Slider main container -->
                                                 <div class="swiper checkout-time-swiper-slider mb-5">
                                                     <!-- Additional required wrapper -->

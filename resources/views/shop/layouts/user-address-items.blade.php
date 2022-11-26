@@ -51,12 +51,17 @@
                     for(var i = 0; i < res.data.length; i++) {
                         html +='<div id="address-card-' + res.data[i].id + '" class="user-address-item">';
                         html +='<div class="custom-radio-box">';
-                        html +='<input type="radio" class="custom-radio-box-input" name="userAddress" value="' + res.data[i].id + '" id="userAddress' + res.data[i].id + '">';
+                        if(res.data[i].is_default == 1){
+                            html +='<input type="radio" class="custom-radio-box-input" name="userAddress" value="' + res.data[i].id + '" id="userAddress' + res.data[i].id + '" checked>';
+                        }else{
+                            html +='<input type="radio" class="custom-radio-box-input" name="userAddress" value="' + res.data[i].id + '" id="userAddress' + res.data[i].id + '">';
+                        }
+                        
 
                         if(res.data[i].is_default == 1)
                             html +='<label id="selectedAddress" for="userAddress' + res.data[i].id + '" class="custom-radio-box-label heightAddressBox" data-placeholder="انتخاب پیش فرض" data-placeholder-checked="انتخاب شده">';
                         else
-                            html +='<label id="selectedAddress" for="userAddress' + res.data[i].id + '" class="custom-radio-box-label heightAddressBox" data-placeholder-checked="انتخاب شده">';
+                            html +='<label id="selectedAddress" for="userAddress' + res.data[i].id + '" class="custom-radio-box-label heightAddressBox" data-placeholder="انتخاب پیش فرض" data-placeholder-checked="انتخاب شده">';
 
                         html +='<span class="d-block user-address-recipient mb-2">' + res.data[i].name + '</span>';
                         html +='<span class="d-block user-contact-items fa-num mb-1">';
