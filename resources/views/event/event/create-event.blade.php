@@ -110,8 +110,11 @@
                                             <div class="fs-7 text-dark">شرایط سنی</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select id="ageCondi" class="select2 w-100">
-                                                    <option value="">شرایط 1</option>
-                                                    <option value="">شرایط 2</option>
+                                                    <option value="all" selected>همه سنین</option>
+                                                    <option value="child">کودکان تا ۱۰ سال</option>
+                                                    <option value="teen">نوجوانان ۱۰ تا ۱۸ سال</option>
+                                                    <option value="adult">بزرگسال</option>
+                                                    <option value="old">بازنشستگان</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -121,8 +124,10 @@
                                             <div  class="fs-7 text-dark">سطح برگزاری</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select id="level" class="select2 w-100">
-                                                    <option value="">1</option>
-                                                    <option value="">1</option>
+                                                    <option value="national">ملی</option>
+                                                    <option value="state">استانی</option>
+                                                    <option value="local">محلی</option>
+                                                    <option value="pro">تخصصی</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -144,10 +149,12 @@
                                             <div  class="fs-7 text-dark">زبان</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select class="select2 w-100" name="" id="lang">
-                                                    <option value="0" selected>انتخاب کنید</option>
-                                                    <option value="1">ترکی</option>
-                                                    <option value="2">فارسی</option>
-                                                    <option value="3">انگلیسی</option>
+                                                    <option value="fa" selected>فارسی</option>
+                                                    <option value="tr">ترکی</option>
+                                                    <option value="en">انگلیسی</option>
+                                                    <option value="fr">فرانسه</option>
+                                                    <option value="gr">آلمانی</option>
+                                                    <option value="ar">عربی</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -235,7 +242,7 @@
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">لینک جلسه مجازی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="linkOnline" type="url" class="form-control" style="direction: rtl" placeholder=" آدرس سایت">
+                                                <input id="link" type="url" class="form-control" style="direction: rtl" placeholder=" آدرس سایت">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -246,7 +253,7 @@
                                         <div class="py-1 hidden_online_fields hidden">
                                             <div  class="fs-7 text-dark">آدرس</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <textarea  type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
+                                                <textarea id="address" type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -597,9 +604,6 @@
             },
             success: function(res) {
                 var facility= "";
-                console.log('====================================');
-                console.log(res);
-                console.log('====================================');
                 if(res.status === "ok") {
                     if(res.data.length != 0) {
                         for( var i = 0; i < res.data.length ; i ++){
@@ -619,7 +623,7 @@
                 var city = $('#city02').val();
                 var postal_code = $('#postal_code').val();
                 var address = $('#address').val();
-                var link = $('link').val();
+                var link = $('#link').val();
 
                 var selectedFacility = [];
                 $('input[name=facility]').each(function() {
@@ -629,13 +633,17 @@
                 });
                 let data = {
                     title: eventName,
-                    facilities_arr: selectedFacility,
-                    tags_arr: topicList,
-                    language: langList,
+                    facilities_arr: selectedFacility.map((elem, index) => {
+                        return elem.id;
+                    }),
+                    tags_arr: topicList.map((elem, index) => {
+                        return elem.id;
+                    }),
+                    language: langList.map((elem, index) => {
+                        return elem.id;
+                    }),
                     age_description: ageCondi,
                     level_description: level, 
-                    topicList: topicList,
-                    langList: langList,
                     type: onlineOrOffline,
                 };
                 if(onlineOrOffline === "offline") {
@@ -650,7 +658,7 @@
                 }
                     $.ajax({
                         type: 'post',
-                        
+                        url: '{{route('event.store')}}',
                         data: data,
                         success: function(res) {
                             if(res.status === "ok") {
