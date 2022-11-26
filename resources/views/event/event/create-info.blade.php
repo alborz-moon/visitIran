@@ -54,7 +54,7 @@
                         </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">گالری عکس</div>
-                                <div class="col-lg-12 mb-3">
+                                <div class="col-lg-12 mb-3 zIndex0">
                                     <div id="certifications" class="boxGallery">
                                     </div>
                                     <div class="uploadBody">

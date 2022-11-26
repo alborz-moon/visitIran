@@ -81,7 +81,7 @@
                                             </div>
                                             <!-- end of form-element -->
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12 zIndex0">
                                             
                                             <div class="uploadBody">
                                                 <div class="uploadBorder">
