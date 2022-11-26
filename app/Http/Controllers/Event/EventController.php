@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventUserDigest;
 use App\Models\Event;
+use App\Models\EventTag;
+use App\Models\Facility;
 use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class EventController extends Controller
 {
@@ -166,10 +169,65 @@ class EventController extends Controller
     {
         $validator = [
             'title' => 'required|string|min:2',
-            'age_description' => ['required', ]
+            'age_description' => ['required', Rule::in(['child', 'teen', 'adult'])],
+            'level_description' => ['required', Rule::in(['elemantary', 'intermediate', 'advance', 'pro'])],
+            'tags_arr' => 'required|array',
+            'tags_arr.*' => 'required|integer|exists:mysql2.event_tags,id',
+            'language' => ['required', Rule::in(['fa', 'en', 'ar', 'fr', 'gr'])],
+            'facilities_arr' => 'nullable|array',
+            'facilities_arr.*' => 'required|integer|exists:mysql2.event_facilities,id',
+            'type' => ['required', Rule::in(['haghighi', 'hoghoghi'])],
+            'x' => ['required_if:type,hoghoghi','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'y' => ['required_if:type,hoghoghi','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
+            'city_id' => 'required_if:type,hoghoghi|exists:mysql2.cities,id',
+            'address' => 'required_if:type,hoghoghi|string|min:2',
+            'link' => 'required_if:type,haghighi|url',
         ];
 
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
 
+        $request->validate($validator);
+
+        if($request->has('link') && $request['type'] == 'hoghoghi')
+            return abort(401);
+
+        if(
+            (
+                $request->has('address') || $request->has('city_id') || 
+                $request->has('x') || $request->has('y')
+            ) && $request['type'] == 'hoghoghi'
+        )
+            return abort(401);
+
+
+        $tags_arr = [];
+        foreach($request['tags_arr'] as $tagId) {
+            $tag = EventTag::whereId($tagId)->first();
+            if($tag != null)
+                array_push($tags_arr, $tag->label);
+        }
+
+        if($request->has('facilities_arr')) {
+            $facilities_arr = [];
+            foreach($request['facilities_arr'] as $facId) {
+                $facility = Facility::whereId($facId)->first();
+                if($facility != null)
+                    array_push($facilities_arr, $facility->label);
+            }
+            $request['facilities'] = implode('_', $facilities_arr);
+        }
+
+        $request['tags'] = implode('_', $tags_arr);
+        $request['launcher_id'] = $request->user()->id;
+        $request['type'] = null;
+
+        $event = Event::create($request->toArray());
+
+        return response()->json([
+            'status' => 'ok',
+            'id' => $event->id
+        ]);
     }
 
     /**
