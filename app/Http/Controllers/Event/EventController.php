@@ -104,16 +104,6 @@ class EventController extends Controller
     }
 
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function facilities()
-    {
-        
-    }
-
 
     /**
      * Display a listing of the resource.
@@ -174,7 +164,12 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = [
+            'title' => 'required|string|min:2',
+            'age_description' => ['required', ]
+        ];
+
+
     }
 
     /**

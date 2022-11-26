@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('launcher', LauncherController::class)->except('update');
 
+
 Route::resource('facilities', FacilityController::class)->except('update');
 
 Route::post('facilities/{facility}', [FacilityController::class, 'update'])->name('facilities.update');
