@@ -91,7 +91,7 @@
                                 <a href="{{ route('create-info') }}"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
                             </li>
                         </ul>
-                        <a href="#" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18 d-none">بازگشت</a>
+                        <a href="#" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
                     </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">اطلاعات کلی</div>
@@ -109,10 +109,10 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div  class="fs-7 text-dark">شرایط سنی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select class="selectStyle">
+                                                <select class="select2 w-100">
                                                     <option value="">شرایط 1</option>
                                                     <option value="">شرایط 2</option>
                                                 </select>
@@ -120,10 +120,10 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div  class="fs-7 text-dark">سطح برگزاری</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select class="selectStyle">
+                                                <select class="select2 w-100">
                                                     <option value="">1</option>
                                                     <option value="">1</option>
                                                 </select>
@@ -131,7 +131,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div  class="fs-7 text-dark">موضوع</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select class="select2 w-100" name="" id="topicEvent">
@@ -142,12 +142,12 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="d-flex flexWrap gap15 mt-2" id="addTopic">
+                                        <div class="d-flex flexWrap gap15 mt-2 flexWrap" id="addTopic">
                                 
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div  class="fs-7 text-dark">زبان</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select class="select2 w-100" name="" id="lang">
@@ -158,7 +158,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div id="addLang" class="d-flex gap15 mt-2">
+                                        <div id="addLang" class="d-flex gap15 mt-2 flexWrap">
 
                                         </div>
                                     </div>
@@ -193,7 +193,7 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div  class="fs-7 text-dark">نوع رویداد</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select id="onlineOrOffline" class="selectStyle select2">
@@ -211,7 +211,7 @@
                             <div class="ui-box-title">اطلاعات رویداد</div>
                             <div class="ui-box-content">
                                 <div class="row">
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-6 mb-3 hidden_online_fields">
                                         <!-- start of form-element -->
                                         <div class="form-element-row">
                                             <label class="label fs-7">استان</label>
@@ -225,7 +225,7 @@
                                         </div>
                                         <!-- end of form-element -->
                                     </div>
-                                    <div id="ha" class="col-lg-6 mb-3">
+                                    <div id="ha" class="col-lg-6 mb-3 hidden_online_fields">
                                         <!-- start of form-element -->
                                         <div class="form-element-row">
                                             <div class="form-element-row">
@@ -236,11 +236,11 @@
                                         </div>
                                         <!-- end of form-element -->
                                     </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">کد ملی</div>
+                                    <div class="col-lg-6 mb-3 hidden_online_fields">
+                                        <div class="py-1">
+                                            <div  class="fs-7 text-dark hidden_online_fields">کد ملی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
+                                                <input onkeypress="return isNumber(event)" maxlength="10" minlength="10" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -248,11 +248,11 @@
                                             <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                    <div class="col-lg-6 mb-3 hidden_online_fields">
+                                        <div class="py-1">
                                             <div  class="fs-7 text-dark">کد پستی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
+                                                <input onkeypress="return isNumber(event)" minlength="10" maxlength="10" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -261,10 +261,10 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3 hidden_url_fields hidden">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">آدرس خانه مجازی</div>
+                                        <div class="py-1">
+                                            <div  class="fs-7 text-dark">لینک جلسه مجازی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input type="url" class="form-control" style="direction: rtl" placeholder=" آدرس سایت"></input>
+                                                <input type="url" class="form-control" style="direction: rtl" placeholder=" آدرس سایت">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -272,7 +272,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <div class="border-bottom py-1 hidden_address_fields hidden">
+                                        <div class="py-1 hidden_online_fields hidden">
                                             <div  class="fs-7 text-dark">آدرس</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <textarea  type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
@@ -283,7 +283,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class="py-1">
                                             <div  class="fs-7 text-dark">نقشه</div>
                                             <div id="launchermap" style="width: 100%; height: 250px"></div>
                                         </div>
@@ -336,7 +336,7 @@
                         <div class="col-4">
                             <div class="form-element-row">
                                 <label class="label fs-7">سال</label>
-                                <input value="" id="Brithday_year" type="text" class="form-control" placeholder="">
+                                <input onkeypress="return isNumber(event)" value="" id="Brithday_year" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-4">
@@ -362,7 +362,7 @@
                         <div class="col-4">
                             <div class="form-element-row">
                                 <label class="label fs-7">روز</label>
-                                <input id="Brithday_day" value="" type="text" class="form-control" placeholder="">
+                                <input onkeypress="return isNumber(event)" id="Brithday_day" value="" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -453,7 +453,7 @@
                         value: topic
                     });
                     addTopic += '<div id="topic-' + i + '" class="item-button spaceBetween colorBlack">' + topicCaption + '';
-                    addTopic +='<button data-id="' + i + '" class="remove-topic-btn btn btn-outline-light">'; 
+                    addTopic +='<button data-id="' + i + '" class="remove-topic-btn btn btn-outline-light b-0">'; 
                     addTopic += '<i class="ri-close-line"></i>'
                     addTopic += '</button></div>';
                 
@@ -465,6 +465,10 @@
                 
                 let id = $(this).attr('data-id');
                 topicList = topicList.filter((elem, index) => {
+                    langList.put({
+                        id: i,
+                        value: lang
+                    });
                     return elem.id != id;
                 });
                 $("#topic-" + id).remove();
@@ -475,7 +479,7 @@
             var addLang= '';
             $('#lang').on('change',function(){
                 lang = $('#lang').val();
-
+                
                 let tmp = langList.find((elem, index) => {
                     return elem.value == lang;
                 });
@@ -494,7 +498,7 @@
                     });
 
                     addLang += '<div id="lang-' + i + '" class="item-button spaceBetween colorBlack">' + langCaption + '';
-                    addLang +='<button data-id="' + i + '" class="remove-lang-btn btn btn-outline-light">'; 
+                    addLang +='<button data-id="' + i + '" class="remove-lang-btn btn btn-outline-light b-0">'; 
                     addLang += '<i class="ri-close-line"></i>'
                     addLang += '</button></div>';
 
@@ -505,8 +509,15 @@
              $(document).on('click','.remove-lang-btn',function(){
                 
                 let id = $(this).attr('data-id');
+                console.log('====================================');
+                console.log(id,langList);
+                console.log('====================================');
                 langList = langList.filter((elem, index) => {
+                    langList.pop({
+                        id: id,
+                    });
                     return elem.id != id;
+                    
                 });
                 $("#lang-" + id).remove();
                 
@@ -547,10 +558,12 @@
             }else if(onlineOrOffline=== 'online'){
                 $(".hidden_all_fields").removeClass('hidden');
                 $(".hidden_url_fields").removeClass('hidden');
-                $(".hidden_address_fields").addClass('hidden');
+                $(".hidden_online_fields").addClass('hidden');
+
             }else if(onlineOrOffline=== 'offline'){
                 $(".hidden_address_fields").removeClass('hidden');
                 $(".hidden_all_fields").removeClass('hidden');
+                $(".hidden_online_fields").removeClass('hidden');
                 $(".hidden_url_fields").addClass('hidden');
             }
             if(map === undefined) {

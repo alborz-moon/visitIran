@@ -3874,7 +3874,7 @@ else if (typeof define === 'function' && define.amd) {
                     var widths = $(document).ready().width();
                     var mySwiper = new EventSwiper ('.custom-swiper-container', {
                         speed: 400,
-                        spaceBetween: 50,
+                        spaceBetween: widths > 768 ? 50 : 0,
                         initialSlide: 0,
                         //truewrapper adoptsheight of active slide
                         autoHeight: true,
@@ -3897,7 +3897,7 @@ else if (typeof define === 'function' && define.amd) {
                         // "slide", "fade", "cube", "coverflow" or "flip"
                         effect: 'slide',
                         // Distance between slides in px.
-                        spaceBetween: 20,
+                        spaceBetween: widths > 768 ? 20 : 0,
                         //
                         slidesPerView: widths > 768 ? 2 : 1,
                         //
@@ -3912,7 +3912,7 @@ else if (typeof define === 'function' && define.amd) {
                             },
                             768: {
                                 slidesPerView: 1,
-                                spaceBetween: 8,
+                                
                             },
                         },
                     })        

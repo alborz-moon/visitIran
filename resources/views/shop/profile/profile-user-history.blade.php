@@ -13,7 +13,7 @@
                                     <div class="row">
                                         <div class="col-lg-6 mb-3">
                                             <!-- start of product-list-item -->
-                                            <div class="product-list-item border-bottom pb-3">
+                                            <div class="product-list-item  pb-3">
                                                 <div class="thumbnail">
                                                     <a href="#"><img src="./theme-assets/images/carts/01.jpg"
                                                             alt=""></a>
@@ -38,7 +38,7 @@
                                         </div>
                                         <div class="col-lg-6 mb-3">
                                             <!-- start of product-list-item -->
-                                            <div class="product-list-item border-bottom pb-3">
+                                            <div class="product-list-item  pb-3">
                                                 <div class="thumbnail">
                                                     <a href="#"><img src="./theme-assets/images/carts/02.jpg"
                                                             alt=""></a>
@@ -63,7 +63,7 @@
                                         </div>
                                         <div class="col-lg-6 mb-3">
                                             <!-- start of product-list-item -->
-                                            <div class="product-list-item border-bottom pb-3">
+                                            <div class="product-list-item  pb-3">
                                                 <div class="thumbnail">
                                                     <a href="#"><img src="./theme-assets/images/carts/03.jpg"
                                                             alt=""></a>
@@ -88,7 +88,7 @@
                                         </div>
                                         <div class="col-lg-6 mb-3">
                                             <!-- start of product-list-item -->
-                                            <div class="product-list-item border-bottom pb-3">
+                                            <div class="product-list-item  pb-3">
                                                 <div class="thumbnail">
                                                     <a href="#"><img src="./theme-assets/images/carts/01.jpg"
                                                             alt=""></a>
@@ -113,7 +113,7 @@
                                         </div>
                                         <div class="col-lg-6 mb-3">
                                             <!-- start of product-list-item -->
-                                            <div class="product-list-item border-bottom pb-3">
+                                            <div class="product-list-item  pb-3">
                                                 <div class="thumbnail">
                                                     <a href="#"><img src="./theme-assets/images/carts/02.jpg"
                                                             alt=""></a>
@@ -138,7 +138,7 @@
                                         </div>
                                         <div class="col-lg-6 mb-3">
                                             <!-- start of product-list-item -->
-                                            <div class="product-list-item border-bottom pb-3">
+                                            <div class="product-list-item  pb-3">
                                                 <div class="thumbnail">
                                                     <a href="#"><img src="./theme-assets/images/carts/03.jpg"
                                                             alt=""></a>

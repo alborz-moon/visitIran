@@ -453,6 +453,9 @@ ul {
     -ms-border-radius: 20px !important;
     -o-border-radius: 20px !important;
 }
+.borderWhite {
+    border: 0px solid #fff !important;
+}
 .text-category {
     margin-right: 15px;
     width: 160px;
@@ -495,6 +498,10 @@ ul {
 }
 .tiles:hover .labelForCat {
     opacity: 0 !important;
+}
+table thead {
+    font-size: 14px;
+    white-space: nowrap;
 }
 .catText {
     color: white !important;
@@ -797,8 +804,25 @@ ul {
 .felxDirectionColumn {
     flex-direction: column;
 }
+.dz-details {
+    font-family: visitiran;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.dz-details::before {
+    content: "\0067";
+    font-size: 20px;
+    color: red;
+}
 .flexWrap {
     flex-wrap: wrap !important;
+}
+.borderEa {
+    border: 1px solid #eaeaea;
+}
+.borderBottom {
+    border-bottom: 1px solid #eaeaea;
 }
 .spaceBetween {
     display: flex !important;
@@ -1407,10 +1431,32 @@ figure .ck-widget {
 .marginLeft15 {
     margin-left: 15px;
 }
+.marginTop8 {
+    margin-top: 8px;
+}
+.marginTop7 {
+    margin-top: 7px;
+}
+.fa-num {
+    font-size: 13px;
+    font-weight: 500;
+    font-family: IRANSans;
+}
+.table tbody td {
+    padding: 10px 7px;
+    white-space: nowrap;
+}
+.borderCircle {
+    border: 1px solid #eaeaea;
+}
+.padding10 {
+    padding: 10px;
+}
 .userCircleSize {
-    width: 33px;
-    min-width: 33px;
-    height: 33px;
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+    margin-top: 8px;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -1657,8 +1703,12 @@ figure .ck-widget {
     font-weight: 500;
     font-size: 14px;
 }
-.max-height-auto {
-    max-height: 100000px !important;
+.dropzone {
+    min-height: 150px;
+    border: 1px solid #dee2e6;
+    background: white;
+    padding: 20px 20px;
+    border-radius: 20px;
 }
 .show-more,
 .show-less,
@@ -1698,6 +1748,10 @@ figure .ck-widget {
     /* .ui-sticky {
         position: inherit;
     } */
+    .customEventImgSizeSlider {
+        width: 100%;
+        height: auto;
+    }
     .ui-sticky.ui-sticky-top {
         top: 0px;
     }

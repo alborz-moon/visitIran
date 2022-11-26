@@ -55,7 +55,7 @@
                                     <!-- end of ticket -->
                                 </div>
                                 <!-- end of tickets -->
-                                <div class="border-bottom my-4"></div>
+                                <div class="my-4"></div>
                                 <div class="ui-box-title p-0 mb-4">
                                     ارسال پاسخ
                                 </div>

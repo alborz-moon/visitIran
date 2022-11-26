@@ -40,7 +40,7 @@
                     html +='<div class="border rounded p-3">';
                     html +='<div class="spaceBetween"';
                     html +='<div><a href="' + res.data[i].href + '" class="d-flex align-items-center colorBlack bold pb-3">';
-                    html +='<img src="' + res.data[i].img + '" width="60" height="60" alt="">';
+                    html +='<img src="' + res.data[i].img + '" width="30" height="30" alt="">';
                     html +='<span class="fs-7 fw-bold px-3">' + res.data[i].product + '</span>';
                     html +='</a>';
                     html += '<div class="d-flex align-items-center justify-content-center">';

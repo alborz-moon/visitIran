@@ -37,7 +37,7 @@
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
                                         <div data-remodal-target="time-and-date-start-modal" class="fs-7 text-dark">تاریخ و ساعت شروع</div>
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="setDateStart" data-remodal-target="time-and-date-start-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت شروع">
                                                 <button data-remodal-target="time-and-date-start-modal" class="btn btn-circle btn-outline-light d-none">
@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div data-remodal-target="time-and-date-stop-modal" class="fs-7 text-dark">تاریخ و ساعت پایان</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="setDateStop" data-remodal-target="time-and-date-stop-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت پایان">
@@ -63,7 +63,7 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class="py-1">
                                             <div  class="fs-7 text-dark">توضیحات</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input type="text" class="form-control" style="direction: rtl" placeholder="توضیحات">
@@ -75,7 +75,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class="py-1">
                                             <div  class="fs-7 text-dark">قیمت به تومان</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input onkeypress="return isNumber(event)" type="text" class="form-control" style="direction: rtl" placeholder="قیمت به تومان">
@@ -87,7 +87,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class="py-1">
                                             <div  class="fs-7 text-dark">ظرفیت</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input onkeypress="return isNumber(event)" type="text" class="form-control" style="direction: rtl" placeholder="ظرفیت">
@@ -106,7 +106,7 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class="py-1">
                                             <div  class="fs-7 text-dark">وب سایت</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input type="url" class="form-control" style="direction: rtl" placeholder="وب سایت">
@@ -118,10 +118,10 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class="py-1">
                                             <div  class="fs-7 text-dark">ایمیل</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input type="email" class="form-control" style="direction: rtl" placeholder="ایمیل">
+                                                <input onkeypress="return isEmail(event) || isNumber(event)" type="email" class="form-control" style="direction: rtl" placeholder="ایمیل">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -130,7 +130,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class="py-1">
                                             <div  class="fs-7 text-dark">تلفن</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input onkeypress="return isNumber(event)" minlength="7" maxlength="11" id="launcherPhone" type="text" class="form-control setEnter" style="direction: rtl" placeholder="تلفن">
