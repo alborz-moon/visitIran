@@ -157,11 +157,12 @@
                 forceChunking: false,
                 uploadMultiple: false,
                 maxFiles: 1,
+                acceptedFiles: ".jpeg,.jpg,.png,.gif",
                 accept: function(file, done) {
                     done();
                 },
                 init: function () {
-                    
+                    this.hiddenFileInput.removeAttribute('multiple');
                     this.on('completemultiple', function () {
                         // if(myPreventionFlag)
                         //     $("#dropZoneNewspaper").removeClass('hidden');
@@ -210,11 +211,13 @@
                 parallelUploads: 1,
                 chunking: false,
                 forceChunking: false,
-                // maxFiles: 1,
+                maxFiles: 1,
+                acceptedFiles: ".jpeg,.jpg,.png,.gif",
                 accept: function(file, done) {
                     done();
                 },
                 init: function () {
+                    this.hiddenFileInput.removeAttribute('multiple');
                     this.on('completemultiple', function () {
                         // if(myPreventionFlag)
                         //     $("#dropZoneErr").removeClass('hidden');
@@ -315,11 +318,12 @@
                     forceChunking: false,
                     uploadMultiple: false,
                     maxFiles: 1,
+                    acceptedFiles: ".jpeg,.jpg,.png,.gif",
                     accept: function(file, done) {
                         done();
                     },
                     init: function () {
-                        
+                        this.hiddenFileInput.removeAttribute('multiple');
                         this.on('completemultiple', function () {
                             
                             // if(myPreventionFlag)

@@ -14,6 +14,7 @@ class Facility extends Model
     public $timestamps = false;
     
     protected $fillable = [
-        'label'
+        'label',
+        'visibility'
     ];
 }

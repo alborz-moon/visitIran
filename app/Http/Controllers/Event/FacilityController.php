@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Shop;
+namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FacilityResource;
 use App\Models\Facility;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class FacilityController extends Controller
 {
@@ -16,10 +17,43 @@ class FacilityController extends Controller
      */
     public function index(Request $request)
     {
+        return view('admin.facility.list', 
+            ['items' => FacilityResource::collection(Facility::all())->toArray($request)]
+        );
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Facility $facility)
+    {
+        return view('admin.facility.create', ['item' => $facility]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request)
+    {
         return response()->json([
             'status' => 'ok',
             'data' => FacilityResource::collection(Facility::all())->toArray($request)
         ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin.facility.create');
     }
 
     /**
@@ -31,7 +65,8 @@ class FacilityController extends Controller
     public function store(Request $request)
     {
         $validator = [
-            'label' => 'required|string|min:2'
+            'label' => 'required|string|min:2',
+            'visibility' => 'nullable|boolean',
         ];
         
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
@@ -40,7 +75,7 @@ class FacilityController extends Controller
         $request->validate($validator);
         
         Facility::create($request->toArray());
-        return response()->json(['status' => 'ok']);
+        return Redirect::route('facilities.index');
     }
 
 
@@ -54,7 +89,8 @@ class FacilityController extends Controller
     public function update(Facility $facility, Request $request)
     {
         $validator = [
-            'label' => 'required|string|min:2'
+            'label' => 'required|string|min:2',
+            'visibility' => 'nullable|boolean'
         ];
         
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
@@ -62,9 +98,10 @@ class FacilityController extends Controller
         
         $request->validate($validator);
         $facility->label = $request['label'];
+        $facility->visibility = $request->has('visibility') ? $request['visibility'] : $facility->visibility;
         $facility->save();
         
-        return response()->json(['status' => 'ok']);
+        return Redirect::route('facilities.index');
     }
 
     /**

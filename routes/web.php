@@ -8,6 +8,7 @@ use App\Http\Controllers\Shop\BlogController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Models\State;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,6 +54,41 @@ Route::view('login', 'admin.login')->name('loginPage');
 
 Route::view('verification', 'verification')->name('verification');
 
+
+
+Route::middleware(['myAuth'])->group(function() {
+
+    Route::prefix('profile')->group(function() {
+        
+        Route::get('/', [ProfileController::class, 'profile'])->name('profile.main');
+
+        Route::get('/addresses', [ProfileController::class, 'addresses'])->name('profile.addresses');
+        
+        Route::get('/comments', [ProfileController::class, 'comments'])->name('profile.comments');
+        
+        Route::get('/favorites', [ProfileController::class, 'favorites'])->name('profile.favorites');
+                
+        Route::get('/my-order-detail', [ProfileController::class, 'myOrderDetail'])->name('profile.my-order-detail');
+        
+        Route::get('/my-orders', [ProfileController::class, 'myOrders'])->name('profile.my-orders');
+        
+        Route::get('/notification', [ProfileController::class, 'notification'])->name('profile.notification');
+        
+        Route::get('/personal-info', [ProfileController::class, 'personalInfo'])->name('profile.personal-info');
+        
+        Route::get('/tickets-add', [ProfileController::class, 'ticketsAdd'])->name('profile.tickets-add');
+        
+        Route::get('/tickets-detail', [ProfileController::class, 'ticketsDetail'])->name('profile.tickets-detail');
+        
+        Route::get('/tickets', [ProfileController::class, 'tickets'])->name('profile.tickets');
+        
+        Route::get('/history', [ProfileController::class, 'history'])->name('profile.history');
+
+    });
+    
+});
+
+
 Route::domain(Controller::$SHOP_SITE)->group(function() {
 
     Route::view('/', 'shop.welcome')->name('home');
@@ -79,37 +115,6 @@ Route::domain(Controller::$SHOP_SITE)->group(function() {
 
     Route::view('payment', 'shop.payment')->name('payment');
     
-    Route::middleware(['myAuth'])->group(function() {
-
-        Route::prefix('profile')->group(function() {
-            
-            Route::get('/', [ProfileController::class, 'profile'])->name('profile.main');
-
-            Route::get('/addresses', [ProfileController::class, 'addresses'])->name('profile.addresses');
-            
-            Route::get('/comments', [ProfileController::class, 'comments'])->name('profile.comments');
-            
-            Route::get('/favorites', [ProfileController::class, 'favorites'])->name('profile.favorites');
-                    
-            Route::get('/my-order-detail', [ProfileController::class, 'myOrderDetail'])->name('profile.my-order-detail');
-            
-            Route::get('/my-orders', [ProfileController::class, 'myOrders'])->name('profile.my-orders');
-            
-            Route::get('/notification', [ProfileController::class, 'notification'])->name('profile.notification');
-            
-            Route::get('/personal-info', [ProfileController::class, 'personalInfo'])->name('profile.personal-info');
-            
-            Route::get('/tickets-add', [ProfileController::class, 'ticketsAdd'])->name('profile.tickets-add');
-            
-            Route::get('/tickets-detail', [ProfileController::class, 'ticketsDetail'])->name('profile.tickets-detail');
-            
-            Route::get('/tickets', [ProfileController::class, 'tickets'])->name('profile.tickets');
-            
-            Route::get('/history', [ProfileController::class, 'history'])->name('profile.history');
-
-        });
-        
-    });
 
 });
 
@@ -149,11 +154,7 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
             return view('event.launcher.launcher-finance', compact('formId'));
         })->name('finance');
 
-        Route::get('/create-event', function() {
-            $states = State::orderBy('name', 'asc')->get();
-            $mode = 'create';
-            return view('event.event.create-event', compact('states', 'mode'));
-        })->name('create-event');
+        Route::get('/create-event', [EventController::class, 'create'])->name('create-event');
 
         Route::view('/create-time','event.event.create-time')->name('create-time');
     
@@ -192,8 +193,8 @@ Route::get('/verification', function () {
     return view('verification');
 })->name('verification');
 
-Route::get('/come', function () {
-    return view('come');
+Route::get('/come', function (Request $request) {
+    return view('come', ['is_in_event' => $request->getHost() == Controller::$EVENT_SITE]);
 })->name('come');
 
 Route::get('/password-reset', function () {
@@ -210,9 +211,5 @@ Route::get('/404', function ($request) {
 	dd($request->getHost());
     return view('404');
 })->name('404');
-
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome');
 
 Route::view('403', 'errors.403')->name('403');

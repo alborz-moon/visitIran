@@ -12,6 +12,7 @@ class EventTag extends Model
     public $timestamps = false;
     
     protected $fillable = [
-        'label'
+        'label',
+        'visibility'
     ];
 }
