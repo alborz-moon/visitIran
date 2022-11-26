@@ -2,9 +2,6 @@
 @extends('layouts.structure')
 @section('header')
 <style>
-    /**
- * Tabs
- */
 .tabs {
 	display: flex;
 	flex-wrap: wrap;

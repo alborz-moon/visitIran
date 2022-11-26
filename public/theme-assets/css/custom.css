@@ -241,7 +241,9 @@ ul {
 .zIndex2 {
     z-index: 2;
 }
-
+.zIndex0 {
+    z-index: 0;
+}
 .hidden {
     display: none !important;
 }
@@ -804,16 +806,18 @@ table thead {
 .felxDirectionColumn {
     flex-direction: column;
 }
-.dz-details {
-    font-family: visitiran;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-.dz-details::before {
+.dz-image::before {
     content: "\0067";
     font-size: 20px;
     color: red;
+    font-family: visitiran;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    z-index: 1;
+}
+z .dz-image::before :hover {
+    cursor: pointer;
 }
 .flexWrap {
     flex-wrap: wrap !important;

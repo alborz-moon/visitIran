@@ -73,7 +73,7 @@
                                         </div>
                                         {{-- for test --}}
                                     </form> 
-                                        <div class="col-12">
+                                        <div class="col-12 zIndex0">
                                             <!-- start of form-element -->
                                                 <div class="uploadBody">
                                                     <div class="uploadBorder">
