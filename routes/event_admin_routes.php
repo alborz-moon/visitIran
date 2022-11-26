@@ -13,12 +13,26 @@ Route::resource('launcher', LauncherController::class)->except('update');
 
 Route::resource('facilities', FacilityController::class)->except('update');
 
-Route::post('facilities/{facility}', [FacilityController::class, 'update'])->name('facilities.update');
+Route::prefix('facilities')->group(function() {
+
+    Route::post('/{facility}', [FacilityController::class, 'update'])->name('facilities.update');
+    
+    Route::get('/list', [FacilityController::class, 'show'])->name('facilities.show');
+
+});
 
 
 Route::resource('eventTags', EventTagController::class)->except('update');
 
-Route::post('eventTags/{eventTag}', [EventTagController::class, 'update'])->name('eventTags.update');
+Route::prefix('eventTags')->group(function() {
+    
+    Route::post('/{eventTag}', [EventTagController::class, 'update'])->name('eventTags.update');
+
+    Route::get('/list', [EventTagController::class, 'show'])->name('eventTags.show');
+
+});
+
+
 
 
 Route::resource('event', EventController::class)->except('update');

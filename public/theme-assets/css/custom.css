@@ -839,7 +839,8 @@ z .dz-image::before :hover {
     justify-content: left !important;
 }
 .product-detail-container .product-seller-info {
-    padding: 0;
+    padding: 4px;
+    box-shadow: 1px 2px 4px 1px #aeaeae94;
     background-color: #fafafa;
 }
 .product-detail-container
@@ -940,12 +941,13 @@ z .dz-image::before :hover {
     -o-border-radius: 0 !important;
 }
 .product-gallery .gallery-thumbs ul li img {
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
 }
 .product-gallery .gallery-thumbs ul li {
     flex: 0 0 72px;
-    padding: 0px;
+    padding: 5px;
+    box-shadow: 1px 2px 4px 1px #aeaeae94;
     margin-left: 10px;
 }
 .select2-container {
@@ -1440,6 +1442,9 @@ figure .ck-widget {
 }
 .marginTop7 {
     margin-top: 7px;
+}
+.marginTop4 {
+    margin-top: 4px;
 }
 .fa-num {
     font-size: 13px;
