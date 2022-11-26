@@ -44,9 +44,11 @@ Route::middleware(['auth', 'editorLevel'])->prefix('admin')->group(function() {
 
     Route::domain(Controller::$SHOP_SITE)->group(base_path('routes/shop_admin_routes.php'));
     
-    Route::domain(Controller::$EVENT_SITE)->group(base_path('routes/event_admin_routes.php'));
 
 });
+
+Route::domain(Controller::$EVENT_SITE)->group(base_path('routes/event_admin_routes.php'));
+
 
 Route::post('login', [AuthController::class, 'login'])->name('login');
 

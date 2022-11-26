@@ -20,6 +20,7 @@ class MakeNullableFieldsInEventsTable extends Migration
             $table->unsignedInteger('price')->nullable()->change();
             $table->string('language');
             $table->string('link')->nullable();
+            $table->string('postal_code')->nullable();
             $table->string('address')->nullable()->change();
             $table->string('email')->nullable()->change();
             $table->string('site')->nullable()->change();
@@ -44,6 +45,7 @@ class MakeNullableFieldsInEventsTable extends Migration
             $table->unsignedInteger('price')->change();
             $table->dropColumn('language')->change();
             $table->dropColumn('link');
+            $table->dropColumn('postal_code');
             $table->string('address')->change();
             $table->string('email')->change();
             $table->string('site')->change();
