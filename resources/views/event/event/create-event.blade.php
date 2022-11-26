@@ -98,7 +98,7 @@
                                         <div class="py-2">
                                             <div  class="fs-7 text-dark">نام رویداد</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input type="text" class="form-control" style="direction: rtl" placeholder="نام رویداد">
+                                                <input id="eventName" type="text" class="form-control" style="direction: rtl" placeholder="نام رویداد">
                                                 <button class="btn btn-circle btn-outline-light hidden"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
@@ -107,9 +107,9 @@
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <div class="py-2">
-                                            <div  class="fs-7 text-dark">شرایط سنی</div>
+                                            <div class="fs-7 text-dark">شرایط سنی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select class="select2 w-100">
+                                                <select id="ageCondi" class="select2 w-100">
                                                     <option value="">شرایط 1</option>
                                                     <option value="">شرایط 2</option>
                                                 </select>
@@ -120,7 +120,7 @@
                                         <div class="py-2">
                                             <div  class="fs-7 text-dark">سطح برگزاری</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select class="select2 w-100">
+                                                <select id="level" class="select2 w-100">
                                                     <option value="">1</option>
                                                     <option value="">1</option>
                                                 </select>
@@ -221,18 +221,6 @@
                                     </div>
                                     <div class="col-lg-6 mb-3 hidden_online_fields">
                                         <div class="py-1">
-                                            <div  class="fs-7 text-dark hidden_online_fields">کد ملی</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input onkeypress="return isNumber(event)" maxlength="10" minlength="10" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
-                                                <button class="btn btn-circle btn-outline-light hidden">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3 hidden_online_fields">
-                                        <div class="py-1">
                                             <div  class="fs-7 text-dark">کد پستی</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input onkeypress="return isNumber(event)" minlength="10" maxlength="10" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
@@ -247,7 +235,7 @@
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">لینک جلسه مجازی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input type="url" class="form-control" style="direction: rtl" placeholder=" آدرس سایت">
+                                                <input id="linkOnline" type="url" class="form-control" style="direction: rtl" placeholder=" آدرس سایت">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -265,7 +253,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 mb-3">
+                                    <div class="col-lg-12 mb-3 hidden_map_fields">
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">نقشه</div>
                                             <div id="launchermap" style="width: 100%; height: 250px"></div>
@@ -409,21 +397,8 @@
         var y;
         var topicList = [];
         var langList = [];
-
-        $(document).ready(function(){
-
-            $("#nextBtn").on('click', function () {
-                var selectedFacility = [];
-                $('input[name=facility]').each(function() {
-                    if ($(this).is(":checked")) {
-                        selectedFacility.push($(this).attr('id'));
-                    }
-                });
-                console.log('====================================');
-                console.log(topicList);
-                console.log('====================================');
-            });
- 
+        var onlineOrOffline;
+        $(document).ready(function(){ 
             var topic = '';
             var addTopic = '';
             
@@ -455,7 +430,6 @@
                     $('#addTopic').empty().append(addTopic);
                 }
             })
-
             $(document).on('click','.remove-topic-btn',function(){
                 
                 let id = $(this).attr('data-id');
@@ -554,12 +528,14 @@
                 $(".hidden_all_fields").removeClass('hidden');
                 $(".hidden_url_fields").removeClass('hidden');
                 $(".hidden_online_fields").addClass('hidden');
+                $(".hidden_map_fields").addClass('hidden');
 
             }else if(onlineOrOffline=== 'offline'){
                 $(".hidden_address_fields").removeClass('hidden');
                 $(".hidden_all_fields").removeClass('hidden');
                 $(".hidden_online_fields").removeClass('hidden');
                 $(".hidden_url_fields").addClass('hidden');
+                $(".hidden_map_fields").removeClass('hidden');
             }
             if(map === undefined) {
                 mapboxgl.setRTLTextPlugin(
@@ -604,6 +580,7 @@
                 var eventTag= "";
                 if(res.status === "ok") {
                     if(res.data.length != 0) {
+                        eventTag += '<option value="0">انتخاب کنید</option>';
                         for( var i = 0; i < res.data.length ; i ++){
                             eventTag += '<option name="eventTag" value="' + res.data[i].id + '">'+ res.data[i].label +'</option>';
                         }
@@ -634,5 +611,59 @@
                 }
             }
         });
+        $("#nextBtn").on('click', function () {
+                var eventName = $('#eventName').val();
+                var ageCondi = $('#ageCondi').val();
+                var level = $('#level').val();
+                var state = $('#state02').val();
+                var city = $('#city02').val();
+                var postal_code = $('#postal_code').val();
+                var address = $('#address').val();
+                var link = $('link').val();
+
+                var selectedFacility = [];
+                $('input[name=facility]').each(function() {
+                    if ($(this).is(":checked")) {
+                        selectedFacility.push($(this).attr('id'));
+                    }
+                });
+                let data = {
+                    title: eventName,
+                    facilities_arr: selectedFacility,
+                    tags_arr: topicList,
+                    language: langList,
+                    age_description: ageCondi,
+                    level_description: level, 
+                    topicList: topicList,
+                    langList: langList,
+                    type: onlineOrOffline,
+                };
+                if(onlineOrOffline === "offline") {
+                    data.state = state;
+                    data.city_id = city;
+                    data.postal_code = postal_code;
+                    data.address = address;
+                    data.x = x;
+                    data.y = y;
+                }else if (onlineOrOffline === "online"){
+                    data.link = link;
+                }
+                    $.ajax({
+                        type: 'post',
+                        
+                        data: data,
+                        success: function(res) {
+                            if(res.status === "ok") {
+                                alert("عملیات موردنظر با موفقیت انجام شد.");
+                            }
+                            else {
+                                alert(res.msg);
+                            }
+                        }
+                    });
+                    console.log('====================================');
+                    console.log(data);
+                    console.log('====================================');
+            });
     </script>
 @stop
