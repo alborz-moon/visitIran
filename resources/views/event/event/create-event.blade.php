@@ -132,10 +132,6 @@
                                             <div  class="fs-7 text-dark">موضوع</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select class="select2 w-100" name="" id="topicEvent">
-                                                    <option value="0" selected>انتخاب کنید</option>
-                                                    <option value="1">1موضوع</option>
-                                                    <option value="2">2موضوع</option>
-                                                    <option value="3">3موضوع</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -168,17 +164,7 @@
                                 <div class="row">
                                     <div class="col-lg-12 mb-3">
                                         <div class="py-2">
-                                            <div class="tabs">
-                                                <input type="checkbox" name="facility" id="tabone">
-                                                <label for="tabone">امکان یک</label>
-                                                <input type="checkbox" name="facility" id="tabtwo">
-                                                <label for="tabtwo">امکان دو</label>
-                                                <input type="checkbox" name="facility" id="tabfour">
-                                                <label for="tabfour">امکان سه</label>
-                                                <input type="checkbox" name="facility" id="tabfive">
-                                                <label for="tabfive">امکان چهار</label>
-                                                <input type="checkbox" name="facility" id="tabsix">
-                                                <label for="tabsix">امکان پنج</label>
+                                            <div class="tabs gap10" id="facility">
                                             </div>
                                         </div>
                                     </div>
@@ -290,7 +276,7 @@
                         </div>
                         <div class="spaceBetween mb-2">
                             <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
-                            <a href="{{ route('create-time') }}" class="btn btn-sm btn-primary px-5">مرحله بعد</a>
+                            <a id="nextBtn" class="btn btn-sm btn-primary px-5">مرحله بعد</a>
                         </div>
                         <div class="d-flex justify-content-end">
                             <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>
@@ -426,6 +412,18 @@
 
         $(document).ready(function(){
 
+            $("#nextBtn").on('click', function () {
+                var selectedFacility = [];
+                $('input[name=facility]').each(function() {
+                    if ($(this).is(":checked")) {
+                        selectedFacility.push($(this).attr('id'));
+                    }
+                });
+                console.log('====================================');
+                console.log(topicList);
+                console.log('====================================');
+            });
+ 
             var topic = '';
             var addTopic = '';
             
@@ -506,9 +504,9 @@
              $(document).on('click','.remove-lang-btn',function(){
                 
                 let id = $(this).attr('data-id');
-                console.log('====================================');
-                console.log(id,langList);
-                console.log('====================================');
+                // console.log('====================================');
+                // console.log(id,langList);
+                // console.log('====================================');
                 langList = langList.filter((elem, index) => {
                     langList.pop({
                         id: id,
@@ -593,6 +591,48 @@
                 const control = new ParsimapGeocoder();
                 map.addControl(control);
             }
-        })
+        });
+
+        
+        $.ajax({
+            type: 'get',
+            url: '{{route('eventTags.show')}}',
+            headers: {
+                'accept': 'application/json'
+            },
+            success: function(res) {
+                var eventTag= "";
+                if(res.status === "ok") {
+                    if(res.data.length != 0) {
+                        for( var i = 0; i < res.data.length ; i ++){
+                            eventTag += '<option name="eventTag" value="' + res.data[i].id + '">'+ res.data[i].label +'</option>';
+                        }
+                        $("#topicEvent").empty().append(eventTag);
+                    }
+                }
+            }
+        });
+        $.ajax({
+            type: 'get',
+            url: '{{route('facilities.show')}}',
+            headers: {
+                'accept': 'application/json'
+            },
+            success: function(res) {
+                var facility= "";
+                console.log('====================================');
+                console.log(res);
+                console.log('====================================');
+                if(res.status === "ok") {
+                    if(res.data.length != 0) {
+                        for( var i = 0; i < res.data.length ; i ++){
+                            facility += '<input type="checkbox" name="facility" id="' + res.data[i].id +'">';
+                            facility += '<label for="' + res.data[i].id +'" class="ml-0">' + res.data[i].label +'</label>';
+                        }
+                        $("#facility").empty().append(facility);  
+                    }
+                }
+            }
+        });
     </script>
 @stop

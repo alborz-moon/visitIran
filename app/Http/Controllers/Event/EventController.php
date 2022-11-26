@@ -114,7 +114,7 @@ class EventController extends Controller
     {
         $user = $request->user();
         
-        if($user->launcher()->active()->first() == null)
+        if($user->level != User::$ADMIN_LEVEL && $user->launcher()->active()->first() == null)
             return view('errors.403');
 
         $states = State::orderBy('name', 'asc')->get();
