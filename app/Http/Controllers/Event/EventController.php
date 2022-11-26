@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventUserDigest;
 use App\Models\Event;
+use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -102,6 +103,26 @@ class EventController extends Controller
         return $filters;
     }
 
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        $user = $request->user();
+        
+        if($user->launcher()->active()->first() == null)
+            return view('errors.403');
+
+        $states = State::orderBy('name', 'asc')->get();
+        $mode = 'create';
+        return view('event.event.create-event', compact('states', 'mode'));
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -143,7 +164,12 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = [
+            'title' => 'required|string|min:2',
+            'age_description' => ['required', ]
+        ];
+
+
     }
 
     /**

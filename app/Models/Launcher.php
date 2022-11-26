@@ -42,6 +42,10 @@ class Launcher extends Model
         'user_NID_card'
     ];
 
+    public function scopeActive($query) {
+        return $query->where('status', '=', 'confirmed');
+    }
+
     public function user() {
         return $this->belongsTo(User::class);
     }
