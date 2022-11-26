@@ -169,17 +169,19 @@ class EventController extends Controller
     {
         $validator = [
             'title' => 'required|string|min:2',
-            'age_description' => ['required', Rule::in(['child', 'teen', 'adult'])],
-            'level_description' => ['required', Rule::in(['elemantary', 'intermediate', 'advance', 'pro'])],
+            'age_description' => ['required', Rule::in(['child', 'teen', 'adult', 'all', 'old'])],
+            'level_description' => ['required', Rule::in(['national', 'state', 'local', 'pro'])],
             'tags_arr' => 'required|array',
             'tags_arr.*' => 'required|integer|exists:mysql2.event_tags,id',
-            'language' => ['required', Rule::in(['fa', 'en', 'ar', 'fr', 'gr'])],
+            'language_arr' => 'required|array',
+            'language_arr.*' => ['required', Rule::in(['fa', 'en', 'ar', 'fr', 'gr', 'tr'])],
             'facilities_arr' => 'nullable|array',
             'facilities_arr.*' => 'required|integer|exists:mysql2.event_facilities,id',
             'type' => ['required', Rule::in(['haghighi', 'hoghoghi'])],
             'x' => ['required_if:type,hoghoghi','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'y' => ['required_if:type,hoghoghi','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
             'city_id' => 'required_if:type,hoghoghi|exists:mysql2.cities,id',
+            'postal_code' => 'required_if:type,hoghoghi|regex:/[1-9][0-9]{9}/',
             'address' => 'required_if:type,hoghoghi|string|min:2',
             'link' => 'required_if:type,haghighi|url',
         ];
@@ -200,6 +202,10 @@ class EventController extends Controller
         )
             return abort(401);
 
+        $lang_arr = [];
+        foreach($request['language_arr'] as $lang)
+            array_push($lang_arr, $lang);
+
 
         $tags_arr = [];
         foreach($request['tags_arr'] as $tagId) {
@@ -219,8 +225,13 @@ class EventController extends Controller
         }
 
         $request['tags'] = implode('_', $tags_arr);
-        $request['launcher_id'] = $request->user()->id;
-        $request['type'] = null;
+        $request['language'] = implode('_', $lang_arr);
+        $request['launcher_id'] = $request->user()->launcher->id;
+
+        unset($request['type']);
+        unset($request['tags_arr']);
+        unset($request['facilities_arr']);
+        unset($request['language_arr']);
 
         $event = Event::create($request->toArray());
 

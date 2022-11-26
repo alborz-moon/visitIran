@@ -4,7 +4,7 @@ use App\Http\Controllers\Shop\BlogController;
 use App\Http\Controllers\Shop\BrandController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\CommentController;
-use App\Http\Controllers\Shop\ConfigController;
+use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\Shop\FeatureController;
 use App\Http\Controllers\Shop\GalleryController;
 use App\Http\Controllers\Shop\OffController;

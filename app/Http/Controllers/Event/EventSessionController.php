@@ -29,12 +29,34 @@ class EventSessionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Event $event, Request $request)
     {
-        $validation = [
-
+        $validator = [
+            'start_date' => 'required|date',
+            'start_time' => 'required|date_format:H:i',
+            'end_date' => 'required|date',
+            'end_time' => 'required|date_format:H:i'
         ];
-        
+
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator);
+
+        $request["start"] = strtotime(self::ShamsiToMilady($request["start_date"]) . " " . $request["start_time"]);
+        $request["end"] = strtotime($request["end_date"] . " " . $request["end_time"]);
+
+        dd($request->get('start'));
+
+        $request['event_id'] = $event->id;
+        $request['start_date'] = null;
+
+        $session = EventSession::create($request->toArray());
+
+        return response()->json([
+            'status' => 'ok',
+            'id' => $session->id
+        ]);
     }
 
     /**

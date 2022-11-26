@@ -14,6 +14,10 @@ class EventSessionResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'start' => $this->start,
+            'end' => $this->end,
+        ];
     }
 }
