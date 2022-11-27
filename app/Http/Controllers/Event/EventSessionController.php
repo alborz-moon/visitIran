@@ -7,6 +7,7 @@ use App\Http\Resources\EventSessionResource;
 use App\Models\Event;
 use App\Models\EventSession;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class EventSessionController extends Controller
 {
@@ -72,29 +73,6 @@ class EventSessionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\EventSession  $eventSession
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(EventSession $eventSession)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\EventSession  $eventSession
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, EventSession $eventSession)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\EventSession  $eventSession
@@ -102,6 +80,8 @@ class EventSessionController extends Controller
      */
     public function destroy(EventSession $eventSession)
     {
-        //
+        Gate::authorize('destroy', $eventSession->event);
+        $eventSession->delete();
+        return response()->json(['status' => 'ok']);
     }
 }
