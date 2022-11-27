@@ -49,7 +49,9 @@ Route::prefix('event/{event}')->group(function() {
 });
 
 
-Route::resource('event.sessions', EventSessionController::class)->except('create', 'edit', 'update')->shallow();
+Route::resource('event.sessions', EventSessionController::class)->except('create', 'edit', 'update', 'destroy')->shallow();
+
+Route::delete('eventSession/{eventSession?}', [EventSessionController::class, 'destroy'])->name('sessions.destroy');
 
 
 Route::view('/panel', 'admin.home')->name('event.panel');

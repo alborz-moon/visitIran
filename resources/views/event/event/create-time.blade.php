@@ -17,16 +17,16 @@
                         <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
                             <li class="checkout-step-active">
-                                <a href="#"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
+                                <a href="{{ route('create-event') }}"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
                             </li>
                             <li class="checkout-step-active">
-                                <a href="#"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
+                                <a href="{{ route('create-time') }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
                             </li>
                             <li>
-                                <a href="#"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
+                                <a href="{{ route('create-contact') }}"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
                             </li>
                             <li>
-                                <a href="#"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
+                                <a href="{{ route('create-info') }}"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
                             </li>
                         </ul>
                         <a href="{{ route('create-event') }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
@@ -84,7 +84,7 @@
                         </div>
                         <div class="spaceBetween mb-2">
                             <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
-                            <button onclick="window.location.href = '{{ route('create-contact') }}';" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
+                            <button onclick="window.location.href = '{{ route('create-contact{id?}') }}';" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
                         </div> 
                         <div class="d-flex justify-content-end">
                             <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>
@@ -157,7 +157,7 @@
     var dateStart ='';
     var timeStop = '';
     var dateStop = '';
-    var idx = 0;
+    let idx = 0;
     var arrDateTime = [];
     $(document).ready(function() {
 
@@ -184,22 +184,11 @@
         });
     });
 
-    $(document).on('click', '.remove-btn-sessions', function () {
-            let id = $(this).attr('data-id');                
-             $("#row" + id).remove();
-    });
-
     $("#addedItem").on('click', function () {
-        idx ++
         if (timeStart == '' || dateStart == '' || timeStop == '' || dateStop == '') {
             showErr('sd');
             return;
         }
-        
-        // dateStart = '1401/10/09';
-        // dateStop = '1401/11/02';
-        // timeStart = '14:20';
-        // timeStop = '23:03';
 
         $.ajax({
             type: 'post',
@@ -215,27 +204,77 @@
             },
             success: function(res) {
                 if(res.status === "ok") {
-                    var addedRowTable = '<tr id="row-' + res.id + '">';
-                    addedRowTable += '<td class="fa-num">' + res.id+ '</td>';
-                    addedRowTable += '<td class="fa-num">' + dateStart + timeStart + '</td>';
-                    addedRowTable += '<td class="fa-num">' + dateStop + timeStop + '</td>';
-                    addedRowTable += '<td>';
-                    addedRowTable += '<button data-id="' + res.id + '" class="btn btn-circle borderCircle my-1 remove-btn-sessions">';
-                    addedRowTable += '<i class="icon-visit-delete marginTop7"></i>';
-                    addedRowTable += '</button>';
-                    addedRowTable += '</td>';
-                    addedRowTable += '</tr>';
-
-                    $("#addedRowTable").append(addedRowTable);
-                    timeStart =$('#time_input_start').val('');
-                    dateStart = $('#date_input_start').val('');
-                    $('#setDateStart').val('');
-                    timeStop =$('#time_input_stop').val('');
-                    dateStop = $('#date_input_stop').val('');
-                    $('#setDateStop').val('');
+                    if (dateStart != '' && dateStop != '' && timeStart != ''  && timeStop != ''){
+                        
+                        var addedRowTable = '<tr id="row-' + res.id +  '">';
+                        addedRowTable += '<td class="fa-num">' + idx +  '</td>';
+                        addedRowTable += '<td class="fa-num">' + dateStart + ' ' + timeStart + '</td>';
+                        addedRowTable += '<td class="fa-num">' + dateStop + ' ' + timeStop + '</td>';
+                        addedRowTable += '<td>';
+                        addedRowTable += '<button data-id="' + res.id + '" class="btn btn-circle borderCircle my-1 remove-btn-sessions">';
+                        addedRowTable += '<i class="icon-visit-delete marginTop7"></i>';
+                        addedRowTable += '</button>';
+                        addedRowTable += '</td>';
+                        addedRowTable += '</tr>';
+                        idx ++;
+                        $("#addedRowTable").append(addedRowTable);
+                        timeStart =$('#time_input_start').val('');
+                        dateStart = $('#date_input_start').val('');
+                        $('#setDateStart').val('');
+                        timeStop =$('#time_input_stop').val('');
+                        dateStop = $('#date_input_stop').val('');
+                        $('#setDateStop').val('');
+                    }
                 }
             }
         });
+    });
+
+    $.ajax({
+        type: 'get',
+        url: '{{ route('event.sessions.index', ['event' => $id]) }}',
+        headers: {
+            'accept': 'application/json'
+        },
+        success: function(res) {
+            if(res.status === "ok") {
+                if (res.data.length !== 0){
+                    for(var i = 0; i < res.data.length ; i++){
+                        var addedRowTable = '<tr id="row-' + res.data[i].id + '">';
+                        addedRowTable += '<td class="fa-num">' + i + '</td>';
+                        addedRowTable += '<td class="fa-num">' + res.data[i].start_date +' '+ res.data[i].start_time + '</td>';
+                        addedRowTable += '<td class="fa-num">' + res.data[i].end_date +' '+ res.data[i].end_time + '</td>';
+                        addedRowTable += '<td>';
+                        addedRowTable += '<button data-id="' + res.data[i].id + '" class="btn btn-circle borderCircle my-1 remove-btn-sessions">';
+                        addedRowTable += '<i class="icon-visit-delete marginTop7"></i>';
+                        addedRowTable += '</button>';
+                        addedRowTable += '</td>';
+                        addedRowTable += '</tr>';
+                        $("#addedRowTable").append(addedRowTable);
+                        idx ++;
+                    }
+                }
+            }
+        }
+    });
+
+    $(document).on('click', '.remove-btn-sessions', function () {
+
+        let id = $(this).attr('data-id');
+
+
+        $.ajax({
+            type: 'delete',
+            url: '{{ route('sessions.destroy') }}' + "/" + id,
+            headers: {
+                'accept': 'application/json'
+            },
+            success: function(res) {
+                if(res.status === "ok")
+                    $('#row-'+ id +'').remove();
+            }
+        });
+
 
     });
 

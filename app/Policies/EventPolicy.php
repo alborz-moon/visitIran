@@ -38,6 +38,15 @@ class EventPolicy
 
         return $event->launcher_id === $launcher->id;
     }
+    
+    public function destroy(User $user, Event $event) {
+        
+        $launcher = $user->launcher;
+        if($launcher == null)
+            return false;
+
+        return $event->launcher_id === $launcher->id;
+    }
 
     public function getPhaseInfo(User $user, Event $event) {
 

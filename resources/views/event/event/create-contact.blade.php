@@ -66,7 +66,7 @@
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">توضیحات</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input type="text" class="form-control" style="direction: rtl" placeholder="توضیحات">
+                                                <input id="desc" type="text" class="form-control" style="direction: rtl" placeholder="توضیحات">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -78,7 +78,7 @@
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">قیمت به تومان</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input onkeypress="return isNumber(event)" type="text" class="form-control" style="direction: rtl" placeholder="قیمت به تومان">
+                                                <input id="price" onkeypress="return isNumber(event)" type="text" class="form-control" style="direction: rtl" placeholder="قیمت به تومان">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -90,7 +90,7 @@
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">ظرفیت</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input onkeypress="return isNumber(event)" type="text" class="form-control" style="direction: rtl" placeholder="ظرفیت">
+                                                <input id="capacity" onkeypress="return isNumber(event)" type="text" class="form-control" style="direction: rtl" placeholder="ظرفیت">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -109,19 +109,19 @@
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">وب سایت</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input type="url" class="form-control" style="direction: rtl" placeholder="وب سایت">
+                                                <input id="site"  type="url" class="form-control" style="direction: rtl" placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
+                                            {{-- <div class="fs-12 fw-bold text-muted">http را حتما بنویسید</div> --}}
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">ایمیل</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input onkeypress="return isEmail(event) || isNumber(event)" type="email" class="form-control" style="direction: rtl" placeholder="ایمیل">
+                                                <input id="mail" onkeypress="return isEmail(event) || isNumber(event)" type="email" class="form-control" style="direction: rtl" placeholder="ایمیل">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -147,7 +147,7 @@
                         </div>
                         <div class="spaceBetween mb-2">
                             <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
-                            <button onclick="window.location.href = '{{ route('create-info') }}';" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
+                            <button id="submit" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
                         </div> 
                         <div class="d-flex justify-content-end">
                             <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>
@@ -216,9 +216,14 @@
 @section('extraJS')
     @parent
     <script> 
+    var timeStart = '';
+    var dateStart = '';
+    var timeStop = '';
+    var dateStop = '';
+    var tels = [];
+
         $(document).ready(function(){
-            var tels = [];
-            var i = 1;
+            var idx = 1;
             $(document).on('click', '.remove-tel-btn', function () { 
                 let id = $(this).attr('data-id');
                 tels = tels.filter((elem, index) => {
@@ -235,14 +240,14 @@
                         showErr('شماره موردنظر معتبر نمی باشد.');
                         return;
                     }
-                    i++;
+                    idx ++;
                     tels.push({
-                        id: i,
+                        id: idx,
                         val: launchPhone
                     });
-                    html += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + launchPhone + '';
+                    html += '<div id="tel-modal-' + idx + '" class="item-button spaceBetween colorBlack">' + launchPhone + '';
                     html += '<button class="btn btn-outline-light">';
-                    html += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
+                    html += '<i data-id="' + idx + '" class="remove-tel-btn ri-close-line"></i>';
                     html += '</button>';
                     html += '</div>';
                     $("#addTell").append(html);
@@ -252,18 +257,18 @@
 
             
             $(document).on('click', "#startSessionBtn", function () {
-                var timeStart =$('#time_input_start').val();
-                var dateStart = $('#date_input_start').val();
+                timeStart =$('#time_input_start').val();
+                dateStart = $('#date_input_start').val();
                 alert(timeStart + ' ' + dateStart);
                     $('#setDateStart').val(timeStart + ' ' + dateStart);                
                     $(".remodal-close").click();
             });
             $(document).on('click', "#stopSessionBtn", function () {
-                var timeStop = $('#time_input_stop').val();
-                var dateStop = $('#date_input_stop').val();
+                timeStop = $('#time_input_stop').val();
+                dateStop = $('#date_input_stop').val();
                 alert(timeStop + ' ' + dateStop);
                     $('#setDateStop').val(timeStop + ' ' + dateStop);
-                    $$(".remodal-close").click();               
+                    $(".remodal-close").click();               
             });
         });
         var datePickerOptions = {
@@ -273,5 +278,39 @@
         };
         $("#date_input_start").datepicker(datePickerOptions);
         $("#date_input_stop").datepicker(datePickerOptions);
+        
+        $('#submit').on('click',function() {
+            var desc = $('#desc').val();
+            var price =$('#price').val();
+            var capacity = $('#capacity').val();
+            var site =$('#site').val();
+            var mail =$('#mail').val();
+            $.ajax({
+                type: 'post',
+                url: '{{ route('event.store_phase2',['event' => $id]) }}',
+                data: {
+                    'start_registry_date': dateStart,
+                    'start_registry_time': timeStart,
+                    'end_registry_date': dateStop,
+                    'end_registry_time': timeStop,
+                    'price': price,
+                    'ticket_description' : desc,
+                    'capacity': capacity,
+                    'site': site,
+                    'mail': mail,
+                    'phone_arr': tels.map((elem, index) => {
+                        return elem.val;
+                    }),
+                },
+                success: function(res) {
+                    if(res.status === "ok") {
+                        showSuccess('با موفقیت ثبت شد .');
+                    }else{
+                        showErr('همه فیلد ها را پر کنید.')
+                    }
+                }
+            });
+        });
+
     </script>
 @stop
