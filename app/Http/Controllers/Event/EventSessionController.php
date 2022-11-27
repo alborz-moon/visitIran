@@ -46,8 +46,6 @@ class EventSessionController extends Controller
         $request["start"] = strtotime(self::ShamsiToMilady($request["start_date"]) . " " . $request["start_time"]);
         $request["end"] = strtotime($request["end_date"] . " " . $request["end_time"]);
 
-        dd($request->get('start'));
-
         $request['event_id'] = $event->id;
         $request['start_date'] = null;
 

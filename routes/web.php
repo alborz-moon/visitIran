@@ -158,7 +158,9 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
 
         Route::get('/create-event', [EventController::class, 'create'])->name('create-event');
 
-        Route::view('/create-time','event.event.create-time')->name('create-time');
+        Route::get('/create-time/{id?}', function($id=null) {
+            return view('event.event.create-time', compact('id'));
+        })->name('create-time');
     
         Route::view('/create-contact','event.event.create-contact')->name('create-contact');
     
