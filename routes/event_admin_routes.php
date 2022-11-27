@@ -43,6 +43,8 @@ Route::prefix('event/{event}')->group(function() {
     Route::get('getPhase2Info', [EventController::class, 'getPhase2Info'])->name('event.getPhase2Info');
 
     Route::post('store_phase2', [EventController::class, 'store_phase2'])->name('event.store_phase2');
+
+    Route::post('/', [EventController::class, 'update'])->name('event.update');
     
 });
 
