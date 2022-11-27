@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EventPhase1Resource;
+use App\Http\Resources\EventPhase2Resource;
 use App\Http\Resources\EventUserDigest;
 use App\Models\Event;
 use App\Models\EventTag;
@@ -10,6 +12,7 @@ use App\Models\Facility;
 use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
 class EventController extends Controller
@@ -135,6 +138,17 @@ class EventController extends Controller
     {
         //
     }
+
+    public function getPhase1Info(Event $event, Request $request) {
+        Gate::authorize('getPhaseInfo', $event);
+        return EventPhase1Resource::make($event)->toArray($request);
+    }
+
+    public function getPhase2Info(Event $event, Request $request) {
+        Gate::authorize('getPhaseInfo', $event);
+        return EventPhase2Resource::make($event)->toArray($request);
+    }
+
     
     /**
      * Display a listing of the resource.
@@ -239,6 +253,75 @@ class EventController extends Controller
             'status' => 'ok',
             'id' => $event->id
         ]);
+    }
+
+
+    public function store_phase2(Event $event, Request $request)
+    {
+
+        Gate::authorize('update', $event);
+
+        $validator = [
+            'start_registry_date' => ['required', 'regex:/^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|([1-2][0-9])|(0[1-9]))))$/'],
+            'start_registry_time' => 'required|date_format:H:i',
+            'end_registry_date' => ['required', 'regex:/^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|([1-2][0-9])|(0[1-9]))))$/'],
+            'end_registry_time' => 'required|date_format:H:i',
+            'ticket_description' => 'nullable|string|min:2',
+            'price' => 'required|integer|min:0',
+            'capacity' => 'nullable|integer|min:0',
+            'site' => 'nullable|url',
+            'mail' => 'nullable|email',
+            'phone_arr' => 'nullable|array|min:1',
+            'phone_arr.*' => 'required|numeric|digits_between:7,11',
+        ];
+        
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator);
+
+
+        if($request->has('phone_arr')) {
+            $phone_arr = [];
+            foreach($request['phone_arr'] as $p) {
+                array_push($phone_arr, $p);
+            }
+        }
+
+
+        $request["start_registry"] = strtotime(self::ShamsiToMilady($request["start_registry_date"]) . " " . $request["start_registry_time"]);
+        $request["end_registry"] = strtotime(self::ShamsiToMilady($request["end_registry_date"]) . " " . $request["end_registry_time"]);
+
+        if($request['start_registry'] >= $request['end_registry'])
+            return response()->json([
+                'status' => 'nok',
+                'msg' => 'زمان آغاز باید کوچک تر از زمان پایان باشد'
+            ]);
+
+        if($request['end_registry'] > $event->start)
+            return response()->json([
+                'status' => 'nok',
+                'msg' => 'زمان ثبت نام باید کوچک تر از زمان آغاز باشد'
+            ]);
+
+        $request['phone'] = implode('_', $phone_arr);
+
+        unset($request['start_registry_date']);
+        unset($request['start_registry_time']);
+        unset($request['end_registry_date']);
+        unset($request['end_registry_time']);
+        unset($request['phone_arr']);
+
+        foreach($request->keys() as $key) {
+            
+            if($key == '_token')
+                continue;
+
+            $event[$key] = $request[$key];
+        }
+
+        $event->save();
+        return response()->json(['status' => 'ok']);
     }
 
     /**

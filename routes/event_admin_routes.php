@@ -34,8 +34,17 @@ Route::prefix('eventTags')->group(function() {
 
 
 
-
 Route::resource('event', EventController::class)->except('update');
+
+Route::prefix('event/{event}')->group(function() {
+
+    Route::get('getPhase1Info', [EventController::class, 'getPhase1Info'])->name('event.getPhase1Info');
+
+    Route::get('getPhase2Info', [EventController::class, 'getPhase2Info'])->name('event.getPhase2Info');
+
+    Route::post('store_phase2', [EventController::class, 'store_phase2'])->name('event.store_phase2');
+    
+});
 
 
 Route::resource('event.sessions', EventSessionController::class)->except('create', 'edit', 'update')->shallow();
