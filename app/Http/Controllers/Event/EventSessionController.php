@@ -46,12 +46,6 @@ class EventSessionController extends Controller
         $request["start"] = strtotime(self::ShamsiToMilady($request["start_date"]) . " " . $request["start_time"]);
         $request["end"] = strtotime(self::ShamsiToMilady($request["end_date"]) . " " . $request["end_time"]);
 
-        if($request['start'] >= $request['end'])
-            return response()->json([
-                'status' => 'nok',
-                'msg' => 'زمان آغاز باید کوچک تر از زمان پایان باشد'
-            ]);
-
         $request['event_id'] = $event->id;
         unset($request['start_date']);
         unset($request['start_time']);

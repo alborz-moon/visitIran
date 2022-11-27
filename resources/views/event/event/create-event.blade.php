@@ -76,7 +76,7 @@
                         <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
                             <li class="checkout-step-active">
-                                <a><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
+                                <a href="{{ route('create-event') }}><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
                             </li>
                             <li>
                                 <a href="{{ route('create-time') }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
@@ -110,8 +110,11 @@
                                             <div class="fs-7 text-dark">شرایط سنی</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select id="ageCondi" class="select2 w-100">
-                                                    <option value="">شرایط 1</option>
-                                                    <option value="">شرایط 2</option>
+                                                    <option value="all" selected>همه سنین</option>
+                                                    <option value="child">کودکان تا ۱۰ سال</option>
+                                                    <option value="teen">نوجوانان ۱۰ تا ۱۸ سال</option>
+                                                    <option value="adult">بزرگسال</option>
+                                                    <option value="old">بازنشستگان</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -121,8 +124,10 @@
                                             <div  class="fs-7 text-dark">سطح برگزاری</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select id="level" class="select2 w-100">
-                                                    <option value="">1</option>
-                                                    <option value="">1</option>
+                                                    <option value="national">ملی</option>
+                                                    <option value="state">استانی</option>
+                                                    <option value="local">محلی</option>
+                                                    <option value="pro">تخصصی</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -145,9 +150,12 @@
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select class="select2 w-100" name="" id="lang">
                                                     <option value="0" selected>انتخاب کنید</option>
-                                                    <option value="1">ترکی</option>
-                                                    <option value="2">فارسی</option>
-                                                    <option value="3">انگلیسی</option>
+                                                    <option value="fa">فارسی</option>
+                                                    <option value="tr">ترکی</option>
+                                                    <option value="en">انگلیسی</option>
+                                                    <option value="fr">فرانسه</option>
+                                                    <option value="gr">آلمانی</option>
+                                                    <option value="ar">عربی</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -223,7 +231,7 @@
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">کد پستی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input onkeypress="return isNumber(event)" minlength="10" maxlength="10" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
+                                                <input id="postal_code" onkeypress="return isNumber(event)" minlength="10" maxlength="10" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -235,7 +243,7 @@
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">لینک جلسه مجازی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="linkOnline" type="url" class="form-control" style="direction: rtl" placeholder=" آدرس سایت">
+                                                <input id="link" type="url" class="form-control" style="direction: rtl" placeholder=" آدرس سایت">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -246,7 +254,7 @@
                                         <div class="py-1 hidden_online_fields hidden">
                                             <div  class="fs-7 text-dark">آدرس</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <textarea  type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
+                                                <textarea id="address" type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -398,101 +406,59 @@
         var topicList = [];
         var langList = [];
         var onlineOrOffline;
-        $(document).ready(function(){ 
-            var topic = '';
-            var addTopic = '';
+        var idxTopic = 1;
+        var idx = 1;
+
+        function watchList(selectorId, arr, increamentor, elemId, resultPaneId) {
             
-            var i = 0;
+            $('#' + selectorId).on('change',function(){
+                var wantedElem = $('#' + selectorId).val();
 
-            $('#topicEvent').on('change',function(){
-                topic = $('#topicEvent').val();
-
-                let tmp = topicList.find((elem, index) => {
-                    return elem.value == topic;
+                let tmp = arr.find((elem, index) => {
+                    return elem.value == wantedElem;
                 });
 
                 if(tmp !== undefined)
                     return;
 
-                let topicCaption = $('#topicEvent option:selected').text();
+                let wantedElemCaption = $('#' + selectorId + ' option:selected').text();
 
-                if (topic != 0){
-                    i++;
-                    topicList.push({
-                        id: i,
-                        value: topic
+                if (wantedElem != 0){
+
+                    increamentor++;
+                    arr.push({
+                        id: increamentor,
+                        value: wantedElem
                     });
-                    addTopic += '<div id="topic-' + i + '" class="item-button spaceBetween colorBlack">' + topicCaption + '';
-                    addTopic +='<button data-id="' + i + '" class="remove-topic-btn btn btn-outline-light b-0">'; 
-                    addTopic += '<i class="ri-close-line"></i>'
-                    addTopic += '</button></div>';
+                    var html = '<div id="' + elemId + '-' + increamentor + '" class="item-button spaceBetween colorBlack">' + wantedElemCaption + '';
+                    html +='<button data-id="' + increamentor + '" class="remove-' + elemId + '-btn btn btn-outline-light b-0">'; 
+                    html += '<i class="ri-close-line"></i>'
+                    html += '</button></div>';
                 
-                    $('#addTopic').empty().append(addTopic);
+                    $('#' + resultPaneId).append(html);
+                    setTimeout(() => {
+                        $('#' + selectorId).val("0").change();
+                    }, 500);
                 }
-            })
-            $(document).on('click','.remove-topic-btn',function(){
+            });
+
+            $(document).on('click','.remove-' + elemId + '-btn', function(){
                 
                 let id = $(this).attr('data-id');
-                topicList = topicList.filter((elem, index) => {
-                    langList.put({
-                        id: i,
-                        value: lang
-                    });
+                arr = arr.filter((elem, index) => {
                     return elem.id != id;
                 });
-                $("#topic-" + id).remove();
+
+                $("#" + elemId +  "-" + id).remove();
                 
-            })
+            });
+        }
 
-            var lang = '';
-            var addLang= '';
-            $('#lang').on('change',function(){
-                lang = $('#lang').val();
-                
-                let tmp = langList.find((elem, index) => {
-                    return elem.value == lang;
-                });
+        $(document).ready(function(){ 
+            watchList('topicEvent', topicList, idxTopic, 'topic', 'addTopic');
+            watchList('lang', langList, idx, 'lang', 'addLang');
+        });
 
-                if(tmp !== undefined)
-                    return;
-                
-                var langCaption = $('#lang option:selected').text();
-
-                if (lang != 0){
-                    
-                    i++;
-                    langList.push({
-                        id: i,
-                        value: lang
-                    });
-
-                    addLang += '<div id="lang-' + i + '" class="item-button spaceBetween colorBlack">' + langCaption + '';
-                    addLang +='<button data-id="' + i + '" class="remove-lang-btn btn btn-outline-light b-0">'; 
-                    addLang += '<i class="ri-close-line"></i>'
-                    addLang += '</button></div>';
-
-                    $('#addLang').empty().append(addLang);
-                }
-
-            })
-             $(document).on('click','.remove-lang-btn',function(){
-                
-                let id = $(this).attr('data-id');
-                // console.log('====================================');
-                // console.log(id,langList);
-                // console.log('====================================');
-                langList = langList.filter((elem, index) => {
-                    langList.pop({
-                        id: id,
-                    });
-                    return elem.id != id;
-                    
-                });
-                $("#lang-" + id).remove();
-                
-            })
-
-        })
         function getCities(stateId, selectedCity = undefined) {
             if(stateId == 0) {
                 $("#city02").empty();
@@ -597,9 +563,6 @@
             },
             success: function(res) {
                 var facility= "";
-                console.log('====================================');
-                console.log(res);
-                console.log('====================================');
                 if(res.status === "ok") {
                     if(res.data.length != 0) {
                         for( var i = 0; i < res.data.length ; i ++){
@@ -619,7 +582,7 @@
                 var city = $('#city02').val();
                 var postal_code = $('#postal_code').val();
                 var address = $('#address').val();
-                var link = $('link').val();
+                var link = $('#link').val();
 
                 var selectedFacility = [];
                 $('input[name=facility]').each(function() {
@@ -627,19 +590,21 @@
                         selectedFacility.push($(this).attr('id'));
                     }
                 });
+
                 let data = {
                     title: eventName,
                     facilities_arr: selectedFacility,
-                    tags_arr: topicList,
-                    language: langList,
+                    tags_arr: topicList.map((elem, index) => {
+                        return elem.id;
+                    }),
+                    language_arr: langList.map((elem, index) => {
+                        return elem.value;
+                    }),
                     age_description: ageCondi,
                     level_description: level, 
-                    topicList: topicList,
-                    langList: langList,
                     type: onlineOrOffline,
                 };
                 if(onlineOrOffline === "offline") {
-                    data.state = state;
                     data.city_id = city;
                     data.postal_code = postal_code;
                     data.address = address;
@@ -650,20 +615,19 @@
                 }
                     $.ajax({
                         type: 'post',
-                        
+                        url: '{{route('event.store')}}',
                         data: data,
                         success: function(res) {
                             if(res.status === "ok") {
-                                alert("عملیات موردنظر با موفقیت انجام شد.");
+                                // alert("عملیات موردنظر با موفقیت انجام شد.");
+                                showSuccess("عملیات موردنظر با موفقیت انجام شد.");
+                                window.location.href = '{{ route('create-time') }}' + "/" + res.id;
                             }
                             else {
                                 alert(res.msg);
                             }
                         }
                     });
-                    console.log('====================================');
-                    console.log(data);
-                    console.log('====================================');
             });
     </script>
 @stop

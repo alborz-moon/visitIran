@@ -23,8 +23,10 @@ class Controller extends BaseController
     public static function hasAnyExcept($expected, $real) {
 
         foreach ($real as $itr) {
-            if($itr !== '_token' && !in_array($itr, $expected))
+            if($itr !== '_token' && !in_array($itr, $expected)) {
+                // dd($itr);
                 return true;
+            }
         }
         return false;
     }

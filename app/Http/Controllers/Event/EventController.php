@@ -278,13 +278,13 @@ class EventController extends Controller
             'language_arr.*' => ['required', Rule::in(['fa', 'en', 'ar', 'fr', 'gr', 'tr'])],
             'facilities_arr' => 'nullable|array',
             'facilities_arr.*' => 'required|integer|exists:mysql2.event_facilities,id',
-            'type' => ['required', Rule::in(['haghighi', 'hoghoghi'])],
-            'x' => ['required_if:type,hoghoghi','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
-            'y' => ['required_if:type,hoghoghi','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
-            'city_id' => 'required_if:type,hoghoghi|exists:mysql2.cities,id',
-            'postal_code' => 'required_if:type,hoghoghi|regex:/[1-9][0-9]{9}/',
-            'address' => 'required_if:type,hoghoghi|string|min:2',
-            'link' => 'required_if:type,haghighi|url',
+            'type' => ['required', Rule::in(['online', 'offline'])],
+            'x' => ['required_if:type,offline','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'y' => ['required_if:type,offline','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
+            'city_id' => 'required_if:type,offline|exists:mysql2.cities,id',
+            'postal_code' => 'required_if:type,offline|regex:/[1-9][0-9]{9}/',
+            'address' => 'required_if:type,offline|string|min:2',
+            'link' => 'required_if:type,online|url',
         ];
 
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
@@ -292,14 +292,14 @@ class EventController extends Controller
 
         $request->validate($validator);
 
-        if($request->has('link') && $request['type'] == 'hoghoghi')
+        if($request->has('link') && $request['type'] == 'offline')
             return abort(401);
 
         if(
             (
                 $request->has('address') || $request->has('city_id') || 
                 $request->has('x') || $request->has('y')
-            ) && $request['type'] == 'hoghoghi'
+            ) && $request['type'] == 'online'
         )
             return abort(401);
 

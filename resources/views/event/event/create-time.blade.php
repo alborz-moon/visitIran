@@ -56,7 +56,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-end">
-                                        <button class="btn btn-sm btn-primary px-3">افزودن</button>
+                                        <button id="addedItem" class="btn btn-sm btn-primary px-3">افزودن</button>
                                     </div>
                                 </div>
                             </div>
@@ -71,30 +71,12 @@
                                         <thead>
                                             <tr>
                                                 <th>شماره</th>
-                                                <th>شماره عملیات </th>
                                                 <th> تاریخ شروع  </th>
                                                 <th> تاریخ پایان  </th>
-                                                <th>وضعیت</th>
                                                 <th>عملیات</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="fa-num">1</td>
-                                                <td class="fa-num">1400 دی 25</td>
-                                                <td class="fa-num">پشتیبانی</td>
-                                                <td class="fa-num">کالای غیراصل</td>
-                                                <td class="fa-num"><span class="badge bg-success rounded-pill">پاسخ داده
-                                                        شد</span><span
-                                                        class="badge bg-danger rounded-pill">بسته</span><span class="badge bg-warning rounded-pill">در حال
-                                                        بررسی</span></td>
-                                                <td>
-                                                    <a href="#" class="btn btn-circle btn-info my-1"><i
-                                                            class="icon-visit-edit marginTop7"></i></a>
-                                                    <a href="#" class="btn btn-circle btn-danger my-1"><i
-                                                            class="icon-visit-delete marginTop7"></i></a>
-                                                </td>
-                                            </tr>
+                                        <tbody id="addedRowTable">
                                         </tbody>
                                     </table>
                                 </div>
@@ -171,30 +153,91 @@
 @section('extraJS')
     @parent
     <script> 
-        $(document).ready(function(){
-            
-            
-            $(document).on('click', "#startSessionBtn", function () {
-                var timeStart =$('#time_input_start').val();
-                var dateStart = $('#date_input_start').val();
-                alert(timeStart + ' ' + dateStart);
-                    $('#setDateStart').val(timeStart + ' ' + dateStart);                
-                    $(".remodal-close").click();
-            });
-            $(document).on('click', "#stopSessionBtn", function () {
-                var timeStop = $('#time_input_stop').val();
-                var dateStop = $('#date_input_stop').val();
-                alert(timeStop + ' ' + dateStop);
-                    $('#setDateStop').val(timeStop + ' ' + dateStop);
-                    $$(".remodal-close").click();               
-            });
-        });
+    var timeStart ='';
+    var dateStart ='';
+    var timeStop = '';
+    var dateStop = '';
+    var idx = 0;
+    var arrDateTime = [];
+    $(document).ready(function() {
+
         var datePickerOptions = {
             numberOfMonths: 1,
             showButtonPanel: true,
             dateFormat: "yy/mm/dd"
         };
+
         $("#date_input_start").datepicker(datePickerOptions);
         $("#date_input_stop").datepicker(datePickerOptions);
+        
+        $(document).on('click', "#startSessionBtn", function () {
+            timeStart =$('#time_input_start').val();
+            dateStart = $('#date_input_start').val();
+                $('#setDateStart').val(timeStart + ' ' + dateStart);                
+                $(".remodal-close").click();
+        });
+        $(document).on('click', "#stopSessionBtn", function () {
+            timeStop = $('#time_input_stop').val();
+            dateStop = $('#date_input_stop').val();
+                $('#setDateStop').val(timeStop + ' ' + dateStop);
+                $(".remodal-close").click();               
+        });
+    });
+
+    $(document).on('click', '.remove-btn-sessions', function () {
+            let id = $(this).attr('data-id');                
+             $("#row" + id).remove();
+    });
+
+    $("#addedItem").on('click', function () {
+        idx ++
+        if (timeStart == '' || dateStart == '' || timeStop == '' || dateStop == '') {
+            showErr('sd');
+            return;
+        }
+        
+        // dateStart = '1401/10/09';
+        // dateStop = '1401/11/02';
+        // timeStart = '14:20';
+        // timeStop = '23:03';
+
+        $.ajax({
+            type: 'post',
+            url: '{{ route('event.sessions.store', ['event' => $id]) }}',
+            data: {
+                'start_date': dateStart,
+                'end_date': dateStop,
+                'start_time': timeStart,
+                'end_time': timeStop,
+            },
+            headers: {
+                'accept': 'application/json'
+            },
+            success: function(res) {
+                if(res.status === "ok") {
+                    var addedRowTable = '<tr id="row-' + res.id + '">';
+                    addedRowTable += '<td class="fa-num">' + res.id+ '</td>';
+                    addedRowTable += '<td class="fa-num">' + dateStart + timeStart + '</td>';
+                    addedRowTable += '<td class="fa-num">' + dateStop + timeStop + '</td>';
+                    addedRowTable += '<td>';
+                    addedRowTable += '<button data-id="' + res.id + '" class="btn btn-circle borderCircle my-1 remove-btn-sessions">';
+                    addedRowTable += '<i class="icon-visit-delete marginTop7"></i>';
+                    addedRowTable += '</button>';
+                    addedRowTable += '</td>';
+                    addedRowTable += '</tr>';
+
+                    $("#addedRowTable").append(addedRowTable);
+                    timeStart =$('#time_input_start').val('');
+                    dateStart = $('#date_input_start').val('');
+                    $('#setDateStart').val('');
+                    timeStop =$('#time_input_stop').val('');
+                    dateStop = $('#date_input_stop').val('');
+                    $('#setDateStop').val('');
+                }
+            }
+        });
+
+    });
+
     </script>
 @stop
