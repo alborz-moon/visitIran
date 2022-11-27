@@ -32,9 +32,9 @@ class EventSessionController extends Controller
     public function store(Event $event, Request $request)
     {
         $validator = [
-            'start_date' => 'required|date',
+            'start_date' => ['required', 'regex:/^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|([1-2][0-9])|(0[1-9]))))$/'],
             'start_time' => 'required|date_format:H:i',
-            'end_date' => 'required|date',
+            'end_date' => ['required', 'regex:/^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|([1-2][0-9])|(0[1-9]))))$/'],
             'end_time' => 'required|date_format:H:i'
         ];
 
@@ -44,10 +44,13 @@ class EventSessionController extends Controller
         $request->validate($validator);
 
         $request["start"] = strtotime(self::ShamsiToMilady($request["start_date"]) . " " . $request["start_time"]);
-        $request["end"] = strtotime($request["end_date"] . " " . $request["end_time"]);
+        $request["end"] = strtotime(self::ShamsiToMilady($request["end_date"]) . " " . $request["end_time"]);
 
         $request['event_id'] = $event->id;
-        $request['start_date'] = null;
+        unset($request['start_date']);
+        unset($request['start_time']);
+        unset($request['end_date']);
+        unset($request['end_time']);
 
         $session = EventSession::create($request->toArray());
 

@@ -58,10 +58,10 @@ class Controller extends BaseController
         return $e;
     }
 
-    public static function MiladyToShamsi($date){
+    public static function MiladyToShamsi($date, $explode='-'){
         include_once 'jdate.php';
         $date = explode(' ', $date);
-        $d = explode('-', $date[0]);
+        $d = explode($explode, $date[0]);
         return gregorian_to_jalali($d[0],$d[1],$d[2],'/');
     }
     
