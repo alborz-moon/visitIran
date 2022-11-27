@@ -157,6 +157,8 @@
     var dateStart ='';
     var timeStop = '';
     var dateStop = '';
+    var idx = 0;
+    var arrDateTime = [];
     $(document).ready(function() {
 
         var datePickerOptions = {
@@ -182,69 +184,60 @@
         });
     });
 
+    $(document).on('click', '.remove-btn-sessions', function () {
+            let id = $(this).attr('data-id');                
+             $("#row" + id).remove();
+    });
 
     $("#addedItem").on('click', function () {
-
+        idx ++
         if (timeStart == '' || dateStart == '' || timeStop == '' || dateStop == '') {
             showErr('sd');
             return;
         }
+        
+        // dateStart = '1401/10/09';
+        // dateStop = '1401/11/02';
+        // timeStart = '14:20';
+        // timeStop = '23:03';
 
         $.ajax({
             type: 'post',
             url: '{{ route('event.sessions.store', ['event' => $id]) }}',
             data: {
-                'start_date': '1400/03/02',
-                'end_date': '1400/05/02',
-                'start_time': '14:20',
-                'end_time': '23:03',
+                'start_date': dateStart,
+                'end_date': dateStop,
+                'start_time': timeStart,
+                'end_time': timeStop,
             },
             headers: {
                 'accept': 'application/json'
             },
             success: function(res) {
                 if(res.status === "ok") {
-
-                    var addedRowTable = '<tr>';
-                    addedRowTable += '<td class="fa-num">1</td>';
+                    var addedRowTable = '<tr id="row-' + res.id + '">';
+                    addedRowTable += '<td class="fa-num">' + res.id+ '</td>';
                     addedRowTable += '<td class="fa-num">' + dateStart + timeStart + '</td>';
                     addedRowTable += '<td class="fa-num">' + dateStop + timeStop + '</td>';
                     addedRowTable += '<td>';
-                    addedRowTable += '<a href="#" class="btn btn-circle borderCircle my-1">';
-                    addedRowTable += '<i class="icon-visit-edit marginTop7"></i>';
-                    addedRowTable += '</a>';
-                    addedRowTable += '<a href="#" class="btn btn-circle borderCircle my-1"><i class="icon-visit-delete marginTop7"></i></a>';
+                    addedRowTable += '<button data-id="' + res.id + '" class="btn btn-circle borderCircle my-1 remove-btn-sessions">';
+                    addedRowTable += '<i class="icon-visit-delete marginTop7"></i>';
+                    addedRowTable += '</button>';
                     addedRowTable += '</td>';
                     addedRowTable += '</tr>';
-                
+
                     $("#addedRowTable").append(addedRowTable);
-                    timeStart =$('#time_input_start').val().empty();
-                    dateStart = $('#date_input_start').val().empty();
-                    $('#setDateStart').val(timeStart + ' ' + dateStart).empty();
+                    timeStart =$('#time_input_start').val('');
+                    dateStart = $('#date_input_start').val('');
+                    $('#setDateStart').val('');
+                    timeStop =$('#time_input_stop').val('');
+                    dateStop = $('#date_input_stop').val('');
+                    $('#setDateStop').val('');
                 }
             }
         });
 
     });
 
-        
-
-        $("#addedItem").on('click', function () {
-            if (timeStart != '' && dateStart != '' && timeStop != '' && dateStop != ''){
-                var addedRowTable = '<tr>';
-                addedRowTable += '<td class="fa-num">1</td>';
-                addedRowTable += '<td class="fa-num">' + dateStart + timeStart + '</td>';
-                addedRowTable += '<td class="fa-num">' + dateStop + timeStop + '</td>';
-                addedRowTable += '<td>';
-                addedRowTable += '<a href="#" class="btn btn-circle borderCircle my-1"><i';
-                addedRowTable += 'class="icon-visit-edit marginTop7"></i></a>';
-                addedRowTable += '<a href="#" class="btn btn-circle borderCircle my-1"><i';
-                addedRowTable += 'class="icon-visit-delete marginTop7"></i></a>';
-                addedRowTable += '</td>';
-                addedRowTable += '</tr>';
-                $("#addedRowTable").append(addedRowTable); 
-            }
-
-        });
     </script>
 @stop
