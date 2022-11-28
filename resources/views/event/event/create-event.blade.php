@@ -629,6 +629,21 @@
                         }
                     });
             });
-        
+        $.ajax({
+            type: 'get',
+            url: '{{route('event.getPhase1Info',['event' => $id])}}',
+            headers: {
+                'accept': 'application/json'
+            },
+            success: function(res) {
+                if(res.status === "ok") {
+                    if(res.data.length != 0) {
+                        console.log('====================================');
+                        console.log(res);
+                        console.log('====================================');
+                    }
+                }
+            }
+        });
     </script>
 @stop
