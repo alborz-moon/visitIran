@@ -76,11 +76,7 @@
                         <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
                             <li class="checkout-step-active">
-<<<<<<< HEAD
                                 <a href="{{ route('create-event') }}"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
-=======
-                                <a><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
->>>>>>> c1662d107be4edd39a06ab1afcbaa68f9a0e5fed
                             </li>
                             <li>
                                 <a href="{{ isset($id) ? route('addSessionsInfo', ['event' => $id]) : route('addSessionsInfo') }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
@@ -633,5 +629,6 @@
                         }
                     });
             });
+        
     </script>
 @stop

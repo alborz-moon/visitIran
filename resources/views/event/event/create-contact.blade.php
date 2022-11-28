@@ -305,6 +305,7 @@
                 success: function(res) {
                     if(res.status === "ok") {
                         showSuccess('با موفقیت ثبت شد .');
+
                     }else{
                         showErr('همه فیلد ها را پر کنید.')
                     }
@@ -320,9 +321,6 @@
                  'accept': 'application/json'
                 },
                 success: function(res) {
-                        console.log('====================================');
-                        console.log(res);
-                        console.log('====================================');
                         $('#time_input_start').val(res.start_registry_time);
                         $('#date_input_start').val(res.start_registry_date);
                         $('#time_input_stop').val(res.end_registry_time);
@@ -336,5 +334,6 @@
                         $('#mail').val(res.mail);
                 }
             });
+        
     </script>
 @stop

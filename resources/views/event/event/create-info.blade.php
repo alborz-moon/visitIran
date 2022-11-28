@@ -42,7 +42,7 @@
                                     <div class="col-lg-12 mb-3">
                                         <div class="py-2">
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <textarea type="text" class="form-control" style="direction: rtl" placeholder="توضیحات"></textarea>
+                                                <textarea id="description" type="text" class="form-control" style="direction: rtl" placeholder="توضیحات"></textarea>
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -55,7 +55,10 @@
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">گالری عکس</div>
                                 <div class="col-lg-12 mb-3 zIndex0">
-                                    <div id="certifications" class="boxGallery">
+                                    <div id="certifications" class="boxGallery gap10">
+                                        <div class="certificationsImg">
+                                            
+                                        </div>
                                     </div>
                                     <div class="uploadBody">
                                         <div class="uploadBorder">
@@ -71,9 +74,10 @@
                                     </div>
                                 </div>
                         </div>
+                        {{-- onclick="window.location.href = '{{ route('show-events') }}';"  --}}
                         <div class="spaceBetween mb-2">
                             <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
-                            <button onclick="window.location.href = '{{ route('show-events') }}';" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
+                            <button id="nextBtn" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
                         </div> 
                         <div class="d-flex justify-content-end">
                             <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>
@@ -179,5 +183,41 @@
                 // hide All
             }
         })
+        $.ajax({
+            type: 'get',
+            url: '{{route('event.galleries.store',['event' => $id])}}',
+            success: function(res) {
+                var gallery = [];
+                if(res.status === "ok") {
+                    if(res.data.length != 0) {
+                        for(i = 0; i < res.data.length; i ++ ){
+                            gallery += '<div id="' + res.data[i].id + '" class="certificationsImg">';
+                            gallery += '<img class="w-100 h-100" src="' + res.data[i].img + '" alt="">';
+                            gallery += '<i class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
+                            gallery += '</div>';
+                        }
+                        $("#certifications").empty().append(gallery);
+                    }
+                }
+            }
+        });
+    $("#nextBtn").on('click', function () {
+        var description = $('#description').val()
+        $.ajax({
+            type: 'post',
+            url: '{{route('event.store_desc',['event' => $id])}}',
+            data: {
+                'description': description,
+            },
+            success: function(res) {
+                if(res.status === "ok") {
+                    if(res.data.length != 0) {
+                        
+                    }
+                }
+            }
+        });
+    });
+        
     </script>
 @stop
