@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\Event\EventGalleryController;
 use App\Http\Controllers\Event\EventSessionController;
 use App\Http\Controllers\Event\LauncherController;
 use App\Http\Controllers\Event\EventTagController;
@@ -43,6 +44,8 @@ Route::prefix('event/{event}')->group(function() {
     Route::get('getPhase2Info', [EventController::class, 'getPhase2Info'])->name('event.getPhase2Info');
 
     Route::post('store_phase2', [EventController::class, 'store_phase2'])->name('event.store_phase2');
+    
+    Route::post('store_desc', [EventController::class, 'store_desc'])->name('event.store_desc');
 
     Route::post('/', [EventController::class, 'update'])->name('event.update');
     
@@ -50,6 +53,8 @@ Route::prefix('event/{event}')->group(function() {
 
 
 Route::resource('event.sessions', EventSessionController::class)->except('create', 'edit', 'update', 'destroy')->shallow();
+
+Route::resource('event.galleries', EventGalleryController::class)->only('index', 'store', 'destroy')->shallow();
 
 Route::delete('eventSession/{eventSession?}', [EventSessionController::class, 'destroy'])->name('sessions.destroy');
 

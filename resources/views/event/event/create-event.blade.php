@@ -76,16 +76,20 @@
                         <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
                             <li class="checkout-step-active">
+<<<<<<< HEAD
                                 <a href="{{ route('create-event') }}"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
+=======
+                                <a><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
+>>>>>>> c1662d107be4edd39a06ab1afcbaa68f9a0e5fed
                             </li>
                             <li>
-                                <a href="{{ route('create-time') }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
+                                <a href="{{ isset($id) ? route('addSessionsInfo', ['event' => $id]) : route('addSessionsInfo') }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
                             </li>
                             <li>
-                                <a href="{{ route('create-contact') }}"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
+                                <a href="{{ isset($id) ? route('addPhase2Info', ['event' => $id]) : route('addPhase2Info') }}"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
                             </li>
                             <li>
-                                <a href="{{ route('create-info') }}"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
+                                <a href="{{ isset($id) ? route('addGalleryToEvent', ['event' => $id]) : route('addGalleryToEvent') }}"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
                             </li>
                         </ul>
                         <a href="#" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
@@ -364,7 +368,7 @@
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button onclick="window.location.href = '{{ route('create-time') }}';" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
+                    <button onclick="window.location.href = '{{ route('addSessionsInfo') }}';" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
                 </div>
             </div>
         <!-- end of personal-info-fullname-modal -->
@@ -621,7 +625,7 @@
                             if(res.status === "ok") {
                                 // alert("عملیات موردنظر با موفقیت انجام شد.");
                                 showSuccess("عملیات موردنظر با موفقیت انجام شد.");
-                                window.location.href = '{{ route('create-time') }}' + "/" + res.id;
+                                window.location.href = '{{ route('addSessionsInfo') }}' + "/" + res.id;
                             }
                             else {
                                 alert(res.msg);

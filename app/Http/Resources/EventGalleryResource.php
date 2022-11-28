@@ -14,6 +14,9 @@ class EventGalleryResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'img' => asset('storage/events/' . $this->img)
+        ];
     }
 }
