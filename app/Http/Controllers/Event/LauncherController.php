@@ -7,6 +7,7 @@ use App\Http\Resources\LauncherFilesResource;
 use App\Http\Resources\LauncherFirstStepResource;
 use App\Models\Launcher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
 class LauncherController extends Controller
@@ -288,8 +289,15 @@ class LauncherController extends Controller
      * @param  \App\Models\Launcher  $launcher
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Launcher $launcher)
+    public function destroy(Request $request, Launcher $launcher)
     {
-        //
+        Gate::authorize('destroy', $launcher);
+        
+        //todo : check dependencies
+        //todo : remove dependencies
+        //todo : remove files
+
+        $launcher->delete();
+        return response()->json(['status' => 'ok']);
     }
 }

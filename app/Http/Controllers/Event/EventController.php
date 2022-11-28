@@ -13,6 +13,7 @@ use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 
 class EventController extends Controller
@@ -128,6 +129,42 @@ class EventController extends Controller
         return view('event.event.create-event', compact('states', 'mode'));
     }
 
+    public function edit(Event $event) {
+        
+        if(!Gate::allows('update', $event))
+            return Redirect::route('create-event');
+
+        $states = State::orderBy('name', 'asc')->get();
+        $mode = 'edit';
+        $id = $event->id;
+
+        return view('event.event.create-event', compact('states', 'mode', 'id'));
+    }
+
+    public function addGalleryToEvent(Event $event=null) {
+
+        if($event == null || !Gate::allows('update', $event))
+            return Redirect::route('create-event');
+
+        return view('event.event.create-info', ['id' => $event->id]);
+
+    }
+
+    public function addSessionsInfo(Event $event=null) {
+        
+        if($event == null || !Gate::allows('update', $event))
+            return Redirect::route('create-event');
+
+        return view('event.event.create-time', ['id' => $event->id]);
+    }
+    
+    public function addPhase2Info(Event $event=null) {
+        
+        if($event == null || !Gate::allows('update', $event))
+            return Redirect::route('create-event');
+
+        return view('event.event.create-contact', ['id' => $event->id]);
+    }
 
     /**
      * Display a listing of the resource.
@@ -250,6 +287,24 @@ class EventController extends Controller
         }
 
         $event->save();
+        return response()->json(['status' => 'ok']);
+    }
+
+    public function store_desc(Event $event, Request $request)
+    {
+        Gate::authorize('update', $event);
+
+        $validator = [
+            'description' => 'required|string|min:2'
+        ];
+        
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator);
+        $event->description = $request['description'];
+        $request->save();
+        
         return response()->json(['status' => 'ok']);
     }
 

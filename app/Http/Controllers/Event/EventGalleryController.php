@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EventGalleryResource;
+use App\Models\Event;
 use App\Models\EventGallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class EventGalleryController extends Controller
 {
@@ -13,19 +16,13 @@ class EventGalleryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Event $event, Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        Gate::authorize('update', $event);
+        return response()->json([
+            'status' => 'ok',
+            'data' => EventGalleryResource::collection($event->galleries)->toArray($request)
+        ]);
     }
 
     /**
@@ -34,43 +31,31 @@ class EventGalleryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Event $event, Request $request)
     {
-        //
-    }
+        Gate::authorize('update', $event);
+        
+        $validator = [
+            'img_file' => 'required|image'
+        ];
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\EventGallery  $eventGallery
-     * @return \Illuminate\Http\Response
-     */
-    public function show(EventGallery $eventGallery)
-    {
-        //
-    }
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\EventGallery  $eventGallery
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(EventGallery $eventGallery)
-    {
-        //
-    }
+        $request->validate($validator);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\EventGallery  $eventGallery
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, EventGallery $eventGallery)
-    {
-        //
+        $filename = $request->img_file->store('public/events');
+        $filename = str_replace('public/events/', '', $filename);
+        
+        EventGallery::create([
+            'img' => $filename,
+            'event_id' => $event->id,
+            'priority' => 1000
+        ]);
+
+        return response()->json([
+            'status' => 'ok'
+        ]);
     }
 
     /**
@@ -79,8 +64,18 @@ class EventGalleryController extends Controller
      * @param  \App\Models\EventGallery  $eventGallery
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EventGallery $eventGallery)
+    public function destroy(EventGallery $gallery)
     {
-        //
+        
+        Gate::authorize('destroy', $gallery->event);
+     
+        if(file_exists(__DIR__ . '/../../../../public/storage/events/' . $gallery->img))
+            unlink(__DIR__ . '/../../../../public/storage/events/' . $gallery->img);
+
+        $gallery->delete();
+
+        return response()->json([
+            'status' => 'ok'
+        ]);
     }
 }

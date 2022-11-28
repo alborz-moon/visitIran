@@ -21,19 +21,19 @@
                         <span class="colorBlack  fontSize15 bold d-none d-md-block fontSize16 bold">ایجاد رویداد</span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
                             <li class="checkout-step-active">
-                                <a href="{{ route('create-event') }}"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
+                                <a href="{{ route('update-event', ['event' => $id]) }}"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
                             </li>
                             <li class="checkout-step-active">
-                                <a href="{{ route('create-time') }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
+                                <a href="{{ route('addSessionsInfo', ['event' => $id]) }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
                             </li>
                             <li class="checkout-step-active">
-                                <a href="{{ route('create-contact') }}"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
+                                <a href="{{ route('addPhase2Info', ['event' => $id]) }}"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
                             </li>
                             <li class="checkout-step-active">
                                 <a><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
                             </li>
                         </ul>
-                        <a href="{{ route('create-contact') }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
+                        <a href="{{ route('addPhase2Info', ['event' => $id]) }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
                     </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">توضیحات</div>
@@ -61,7 +61,7 @@
                                         <div class="uploadBorder">
                                             <div class="uploadBodyBox">
                                                 <div class="uploadTitleText">بارگذاری فایل مجوز - در صورت وجود</div>
-                                                <form id="gallery-form" action="{{route('api.testUpload')}}" class="dropzone uploadBox">
+                                                <form id="gallery-form" action="{{route('event.galleries.store', ['event' => $id])}}" class="dropzone uploadBox">
                                                     {{csrf_field()}}
                                                 </form>
                                                 {{-- <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>

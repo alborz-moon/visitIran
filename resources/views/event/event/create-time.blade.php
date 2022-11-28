@@ -17,16 +17,16 @@
                         <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
                             <li class="checkout-step-active">
-                                <a href="{{ route('create-event') }}"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
+                                <a href="{{ route('update-event', ['event' => $id]) }}"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
                             </li>
                             <li class="checkout-step-active">
-                                <a href="{{ route('create-time') }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
+                                <a href="{{ route('addSessionsInfo', ['event' => $id]) }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
                             </li>
                             <li>
-                                <a href="{{ route('create-contact') }}"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
+                                <a href="{{ route('addPhase2Info', ['event' => $id]) }}"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
                             </li>
                             <li>
-                                <a href="{{ route('create-info') }}"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
+                                <a href="{{ route('addGalleryToEvent', ['event' => $id]) }}"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
                             </li>
                         </ul>
                         <a href="{{ route('create-event') }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
@@ -84,7 +84,7 @@
                         </div>
                         <div class="spaceBetween mb-2">
                             <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
-                            <button onclick="window.location.href = '{{ route('create-contact{id?}') }}';" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
+                            <button onclick="window.location.href = '{{ route('addPhase2Info', ['event' => $id]) }}';" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
                         </div> 
                         <div class="d-flex justify-content-end">
                             <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>

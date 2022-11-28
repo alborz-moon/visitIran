@@ -157,16 +157,14 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
         })->name('finance');
 
         Route::get('/create-event', [EventController::class, 'create'])->name('create-event');
+        
+        Route::get('/update-event/{event}', [EventController::class, 'edit'])->name('update-event');
 
-        Route::get('/create-time/{id?}', function($id=null) {
-            return view('event.event.create-time', compact('id'));
-        })->name('create-time');
+        Route::get('/addSessionsInfo/{event?}', [EventController::class, 'addSessionsInfo'])->name('addSessionsInfo');
 
-        Route::get('/create-contact/{id?}', function($id=null) {
-            return view('event.event.create-contact', compact('id'));
-        })->name('create-contact');
+        Route::get('/addPhase2Info/{event?}', [EventController::class, 'addPhase2Info'])->name('addPhase2Info');
     
-       Route::view('/create-info','event.event.create-info')->name('create-info');
+       Route::get('/addGalleryToEvent/{event?}', [EventController::class, 'addGalleryToEvent'])->name('addGalleryToEvent');
     
        Route::view('/show-events','event.event.show-events')->name('show-events');
        

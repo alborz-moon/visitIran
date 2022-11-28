@@ -13,9 +13,6 @@ class Controller extends BaseController
     
     //  public static $EVENT_SITE = 'bogenstudio.at';
     //  public static $SHOP_SITE = 'shop.bogenstudio.com';
-
-    // public static $EVENT_SITE = 'localevent.com';
-    // public static $SHOP_SITE = 'localshop.com';
     
     public static $EVENT_SITE = 'myevent.com';
     public static $SHOP_SITE = 'myshop.com';

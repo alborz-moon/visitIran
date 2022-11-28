@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Launcher;
 use App\Models\LauncherCert;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class LauncherCertificationsController extends Controller
 {
@@ -18,8 +19,7 @@ class LauncherCertificationsController extends Controller
      */
     public function store(Request $request, Launcher $launcher)
     {
-        // if($launcher->user_id !== $request->user()->id)
-        //     return abort(401);
+        Gate::authorize('update', $launcher);
         
         $validator = [
             'img_file' => 'required|image'
