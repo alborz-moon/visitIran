@@ -96,4 +96,20 @@ class Controller extends BaseController
         return ["date" => $day, "time" => $time];
     }
 
+    protected static $COMMON_ERRS = [
+        'postal_code.required' => 'لطفا کدپستی موردنظر را وارد نمایید',
+        'postal_code.regex' => 'کد پستی موردنظر نامعتبر است',
+        'phone.required' => 'شماره همراه موردنظر را وارد نمایید',
+        'phone.regex' => 'شماره همراه وارد شده نامعتبر است',
+        'user_NID.regex' => 'کدملی وارد شده نامعتبر است',
+        'launcher_type.in' => 'نوع شخصیت اشتباه است',
+        'launcher_phone.*.*' => 'تلفن وارد شده نامعتبر است',
+        'launcher_city_id.exists' => 'شهر وارد شده نامعتبر است',
+        'city_id.exists' => 'شهر وارد شده نامعتبر است',
+        'launcher_x.regex' => 'مختصات وارد شده نامعتبر است',
+        'launcher_y.regex' => 'مختصات وارد شده نامعتبر است',
+        'x.regex' => 'مختصات وارد شده نامعتبر است',
+        'y.regex' => 'مختصات وارد شده نامعتبر است',
+    ];
+
 }

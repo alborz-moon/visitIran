@@ -547,21 +547,6 @@
 
                 var launcherAddress = $('#launcherAddress').val();
 
-                // var setName = "Alborz";
-                // var userEmail = "Moon@yahoo.com";
-                // var userBirthDay = "1374/11/03";
-                // var nid = "0018374921";
-                // var companyName = "mooon";
-                // var launcherType = "hoghoghi";
-                // var companyType = "شرکت2";
-                // var code = "1000000000";
-                // var postalCode = "1234567890";
-                // var launcherCityID = 1;
-                // var launcherSite = "www.google.com";
-                // var launcherEmail = "alborz@gmail.com";
-                // var tels = "09224786125";
-                // var launcherAddress = "شسیتمشس یمنشس بسشی شسیهخب شسیب  سیشتنمبتنشسیابتناتناطزرات شتسیاب تنسارتنزط نتشسبنتسشی";
-
                 if(x === undefined || y === undefined) {
                     showErr("لطفا مکان موردنظر خود را از روی نقضه انتخاب کنید");
                     return;
@@ -611,27 +596,6 @@
                         }
                         else
                             showErr(res.msg);
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        
-                        var errs = XMLHttpRequest.responseJSON.errors;
-
-                        if(errs instanceof Object) {
-                            var errsText = '';
-
-                            Object.keys(errs).forEach(function(key) {
-                                errsText += key + " : " + errs[key];
-                            });
-                            showErr(errsText);    
-                        }
-                        else {
-                            var errsText = '';
-
-                            for(let i = 0; i < errs.length; i++)
-                                errsText += errs[i].value;
-                            
-                            showErr(errsText);
-                        }
                     }
                 });
             })

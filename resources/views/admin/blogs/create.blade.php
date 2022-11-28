@@ -1,5 +1,14 @@
 @extends('admin.layouts.create')
 
+@section('moreHeader')
+    <script>
+        var UploadURL = '{{ route('uploadImg') }}';
+    </script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/10.0.1/decoupled-document/ckeditor.js"></script>
+    <script src="{{asset('admin-panel/js/ckeditor.js?v=2.2')}}"></script>
+    
+@stop
+
 @section('title')
 {{ isset($item) ? 'ویرایش بلاگ' . ' > ' . $item['header'] : 'افزودن بلاگ' }}
 @stop
@@ -45,11 +54,6 @@
             </div>
 
             <div>
-                <label for="description">توضیح</label>
-                <textarea required name="description" id="description">{{ isset($item) ? $item['description'] : '' }}</textarea>
-            </div>
-
-            <div>
                 <label for="digest">متن خلاصه</label>
                 <textarea required name="digest" id="digest">{{ isset($item) ? $item['digest'] : '' }}</textarea>
             </div>
@@ -88,12 +92,35 @@
                 </select>
             </div>
 
+                
+            <div class="editor">
+                <div id="toolbar-container"></div>
+                @if(isset($item) && $item->description != null && $item->description != '')
+                    <div id="description">{!!  $item->description !!}</div>
+                @else
+                    <div id="description"></div>
+                @endif
+            </div>
+            <textarea id="desc" class="hidden" name="description"></textarea>
+            
         </div>
 
         <div class="flex center gap10">
             <span onclick="document.location.href = '{{ route('blog.index') }}'" class="btn btn-danger">بازگشت</span>
-            <input value="ذخیره" type="submit" class="btn green" id="saveBtn" />
+            <span class="btn green" id="saveBtn">ذخیره</span>
         </div>
 
     </form>
+
+    <script src="{{asset('admin-panel/js/initCKs.js?v=2.3')}}"></script>
+    <script>
+        $(document).ready(function () {
+            initCK('{{ csrf_token() }}');
+            $("#saveBtn").on('click', function() {
+                $("#desc").val($("#description").html());
+                $("#myForm").submit();
+            });
+        });
+    </script>
+
 @stop

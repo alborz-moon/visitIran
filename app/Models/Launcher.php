@@ -47,7 +47,7 @@ class Launcher extends Model
     }
 
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->setConnection('mysql')->belongsTo(User::class);
     }
 
     public function certs() {

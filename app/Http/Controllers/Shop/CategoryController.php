@@ -85,8 +85,10 @@ class CategoryController extends Controller
         $categories = Category::all();
         $arr = [];
         foreach($categories as $cat) {
+            
             if($cat->products()->count() > 0)
                 continue;
+
             array_push($arr, $cat);
         }
 
@@ -131,6 +133,7 @@ class CategoryController extends Controller
             'parent' => $category->parent_id == null ? null : $path[1],
             'name' => $category->name,
             'id' => $category->id,
+            'has_sub' => count($category->sub) > 0,
             'features' => FeatureResourceUser::collection($category->features()->multiChoice()->get())->toArray($request)
         ]);
     }

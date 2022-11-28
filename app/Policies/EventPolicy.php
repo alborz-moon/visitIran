@@ -10,11 +10,11 @@ class EventPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Create a new policy instance.
-     *
-     * @return void
-     */
+    // /**
+    //  * Create a new policy instance.
+    //  *
+    //  * @return void
+    //  */
     public function before(User $user, $ability)
     {
         return true;
@@ -27,11 +27,9 @@ class EventPolicy
      */
     public function __construct()
     {
-        //
     }
 
     public function update(User $user, Event $event) {
-        
         $launcher = $user->launcher;
         if($launcher == null)
             return false;
@@ -49,7 +47,6 @@ class EventPolicy
     }
 
     public function getPhaseInfo(User $user, Event $event) {
-
         $launcher = $user->launcher;
         if($launcher == null)
             return false;
