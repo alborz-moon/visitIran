@@ -76,7 +76,7 @@
                         <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
                             <li class="checkout-step-active">
-                                <a><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
+                                <a href="{{ route('create-event') }}"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
                             </li>
                             <li>
                                 <a href="{{ isset($id) ? route('addSessionsInfo', ['event' => $id]) : route('addSessionsInfo') }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
@@ -629,5 +629,21 @@
                         }
                     });
             });
+        $.ajax({
+            type: 'get',
+            url: '{{route('event.getPhase1Info',['event' => $id])}}',
+            headers: {
+                'accept': 'application/json'
+            },
+            success: function(res) {
+                if(res.status === "ok") {
+                    if(res.data.length != 0) {
+                        console.log('====================================');
+                        console.log(res);
+                        console.log('====================================');
+                    }
+                }
+            }
+        });
     </script>
 @stop

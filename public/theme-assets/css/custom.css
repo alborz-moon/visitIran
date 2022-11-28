@@ -1443,6 +1443,19 @@ figure .ck-widget {
 .marginTop7 {
     margin-top: 7px;
 }
+.topLeft10 {
+    top: 10px;
+    left: 5px;
+}
+.certificationsImg {
+    border-radius: 20px;
+    overflow: hidden;
+    width: 120px;
+    height: 120px;
+    position: relative;
+    display: block;
+    z-index: 0;
+}
 .marginTop4 {
     margin-top: 4px;
 }

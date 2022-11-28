@@ -305,6 +305,7 @@
                 success: function(res) {
                     if(res.status === "ok") {
                         showSuccess('با موفقیت ثبت شد .');
+
                     }else{
                         showErr('همه فیلد ها را پر کنید.')
                     }
@@ -312,5 +313,27 @@
             });
         });
 
+
+        $.ajax({
+                type: 'get',
+                url: '{{ route('event.getPhase2Info',['event' => $id]) }}',
+                headers: {
+                 'accept': 'application/json'
+                },
+                success: function(res) {
+                        $('#time_input_start').val(res.start_registry_time);
+                        $('#date_input_start').val(res.start_registry_date);
+                        $('#time_input_stop').val(res.end_registry_time);
+                        $('#date_input_stop').val(res.end_registry_date);
+                        $('#setDateStart').val(res.start_registry_date + ' ' +  res.start_registry_date);
+                        $('#setDateStop').val(res.end_registry_date + ' ' +  res.end_registry_date);
+                        $('#desc').val(res.ticket_description);
+                        $('#price').val(res.price);
+                        $('#capacity').val(res.capacity);
+                        $('#site').val(res.site);
+                        $('#mail').val(res.mail);
+                }
+            });
+        
     </script>
 @stop
