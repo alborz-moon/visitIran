@@ -100,7 +100,7 @@ class BlogController extends BlogHelper
 
         $request->validate($validator);
 
-        if($request->has('img')) {
+        if($request->has('img_file')) {
             $filename = $request->img_file->store('public/blogs');
             $filename = str_replace('public/blogs/', '', $filename);
 
