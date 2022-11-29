@@ -95,8 +95,8 @@
                 
             <div class="editor">
                 <div id="toolbar-container"></div>
-                @if(isset($item) && $item->description != null && $item->description != '')
-                    <div id="description">{!!  $item->description !!}</div>
+                @if(isset($item) && $item['description'] != null && $item['description'] != '')
+                    <div id="description">{!!  $item['description'] !!}</div>
                 @else
                     <div id="description"></div>
                 @endif
