@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\Route;
 Route::resource('launcher', LauncherController::class)->except('update');
 
 
+Route::prefix('launcher')->group(function() {
+
+    Route::post('/changeStatus', [LauncherController::class, 'changeStatus'])->name('launcher.changeStatus');
+
+    Route::prefix('/{launcher}')->group(function() {
+    });
+
+});
+
 Route::resource('facilities', FacilityController::class)->except('update');
 
 Route::prefix('facilities')->group(function() {

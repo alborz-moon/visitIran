@@ -33,9 +33,13 @@
                                 @endforeach
                             </ol>
                         <!-- end of breadcrumb -->
-                    @include('layouts.tiles', ['category' => null, 'mode' => 'list'])
+
+                    @if($has_sub)
+                        @include('layouts.tiles', ['category' => $id, 'mode' => 'list'])
+                    @endif
+
                     <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar">
-                        {{-- @include('sections.top_categories_products') --}}
+                        
                         <div class="ui-sticky ui-sticky-top">
                             <div class="ui-box sidebar-widgets customFilter ">
                                 <!-- start of widget -->

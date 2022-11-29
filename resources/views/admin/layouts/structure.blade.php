@@ -140,9 +140,11 @@
                                         <a href="{{route('faq.index')}}" class="dropdown-item">مدیریت سوالات متداول</a>
                                         <a href="{{route('slider.index')}}" class="dropdown-item">مدیریت اسلایدر</a>
                                         <a href="{{route('banner.index')}}" class="dropdown-item">مدیریت بنر های تبلیغاتی</a>
+                                        <a href="{{route('config.index')}}" class="dropdown-item">پیکربندی</a>
                                     </div>
                                 </li>
 
+                                <li class="nav-item"><a href="{{ route('launcher.index') }}" role="button" class="nav-link"><i></i> <span class="mini-dn">برگزار کنندگان</span></a></li>
                             @endif
                         </ul>
                     @endif

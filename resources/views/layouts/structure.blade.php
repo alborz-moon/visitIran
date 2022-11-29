@@ -341,6 +341,28 @@
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    
+                var errs = XMLHttpRequest.responseJSON.errors;
+
+                if(errs instanceof Object) {
+                    var errsText = '';
+
+                    Object.keys(errs).forEach(function(key) {
+                        errsText += errs[key] + "<br />";
+                    });
+
+                    showErr(errsText);    
+                }
+                else {
+                    var errsText = '';
+
+                    for(let i = 0; i < errs.length; i++)
+                        errsText += errs[i].value;
+                    
+                    showErr(errsText);
+                }
             }
         });
 

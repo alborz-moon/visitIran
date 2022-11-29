@@ -35,18 +35,18 @@ class HomeController extends Controller
         return response()->json(['status' => 'ok', 'url' => asset('storage/ck/' . $filename)]);
     }
 
-    public function getDesc(Category $category = null) {
+    public function getDesc(Request $request, Category $category = null) {
         
         if($category == null) {
             return response()->json([
                 'status' => 'ok',
-                'data' => Config::first()->desc_default
+                'data' => Config::where('site', $request->getHost() === self::$EVENT_SITE ? 'event' : 'shop')->first()->desc_default
             ]);
         }
 
         return response()->json([
             'status' => 'ok',
-            'data' => Config::first()->desc_default
+            'data' => Config::where('site', $request->getHost() === self::$EVENT_SITE ? 'event' : 'shop')->first()->desc_default
         ]);
     }
 

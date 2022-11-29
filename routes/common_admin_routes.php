@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
@@ -39,5 +40,10 @@ Route::get('mail_users', [MailController::class, 'users'])->name('mail.users');
 
 
 Route::post('uploadImg', [HomeController::class, 'uploadImg'])->name('uploadImg');
+
+
+Route::resource('config', ConfigController::class)->only(['index']);
+
+Route::post('config', [ConfigController::class, 'update'])->name('config.update');
 
 ?>

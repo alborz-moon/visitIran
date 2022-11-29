@@ -13,9 +13,11 @@ class ConfigController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.config.config', ['item' => Config::first()]);
+        return view('admin.config.config', [
+            'item' => Config::where('site', $request->getHost() === self::$EVENT_SITE ? 'event' : 'shop')->first()
+        ]);
     }
 
     /**
@@ -43,7 +45,7 @@ class ConfigController extends Controller
 
         $request->validate($validator);
 
-        $config = Config::first();
+        $config = Config::where('site', $request->getHost() === self::$EVENT_SITE ? 'event' : 'shop')->first();
         $config->can_pay_cash = $request->has('can_pay_cash') ? $request['can_pay_cash'] : $config->can_pay_cash;
         $config->sell_list_period = $request->has('sell_list_period') ? $request['sell_list_period'] : $config->sell_list_period;
         $config->seen_list_period = $request->has('seen_list_period') ? $request['seen_list_period'] : $config->seen_list_period;
