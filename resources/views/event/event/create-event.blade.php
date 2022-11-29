@@ -399,7 +399,32 @@
       rel="stylesheet"
     />
     <script>    
-
+        var lang_arr = [
+            {
+                key: "fa",
+                value: "فارسی" 
+            },
+            {
+                key: "tr",
+                value: "ترکی" 
+            },
+            {
+                key: "en",
+                value: "انگلیسی" 
+            },
+            {
+                key: "fr",
+                value: "فرانسه" 
+            },
+            {
+                key: "gr",
+                value: "آلمانی" 
+            },
+            {
+                key: "ar",
+                value: "عربی" 
+            },
+        ];
         var map = undefined;
         var x;
         var y;
@@ -408,6 +433,8 @@
         var onlineOrOffline;
         var idxTopic = 1;
         var idx = 1;
+        var facilitiesList = undefined;
+        var tagsList = undefined;
 
         function watchList(selectorId, arr, increamentor, elemId, resultPaneId) {
             
@@ -486,6 +513,7 @@
                 }
             });
         }
+
         $('#onlineOrOffline').on('change',function(){
             onlineOrOffline = $('#onlineOrOffline').val();
             if (onlineOrOffline=== '0'){
@@ -543,18 +571,25 @@
                 'accept': 'application/json'
             },
             success: function(res) {
-                var eventTag= "";
+                
                 if(res.status === "ok") {
+                    
+                    var eventTag = "";
+                    tagsList = res.data;
+
                     if(res.data.length != 0) {
+                        
                         eventTag += '<option value="0">انتخاب کنید</option>';
-                        for( var i = 0; i < res.data.length ; i ++){
+
+                        for( var i = 0; i < res.data.length ; i ++)
                             eventTag += '<option name="eventTag" value="' + res.data[i].id + '">'+ res.data[i].label +'</option>';
-                        }
+                        
                         $("#topicEvent").empty().append(eventTag);
                     }
                 }
             }
         });
+
         $.ajax({
             type: 'get',
             url: '{{route('facilities.show')}}',
@@ -562,9 +597,14 @@
                 'accept': 'application/json'
             },
             success: function(res) {
-                var facility= "";
+                
                 if(res.status === "ok") {
+                    
+                    facilitiesList = res.data;
+
                     if(res.data.length != 0) {
+                        
+                        var facility = "";
                         for( var i = 0; i < res.data.length ; i ++){
                             facility += '<input type="checkbox" name="facility" id="' + res.data[i].id +'">';
                             facility += '<label for="' + res.data[i].id +'" class="ml-0">' + res.data[i].label +'</label>';
@@ -574,8 +614,9 @@
                 }
             }
         });
+
         $("#nextBtn").on('click', function () {
-                var eventName = $('#eventName').val();
+                var eventName = $('#eventName').val();               
                 var ageCondi = $('#ageCondi').val();
                 var level = $('#level').val();
                 var state = $('#state02').val();
@@ -621,7 +662,7 @@
                             if(res.status === "ok") {
                                 // alert("عملیات موردنظر با موفقیت انجام شد.");
                                 showSuccess("عملیات موردنظر با موفقیت انجام شد.");
-                                window.location.href = '{{ route('addSessionsInfo') }}' + "/" + res.id;
+                                // window.location.href = '{{ route('addSessionsInfo') }}' + "/" + res.id;
                             }
                             else {
                                 alert(res.msg);
@@ -629,21 +670,67 @@
                         }
                     });
             });
-        $.ajax({
-            type: 'get',
-            url: '{{route('event.getPhase1Info',['event' => $id])}}',
-            headers: {
-                'accept': 'application/json'
-            },
-            success: function(res) {
-                if(res.status === "ok") {
-                    if(res.data.length != 0) {
-                        console.log('====================================');
-                        console.log(res);
-                        console.log('====================================');
+     
+            @if(isset($id))
+
+                function checkFetchData() {
+                    if(tagsList === undefined || facilitiesList === undefined)
+                        setTimeout(checkFetchData, [500]);
+                    else
+                        getPhase1Info();
+                 }
+
+                setTimeout(checkFetchData, [500]);
+
+            @endif
+
+            function getPhase1Info() {
+                $.ajax({
+                    type: 'get',
+                    url: '{{route('event.getPhase1Info',['event' => $id])}}',
+                    headers: {
+                        'accept': 'application/json'
+                    },
+                    success: function(res) {
+                        if(res.status === "ok") {
+                            if(res.data.length != 0) {
+                                $('#eventName').val(res.data.title);
+                                $('#ageCondi').val(res.data.age_description).change();
+                                $('#level').val(res.data.level_description).change();
+                                $('#address').val(res.data.address);
+                                $('#postal_code').val(res.data.postal_code);
+                                x = res.data.x;
+                                y = res.data.y;
+                                var language = '';
+                                if (res.data.language.length != 0){
+                                    for( var i = 0; i < res.data.language.length; i ++){
+                                        let elem = lang_arr.find(itr => itr.key == res.data.language[i]);
+
+                                        language = '<div id="' + idx +'" class="item-button spaceBetween colorBlack">' + elem.value +'';
+                                        language +='<button data-id="' + idx +'" class="remove-' + idx +'-btn btn btn-outline-light b-0">'; 
+                                        language += '<i class="ri-close-line"></i>';
+                                        language += '</button></div>';
+                                    }
+                                    $("#addLang").append(language); 
+                                }
+                                var tags = '';
+                                if (res.data.tags.length != 0){
+                                    for( var i = 0; i < res.data.tags.length; i ++){
+                                        
+                                        let elem = tagsList.find(itr => itr.label == res.data.tags[i]);
+                                        
+                                        tags = '<div id="' + idx +'" class="item-button spaceBetween colorBlack">' + elem.value +'';
+                                        tags +='<button data-id="' + idx +'" class="remove-' + idx +'-btn btn btn-outline-light b-0">'; 
+                                        tags += '<i class="ri-close-line"></i>';
+                                        tags += '</button></div>';
+                                    }
+                                    $("#addtopic").append(tags); 
+                                }
+                            }
+                        }
                     }
-                }
+                });
             }
-        });
+
     </script>
 @stop
