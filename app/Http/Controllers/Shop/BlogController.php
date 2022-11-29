@@ -10,6 +10,7 @@ use App\Imports\BlogImport;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class BlogController extends BlogHelper
 {
@@ -94,11 +95,16 @@ class BlogController extends BlogHelper
             'img_file' => 'nullable|image',
             'slug' => 'nullable|string|min:2|unique:blogs'
         ];
-        
+
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+
+        $validator = Validator::make($request->all(), $validator);
+
+
+        if ($validator->fails())
+		return view('admin.blogs.create', ["errors" => $validator->errors()]);
 
         if($request->has('img_file')) {
             $filename = $request->img_file->store('public/blogs');

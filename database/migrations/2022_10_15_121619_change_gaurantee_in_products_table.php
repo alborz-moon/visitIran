@@ -14,7 +14,7 @@ class ChangeGauranteeInProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->renameColumn('gaurantee', 'guarantee');
+//            $table->renameColumn('gaurantee', 'guarantee');
         });
     }
 

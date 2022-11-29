@@ -14,9 +14,9 @@ class AddHeaderToBlogsTable extends Migration
     public function up()
     {
         Schema::table('blogs', function (Blueprint $table) {
-            $table->string('header');
-            $table->unsignedInteger('priority');
-            $table->boolean('visibility')->default(true);
+//            $table->string('header')->change()
+//            $table->unsignedInteger('priority');
+//            $table->boolean('visibility')->default(true);
         });
     }
 
@@ -28,9 +28,9 @@ class AddHeaderToBlogsTable extends Migration
     public function down()
     {
         Schema::table('blogs', function (Blueprint $table) {
-            $table->dropColumn('header');
-            $table->dropColumn('priority');
-            $table->dropColumn('visibility');
+//            $table->dropColumn('header');
+//            $table->dropColumn('priority');
+//            $table->dropColumn('visibility');
         });
     }
 }
