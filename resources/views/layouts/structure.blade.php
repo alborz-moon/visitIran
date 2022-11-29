@@ -72,7 +72,7 @@
                         </div>
                         <div class="user-options heightHeader customFilterGray">
                             <div class="user-option user-option--search customBorderLeft1" data-remodal-target="search-modal">
-                                <button class="user-option-btn user-option-btn--search gap10" data-remodal-target="search-modal">
+                                <button class="user-option-btn user-option-btn--search gap10 b-0" data-remodal-target="search-modal">
                                     <i class="icon-visit-search customHeader textColor" data-remodal-target="search-modal"></i>
                                 </button>
                             </div>

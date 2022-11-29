@@ -218,6 +218,17 @@
             }
         });
     });
-        
+
+    
+    $.ajax({
+        type: 'get',
+        url: '{{route('event.get_desc',['event' => $id])}}',
+        success: function(res) {
+            if(res.status === "ok") {
+                $('#description').val(res.data)
+                res.data 
+            }
+        }
+    });
     </script>
 @stop

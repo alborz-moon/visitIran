@@ -9,8 +9,9 @@
                     <div class="product-seller-row-detail-title">{{ $product['seller'] }}</div>
                 </div>
             </div>
+            <hr>
         @endif
-        <hr>
+        
         @if ($product['guarantee'] !== null)
             <div class="product-seller-row">
                 <div class="product-seller-row-icon marginTop10">
@@ -20,8 +21,9 @@
                     <div class="product-seller-row-detail-title">گارانتی {{$product['guarantee']}} ماهه</div>
                 </div>
             </div>
+            <hr>
         @endif
-        <hr>
+        
         <div class="product-seller-row product-seller-row--clickable">
             <div class="product-seller-row-icon marginTop10">
                 <i class="icon-visit-original colorYellow  productIcon"></i>

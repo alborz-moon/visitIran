@@ -46,7 +46,7 @@
                                             <img class="zoom-img b-0" src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />
                                         </div>
                                         <div class="gallery-thumbs overFlowHidden">
-                                            <ul id="gallery">
+                                            <ul id="gallery" style="justify-content: right !important;">
                                             </ul>
                                         </div>
                                     </div>
@@ -590,6 +590,7 @@
                 });
             } 
 });
+
 </script>
 
 @stop

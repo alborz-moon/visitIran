@@ -89,7 +89,7 @@
                         html += '<a href="' + res.data[i].href + '"><div class="container p-0 m-0 py-3">';
                         html += '<div class="row p-0 m-0">';
                         html += '<div class="col-4 p-0 m-0">';
-                        html += '<div><img class="blogImgSize" src="' + res.data[i].img + '" alt="' + res.data[i].alt + '"></div>';
+                        html += '<div class="imgResponsive"><img class="blogImgSize" src="' + res.data[i].img + '" alt="' + res.data[i].alt + '"></div>';
                         html += '</div>'
                         html += '<div class="col-8 p-0 m-0">';
                         html += '<div style="height: 60px" class="d-flex justify-content-start align-items-center" >';

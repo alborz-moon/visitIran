@@ -317,7 +317,7 @@ class EventController extends Controller
 
         $request->validate($validator);
         $event->description = $request['description'];
-        $request->save();
+        $event->save();
         
         return response()->json(['status' => 'ok']);
     }

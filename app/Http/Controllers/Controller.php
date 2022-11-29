@@ -11,14 +11,14 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     
-      public static $EVENT_SITE = 'bogenstudio.at';
+    //   public static $EVENT_SITE = 'bogenstudio.at';
     //  public static $SHOP_SITE = 'shop.bogenstudio.com';
     
-//    public static $EVENT_SITE = 'myevent.com';
-//    public static $SHOP_SITE = 'myshop.com';
+   public static $EVENT_SITE = 'myevent.com';
+   public static $SHOP_SITE = 'myshop.com';
 
     //public static $EVENT_SITE = 'myevent.com';
-    public static $SHOP_SITE = 'hcshop.taci.ir';
+    // public static $SHOP_SITE = 'hcshop.taci.ir';
     
     public static function hasAnyExcept($expected, $real) {
 

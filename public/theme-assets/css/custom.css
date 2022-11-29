@@ -391,6 +391,7 @@ ul {
 .blogImgSize {
     width: 100px !important;
     height: 60px !important;
+    object-fit: contain;
 }
 .boxGallery {
     display: flex;
