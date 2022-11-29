@@ -7,7 +7,6 @@ use App\Http\Resources\CategoryDigest;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CategoryUserDigest;
 use App\Http\Resources\CategoryVeryDigest;
-use App\Http\Resources\FeatureResource;
 use App\Http\Resources\FeatureResourceUser;
 use App\Http\Resources\HeadCategoryResource;
 use App\Http\Resources\ProductDigestUser;
@@ -16,8 +15,6 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\Validators\ValidationException;
 
 class CategoryController extends Controller
 {
@@ -194,9 +191,28 @@ class CategoryController extends Controller
 
     public function top(Request $request, Category $category = null) {
 
-        $cats = $category == null ? Category::visible()->top()->get() : 
-                Category::where('parent_id', $category->id)->visible()
-                    ->top()->get();
+        if($category == null)
+            $cats = Category::visible()->top()->get();
+        
+        else {
+
+            $cats = [];
+            $queue = Category::where('parent_id', $category->id)->visible()->top()->get()->toArray();
+            
+            while(count($queue) > 0) {
+
+                $cat = array_pop($queue);
+
+                array_push($cats, $cat);
+                $tmp = Category::where('parent_id', $cat['id'])->visible()->top()->get()->toArray();
+                foreach($tmp as $itr) {
+                    array_push($queue, $itr);
+                }
+                
+            }
+        }
+
+        
 
         return response()->json(
             [

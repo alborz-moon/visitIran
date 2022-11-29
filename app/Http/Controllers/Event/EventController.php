@@ -176,14 +176,28 @@ class EventController extends Controller
         //
     }
 
+    public function getDesc(Event $event, Request $request) {
+        Gate::authorize('getPhaseInfo', $event);
+        return response()->json([
+            'status' => 'ok',
+            'data' => $event->description
+        ]);
+    }
+
     public function getPhase1Info(Event $event, Request $request) {
         Gate::authorize('getPhaseInfo', $event);
-        return EventPhase1Resource::make($event)->toArray($request);
+        return response()->json([
+            'status' => 'ok',
+            'data' => EventPhase1Resource::make($event)->toArray($request)
+        ]);
     }
 
     public function getPhase2Info(Event $event, Request $request) {
         Gate::authorize('getPhaseInfo', $event);
-        return EventPhase2Resource::make($event)->toArray($request);
+        return response()->json([
+            'status' => 'ok',
+            'data' => EventPhase2Resource::make($event)->toArray($request)
+        ]);
     }
 
     

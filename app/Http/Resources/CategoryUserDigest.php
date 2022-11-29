@@ -14,12 +14,21 @@ class CategoryUserDigest extends JsonResource
      */
     public function toArray($request)
     {
+        if(!isset($this['id']))
+            return [
+                'id' => $this->id,
+                'name' => $this->name,
+                'href' => route('single-category', ['category' => $this->id, 'slug' => $this->name]),
+                'alt' =>  $this->alt,
+                'img' => $this->img == null ? asset('default.png') : asset('storage/categories/' . $this->img)
+            ];
+
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'href' => route('single-category', ['category' => $this->id, 'slug' => $this->name]),
-            'alt' =>  $this->alt,
-            'img' => $this->img == null ? asset('default.png') : asset('storage/categories/' . $this->img)
+            'id' => $this['id'],
+            'name' => $this['name'],
+            'href' => route('single-category', ['category' => $this['id'], 'slug' => $this['name']]),
+            'alt' =>  $this['alt'],
+            'img' => $this['img'] == null ? asset('default.png') : asset('storage/categories/' . $this['img'])
         ];
     }
 }
