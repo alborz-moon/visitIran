@@ -718,7 +718,7 @@
                                     }
                                     $("#addLang").append(language); 
                                 }
-                                var tags = '';
+                                var facilit = '';
                                 if (res.data.tags.length != 0){
                                     for( var i = 0; i < res.data.tags.length; i++){
                                         
@@ -739,7 +739,29 @@
                                     }
                                     $("#addTopic").append(tags); 
                                 }
-
+                                                         if (res.data.tags.length != 0){
+                                    for( var i = 0; i < res.data.tags.length; i++){
+                                        
+                                        let elem = tagsList.find(itr => itr.label == res.data.tags[i]);
+                                        
+                                        if(elem === undefined)
+                                            continue;
+                                        $('input[name=facility]').each(function() {
+                                            if ($(this).is(":checked")) {
+                                                selectedFacility.push($(this).attr('id'));
+                                            }
+                                        });
+                                        
+                                        facilit += '<input type="checkbox" name="facility" id="' + res.data[i].id +'">';
+                                        facilit += '<label for="' + res.data[i].id +'" class="ml-0">' + res.data[i].label +'</label>'; 
+                                        
+                                        topicList.push({
+                                            id: elem.id,
+                                            value: elem.label
+                                        });
+                                    }
+                                    $("#addTopic").append(facilit); 
+                                }
                                 
                             }
                         }
