@@ -72,4 +72,8 @@ class User extends Authenticatable
     public function offs() {
         return $this->hasMany(Off::class);
     }
+
+    public function launcher() {
+        return $this->hasOne(Launcher::class);
+    }
 }

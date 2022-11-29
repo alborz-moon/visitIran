@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Shop;
+namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventTagResource;
 use App\Models\EventTag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class EventTagController extends Controller
 {
@@ -16,11 +17,36 @@ class EventTagController extends Controller
      */
     public function index(Request $request)
     {
+        return view('admin.eventTag.list', 
+            ['items' => EventTagResource::collection(EventTag::all())->toArray($request)]
+        );
+        
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request)
+    {
         return response()->json([
             'status' => 'ok',
             'data' => EventTagResource::collection(EventTag::all())->toArray($request)
         ]);
     }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin.eventTag.create');
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -31,7 +57,8 @@ class EventTagController extends Controller
     public function store(Request $request)
     {
         $validator = [
-            'label' => 'required|string|min:2'
+            'label' => 'required|string|min:2',
+            'visibility' => 'required|boolean'
         ];
         
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
@@ -40,7 +67,18 @@ class EventTagController extends Controller
         $request->validate($validator);
 
         EventTag::create($request->toArray());
-        return response()->json(['status' => 'ok']);
+        return Redirect::route('eventTags.index');
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(EventTag $eventTag)
+    {
+        return view('admin.eventTag.create', ['item' => $eventTag]);
     }
 
     /**
@@ -53,7 +91,8 @@ class EventTagController extends Controller
     public function update(EventTag $eventTag, Request $request)
     {
         $validator = [
-            'label' => 'required|string|min:2'
+            'label' => 'required|string|min:2',
+            'visibility' => 'nullable|boolean'
         ];
         
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
@@ -61,9 +100,10 @@ class EventTagController extends Controller
         
         $request->validate($validator);
         $eventTag->label = $request['label'];
+        $eventTag->visibility = $request->has('visibility') ? $request['visibility'] : $eventTag->visibility;
         $eventTag->save();
         
-        return response()->json(['status' => 'ok']);
+        return Redirect::route('eventTags.index');
     }
 
     /**

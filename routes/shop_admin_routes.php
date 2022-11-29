@@ -4,7 +4,6 @@ use App\Http\Controllers\Shop\BlogController;
 use App\Http\Controllers\Shop\BrandController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\CommentController;
-use App\Http\Controllers\Shop\ConfigController;
 use App\Http\Controllers\Shop\FeatureController;
 use App\Http\Controllers\Shop\GalleryController;
 use App\Http\Controllers\Shop\OffController;
@@ -53,10 +52,6 @@ Route::resource('off', OffController::class)->except(['show', 'update']);
 
 Route::post('off/{off}', [OffController::class, 'update'])->name('off.update');
 
-
-Route::resource('config', ConfigController::class)->only(['index']);
-
-Route::post('config', [ConfigController::class, 'update'])->name('config.update');
 
 
 Route::resource('product', ProductController::class)->except(['show', 'update']);

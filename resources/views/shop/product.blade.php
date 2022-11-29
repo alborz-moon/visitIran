@@ -5,18 +5,12 @@
     <meta property="og:title" content="{{ $product['name'] }}" />
     <meta name="twitter:title" content="{{ $product['name'] }}" />
     <meta property="og:site_name" content="{{ $product['name'] }}" />
-
     <meta property="og:image" content="{{ $product['img'] }}"/>
     <meta property="og:image:secure_url" content="{{ $product['img'] }}"/>
     <meta name="twitter:image" content="{{ $product['img'] }}"/>
     <meta property="og:description" content="{{ $product['digest'] }}" />
     <meta name="twitter:description" content="{{ $product['digest'] }}" />
     <meta name="description" content="{{ $product['digest'] }}"/>
-
-    <style>
-
-    </style>
-
     <meta name="keywords" content="{{ $product['keywords'] }}" />
     {{-- <meta property="article:tag" content="{{ $product['tags'] }}"/> --}}
 
@@ -110,7 +104,7 @@
                                     <div class="product-additional-info">
                                         <p>{{ $product['description'] }}</p>
                                     </div>
-                                </div>
+                            </div>
                                 <div class="expandable-text-expand-btn d-flex justify-content-end">
                                     <span class="show-more">
                                         بیشتر <i class="ri-arrow-down-s-line"></i>
@@ -155,7 +149,7 @@
                             <!-- end of product-tabs -->
                         </div>
                         <!-- start of product-content-expert-summary -->
-                        <div class="details product-tab-content product-content-expert-summary tab-content border-bottom pb-2 mb-4"
+                        <div class="details product-tab-content product-content-expert-summary tab-content  pb-2 mb-4"
                             id="scrollspyHeading1">
                             <div class="product-tab-title">
                                 <div class="fontSize18 bold ">بررسی {{ $product['name'] }}</div>
@@ -177,7 +171,7 @@
                         </div>
                         <!-- end of product-content-expert-summary -->
                         <!-- start of product-params -->
-                        <div class="product-tab-content product-params tab-content border-bottom pb-2 mb-4"
+                        <div class="product-tab-content product-params tab-content  pb-2 mb-4"
                             id="scrollspyHeading3">
                             <div class="product-tab-title">
                                  <div class="fontSize18 bold">مشخصات {{ $product['name'] }}</div>
@@ -218,7 +212,7 @@
         <div class="text-muted fs-7 fw-bold mb-3">
             با استفاده از روش‌های زیر می‌توانید این صفحه را با دوستان خود به اشتراک بگذارید.
         </div>
-        <div class="d-flex align-items-center border-top border-bottom py-3 mb-3">
+        <div class="d-flex align-items-center border-top  py-3 mb-3">
             <div class="widget flex-grow-1 border-0 p-0 me-2">
                 <div class="widget-content widget-socials">
                     <ul  class="align-items-center">

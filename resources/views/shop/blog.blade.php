@@ -33,7 +33,7 @@
                             </div>
                             <hr>
                             <h3 class="my-5">{{ $blog['header'] }}</h3>
-                            <p>{{ $blog['description'] }}</p>
+                            <p>{!! $blog['description'] !!}</p>
                         </div>
                         <div class="col-lg-3 col-md-4 d-none d-md-block">
                             <div style="position: sticky;top:150px">

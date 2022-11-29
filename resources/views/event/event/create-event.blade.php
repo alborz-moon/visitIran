@@ -2,9 +2,6 @@
 @extends('layouts.structure')
 @section('header')
 <style>
-    /**
- * Tabs
- */
 .tabs {
 	display: flex;
 	flex-wrap: wrap;
@@ -79,19 +76,19 @@
                         <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
                             <li class="checkout-step-active">
-                                <a><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
+                                <a href="{{ route('create-event') }}"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
                             </li>
                             <li>
-                                <a href="{{ route('create-time') }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
+                                <a href="{{ isset($id) ? route('addSessionsInfo', ['event' => $id]) : route('addSessionsInfo') }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
                             </li>
                             <li>
-                                <a href="{{ route('create-contact') }}"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
+                                <a href="{{ isset($id) ? route('addPhase2Info', ['event' => $id]) : route('addPhase2Info') }}"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
                             </li>
                             <li>
-                                <a href="{{ route('create-info') }}"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
+                                <a href="{{ isset($id) ? route('addGalleryToEvent', ['event' => $id]) : route('addGalleryToEvent') }}"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
                             </li>
                         </ul>
-                        <a href="#" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18 d-none">بازگشت</a>
+                        <a href="#" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
                     </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">اطلاعات کلی</div>
@@ -101,7 +98,7 @@
                                         <div class="py-2">
                                             <div  class="fs-7 text-dark">نام رویداد</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input type="text" class="form-control" style="direction: rtl" placeholder="نام رویداد">
+                                                <input id="eventName" type="text" class="form-control" style="direction: rtl" placeholder="نام رویداد">
                                                 <button class="btn btn-circle btn-outline-light hidden"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
@@ -109,56 +106,60 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
-                                            <div  class="fs-7 text-dark">شرایط سنی</div>
+                                        <div class="py-2">
+                                            <div class="fs-7 text-dark">شرایط سنی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select class="selectStyle">
-                                                    <option value="">شرایط 1</option>
-                                                    <option value="">شرایط 2</option>
+                                                <select id="ageCondi" class="select2 w-100">
+                                                    <option value="all" selected>همه سنین</option>
+                                                    <option value="child">کودکان تا ۱۰ سال</option>
+                                                    <option value="teen">نوجوانان ۱۰ تا ۱۸ سال</option>
+                                                    <option value="adult">بزرگسال</option>
+                                                    <option value="old">بازنشستگان</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div  class="fs-7 text-dark">سطح برگزاری</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select class="selectStyle">
-                                                    <option value="">1</option>
-                                                    <option value="">1</option>
+                                                <select id="level" class="select2 w-100">
+                                                    <option value="national">ملی</option>
+                                                    <option value="state">استانی</option>
+                                                    <option value="local">محلی</option>
+                                                    <option value="pro">تخصصی</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div  class="fs-7 text-dark">موضوع</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select class="select2 w-100" name="" id="topicEvent">
-                                                    <option value="0" selected>انتخاب کنید</option>
-                                                    <option value="1">1موضوع</option>
-                                                    <option value="2">2موضوع</option>
-                                                    <option value="3">3موضوع</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="d-flex flexWrap gap15 mt-2" id="addTopic">
+                                        <div class="d-flex flexWrap gap15 mt-2 flexWrap" id="addTopic">
                                 
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div  class="fs-7 text-dark">زبان</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select class="select2 w-100" name="" id="lang">
                                                     <option value="0" selected>انتخاب کنید</option>
-                                                    <option value="1">ترکی</option>
-                                                    <option value="2">فارسی</option>
-                                                    <option value="3">انگلیسی</option>
+                                                    <option value="fa">فارسی</option>
+                                                    <option value="tr">ترکی</option>
+                                                    <option value="en">انگلیسی</option>
+                                                    <option value="fr">فرانسه</option>
+                                                    <option value="gr">آلمانی</option>
+                                                    <option value="ar">عربی</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div id="addLang" class="d-flex gap15 mt-2">
+                                        <div id="addLang" class="d-flex gap15 mt-2 flexWrap">
 
                                         </div>
                                     </div>
@@ -171,17 +172,7 @@
                                 <div class="row">
                                     <div class="col-lg-12 mb-3">
                                         <div class="py-2">
-                                            <div class="tabs">
-                                                <input type="checkbox" name="facility" id="tabone">
-                                                <label for="tabone">امکان یک</label>
-                                                <input type="checkbox" name="facility" id="tabtwo">
-                                                <label for="tabtwo">امکان دو</label>
-                                                <input type="checkbox" name="facility" id="tabfour">
-                                                <label for="tabfour">امکان سه</label>
-                                                <input type="checkbox" name="facility" id="tabfive">
-                                                <label for="tabfive">امکان چهار</label>
-                                                <input type="checkbox" name="facility" id="tabsix">
-                                                <label for="tabsix">امکان پنج</label>
+                                            <div class="tabs gap10" id="facility">
                                             </div>
                                         </div>
                                     </div>
@@ -193,7 +184,7 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div  class="fs-7 text-dark">نوع رویداد</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select id="onlineOrOffline" class="selectStyle select2">
@@ -211,7 +202,7 @@
                             <div class="ui-box-title">اطلاعات رویداد</div>
                             <div class="ui-box-content">
                                 <div class="row">
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-6 mb-3 hidden_online_fields">
                                         <!-- start of form-element -->
                                         <div class="form-element-row">
                                             <label class="label fs-7">استان</label>
@@ -225,7 +216,7 @@
                                         </div>
                                         <!-- end of form-element -->
                                     </div>
-                                    <div id="ha" class="col-lg-6 mb-3">
+                                    <div id="ha" class="col-lg-6 mb-3 hidden_online_fields">
                                         <!-- start of form-element -->
                                         <div class="form-element-row">
                                             <div class="form-element-row">
@@ -236,23 +227,11 @@
                                         </div>
                                         <!-- end of form-element -->
                                     </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">کد ملی</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
-                                                <button class="btn btn-circle btn-outline-light hidden">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                    <div class="col-lg-6 mb-3 hidden_online_fields">
+                                        <div class="py-1">
                                             <div  class="fs-7 text-dark">کد پستی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input  type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
+                                                <input id="postal_code" onkeypress="return isNumber(event)" minlength="10" maxlength="10" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -261,10 +240,10 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3 hidden_url_fields hidden">
-                                        <div class="border-bottom py-1">
-                                            <div  class="fs-7 text-dark">آدرس خانه مجازی</div>
+                                        <div class="py-1">
+                                            <div  class="fs-7 text-dark">لینک جلسه مجازی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input type="url" class="form-control" style="direction: rtl" placeholder=" آدرس سایت"></input>
+                                                <input id="link" type="url" class="form-control" style="direction: rtl" placeholder=" آدرس سایت">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -272,18 +251,18 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <div class="border-bottom py-1 hidden_address_fields hidden">
+                                        <div class="py-1 hidden_online_fields hidden">
                                             <div  class="fs-7 text-dark">آدرس</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <textarea  type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
+                                                <textarea id="address" type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 mb-3">
-                                        <div class="border-bottom py-1">
+                                    <div class="col-lg-12 mb-3 hidden_map_fields">
+                                        <div class="py-1">
                                             <div  class="fs-7 text-dark">نقشه</div>
                                             <div id="launchermap" style="width: 100%; height: 250px"></div>
                                         </div>
@@ -293,7 +272,7 @@
                         </div>
                         <div class="spaceBetween mb-2">
                             <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
-                            <a href="{{ route('create-time') }}" class="btn btn-sm btn-primary px-5">مرحله بعد</a>
+                            <a id="nextBtn" class="btn btn-sm btn-primary px-5">مرحله بعد</a>
                         </div>
                         <div class="d-flex justify-content-end">
                             <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>
@@ -336,7 +315,7 @@
                         <div class="col-4">
                             <div class="form-element-row">
                                 <label class="label fs-7">سال</label>
-                                <input value="" id="Brithday_year" type="text" class="form-control" placeholder="">
+                                <input onkeypress="return isNumber(event)" value="" id="Brithday_year" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-4">
@@ -362,7 +341,7 @@
                         <div class="col-4">
                             <div class="form-element-row">
                                 <label class="label fs-7">روز</label>
-                                <input id="Brithday_day" value="" type="text" class="form-control" placeholder="">
+                                <input onkeypress="return isNumber(event)" id="Brithday_day" value="" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -385,7 +364,7 @@
                     </div>
                 </div>
                 <div class="remodal-footer">
-                    <button onclick="window.location.href = '{{ route('create-time') }}';" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
+                    <button onclick="window.location.href = '{{ route('addSessionsInfo') }}';" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
                 </div>
             </div>
         <!-- end of personal-info-fullname-modal -->
@@ -420,99 +399,93 @@
       rel="stylesheet"
     />
     <script>    
-
+        var lang_arr = [
+            {
+                key: "fa",
+                value: "فارسی" 
+            },
+            {
+                key: "tr",
+                value: "ترکی" 
+            },
+            {
+                key: "en",
+                value: "انگلیسی" 
+            },
+            {
+                key: "fr",
+                value: "فرانسه" 
+            },
+            {
+                key: "gr",
+                value: "آلمانی" 
+            },
+            {
+                key: "ar",
+                value: "عربی" 
+            },
+        ];
         var map = undefined;
         var x;
         var y;
         var topicList = [];
         var langList = [];
+        var onlineOrOffline;
+        var idxTopic = 1;
+        var idx = 1;
+        var facilitiesList = undefined;
+        var tagsList = undefined;
 
-        $(document).ready(function(){
-
-            var topic = '';
-            var addTopic = '';
+        function watchList(selectorId, arr, increamentor, elemId, resultPaneId) {
             
-            var i = 0;
+            $('#' + selectorId).on('change',function(){
+                var wantedElem = $('#' + selectorId).val();
 
-            $('#topicEvent').on('change',function(){
-                topic = $('#topicEvent').val();
-
-                let tmp = topicList.find((elem, index) => {
-                    return elem.value == topic;
+                let tmp = arr.find((elem, index) => {
+                    return elem.value == wantedElem;
                 });
 
                 if(tmp !== undefined)
                     return;
 
-                let topicCaption = $('#topicEvent option:selected').text();
+                let wantedElemCaption = $('#' + selectorId + ' option:selected').text();
 
-                if (topic != 0){
-                    i++;
-                    topicList.push({
-                        id: i,
-                        value: topic
+                if (wantedElem != 0){
+
+                    increamentor++;
+                    arr.push({
+                        id: increamentor,
+                        value: wantedElem
                     });
-                    addTopic += '<div id="topic-' + i + '" class="item-button spaceBetween colorBlack">' + topicCaption + '';
-                    addTopic +='<button data-id="' + i + '" class="remove-topic-btn btn btn-outline-light">'; 
-                    addTopic += '<i class="ri-close-line"></i>'
-                    addTopic += '</button></div>';
+                    var html = '<div id="' + elemId + '-' + increamentor + '" class="item-button spaceBetween colorBlack">' + wantedElemCaption + '';
+                    html +='<button data-id="' + increamentor + '" class="remove-' + elemId + '-btn btn btn-outline-light b-0">'; 
+                    html += '<i class="ri-close-line"></i>'
+                    html += '</button></div>';
                 
-                    $('#addTopic').empty().append(addTopic);
+                    $('#' + resultPaneId).append(html);
+                    setTimeout(() => {
+                        $('#' + selectorId).val("0").change();
+                    }, 500);
                 }
-            })
+            });
 
-            $(document).on('click','.remove-topic-btn',function(){
+            $(document).on('click','.remove-' + elemId + '-btn', function(){
                 
                 let id = $(this).attr('data-id');
-                topicList = topicList.filter((elem, index) => {
+                arr = arr.filter((elem, index) => {
                     return elem.id != id;
                 });
-                $("#topic-" + id).remove();
+
+                $("#" + elemId +  "-" + id).remove();
                 
-            })
+            });
+        }
 
-            var lang = '';
-            var addLang= '';
-            $('#lang').on('change',function(){
-                lang = $('#lang').val();
+        $(document).ready(function(){ 
+            watchList('topicEvent', topicList, idxTopic, 'topic', 'addTopic');
+            watchList('lang', langList, idx, 'lang', 'addLang');
+        });
 
-                let tmp = langList.find((elem, index) => {
-                    return elem.value == lang;
-                });
-
-                if(tmp !== undefined)
-                    return;
-                
-                var langCaption = $('#lang option:selected').text();
-
-                if (lang != 0){
-                    
-                    i++;
-                    langList.push({
-                        id: i,
-                        value: lang
-                    });
-
-                    addLang += '<div id="lang-' + i + '" class="item-button spaceBetween colorBlack">' + langCaption + '';
-                    addLang +='<button data-id="' + i + '" class="remove-lang-btn btn btn-outline-light">'; 
-                    addLang += '<i class="ri-close-line"></i>'
-                    addLang += '</button></div>';
-
-                    $('#addLang').empty().append(addLang);
-                }
-
-            })
-             $(document).on('click','.remove-lang-btn',function(){
-                
-                let id = $(this).attr('data-id');
-                langList = langList.filter((elem, index) => {
-                    return elem.id != id;
-                });
-                $("#lang-" + id).remove();
-                
-            })
-
-        })
         function getCities(stateId, selectedCity = undefined) {
             if(stateId == 0) {
                 $("#city02").empty();
@@ -540,6 +513,7 @@
                 }
             });
         }
+
         $('#onlineOrOffline').on('change',function(){
             onlineOrOffline = $('#onlineOrOffline').val();
             if (onlineOrOffline=== '0'){
@@ -547,11 +521,15 @@
             }else if(onlineOrOffline=== 'online'){
                 $(".hidden_all_fields").removeClass('hidden');
                 $(".hidden_url_fields").removeClass('hidden');
-                $(".hidden_address_fields").addClass('hidden');
+                $(".hidden_online_fields").addClass('hidden');
+                $(".hidden_map_fields").addClass('hidden');
+
             }else if(onlineOrOffline=== 'offline'){
                 $(".hidden_address_fields").removeClass('hidden');
                 $(".hidden_all_fields").removeClass('hidden');
+                $(".hidden_online_fields").removeClass('hidden');
                 $(".hidden_url_fields").addClass('hidden');
+                $(".hidden_map_fields").removeClass('hidden');
             }
             if(map === undefined) {
                 mapboxgl.setRTLTextPlugin(
@@ -583,6 +561,176 @@
                 const control = new ParsimapGeocoder();
                 map.addControl(control);
             }
-        })
+        });
+
+        
+        $.ajax({
+            type: 'get',
+            url: '{{route('eventTags.show')}}',
+            headers: {
+                'accept': 'application/json'
+            },
+            success: function(res) {
+                
+                if(res.status === "ok") {
+                    
+                    var eventTag = "";
+                    tagsList = res.data;
+
+                    if(res.data.length != 0) {
+                        
+                        eventTag += '<option value="0">انتخاب کنید</option>';
+
+                        for( var i = 0; i < res.data.length ; i ++)
+                            eventTag += '<option name="eventTag" value="' + res.data[i].id + '">'+ res.data[i].label +'</option>';
+                        
+                        $("#topicEvent").empty().append(eventTag);
+                    }
+                }
+            }
+        });
+
+        $.ajax({
+            type: 'get',
+            url: '{{route('facilities.show')}}',
+            headers: {
+                'accept': 'application/json'
+            },
+            success: function(res) {
+                
+                if(res.status === "ok") {
+                    
+                    facilitiesList = res.data;
+
+                    if(res.data.length != 0) {
+                        
+                        var facility = "";
+                        for( var i = 0; i < res.data.length ; i ++){
+                            facility += '<input type="checkbox" name="facility" id="' + res.data[i].id +'">';
+                            facility += '<label for="' + res.data[i].id +'" class="ml-0">' + res.data[i].label +'</label>';
+                        }
+                        $("#facility").empty().append(facility);  
+                    }
+                }
+            }
+        });
+
+        $("#nextBtn").on('click', function () {
+                var eventName = $('#eventName').val();               
+                var ageCondi = $('#ageCondi').val();
+                var level = $('#level').val();
+                var state = $('#state02').val();
+                var city = $('#city02').val();
+                var postal_code = $('#postal_code').val();
+                var address = $('#address').val();
+                var link = $('#link').val();
+
+                var selectedFacility = [];
+                $('input[name=facility]').each(function() {
+                    if ($(this).is(":checked")) {
+                        selectedFacility.push($(this).attr('id'));
+                    }
+                });
+
+                let data = {
+                    title: eventName,
+                    facilities_arr: selectedFacility,
+                    tags_arr: topicList.map((elem, index) => {
+                        return elem.id;
+                    }),
+                    language_arr: langList.map((elem, index) => {
+                        return elem.value;
+                    }),
+                    age_description: ageCondi,
+                    level_description: level, 
+                    type: onlineOrOffline,
+                };
+                if(onlineOrOffline === "offline") {
+                    data.city_id = city;
+                    data.postal_code = postal_code;
+                    data.address = address;
+                    data.x = x;
+                    data.y = y;
+                }else if (onlineOrOffline === "online"){
+                    data.link = link;
+                }
+                    $.ajax({
+                        type: 'post',
+                        url: '{{route('event.store')}}',
+                        data: data,
+                        success: function(res) {
+                            if(res.status === "ok") {
+                                // alert("عملیات موردنظر با موفقیت انجام شد.");
+                                showSuccess("عملیات موردنظر با موفقیت انجام شد.");
+                                // window.location.href = '{{ route('addSessionsInfo') }}' + "/" + res.id;
+                            }
+                            else {
+                                alert(res.msg);
+                            }
+                        }
+                    });
+            });
+     
+            @if(isset($id))
+
+                function checkFetchData() {
+                    if(tagsList === undefined || facilitiesList === undefined)
+                        setTimeout(checkFetchData, [500]);
+                    else
+                        getPhase1Info();
+                 }
+
+                setTimeout(checkFetchData, [500]);
+
+            @endif
+
+            function getPhase1Info() {
+                $.ajax({
+                    type: 'get',
+                    url: '{{route('event.getPhase1Info',['event' => $id])}}',
+                    headers: {
+                        'accept': 'application/json'
+                    },
+                    success: function(res) {
+                        if(res.status === "ok") {
+                            if(res.data.length != 0) {
+                                $('#eventName').val(res.data.title);
+                                $('#ageCondi').val(res.data.age_description).change();
+                                $('#level').val(res.data.level_description).change();
+                                $('#address').val(res.data.address);
+                                $('#postal_code').val(res.data.postal_code);
+                                x = res.data.x;
+                                y = res.data.y;
+                                var language = '';
+                                if (res.data.language.length != 0){
+                                    for( var i = 0; i < res.data.language.length; i ++){
+                                        let elem = lang_arr.find(itr => itr.key == res.data.language[i]);
+
+                                        language = '<div id="' + idx +'" class="item-button spaceBetween colorBlack">' + elem.value +'';
+                                        language +='<button data-id="' + idx +'" class="remove-' + idx +'-btn btn btn-outline-light b-0">'; 
+                                        language += '<i class="ri-close-line"></i>';
+                                        language += '</button></div>';
+                                    }
+                                    $("#addLang").append(language); 
+                                }
+                                var tags = '';
+                                if (res.data.tags.length != 0){
+                                    for( var i = 0; i < res.data.tags.length; i ++){
+                                        
+                                        let elem = tagsList.find(itr => itr.label == res.data.tags[i]);
+                                        
+                                        tags = '<div id="' + idx +'" class="item-button spaceBetween colorBlack">' + elem.value +'';
+                                        tags +='<button data-id="' + idx +'" class="remove-' + idx +'-btn btn btn-outline-light b-0">'; 
+                                        tags += '<i class="ri-close-line"></i>';
+                                        tags += '</button></div>';
+                                    }
+                                    $("#addtopic").append(tags); 
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
     </script>
 @stop

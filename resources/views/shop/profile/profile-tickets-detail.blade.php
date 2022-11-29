@@ -55,7 +55,7 @@
                                     <!-- end of ticket -->
                                 </div>
                                 <!-- end of tickets -->
-                                <div class="border-bottom my-4"></div>
+                                <div class="my-4"></div>
                                 <div class="ui-box-title p-0 mb-4">
                                     ارسال پاسخ
                                 </div>
@@ -73,7 +73,7 @@
                                         </div>
                                         {{-- for test --}}
                                     </form> 
-                                        <div class="col-12">
+                                        <div class="col-12 zIndex0">
                                             <!-- start of form-element -->
                                                 <div class="uploadBody">
                                                     <div class="uploadBorder">

@@ -15,7 +15,7 @@ class ProductDigestUser extends JsonResource
      */
     public function toArray($request)
     {
-        $config = Config::first();
+        $config = Config::where('site', 'shop')->first();
 
         $features = $this->featuresWithValue();
         $multiColor = false;

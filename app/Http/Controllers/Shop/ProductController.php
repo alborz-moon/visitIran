@@ -499,7 +499,7 @@ class ProductController extends ProductHelper
                         'user_rate' => null,
                         'has_comment' => false,
                     ]), 
-                    'critical_point' => Config::first()->critical_point,
+                    'critical_point' => Config::where('site', 'shop')->first()->critical_point,
                     'is_login' => false,
             ]);
             
@@ -513,7 +513,7 @@ class ProductController extends ProductHelper
                     'has_comment' => $comment != null && $comment->msg != null,
                 ]), 
                 'is_login' => true,
-                'critical_point' => Config::first()->critical_point,
+                'critical_point' => Config::where('site', 'shop')->first()->critical_point,
         ]);
     }
 

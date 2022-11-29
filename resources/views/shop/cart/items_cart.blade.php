@@ -4,8 +4,8 @@
     <!-- start of tab-pane -->
     <div class="tab-pane fade show active" id="nav-1" role="tabpanel"
         aria-labelledby="nav-1-tab">
-        <div class="ui-box bg-white p-2">
-            <div class="ui-box-content hoverBoxShadow">
+        <div class="ui-box bg-white borderEa p-2">
+            <div class="ui-box-content ">
                 <!-- start of cart-items -->
                 <div class="cart-items position-relative">
                     <!-- start of cart-item -->
@@ -32,7 +32,7 @@
                                         <i class="icon-visit-store colorYellow d-flex productIcon"></i><span id="full-basket-item-seller" class="colorBlack fontSize13"> seller</span>
                                     </li>
                                     <li id="full-basket-item-guarantee-parent" class="hidden">
-                                        <i class="icon-visit-verified colorYellow d-flex productIcon"></i><span id="full-basket-item-guarantee" class="colorBlack fontSize13">دارای 18 ماه گارانتی</span>
+                                        <i class="icon-visit-verified colorYellow d-flex productIcon"></i><span class="colorBlack fontSize13 px-1">دارای</span><span id="full-basket-item-guarantee" class="colorBlack fontSize13"> 18</span><span class="colorBlack fontSize13 px-1">ماه گارانتی</span>
                                     </li>
                                     <li>
                                         <i class="icon-visit-original colorYellow d-flex productIcon"></i><span class="colorBlack fontSize13">تضمین اصالت</span>
@@ -54,7 +54,7 @@
                                         </div>
                                     </div>
                                     <button id="full-basket-item-remove-btn" class="removeBasketItemBtn btn btn-link btn-sm text-secondary position-absolute t-0 l-0"><i
-                                            class="ri-delete-bin-5-line me-1"></i><span>حذف</span></button>
+                                            class="icon-visit-delete colorRed me-1 mt-2"></i><span class="colorRed">حذف</span></button>
                                 </div>
                                 <div class="product-seller-row product-seller-row--price pt-2">
                                     <div class="product-price fa-num">
@@ -68,7 +68,7 @@
                                             <del id="full-basket-item-price-before-off" class="customlineText textColor fontSize21 bold"></del>
                                         </div>
                                     </div>
-                                    <div class="product-seller-row--price-now fa-num ">
+                                    <div class="product-seller-row--price-now fa-num d-flex justifyContentEnd ">
                                         <span id="full-basket-item-price" class="price fontSize21 bold"></span>
                                         <span class="currency fontSize21 bold colorYellow">ت</span>
                                     </div>

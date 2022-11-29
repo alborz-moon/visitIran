@@ -1,5 +1,5 @@
                     <!-- start of product-comments -->
-                    <div class="product-tab-content product-comments tab-content border-bottom pb-2 mb-4 b-0"
+                    <div class="product-tab-content product-comments tab-content pb-2 mb-4 b-0"
                         id="scrollspyHeading4">
                         <div class="row">
                         <div class="product-user-meta fa-num mb-4 spaceBetween">

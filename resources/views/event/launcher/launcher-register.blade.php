@@ -25,7 +25,7 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class=" py-1">
                                             <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
                                             <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between">
                                                 <input type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
@@ -36,7 +36,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class=" py-1">
                                             <div  class="fs-7 text-dark">شماره تلفن همراه</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="phone" type="tel" minlength="7"  maxlength="11" class="form-control " style="direction: rtl" placeholder="شماره تلفن همراه">
@@ -48,7 +48,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class=" py-1">
                                             <div  class="fs-7 text-dark">پست الکترونیک</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input onkeypress="return isEmail(event) || isNumber(event)" id="userEmail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
@@ -60,7 +60,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class=" py-1">
                                             <div  class="fs-7 text-dark">تاریخ تولد</div>
                                             <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between">
                                                 <input type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد">
@@ -72,7 +72,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class=" py-1">
                                             <div  class="fs-7 text-dark">کد ملی</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
@@ -91,7 +91,7 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class=" py-2">
                                             <div  class="fs-7 text-dark">نوع شخصیت</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select id="launcherType" class="selectStyle">
@@ -110,7 +110,7 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3 hoghoghi_fields">
-                                        <div class="border-bottom py-1">
+                                        <div class=" py-1">
                                             <div class="fs-7 text-dark">نام حقوقی</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام حقوقی">
@@ -122,7 +122,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3 haghighi_fields">
-                                        <div class="border-bottom py-1">
+                                        <div class=" py-1">
                                             <div  class="fs-7 text-dark">نام برگزار کننده</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام برگزار کننده">
@@ -134,7 +134,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3 hoghoghi_fields">
-                                        <div class="border-bottom py-2">
+                                        <div class=" py-2">
                                             <div  class="fs-7 text-dark">نوع شرکت</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select id="companyType" class="selectStyle">
@@ -145,7 +145,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3 hoghoghi_fields">
-                                        <div class="border-bottom py-1">
+                                        <div class=" py-1">
                                             <div  class="fs-7 text-dark">شماره اقتصادی</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input onkeypress="return isNumber(event)" id="code" type="text" class="form-control" style="direction: rtl" placeholder="شماره اقتصادی">
@@ -157,7 +157,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class=" py-1">
                                             <div  class="fs-7 text-dark">کد پستی</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input onkeypress="return isNumber(event)" maxlength="10" id="postalCode" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
@@ -194,7 +194,7 @@
                                         <!-- end of form-element -->
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class=" py-1">
                                             <div  class="fs-7 text-dark">آدرس</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <textarea id="launcherAddress" type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
@@ -205,7 +205,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class=" py-1">
                                             <div  class="fs-7 text-dark">نقشه</div>
                                             <div id="launchermap" style="width: 100%; height: 250px"></div>
                                         </div>
@@ -219,7 +219,7 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class=" py-1">
                                             <div  class="fs-7 text-dark">وب سایت</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="launcherSite" type="text" class="form-control" style="direction: rtl" placeholder="وب سایت">
@@ -231,7 +231,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class=" py-1">
                                             <div class="fs-7 text-dark">ایمیل</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="launcherEmail" type="text" class="form-control" style="direction: rtl" placeholder="ایمیل">
@@ -243,7 +243,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-3">
-                                        <div class="border-bottom py-1">
+                                        <div class=" py-1">
                                             <div  class="fs-7 text-dark">تلفن</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input onkeypress="return isNumber(event)" minlength="7" maxlength="11" id="launcherPhone" type="text" class="form-control setEnter" style="direction: rtl" placeholder="تلفن">
@@ -547,21 +547,6 @@
 
                 var launcherAddress = $('#launcherAddress').val();
 
-                // var setName = "Alborz";
-                // var userEmail = "Moon@yahoo.com";
-                // var userBirthDay = "1374/11/03";
-                // var nid = "0018374921";
-                // var companyName = "mooon";
-                // var launcherType = "hoghoghi";
-                // var companyType = "شرکت2";
-                // var code = "1000000000";
-                // var postalCode = "1234567890";
-                // var launcherCityID = 1;
-                // var launcherSite = "www.google.com";
-                // var launcherEmail = "alborz@gmail.com";
-                // var tels = "09224786125";
-                // var launcherAddress = "شسیتمشس یمنشس بسشی شسیهخب شسیب  سیشتنمبتنشسیابتناتناطزرات شتسیاب تنسارتنزط نتشسبنتسشی";
-
                 if(x === undefined || y === undefined) {
                     showErr("لطفا مکان موردنظر خود را از روی نقضه انتخاب کنید");
                     return;
@@ -611,27 +596,6 @@
                         }
                         else
                             showErr(res.msg);
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        
-                        var errs = XMLHttpRequest.responseJSON.errors;
-
-                        if(errs instanceof Object) {
-                            var errsText = '';
-
-                            Object.keys(errs).forEach(function(key) {
-                                errsText += key + " : " + errs[key];
-                            });
-                            showErr(errsText);    
-                        }
-                        else {
-                            var errsText = '';
-
-                            for(let i = 0; i < errs.length; i++)
-                                errsText += errs[i].value;
-                            
-                            showErr(errsText);
-                        }
                     }
                 });
             })

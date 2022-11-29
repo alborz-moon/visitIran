@@ -5,20 +5,30 @@ namespace App\Http\Controllers\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LauncherFilesResource;
 use App\Http\Resources\LauncherFirstStepResource;
+use App\Http\Resources\LauncherResourceAdmin;
+use App\Models\Event;
 use App\Models\Launcher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
 class LauncherController extends Controller
 {
+
+    private function build_query($request) {
+
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return view('admin.launcher.list', [
+            'items' => LauncherResourceAdmin::collection(Launcher::all())->toArray($request)
+        ]);
     }
 
 
@@ -103,7 +113,7 @@ class LauncherController extends Controller
             ]);
         }
         catch(\Exception $x) {
-
+            dd($x->getMessage());
             return response()->json([
                 'status' => 'nok',
                 'msg' => 'شما یکبار این فرم را پر کرده اید.'
@@ -120,9 +130,6 @@ class LauncherController extends Controller
      */
     public function show(Request $request, Launcher $launcher)
     {
-        if($request->user()->id != $launcher->user_id)
-            return abort(401);
-
         return response()->json([
             'status' => 'ok',
             'data' => LauncherFirstStepResource::make($launcher)->toArray($request)
@@ -138,8 +145,7 @@ class LauncherController extends Controller
      */
     public function update(Request $request, Launcher $launcher)
     {
-        // if($launcher->user_id !== $request->user()->id)
-        //     return abort(401);
+        Gate::authorize('update', $launcher);
         
         $validator = [
             'first_name' => 'nullable|string|min:2',
@@ -169,7 +175,7 @@ class LauncherController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
 
         if($request->has('phone') && $request['phone'] != $launcher->phone && 
             Launcher::where('phone', $request['phone'])->count() > 0
@@ -282,14 +288,40 @@ class LauncherController extends Controller
 
     }
 
+    public function changeStatus(Request $request) {
+
+        $validator = [
+            'status' => ['required', Rule::in(['pending', 'confirmed', 'rejected'])],
+            'launcher_id' => 'required|exists:mysql2.launchers,id'
+        ];
+
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator);
+
+        $launcher = Launcher::whereId($request['launcher_id'])->first();
+        $launcher->status = $request['status'];
+        $launcher->save();
+
+        return response()->json(['status' => 'ok']);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Launcher  $launcher
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Launcher $launcher)
+    public function destroy(Request $request, Launcher $launcher)
     {
-        //
+        Gate::authorize('destroy', $launcher);
+        
+        //todo : check dependencies
+        //todo : remove dependencies
+        //todo : remove files
+
+        $launcher->delete();
+        return response()->json(['status' => 'ok']);
     }
 }

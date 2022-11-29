@@ -13,9 +13,6 @@ class Controller extends BaseController
     
       public static $EVENT_SITE = 'bogenstudio.at';
     //  public static $SHOP_SITE = 'shop.bogenstudio.com';
-
-    // public static $EVENT_SITE = 'localevent.com';
-    // public static $SHOP_SITE = 'localshop.com';
     
 //    public static $EVENT_SITE = 'myevent.com';
 //    public static $SHOP_SITE = 'myshop.com';
@@ -26,8 +23,10 @@ class Controller extends BaseController
     public static function hasAnyExcept($expected, $real) {
 
         foreach ($real as $itr) {
-            if($itr !== '_token' && !in_array($itr, $expected))
+            if($itr !== '_token' && !in_array($itr, $expected)) {
+                // dd($itr);
                 return true;
+            }
         }
         return false;
     }
@@ -59,10 +58,10 @@ class Controller extends BaseController
         return $e;
     }
 
-    public static function MiladyToShamsi($date){
+    public static function MiladyToShamsi($date, $explode='-'){
         include_once 'jdate.php';
         $date = explode(' ', $date);
-        $d = explode('-', $date[0]);
+        $d = explode($explode, $date[0]);
         return gregorian_to_jalali($d[0],$d[1],$d[2],'/');
     }
     
@@ -99,5 +98,21 @@ class Controller extends BaseController
 
         return ["date" => $day, "time" => $time];
     }
+
+    protected static $COMMON_ERRS = [
+        'postal_code.required' => 'لطفا کدپستی موردنظر را وارد نمایید',
+        'postal_code.regex' => 'کد پستی موردنظر نامعتبر است',
+        'phone.required' => 'شماره همراه موردنظر را وارد نمایید',
+        'phone.regex' => 'شماره همراه وارد شده نامعتبر است',
+        'user_NID.regex' => 'کدملی وارد شده نامعتبر است',
+        'launcher_type.in' => 'نوع شخصیت اشتباه است',
+        'launcher_phone.*.*' => 'تلفن وارد شده نامعتبر است',
+        'launcher_city_id.exists' => 'شهر وارد شده نامعتبر است',
+        'city_id.exists' => 'شهر وارد شده نامعتبر است',
+        'launcher_x.regex' => 'مختصات وارد شده نامعتبر است',
+        'launcher_y.regex' => 'مختصات وارد شده نامعتبر است',
+        'x.regex' => 'مختصات وارد شده نامعتبر است',
+        'y.regex' => 'مختصات وارد شده نامعتبر است',
+    ];
 
 }

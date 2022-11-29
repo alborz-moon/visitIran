@@ -8,8 +8,8 @@
         <img class="p-2" src="http://myshop.com/./theme-assets/images/svg/headlineTitle.svg" alt="">
         رویداد خود را بیابید
     </span>
-    <div class="row">
-        <div class="col-sm-12 col-md-3 mb-3">
+    <div class="row mb-5">
+        <div class="col-sm-12 col-md-3 ">
             <select class="select2 seachbar-select w-100" placeholder="" name="state">
                 <option selected value="1">نام رویداد</option>
                 <option value="2">Two</option>
@@ -17,7 +17,7 @@
                 <option value="4">Four</option>
             </select>
         </div>
-        <div class="col-sm-12 col-md-3 mb-3">
+        <div class="col-sm-12 col-md-3 ">
             <select class="select2 seachbar-select w-100" aria-placeholder="" name="">
                 <option selected value="1">برگزار کننده</option>
                 <option value="2">Two</option>
@@ -25,7 +25,7 @@
                 <option value="4">Four</option>
             </select>
         </div>
-        <div class="col-sm-12 col-md-3 mb-3">
+        <div class="col-sm-12 col-md-3 ">
             <select class="select2 seachbar-select w-100" aria-placeholder="" name="">
                 <option selected value="1">محل برگزاری</option>
                 <option value="2">Two</option>
@@ -33,13 +33,13 @@
                 <option value="4">Four</option>
             </select>
         </div>
-        <div class="col-sm-6 col-md-2 mb-3">
+        <div class="col-sm-6 col-md-2 ">
             <label class="tripCalenderSection">
                 <span class="calendarIcon"></span>
-                <input id="date_input_start" class="tripDateInput form-control customBackgroundWhite customSearchBorder" placeholder="تاریخ برگزاری" required readonly type="text">
+                <input id="date_input_start" class="tripDateInput form-control customBackgroundWhite" placeholder="تاریخ برگزاری" required readonly type="text">
             </label>
         </div>
-        <div class="col-sm-6 col-md-1 mb-3 m-auto">
+        <div class="col-sm-6 col-md-1  m-auto">
             <button class="btn btn-primary whiteSpaceNoWrap">جست و جو</button>
         </div>
     </div>

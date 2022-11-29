@@ -10,7 +10,7 @@
                 <a id="{{ $key }}Header" class="textColor fontSize12"></a>
             </h2>
             <div class="product-variant">
-                <span id="{{ $key }}Tag" class="colorWhite customBoxLabel fontSize11"></span>
+                <span id="{{ $key }}Tag" class="colorWhite customBoxLabel fontSize11 hidden"></span>
             </div>
             <div id="{{ $key }}MultiColor" class="colorCircle hidden"></div>
             <div class="spaceBetween mt-3 mb-3">

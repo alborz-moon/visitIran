@@ -21,7 +21,7 @@
                             <div class="ui-box-title">مدارک<span class="fontNormal fontSize12 mx-2">حداکثر 6 مگابایت و در فرمت های jpg, zip , pdf</span></div>
                             <div class="ui-box-content">
                                 <div class="row">
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-6 mb-3 zIndex0">
                                         <div id="companyNewspaper" class="boxGallery">
                                         </div>
                                         
@@ -38,7 +38,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-6 mb-3 zIndex0">
                                         
                                         <div id="companyLastChanges" class="boxGallery">
                                         </div>
@@ -56,7 +56,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-6 mb-3 zIndex0">
                                         <div id="certifications" class="boxGallery">
                                         </div>
                                         <div class="uploadBody">
@@ -72,7 +72,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-6 mb-3 zIndex0">
                                         <div id="userNIDCard" class="boxGallery">
                                         </div>
                                         <div class="uploadBody">
@@ -157,11 +157,12 @@
                 forceChunking: false,
                 uploadMultiple: false,
                 maxFiles: 1,
+                acceptedFiles: ".jpeg,.jpg,.png,.gif",
                 accept: function(file, done) {
                     done();
                 },
                 init: function () {
-                    
+                    this.hiddenFileInput.removeAttribute('multiple');
                     this.on('completemultiple', function () {
                         // if(myPreventionFlag)
                         //     $("#dropZoneNewspaper").removeClass('hidden');
@@ -210,11 +211,13 @@
                 parallelUploads: 1,
                 chunking: false,
                 forceChunking: false,
-                // maxFiles: 1,
+                maxFiles: 1,
+                acceptedFiles: ".jpeg,.jpg,.png,.gif",
                 accept: function(file, done) {
                     done();
                 },
                 init: function () {
+                    this.hiddenFileInput.removeAttribute('multiple');
                     this.on('completemultiple', function () {
                         // if(myPreventionFlag)
                         //     $("#dropZoneErr").removeClass('hidden');
@@ -315,11 +318,12 @@
                     forceChunking: false,
                     uploadMultiple: false,
                     maxFiles: 1,
+                    acceptedFiles: ".jpeg,.jpg,.png,.gif",
                     accept: function(file, done) {
                         done();
                     },
                     init: function () {
-                        
+                        this.hiddenFileInput.removeAttribute('multiple');
                         this.on('completemultiple', function () {
                             
                             // if(myPreventionFlag)

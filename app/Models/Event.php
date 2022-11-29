@@ -12,7 +12,6 @@ class Event extends Model
     protected $connection = 'mysql2';
     
     protected $fillable = [
-        'id',
         'title',
         'start_registry',
         'end_registry',
@@ -44,7 +43,9 @@ class Event extends Model
         'keywords',
         'tags',
         'alt',
-        'slug'
+        'slug',
+        'link',
+        'language'
     ];
 
     public function city() {
@@ -53,6 +54,14 @@ class Event extends Model
     
     public function launcher() {
         return $this->belongsTo(Launcher::class);
+    }
+
+    public function sessions() {
+        return $this->hasMany(EventSession::class);
+    }
+
+    public function galleries() {
+        return $this->hasMany(EventGallery::class);
     }
 
     public function scopeActiveForRegistry($query) {

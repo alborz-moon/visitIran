@@ -17,6 +17,12 @@
         } */
     </style>
     <script src="{{URL::asset("theme-assets/js/lozad.min.js")}}"></script>
+
+
+    {{route('facility.show')}}
+
+    {{route('eventTag.show')}}
+
 @stop
 
 
@@ -151,6 +157,11 @@
                 });
             }
         };
+        
     </script>
 
 @stop
+
+
+
+

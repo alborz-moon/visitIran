@@ -71,10 +71,10 @@
                             </div>
                         </div>
                         <div class="user-options heightHeader customFilterGray">
-                            <div class="user-option user-option--search customBorderLeft1">
-                                <a href="profile.html" class="user-option-btn user-option-btn--search gap10">
-                                    <i class="icon-visit-search customHeader textColor"></i>
-                                </a>
+                            <div class="user-option user-option--search customBorderLeft1" data-remodal-target="search-modal">
+                                <button class="user-option-btn user-option-btn--search gap10" data-remodal-target="search-modal">
+                                    <i class="icon-visit-search customHeader textColor" data-remodal-target="search-modal"></i>
+                                </button>
                             </div>
                             <div class="user-option user-option--cart customBorderLeft1">
                                 <a href="{{route('cart')}}" class="user-option-btn user-option-btn--cart">
@@ -306,6 +306,7 @@
                 </div>
             </div>
         </header>
+        @include('shop.layouts.modal-search')
         <div class="hidden" id="sample-mini-cart-products">
             @include('shop.product.mini_card')
         </div>
@@ -340,6 +341,28 @@
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    
+                var errs = XMLHttpRequest.responseJSON.errors;
+
+                if(errs instanceof Object) {
+                    var errsText = '';
+
+                    Object.keys(errs).forEach(function(key) {
+                        errsText += errs[key] + "<br />";
+                    });
+
+                    showErr(errsText);    
+                }
+                else {
+                    var errsText = '';
+
+                    for(let i = 0; i < errs.length; i++)
+                        errsText += errs[i].value;
+                    
+                    showErr(errsText);
+                }
             }
         });
 

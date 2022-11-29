@@ -17,16 +17,16 @@
                         <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
                             <li class="checkout-step-active">
-                                <a href="#"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
+                                <a href="{{ route('update-event', ['event' => $id]) }}"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
                             </li>
                             <li class="checkout-step-active">
-                                <a href="#"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
+                                <a href="{{ route('addSessionsInfo', ['event' => $id]) }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
                             </li>
                             <li>
-                                <a href="#"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
+                                <a href="{{ route('addPhase2Info', ['event' => $id]) }}"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
                             </li>
                             <li>
-                                <a href="#"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
+                                <a href="{{ route('addGalleryToEvent', ['event' => $id]) }}"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
                             </li>
                         </ul>
                         <a href="{{ route('create-event') }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
@@ -37,7 +37,7 @@
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
                                         <div data-remodal-target="time-and-date-start-modal" class="fs-7 text-dark">تاریخ و ساعت شروع</div>
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="setDateStart" data-remodal-target="time-and-date-start-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت شروع">
                                                 <button data-remodal-target="time-and-date-start-modal" class="btn btn-circle btn-outline-light d-none">
@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3">
-                                        <div class="border-bottom py-2">
+                                        <div class="py-2">
                                             <div data-remodal-target="time-and-date-stop-modal" class="fs-7 text-dark">تاریخ و ساعت پایان</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <input id="setDateStop" data-remodal-target="time-and-date-stop-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت پایان">
@@ -56,14 +56,14 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-end">
-                                        <button class="btn btn-sm btn-primary px-3">افزودن</button>
+                                        <button id="addedItem" class="btn btn-sm btn-primary px-3">افزودن</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="ui-box bg-white mb-5">
+                        <div class="ui-box bg-white mb-5 b-0 p-0">
                             <div class="ui-box-title align-items-center justify-content-between">
-                                شماره حساب های موجود
+                                جلسات
                             </div>
                             <div class="ui-box-content">
                                 <div class="table-responsive">
@@ -71,60 +71,12 @@
                                         <thead>
                                             <tr>
                                                 <th>شماره</th>
-                                                <th>شماره عملیات </th>
                                                 <th> تاریخ شروع  </th>
                                                 <th> تاریخ پایان  </th>
-                                                <th>وضعیت</th>
-                                                <th>آخرین بروزرسانی</th>
                                                 <th>عملیات</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="fa-num">1</td>
-                                                <td class="fa-num">1400 دی 25</td>
-                                                <td class="fa-num">پشتیبانی</td>
-                                                <td class="fa-num">کالای غیراصل</td>
-                                                <td class="fa-num"><span class="badge bg-success rounded-pill">پاسخ داده
-                                                        شد</span></td>
-                                                <td class="fa-num">1400 دی 26</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-circle btn-info my-1"><i
-                                                            class="ri-eye-line"></i></a>
-                                                    <a href="#" class="btn btn-circle btn-danger my-1"><i
-                                                            class="ri-close-line"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fa-num">1</td>
-                                                <td class="fa-num">1400 دی 25</td>
-                                                <td class="fa-num">پشتیبانی</td>
-                                                <td class="fa-num">کالای غیراصل</td>
-                                                <td class="fa-num"><span
-                                                        class="badge bg-danger rounded-pill">بسته</span></td>
-                                                <td class="fa-num">1400 دی 26</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-circle btn-info my-1"><i
-                                                            class="ri-eye-line"></i></a>
-                                                    <a href="#" class="btn btn-circle btn-danger my-1"><i
-                                                            class="ri-close-line"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fa-num">1</td>
-                                                <td class="fa-num">1400 دی 25</td>
-                                                <td class="fa-num">پشتیبانی</td>
-                                                <td class="fa-num">کالای غیراصل</td>
-                                                <td class="fa-num"><span class="badge bg-warning rounded-pill">در حال
-                                                        بررسی</span></td>
-                                                <td class="fa-num">1400 دی 26</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-circle btn-info my-1"><i
-                                                            class="ri-eye-line"></i></a>
-                                                    <a href="#" class="btn btn-circle btn-danger my-1"><i
-                                                            class="ri-close-line"></i></a>
-                                                </td>
-                                            </tr>
+                                        <tbody id="addedRowTable">
                                         </tbody>
                                     </table>
                                 </div>
@@ -132,7 +84,7 @@
                         </div>
                         <div class="spaceBetween mb-2">
                             <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
-                            <button onclick="window.location.href = '{{ route('create-contact') }}';" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
+                            <button onclick="window.location.href = '{{ route('addPhase2Info', ['event' => $id]) }}';" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
                         </div> 
                         <div class="d-flex justify-content-end">
                             <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>
@@ -201,30 +153,130 @@
 @section('extraJS')
     @parent
     <script> 
-        $(document).ready(function(){
-            
-            
-            $(document).on('click', "#startSessionBtn", function () {
-                var timeStart =$('#time_input_start').val();
-                var dateStart = $('#date_input_start').val();
-                alert(timeStart + ' ' + dateStart);
-                    $('#setDateStart').val(timeStart + ' ' + dateStart);                
-                    $(".remodal-close").click();
-            });
-            $(document).on('click', "#stopSessionBtn", function () {
-                var timeStop = $('#time_input_stop').val();
-                var dateStop = $('#date_input_stop').val();
-                alert(timeStop + ' ' + dateStop);
-                    $('#setDateStop').val(timeStop + ' ' + dateStop);
-                    $$(".remodal-close").click();               
-            });
-        });
+    var timeStart ='';
+    var dateStart ='';
+    var timeStop = '';
+    var dateStop = '';
+    let idx = 0;
+    var arrDateTime = [];
+    $(document).ready(function() {
+
         var datePickerOptions = {
             numberOfMonths: 1,
             showButtonPanel: true,
             dateFormat: "yy/mm/dd"
         };
+
         $("#date_input_start").datepicker(datePickerOptions);
         $("#date_input_stop").datepicker(datePickerOptions);
+        
+        $(document).on('click', "#startSessionBtn", function () {
+            timeStart =$('#time_input_start').val();
+            dateStart = $('#date_input_start').val();
+                $('#setDateStart').val(timeStart + ' ' + dateStart);                
+                $(".remodal-close").click();
+        });
+        $(document).on('click', "#stopSessionBtn", function () {
+            timeStop = $('#time_input_stop').val();
+            dateStop = $('#date_input_stop').val();
+                $('#setDateStop').val(timeStop + ' ' + dateStop);
+                $(".remodal-close").click();               
+        });
+    });
+
+    $("#addedItem").on('click', function () {
+        if (timeStart == '' || dateStart == '' || timeStop == '' || dateStop == '') {
+            showErr('sd');
+            return;
+        }
+
+        $.ajax({
+            type: 'post',
+            url: '{{ route('event.sessions.store', ['event' => $id]) }}',
+            data: {
+                'start_date': dateStart,
+                'end_date': dateStop,
+                'start_time': timeStart,
+                'end_time': timeStop,
+            },
+            headers: {
+                'accept': 'application/json'
+            },
+            success: function(res) {
+                if(res.status === "ok") {
+                    if (dateStart != '' && dateStop != '' && timeStart != ''  && timeStop != ''){
+                        
+                        var addedRowTable = '<tr id="row-' + res.id +  '">';
+                        addedRowTable += '<td class="fa-num">' + idx +  '</td>';
+                        addedRowTable += '<td class="fa-num">' + dateStart + ' ' + timeStart + '</td>';
+                        addedRowTable += '<td class="fa-num">' + dateStop + ' ' + timeStop + '</td>';
+                        addedRowTable += '<td>';
+                        addedRowTable += '<button data-id="' + res.id + '" class="btn btn-circle borderCircle my-1 remove-btn-sessions">';
+                        addedRowTable += '<i class="icon-visit-delete marginTop7"></i>';
+                        addedRowTable += '</button>';
+                        addedRowTable += '</td>';
+                        addedRowTable += '</tr>';
+                        idx ++;
+                        $("#addedRowTable").append(addedRowTable);
+                        timeStart =$('#time_input_start').val('');
+                        dateStart = $('#date_input_start').val('');
+                        $('#setDateStart').val('');
+                        timeStop =$('#time_input_stop').val('');
+                        dateStop = $('#date_input_stop').val('');
+                        $('#setDateStop').val('');
+                    }
+                }
+            }
+        });
+    });
+
+    $.ajax({
+        type: 'get',
+        url: '{{ route('event.sessions.index', ['event' => $id]) }}',
+        headers: {
+            'accept': 'application/json'
+        },
+        success: function(res) {
+            if(res.status === "ok") {
+                if (res.data.length !== 0){
+                    for(var i = 0; i < res.data.length ; i++){
+                        var addedRowTable = '<tr id="row-' + res.data[i].id + '">';
+                        addedRowTable += '<td class="fa-num">' + i + '</td>';
+                        addedRowTable += '<td class="fa-num">' + res.data[i].start_date +' '+ res.data[i].start_time + '</td>';
+                        addedRowTable += '<td class="fa-num">' + res.data[i].end_date +' '+ res.data[i].end_time + '</td>';
+                        addedRowTable += '<td>';
+                        addedRowTable += '<button data-id="' + res.data[i].id + '" class="btn btn-circle borderCircle my-1 remove-btn-sessions">';
+                        addedRowTable += '<i class="icon-visit-delete marginTop7"></i>';
+                        addedRowTable += '</button>';
+                        addedRowTable += '</td>';
+                        addedRowTable += '</tr>';
+                        $("#addedRowTable").append(addedRowTable);
+                        idx ++;
+                    }
+                }
+            }
+        }
+    });
+
+    $(document).on('click', '.remove-btn-sessions', function () {
+
+        let id = $(this).attr('data-id');
+
+
+        $.ajax({
+            type: 'delete',
+            url: '{{ route('sessions.destroy') }}' + "/" + id,
+            headers: {
+                'accept': 'application/json'
+            },
+            success: function(res) {
+                if(res.status === "ok")
+                    $('#row-'+ id +'').remove();
+            }
+        });
+
+
+    });
+
     </script>
 @stop
