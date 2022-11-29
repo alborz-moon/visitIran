@@ -575,7 +575,7 @@
             }
         });
         $("#nextBtn").on('click', function () {
-                var eventName = $('#eventName').val();
+                var eventName = $('#eventName').val();               
                 var ageCondi = $('#ageCondi').val();
                 var level = $('#level').val();
                 var state = $('#state02').val();
@@ -621,7 +621,7 @@
                             if(res.status === "ok") {
                                 // alert("عملیات موردنظر با موفقیت انجام شد.");
                                 showSuccess("عملیات موردنظر با موفقیت انجام شد.");
-                                window.location.href = '{{ route('addSessionsInfo') }}' + "/" + res.id;
+                                // window.location.href = '{{ route('addSessionsInfo') }}' + "/" + res.id;
                             }
                             else {
                                 alert(res.msg);
@@ -636,13 +636,22 @@
                 'accept': 'application/json'
             },
             success: function(res) {
-                if(res.status === "ok") {
-                    if(res.data.length != 0) {
-                        console.log('====================================');
-                        console.log(res);
-                        console.log('====================================');
+                // if(res.status === "ok") {
+                    if(res.length != 0) {
+                        $('#eventName').val(res.title);
+                        $('#ageCondi').val(res.age_description).change();
+                        $('#level').val(level_description).change();
+                        $('#address').val(res.address);
+                        $('#postal_code').val(res.postal_code);
+                        x = res.x;
+                        y = res.y;
+                        for( var i = 0; i < res.facility.length ; i ++){
+                            var languag = '<input type="checkbox" name="facility" id="' + res.facility[i].id +'">';
+                            language += '<label for="' + res.facility[i].id +'" class="ml-0">' + res.facility[i].label +'</label>';
+                        }
+                        $("#facility").empty().append(language);  
                     }
-                }
+                // }
             }
         });
     </script>
