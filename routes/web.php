@@ -22,13 +22,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['myAuth'])->group(function() {
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 });
 
-Route::middleware(['auth', 'launcherLevel'])->prefix('admin')
+Route::middleware(['myAuth', 'launcherLevel'])->prefix('admin')
     ->group(function() {
 
         Route::resource('event', EventController::class)->except('update');
@@ -36,18 +36,19 @@ Route::middleware(['auth', 'launcherLevel'])->prefix('admin')
     });
 
 
-Route::middleware(['auth', 'editorLevelWithoutDomainCheck'])->prefix('admin')
+Route::middleware(['myAuth', 'editorLevelWithoutDomainCheck'])->prefix('admin')
     ->group(base_path('routes/common_admin_routes.php'));
 
 
-Route::middleware(['auth', 'editorLevel'])->prefix('admin')->group(function() {
+Route::middleware(['myAuth', 'editorLevel'])->prefix('admin')->group(function() {
 
     Route::domain(Controller::$SHOP_SITE)->group(base_path('routes/shop_admin_routes.php'));
     
 
+    Route::domain(Controller::$EVENT_SITE)->group(base_path('routes/event_admin_routes.php'));
+    
 });
 
-Route::domain(Controller::$EVENT_SITE)->group(base_path('routes/event_admin_routes.php'));
 
 
 Route::post('login', [AuthController::class, 'login'])->name('login');
