@@ -20,7 +20,7 @@
 @section('content')
             <main class="page-content TopParentBannerMoveOnTop">
             <div class="container">
-                <h3 class="mt-4 mb-2">اخبار</h3>
+                <h2 class="mt-4 mb-2">اخبار</h2>
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-9 col-md-8 col-sm-12 mb-4">
@@ -32,7 +32,7 @@
                                 <p class="border px-4 py-1 borderRadius15">{{ $blog['tags'] }}</p>
                             </div>
                             <hr>
-                            <h3 class="my-5">{{ $blog['header'] }}</h3>
+                            <h1 class="mt-3 mb-4">{{ $blog['header'] }}</h1>
                             <p>{!! $blog['description'] !!}</p>
                         </div>
                         <div class="col-lg-3 col-md-4 d-none d-md-block">
@@ -93,7 +93,7 @@
                         html += '</div>'
                         html += '<div class="col-8 p-0 m-0">';
                         html += '<div style="height: 60px" class="d-flex justify-content-start align-items-center" >';
-                        html += '<h6  class="fontSize12 bold pr-15 overFlowHidden lineHeight2 colorBlack">' + res.data[i].header + '</h6>';
+                        html += '<h6 class="fontSize12 bold pr-15 overFlowHidden lineHeight2 colorBlack">' + res.data[i].header + '</h6>';
                         html += '</div>';
                         html += '</div>';
                         html += '</div>';
