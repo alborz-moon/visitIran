@@ -398,7 +398,8 @@
       href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/parsimap-geocoder/v1.0.0/parsimap-geocoder.css"
       rel="stylesheet"
     />
-    <script>    
+    <script>   
+        var topic_arr = []; 
         var lang_arr = [
             {
                 key: "fa",
@@ -583,7 +584,6 @@
 
                         for( var i = 0; i < res.data.length ; i ++)
                             eventTag += '<option name="eventTag" value="' + res.data[i].id + '">'+ res.data[i].label +'</option>';
-                        
                         $("#topicEvent").empty().append(eventTag);
                     }
                 }
@@ -609,7 +609,7 @@
                             facility += '<input type="checkbox" name="facility" id="' + res.data[i].id +'">';
                             facility += '<label for="' + res.data[i].id +'" class="ml-0">' + res.data[i].label +'</label>';
                         }
-                        $("#facility").empty().append(facility);  
+                        $("#facility").empty().append(facility);
                     }
                 }
             }
@@ -710,22 +710,37 @@
                                         language +='<button data-id="' + idx +'" class="remove-' + idx +'-btn btn btn-outline-light b-0">'; 
                                         language += '<i class="ri-close-line"></i>';
                                         language += '</button></div>';
+
+                                        langList.push({
+                                            id: idx,
+                                            value: elem.key
+                                        });
                                     }
                                     $("#addLang").append(language); 
                                 }
                                 var tags = '';
                                 if (res.data.tags.length != 0){
-                                    for( var i = 0; i < res.data.tags.length; i ++){
+                                    for( var i = 0; i < res.data.tags.length; i++){
                                         
                                         let elem = tagsList.find(itr => itr.label == res.data.tags[i]);
                                         
-                                        tags = '<div id="' + idx +'" class="item-button spaceBetween colorBlack">' + elem.value +'';
+                                        if(elem === undefined)
+                                            continue;
+
+                                        tags = '<div id="' + idx +'" class="item-button spaceBetween colorBlack">' + res.data.tags[i] +'';
                                         tags +='<button data-id="' + idx +'" class="remove-' + idx +'-btn btn btn-outline-light b-0">'; 
                                         tags += '<i class="ri-close-line"></i>';
                                         tags += '</button></div>';
+                                        
+                                        topicList.push({
+                                            id: elem.id,
+                                            value: elem.label
+                                        });
                                     }
-                                    $("#addtopic").append(tags); 
+                                    $("#addTopic").append(tags); 
                                 }
+
+                                
                             }
                         }
                     }
