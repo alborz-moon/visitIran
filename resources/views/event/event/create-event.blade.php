@@ -231,7 +231,7 @@
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">کد پستی</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="postal_code" onkeypress="return isNumber(event)" minlength="10" maxlength="10" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
+                                                <input id="postalCode" onkeypress="return isNumber(event)" minlength="10" maxlength="10" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -621,7 +621,7 @@
                 var level = $('#level').val();
                 var state = $('#state02').val();
                 var city = $('#city02').val();
-                var postal_code = $('#postal_code').val();
+                var postal_code = $('#postalCode').val();
                 var address = $('#address').val();
                 var link = $('#link').val();
 
@@ -645,14 +645,13 @@
                     level_description: level, 
                     type: onlineOrOffline,
                 };
-                if(onlineOrOffline === "offline") {
+                if(onlineOrOffline == "offline") {
                     data.city_id = city;
-                    data.postal_code = postal_code;
+                    data.postal_code = postalCode;
                     data.address = address;
                     data.x = x;
                     data.y = y;
-                    data.type = onlineOrOffline;
-                }else if (onlineOrOffline === "online"){
+                }else if (onlineOrOffline == "online"){
                     data.link = link;
                 }
                     $.ajax({
@@ -698,8 +697,9 @@
                                     $('#ageCondi').val(res.data.age_description).change();
                                     $('#level').val(res.data.level_description).change();
                                     $('#address').val(res.data.address);
-                                    $('#postal_code').val(res.data.postal_code);
+                                    $('#postalCode').val(res.data.postal_code);
                                     $('#onlineOrOffline').val(res.data.type).change();
+                                    $('#city02').val(res.data.city_id).change();
                                     x = res.data.x;
                                     y = res.data.y;
                                     var language = '';
