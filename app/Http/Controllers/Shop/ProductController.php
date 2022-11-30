@@ -26,6 +26,7 @@ use App\Models\Similar;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -115,13 +116,17 @@ class ProductController extends ProductHelper
             return abort(401);
 
         $request->validate($validator);
+
         $products = Product::like($request['key'], 
             $request->has('category_id') ? $request['category_id'] : null,
             $request['return_type']
         );
 
+        
         if($request['return_type'] == 'digest')
             return ProductVeryDigestResouece::collection($products)->toArray($request);
+        
+        return ProductDigestUser::collection($products)->toArray($request);
     }
 
     /**
@@ -131,15 +136,36 @@ class ProductController extends ProductHelper
      */
     public function list(Request $request)
     {
-        $limit = $request->query('limit', 8);
-        
-        $filters = self::build_filters($request, true);
 
+        $validator = [
+            'key' => 'nullable|persian_alpha|min:2|max:15',
+        ];
+
+        $validator = Validator::make($request->query(), $validator);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+
+        $limit = $request->query('limit', 8);
+        $key = $request->query('key', null);
         $page = $request->query('page', 1);
-        $products = $filters->skip(($page - 1) * $limit)->take($limit)->get();
+        $catId = $request->query('parent', null);
+
+        if($key != null && $page > 1)
+            return abort(401);
+        
+        $filters = self::build_filters($request, true, $key != null);
+
+        if($key == null) {
+            $products = $filters->skip(($page - 1) * $limit)->take($limit)->get();
+        }
+        else {
+            $products = Product::like($key, null, 'card', $filters);
+        }
 
         $data = ProductDigestUser::collection($products)->toArray($request);
-        $data = array_merge($data, $data);
 
         $brands = [];
         $allBrands = [];
@@ -169,12 +195,30 @@ class ProductController extends ProductHelper
             }
         }
 
+        if($catId == null) {
+
+            $categories = [];
+            $allCategories = [];
+         
+            foreach($data as $itr) {
+                if($itr['category_id'] != null && 
+                    !in_array($itr['category_id'], $categories)) {
+                    array_push($categories, $itr['category_id']);
+                    array_push($allCategories, [
+                        'id' => $itr['category_id'],
+                        'name' => $itr['category']
+                    ]);
+                }
+            }
+        }
+
         return response()->json([
             'status' => 'ok',
             'count' => count($products),
             'data' => $data,
             'brands' => $allBrands,
-            'sellers' => $allSellers
+            'sellers' => $allSellers,
+            'categories' => isset($allCategories) ? $allCategories : null
         ]);
     }
 

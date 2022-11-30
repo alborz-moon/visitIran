@@ -10,6 +10,7 @@ function buildQuery() {
     let minPrice = $("#skip-value-lower").val().replaceAll(",", "");
     let maxPrice = $("#skip-value-upper").val().replaceAll(",", "");
     let orderBy = $("#orderBy").val();
+    let searchKey = $("#searchBoxInput").val();
 
     // if(brand !== 'all')
     //     query.append('brand', brand);
@@ -30,6 +31,8 @@ function buildQuery() {
         query.append("orderBy", s[0]);
         query.append("orderByType", s[1]);
     }
+
+    if (searchKey !== "") query.append("key", searchKey);
 
     return query;
 }
@@ -79,9 +82,6 @@ function filter() {
                 .append(res.count + " کالا");
 
             html = '<div class="parent form-check">';
-            html +=
-                '<input class="form-check-input" type="checkbox" value=""/>برند';
-            html += '<ul class="child form-check">';
 
             for (var i = 0; i < res.brands.length; i++) {
                 html += '<li class="form-check">';
@@ -91,10 +91,26 @@ function filter() {
                 html += "</li>";
             }
 
-            html += "</ul>";
-            html += "</div>";
-
             $("#brands").empty().append(html);
+
+            if (res.categories !== undefined && res.categories != null) {
+                html = '<div class="parent form-check">';
+                // html +=
+                //     '<input class="form-check-input" type="checkbox" value=""/>دسته بندی';
+                // html += '<ul class="child form-check">';
+
+                for (var i = 0; i < res.brands.length; i++) {
+                    html += '<li class="form-check">';
+                    html +=
+                        '<input class="form-check-input" type="checkbox" value="" />' +
+                        res.brands[i]["name"];
+                    html += "</li>";
+                }
+
+                // html += "</ul>";
+                // html += "</div>";
+                $("#brands").empty().append(html);
+            }
 
             html = '<div class="parent form-check">';
             html +=

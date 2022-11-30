@@ -83,7 +83,7 @@
                                     <div class="widget-content widget--search collapse" id="collapseGrouping9">
                                         <form action="#" class="pt-2">
                                             <div class="filter-options do-simplebar pt-2 mt-2">
-                                                @foreach ($features as $feature)
+                                                {{-- @foreach ($features as $feature)
                                                     <div class="parent form-check">
                                                         <input class="form-check-input" type="checkbox" value=""/>{{ $feature['name'] }}
                                                         <ul class="child form-check">
@@ -94,8 +94,7 @@
                                                             @endforeach
                                                         </ul>
                                                     </div>
-                                                @endforeach
-                                                <div id="brands"></div>
+                                                @endforeach --}}
                                                 <div id="sellers"></div>
                                             </div>
                                         </form>
@@ -110,7 +109,7 @@
                                     <div class="widget-content widget--search collapse" id="collapseGrouping8">
                                         <form action="#" class="pt-2">
                                             <div class="filter-options do-simplebar pt-2 mt-2">
-                                                @foreach ($features as $feature)
+                                                {{-- @foreach ($features as $feature)
                                                     <div class="parent form-check">
                                                         <input class="form-check-input" type="checkbox" value=""/>{{ $feature['name'] }}
                                                         <ul class="child form-check">
@@ -121,9 +120,9 @@
                                                             @endforeach
                                                         </ul>
                                                     </div>
-                                                @endforeach
+                                                @endforeach --}}
+
                                                 <div id="brands"></div>
-                                                <div id="sellers"></div>
                                             </div>
                                         </form>
                                     </div>
@@ -152,9 +151,9 @@
                                     <div class="widget-content widget--search">
                                         <form action="#">
                                             <div class="form-element-row">
-                                                <input type="text" name="s" class="form-control"
+                                                <input id="searchBoxInput" type="text" name="s" class="form-control"
                                                     placeholder="نام محصول یا…">
-                                                <i class="ri-search-line icon"></i>
+                                                <i onclick="filter()" class="ri-search-line icon cursorPointer"></i>
                                             </div>
                                         </form>
                                     </div>

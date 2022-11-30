@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Config;
+use App\Models\Product;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductDigestUser extends JsonResource
@@ -16,8 +17,12 @@ class ProductDigestUser extends JsonResource
     public function toArray($request)
     {
         $config = Config::where('site', 'shop')->first();
+        
+        if($this->resource instanceof Product)
+            $features = $this->featuresWithValue();
+        else
+            $features = Product::featuresWithValueStatic($this->id, $this->category_id);
 
-        $features = $this->featuresWithValue();
         $multiColor = false;
 
         $price = $this->price;
@@ -54,13 +59,24 @@ class ProductDigestUser extends JsonResource
             }
         }
 
-        $off = $this->activeOff($request->user == null ? null : $request->user->id);
+        if($this->resource instanceof Product)
+            $off = $this->activeOff($request->user == null ? null : $request->user->id);
+        else
+            $off = Product::activeOffStatic($request->user == null ? null : $request->user->id,
+            $this->off, $this->off_type, $this->off_expiration,
+            $this->category_id, $this->brand_id, $this->seller_id
+        );
 
         $priceAfterOff = $price;
         if($off != null && $off['type'] === 'value')
             $priceAfterOff = $price - $off['value'];
         else if($off != null)
             $priceAfterOff = $price * (100 - $off['value']) / 100;
+
+        if($this->resource instanceof Product)
+            $seller = $this->seller_id == null ? '' : $this->seller->name;
+        else
+            $seller = $this->seller_name == null ? '' : $this->seller_name;
 
         return [
             'id' => $this->id,
@@ -69,11 +85,12 @@ class ProductDigestUser extends JsonResource
             'slug' => $this->slug == null ? $this->name : $this->slug,
             'rate' => $this->rate == null ? 4 : round($this->rate, 1),
             'name' => $this->name,
-            'brand' => $this->brand->name,
+            'brand' => $this->resource instanceof Product ? $this->brand->name : $this->brand_name,
             'brand_id' => $this->brand_id,
-            'seller' => $this->seller_id == null ? '' : $this->seller->name,
+            'seller' => $seller,
             'seller_id' => $this->seller_id,
-            'category' => $this->category->name,
+            'category' => $this->resource instanceof Product ? $this->category->name : $this->cat_name,
+            'category_id' => $this->category_id,
             'is_in_critical' => $count <= $config->critical_point,
             'available_count' => $count <= $config->critical_point ? $count : -1,
             'price' => number_format($price, 0),
