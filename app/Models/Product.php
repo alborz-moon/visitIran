@@ -66,19 +66,28 @@ class Product extends Model
         return $query->where('is_in_top_list', true);
     }
 
-    public static function like($key, $catId, $returnType) {
+    public static function like($key, $catId, $returnType, $filtersWhere=null) {
 
-        $selects = $returnType == 'card' ? 'products.*, categories.name' : 
+        $selects = $returnType == 'card' ? 
+            'products.*, categories.name as cat_name, brands.name as brand_name, sellers.name as seller_name' : 
             'products.id, products.name, products.slug, categories.name as cat_name';
+
+        $join_where = $returnType == 'card' ? 
+            'categories.id = products.category_id and products.brand_id = brands.id and ' :
+            'categories.id = products.category_id and ';
 
         $where = $catId == null ? 'products.name like "%' . $key . '%"' :
             'products.name like "%' . $key . '%" and categories.id = ' . $catId;
 
+        if($filtersWhere != null)
+            $where .= ' and ' . $filtersWhere;
+
+
+        $from = $returnType == 'card' ? 'categories, brands, products left join sellers on ' .
+            'seller_id = sellers.id' : 'products, categories';
+
         return DB::select(
-            'select ' . $selects . ' from products ' .
-            'join categories on ' . 
-                'categories.id = products.category_id where ' .
-                $where
+            'select ' . $selects . ' from ' . $from . ' where ' . $join_where . $where
         );
     }
 
@@ -94,6 +103,20 @@ class Product extends Model
         );
     }
 
+    public static function featuresWithValueStatic($productId, $categoryId) {
+        $features = DB::select(
+            'select category_features.id, category_features.unit, category_features.show_in_top, ' .
+                'category_features.name, product_features.value, ' . 
+                'product_features.price, product_features.available_count ' . 
+                'from category_features join product_features on ' . 
+                'category_features.id = product_features.category_feature_id and '.
+                'product_features.product_id = ' . $productId .
+              ' where category_features.category_id = ' . $categoryId . 
+              ' order by category_features.priority asc'
+        );
+        return $features;
+    }
+
     public function featuresWithValue() {
         $features = DB::select(
             'select category_features.id, category_features.unit, category_features.show_in_top, ' .
@@ -106,6 +129,46 @@ class Product extends Model
               ' order by category_features.priority asc'
         );
         return $features;
+    }
+
+    public static function activeOffStatic(
+        $userId, $off, $offType, $offExpiration, 
+        $categoryId, $brandId, $sellerId
+    ) {
+
+        $today = (int)Controller::getToday()['date'];
+
+        if($off != null) {
+            if((int)$offExpiration >= $today)
+                return [
+                    'type' => $offType,
+                    'value' => $off
+                ];
+        }
+
+        $off = Off::where('off_expiration', '>', $today)
+            ->where(function($query) use($categoryId) {
+                return $query->where('category_id', $categoryId)
+                    ->orWhereNull('category_id');
+            })->where(function($query) use($brandId) {
+                return $query->where('brand_id', $brandId)
+                    ->orWhereNull('brand_id');
+            })->where(function($query) use($sellerId) {
+                return $query->where('seller_id', $sellerId)
+                    ->orWhereNull('seller_id');
+            })->where(function($query) use ($userId) {
+                return $query->where('user_id', $userId)
+                    ->orWhereNull('user_id');
+            })->orderBy('amount', 'desc')->get();
+
+        if($off != null && count($off) > 0) {
+            return [
+                'type' => $off[0]->off_type,
+                'value' => $off[0]->amount
+            ];
+        }
+
+        return null;
     }
 
     public function activeOff($userId) {

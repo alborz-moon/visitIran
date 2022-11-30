@@ -27,7 +27,7 @@ class ProductHelper extends Controller {
         return $ids;
     }
 
-    public static function build_filters($request, $justVisibles=false) {
+    public static function build_filters($request, $justVisibles=false, $returnStr=false) {
         
         $filters = Product::where('id', '>', '0');
         $cat = $request->query('category', null);
@@ -47,45 +47,46 @@ class ProductHelper extends Controller {
 
         $fromCreatedAt = $request->query('fromCreatedAt', null);
         $toCreatedAt = $request->query('toCreatedAt', null);
+        $filters_arr = [];
 
         if($cat != null)
-            $filters->where('category_id', $cat);
+            array_push($filters_arr, ['category_id', $cat]);
             
         if($brand != null)
-            $filters->where('brand_id', $brand);
+            array_push($filters_arr, ['brand_id', $brand]);
             
         if($seller != null)
-            $filters->where('seller_id', $seller);
+            array_push($filters_arr, ['seller_id', $seller]);
             
         if($isInTopList != null)
-            $filters->where('is_in_top_list', $isInTopList);
+            array_push($filters_arr, ['is_in_top_list', $isInTopList]);
             
         if($fromCreatedAt != null)
-            $filters->whereDate('created_at', '>=', self::ShamsiToMilady($fromCreatedAt));
+            array_push($filters_arr, ['created_at', '>=', self::ShamsiToMilady($fromCreatedAt)]);
             
         if($toCreatedAt != null)
-            $filters->whereDate('created_at', '<=', self::ShamsiToMilady($toCreatedAt));
+            array_push($filters_arr, ['created_at', '<=', self::ShamsiToMilady($toCreatedAt)]);
 
         if($min != null)
-            $filters->where('available_count', '>=', $min);
+            array_push($filters_arr, ['available_count', '>=', $min]);
             
         if($minPrice != null)
-            $filters->where('price', '>=', $minPrice);
+            array_push($filters_arr, ['price', '>=', $minPrice]);
             
         if($maxPrice != null)
-            $filters->where('price', '<=', $maxPrice);
+            array_push($filters_arr, ['price', '<=', $maxPrice]);
 
         if($parent != null) {
             $parentCat = Category::whereId($parent)->first();
             if($parentCat == null)
-                $filters->where('id', '<', 0);
+                array_push($filters_arr, ['id', '<', 0]);
             else {
                 if($parentCat->products()->count() > 0)
-                    $filters->where('category_id', $parentCat->id);
+                    array_push($filters_arr, ['category_id', $parentCat->id]);
                 else {
-                    $filters->where('is_in_top_list', true);
+                    array_push($filters_arr, ['is_in_top_list', true]);
                     $catIds = self::get_all_subs_ids($parentCat);
-                    $filters->whereIn('category_id', $catIds);
+                    array_push($filters_arr, ['category_id', $catIds]);
                 }
             }
         }
@@ -150,6 +151,41 @@ class ProductHelper extends Controller {
             else
                 $filters->orderBy('priority', 'asc');
         }
+
+        if($returnStr) {
+            
+            $filters = "";
+            $first = true;
+
+            foreach($filters_arr as $filter) {
+                $op = count($filter) == 2 ? "=" : $filter[1];
+                if($first) {
+                    $first = false;
+                    $filters .= $filter[0] . $op . $filter[count($filter) - 1];
+                }
+                else
+                    $filters .= ' and ' . $filter[0] . $op . $filter[count($filter) - 1];
+
+            }
+            return $filters;
+        }
+
+        foreach($filters_arr as $filter) {
+            if(count($filter) == 3) {
+                if($filter[0] == 'createdAt')
+                    $filters->whereDate($filter[0], $filter[1], $filter[2]);
+                else {
+                    $filters->where($filter[0], $filter[1], $filter[2]);
+                }
+            }
+            else if($filter[0] == 'createdAt')
+                $filters->whereDate($filter[0], $filter[1]);
+            else if(is_array($filter[1]))
+                $filters->whereIn($filter[0], $filter[1]);
+            else
+                $filters->where($filter[0], $filter[1]);
+        }
+
 
         return $filters;
     }

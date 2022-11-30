@@ -242,9 +242,9 @@ class EventController extends Controller
         Gate::authorize('update', $event);
 
         $validator = [
-            'start_registry_date' => ['required', 'regex:/^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|([1-2][0-9])|(0[1-9]))))$/'],
+            'start_registry_date' => ['required', 'regex:/^[1-4]\d{3}\/((((0[1-6])|([1-6]))\/((3[0-1])|([1-2][0-9])|((0[1-9])|([1-9]))))|((1[0-2]|(((0[7-9])|[7-9])))\/(30|([1-2][0-9])|(((0[1-9])|([1-9]))))))$/'],
             'start_registry_time' => 'required|date_format:H:i',
-            'end_registry_date' => ['required', 'regex:/^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|([1-2][0-9])|(0[1-9]))))$/'],
+            'end_registry_date' => ['required', 'regex:/^[1-4]\d{3}\/((((0[1-6])|([1-6]))\/((3[0-1])|([1-2][0-9])|((0[1-9])|([1-9]))))|((1[0-2]|(((0[7-9])|[7-9])))\/(30|([1-2][0-9])|(((0[1-9])|([1-9]))))))$/'],
             'end_registry_time' => 'required|date_format:H:i',
             'ticket_description' => 'nullable|string|min:2',
             'price' => 'required|integer|min:0',

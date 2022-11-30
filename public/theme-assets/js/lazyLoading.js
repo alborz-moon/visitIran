@@ -32,7 +32,7 @@ function observe_scroll() {
     $(window).scroll(function (event) {
         if (lock) return;
         var scroll = $(window).scrollTop();
-        if (scroll >= row_height) {
+        if (scroll >= next_call_h) {
             lock = true;
             fetch_more_func(calc_H);
         }
