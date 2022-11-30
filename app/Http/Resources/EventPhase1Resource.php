@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\City;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EventPhase1Resource extends JsonResource
@@ -26,6 +27,7 @@ class EventPhase1Resource extends JsonResource
             'x' => $this->x,
             'y' => $this->y,
             'city_id' => $this->city_id,
+            'state_id' => City::whereId($this->city_id)->first()->state_id,
             'postal_code' => $this->postal_code,
             'address' => $this->address,
             'link' => $this->link,

@@ -66,21 +66,19 @@ class Product extends Model
         return $query->where('is_in_top_list', true);
     }
 
-    public static function like($key, $catId) {
+    public static function like($key, $catId, $returnType) {
 
-        if($catId == null)
-            return DB::select(
-                'select products.id, products.name, products.slug, categories.name as cat_name from products ' .  
-                'join categories on ' . 
-                    'categories.id = products.category_id where '.
-                    'products.name like "%' . $key . '%"'
-            );
+        $selects = $returnType == 'card' ? 'products.*, categories.name' : 
+            'products.id, products.name, products.slug, categories.name as cat_name';
+
+        $where = $catId == null ? 'products.name like "%' . $key . '%"' :
+            'products.name like "%' . $key . '%" and categories.id = ' . $catId;
 
         return DB::select(
-            'select products.id, products.name, products.slug, categories.name as cat_name from products ' .  
+            'select ' . $selects . ' from products ' .
             'join categories on ' . 
-                'categories.id = products.category_id where '.
-                'products.name like "%' . $key . '%" and categories.id = ' . $catId
+                'categories.id = products.category_id where ' .
+                $where
         );
     }
 
