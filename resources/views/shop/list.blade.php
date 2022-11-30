@@ -167,7 +167,7 @@
                                     <div class="widget-content widget--search collapse" id="collapseGrouping">
                                         <form action="#" class="pt-2">
                                             <div class="filter-options do-simplebar pt-2 mt-2">
-                                                @foreach ($features as $feature)
+                                                {{-- @foreach ($features as $feature)
                                                     <div class="parent form-check">
                                                         <input class="form-check-input" type="checkbox" value=""/>{{ $feature['name'] }}
                                                         <ul class="child form-check">
@@ -178,9 +178,9 @@
                                                             @endforeach
                                                         </ul>
                                                     </div>
-                                                @endforeach
-                                                <div id="brands"></div>
-                                                <div id="sellers"></div>
+                                                @endforeach --}}
+
+                                                <div id="categories"></div>
                                             </div>
                                         </form>
                                     </div>

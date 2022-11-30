@@ -81,7 +81,7 @@ function filter() {
                 .empty()
                 .append(res.count + " کالا");
 
-            html = '<div class="parent form-check">';
+            html = "";
 
             for (var i = 0; i < res.brands.length; i++) {
                 html += '<li class="form-check">';
@@ -94,28 +94,20 @@ function filter() {
             $("#brands").empty().append(html);
 
             if (res.categories !== undefined && res.categories != null) {
-                html = '<div class="parent form-check">';
-                // html +=
-                //     '<input class="form-check-input" type="checkbox" value=""/>دسته بندی';
-                // html += '<ul class="child form-check">';
+                html = "";
 
-                for (var i = 0; i < res.brands.length; i++) {
+                for (var i = 0; i < res.categories.length; i++) {
                     html += '<li class="form-check">';
                     html +=
                         '<input class="form-check-input" type="checkbox" value="" />' +
-                        res.brands[i]["name"];
+                        res.categories[i]["name"];
                     html += "</li>";
                 }
 
-                // html += "</ul>";
-                // html += "</div>";
-                $("#brands").empty().append(html);
+                $("#categories").empty().append(html);
             }
 
             html = '<div class="parent form-check">';
-            html +=
-                '<input class="form-check-input" type="checkbox" value=""/>فروشنده';
-            html += '<ul class="child form-check">';
 
             for (var i = 0; i < res.sellers.length; i++) {
                 html += '<li class="form-check">';
@@ -125,7 +117,6 @@ function filter() {
                 html += "</li>";
             }
 
-            html += "</ul>";
             html += "</div>";
 
             $("#sellers").empty().append(html);
