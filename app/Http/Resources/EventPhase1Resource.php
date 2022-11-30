@@ -22,7 +22,7 @@ class EventPhase1Resource extends JsonResource
             'tags' => explode('_', $this->tags),
             'language' => explode('_', $this->language),
             'facilities' => explode('_', $this->facilities),
-            'type' => $this->city_id != null ? 'hoghoghi' : 'haghighi',
+            'type' => $this->city_id != null ? 'offline' : 'online',
             'x' => $this->x,
             'y' => $this->y,
             'city_id' => $this->city_id,

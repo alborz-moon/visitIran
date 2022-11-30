@@ -66,6 +66,24 @@ class Product extends Model
         return $query->where('is_in_top_list', true);
     }
 
+    public static function like($key, $catId) {
+
+        if($catId == null)
+            return DB::select(
+                'select products.id, products.name, products.slug, categories.name as cat_name from products ' .  
+                'join categories on ' . 
+                    'categories.id = products.category_id where '.
+                    'products.name like "%' . $key . '%"'
+            );
+
+        return DB::select(
+            'select products.id, products.name, products.slug, categories.name as cat_name from products ' .  
+            'join categories on ' . 
+                'categories.id = products.category_id where '.
+                'products.name like "%' . $key . '%" and categories.id = ' . $catId
+        );
+    }
+
     public function features() {
         return DB::select(
             'select category_features.*, product_features.price,' . 

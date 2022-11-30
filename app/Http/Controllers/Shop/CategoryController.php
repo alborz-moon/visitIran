@@ -143,7 +143,8 @@ class CategoryController extends Controller
             'path' => [],
             'orderBy' => $orderBy,
             'name' => 'تازه ترین ها',
-            'features' => []
+            'features' => [],
+            'has_sub' => false
         ]);
 
     }
@@ -197,14 +198,14 @@ class CategoryController extends Controller
         else {
 
             $cats = [];
-            $queue = Category::where('parent_id', $category->id)->visible()->top()->get()->toArray();
+            $queue = Category::where('parent_id', $category->id)->visible()->get()->toArray();
             
             while(count($queue) > 0) {
 
                 $cat = array_pop($queue);
 
                 array_push($cats, $cat);
-                $tmp = Category::where('parent_id', $cat['id'])->visible()->top()->get()->toArray();
+                $tmp = Category::where('parent_id', $cat['id'])->visible()->get()->toArray();
                 foreach($tmp as $itr) {
                     array_push($queue, $itr);
                 }

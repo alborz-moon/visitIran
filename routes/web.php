@@ -96,6 +96,8 @@ Route::domain(Controller::$SHOP_SITE)->group(function() {
 
     Route::view('/', 'shop.welcome')->name('home');
 
+    Route::post('/search-product', [ProductController::class, 'search'])->name('product-search');
+
     Route::get('/product/{product}/{slug}', [ProductController::class, 'showDetail'])->name('single-product');
 
     Route::get('/list/{category}/{slug}', [CategoryController::class, 'show'])->name('single-category');

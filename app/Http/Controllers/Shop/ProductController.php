@@ -101,6 +101,24 @@ class ProductController extends ProductHelper
         ]);
     }
 
+
+    public function search(Request $request) {
+
+        $validator = [
+            'key' => 'required|persian_alpha|min:2|max:15',
+            'category_id' => 'nullable|integer|exists:categories,id'
+        ];
+        
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator);
+
+        $products = Product::like($request['key'], $request->has('category_id') ? $request['category_id'] : null);
+        dd($products);
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -108,12 +126,15 @@ class ProductController extends ProductHelper
      */
     public function list(Request $request)
     {
-        $limit = $request->query('limit', null);
+        $limit = $request->query('limit', 8);
         
         $filters = self::build_filters($request, true);
-        $products = $filters->paginate($limit == null ? 30 : $limit);
+
+        $page = $request->query('page', 1);
+        $products = $filters->skip(($page - 1) * $limit)->take($limit)->get();
 
         $data = ProductDigestUser::collection($products)->toArray($request);
+        $data = array_merge($data, $data);
 
         $brands = [];
         $allBrands = [];
@@ -145,7 +166,7 @@ class ProductController extends ProductHelper
 
         return response()->json([
             'status' => 'ok',
-            'count' => $products->count(),
+            'count' => count($products),
             'data' => $data,
             'brands' => $allBrands,
             'sellers' => $allSellers
