@@ -65,6 +65,11 @@
       href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.css"
       rel="stylesheet"
     />
+
+    <script>
+        var initialing = false;
+        var GET_CITIES_URL = '{{ route('api.cities') }}';
+    </script>
 @stop
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
@@ -207,7 +212,7 @@
                                         <div class="form-element-row">
                                             <label class="label fs-7">استان</label>
                                             
-                                            <select onchange="getCities($(this).val())" class="select2" name="state02" id="state02">
+                                            <select onchange="initialing ? a = 1 : getCities($(this).val())" class="select2" name="state02" id="state02">
                                                 <option value="0">انتخاب کنید</option>
                                                 @foreach ($states as $state)
                                                     <option value="{{ $state->id }}">{{ $state->name }}</option>
@@ -398,6 +403,7 @@
       href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/parsimap-geocoder/v1.0.0/parsimap-geocoder.css"
       rel="stylesheet"
     />
+    <script src="{{asset('theme-assets/js/Utilities.js')}}"></script>
     <script>   
         var topic_arr = []; 
         var lang_arr = [
@@ -436,6 +442,7 @@
         var idx = 1;
         var facilitiesList = undefined;
         var tagsList = undefined;
+        var selectedFacility = [];
 
         function watchList(selectorId, arr, increamentor, elemId, resultPaneId) {
             
@@ -470,6 +477,7 @@
                 }
             });
 
+            // alert('.remove-' + elemId + '-btn');
             $(document).on('click','.remove-' + elemId + '-btn', function(){
                 
                 let id = $(this).attr('data-id');
@@ -482,38 +490,12 @@
             });
         }
 
-        $(document).ready(function(){ 
-            watchList('topicEvent', topicList, idxTopic, 'topic', 'addTopic');
-            watchList('lang', langList, idx, 'lang', 'addLang');
-        });
-
-        function getCities(stateId, selectedCity = undefined) {
-            if(stateId == 0) {
-                $("#city02").empty();
-                return;
-            }
-            $.ajax({
-                type: 'get',
-                url: '{{ route('api.cities') }}',
-                data: {
-                    state_id: stateId
-                },
-                success: function(res) {    
-                    if(res.status !== 'ok') {
-                        $("#city02").empty();
-                        return;
-                    }   
-                    let html = '<option value="0">انتخاب کنید</option>';
-                    res.data.forEach(elem => {
-                        if(selectedCity !== undefined && elem.id === selectedCity)
-                            html += '<option selected value="' + elem.id + '">' + elem.name + '</option>';
-                        else
-                            html += '<option value="' + elem.id + '">' + elem.name + '</option>';
-                    });
-                    $("#city02").empty().append(html);
-                }
+        @if(!isset($id))
+            $(document).ready(function(){ 
+                watchList('topicEvent', topicList, idxTopic, 'topic', 'addTopic');
+                watchList('lang', langList, idx, 'lang', 'addLang');
             });
-        }
+        @endif
 
         $('#onlineOrOffline').on('change',function(){
             onlineOrOffline = $('#onlineOrOffline').val();
@@ -532,39 +514,8 @@
                 $(".hidden_url_fields").addClass('hidden');
                 $(".hidden_map_fields").removeClass('hidden');
             }
-            if(map === undefined) {
-                mapboxgl.setRTLTextPlugin(
-                    'https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
-                    null,
-                );
-                map = new mapboxgl.Map({
-                    container: 'launchermap',
-                    style: 'https://api.parsimap.ir/styles/parsimap-streets-v11?key=p1c7661f1a3a684079872cbca20c1fb8477a83a92f',
-                    center: x !== undefined && y !== undefined ? [y, x] : [51.4, 35.7],
-                    zoom: 13,
-                });
-                var marker = undefined;
-                
-                if(x !== undefined && y !== undefined) {
-                    marker = new mapboxgl.Marker();
-                    marker.setLngLat({lng: y, lat: x}).addTo(map);
-                }
-                function addMarker(e){
-                    if (marker !== undefined)
-                        marker.remove();
-                    //add marker
-                    marker = new mapboxgl.Marker();
-                    marker.setLngLat(e.lngLat).addTo(map);
-                    x = e.lngLat.lat;
-                    y = e.lngLat.lng;
-                }
-                map.on('click', addMarker);
-                const control = new ParsimapGeocoder();
-                map.addControl(control);
-            }
         });
 
-        
         $.ajax({
             type: 'get',
             url: '{{route('eventTags.show')}}',
@@ -621,11 +572,10 @@
                 var level = $('#level').val();
                 var state = $('#state02').val();
                 var city = $('#city02').val();
-                var postal_code = $('#postalCode').val();
+                var postalCode = $('#postalCode').val();
+
                 var address = $('#address').val();
                 var link = $('#link').val();
-
-                var selectedFacility = [];
                 $('input[name=facility]').each(function() {
                     if ($(this).is(":checked")) {
                         selectedFacility.push($(this).attr('id'));
@@ -656,13 +606,13 @@
                 }
                     $.ajax({
                         type: 'post',
-                        url: '{{route('event.store')}}',
+                        url: '{{isset($id) ?  route('event.update', ['event' => $id]) : route('event.store')}}',
                         data: data,
                         success: function(res) {
                             if(res.status === "ok") {
                                 // alert("عملیات موردنظر با موفقیت انجام شد.");
                                 showSuccess("عملیات موردنظر با موفقیت انجام شد.");
-                                window.location.href = '{{ route('addSessionsInfo') }}' + "/" + res.id;
+                                window.location.href = '{{isset($id) ? route('addSessionsInfo', ['event' => $id]) : route('addSessionsInfo') }}';
                             }
                             else {
                                 alert(res.msg);
@@ -691,24 +641,35 @@
                             'accept': 'application/json'
                         },
                         success: function(res) {
+                            
                             if(res.status === "ok") {
                                 if(res.data.length != 0) {
+
                                     $('#eventName').val(res.data.title);
                                     $('#ageCondi').val(res.data.age_description).change();
                                     $('#level').val(res.data.level_description).change();
-                                    $('#address').val(res.data.address);
-                                    $('#postalCode').val(res.data.postal_code);
                                     $('#onlineOrOffline').val(res.data.type).change();
-                                    $('#city02').val(res.data.city_id).change();
-                                    x = res.data.x;
-                                    y = res.data.y;
+                                    
+                                    if(res.data.type === "offline") {
+                                        initialing = true;
+                                        x = res.data.x;
+                                        y = res.data.y;
+                                        $('#state02').val(res.data.state_id).change();
+                                        $('#address').val(res.data.address);
+                                        $('#postalCode').val(res.data.postal_code);
+                                        createMap();
+                                        getCities(res.data.state_id,res.data.city_id);
+                                    }
+                                    else {
+
+                                    }
+                                    
                                     var language = '';
                                     if (res.data.language.length != 0){
                                         for( var i = 0; i < res.data.language.length; i ++){
                                             let elem = lang_arr.find(itr => itr.key == res.data.language[i]);
-
-                                            language = '<div id="' + idx +'" class="item-button spaceBetween colorBlack">' + elem.value +'';
-                                            language +='<button data-id="' + idx +'" class="remove-' + idx +'-btn btn btn-outline-light b-0">'; 
+                                            language += '<div id="lang-' + idx +'" class="item-button spaceBetween colorBlack">' + elem.value +'';
+                                            language +='<button data-id="' + idx +'" class="remove-lang-btn btn btn-outline-light b-0">'; 
                                             language += '<i class="ri-close-line"></i>';
                                             language += '</button></div>';
 
@@ -717,9 +678,11 @@
                                                 value: elem.key
                                             });
                                         }
+
+                                        idx = res.data.language.length + 1;
                                         $("#addLang").append(language); 
                                     }
-                                    var facilit = '';
+                                    var tags = '';
                                     if (res.data.tags.length != 0){
                                         for( var i = 0; i < res.data.tags.length; i++){
                                             
@@ -728,8 +691,8 @@
                                             if(elem === undefined)
                                                 continue;
 
-                                            tags = '<div id="' + idx +'" class="item-button spaceBetween colorBlack">' + res.data.tags[i] +'';
-                                            tags +='<button data-id="' + idx +'" class="remove-' + idx +'-btn btn btn-outline-light b-0">'; 
+                                            tags += '<div id="topic-' + elem.id +'" class="item-button spaceBetween colorBlack">' + res.data.tags[i] +'';
+                                            tags +='<button data-id="' + elem.id +'" class="remove-topic-btn remove-' + elem.id +'-btn btn btn-outline-light b-0">'; 
                                             tags += '<i class="ri-close-line"></i>';
                                             tags += '</button></div>';
                                             
@@ -738,39 +701,63 @@
                                                 value: elem.label
                                             });
                                         }
+                                        idxTopic = res.data.tags.length + 1;
                                         $("#addTopic").append(tags); 
                                     }
-                                                            if (res.data.tags.length != 0){
-                                        for( var i = 0; i < res.data.tags.length; i++){
-                                            
-                                            let elem = tagsList.find(itr => itr.label == res.data.tags[i]);
-                                            
-                                            if(elem === undefined)
-                                                continue;
-                                            $('input[name=facility]').each(function() {
-                                                if ($(this).is(":checked")) {
-                                                    selectedFacility.push($(this).attr('id'));
-                                                }
-                                            });
-                                            
-                                            facilit += '<input type="checkbox" name="facility" id="' + res.data[i].id +'">';
-                                            facilit += '<label for="' + res.data[i].id +'" class="ml-0">' + res.data[i].label +'</label>'; 
-                                            
-                                            topicList.push({
-                                                id: elem.id,
-                                                value: elem.label
-                                            });
-                                        }
-                                        $("#addTopic").append(facilit); 
-                                    }
+
+                                    watchList('topicEvent', topicList, idxTopic, 'topic', 'addTopic');
+                                    watchList('lang', langList, idx, 'lang', 'addLang');
                                     
+                                    if (res.data.tags.length != 0){
+                                        for( var i = 0; i < res.data.facilities.length; i++){
+                                            
+                                            let elem = facilitiesList.find(itr => itr.label == res.data.facilities[i]);
+                                            $("input[name='facility'][id='" + elem.id + "']").prop('checked', true);
+                                        
+                                        }
+                                    }
+                                            
                                 }
                             }
                         }
                     });
                 }
+            @else
+                createMap();
             @endif
 
 
+            function createMap() { 
+                if(map === undefined) {
+                    mapboxgl.setRTLTextPlugin(
+                        'https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+                        null,
+                    );
+                    map = new mapboxgl.Map({
+                        container: 'launchermap',
+                        style: 'https://api.parsimap.ir/styles/parsimap-streets-v11?key=p1c7661f1a3a684079872cbca20c1fb8477a83a92f',
+                        center: x !== undefined && y !== undefined ? [y, x] : [51.4, 35.7],
+                        zoom: 13,
+                    });
+                    var marker = undefined;
+                    
+                    if(x !== undefined && y !== undefined) {
+                        marker = new mapboxgl.Marker();
+                        marker.setLngLat({lng: y, lat: x}).addTo(map);
+                    }
+                    function addMarker(e){
+                        if (marker !== undefined)
+                            marker.remove();
+                        //add marker
+                        marker = new mapboxgl.Marker();
+                        marker.setLngLat(e.lngLat).addTo(map);
+                        x = e.lngLat.lat;
+                        y = e.lngLat.lng;
+                    }
+                    map.on('click', addMarker);
+                    const control = new ParsimapGeocoder();
+                    map.addControl(control);
+                }
+             }
     </script>
 @stop

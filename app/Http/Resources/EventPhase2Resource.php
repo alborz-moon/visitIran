@@ -32,7 +32,7 @@ class EventPhase2Resource extends JsonResource
             'price' => $this->price,
             'capacity' => $this->capacity,
             'site' => $this->site,
-            'mail' => $this->mail,
+            'email' => $this->email,
             'phone' => $this->phone == null || empty($this->phone) ? null : explode('_', $this->phone),
         ];
     }

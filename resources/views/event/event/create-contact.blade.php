@@ -121,7 +121,7 @@
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">ایمیل</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="mail" onkeypress="return isEmail(event) || isNumber(event)" type="email" class="form-control" style="direction: rtl" placeholder="ایمیل">
+                                                <input id="email" onkeypress="return isEmail(event) || isNumber(event)" type="email" class="form-control" style="direction: rtl" placeholder="ایمیل">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -259,16 +259,54 @@
             $(document).on('click', "#startSessionBtn", function () {
                 timeStart =$('#time_input_start').val();
                 dateStart = $('#date_input_start').val();
-                alert(timeStart + ' ' + dateStart);
+            
                     $('#setDateStart').val(timeStart + ' ' + dateStart);                
                     $(".remodal-close").click();
             });
             $(document).on('click', "#stopSessionBtn", function () {
                 timeStop = $('#time_input_stop').val();
                 dateStop = $('#date_input_stop').val();
-                alert(timeStop + ' ' + dateStop);
+    
                     $('#setDateStop').val(timeStop + ' ' + dateStop);
                     $(".remodal-close").click();               
+            });
+            $.ajax({
+                type: 'get',
+                url: '{{ route('event.getPhase2Info',['event' => $id]) }}',
+                headers: {
+                 'accept': 'application/json'
+                },
+                success: function(res) {
+                        $('#time_input_start').val(res.data.start_registry_time);
+                        $('#date_input_start').val(res.data.start_registry_date);
+                        $('#time_input_stop').val(res.data.end_registry_time);
+                        $('#date_input_stop').val(res.data.end_registry_date);
+                        if (res.start_registry_date != undefined && res.data.start_registry_date != undefined || res.data.end_registry_date != undefined && res.data.end_registry_date != undefined ){
+                            $('#setDateStart').val(res.data.start_registry_date + ' ' +  res.data.start_registry_date);
+                            $('#setDateStop').val(res.data.end_registry_date + ' ' +  res.data.end_registry_date);
+                        }
+                        $('#desc').val(res.data.ticket_description);
+                        $('#price').val(res.data.price);
+                        $('#capacity').val(res.data.capacity);
+                        $('#site').val(res.data.site);
+                        $('#email').val(res.data.email);
+                        if (res.data.phone != undefined){
+                            var html ='';
+                            for(i = 0; i < res.data.phone.length; i++ ){
+                                idx ++;
+                                tels.push({
+                                    id: idx,
+                                    val: res.data.phone[i]
+                                });
+                                html += '<div id="tel-modal-' + idx + '" class="item-button spaceBetween colorBlack">' + res.data.phone[i] + '';
+                                html += '<button class="btn btn-outline-light">';
+                                html += '<i data-id="' + idx + '" class="remove-tel-btn ri-close-line"></i>';
+                                html += '</button>';
+                                html += '</div>';
+                            }
+                            $("#addTell").append(html);
+                        }
+                }
             });
         });
         var datePickerOptions = {
@@ -284,20 +322,25 @@
             var price =$('#price').val();
             var capacity = $('#capacity').val();
             var site =$('#site').val();
-            var mail =$('#mail').val();
+            var email =$('#email').val();
+            var date_input_start = $('#date_input_start').val();
+            var time_input_start = $('#time_input_start').val();
+            var date_input_stop = $('#date_input_stop').val();
+            var time_input_stop =$('#time_input_stop').val();
+
             $.ajax({
                 type: 'post',
                 url: '{{ route('event.store_phase2',['event' => $id]) }}',
                 data: {
-                    'start_registry_date': dateStart,
-                    'start_registry_time': timeStart,
-                    'end_registry_date': dateStop,
-                    'end_registry_time': timeStop,
+                    'start_registry_date': date_input_start,
+                    'start_registry_time': time_input_start,
+                    'end_registry_date': date_input_stop,
+                    'end_registry_time': time_input_stop,
                     'price': price,
                     'ticket_description' : desc,
                     'capacity': capacity,
                     'site': site,
-                    'mail': mail,
+                    'email': email,
                     'phone_arr': tels.map((elem, index) => {
                         return elem.val;
                     }),
@@ -314,26 +357,7 @@
         });
 
 
-        $.ajax({
-                type: 'get',
-                url: '{{ route('event.getPhase2Info',['event' => $id]) }}',
-                headers: {
-                 'accept': 'application/json'
-                },
-                success: function(res) {
-                        $('#time_input_start').val(res.start_registry_time);
-                        $('#date_input_start').val(res.start_registry_date);
-                        $('#time_input_stop').val(res.end_registry_time);
-                        $('#date_input_stop').val(res.end_registry_date);
-                        $('#setDateStart').val(res.start_registry_date + ' ' +  res.start_registry_date);
-                        $('#setDateStop').val(res.end_registry_date + ' ' +  res.end_registry_date);
-                        $('#desc').val(res.ticket_description);
-                        $('#price').val(res.price);
-                        $('#capacity').val(res.capacity);
-                        $('#site').val(res.site);
-                        $('#mail').val(res.mail);
-                }
-            });
+
         
     </script>
 @stop

@@ -250,7 +250,7 @@ class EventController extends Controller
             'price' => 'required|integer|min:0',
             'capacity' => 'nullable|integer|min:0',
             'site' => 'nullable|url',
-            'mail' => 'nullable|email',
+            'email' => 'nullable|email',
             'phone_arr' => 'nullable|array|min:1',
             'phone_arr.*' => 'required|numeric|digits_between:7,11',
         ];
@@ -261,11 +261,15 @@ class EventController extends Controller
         $request->validate($validator);
 
 
+        $phone_arr = [];
         if($request->has('phone_arr')) {
-            $phone_arr = [];
+            
             foreach($request['phone_arr'] as $p) {
                 array_push($phone_arr, $p);
             }
+            
+
+            $request['phone'] = implode('_', $phone_arr);
         }
 
 
@@ -278,13 +282,12 @@ class EventController extends Controller
                 'msg' => 'زمان آغاز باید کوچک تر از زمان پایان باشد'
             ]);
 
-        if($request['end_registry'] > $event->start)
-            return response()->json([
-                'status' => 'nok',
-                'msg' => 'زمان ثبت نام باید کوچک تر از زمان آغاز باشد'
-            ]);
-
-        $request['phone'] = implode('_', $phone_arr);
+            //todo: complete this section
+        // if($request['end_registry'] > $event->start)
+        //     return response()->json([
+        //         'status' => 'nok',
+        //         'msg' => 'زمان ثبت نام باید کوچک تر از زمان آغاز باشد'
+        //     ]);
 
         unset($request['start_registry_date']);
         unset($request['start_registry_time']);
