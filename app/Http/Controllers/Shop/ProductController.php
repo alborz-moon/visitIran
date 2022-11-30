@@ -12,6 +12,7 @@ use App\Http\Resources\ProductDigestUser;
 use App\Http\Resources\ProductFeatureResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\ProductResourceForUsers;
+use App\Http\Resources\ProductVeryDigestResouece;
 use App\Http\Resources\SellerResource;
 use App\Imports\ProductImport;
 use App\Models\Brand;
@@ -106,17 +107,21 @@ class ProductController extends ProductHelper
 
         $validator = [
             'key' => 'required|persian_alpha|min:2|max:15',
-            'category_id' => 'nullable|integer|exists:categories,id'
+            'category_id' => 'nullable|integer|exists:categories,id',
+            'return_type' => ['required', Rule::in(['digest', 'card'])]
         ];
         
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
         $request->validate($validator);
+        $products = Product::like($request['key'], 
+            $request->has('category_id') ? $request['category_id'] : null,
+            $request['return_type']
+        );
 
-        $products = Product::like($request['key'], $request->has('category_id') ? $request['category_id'] : null);
-        dd($products);
-
+        if($request['return_type'] == 'digest')
+            return ProductVeryDigestResouece::collection($products)->toArray($request);
     }
 
     /**
