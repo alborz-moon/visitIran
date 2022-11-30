@@ -25,6 +25,7 @@ class Event extends Model
         'status',
         'capacity',
         'address',
+        'postal_code',
         'email',
         'site',
         'phone',
