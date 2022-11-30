@@ -651,6 +651,7 @@
                     data.address = address;
                     data.x = x;
                     data.y = y;
+                    data.type = onlineOrOffline;
                 }else if (onlineOrOffline === "online"){
                     data.link = link;
                 }
@@ -662,7 +663,7 @@
                             if(res.status === "ok") {
                                 // alert("عملیات موردنظر با موفقیت انجام شد.");
                                 showSuccess("عملیات موردنظر با موفقیت انجام شد.");
-                                // window.location.href = '{{ route('addSessionsInfo') }}' + "/" + res.id;
+                                window.location.href = '{{ route('addSessionsInfo') }}' + "/" + res.id;
                             }
                             else {
                                 alert(res.msg);
@@ -682,92 +683,94 @@
 
                 setTimeout(checkFetchData, [500]);
 
-            @endif
+                    
+                function getPhase1Info() {
+                    $.ajax({
+                        type: 'get',
+                        url: '{{route('event.getPhase1Info',['event' => $id])}}',
+                        headers: {
+                            'accept': 'application/json'
+                        },
+                        success: function(res) {
+                            if(res.status === "ok") {
+                                if(res.data.length != 0) {
+                                    $('#eventName').val(res.data.title);
+                                    $('#ageCondi').val(res.data.age_description).change();
+                                    $('#level').val(res.data.level_description).change();
+                                    $('#address').val(res.data.address);
+                                    $('#postal_code').val(res.data.postal_code);
+                                    $('#onlineOrOffline').val(res.data.type).change();
+                                    x = res.data.x;
+                                    y = res.data.y;
+                                    var language = '';
+                                    if (res.data.language.length != 0){
+                                        for( var i = 0; i < res.data.language.length; i ++){
+                                            let elem = lang_arr.find(itr => itr.key == res.data.language[i]);
 
-            function getPhase1Info() {
-                $.ajax({
-                    type: 'get',
-                    url: '{{route('event.getPhase1Info',['event' => $id])}}',
-                    headers: {
-                        'accept': 'application/json'
-                    },
-                    success: function(res) {
-                        if(res.status === "ok") {
-                            if(res.data.length != 0) {
-                                $('#eventName').val(res.data.title);
-                                $('#ageCondi').val(res.data.age_description).change();
-                                $('#level').val(res.data.level_description).change();
-                                $('#address').val(res.data.address);
-                                $('#postal_code').val(res.data.postal_code);
-                                x = res.data.x;
-                                y = res.data.y;
-                                var language = '';
-                                if (res.data.language.length != 0){
-                                    for( var i = 0; i < res.data.language.length; i ++){
-                                        let elem = lang_arr.find(itr => itr.key == res.data.language[i]);
+                                            language = '<div id="' + idx +'" class="item-button spaceBetween colorBlack">' + elem.value +'';
+                                            language +='<button data-id="' + idx +'" class="remove-' + idx +'-btn btn btn-outline-light b-0">'; 
+                                            language += '<i class="ri-close-line"></i>';
+                                            language += '</button></div>';
 
-                                        language = '<div id="' + idx +'" class="item-button spaceBetween colorBlack">' + elem.value +'';
-                                        language +='<button data-id="' + idx +'" class="remove-' + idx +'-btn btn btn-outline-light b-0">'; 
-                                        language += '<i class="ri-close-line"></i>';
-                                        language += '</button></div>';
-
-                                        langList.push({
-                                            id: idx,
-                                            value: elem.key
-                                        });
+                                            langList.push({
+                                                id: idx,
+                                                value: elem.key
+                                            });
+                                        }
+                                        $("#addLang").append(language); 
                                     }
-                                    $("#addLang").append(language); 
-                                }
-                                var facilit = '';
-                                if (res.data.tags.length != 0){
-                                    for( var i = 0; i < res.data.tags.length; i++){
-                                        
-                                        let elem = tagsList.find(itr => itr.label == res.data.tags[i]);
-                                        
-                                        if(elem === undefined)
-                                            continue;
+                                    var facilit = '';
+                                    if (res.data.tags.length != 0){
+                                        for( var i = 0; i < res.data.tags.length; i++){
+                                            
+                                            let elem = tagsList.find(itr => itr.label == res.data.tags[i]);
+                                            
+                                            if(elem === undefined)
+                                                continue;
 
-                                        tags = '<div id="' + idx +'" class="item-button spaceBetween colorBlack">' + res.data.tags[i] +'';
-                                        tags +='<button data-id="' + idx +'" class="remove-' + idx +'-btn btn btn-outline-light b-0">'; 
-                                        tags += '<i class="ri-close-line"></i>';
-                                        tags += '</button></div>';
-                                        
-                                        topicList.push({
-                                            id: elem.id,
-                                            value: elem.label
-                                        });
+                                            tags = '<div id="' + idx +'" class="item-button spaceBetween colorBlack">' + res.data.tags[i] +'';
+                                            tags +='<button data-id="' + idx +'" class="remove-' + idx +'-btn btn btn-outline-light b-0">'; 
+                                            tags += '<i class="ri-close-line"></i>';
+                                            tags += '</button></div>';
+                                            
+                                            topicList.push({
+                                                id: elem.id,
+                                                value: elem.label
+                                            });
+                                        }
+                                        $("#addTopic").append(tags); 
                                     }
-                                    $("#addTopic").append(tags); 
-                                }
-                                                         if (res.data.tags.length != 0){
-                                    for( var i = 0; i < res.data.tags.length; i++){
-                                        
-                                        let elem = tagsList.find(itr => itr.label == res.data.tags[i]);
-                                        
-                                        if(elem === undefined)
-                                            continue;
-                                        $('input[name=facility]').each(function() {
-                                            if ($(this).is(":checked")) {
-                                                selectedFacility.push($(this).attr('id'));
-                                            }
-                                        });
-                                        
-                                        facilit += '<input type="checkbox" name="facility" id="' + res.data[i].id +'">';
-                                        facilit += '<label for="' + res.data[i].id +'" class="ml-0">' + res.data[i].label +'</label>'; 
-                                        
-                                        topicList.push({
-                                            id: elem.id,
-                                            value: elem.label
-                                        });
+                                                            if (res.data.tags.length != 0){
+                                        for( var i = 0; i < res.data.tags.length; i++){
+                                            
+                                            let elem = tagsList.find(itr => itr.label == res.data.tags[i]);
+                                            
+                                            if(elem === undefined)
+                                                continue;
+                                            $('input[name=facility]').each(function() {
+                                                if ($(this).is(":checked")) {
+                                                    selectedFacility.push($(this).attr('id'));
+                                                }
+                                            });
+                                            
+                                            facilit += '<input type="checkbox" name="facility" id="' + res.data[i].id +'">';
+                                            facilit += '<label for="' + res.data[i].id +'" class="ml-0">' + res.data[i].label +'</label>'; 
+                                            
+                                            topicList.push({
+                                                id: elem.id,
+                                                value: elem.label
+                                            });
+                                        }
+                                        $("#addTopic").append(facilit); 
                                     }
-                                    $("#addTopic").append(facilit); 
+                                    
                                 }
-                                
                             }
                         }
-                    }
-                });
-            }
+                    });
+                }
+            @endif
+
 
     </script>
 @stop
