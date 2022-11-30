@@ -50,13 +50,13 @@ class ProductHelper extends Controller {
         $filters_arr = [];
 
         if($cat != null)
-            array_push($filters_arr, ['category_id', $cat]);
+            array_push($filters_arr, ['category_id', explode(',', $cat)]);
             
         if($brand != null)
             array_push($filters_arr, ['brand_id', $brand]);
             
         if($seller != null)
-            array_push($filters_arr, ['seller_id', $seller]);
+            array_push($filters_arr, ['seller_id', explode(',', $seller)]);
             
         if($isInTopList != null)
             array_push($filters_arr, ['is_in_top_list', $isInTopList]);
@@ -158,6 +158,30 @@ class ProductHelper extends Controller {
             $first = true;
 
             foreach($filters_arr as $filter) {
+
+                if(count($filter) == 2 && is_array($filter[1])) {
+
+                    if($first) {
+                        $filters .= ' (';
+                        $first = false;
+                    }
+                    else
+                        $filters .= ' and (';
+
+                    $first_cluase = true;
+                    foreach($filter[1] as $itr) {
+                        if($first_cluase) {
+                            $first_cluase = false;
+                            $filters .= $filter[0] . ' = ' . $itr;
+                        }
+                        else {
+                            $filters .= ' or ' . $filter[0] . ' = ' . $itr;
+                        }
+                    }
+                    $filters .= ')';
+                    continue;
+                }
+
                 $op = count($filter) == 2 ? "=" : $filter[1];
                 if($first) {
                     $first = false;
@@ -180,6 +204,22 @@ class ProductHelper extends Controller {
             }
             else if($filter[0] == 'createdAt')
                 $filters->whereDate($filter[0], $filter[1]);
+            else if($filter[0] == 'category_id') {
+                $cats = $filter[1];
+                $filters->where(function ($query) use ($cats) {
+                    foreach($cats as $cat) {
+                        $query->orWhere('category_id', $cat);
+                    }
+                });
+            }
+            else if($filter[0] == 'seller_id') {
+                $sellers = $filter[1];
+                $filters->where(function ($query) use ($sellers) {
+                    foreach($sellers as $seller) {
+                        $query->orWhere('seller_id', $seller);
+                    }
+                });
+            }
             else if(is_array($filter[1]))
                 $filters->whereIn($filter[0], $filter[1]);
             else

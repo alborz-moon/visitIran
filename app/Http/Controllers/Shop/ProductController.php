@@ -138,7 +138,7 @@ class ProductController extends ProductHelper
     {
 
         $validator = [
-            'key' => 'nullable|persian_alpha|min:2|max:15',
+            'key' => 'nullable|persian_alpha|min:2|max:15'
         ];
 
         $validator = Validator::make($request->query(), $validator);
@@ -146,7 +146,6 @@ class ProductController extends ProductHelper
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-
 
         $limit = $request->query('limit', 8);
         $key = $request->query('key', null);
@@ -196,7 +195,6 @@ class ProductController extends ProductHelper
         }
 
         if($catId == null) {
-
             $categories = [];
             $allCategories = [];
          
