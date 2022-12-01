@@ -5,16 +5,12 @@ function buildQuery() {
     let query = new URLSearchParams();
     if (catId != "-1") query.append("parent", catId);
 
-    // let brand = $("#brandFilter").val();
     let off = $("#has_selling_offs").prop("checked") ? 1 : 0;
     let min = $("#has_selling_stock").prop("checked") ? 1 : 0;
     let minPrice = $("#skip-value-lower").val().replaceAll(",", "");
     let maxPrice = $("#skip-value-upper").val().replaceAll(",", "");
     let orderBy = $("#orderBy").val();
     let searchKey = $("#searchBoxInput").val();
-
-    // if(brand !== 'all')
-    //     query.append('brand', brand);
 
     if (min > 0) query.append("min", min);
 
@@ -46,6 +42,12 @@ function buildQuery() {
         if ($(this).prop("checked")) sellers.push($(this).attr("value"));
     });
     if (sellers.length > 0) query.append("seller", sellers);
+
+    let brands = [];
+    $("input[name='brands']").each(function () {
+        if ($(this).prop("checked")) brands.push($(this).attr("value"));
+    });
+    if (brands.length > 0) query.append("brand", brands);
 
     return query;
 }
@@ -94,17 +96,20 @@ function filter() {
                 .empty()
                 .append(res.count + " کالا");
 
-            html = "";
+            if (firstRequest) {
+                html = "";
+                for (var i = 0; i < res.brands.length; i++) {
+                    html += '<li class="form-check">';
+                    html +=
+                        '<input name="brands" class="form-check-input" type="checkbox" value="' +
+                        res.brands[i]["id"] +
+                        '" />' +
+                        res.brands[i]["name"];
+                    html += "</li>";
+                }
 
-            for (var i = 0; i < res.brands.length; i++) {
-                html += '<li class="form-check">';
-                html +=
-                    '<input class="form-check-input" type="checkbox" value="" />' +
-                    res.brands[i]["name"];
-                html += "</li>";
+                $("#brands").empty().append(html);
             }
-
-            $("#brands").empty().append(html);
 
             if (
                 res.categories !== undefined &&
@@ -241,6 +246,9 @@ $(document).ready(function () {
         filter();
     });
     $(document).on("change", "input[name='sellers']", function () {
+        filter();
+    });
+    $(document).on("change", "input[name='brands']", function () {
         filter();
     });
 });

@@ -53,7 +53,7 @@ class ProductHelper extends Controller {
             array_push($filters_arr, ['category_id', explode(',', $cat)]);
             
         if($brand != null)
-            array_push($filters_arr, ['brand_id', $brand]);
+            array_push($filters_arr, ['brand_id', explode(',', $brand)]);
             
         if($seller != null)
             array_push($filters_arr, ['seller_id', explode(',', $seller)]);
@@ -204,7 +204,7 @@ class ProductHelper extends Controller {
             }
             else if($filter[0] == 'createdAt')
                 $filters->whereDate($filter[0], $filter[1]);
-            else if($filter[0] == 'category_id') {
+            else if($filter[0] == 'category_id' && is_array($filter[1])) {
                 $cats = $filter[1];
                 $filters->where(function ($query) use ($cats) {
                     foreach($cats as $cat) {
@@ -212,11 +212,19 @@ class ProductHelper extends Controller {
                     }
                 });
             }
-            else if($filter[0] == 'seller_id') {
+            else if($filter[0] == 'seller_id' && is_array($filter[1])) {
                 $sellers = $filter[1];
                 $filters->where(function ($query) use ($sellers) {
                     foreach($sellers as $seller) {
                         $query->orWhere('seller_id', $seller);
+                    }
+                });
+            }
+            else if($filter[0] == 'brand_id' && is_array($filter[1])) {
+                $brands = $filter[1];
+                $filters->where(function ($query) use ($brands) {
+                    foreach($brands as $brand) {
+                        $query->orWhere('brand_id', $brand);
                     }
                 });
             }

@@ -14,7 +14,16 @@
     <meta name="description" content="از ایران ویزیت"/>
 
     <style>
+        .top-cat::before {
+            content: none !important;
+        }
 
+        .down-arrow::before {
+            content: "\EA76" !important;
+        }
+        #top-categories-parent {
+            cursor: pointer;
+        }
     </style>
 
     <meta name="keywords" content="از ایران ویزیت" />
@@ -26,6 +35,7 @@
         let HOME_API = '{{ route('home') }}';
         
         let catId = '{{ isset($id) ? $id : -1 }}';
+
     </script>
 @stop
 @section('content')
@@ -58,21 +68,26 @@
                                     </div>
                                     <div id="total_count" class="colorBlue fontSize12 align-self-center"></div>
                                     <div class="widget-content widget--category-results">
-                                        <ul>
-                                            <li class="category--arrow-left">
-                                                <a href="#">دسته بندی کالا ها</a>
-                                                <ul>
-                                                    <li class="category--arrow-down">
-                                                        @if(isset($parent) && $parent != null)
-                                                            <a href="{{ $parent['href'] }}">{{ $parent['label'] }}</a>
-                                                        @endif
-                                                        <ul>
-                                                            <li class="current">{{ $name }}</li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                        
+                                        @if(isset($tops))
+                                            <ul>
+                                                <li class="category--arrow-left">
+                                                    <a data-drop-down="false" id="top-categories-parent">دسته بندی کالا ها</a>
+                                                    <ul id="top-categories-container" class="hidden">
+                                                        {{-- <li class="category--arrow-down"> --}}
+                                                            {{-- @if(isset($parent) && $parent != null)
+                                                                <a href="{{ $parent['href'] }}">{{ $parent['label'] }}</a>
+                                                            @endif --}}
+                                                            {{-- <ul> --}}
+                                                            @foreach ($tops as $top)
+                                                                <a class="top-cat" href="{{ route('single-category', ['category' => $top['id'], 'slug' => $top['slug']]) }}">{{ $top['name'] }}</a>
+                                                            @endforeach
+                                                            {{-- </ul> --}}
+                                                        {{-- </li> --}}
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        @endif
                                     </div>
                                 </div>
                             <!-- start of widget -->
@@ -437,7 +452,18 @@
 
 
         $(document).ready(function() {
-            
+                
+            $("#top-categories-parent").on('click', function() {
+                if($(this).attr('data-drop-down') === 'true') {
+                    $("#top-categories-container").addClass('hidden');
+                    $(this).attr('data-drop-down', 'false').removeClass('down-arrow');
+                }
+                else {
+                    $("#top-categories-container").removeClass('hidden');
+                    $(this).attr('data-drop-down', 'true').addClass('down-arrow');
+                }
+            });
+
             filter();
 
             init_lazy_loading('products_div', 400, fetchMore);

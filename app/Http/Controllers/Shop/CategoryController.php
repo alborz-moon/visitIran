@@ -138,13 +138,13 @@ class CategoryController extends Controller
     
     public function allCategories(string $orderBy, Request $request) {
         
-        
         return view('shop.list', [
             'path' => [],
             'orderBy' => $orderBy,
             'name' => 'تازه ترین ها',
             'features' => [],
-            'has_sub' => false
+            'has_sub' => false,
+            'tops' => CategoryVeryDigest::collection(Category::head()->get())->toArray($request)
         ]);
 
     }
