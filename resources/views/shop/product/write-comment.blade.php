@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-            <div class="d-felx felxDirectionColumn">
+            <div class="d-felx flexDirectionColumn">
             <div class="d-flex">
                 <h5 class="modal-title" id="commentModalLabel">دیدگاه شما</h5>       
             </div>                                     

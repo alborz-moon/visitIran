@@ -1,4 +1,4 @@
-<div class="w-100 overFlowHidden TopParentBannerMoveOnTop">
+<div class="w-100 overFlowHidden marginTop0 TopParentBannerMoveOnTop">
     <!-- start of main-slider -->
     <div class="swiper main-swiper-slider">
         <!-- Additional required wrapper -->

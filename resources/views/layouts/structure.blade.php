@@ -197,7 +197,7 @@
             <!-- end of page-header-top -->
         </header>
         <!-- end of page-header -->
-        <header class="page-header-responsive d-md-none p-0">
+        <header class="page-header-responsive d-md-none p-0 zIndex1">
             {{-- @include('layouts.top-banner') --}}
             <!-- start banner -->
             <div class="alert banner-container alert-dismissible fade show showTopBanner hidden" role="alert" id="topBanner">
@@ -208,7 +208,7 @@
             <!-- end banner -->
             <div class="page-header-responsive-row">
                 <div class="d-flex align-items-center">
-                    <div class="navigation-container">
+                    <div class="navigation-container zIndex5">
                         <div class="navigation">
                             <div class="navigation-header">
                                 <div class="logo-container logo-box p-0">
@@ -262,50 +262,59 @@
                         </div>
                         <div class="navigation-overlay"></div>
                     </div>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center flex-grow-1 pe-3 position-relative">
-                            <div class="logo-container logo-box customLogoBoxInMobile me-3 positionAbsolute logoImgFromTop">
-                                    <img src="{{ asset('theme-assets/images/menuImage.png') }}"  width="70" alt="">
+                     <div class="d-flex align-items-center flex-grow-1 pe-3 zIndex3 position-relative">
+                            <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop">
+                                    <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="70" alt="">
                             </div>
-                            <div class="marginFromRightHeaderMobile">
+                            <div class="marginFromRightHeader">
                                 <div class="notification-item--text colorYellow bold"> ویزیت ایران </div>
-                                <div class="notification-item--text fontSize10 bold"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
+                                <div class="notification-item--text fontSize12 bold"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="toggle-navigation"></button>
-            </div>
-            <div class="page-header--top backGray">
-                <div class="container">
-                    <div class="d-flex align-items-center justify-content-between" style="height: 50px">
-                        <div class="page-header--top-right d-flex gap10">
-                            <a href="profile.html" class="user-option-btn user-option-btn--search gap10">
-                                <img class="customIconHeadLine" src="{{ asset('theme-assets/images/svg/search.svg') }}" alt="">
-                            </a>
-                            <a href="{{route('cart')}}" class="user-option-btn user-option-btn--cart customBasket">
-                                <img class="customIconHeadLine" src=""{{ asset('theme-assets/images/svg/basket.svg') }} alt="">
-                            </a>
-                        </div>
-                        <div class="page-header--top-left">
-                            @if(!Auth::check())
-                                <a href="{{ route('login-register') }}" class="user-option-btn user-option-btn--account gap10 d-flex btnHover">
-                                    <span class=" d-flex colorWhite fontSize10 align-self-center pl-2"> 
-                                        <i class="icon-visit-person customHeader"></i>ورود / ثبت نام 
-                                    </span>
-                                </a>
-                            @else
-                                <a href="{{ route('profile') }}" class="user-option-btn user-option-btn--account gap10 d-flex btnHover">
-                                    <span class=" d-flex colorWhite fontSize10 align-self-center pl-2"> 
-                                        <i class="icon-visit-person customHeader"></i>صفحه شخصی
-                                    </span>
-                                </a>
-                            @endif
-                        </div>
                     </div>
                 </div>
             </div>
         </header>
+        <div class="d-md-none p-0 wrapperMobileMenu">
+            <div class="mobileMenu">
+                <div class="customMobileMenuBoxShadow w-100 h-100">
+                    <div class="d-flex justify-content-center gap30">
+                        <button  class="d-flex b-0 m-0 p-0 toggle-navigation">
+                            <div class="menuCircle">
+                                    <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
+                                        <i class="icon-visit-menu fontSize30 colorBlack"></i>
+                                        <div class="fontSize14 colorBlack">منو</div>
+                                    </div>
+                            </div>
+                        </button>
+                        <a href="" class="d-flex b-0 m-0 p-0">
+                            <div class="menuCircle">
+                                <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
+                                    <i class="icon-visit-search colorBlack fontSize30"></i>
+                                    <div class="fontSize14 colorBlack">جستوجو</div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="" class="d-flex b-0 m-0 p-0">
+                            <div class="menuCircle">
+                                <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
+                                    <i class="icon-visit-basket fontSize30 colorYellow"></i>
+                                    <div class="fontSize14 colorBlack">سبد خرید</div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="" class="d-flex b-0 m-0 p-0">
+                            <div class="menuCircle">
+                                <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
+                                    <i class="icon-visit-person fontSize30 colorBlack"></i>
+                                    <div class="fontSize14 colorBlack whiteSpaceNoWrap">ورود/ثبت نام</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @include('layouts.mobile-menu')
         @include('shop.layouts.modal-search')
         <div class="hidden" id="sample-mini-cart-products">
             @include('shop.product.mini_card')
@@ -476,6 +485,9 @@
                       }
                   }
               });
+              const popover = new bootstrap.Popover('.example-popover', {
+                  container: 'body'
+                })
     </script>   
     @section('extraJS')
     @show
