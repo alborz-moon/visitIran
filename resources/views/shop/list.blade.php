@@ -160,29 +160,14 @@
                                 </div>
                                 <!-- end of widget -->
                                 <!-- start of widget -->
-                                <div class="widget widget-collapse mb-3">
+                                <div id="categories_filter_container" class="widget widget-collapse mb-3">
                                     <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
                                         data-bs-target="#collapseGrouping" aria-expanded="false"
                                         aria-controls="collapseGrouping" role="button">دسته بندی <i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span></div>
                                     <div class="widget-content widget--search collapse" id="collapseGrouping">
-                                        <form action="#" class="pt-2">
-                                            <div class="filter-options do-simplebar pt-2 mt-2">
-                                                @foreach ($features as $feature)
-                                                    <div class="parent form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""/>{{ $feature['name'] }}
-                                                        <ul class="child form-check">
-                                                            @foreach ($feature['choices'] as $choice)
-                                                                <li class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value="" />{{ $choice['key'] }}
-                                                                </li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </div>
-                                                @endforeach
-                                                <div id="brands"></div>
-                                                <div id="sellers"></div>
-                                            </div>
-                                        </form>
+                                        <div class="filter-options do-simplebar pt-2 mt-2">
+                                            <div id="categories"></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- start of widget -->

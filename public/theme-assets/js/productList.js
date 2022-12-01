@@ -1,4 +1,5 @@
 let page = 1;
+let firstRequest = true;
 
 function buildQuery() {
     let query = new URLSearchParams();
@@ -33,6 +34,18 @@ function buildQuery() {
     }
 
     if (searchKey !== "") query.append("key", searchKey);
+
+    let categories = [];
+    $("input[name='categories']").each(function () {
+        if ($(this).prop("checked")) categories.push($(this).attr("value"));
+    });
+    if (categories.length > 0) query.append("category", categories);
+
+    let sellers = [];
+    $("input[name='sellers']").each(function () {
+        if ($(this).prop("checked")) sellers.push($(this).attr("value"));
+    });
+    if (sellers.length > 0) query.append("seller", sellers);
 
     return query;
 }
@@ -81,7 +94,7 @@ function filter() {
                 .empty()
                 .append(res.count + " کالا");
 
-            html = '<div class="parent form-check">';
+            html = "";
 
             for (var i = 0; i < res.brands.length; i++) {
                 html += '<li class="form-check">';
@@ -93,42 +106,46 @@ function filter() {
 
             $("#brands").empty().append(html);
 
-            if (res.categories !== undefined && res.categories != null) {
-                html = '<div class="parent form-check">';
-                // html +=
-                //     '<input class="form-check-input" type="checkbox" value=""/>دسته بندی';
-                // html += '<ul class="child form-check">';
-
-                for (var i = 0; i < res.brands.length; i++) {
+            if (
+                res.categories !== undefined &&
+                res.categories != null &&
+                firstRequest
+            ) {
+                html = "";
+                for (var i = 0; i < res.categories.length; i++) {
                     html += '<li class="form-check">';
                     html +=
-                        '<input class="form-check-input" type="checkbox" value="" />' +
-                        res.brands[i]["name"];
+                        '<input name="categories" class="form-check-input" type="checkbox" value="' +
+                        res.categories[i]["id"] +
+                        '" />' +
+                        res.categories[i]["name"];
+                    html += "</li>";
+                }
+                $("#categories_filter_container").removeClass("hidden");
+                $("#categories").empty().append(html);
+            } else if (
+                (res.categories === undefined || res.categories == null) &&
+                firstRequest
+            ) {
+                $("#categories_filter_container").addClass("hidden");
+            }
+
+            if (firstRequest) {
+                html = "";
+                for (var i = 0; i < res.sellers.length; i++) {
+                    html += '<li class="form-check">';
+                    html +=
+                        '<input name="sellers" class="form-check-input" type="checkbox" value="' +
+                        res.sellers[i]["id"] +
+                        '" />' +
+                        res.sellers[i]["name"];
                     html += "</li>";
                 }
 
-                // html += "</ul>";
-                // html += "</div>";
-                $("#brands").empty().append(html);
+                $("#sellers").empty().append(html);
             }
 
-            html = '<div class="parent form-check">';
-            html +=
-                '<input class="form-check-input" type="checkbox" value=""/>فروشنده';
-            html += '<ul class="child form-check">';
-
-            for (var i = 0; i < res.sellers.length; i++) {
-                html += '<li class="form-check">';
-                html +=
-                    '<input class="form-check-input" type="checkbox" value="" />' +
-                    res.sellers[i]["name"];
-                html += "</li>";
-            }
-
-            html += "</ul>";
-            html += "</div>";
-
-            $("#sellers").empty().append(html);
+            if (firstRequest) firstRequest = false;
         },
     });
 }
@@ -218,3 +235,12 @@ function renderProducts(data, prefix) {
 function redirect(id, name) {
     window.open(HOME_API + "/product/" + id + "/" + name, "_blank");
 }
+
+$(document).ready(function () {
+    $(document).on("change", "input[name='categories']", function () {
+        filter();
+    });
+    $(document).on("change", "input[name='sellers']", function () {
+        filter();
+    });
+});
