@@ -1,57 +1,63 @@
 <!-- start of personal-info-fullname-modal -->
     <div class="remodal remodal-xl" data-remodal-id="search-modal"
         data-remodal-options="hashTracking: false">
-        <div class="remodal-header">
-            <div class="label fs-7">جستوجو کنید</div>
-            <button data-remodal-action="close" class="remodal-close"></button>
-        </div>
         <div class="remodal-content">
             <div class="search-container">
-                  <form action="#" class="search-form">
-                    <input type="text" class="form-control search-field" placeholder="جستجو کنید..">
-                    <button class="btn btn-primary btn-search btn-action b-0">
-                      <i class="ri-search-2-line"></i>
-                    </button>
-                    <button class="btn btn-primary btn-close-search-result btn-action d-none">
-                      <i class="ri-close-line"></i>
-                    </button>
-                  </form>
-                  <div class="search-result-container">
-                    <div class="search-result-tags-container">
-                      <div class="search-result-tags-label">
-                        <i class="ri-fire-line"></i> بیشترین جستجوهای اخیر
-                      </div>
-                      <ul class="search-result-tags">
-                        <li>
-                          <a href="#" class="search-result-tag">گوشی موبایل</a>
-                        </li>
-                        <li>
-                          <a href="#" class="search-result-tag">لوازم خانگی برقی</a>
-                        </li>
-                        <li>
-                          <a href="#" class="search-result-tag">لپ تاپ</a>
-                        </li>
-                        <li>
-                          <a href="#" class="search-result-tag">کنسول بازی</a>
-                        </li>
-                        <li>
-                          <a href="#" class="search-result-tag">دوچرخه</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="border-bottom my-3"></div>
-                    <ul class="search-result-items">
-                      <li><a href="#">گوشی موبایل</a></li>
-                      <li><a href="#">گوشی موبایل شیائومی</a></li>
-                      <li><a href="#">گوشی موبایل سامسونگ</a></li>
-                      <li><a href="#">قاب گوشی موبایل</a></li>
-                      <li><a href="#">گوشی موبایل اپل</a></li>
-                    </ul>
-                  </div>
+              <form action="#" class="search-form">
+                <input id="searchInput" type="text" class="form-control search-field marginLeft48" placeholder="جستجو کنید..">
+              </form>
+              
+            </div>
+            <button id="searchBtn" data-remodal-action="close" class="btn-search btn-action b-0 customSearch colorblue d-flex">
+              <i class="icon-visit-close customSearch"></i>
+            </button>
+            <div class="d-flex flexwrap gap10 my-3">
+              <a href="#" class="btn btn-primary backgroundColorBlue ">
+                لورم
+              </a>
+              <a href="#" class="btn btn-primary backgroundColorBlue ">
+                لورم لورم
+              </a>
+              <a href="#" class="btn btn-primary backgroundColorBlue ">
+                لورم لورم لورم
+              </a>
+              <a href="#" class="btn btn-primary backgroundColorBlue ">
+                لورم
+              </a>
+            </div>
+            <hr>
+            <div class="d-flex my-2 padding15">
+                <div class="icon-visit-search fontSize15 padding5"></div>
+                <div class="d-flex flexDirectionColumn">
+                    <a href="#" class="fontSize14 colorBlack">
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
+                    </a>
+                    <div class="fontSize12 colorBlue">در فرش دست بافت</div>
                 </div>
-        </div>
-        <div class="remodal-footer">
-            <button id="stopSessionBtn" class="btn btn-sm btn-primary px-3">مشاهده نتایج یا بستن</button>
+            </div>
+            <div class="d-flex my-2 padding15">
+                <div class="icon-visit-search fontSize15 padding5"></div>
+                <div class="d-flex flexDirectionColumn">
+                    <a href="#" class="fontSize14 colorBlack">
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
+                    </a>
+                    <div class="fontSize12 colorBlue">در فرش دست بافت</div>
+                </div>
+            </div>
+            <div class="d-flex my-2 padding15">
+                <div class="icon-visit-search fontSize15 padding5"></div>
+                <div class="d-flex flexDirectionColumn">
+                    <a href="#" class="fontSize14 colorBlack">
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است
+                    </a>
+                    <div class="fontSize12 colorBlue">در فرش دست بافت</div>
+                </div>
+            </div>
         </div>
     </div>
 <!-- end of personal-info-fullname-modal -->
+<script>
+  $('#searchInput').on('change',function(){
+    $('#searchBtn').css('display','flex');
+  });
+</script>

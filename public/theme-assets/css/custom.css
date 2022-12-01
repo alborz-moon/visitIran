@@ -224,6 +224,36 @@ ul {
 .padding2 {
     padding: 2px;
 }
+.wrapperMobileMenu {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 20;
+}
+.customMobileMenuBoxShadow {
+    box-shadow: 0px -3px 20px 0px #00000040;
+}
+.mobileMenu {
+    background-color: #efefef;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+}
+.menuCircle {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    margin-top: -30px;
+    background-color: white;
+    box-shadow: 0 0px 6px 0 #00000040;
+}
 .borderNone {
     border: none !important;
 }
@@ -257,6 +287,12 @@ ul {
 }
 .zIndex0 {
     z-index: 0;
+}
+.zIndex5 {
+    z-index: 5;
+}
+.zIndex6 {
+    z-index: 6;
 }
 .hidden {
     display: none !important;
@@ -381,6 +417,13 @@ ul {
 .marginTop10 {
     margin-top: 10px;
 }
+.marginLeft48 {
+    margin-left: 48px;
+}
+.example-popover {
+    max-width: 100%;
+    height: 100%;
+}
 .opacity1 {
     opacity: 1 !important;
 }
@@ -392,6 +435,14 @@ ul {
     width: 100px !important;
     height: 60px !important;
     object-fit: contain;
+}
+.customSearch::before {
+    font-size: 40px;
+    line-height: 47px;
+    color: #00b2bc;
+    position: absolute;
+    top: 17px;
+    left: 19px;
 }
 .boxGallery {
     display: flex;
@@ -592,6 +643,12 @@ table thead {
 .gap15 {
     gap: 15px;
 }
+.gap30 {
+    gap: 30px;
+}
+.gap45 {
+    gap: 45px;
+}
 .form-check-input:checked {
     background-color: #00b2bc;
     border-color: #00b2bc;
@@ -628,6 +685,9 @@ table thead {
 }
 .customPaddingTopBottom10 {
     padding: 10px 0;
+}
+.paddingTop15 {
+    padding-top: 15px;
 }
 .backgroundColorBlue {
     background-color: #00b2bc !important;
@@ -818,7 +878,7 @@ table thead {
 .alignSelfEnd {
     align-self: end;
 }
-.felxDirectionColumn {
+.flexDirectionColumn {
     flex-direction: column;
 }
 .dz-image::before {
@@ -1186,6 +1246,12 @@ z .dz-image::before :hover {
     border-bottom-right-radius: 10px;
     box-shadow: 0px 5px 17px 4px #00000029 !important;
 }
+.padding5 {
+    padding: 5px;
+}
+.padding15 {
+    padding: 15px;
+}
 .heightMobileViewAuth {
     height: 50px !important;
 }
@@ -1295,7 +1361,8 @@ select:focus-visible {
     width: 650px;
     height: 380px;
     overflow: hidden;
-    background-size: cover;
+    background-size: contain;
+    object-fit: contain;
 }
 .mx-n15 {
     margin-left: -15px;
@@ -1530,7 +1597,16 @@ figure .ck-widget {
 }
 @media (max-width: 768px) {
     .mt-md-110 {
-        margin-top: -50px;
+        margin-top: 0px;
+    }
+    .TopParentBannerMoveOnTop {
+        margin-top: 0;
+    }
+    .custom-swiper-container {
+        height: auto !important;
+    }
+    .marginTop0 {
+        margin-top: 0 !important;
     }
     .marginTopMediaQuaryForSlider {
         margin-top: 42px;
@@ -1785,6 +1861,12 @@ figure .ck-widget {
     /* .ui-sticky {
         position: inherit;
     } */
+    .marginFromRightHeader {
+        margin-right: 105px;
+    }
+    .logo-container.logo-box {
+        min-width: 100px !important;
+    }
     .customEventImgSizeSlider {
         width: 100%;
         height: auto;

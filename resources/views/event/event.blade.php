@@ -93,7 +93,7 @@
                                                 <div class="userCircleSize backgroundYellow mx-3 position-relative">
                                                     <i class="icon-visit-organization fontSize28 colorWhite position-absolute padding10 "></i>
                                                 </div>
-                                                <div class="d-flex felxDirectionColumn marginTop8">
+                                                <div class="d-flex flexDirectionColumn marginTop8">
                                                     <div class="fontSize15 bold colorBlack">Onix code</div>
                                                     <div class="d-flex mt-2">
                                                         <div class=" align-items-center px-2 px-2 fontSize15 colorYellow"><i class=" fontSize15 icon-visit-star me-1 fontSize14 verticalAlign-2"></i> 4.9</div>
@@ -393,7 +393,7 @@
                                     
                                         <div class="d-flex align-items-center mb-4">
                                             <div class="userCircleSize backgroundYellow mx-3"></div>
-                                            <div class="d-flex felxDirectionColumn">
+                                            <div class="d-flex flexDirectionColumn">
                                                 <div class="d-flex mt-2">
                                                     <div class="fontSize15 bold colorBlack">Onix code</div>
                                                     <div class=" align-items-center px-2 px-2 fontSize15 colorYellow"><i class=" fontSize15 icon-visit-star me-1 fontSize14 verticalAlign-2"></i> 4.9</div>
