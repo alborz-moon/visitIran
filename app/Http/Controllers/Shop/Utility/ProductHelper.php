@@ -44,6 +44,7 @@ class ProductHelper extends Controller {
         $minPrice = $request->query('minPrice', null);
         $off = $request->query('off', null);
         $comment = $request->query('comment', null);
+        $features = $request->query('features', null);
 
         $fromCreatedAt = $request->query('fromCreatedAt', null);
         $toCreatedAt = $request->query('toCreatedAt', null);
@@ -52,6 +53,9 @@ class ProductHelper extends Controller {
         if($cat != null)
             array_push($filters_arr, ['category_id', explode(',', $cat)]);
             
+        if($features != null)
+            array_push($filters_arr, ['features', explode(',', $features)]);
+
         if($brand != null)
             array_push($filters_arr, ['brand_id', explode(',', $brand)]);
             
@@ -227,6 +231,20 @@ class ProductHelper extends Controller {
                         $query->orWhere('brand_id', $brand);
                     }
                 });
+            }
+            else if($filter[0] == 'features' && is_array($filter[1])) {
+                
+                $features = $filter[1];
+                foreach($features as $feature) {
+                    $feature = explode('_', $feature);
+                    $filters->whereHas('productFeatures', function ($query) use ($feature) {
+                        $query->where('category_feature_id', $feature[0])
+                        ->where('value', 'like', "%" . $feature[1] . "%")
+                        ;
+                    });
+                }
+
+                
             }
             else if(is_array($filter[1]))
                 $filters->whereIn($filter[0], $filter[1]);

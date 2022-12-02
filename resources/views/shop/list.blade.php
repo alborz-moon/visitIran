@@ -98,24 +98,13 @@
                                     <div class="widget-content widget--search collapse" id="collapseGrouping9">
                                         <form action="#" class="pt-2">
                                             <div class="filter-options do-simplebar pt-2 mt-2">
-                                                {{-- @foreach ($features as $feature)
-                                                    <div class="parent form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""/>{{ $feature['name'] }}
-                                                        <ul class="child form-check">
-                                                            @foreach ($feature['choices'] as $choice)
-                                                                <li class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value="" />{{ $choice['key'] }}
-                                                                </li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </div>
-                                                @endforeach --}}
                                                 <div id="sellers"></div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                                 <!-- start of widget -->
+
                                 <!-- start of widget -->
                                 <div class="widget widget-collapse mb-3">
                                     <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
@@ -124,19 +113,6 @@
                                     <div class="widget-content widget--search collapse" id="collapseGrouping8">
                                         <form action="#" class="pt-2">
                                             <div class="filter-options do-simplebar pt-2 mt-2">
-                                                {{-- @foreach ($features as $feature)
-                                                    <div class="parent form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""/>{{ $feature['name'] }}
-                                                        <ul class="child form-check">
-                                                            @foreach ($feature['choices'] as $choice)
-                                                                <li class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value="" />{{ $choice['key'] }}
-                                                                </li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </div>
-                                                @endforeach --}}
-
                                                 <div id="brands"></div>
                                             </div>
                                         </form>
@@ -174,6 +150,7 @@
                                     </div>
                                 </div>
                                 <!-- end of widget -->
+
                                 <!-- start of widget -->
                                 <div id="categories_filter_container" class="widget widget-collapse mb-3">
                                     <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
@@ -185,6 +162,30 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- end of widget -->
+
+                                @if(isset($features) && count($features) > 0)
+                                    <!-- start of widget -->
+                                    <div id="categories_filter_container" class="widget widget-collapse mb-3">
+                                        <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseGrouping" aria-expanded="false"
+                                            aria-controls="collapseGrouping" role="button">ویژگی ها <i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span></div>
+                                        <div class="widget-content widget--search collapse" id="collapseGrouping">
+                                            <div class="filter-options do-simplebar pt-2 mt-2">
+                                                @foreach ($features as $feature)
+                                                    <select name="feature_filter" data-id="{{ $feature['id'] }}" onchange="filter()" id="feature_{{ $feature['id'] }}">
+                                                        <option value="all">{{ $feature['name'] }}</option>
+                                                        @foreach ($feature['choices'] as $choice)
+                                                            <option value="{{ $choice['key'] }}">{{ $choice['key'] }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end of widget -->
+                                @endif
+
                                 <!-- start of widget -->
                                 <div class="widget widget-collapse">
                                     <div class="widget-title widget-title--collapse-btn" data-bs-toggle="collapse"

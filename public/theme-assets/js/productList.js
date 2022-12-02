@@ -49,6 +49,15 @@ function buildQuery() {
     });
     if (brands.length > 0) query.append("brand", brands);
 
+    var features = [];
+    $("select[name='feature_filter']").each(function () {
+        var selected = $(this).find(":selected").val();
+        if (selected === "all") return;
+        var featureId = $(this).attr("data-id");
+        features.push(featureId + "_" + selected);
+    });
+    if (features.length > 0) query.append("features", features);
+
     return query;
 }
 

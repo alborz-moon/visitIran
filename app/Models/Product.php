@@ -57,6 +57,10 @@ class Product extends Model
     public function comments() {
         return $this->hasMany(Comment::class);
     }
+    
+    public function productFeatures() {
+        return $this->hasMany(ProductFeatures::class);
+    }
 
     public function scopeVisible($query) {
         return $query->where('visibility', true);
