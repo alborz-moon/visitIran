@@ -25,7 +25,6 @@
     @include('sections.top_categories_products', ['href' => 'www.google.com'])
 
     @include('layouts.news')
-    <!-- end of box => categories-slider -->
             
 @stop
 

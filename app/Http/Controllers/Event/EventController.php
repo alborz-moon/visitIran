@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\EventPhase1Resource;
 use App\Http\Resources\EventPhase2Resource;
 use App\Http\Resources\EventUserDigest;
+use App\Http\Resources\EventUserResource;
+use App\Models\Config;
 use App\Models\Event;
+use App\Models\EventComment;
 use App\Models\EventTag;
 use App\Models\Facility;
 use App\Models\State;
@@ -331,9 +334,43 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function show(Event $event)
+    public function show(Request $request, Event $event, string $slug)
     {
-        //
+        // if(!$event->visibility ||
+        //     ($event->slug != null && $slug != $event->slug) ||
+        //     ($event->slug == null && $slug != $event->name)
+        // )
+        //     return Redirect::route('403');
+
+        $event->seen = $event->seen + 1;
+        $event->save();
+
+        $user = $request->user();
+        
+        if($user == null)
+            return view('event.event', [
+                'event' => array_merge(
+                    EventUserResource::make($event)->toArray($request), [
+                        'is_bookmark' => false,
+                        'user_rate' => null,
+                        'has_comment' => false,
+                    ]), 
+                    'critical_point' => Config::where('site', 'event')->first()->critical_point,
+                    'is_login' => false,
+            ]);
+
+        $comment = EventComment::userComment($event->id, $user->id);
+        return view('event.event', [
+            'event' => array_merge(
+                EventUserResource::make($event)->toArray($request), 
+                [
+                    'is_bookmark' => $comment != null && $comment->is_bookmark != null ? $comment->is_bookmark : false,
+                    'user_rate' => $comment != null ? $comment->rate : null,
+                    'has_comment' => $comment != null && $comment->msg != null,
+                ]), 
+                'is_login' => true,
+                'critical_point' => Config::where('site', 'event')->first()->critical_point,
+        ]);
     }
 
 

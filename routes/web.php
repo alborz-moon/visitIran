@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['shareTopCategories'])->group(function() {
 
-
     Route::domain(Controller::$SHOP_SITE)->group(function() {
 
         Route::view('/', 'shop.welcome')->name('home');
@@ -135,7 +134,7 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
 
     Route::view('/', 'event.welcome')->name('event.home');
 
-    Route::view('/event','event.event')->name('event');
+    Route::get('/event/{event}/{slug}', [EventController::class, 'show'])->name('event');
 
     Route::view('/follow','event.follow')->name('follow');
 
@@ -223,7 +222,6 @@ Route::get('/contact-us', function () {
 Route::view('profile', 'profile')->name('profile');
 
 Route::get('/404', function ($request) {
-	dd($request->getHost());
     return view('404');
 })->name('404');
 

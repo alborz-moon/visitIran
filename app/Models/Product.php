@@ -202,8 +202,6 @@ class Product extends Model
                     ->orWhereNull('user_id');
             })->orderBy('amount', 'desc')->get();
 
-        // dd($this->seller_id);
-
         if($off != null && count($off) > 0) {
             return [
                 'type' => $off[0]->off_type,

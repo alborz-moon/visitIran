@@ -1,75 +1,78 @@
+function setProductVals(prefix, elem) {
+    $("#" + prefix + "Img")
+        .attr("src", elem.img)
+        .attr("alt", elem.alt);
+
+    $("#" + prefix + "Header").text(elem.name);
+
+    if (elem.category !== "") {
+        $("#" + prefix + "Tag").removeClass("hidden");
+        $("#" + prefix + "Tag").text(elem.category);
+    } else {
+        $("#" + prefix + "Tag").addClass("hidden");
+    }
+
+    if (elem.seller !== "" && elem.seller != null) {
+        $("#" + prefix + "SellerParent").removeClass("hidden");
+        $("#" + prefix + "Seller").text(elem.seller);
+    } else {
+        $("#" + prefix + "SellerParent").addClass("hidden");
+        $("#" + prefix + "Seller").text("");
+    }
+
+    let starHtml = "";
+
+    for (let i = 0; i < 5 - elem.rate; i++)
+        starHtml += '<i class="icon-visit-staroutline"></i>';
+
+    for (let i = 0; i < elem.rate; i++)
+        starHtml += '<i class="icon-visit-star"></i>';
+
+    $("#" + prefix + "Rate")
+        .empty()
+        .append(starHtml);
+
+    if (elem.has_multi_color)
+        $("#" + prefix + "MultiColor").removeClass("hidden");
+    else $("#" + prefix + "MultiColor").addClass("hidden");
+
+    let zeroAvailableCount = false;
+
+    if (elem.is_in_critical) {
+        $("#" + prefix + "CriticalCount").text(elem.available_count);
+        if (elem.available_count == 0) zeroAvailableCount = true;
+        $("#" + prefix + "Critical").removeClass("invisible");
+
+        if (zeroAvailableCount) {
+            $("#" + prefix + "AvailableJust").addClass("hidden");
+            $("#" + prefix + "FinishAvailable").removeClass("hidden");
+        } else {
+            $("#" + prefix + "AvailableJust").removeClass("hidden");
+            $("#" + prefix + "FinishAvailable").addClass("hidden");
+        }
+    } else $("#" + prefix + "Critical").addClass("invisible");
+
+    if (elem.off != null && !zeroAvailableCount) {
+        $("#" + prefix + "OffSection").removeClass("hidden");
+        $("#" + prefix + "PriceBeforeOff").text(elem.price);
+        if (elem.off.type === "percent")
+            $("#" + prefix + "Off").text(elem.off.value + "%");
+        else $("#" + prefix + "Off").text(elem.off.value + " تومان");
+
+        $("#" + prefix + "Price").text(elem.priceAfterOff);
+    } else {
+        $("#" + prefix + "OffSection").addClass("hidden");
+        if (!zeroAvailableCount) $("#" + prefix + "Price").text(elem.price);
+    }
+    if (!zeroAvailableCount)
+        $("#" + prefix + "PriceParent").removeClass("hidden");
+}
 function renderProductSlider(data, prefix) {
     let html = "";
     if (data === undefined) return "";
 
     data.forEach((elem) => {
-        $("#" + prefix + "Img")
-            .attr("src", elem.img)
-            .attr("alt", elem.alt);
-
-        $("#" + prefix + "Header").text(elem.name);
-
-        if (elem.category !== "") {
-            $("#" + prefix + "Tag").removeClass("hidden");
-            $("#" + prefix + "Tag").text(elem.category);
-        } else {
-            $("#" + prefix + "Tag").addClass("hidden");
-        }
-
-        if (elem.seller !== "") {
-            $("#" + prefix + "SellerParent").removeClass("hidden");
-            $("#" + prefix + "Seller").text(elem.seller);
-        } else {
-            $("#" + prefix + "SellerParent").addClass("hidden");
-            $("#" + prefix + "Seller").text("");
-        }
-
-        let starHtml = "";
-
-        for (let i = 0; i < 5 - elem.rate; i++)
-            starHtml += '<i class="icon-visit-staroutline"></i>';
-
-        for (let i = 0; i < elem.rate; i++)
-            starHtml += '<i class="icon-visit-star"></i>';
-
-        $("#" + prefix + "Rate")
-            .empty()
-            .append(starHtml);
-
-        if (elem.has_multi_color)
-            $("#" + prefix + "MultiColor").removeClass("hidden");
-        else $("#" + prefix + "MultiColor").addClass("hidden");
-
-        let zeroAvailableCount = false;
-
-        if (elem.is_in_critical) {
-            $("#" + prefix + "CriticalCount").text(elem.available_count);
-            if (elem.available_count == 0) zeroAvailableCount = true;
-            $("#" + prefix + "Critical").removeClass("invisible");
-
-            if (zeroAvailableCount) {
-                $("#" + prefix + "AvailableJust").addClass("hidden");
-                $("#" + prefix + "FinishAvailable").removeClass("hidden");
-            } else {
-                $("#" + prefix + "AvailableJust").removeClass("hidden");
-                $("#" + prefix + "FinishAvailable").addClass("hidden");
-            }
-        } else $("#" + prefix + "Critical").addClass("invisible");
-
-        if (elem.off != null && !zeroAvailableCount) {
-            $("#" + prefix + "OffSection").removeClass("hidden");
-            $("#" + prefix + "PriceBeforeOff").text(elem.price);
-            if (elem.off.type === "percent")
-                $("#" + prefix + "Off").text(elem.off.value + "%");
-            else $("#" + prefix + "Off").text(elem.off.value + " تومان");
-
-            $("#" + prefix + "Price").text(elem.priceAfterOff);
-        } else {
-            $("#" + prefix + "OffSection").addClass("hidden");
-            if (!zeroAvailableCount) $("#" + prefix + "Price").text(elem.price);
-        }
-        if (!zeroAvailableCount)
-            $("#" + prefix + "PriceParent").removeClass("hidden");
+        setProductVals(prefix, elem);
 
         let id = elem.id;
         var newElem = $("#" + prefix + "sSample").html();

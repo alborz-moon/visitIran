@@ -33,6 +33,9 @@
 
         let LIST_API = '{{ route('api.product.list') }}';
         let HOME_API = '{{ route('home') }}';
+        let defaultMinPrice=  '{{ number_format($minPrice) }}';
+        let defaultMaxPrice=  '{{ number_format($maxPrice) }}';
+        let productPrefixRoute = HOME_API + "/product";
         
         let catId = '{{ isset($id) ? $id : -1 }}';
 
@@ -63,8 +66,13 @@
                                 <!-- start of widget -->
                                 <div class="widget mb-3">
                                     <div class="spaceBetween">
-                                        <div class="widget-title m-0 b-0">فیلتر <span class="fontSize12 colorBlue">3 فیلتر</span></div>
-                                        <a href="#" class="colorRed fontSize12 align-self-center">حذف نتایج</a>
+                                        <div class="widget-title m-0 b-0">فیلتر 
+                                            <span id="total_filters" class="fontSize12 colorBlue hidden">
+                                                <span id="total_filters_count"></span>
+                                                <span>فیلتر</span>
+                                            </span>
+                                        </div>
+                                        <a id="remove_all_filters" onclick="clearAllFilters()" class="hidden colorRed cursorPointer fontSize12 align-self-center">حذف نتایج</a>
                                     </div>
                                     <div id="total_count" class="colorBlue fontSize12 align-self-center"></div>
                                     <div class="widget-content widget--category-results">
@@ -96,7 +104,13 @@
                                     <div class="widget widget-collapse mb-3">
                                         <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
                                             data-bs-target="#collapseGrouping9" aria-expanded="false"
-                                            aria-controls="collapseGrouping9" role="button">فروشنده<i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span>
+                                            aria-controls="collapseGrouping9" role="button">فروشنده
+                                            <div id="sellers_filters_count_container" class="hidden">
+                                                <i class="circle colorBlue align-self-center"></i>
+                                                <span class="colorBlue fontSize12">
+                                                    <span id="sellers_filters_count" ></span><span> فیلتر</span>
+                                                </span>
+                                            </div>
                                         </div>
                                         <div class="widget-content widget--search collapse" id="collapseGrouping9">
                                             <div class="filter-options do-simplebar pt-2 mt-2">
@@ -122,7 +136,15 @@
                                     <div class="widget widget-collapse mb-3">
                                         <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
                                             data-bs-target="#collapseGrouping8" aria-expanded="false"
-                                            aria-controls="collapseGrouping8" role="button">برند<i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span>
+                                            aria-controls="collapseGrouping8" role="button">
+                                            برند
+                                            <div id="brands_filters_count_container" class="hidden">
+                                                <i class="circle colorBlue align-self-center"></i>
+                                                <span class="colorBlue fontSize12">
+                                                    <span id="brands_filters_count" ></span><span> فیلتر</span>
+                                                </span>
+                                            </div>
+                                            
                                         </div>
                                         <div class="widget-content widget--search collapse" id="collapseGrouping8">
                                             <div class="filter-options do-simplebar pt-2 mt-2">
@@ -177,7 +199,13 @@
                                     <div class="widget widget-collapse mb-3">
                                         <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
                                             data-bs-target="#collapseGrouping" aria-expanded="false"
-                                            aria-controls="collapseGrouping" role="button">دسته بندی <i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span>
+                                            aria-controls="collapseGrouping" role="button">دسته بندی 
+                                            <div id="categories_filters_count_container" class="hidden">
+                                                <i class="circle colorBlue align-self-center"></i>
+                                                <span class="colorBlue fontSize12">
+                                                    <span id="categories_filters_count" ></span><span> فیلتر</span>
+                                                </span>
+                                            </div>
                                         </div>
                                         <div class="widget-content widget--search collapse" id="collapseGrouping">
                                             <div class="filter-options do-simplebar pt-2 mt-2">
@@ -197,10 +225,19 @@
 
                                 @if(isset($features) && count($features) > 0)
                                     <!-- start of widget -->
-                                    <div id="categories_filter_container" class="widget widget-collapse mb-3">
+                                    <div class="widget widget-collapse mb-3">
                                         <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
                                             data-bs-target="#collapseGrouping" aria-expanded="false"
-                                            aria-controls="collapseGrouping" role="button">ویژگی ها <i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span></div>
+                                            aria-controls="collapseGrouping" role="button">ویژگی ها 
+                                            
+                                            <div id="features_filters_count_container" class="hidden">
+                                                <i class="circle colorBlue align-self-center"></i>
+                                                <span class="colorBlue fontSize12">
+                                                    <span id="features_filters_count" ></span><span> فیلتر</span>
+                                                </span>
+                                            </div>
+
+                                        </div>
                                         <div class="widget-content widget--search collapse" id="collapseGrouping">
                                             <div class="filter-options do-simplebar pt-2 mt-2">
                                                 @foreach ($features as $feature)
@@ -434,6 +471,7 @@
 @section('extraJS')
     @parent
     <script src="{{ asset('theme-assets/js/lazyLoading.js') }}"></script>
+    <script src="{{ asset('theme-assets/js/home.js') }}"></script>
     <script src="{{ asset('theme-assets/js/productList.js') }}"></script>
 
     <script>

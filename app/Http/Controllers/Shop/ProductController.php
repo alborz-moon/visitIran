@@ -469,7 +469,7 @@ class ProductController extends ProductHelper
     public function show(Request $request, Product $product)
     {
         if(!$product->visibility)
-            return Redirect::route('home');
+            return Redirect::route('403');
 
         return response()->json([
             'status' => 'ok', 
@@ -498,16 +498,6 @@ class ProductController extends ProductHelper
         $product->save();
         
         $user = $request->user();
-        
-        // $comment = Comment::userComment($product->id, $user->id);
-        // dd(array_merge(
-        //         ProductResourceForUsers::make($product)->toArray($request), 
-        //         [
-        //             'is_bookmark' => $comment != null && $comment->is_bookmark != null ? $comment->is_bookmark : false,
-        //             'user_rate' => $comment != null ? $comment->rate : null,
-        //             'has_comment' => $comment != null && $comment->msg != null,
-        //             'is_login' => true,
-        //         ]));
         
         if($user == null)
             return view('shop.product', [

@@ -113,7 +113,6 @@ class LauncherController extends Controller
             ]);
         }
         catch(\Exception $x) {
-            dd($x->getMessage());
             return response()->json([
                 'status' => 'nok',
                 'msg' => 'شما یکبار این فرم را پر کرده اید.'

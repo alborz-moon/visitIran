@@ -34,8 +34,8 @@ class EventUserResource extends JsonResource
             'end' => $e,
             'start_registry' => $sr,
             'end_registry' => $er,
-            'start_registry_time' => explode(' ', $sr)[1],
-            'end_registry_time' => explode(' ', $er)[1],
+            'start_registry_time' => explode(' ', $start_registry)[1],
+            'end_registry_time' => explode(' ', $end_registry)[1],
             'img' => $this->img != null ? asset('storage/events/' . $this->img) : asset('storage/events/default.img'),
             'title' => $this->title,
             'age_description' => $this->age_description,
@@ -51,6 +51,11 @@ class EventUserResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone == null || empty($this->phone) ? null : explode('_', $this->phone),
             'price' => $this->price,
+            'slug' => $this->slug == null ? $this->title : $this->slug,
+            'digest' => $this->digest,
+            'keywords' => $this->keywords,
+            'seo_tags' => $this->seo_tags,
+            // 'city' => $this->city->name
         ];
     }
 }

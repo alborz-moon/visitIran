@@ -11,6 +11,8 @@ function buildQuery() {
     let orderBy = $("#orderBy").val();
     let searchKey = $("#searchBoxInput").val();
 
+    var total_filters_count = 0;
+
     if (min > 0) query.append("min", min);
 
     if (minPrice !== "") query.append("minPrice", minPrice);
@@ -34,19 +36,41 @@ function buildQuery() {
     $("input[name='categories']").each(function () {
         if ($(this).prop("checked")) categories.push($(this).attr("value"));
     });
-    if (categories.length > 0) query.append("category", categories);
+    if (categories.length > 0) {
+        $("#categories_filters_count_container").removeClass("hidden");
+        $("#categories_filters_count").empty().append(categories.length);
+        query.append("category", categories);
+        total_filters_count += categories.length;
+    } else {
+        $("#categories_filters_count_container").addClass("hidden");
+    }
 
     let sellers = [];
     $("input[name='sellers']").each(function () {
         if ($(this).prop("checked")) sellers.push($(this).attr("value"));
     });
-    if (sellers.length > 0) query.append("seller", sellers);
+
+    if (sellers.length > 0) {
+        $("#sellers_filters_count_container").removeClass("hidden");
+        $("#sellers_filters_count").empty().append(sellers.length);
+        query.append("seller", sellers);
+        total_filters_count += sellers.length;
+    } else {
+        $("#sellers_filters_count_container").addClass("hidden");
+    }
 
     let brands = [];
     $("input[name='brands']").each(function () {
         if ($(this).prop("checked")) brands.push($(this).attr("value"));
     });
-    if (brands.length > 0) query.append("brand", brands);
+    if (brands.length > 0) {
+        $("#brands_filters_count_container").removeClass("hidden");
+        $("#brands_filters_count").empty().append(brands.length);
+        query.append("brand", brands);
+        total_filters_count += brands.length;
+    } else {
+        $("#brands_filters_count_container").addClass("hidden");
+    }
 
     var features = [];
     $("select[name='feature_filter']").each(function () {
@@ -55,7 +79,23 @@ function buildQuery() {
         var featureId = $(this).attr("data-id");
         features.push(featureId + "_" + selected);
     });
-    if (features.length > 0) query.append("features", features);
+    if (features.length > 0) {
+        $("#features_filters_count_container").removeClass("hidden");
+        $("#features_filters_count").empty().append(brands.length);
+        query.append("features", features);
+        total_filters_count += features.length;
+    } else {
+        $("#features_filters_count_container").addClass("hidden");
+    }
+
+    if (total_filters_count > 0) {
+        $("#total_filters").removeClass("hidden");
+        $("#remove_all_filters").removeClass("hidden");
+        $("#total_filters_count").empty().append(total_filters_count);
+    } else {
+        $("#total_filters").addClass("hidden");
+        $("#remove_all_filters").addClass("hidden");
+    }
 
     return query;
 }
@@ -110,58 +150,7 @@ function renderProducts(data, prefix) {
     if (data === undefined) return "";
 
     data.forEach((elem) => {
-        $("#" + prefix + "Img")
-            .attr("src", elem.img)
-            .attr("alt", elem.alt);
-        $("#" + prefix + "Header").text(elem.name);
-        $("#" + prefix + "Tag").text(elem.category);
-
-        if (elem.seller !== "") {
-            $("#" + prefix + "SellerParent").removeClass("hidden");
-            $("#" + prefix + "Seller").text(elem.seller);
-        }
-
-        let starHtml = "";
-
-        for (let i = 0; i < 5 - elem.rate; i++)
-            starHtml += '<i class="icon-visit-staroutline"></i>';
-
-        for (let i = 0; i < elem.rate; i++)
-            starHtml += '<i class="icon-visit-star"></i>';
-
-        $("#" + prefix + "Rate")
-            .empty()
-            .append(starHtml);
-
-        if (elem.has_multi_color)
-            $("#" + prefix + "MultiColor").removeClass("hidden");
-        else $("#" + prefix + "MultiColor").addClass("hidden");
-
-        let zeroAvailableCount = false;
-
-        if (elem.is_in_critical) {
-            $("#" + prefix + "CriticalCount").text(elem.available_count);
-            if (elem.available_count == 0) zeroAvailableCount = true;
-            $("#" + prefix + "Critical").removeClass("invisible");
-            if (zeroAvailableCount)
-                $("#" + prefix + "Critical").text("اتمام موجودی");
-        } else $("#" + prefix + "Critical").addClass("invisible");
-
-        if (elem.off != null && !zeroAvailableCount) {
-            $("#" + prefix + "OffSection").removeClass("hidden");
-            $("#" + prefix + "PriceBeforeOff").text(elem.price);
-            if (elem.off.type === "percent")
-                $("#" + prefix + "Off").text(elem.off.value + "%");
-            else $("#" + prefix + "Off").text(elem.off.value + " تومان");
-
-            $("#" + prefix + "Price").text(elem.priceAfterOff);
-        } else {
-            $("#" + prefix + "OffSection").addClass("hidden");
-            if (!zeroAvailableCount) $("#" + prefix + "Price").text(elem.price);
-        }
-        if (!zeroAvailableCount)
-            $("#" + prefix + "PriceParent").removeClass("hidden");
-
+        setProductVals(prefix, elem);
         let id = elem.id;
         var newElem = $("#sample_product_div").html();
 
@@ -187,10 +176,6 @@ function renderProducts(data, prefix) {
     return html;
 }
 
-function redirect(id, name) {
-    window.open(HOME_API + "/product/" + id + "/" + name, "_blank");
-}
-
 $(document).ready(function () {
     $(document).on("change", "input[name='categories']", function () {
         filter();
@@ -202,3 +187,28 @@ $(document).ready(function () {
         filter();
     });
 });
+
+function clearAllFilters() {
+    $("input[name='sellers']").prop("checked", false);
+    $("input[name='brands']").prop("checked", false);
+    $("input[name='categories']").prop("checked", false);
+    $("input[name='features']").prop("checked", false);
+    $("#has_selling_stock").prop("checked", false);
+    $("#has_selling_offs").prop("checked", false);
+    $("#searchBoxInput").val("");
+    $("#skip-value-lower").val(defaultMinPrice);
+    $("#skip-value-upper").val(defaultMaxPrice);
+
+    $(".noUi-connect").css("transform", "translate(0%, 0px) scale(1, 1)");
+    $(".noUi-origin").first().css("transform", "translate(0, 0px)");
+    $(".noUi-origin:last-child").css("transform", "translate(-1000%, 0px)");
+    $(".noUi-handle-lower")
+        .attr("aria-valuenow", parseInt(defaultMinPrice.replaceAll(",", "")))
+        .attr("aria-valuetext", defaultMinPrice);
+
+    $(".noUi-handle-upper")
+        .attr("aria-valuenow", parseInt(defaultMaxPrice.replaceAll(",", "")))
+        .attr("aria-valuetext", defaultMaxPrice);
+
+    filter();
+}
