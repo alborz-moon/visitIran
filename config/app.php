@@ -176,7 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Asvae\ApiTester\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        Anetwork\Validation\PersianValidationServiceProvider::class
+        // Anetwork\Validation\PersianValidationServiceProvider::class
     ],
 
     /*

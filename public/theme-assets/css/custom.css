@@ -1858,9 +1858,9 @@ figure .ck-widget {
     }
 }
 @media (max-width: 768px) {
-    /* .ui-sticky {
-        position: inherit;
-    } */
+    .logoImgFromTop {
+        top: 0;
+    }
     .marginFromRightHeader {
         margin-right: 105px;
     }
@@ -1869,7 +1869,7 @@ figure .ck-widget {
     }
     .customEventImgSizeSlider {
         width: 100%;
-        height: auto;
+        height: 380px;
     }
     .ui-sticky.ui-sticky-top {
         top: 0px;

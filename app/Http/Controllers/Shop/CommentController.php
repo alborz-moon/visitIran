@@ -18,7 +18,7 @@ use Illuminate\Validation\Rule;
 class CommentController extends Controller
 {
 
-    private static $PER_PAGE = 10;
+    private static $PER_PAGE = 4;
 
     /**
      * Display a listing of the resource.
