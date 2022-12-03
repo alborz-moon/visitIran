@@ -590,13 +590,12 @@
                 });
             } 
 });
-
 </script>
 
 @stop
 
 @section('footer')
-    @parent
+    @parent  
 @stop
 
 @section('extraJS')

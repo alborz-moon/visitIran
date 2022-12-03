@@ -185,7 +185,6 @@
                                     </div>
                                     <!-- end of widget -->
                                 @endif
-
                                 <!-- start of widget -->
                                 <div class="widget widget-collapse">
                                     <div class="widget-title widget-title--collapse-btn" data-bs-toggle="collapse"
@@ -411,23 +410,21 @@
     <script>
 
         $(".parent input").on('click',function(){
-        var _parent=$(this);
-        var nextli=$(this).parent().next().children().children();
-        
-        if(_parent.prop('checked')){
-            console.log('parent checked');
-            nextli.each(function(){
-            $(this).children().prop('checked',true);
-            });
+            var _parent=$(this);
+            var nextli=$(this).parent().next().children().children();
             
-        }
-        else{
-            console.log('parent un checked');
-            nextli.each(function(){
-            $(this).children().prop('checked',false);
-            });
-        
-        }
+            if(_parent.prop('checked')){
+                console.log('parent checked');
+                nextli.each(function(){
+                $(this).children().prop('checked',true);
+                });
+            }
+            else{
+                console.log('parent un checked');
+                nextli.each(function(){
+                $(this).children().prop('checked',false);
+                });
+            }
         });
 
         $(".child input").on('click',function(){

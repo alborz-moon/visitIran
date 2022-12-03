@@ -68,12 +68,10 @@ function fetchMore(call_back) {
         url: LIST_API + "?page=" + page + "&" + buildQuery().toString(),
         success: function (res) {
             if (res.status !== "ok") return;
-
             var length = res.data.length;
             if (length == 0) {
                 return;
             }
-
             let html = renderProducts(res.data, "sample");
             $("#products_div").append(html).removeClass("hidden");
             call_back();

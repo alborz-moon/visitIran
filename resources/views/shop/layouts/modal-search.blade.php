@@ -11,17 +11,41 @@
             <button id="searchBtn" data-remodal-action="close" class="btn-search btn-action b-0 customSearch colorblue d-flex">
               <i class="icon-visit-close customSearch"></i>
             </button>
-            <div class="d-flex flexwrap gap10 my-3">
-              <a href="#" class="btn btn-primary backgroundColorBlue ">
+            <div class="d-flex flexWrap gap10 my-3">
+              <a href="#" class="btn btn-primary backgroundColorBlue whiteSpaceNoWrap">
                 لورم
               </a>
-              <a href="#" class="btn btn-primary backgroundColorBlue ">
+              <a href="#" class="btn btn-primary backgroundColorBlue whiteSpaceNoWrap">
                 لورم لورم
               </a>
-              <a href="#" class="btn btn-primary backgroundColorBlue ">
+              <a href="#" class="btn btn-primary backgroundColorBlue whiteSpaceNoWrap">
                 لورم لورم لورم
               </a>
-              <a href="#" class="btn btn-primary backgroundColorBlue ">
+              <a href="#" class="btn btn-primary backgroundColorBlue whiteSpaceNoWrap">
+                لورم
+              </a>
+              <a href="#" class="btn btn-primary backgroundColorBlue whiteSpaceNoWrap">
+                لورم
+              </a>
+              <a href="#" class="btn btn-primary backgroundColorBlue whiteSpaceNoWrap">
+                لورم لورم
+              </a>
+              <a href="#" class="btn btn-primary backgroundColorBlue whiteSpaceNoWrap">
+                لورم لورم لورم
+              </a>
+              <a href="#" class="btn btn-primary backgroundColorBlue whiteSpaceNoWrap">
+                لورم
+              </a>
+              <a href="#" class="btn btn-primary backgroundColorBlue whiteSpaceNoWrap">
+                لورم
+              </a>
+              <a href="#" class="btn btn-primary backgroundColorBlue whiteSpaceNoWrap">
+                لورم لورم
+              </a>
+              <a href="#" class="btn btn-primary backgroundColorBlue whiteSpaceNoWrap">
+                لورم لورم لورم
+              </a>
+              <a href="#" class="btn btn-primary backgroundColorBlue whiteSpaceNoWrap">
                 لورم
               </a>
             </div>
