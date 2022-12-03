@@ -1,5 +1,4 @@
 let page = 1;
-let firstRequest = true;
 
 function buildQuery() {
     let query = new URLSearchParams();
@@ -104,62 +103,6 @@ function filter() {
             $("#total_count")
                 .empty()
                 .append(res.count + " کالا");
-
-            if (firstRequest) {
-                html = "";
-                for (var i = 0; i < res.brands.length; i++) {
-                    html += '<li class="form-check">';
-                    html +=
-                        '<input name="brands" class="form-check-input" type="checkbox" value="' +
-                        res.brands[i]["id"] +
-                        '" />' +
-                        res.brands[i]["name"];
-                    html += "</li>";
-                }
-
-                $("#brands").empty().append(html);
-            }
-
-            if (
-                res.categories !== undefined &&
-                res.categories != null &&
-                firstRequest
-            ) {
-                html = "";
-                for (var i = 0; i < res.categories.length; i++) {
-                    html += '<li class="form-check">';
-                    html +=
-                        '<input name="categories" class="form-check-input" type="checkbox" value="' +
-                        res.categories[i]["id"] +
-                        '" />' +
-                        res.categories[i]["name"];
-                    html += "</li>";
-                }
-                $("#categories_filter_container").removeClass("hidden");
-                $("#categories").empty().append(html);
-            } else if (
-                (res.categories === undefined || res.categories == null) &&
-                firstRequest
-            ) {
-                $("#categories_filter_container").addClass("hidden");
-            }
-
-            if (firstRequest) {
-                html = "";
-                for (var i = 0; i < res.sellers.length; i++) {
-                    html += '<li class="form-check">';
-                    html +=
-                        '<input name="sellers" class="form-check-input" type="checkbox" value="' +
-                        res.sellers[i]["id"] +
-                        '" />' +
-                        res.sellers[i]["name"];
-                    html += "</li>";
-                }
-
-                $("#sellers").empty().append(html);
-            }
-
-            if (firstRequest) firstRequest = false;
         },
     });
 }

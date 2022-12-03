@@ -150,7 +150,6 @@ class ProductController extends ProductHelper
         $limit = $request->query('limit', 8);
         $key = $request->query('key', null);
         $page = $request->query('page', 1);
-        $catId = $request->query('parent', null);
 
         if($key != null && $page > 1)
             return abort(401);
@@ -164,59 +163,10 @@ class ProductController extends ProductHelper
             $products = Product::like($key, null, 'card', $filters);
         }
 
-        $data = ProductDigestUser::collection($products)->toArray($request);
-
-        $brands = [];
-        $allBrands = [];
-        
-        $sellers = [];
-        $allSellers = [];
-
-        foreach($data as $itr) {
-            if($itr['brand_id'] != null && 
-                !in_array($itr['brand_id'], $brands)) {
-                array_push($brands, $itr['brand_id']);
-                array_push($allBrands, [
-                    'id' => $itr['brand_id'],
-                    'name' => $itr['brand']
-                ]);
-            }
-        }
-
-        foreach($data as $itr) {
-            if($itr['seller_id'] != null && 
-                !in_array($itr['seller_id'], $sellers)) {
-                array_push($sellers, $itr['seller_id']);
-                array_push($allSellers, [
-                    'id' => $itr['seller_id'],
-                    'name' => $itr['seller']
-                ]);
-            }
-        }
-
-        if($catId == null) {
-            $categories = [];
-            $allCategories = [];
-         
-            foreach($data as $itr) {
-                if($itr['category_id'] != null && 
-                    !in_array($itr['category_id'], $categories)) {
-                    array_push($categories, $itr['category_id']);
-                    array_push($allCategories, [
-                        'id' => $itr['category_id'],
-                        'name' => $itr['category']
-                    ]);
-                }
-            }
-        }
-
         return response()->json([
             'status' => 'ok',
             'count' => count($products),
-            'data' => $data,
-            'brands' => $allBrands,
-            'sellers' => $allSellers,
-            'categories' => isset($allCategories) ? $allCategories : null
+            'data' => ProductDigestUser::collection($products)->toArray($request),
         ]);
     }
 

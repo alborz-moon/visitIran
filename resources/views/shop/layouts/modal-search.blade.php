@@ -12,18 +12,11 @@
               <i class="icon-visit-close customSearch"></i>
             </button>
             <div class="d-flex flexwrap gap10 my-3">
-              <a href="#" class="btn btn-primary backgroundColorBlue ">
-                لورم
-              </a>
-              <a href="#" class="btn btn-primary backgroundColorBlue ">
-                لورم لورم
-              </a>
-              <a href="#" class="btn btn-primary backgroundColorBlue ">
-                لورم لورم لورم
-              </a>
-              <a href="#" class="btn btn-primary backgroundColorBlue ">
-                لورم
-              </a>
+              @foreach ($top_categories as $cat)
+                <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-primary backgroundColorBlue ">
+                  {{ $cat['name'] }}
+                </a>  
+              @endforeach
             </div>
             <hr>
             <div class="d-flex my-2 padding15">

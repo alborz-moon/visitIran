@@ -22,6 +22,45 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware(['shareTopCategories'])->group(function() {
+
+
+    Route::domain(Controller::$SHOP_SITE)->group(function() {
+
+        Route::view('/', 'shop.welcome')->name('home');
+    
+        Route::post('/search-product', [ProductController::class, 'search'])->name('product-search');
+    
+        Route::get('/product/{product}/{slug}', [ProductController::class, 'showDetail'])->name('single-product');
+    
+        Route::get('/list/{category}/{slug}', [CategoryController::class, 'show'])->name('single-category');
+        
+        Route::get('/list/{orderBy}', [CategoryController::class, 'allCategories'])->name('category.list');
+    
+    
+        Route::get('/basket', function () {
+            return view('shop.basket');
+        })->name('cart');
+    
+        Route::get('shipping', function() {
+            $states = State::orderBy('name', 'asc')->get();
+            return view('shop.shipping', compact('states'));
+        })->name('shipping');
+    
+        Route::get('/blog/{blog}/{slug}',  [BlogController::class, 'show'])->name('blog');
+    
+        Route::view('/blog-list',  'shop.blog-list')->name('blog-list');
+    
+        Route::view('payment', 'shop.payment')->name('payment');
+        
+    
+    });
+    
+    
+
+});
+
+
 Route::middleware(['myAuth'])->group(function() {
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
@@ -91,37 +130,6 @@ Route::middleware(['myAuth'])->group(function() {
     
 });
 
-
-Route::domain(Controller::$SHOP_SITE)->group(function() {
-
-    Route::view('/', 'shop.welcome')->name('home');
-
-    Route::post('/search-product', [ProductController::class, 'search'])->name('product-search');
-
-    Route::get('/product/{product}/{slug}', [ProductController::class, 'showDetail'])->name('single-product');
-
-    Route::get('/list/{category}/{slug}', [CategoryController::class, 'show'])->name('single-category');
-    
-    Route::get('/list/{orderBy}', [CategoryController::class, 'allCategories'])->name('category.list');
-
-
-    Route::get('/basket', function () {
-        return view('shop.basket');
-    })->name('cart');
-
-    Route::get('shipping', function() {
-        $states = State::orderBy('name', 'asc')->get();
-        return view('shop.shipping', compact('states'));
-    })->name('shipping');
-
-    Route::get('/blog/{blog}/{slug}',  [BlogController::class, 'show'])->name('blog');
-
-    Route::view('/blog-list',  'shop.blog-list')->name('blog-list');
-
-    Route::view('payment', 'shop.payment')->name('payment');
-    
-
-});
 
 Route::domain(Controller::$EVENT_SITE)->group(function() {
 
@@ -220,3 +228,4 @@ Route::get('/404', function ($request) {
 })->name('404');
 
 Route::view('403', 'errors.403')->name('403');
+

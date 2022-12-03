@@ -14,6 +14,7 @@ use App\Imports\CategoryImport;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
@@ -102,6 +103,13 @@ class CategoryController extends Controller
         if(!$category->visibility)
             return Redirect::route('403');
 
+
+        $catId = $category->id;
+        $whereClause = "products.visibility = true and category_id = " . $catId;
+        $minMax = DB::select('select max(price) as maxPrice, min(price) as minPrice from products where ' . $whereClause);
+        $sellers = DB::select('select distinct(seller_id) as id, sellers.name from sellers, products where seller_id = sellers.id and ' . $whereClause);
+        $brands = DB::select('select distinct(brand_id) as id, brands.name from products, brands where brand_id = brands.id and ' . $whereClause);
+
         $path = [
             [
                 'label' => 'خانه',
@@ -125,14 +133,16 @@ class CategoryController extends Controller
             'href' => route('single-category', ['category' => $category->id, 'slug' => $category->name])
         ]);
 
-        // dd(FeatureResourceUser::collection($category->features()->multiChoice()->get())->toArray($request));
-
         return view('shop.list', [
             'path' => $path,
             'parent' => $category->parent_id == null ? null : $path[1],
             'name' => $category->name,
             'id' => $category->id,
             'has_sub' => count($category->sub) > 0,
+            'sellers' => $sellers,
+            'brands' => $brands,
+            'maxPrice' => $minMax[0]->maxPrice,
+            'minPrice' => $minMax[0]->minPrice,
             'features' => FeatureResourceUser::collection($category->features()->multiChoice()->get())->toArray($request)
         ]);
     }
@@ -140,13 +150,25 @@ class CategoryController extends Controller
     
     public function allCategories(string $orderBy, Request $request) {
         
+        $catId = null;
+        $whereClause = $catId == null ? "products.visibility = true" : "products.visibility = true and category_id = " . $catId;
+        $minMax = DB::select('select max(price) as maxPrice, min(price) as minPrice from products where ' . $whereClause);
+        $categories = DB::select('select distinct(category_id) as id, categories.name from products, categories where category_id = categories.id and ' . $whereClause);
+        $sellers = DB::select('select distinct(seller_id) as id, sellers.name from sellers, products where seller_id = sellers.id and ' . $whereClause);
+        $brands = DB::select('select distinct(brand_id) as id, brands.name from products, brands where brand_id = brands.id and ' . $whereClause);
+        
+        
         return view('shop.list', [
             'path' => [],
             'orderBy' => $orderBy,
             'name' => 'تازه ترین ها',
             'features' => [],
             'has_sub' => false,
-            'tops' => CategoryVeryDigest::collection(Category::head()->get())->toArray($request)
+            'categories' => $categories,
+            'sellers' => $sellers,
+            'brands' => $brands,
+            'maxPrice' => $minMax[0]->maxPrice,
+            'minPrice' => $minMax[0]->minPrice,
         ]);
 
     }

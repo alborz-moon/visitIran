@@ -2,10 +2,12 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EventUserResource extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -14,6 +16,41 @@ class EventUserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+
+        $start_registry = date("Y/m/d H:i", $this->start_registry);
+        $end_registry = date("Y/m/d H:i", $this->end_registry);
+        $start = date("Y/m/d H:i", $this->start);
+        $end = date("Y/m/d H:i", $this->end);
+
+        $sr = Controller::MiladyToShamsi($start_registry, '/');
+        $er = Controller::MiladyToShamsi($end_registry, '/');
+        $s = Controller::MiladyToShamsi($start, '/');
+        $e = Controller::MiladyToShamsi($end, '/');
+
+        return [
+            'id' => $this->id,
+            'launcher_id' => $this->launcher_id,
+            'start' => $s,
+            'end' => $e,
+            'start_registry' => $sr,
+            'end_registry' => $er,
+            'start_registry_time' => explode(' ', $sr)[1],
+            'end_registry_time' => explode(' ', $er)[1],
+            'img' => $this->img != null ? asset('storage/events/' . $this->img) : asset('storage/events/default.img'),
+            'title' => $this->title,
+            'age_description' => $this->age_description,
+            'level_description' => $this->level_description,
+            'ticket_description' => $this->ticket_description,
+            'tags' => explode('_', $this->tags),
+            'language' => explode('_', $this->language),
+            'facilities' => explode('_', $this->facilities),
+            'type' => $this->city_id != null ? 'offline' : 'online',
+            'address' => $this->address,
+            'link' => $this->link,
+            'site' => $this->site,
+            'email' => $this->email,
+            'phone' => $this->phone == null || empty($this->phone) ? null : explode('_', $this->phone),
+            'price' => $this->price,
+        ];
     }
 }

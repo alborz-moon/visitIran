@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 @include('sections.top_products_slider', ['id' => 'most_seen_products_when_filled', 'api' => route('api.product.similars', ['product' => $product['id']]),
-                    'key' => 'mostSeenProduct', 'title' => 'محصولات مشابه', 'not_fill_id' => 'most_seen_products_when_not_filled'])
+                    'key' => 'mostSeenProduct', 'disableShowAll' => true, 'title' => 'محصولات مشابه', 'not_fill_id' => 'most_seen_products_when_not_filled'])
 
                 <div class="row">
                     <div class="col-xl-9 col-lg-8">

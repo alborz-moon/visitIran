@@ -90,35 +90,56 @@
                                         @endif
                                     </div>
                                 </div>
-                            <!-- start of widget -->
-                                <div class="widget widget-collapse mb-3">
-                                    <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseGrouping9" aria-expanded="false"
-                                        aria-controls="collapseGrouping9" role="button">فروشنده<i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span></div>
-                                    <div class="widget-content widget--search collapse" id="collapseGrouping9">
-                                        <form action="#" class="pt-2">
-                                            <div class="filter-options do-simplebar pt-2 mt-2">
-                                                <div id="sellers"></div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <!-- start of widget -->
 
-                                <!-- start of widget -->
-                                <div class="widget widget-collapse mb-3">
-                                    <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseGrouping8" aria-expanded="false"
-                                        aria-controls="collapseGrouping8" role="button">برند<i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span></div>
-                                    <div class="widget-content widget--search collapse" id="collapseGrouping8">
-                                        <form action="#" class="pt-2">
+                                @if(isset($sellers) && count($sellers) > 0)
+                                    <!-- start of widget -->
+                                    <div class="widget widget-collapse mb-3">
+                                        <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseGrouping9" aria-expanded="false"
+                                            aria-controls="collapseGrouping9" role="button">فروشنده<i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span>
+                                        </div>
+                                        <div class="widget-content widget--search collapse" id="collapseGrouping9">
                                             <div class="filter-options do-simplebar pt-2 mt-2">
-                                                <div id="brands"></div>
+                                                <div id="sellers">
+                                                    @foreach ($sellers as $seller)
+                                                        <li class="form-check">
+                                                            <input name="sellers" class="form-check-input" type="checkbox" value="{{ $seller->id }}" />
+                                                            {{ $seller->name }}
+                                                        </li>    
+                                                    @endforeach
+                                                </div>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- start of widget -->
+
+                                    <!-- end of widget -->
+
+                                @endif
+
+
+                                @if(isset($brands) && count($brands) > 0)
+                                    <!-- start of widget -->
+                                    <div class="widget widget-collapse mb-3">
+                                        <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseGrouping8" aria-expanded="false"
+                                            aria-controls="collapseGrouping8" role="button">برند<i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span>
+                                        </div>
+                                        <div class="widget-content widget--search collapse" id="collapseGrouping8">
+                                            <div class="filter-options do-simplebar pt-2 mt-2">
+                                                <div id="brands">
+                                                    @foreach ($brands as $brand)
+                                                        <li class="form-check">
+                                                            <input name="brands" class="form-check-input" type="checkbox" value="{{ $brand->id }}" />
+                                                            {{ $brand->name }}
+                                                        </li>    
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end of widget -->
+                                @endif
+
                                 <!-- start of widget -->
                                 <div class="widget mb-3">
                                     <div class="widget-title b-0" > نحوه نمایش :</div>
@@ -151,18 +172,28 @@
                                 </div>
                                 <!-- end of widget -->
 
-                                <!-- start of widget -->
-                                <div id="categories_filter_container" class="widget widget-collapse mb-3">
-                                    <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseGrouping" aria-expanded="false"
-                                        aria-controls="collapseGrouping" role="button">دسته بندی <i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span></div>
-                                    <div class="widget-content widget--search collapse" id="collapseGrouping">
-                                        <div class="filter-options do-simplebar pt-2 mt-2">
-                                            <div id="categories"></div>
+                                @if(isset($categories))
+                                    <!-- start of widget -->
+                                    <div class="widget widget-collapse mb-3">
+                                        <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseGrouping" aria-expanded="false"
+                                            aria-controls="collapseGrouping" role="button">دسته بندی <i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span>
+                                        </div>
+                                        <div class="widget-content widget--search collapse" id="collapseGrouping">
+                                            <div class="filter-options do-simplebar pt-2 mt-2">
+                                                <div id="categories">
+                                                    @foreach ($categories as $category)
+                                                        <li class="form-check">
+                                                            <input name="categories" class="form-check-input" type="checkbox" value="{{ $category->id }}" />
+                                                            {{ $category->name }}
+                                                        </li>    
+                                                    @endforeach
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- end of widget -->
+                                    <!-- end of widget -->
+                                @endif
 
                                 @if(isset($features) && count($features) > 0)
                                     <!-- start of widget -->
@@ -192,28 +223,26 @@
                                         data-bs-target="#collapsePriceFilter" aria-expanded="false"
                                         aria-controls="collapsePriceFilter" role="button">محدوده قیمت </div>
                                     <div class="widget-content widget--search fa-num collapse" id="collapsePriceFilter">
-                                        <form action="#" class="pt-2">
-                                            <div class="filter-price">
-                                                <div class="filter-slider">
-                                                    <div id="slider-non-linear-step" class="price-slider"></div>
-                                                </div>
-                                                <ul class="filter-range mb-4">
-                                                    <li>
-                                                        <input type="text" data-value="0" value="0" name="price[min]"
-                                                            data-range="0" class="js-slider-range-from"
-                                                            id="skip-value-lower" disabled>
-                                                        <span class="fontSize20 colorYellow">ت</span>
-                                                    </li>
-                                                    <li class="label fw-bold">تا</li>
-                                                    <li>
-                                                        <input type="text" data-value="2100000000" value="2100000000"
-                                                            name="price[max]" data-range="2100000000"
-                                                            class="js-slider-range-to" id="skip-value-upper" disabled>
-                                                        <span class="fontSize20 colorYellow">ت</span>
-                                                    </li>
-                                                </ul>
+                                        <div class="filter-price">
+                                            <div class="filter-slider">
+                                                <div id="slider-non-linear-step" class="price-slider"></div>
                                             </div>
-                                        </form>
+                                            <ul class="filter-range mb-4">
+                                                <li>
+                                                    <input type="text" data-value="{{ $minPrice }}" value="{{ $minPrice }}" name="price[min]"
+                                                        data-range="{{ $minPrice }}" class="js-slider-range-from"
+                                                        id="skip-value-lower" disabled>
+                                                    <span class="fontSize20 colorYellow">ت</span>
+                                                </li>
+                                                <li class="label fw-bold">تا</li>
+                                                <li>
+                                                    <input type="text" data-value="{{ $maxPrice }}" value="{{ $maxPrice }}"
+                                                        name="price[max]" data-range="{{ $maxPrice }}"
+                                                        class="js-slider-range-to" id="skip-value-upper" disabled>
+                                                    <span class="fontSize20 colorYellow">ت</span>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- end of widget -->
