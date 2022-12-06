@@ -27,7 +27,7 @@ class EventPhase1Resource extends JsonResource
             'x' => $this->x,
             'y' => $this->y,
             'city_id' => $this->city_id,
-            'state_id' => City::whereId($this->city_id)->first()->state_id,
+            'state_id' => $this->city_id != null ? City::whereId($this->city_id)->first()->state_id : null,
             'postal_code' => $this->postal_code,
             'address' => $this->address,
             'link' => $this->link,
