@@ -359,7 +359,9 @@ class EventController extends Controller
                     'is_login' => false,
             ]);
 
-        $comment = EventComment::userComment($event->id, $user->id);
+        // $comment = EventComment::userComment($event->id, $user->id);
+        $comment = null;
+        // dd(EventUserResource::make($event)->toArray($request));
         return view('event.event', [
             'event' => array_merge(
                 EventUserResource::make($event)->toArray($request), 
