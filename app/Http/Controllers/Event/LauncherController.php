@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\LauncherDigest;
 use App\Http\Resources\LauncherFilesResource;
 use App\Http\Resources\LauncherFirstStepResource;
 use App\Http\Resources\LauncherResourceAdmin;
@@ -10,6 +11,7 @@ use App\Models\Event;
 use App\Models\Launcher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 
 class LauncherController extends Controller
@@ -119,6 +121,20 @@ class LauncherController extends Controller
             ]);
 
         }
+    }
+
+    public function show_user(Request $request, Launcher $launcher) {
+        
+        if($launcher->status != 'confirmed')
+            return Redirect::route(403);
+
+        $launcher->seen = $launcher->seen + 1;
+        $launcher->save();
+
+        return response()->json([
+            'status' => 'ok',
+            'data' => LauncherDigest::make($launcher)->toArray($request)
+        ]);
     }
 
     /**

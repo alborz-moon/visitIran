@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('events', [EventController::class, 'list'])->name('api.event.list');
 
+Route::get('show-launcher/{launcher}', [LauncherController::class, 'show_user'])->name('api.launcher.show-user');
+
 
 Route::middleware(['myAuth'])->group(function() {
 
