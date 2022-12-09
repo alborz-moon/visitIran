@@ -58,6 +58,14 @@ class Launcher extends Model
         return $this->hasMany(LauncherBank::class);
     }
     
+    public function comments() {
+        return $this->hasMany(LauncherComment::class);
+    }
+    
+    public function followers() {
+        return $this->hasMany(LauncherFollowers::class);
+    }
+    
     public function city() {
         return $this->belongsTo(City::class, 'launcher_city_id', 'id');
     }

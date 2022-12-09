@@ -7,7 +7,6 @@ use App\Http\Resources\LauncherDigest;
 use App\Http\Resources\LauncherFilesResource;
 use App\Http\Resources\LauncherFirstStepResource;
 use App\Http\Resources\LauncherResourceAdmin;
-use App\Models\Event;
 use App\Models\Launcher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
