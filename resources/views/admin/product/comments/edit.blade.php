@@ -17,8 +17,8 @@
         <p>تاریخ ایجاد: {{ $item['created_at'] }}</p>
         <p>تاریخ تایید: {{ $item['status'] ? $item['confirmed_at'] : 'هنوز تایید نشده است' }}</p>
     </center>
-    <form id="myForm" action="{{ route('comment.update', ['comment' => $item['id']])}}" method="post">
-        {{ csrf_field() }}
+    <form id="myForm" action="{{ $updateUrl }}" method="post">
+        @csrf
 
         <div class="flex flex-col center gap10" style="margin: 10px">
                 
@@ -62,7 +62,7 @@
 
 
         <div class="flex center gap10">
-            <span onclick="document.location.href = '{{ route('product.comment.index', ['product' => $product_id]) }}'" class="btn btn-danger">بازگشت</span>
+            <span onclick="document.location.href = '{{ $backUrl }}'" class="btn btn-danger">بازگشت</span>
             <input value="ذخیره" type="submit" class="btn green" id="saveBtn" />
         </div>
 

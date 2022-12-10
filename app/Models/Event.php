@@ -64,6 +64,14 @@ class Event extends Model
     public function galleries() {
         return $this->hasMany(EventGallery::class);
     }
+    
+    public function buyers() {
+        return $this->hasMany(EventBuyer::class);
+    }
+    
+    public function comments() {
+        return $this->hasMany(EventComment::class);
+    }
 
     public function scopeActiveForRegistry($query) {
         $now = (int)Controller::getToday()['date'];

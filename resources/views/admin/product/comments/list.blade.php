@@ -17,11 +17,11 @@
 @stop
 
 @section('title')
-مدیریت نظرات محصول > {{ $productName }}
+مدیریت نظرات محصول > {{ $itemName }}
 @stop
 
 @section('backBtn')
-<button onclick="document.location.href = '{{ route('product.index') }}'" class="btn btn-danger">بازگشت</button>
+<button onclick="document.location.href = '{{ $backRoute }}'" class="btn btn-danger">بازگشت</button>
 @stop
 
 @section('addBtn')
@@ -145,8 +145,8 @@
                     <td>{{ $item['created_at'] }}</td>
                     
                     <td>
-                        <button data-toggle='tooltip' title="نمایش متن کامل نظر" onclick="document.location.href = '{{ route('comment.edit', ['comment' => $item['id']]) }}'" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></button>
-                        <button onclick="removeModal('item', {{$item['id']}}, '{{ route('comment.destroy', ['comment' => $item['id']]) }}')" data-toggle='tooltip' title="حذف" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                        <button data-toggle='tooltip' title="نمایش متن کامل نظر" onclick="document.location.href = '{{ $item['editUrl'] }}'" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></button>
+                        <button onclick="removeModal('item', {{$item['id']}}, '{{ $item['destroyUrl'] }}')" data-toggle='tooltip' title="حذف" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
                     </td>
                 </tr>
             @endforeach
@@ -157,6 +157,28 @@
 
 
 <script>
+
+    // $.ajax({
+    //     type: 'post',
+    //     url: '{{ route('event.event_comment.store', ['event' => 33]) }}',
+    //     data: {
+    //         msg: 'dqwdwqdwq',
+    //         rate: 2,
+    //         positive: [
+    //             "dqwdqw",
+    //             "wwwew",
+    //             "sasd"
+    //         ],
+    //         negative: [
+    //             "qqqqqq",
+    //             "eewwewe"
+    //         ]
+    //     },
+    //     success: function(res) {
+    //         alert(res);
+    //     }
+    // });
+
 
     function buildQuery() {
         
@@ -199,7 +221,7 @@
     }
 
     function filter() {
-        document.location.href = '{{ route('product.comment.index', ['product' => $productId]) }}' + '?' + buildQuery().toString();
+        document.location.href = '{{ $refreshRoute }}' + '?' + buildQuery().toString();
     }
 
 </script>
