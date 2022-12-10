@@ -20,7 +20,8 @@
                             <span class="ui-box-title fontSize20">
                                 <img class="p-2" src="{{ asset('./theme-assets/images/svg/headlineTitle.svg') }}"
                                     alt="">ثبت نام حضوری
-                                <span class="colorYellow fontSize12">مهلت ثبت نام تا پنج شنبه 21 مهرماه 1401 </span>
+                                <span class="colorYellow fontSize12">مهلت ثبت نام تا
+                                    {{ $event['end_registry'] }} ساعت {{ $event['end_registry_time'] }}</span>
                             </span>
                         </div>
                         <div class="d-flex spaceBetween p-3">
@@ -135,17 +136,13 @@
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container">
                                                 <span class="colorYellow bold">از</span>
-                                                <span>{{ $event['start_registry'] }}</span>
-                                                <span class="colorYellow bold">ساعت</span>
-                                                <span>{{ $event['start_registry_time'] }}</span>
+                                                <span>{{ $event['start'] }}</span>
                                             </div>
                                         </div>
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container">
                                                 <span class="colorYellow bold">تا</span>
-                                                <span>{{ $event['end_registry'] }}</span>
-                                                <span class="colorYellow bold">ساعت</span>
-                                                <span>{{ $event['end_registry_time'] }}</span>
+                                                <span>{{ $event['end'] }}</span>
                                             </div>
                                         </div>
                                         <a href="#" class="seller-info-link"></a>
@@ -161,7 +158,12 @@
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container">
                                                 <span class="colorBlack fontSize15 ">تهران</span>
+                                                @if ( $event['type'] == 'online' )
                                                 <span class="colorBlack fontSize15 px-2">مجازی</span>
+                                                @endif
+                                                @if ( $event['type'] == 'offline' )
+                                                <span class="colorBlack fontSize15 px-2">حضوری</span>
+                                                @endif
                                             </div>
                                         </div>
                                         <a href="#" class="seller-info-link"></a>
@@ -176,7 +178,9 @@
                                     <div class="product-seller-row-detail">
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container">
-                                                <span class="fontSize13 colorBlack">آموزش گردشگری</span>
+                                                @foreach ( $event['tags'] as $tag )
+                                                <span class="fontSize13 colorBlack">{{ $tag}}</span>
+                                                @endforeach
                                             </div>
                                         </div>
                                         <a href="#" class="seller-info-link"></a>
@@ -191,7 +195,32 @@
                                     <div class="product-seller-row-detail">
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container">
-                                                <span class="fontSize13 colorBlack">فارسی</span>
+                                                @foreach ($event['language'] as $languages)
+                                                @if ($languages == 'fa' )
+                                                <span class="fontSize13 colorBlack">فارسی</span><span
+                                                    class="mx-1">-</span>
+                                                @endif
+                                                @if ($languages == 'tr' )
+                                                <span class="fontSize13 colorBlack">ترکی</span><span
+                                                    class="mx-1">-</span>
+                                                @endif
+                                                @if ($languages == 'en' )
+                                                <span class="fontSize13 colorBlack">انگلیسی</span><span
+                                                    class="mx-1">-</span>
+                                                @endif
+                                                @if ($languages == 'gr' )
+                                                <span class="fontSize13 colorBlack">آلمانی</span><span
+                                                    class="mx-1">-</span>
+                                                @endif
+                                                @if ($languages == 'fr' )
+                                                <span class="fontSize13 colorBlack">فرانسه</span><span
+                                                    class="mx-1">-</span>
+                                                @endif
+                                                @if ($languages == 'ar' )
+                                                <span class="fontSize13 colorBlack">عربی</span><span
+                                                    class="mx-1">-</span>
+                                                @endif
+                                                @endforeach
                                             </div>
                                         </div>
                                         <a href="#" class="seller-info-link"></a>
@@ -226,8 +255,31 @@
                                         </div>
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container">
+                                                @if ($event['age_description'] == 'teen' )
                                                 <div class="colorBlack fontSize12 fontNormal">
-                                                    {{ $event['age_description'] }}</div>
+                                                    نوجوانان ۱۰ تا ۱۸ سال
+                                                </div>
+                                                @endif
+                                                @if ($event['age_description'] == 'all' )
+                                                <div class="colorBlack fontSize12 fontNormal">
+                                                    همه سنین
+                                                </div>
+                                                @endif
+                                                @if ($event['age_description'] == 'child' )
+                                                <div class="colorBlack fontSize12 fontNormal">
+                                                    کودکان تا ۱۰ سال
+                                                </div>
+                                                @endif
+                                                @if ($event['age_description'] == 'adult' )
+                                                <div class="colorBlack fontSize12 fontNormal">
+                                                    بزرگسال
+                                                </div>
+                                                @endif
+                                                @if ($event['age_description'] == 'old' )
+                                                <div class="colorBlack fontSize12 fontNormal">
+                                                    بازنشستگان
+                                                </div>
+                                                @endif
                                             </div>
                                         </div>
                                         <a href="#" class="seller-info-link"></a>
@@ -247,14 +299,15 @@
                                     <div class="product-seller-row-detail">
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container">
-                                                <span class="fontSize13 fontNormal colorBlack">تهران، میدان ونک، بزرگراه
-                                                    حقانی، مرکز رشد دانشگاه علامه طباطبائی، پلاک 40، طبقه سوم
-                                                    شرقی،</span>
+                                                <span class="fontSize13 fontNormal colorBlack">
+                                                    {{ $event['address'] }}
+                                                </span>
                                             </div>
                                         </div>
                                         <a href="#" class="seller-info-link"></a>
                                     </div>
                                 </div>
+
                                 <div class="d-flex justify-content-end mt-1 mb-2">
                                     <button class="buttonBasketEvent">
                                         <span class="colorWhiteGray fontSize13 paddingRight5 px-2">مشاهده رو نقشه</span>
@@ -273,7 +326,9 @@
                                     <div class="product-seller-row-detail">
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container">
-                                                <span class="colorBlack">02188195360 - 02188196304 -0912456023417</span>
+                                                @foreach ($event['phone'] as $phon)
+                                                <span class="colorBlack">{{ $phon }}</span><span class="mx-1">-</span>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -287,12 +342,13 @@
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container ">
                                                 <div class="colorBlack fontSize15 px-2 d-flex justify-content-end">
-                                                    info@onixcode.com</div>
+                                                    {{$event['email']}}</div>
                                             </div>
                                         </div>
                                         <a href="#" class="seller-info-link"></a>
                                     </div>
                                 </div>
+                                @if ($event['site'] != "" || $event['site'] != "undefined" || $event['site'] != null)
                                 <hr>
                                 <div class="product-seller-row p-0">
                                     <div class="product-seller-row-icon marginTop9">
@@ -302,12 +358,13 @@
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container ">
                                                 <div class="colorBlack fontSize15 px-2 d-flex justify-content-end">
-                                                    www.onixcode.com</div>
+                                                    {{$event['site']}}</div>
                                             </div>
                                         </div>
                                         <a href="#" class="seller-info-link"></a>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </div>
                         <!-- end of product-seller-info -->
@@ -585,5 +642,21 @@ $(document).ready(function() {
         });
     }
 })
+$.ajax({
+    type: 'get',
+    url: '{{ route('api.launcher.show-user') }}',
+    headers: {
+        'accept': 'application/json'
+    },
+    success: function(res) {
+        var html = "";
+        console.log('====================================');
+        console.log(res);
+        console.log('====================================');
+        if (res.status === "ok") {
+            $("#").empty().append(html);
+        }
+    }
+});
 </script>
 @stop
