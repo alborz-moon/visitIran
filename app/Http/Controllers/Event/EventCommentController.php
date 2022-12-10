@@ -40,6 +40,7 @@ class EventCommentController extends ABS_Comment
      */
     public function store(Event $event, Request $request)
     {
+        $request['rate'] = 2;
         return self::abs_store($event, $request, EventComment::class, 'event_id');
     }
 

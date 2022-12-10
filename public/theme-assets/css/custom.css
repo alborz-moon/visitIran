@@ -695,6 +695,9 @@ table thead {
 .backgroundWhite {
     background-color: #eaeaea;
 }
+.textAlignEnd {
+    text-align: end;
+}
 .backgroundYellow {
     background-color: #c59358;
 }

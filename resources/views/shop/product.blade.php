@@ -203,7 +203,7 @@
                 </div>
             </div>
         </main>
-        <div class="remodal remodal-xs remodal-is-initialized remodal-is-opened" data-remodal-id="share-modal" data-remodal-options="hashTracking: false" tabindex="-1">
+{{-- <div class="remodal remodal-xs remodal-is-initialized remodal-is-opened" data-remodal-id="share-modal" data-remodal-options="hashTracking: false" tabindex="-1">
     <div class="remodal-header">
         <div class="remodal-title">اشتراک‌گذاری</div>
         <button data-remodal-action="close" class="remodal-close"></button>
@@ -232,7 +232,7 @@
             </div> 
         </div>
     </div>
-</div>
+</div> --}}
             
 
 <script>

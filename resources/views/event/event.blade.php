@@ -16,18 +16,24 @@
                         <img class="w-100 h-100 pt-0 p-4" src="{{ $event['img'] }}" alt="">
                     </div>
                     <div class="customBoxShadowGallery">
-                        <div class="d-flex alignItemsCenter mb-4">
+                        <div class="d-flex alignItemsCenter flexWrap spaceBetween mb-4">
                             <span class="ui-box-title fontSize20">
                                 <img class="p-2" src="{{ asset('./theme-assets/images/svg/headlineTitle.svg') }}"
                                     alt="">ثبت نام حضوری
                                 <span class="colorYellow fontSize12">مهلت ثبت نام تا
                                     {{ $event['end_registry'] }} ساعت {{ $event['end_registry_time'] }}</span>
                             </span>
+                            @if ( $event['price'] != null)
+                            <div>
+                                <span class="textColor fontSize18 bold px-3">{{ $event['price'] }}</span>
+                                <span class="yellowColor fontSize15">ت</span>
+                            </div>
+                            @endif
                         </div>
                         <div class="d-flex spaceBetween p-3">
                             <div>
-                                <div class="bold textColor">رویداد حضوری و آنلاین </div>
-                                <div class="colorBlack">دریافت ویدیو و عکس یادگاری به همراه سرویس ایاب و ذهاب</div>
+                                <div class="bold textColor">{{ $event['title'] }}</div>
+                                <div class="colorBlack">{{ $event['ticket_description'] }}</div>
                             </div>
                             <div>
                                 <div class="product-seller-row product-remaining-in-stock spaceBetween">
@@ -47,43 +53,21 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="d-flex spaceBetween p-3">
-                            <div>
-                                <div class="bold textColor">رویداد حضوری و آنلاین </div>
-                                <div class="colorBlack">دریافت ویدیو و عکس یادگاری به همراه سرویس ایاب و ذهاب</div>
-                            </div>
-                            <div>
-                                <div class="product-seller-row product-remaining-in-stock spaceBetween">
-                                    <div class="bold textColor d-flex align-items-center ">
-                                        <div>تعداد شرکت کننده :</div>
-                                    </div>
-                                    <div class="num-block fa-num me-3">
-                                        <span class="num-in">
-                                            <span
-                                                class="icon-visit-Exclusion1 countPlus customColorBlack d-flex justify-content-center align-items-center"></span>
-                                            <input name="counter" type="text" value="1" readonly="">
-                                            <span
-                                                class="icon-visit-Exclusion2 countMinus customColorBlack d-flex justify-content-center align-items-center"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center spaceBetween p-3">
+                        <div class="d-flex flexWrap align-items-center spaceBetween p-3">
                             <div class="d-flex align-items-center">
-                                <input style="width: 350px" class="form-control" placeholder="کد تخفیف ">
+                                <input style="min-width: 200px" class="form-control" placeholder="کد تخفیف ">
                                 <button id=""
                                     class="btn btn-primary backgroundGray alignSelfEnd customBtnAddress mx-3">ثبت</button>
                             </div>
                             <div>
-                                <button class="btn btn-primary px-5"> ثبت نام </button>
+                                <button class="btn btn-primary px-5 p-sm-3"> ثبت نام </button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-3 p-0">
                     <div class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">
-                        <div class="d-flex justify-content-end">
+                        {{-- <div class="d-flex justify-content-end">
                             <span>
                                 <button
                                     class="ri-bookmark-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
@@ -92,7 +76,8 @@
                                 <button data-remodal-target="share-modal"
                                     class="ri-stackshare-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
                             </span>
-                        </div>
+                        </div> --}}
+                        @include('event.event.bookmark', ['is_bookmark' => $event['is_bookmark']])
                         <!-- start of product-seller-info -->
                         <div class="product-seller-info ui-box mb-3">
                             {{-- <div class="top30 position-absolute fontSize22 colorYellow">
@@ -105,14 +90,11 @@
                                             class="icon-visit-organization fontSize28 colorWhite position-absolute padding10 "></i>
                                     </div>
                                     <div class="d-flex flexDirectionColumn marginTop8">
-                                        <div class="fontSize15 bold colorBlack">Onix code</div>
+                                        <div class="fontSize15 bold colorBlack">{{ $event['launcher_title'] }}</div>
                                         <div class="d-flex mt-2">
                                             <div class=" align-items-center px-2 px-2 fontSize15 colorYellow"><i
                                                     class=" fontSize15 icon-visit-star me-1 fontSize14 verticalAlign-2"></i>
-                                                4.9</div>
-                                            <div class="mr-70 align-items-center px-2 fontSize15 colorYellow"><i
-                                                    class=" fontSize15 icon-visit-person colorYellow verticalAlign-2"></i>
-                                                15000</div>
+                                                {{ $event['launcher_rate'] }}</div><span>(از {{ $event['launcher_rate_count'] }} رای)</span>
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +103,7 @@
                                         <span class="colorWhiteGray fontSize13 paddingRight5 px-2">مشاهده</span>
                                         <i class="icon-visit-eye colorWhiteGray verticalAlign-2 px-2"></i>
                                     </button>
-                                    <button class="buttonBasketEvent">
+                                    <button id="followToggle" data-select="{{ $event['launcher_is_following'] ? 'on' : 'off' }}" class="buttonBasketEvent {{ $event['launcher_is_following'] ? 'backgroundYellow' : '' }}">
                                         <span class="colorWhiteGray fontSize13 paddingRight5 px-2">دنبال کردن</span>
                                         <i class="icon-visit-person colorWhiteGray verticalAlign-2 px-2"></i>
                                     </button>
@@ -170,22 +152,24 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="product-seller-row p-0">
-                                    <div class="product-seller-row-icon marginTop9">
-                                        <!-- <i class="ri-store-3-fill"></i> -->
-                                        <i class="icon-visit-hashtag colorYellow"></i>
-                                    </div>
-                                    <div class="product-seller-row-detail">
-                                        <div class="seller-final-score-container p-2">
-                                            <div class="seller-rate-container">
-                                                @foreach ( $event['tags'] as $tag )
-                                                <span class="fontSize13 colorBlack">{{ $tag}}</span>
-                                                @endforeach
-                                            </div>
+                                @if($event['tags'] != null)
+                                    <div class="product-seller-row p-0">
+                                        <div class="product-seller-row-icon marginTop9">
+                                            <!-- <i class="ri-store-3-fill"></i> -->
+                                            <i class="icon-visit-hashtag colorYellow"></i>
                                         </div>
-                                        <a href="#" class="seller-info-link"></a>
+                                        <div class="product-seller-row-detail">
+                                            <div class="seller-final-score-container p-2">
+                                                <div class="seller-rate-container">
+                                                    @foreach ( $event['tags'] as $tag )
+                                                        <span class="fontSize13 colorBlack">{{ $tag}}</span>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            <a href="#" class="seller-info-link"></a>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                                 <hr>
                                 <div class="product-seller-row p-0">
                                     <div class="product-seller-row-icon marginTop9">
@@ -227,6 +211,7 @@
                                     </div>
                                 </div>
                                 <hr>
+                                @if($event['facilities'] != null)
                                 <div class="product-seller-row p-0">
                                     <div class="product-seller-row-detail">
                                         <div class="seller-final-score-container p-2">
@@ -236,16 +221,20 @@
                                         </div>
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container">
-                                                @foreach ($event['facilities'] as $facility)
-                                                <div class="colorBlack fontSize12 fontNormal">
-                                                    {{ $facility }}</div>
-                                                @endforeach
+                                               
+                                                    @foreach ($event['facilities'] as $facility)
+                                                        <div class="colorBlack fontSize12 fontNormal">
+                                                            {{ $facility }}
+                                                        </div>
+                                                    @endforeach
+                                                
                                             </div>
                                         </div>
                                         <a href="#" class="seller-info-link"></a>
                                     </div>
                                 </div>
                                 <hr>
+                                @endif
                                 <div class="product-seller-row p-0 pb-2">
                                     <div class="product-seller-row-detail">
                                         <div class="seller-final-score-container p-2">
@@ -289,8 +278,10 @@
                         </div>
                         <!-- end of product-seller-info -->
                         <!-- start of product-seller-info -->
+                       
                         <div class="product-seller-info ui-box p-0">
                             <div class="seller-info-changeable">
+                                @if( $event['address'] != null)
                                 <div class="product-seller-row p-0">
                                     <div class="product-seller-row-icon marginTop9">
                                         <!-- <i class="ri-store-3-fill"></i> -->
@@ -307,7 +298,7 @@
                                         <a href="#" class="seller-info-link"></a>
                                     </div>
                                 </div>
-
+                                @endif
                                 <div class="d-flex justify-content-end mt-1 mb-2">
                                     <button class="buttonBasketEvent">
                                         <span class="colorWhiteGray fontSize13 paddingRight5 px-2">مشاهده رو نقشه</span>
@@ -319,6 +310,7 @@
                                     </button>
                                 </div>
                                 <hr>
+                                @if($event['phone'] != null)
                                 <div class="product-seller-row p-0">
                                     <div class="product-seller-row-icon marginTop9">
                                         <i class="icon-visit-phone colorYellow"></i>
@@ -326,14 +318,16 @@
                                     <div class="product-seller-row-detail">
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container">
-                                                @foreach ($event['phone'] as $phon)
-                                                <span class="colorBlack">{{ $phon }}</span><span class="mx-1">-</span>
+                                                @foreach ($event['phone'] as $phone)
+                                                <span class="colorBlack">{{ $phone }}</span><span class="mx-1">-</span>
                                                 @endforeach
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
+                                @endif
+                                 @if( $event['email'] != null)
                                 <div class="product-seller-row p-0">
                                     <div class="product-seller-row-icon marginTop9">
                                         <i class="icon-visit-mail colorYellow"></i>
@@ -348,7 +342,8 @@
                                         <a href="#" class="seller-info-link"></a>
                                     </div>
                                 </div>
-                                @if ($event['site'] != "" || $event['site'] != "undefined" || $event['site'] != null)
+                                @endif
+                                @if ( $event['site'] != null)
                                 <hr>
                                 <div class="product-seller-row p-0">
                                     <div class="product-seller-row-icon marginTop9">
@@ -397,54 +392,15 @@
                 <div class="details product-tab-content product-content-expert-summary tab-content pb-2 mb-4"
                     id="scrollspyHeading1">
                     <div class="product-tab-title">
-                        {{-- {{ $product['name'] }} --}}
                         <div class="fontSize18 bold ">بررسی بشقاب میناکاری گرد رنگ آبی طرح ستاره مدل 1000100013</div>
                     </div>
                     <div id="checkHeight" class="expandable-text pt-1 ">
                         <div class="expandable-text_text" id="getInnerHeight">
-                            {{-- {!! $product['introduce'] !!} --}}
                             <p>
                                 گوشی موبایل «iPhone 13» پرچم‌دار جدید شرکت اپل است که با چند ویژگی جدید و دوربین دوگانه
                                 روانه بازار شده است. اپل برای ویژگی‌ها و طراحی کلی این گوشی از همان فرمول چند سال اخیرش
                                 استفاده کرده است. نمایشگر آیفون 13 به پنل Super Retina مجهز ‌شده است تا تصاویر بسیار
-                                مطلوبی را به کاربر عرضه کند. این نمایشگر رزولوشن بسیار بالایی دارد؛ به‌طوری‌که در
-                                اندازه­‌ی 6.1 اینچی‌اش، حدود 460 پیکسل را در هر اینچ جا داده است. امکان شارژ بی‌‌سیم
-                                باتری در این گوشی وجود دارد. روکش سرامیکی صفحه‌نمایش این گوشی می‌تواند انقلابی در محافظت
-                                به‌پا کند. این گوشی ضدآب و ضد گردوخاک است. بدنه­ زیبا iPhone 13 در مقابل خط‌‌وخش مقاومت
-                                زیادی دارد؛ پس خیالتان از این بابت که آب و گردوغبار به‌‌راحتی روی آیفون 13 تأثیر
-                                نمی‌‌گذارد، راحت باشد. علاوه‌براین لکه و چربی هم روی این صفحه‌نمایش باکیفیت تأثیر چندانی
-                                ندارند. تشخیص چهره با استفاده از دوربین جلو دیگر ویژگی است که در آیفون جدید اپل به کار
-                                گرفته شده است. قابلیت اتصال به شبکه­‌های 4G و 5G، بلوتوث نسخه‌ 5، نسخه­‌ 15 از iOS دیگر
-                                ویژگی‌های این گوشی هستند. ازنظر سخت‌‌افزاری هم این گوشی از تراشه­‌ی جدید A15 بهره می‌برد
-                                که دارای 15 میلیارد ترانزیستور است که دارای کنترل گرمای مطلوبی بوده که تا بتواند علاوه
-                                بر کارهای معمول، از قابلیت‌های جدید واقعیت مجازی که اپل این روزها روی آن تمرکز خاصی
-                                دارد، پشتیبانی کند. به گفته خود شرکت اپل این گوشی دارای سرعتی 50 برابر نسخه 12 خود است.
-                                پردازنده دارای ماژولار جدیدی است که مصرف باتری را بسیار پایین‌تر آورده است و شما دارای
-                                حفظ باتری بالاتری هستید. کیفیت نمایش شما در iPhone 13 دارای 120 هرتز است و کسفیت بالایی
-                                را شاهد خواهید بود. اپل در این سری از گوشی‌های iPhone خود پردازنده گرافیکی‌ای را قرار
-                                داده که از سری 12 گوشی‌های خود 30 درصد سریع‌تر است و این نویدبخش آن است که شما می‌توانید
-                                بازی‌هایی را با گرافیک و MAP سنگین تر و بزرگ‌تر اجرا کنید. یکی از ویژگی‌هایی که در
-                                iPhone 13 شاهد هستیم سیستم فیلمبرداری ProRes سینمایی آن است که می تواند انقلابی در
-                                فیلمبرداری گوشی‌های موبایل به‌راه انداخته باشد. این قابلیت می‌تواند نسبت به صورت روبرو
-                                بین افراد و یا بین فرد و اشیا فوکوس و بِلار داشته باشد.گوشی موبایل «iPhone 13» پرچم‌دار
-                                جدید شرکت اپل است که با چند ویژگی جدید و دوربین دوگانه روانه بازار شده است. اپل برای
-                                ویژگی‌ها و طراحی کلی این گوشی از همان فرمول چند سال اخیرش استفاده کرده است. نمایشگر
-                                آیفون 13 به پنل Super Retina مجهز ‌شده است تا تصاویر بسیار مطلوبی را به کاربر عرضه کند.
-                                این نمایشگر رزولوشن بسیار بالایی دارد؛ به‌طوری‌که در اندازه­‌ی 6.1 اینچی‌اش، حدود 460
-                                پیکسل را در هر اینچ جا داده است. امکان شارژ بی‌‌سیم باتری در این گوشی وجود دارد. روکش
-                                سرامیکی صفحه‌نمایش این گوشی می‌تواند انقلابی در محافظت به‌پا کند. این گوشی ضدآب و ضد
-                                گردوخاک است. بدنه­ زیبا iPhone 13 در مقابل خط‌‌وخش مقاومت زیادی دارد؛ پس خیالتان از این
-                                بابت که آب و گردوغبار به‌‌راحتی روی آیفون 13 تأثیر نمی‌‌گذارد، راحت باشد. علاوه‌براین
-                                لکه و چربی هم روی این صفحه‌نمایش باکیفیت تأثیر چندانی ندارند. تشخیص چهره با استفاده از
-                                دوربین جلو دیگر ویژگی است که در آیفون جدید اپل به کار گرفته شده است. قابلیت اتصال به
-                                شبکه­‌های 4G و 5G، بلوتوث نسخه‌ 5، نسخه­‌ 15 از iOS دیگر ویژگی‌های این گوشی هستند. ازنظر
-                                سخت‌‌افزاری هم این گوشی از تراشه­‌ی جدید A15 بهره می‌برد که دارای 15 میلیارد ترانزیستور
-                                است که دارای کنترل گرمای مطلوبی بوده که تا بتواند علاوه بر کارهای معمول، از قابلیت‌های
-                                جدید واقعیت مجازی که اپل این روزها روی آن تمرکز خاصی دارد، پشتیبانی کند. به گفته خود
-                                شرکت اپل این گوشی دارای سرعتی 50 برابر نسخه 12 خود است. پردازنده دارای ماژولار جدیدی است
-                                که مصرف باتری را بسیار پایین‌تر آورده است و شما دارای حفظ باتری بالاتری هستید. کیفیت
-                                نمایش شما در iPhone 13 دارای 120 هرتز است و کسفیت بالایی را شاهد خواهید بود. اپل در این
-                                سری از گوشی‌های iPhone خود پردازنده گرافیکی‌ای را قرار داده که از سری 12 گوشی‌های خود 30
+                                مطلوبی را به کاربر عرضه کندوشی‌های iPhone خود پردازنده گرافیکی‌ای را قرار داده که از سری 12 گوشی‌های خود 30
                                 درصد سریع‌تر است و این نویدبخش آن است که شما می‌توانید بازی‌هایی را با گرافیک و MAP
                                 سنگین تر و بزرگ‌تر اجرا کنید. یکی از ویژگی‌هایی که در iPhone 13 شاهد هستیم سیستم
                                 فیلمبرداری ProRes سینمایی آن است که می تواند انقلابی در فیلمبرداری گوشی‌های موبایل
@@ -499,71 +455,7 @@
                     </div>
                 </div>
                 <!-- end of product-params -->
-                <div class="mb-5">
-                    <div class="d-flex spaceBetween align-items-center">
-                        <div class="fontSize18 bold mb-3">برگزار کننده</div>
-                        <div>
-                            <div class="d-flex justify-content-end mt-1 mb-2">
-                                <button class="buttonBasketEvent">
-                                    <span class="colorWhiteGray fontSize13 paddingRight5 px-2">مشاهده</span>
-                                    <i class="icon-visit-eye colorWhiteGray verticalAlign-2 px-2"></i>
-                                </button>
-                                <button class="buttonBasketEvent">
-                                    <span class="colorWhiteGray fontSize13 paddingRight5 px-2">دنبال کردن</span>
-                                    <i class="icon-visit-person colorWhiteGray verticalAlign-2 px-2"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="userCircleSize backgroundYellow mx-3"></div>
-                        <div class="d-flex flexDirectionColumn">
-                            <div class="d-flex mt-2">
-                                <div class="fontSize15 bold colorBlack">Onix code</div>
-                                <div class=" align-items-center px-2 px-2 fontSize15 colorYellow"><i
-                                        class=" fontSize15 icon-visit-star me-1 fontSize14 verticalAlign-2"></i> 4.9
-                                </div>
-                                <div class="mr-70 align-items-center px-2 fontSize15 colorYellow"><i
-                                        class=" fontSize15 icon-visit-person colorYellow verticalAlign-2"></i> 15000
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="textStyle">
-                        اتصال به شبکه­‌های 4G و 5G، بلوتوث نسخه‌ 5، نسخه­‌ 15 از iOS دیگر ویژگی‌های این گوشی هستند.
-                        ازنظر سخت‌‌افزاری هم این گوشی از تراشه­‌ی جدید A15 بهره می‌برد که دارای 15 میلیارد ترانزیستور
-                        است که دارای کنترل گرمای مطلوبی بوده که تا بتواند علاوه بر کارهای معمول، از قابلیت‌های جدید
-                        واقعیت مجازی که اپل این روزها روی آن تمرکز خاصی دارد، پشتیبانی کند. به گفته خود شرکت اپل این
-                        گوشی دارای سرعتی 50 برابر نسخه 12 خود است. پردازنده دارای ماژولار جدیدی است که مصرف باتری را
-                        بسیار پایین‌تر آورده است و شما دارای حفظ باتری بالاتری هستید. کیفیت نمایش شما در iPhone 13 دارای
-                        120 هرتز است و کسفیت بالایی را شاهد خواهید بود. اپل در این سری از گوشی‌های iPhone خود پردازنده
-                        گرافیکی‌ای را قرار داده که از سری 12 گوشی‌های خود 30 درصد سریع‌تر است و این نویدبخش آن است که
-                        شما می‌توانید بازی‌هایی را با گرافیک و MAP سنگین تر و بزرگ‌تر اجرا کنید. یکی از ویژگی‌هایی که در
-                        iPhone 13 شاهد هستیم سیستم فیلمبرداری ProRes سینمایی آن است که می تواند انقلابی در فیلمبرداری
-                        گوشی‌های موبایل به‌راه انداخته باشد. این قابلیت می‌تواند نسبت به صورت روبرو بین افراد و یا بین
-                        فرد و اشیا فوکوس و بِلار داشته باشد.
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <i class="icon-visit-location colorYellow fontSize35 marginTop10"></i>
-                        <span class="fontSize13 fontNormal colorBlack mx-3">تهران، میدان ونک، بزرگراه حقانی، مرکز رشد
-                            دانشگاه علامه طباطبائی، پلاک 40، طبقه سوم شرقی،</span>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <i class="icon-visit-phone colorYellow fontSize35 marginTop10"></i>
-                        <span class="fontSize13 fontNormal colorBlack mx-3">02188195360 - 02188196304
-                            -09124560234</span>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <i class="icon-visit-mail colorYellow fontSize35 marginTop10"></i>
-                        <span class="fontSize13 fontNormal colorBlack mx-3">info@onixcode.com</span>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <i class="icon-visit-website colorYellow fontSize35 marginTop10"></i>
-                        <span class="fontSize13 fontNormal colorBlack mx-3">www.onixcode.com</span>
-                    </div>
-                </div>
-                <!-- end of product-gallery -->
+                @include('event.layouts.launcher', ['launcher' => null, 'launcherId' => $event['launcher_id']])
             </div>
 
         </div>
@@ -641,22 +533,24 @@ $(document).ready(function() {
             });
         });
     }
+    $('#followToggle').on('click',function(){
+        if($(this).attr('data-select') === 'off')
+            $('#followToggle').css('backgroundColor','#c59358').attr('data-select', 'on');
+        else
+            $('#followToggle').css('backgroundColor','transparent').attr('data-select', 'off');
+    });
 })
-$.ajax({
-    type: 'get',
-    url: '{{ route('api.launcher.show-user') }}',
-    headers: {
-        'accept': 'application/json'
-    },
-    success: function(res) {
-        var html = "";
-        console.log('====================================');
-        console.log(res);
-        console.log('====================================');
-        if (res.status === "ok") {
-            $("#").empty().append(html);
-        }
-    }
+
+
+$(document).on("click", ".countPlus", function () {    
+    let count = $('input[name=counter]').val();
+    count++;
 });
+
+$(document).on("click", ".countMinus", function () {
+    let count = $('input[name=counter]').val();
+    count--;
+});
+
 </script>
 @stop

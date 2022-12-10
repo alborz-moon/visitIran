@@ -13,16 +13,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('launcher', LauncherController::class)->except('update');
 
-Route::resource('launcher.launcher_comment', LauncherCommentController::class)->except('show', 'update')->shallow();
-
-Route::post('launcher_comment/{launcher_comment}', [LauncherCommentController::class, 'update'])->name('launcher_comment.update');
-
-
-Route::resource('event.event_comment', EventCommentController::class)->except('show', 'update')->shallow();
-
-Route::post('event_comment/{event_comment}', [EventCommentController::class, 'update'])->name('event_comment.update');
-
-
 Route::prefix('launcher')->group(function() {
 
     Route::post('/changeStatus', [LauncherController::class, 'changeStatus'])->name('launcher.changeStatus');

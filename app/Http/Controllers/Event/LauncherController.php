@@ -8,6 +8,7 @@ use App\Http\Resources\LauncherFilesResource;
 use App\Http\Resources\LauncherFirstStepResource;
 use App\Http\Resources\LauncherResourceAdmin;
 use App\Models\Launcher;
+use App\Models\LauncherComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
@@ -127,13 +128,48 @@ class LauncherController extends Controller
         if($launcher->status != 'confirmed')
             return Redirect::route(403);
 
-        $launcher->seen = $launcher->seen + 1;
-        $launcher->save();
-
         return response()->json([
             'status' => 'ok',
             'data' => LauncherDigest::make($launcher)->toArray($request)
         ]);
+    }
+    
+    public function show_detail(Request $request, Launcher $launcher, string $slug) {
+        
+        if($launcher->status != 'confirmed')
+            return Redirect::route(403);
+
+        $launcher->seen = $launcher->seen + 1;
+        $launcher->save();
+
+        $user = $request->user();
+        
+        if($user == null)
+            return view('event.launcher', [
+                    'launcher' => array_merge(
+                        LauncherDigest::make($launcher)->toArray($request), [
+                            'is_bookmark' => false,
+                            'user_rate' => null,
+                            'has_comment' => false,
+                        ]), 
+                    'is_login' => false,
+                ]);
+
+                
+        $comment = LauncherComment::userComment($launcher->id, $user->id);
+        
+        // dd(LauncherDigest::make($launcher)->toArray($request));
+        return view('event.launcher', [
+            'event' => array_merge(
+                LauncherDigest::make($launcher)->toArray($request), 
+                [
+                    'is_bookmark' => $comment != null && $comment->is_bookmark != null ? $comment->is_bookmark : false,
+                    'user_rate' => $comment != null ? $comment->rate : null,
+                    'has_comment' => $comment != null && $comment->msg != null,
+                ]), 
+                'is_login' => true
+        ]);
+
     }
 
     /**

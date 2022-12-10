@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\Event\LauncherController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Shop\BlogController;
 use App\Http\Controllers\Shop\CategoryController;
@@ -136,7 +137,7 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
 
     Route::get('/event/{event}/{slug}', [EventController::class, 'show'])->name('event');
 
-    Route::view('/follow','event.follow')->name('follow');
+    Route::get('/launcher/{launcher}/{slug}', [LauncherController::class, 'show_detail'])->name('launcher');
 
     Route::view('/list','event.list')->name('event-list');
 

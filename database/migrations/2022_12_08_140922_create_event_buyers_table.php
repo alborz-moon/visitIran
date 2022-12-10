@@ -27,7 +27,7 @@ class CreateEventBuyersTable extends Migration
             $table->unique(['event_id', 'user_id']);
 
             $table->foreign('event_id')->on('events.events')->references('id');
-            $table->foreign('user_id')->on('shop.users')->references('id');
+            $table->foreign('user_id')->on('miras.users')->references('id');
             $table->timestamps();
         });
     }

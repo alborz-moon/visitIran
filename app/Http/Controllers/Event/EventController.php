@@ -410,7 +410,7 @@ class EventController extends Controller
     {
         if(!$event->visibility ||
             ($event->slug != null && $slug != $event->slug) ||
-            ($event->slug == null && $slug != $event->name)
+            ($event->slug == null && $slug != $event->title)
         )
             return Redirect::route('403');
 
@@ -431,8 +431,8 @@ class EventController extends Controller
                     'is_login' => false,
             ]);
 
-        // $comment = EventComment::userComment($event->id, $user->id);
-        $comment = null;
+        $comment = EventComment::userComment($event->id, $user->id);
+        
         // dd(EventUserResource::make($event)->toArray($request));
         return view('event.event', [
             'event' => array_merge(
