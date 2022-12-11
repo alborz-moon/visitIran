@@ -7,7 +7,7 @@
                     <span class="colorWhiteGray fontSize13 paddingRight5 px-2">مشاهده</span>
                     <i class="icon-visit-eye colorWhiteGray verticalAlign-2 px-2"></i>
                 </button>
-                <button class="buttonBasketEvent">
+                <button id="followTogglelauncher" data-select="off" class="buttonBasketEvent">
                     <span class="colorWhiteGray fontSize13 paddingRight5 px-2">دنبال کردن</span>
                     <i class="icon-visit-person colorWhiteGray verticalAlign-2 px-2"></i>
                 </button>
@@ -51,7 +51,12 @@
 </div>
 <!-- end of product-gallery -->
 <script>
-
+    $('#followTogglelauncher').on('click',function(){
+        if($(this).attr('data-select') === 'off')
+            $('#followTogglelauncher').css('backgroundColor','#c59358').attr('data-select', 'on');
+        else
+            $('#followTogglelauncher').css('backgroundColor','transparent').attr('data-select', 'off');
+    });
     $.ajax({
         type: 'get',
         url: '{{ route('api.launcher.show-user',['launcher' => $launcherId]) }}',

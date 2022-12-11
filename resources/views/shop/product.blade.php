@@ -190,7 +190,13 @@
                         <!-- end of product-params -->
                         <!-- start of product-comments -->
                         @include('shop.product.write-comment', ['productId' => $product['id']])
-                        @include('shop.product.comments-show', ['productId' => $product['id']])
+                        @include('shop.product.comments-show', [
+                            'type' => 'product', 
+                            'fetchUrl' => route('api.product.comment.list', ['product' => $product['id']]), 
+                            'itemtId' => $product['id'],
+                            'rate' => $product['rate'],
+                            'rate_count' => $product['all_rates_count']
+                        ])
                         <!-- end of product-comments -->
                     </div>
                     <div class="col-xl-3 col-lg-4 d-lg-block d-none">

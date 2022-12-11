@@ -160,7 +160,7 @@ class LauncherController extends Controller
         
         // dd(LauncherDigest::make($launcher)->toArray($request));
         return view('event.launcher', [
-            'event' => array_merge(
+            'launcher' => array_merge(
                 LauncherDigest::make($launcher)->toArray($request), 
                 [
                     'is_bookmark' => $comment != null && $comment->is_bookmark != null ? $comment->is_bookmark : false,

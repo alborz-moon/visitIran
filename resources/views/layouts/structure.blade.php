@@ -210,11 +210,14 @@
                 <div class="d-flex align-items-center">
                     <div class="navigation-container zIndex5">
                         <div class="navigation">
+                            <div class="position-absolute t-0 l-0 ">
+                                <button type="button" class="btn-close customCloseIconBanner p-0"></button>
+                            </div>
                             <div class="navigation-header">
                                 <div class="logo-container logo-box p-0">
-                                    <a href="#" class="logo">
-                                        <img src="{{ asset('theme-assets/images/menuImage.png') }}"  width="110" alt="">
-                                        <span class="logo-text colorBlue">دسته بندی کالاها<img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt=""></span>
+                                    <a href="#" class="d-flex flexDirectionRow logo alignItemsStart p-2">
+                                        <div><img src="{{ asset('theme-assets/images/menuImage.png') }}"  width="110" alt=""></div>
+                                        <div class="logo-text colorBlue d-flex alignSelfCenter mx-2">دسته بندی کالاها<img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt=""></div>
                                     </a>
                                 </div>
                             </div>

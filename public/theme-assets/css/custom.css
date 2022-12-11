@@ -487,6 +487,7 @@ ul {
     height: 170px;
     bottom: -65px;
     z-index: 1;
+    border: 1px solid #efefef;
 }
 .zIndex {
     z-index: 2;
@@ -871,6 +872,9 @@ table thead {
 }
 .customBold {
     font-weight: 800;
+}
+.alignItemsStart {
+    align-items: flex-start !important;
 }
 .alignItemsCenter {
     align-items: center;
@@ -1747,6 +1751,9 @@ figure .ck-widget {
 .flexDirectionRowReverse {
     flex-direction: row-reverse;
 }
+.flexDirectionRow {
+    flex-direction: row !important;
+}
 .directionLtr {
     direction: ltr;
 }
@@ -1848,6 +1855,10 @@ figure .ck-widget {
         max-width: 1500px !important;
     }
 } */
+.logo-container .logo img {
+    margin-bottom: 0px;
+    max-width: 100%;
+}
 @media (max-width: 576px) {
     .listing-products .product-card {
         display: block !important;

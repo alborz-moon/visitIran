@@ -60,7 +60,7 @@
                                     class="btn btn-primary backgroundGray alignSelfEnd customBtnAddress mx-3">ثبت</button>
                             </div>
                             <div>
-                                <button class="btn btn-primary px-5 p-sm-3"> ثبت نام </button>
+                                <button class="btn btn-primary px-5 p-sm-3">ثبت نام</button>
                             </div>
                         </div>
                     </div>
@@ -442,7 +442,9 @@
                 <div class="product-tab-content product-params tab-content pb-2 mb-4" id="scrollspyHeading4">
                     <div class="product-tab-title">
                         {{-- {{ $product['name'] }} --}}
-                        <div class="fontSize18 bold">دیدگاه ها </div>
+                        <div class="fontSize18 bold mb-5">دیدگاه ها </div>
+                        
+                        {{-- @include('shop.product.write-comment', ['productId' => $product['id']]) --}}                        
                     </div>
                     <div class="expandable-text pt-1" style="height: auto">
                         <div class="expandable-text_text fa-num">
@@ -455,7 +457,13 @@
                     </div>
                 </div>
                 <!-- end of product-params -->
-                @include('event.layouts.launcher', ['launcher' => null, 'launcherId' => $event['launcher_id']])
+                {{-- @include('shop.product.comments-show', [
+                    'type' => 'event', 
+                    'fetchUrl' => route('api.product.comment.list', ['product' => $product['id']]), 
+                    'itemtId' => $product['id'],
+                    'rate' => $product['rate'],
+                    'rate_count' => $product['all_rates_count']
+                ]) --}}
             </div>
 
         </div>

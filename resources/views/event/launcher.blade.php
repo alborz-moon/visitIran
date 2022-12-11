@@ -11,13 +11,12 @@
                         <div class="followLabel position-absolute p-2 px-4">
                             <div class="fontSize22 bold">Onix code</div>
                             <div class="spaceBetween gap15">
-                                <div style="display: flex!important" class="align-items-center px-2 fontSize15 colorYellow"><i class=" fontSize15 icon-visit-star me-1 fontSize14 verticalAlign-2"></i> 4.9</div>
-                                <div style="display: flex!important" class="align-items-center px-2 fontSize15 colorYellow"><i class=" fontSize15 icon-visit-person colorYellow verticalAlign-2"></i> 15000</div>
-                                <div style="display: flex!important" class="align-items-center px-2 fontSize15 colorYellow"><i class=" fontSize15 icon-visit-person colorYellow verticalAlign-2"></i> 15000</div>
+                                <div style="display: flex!important" class="align-items-center px-2 fontSize15 colorYellow"><i class=" fontSize15 icon-visit-star me-1 fontSize14 verticalAlign-2"></i> 4.9<span class="textColor mx-1">(از <span id="rate_count"></span> رای)</span></div>
+                                
                             </div>
                         </div>
                         <div class="position-absolute zIndex2 followBtn">
-                            <button class="buttonBasketEvent">
+                            <button id="followToggle" data-select="off" class="buttonBasketEvent">
                                 <span class="colorWhiteGray fontSize13 paddingRight5 px-2">دنبال کردن</span>
                                 <i class="icon-visit-person colorWhiteGray verticalAlign-2 px-2"></i>
                             </button>
@@ -30,7 +29,9 @@
             <div class="row">
                 <div class="col-lg-9">
                     <!-- end of product-params -->
-                        @include('event.layouts.launcher',['launcher' => null, 'launcherId' => $launcher_id])
+                       <div class="mt-5 pt-5">
+                         @include('event.layouts.launcher',['launcher' => null, 'launcherId' => $launcher['id']])
+                       </div>
                     <!-- end of product-gallery -->
                 </div>
             </div>
@@ -129,48 +130,11 @@
 @section('extraJS')
     @parent
     <script>
-
-    $.ajax({
-        type: 'get',
-        url: '{{ route('api.launcher.show-user',['launcher' => $launcherId]) }}',
-        headers: {
-            'accept': 'application/json'
-        },
-        success: function(res) {
-            var html= "";
-            if(res.status === "ok") {                     
-                if (res.data.about != null){
-                    $('#about').empty().append(res.data.about);         
-                }
-                if (res.data.company_name != null){
-                    $('#company_name').empty().append(res.data.company_name);         
-                }
-                if (res.data.img != null){
-                    $('#imgLauncher').attr('src',res.data.img);         
-                }
-                if (res.data.launcher_address != null){
-                    $('#launcherAddress').empty().append(res.data.launcher_address);         
-                }
-                if (res.data.launcher_email != null){
-                    $('#launcherEmail').empty().append(res.data.launcher_email);         
-                }
-                if (res.data.launcher_site != null){
-                    $('#launcherSite').empty().append(res.data.launcher_site);         
-                }
-                if (res.data.rate != null){
-                    $('#rate').empty().append(res.data.rate);         
-                }
-                if (res.data.launcher_phone != null){
-                    for(i = 0; i < res.data.launcher_phone.length; i++){
-                        html += '<span class="fontSize13 fontNormal colorBlack mx-3">' + res.data.launcher_phone[i] + '</span>'
-                    }
-                    $('#launcher_phone').empty().append(html);         
-                }
-                if (res.data.rate_count != null){
-                    $('#rate_count').empty().append(res.data.rate_count);         
-                }
-            }
-        }
+    $('#followToggle').on('click',function(){
+        if($(this).attr('data-select') === 'off')
+            $('#followToggle').css('backgroundColor','#c59358').attr('data-select', 'on');
+        else
+            $('#followToggle').css('backgroundColor','transparent').attr('data-select', 'off');
     });
-</script>
+    </script>
 @stop
