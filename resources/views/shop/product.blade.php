@@ -189,7 +189,9 @@
                         </div>
                         <!-- end of product-params -->
                         <!-- start of product-comments -->
-                        @include('shop.product.write-comment', ['productId' => $product['id']])
+                        @include('shop.product.write-comment', [
+                            'itemId' => $product['id'],
+                            'sendComment' => route('api.product.comment.store', ['product' => $product['id']])])
                         @include('shop.product.comments-show', [
                             'type' => 'product', 
                             'fetchUrl' => route('api.product.comment.list', ['product' => $product['id']]), 

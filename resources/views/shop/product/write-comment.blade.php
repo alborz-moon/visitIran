@@ -146,7 +146,7 @@
 
         $.ajax({
             type: 'post',
-            url: '{{ route('api.product.comment.store', ['product' => $productId]) }}',
+            url: '{{ $sendComment }}',
             data: data,  
             success: function(res) {
                 if(res.status === 'ok') {
