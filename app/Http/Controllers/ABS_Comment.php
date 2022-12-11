@@ -115,18 +115,17 @@ class ABS_Comment extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function list(Product $product, Request $request)
+    public static function abs_list(Model $model, Request $request)
     {
         $page = $request->query('page', 1);
 
-        $comments = $product->comments()->confirmed();
+        $comments = $model->comments()->confirmed();
 
         $orderBy = $request->query('orderBy', null);
         $orderBy = $orderBy != null && $orderBy == 'rate' ? 'rate' : 'created_at';
 
         $orderByType = $request->query('orderType', null);
         $orderByType = $orderByType != null && $orderByType === 'asc' ? 'asc' : 'desc';
-        // dd($comments->orderBy($orderBy, $orderByType)->get());
         
         return response()->json([
             'status' => 'ok',

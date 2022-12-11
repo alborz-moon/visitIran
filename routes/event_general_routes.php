@@ -29,6 +29,8 @@ Route::middleware(['myAuth'])->group(function() {
 
     Route::prefix('launcher')->group(function() {
 
+        Route::get('/{launcher}/comments', [LauncherCommentController::class, 'list'])->name('launcher.launcher_comment.list');
+
         Route::post('/{launcher}', [LauncherController::class, 'update'])->name('launcher.update');
 
         Route::get('/{launcher}/files', [LauncherController::class, 'showFiles'])->name('launcher.files');
@@ -36,6 +38,12 @@ Route::middleware(['myAuth'])->group(function() {
         Route::post('/launcher_bank_accounts/{launcher_bank?}', [LauncherBankAccountsController::class, 'update'])->name('launcher_bank_accounts.update');
     
         Route::delete('/launcher_bank_accounts/{launcher_bank?}', [LauncherBankAccountsController::class, 'destroy'])->name('launcher_bank_accounts.destroy');
+
+    });
+
+    Route::prefix('event')->group(function() {
+
+        Route::get('/{event}/comments', [EventCommentController::class, 'list'])->name('event.event_comment.list');
 
     });
 
