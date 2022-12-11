@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\Event\EventTagController;
 use App\Http\Controllers\Event\LauncherController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Shop\BlogController;
@@ -135,11 +136,17 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
 
     Route::view('/', 'event.welcome')->name('event.home');
 
+    
     Route::get('/event/{event}/{slug}', [EventController::class, 'show'])->name('event');
 
     Route::get('/launcher/{launcher}/{slug}', [LauncherController::class, 'show_detail'])->name('launcher');
 
-    Route::view('/list','event.list')->name('event-list');
+
+    Route::get('/list/{tag}/{slug}', [EventTagController::class, 'list'])->name('event.single-category');
+        
+    Route::get('/list/{orderBy}', [EventTagController::class, 'allCategories'])->name('event.category.list');
+
+
 
     Route::middleware(['myAuth'])->group(function() {
 
