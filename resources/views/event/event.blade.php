@@ -444,7 +444,7 @@
                     <div class="product-tab-title">
                         {{-- {{ $product['name'] }} --}}
                         <div class="fontSize18 bold mb-5">دیدگاه ها </div>
-                        @include('shop.product.write-comment', ['itemId' => $event['id'], ])
+                        @include('shop.product.write-comment', ['itemId' => $event['id'], 'sendComment' => route('event.event_comment_store', ['event' => $event['id']])])])
                         {{-- @include('shop.product.write-comment', ['productId' => $product['id']]) --}}                        
                     </div>
                     <div class="expandable-text pt-1" style="height: auto">
