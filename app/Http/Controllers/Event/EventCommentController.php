@@ -22,6 +22,18 @@ class EventCommentController extends ABS_Comment
         );
     }
 
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list(Event $event, Request $request)
+    {
+        return self::abs_list($event, $request);
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

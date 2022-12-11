@@ -34,6 +34,16 @@ class LauncherCommentController extends ABS_Comment
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list(Launcher $launcher, Request $request)
+    {
+        return self::abs_list($launcher, $request);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
