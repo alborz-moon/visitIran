@@ -138,15 +138,43 @@ class EventTagController extends Controller
         $whereClause = "events.visibility = true and end_registry > " . time() . " and tags like '%" . $label . "%'";
         $attrs = DB::connection('mysql2')->select('select price, language, facilities, age_description, level_description from events where ' . $whereClause);
         $cities = DB::connection('mysql2')->select('select cities.id, cities.name from events, cities where city_id is not null and city_id = cities.id and ' . $whereClause . ' group by(cities.id)');
-        $launchers = DB::connection('mysql2')->select('select distinct(launcher_id) as id, launchers.name from launchers, events where launcher_id = launchers.id and ' . $whereClause);
+        $launchers = DB::connection('mysql2')->select('select distinct(launcher_id) as id, launchers.company_name from launchers, events where launcher_id = launchers.id and ' . $whereClause);
 
         $minPrice = null;
         $maxPrice = null;
         $langs = [];
         $facilities = [];
+        $ages = [];
+        $levels = [];
 
         foreach($attrs as $attr) {
 
+            if($minPrice == null || $minPrice > $attr->price)
+                $minPrice = $attr->price;
+
+            if($maxPrice == null || $maxPrice < $attr->price)
+                $maxPrice = $attr->price;
+
+            if(array_search($attr->language, $langs) === false)
+                array_push($langs, $attr->language);
+
+            if(array_search($attr->level_description, $levels) === false)
+                array_push($levels, $attr->level_description);
+
+            if(array_search($attr->age_description, $ages) === false)
+                array_push($ages, $attr->age_description);
+
+            $facils = explode('_', $attr->facilities);
+
+            foreach($facils as $facil) {
+
+                if(empty($facil))
+                    continue;
+
+                if(array_search($facil, $facilities) === false)
+                    array_push($facilities, $facil);
+            }
+            
         }
 
         return view('event.list', [
@@ -157,7 +185,9 @@ class EventTagController extends Controller
             'minPrice' => $minPrice,
             'cities' => $cities,
             'facilities' => $facilities,
-            'langs' => $langs
+            'langs' => $langs,
+            'ages' => $ages,
+            'levels' => $levels,
         ]);
     }
 

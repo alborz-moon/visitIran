@@ -153,7 +153,7 @@
                                                         <li class="form-check">
                                                             <input name="brands" class="form-check-input" type="checkbox" value="{{ $brand->id }}" />
                                                             {{ $brand->name }}
-                                                        </li>    
+                                                        </li>
                                                     @endforeach
                                                 </div>
                                             </div>

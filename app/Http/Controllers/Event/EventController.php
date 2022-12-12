@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Event;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\EventAdminDigest;
 use App\Http\Resources\EventPhase1Resource;
 use App\Http\Resources\EventPhase2Resource;
@@ -19,122 +18,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class EventController extends Controller
+class EventController extends EventHelper
 {
-
-    private function build_filters($request, $justVisibles=false) {
-        
-        $filters = Event::where('id', '>', '0');
-        $launcher = $request->query('launcher', null);
-        $tag = $request->query('tag', null);
-        $type = $request->query('type', null);
-        $status = $request->query('status', null);
-        $visibility = $request->query('visibility', null);
-        $orderBy = $request->query('orderBy', null);
-        $orderByType = $request->query('orderByType', null);
-        $isInTopList = $request->query('isInTopList', null);
-        $off = $request->query('off', null);
-        $comment = $request->query('comment', null);
-
-        $fromCreatedAt = $request->query('fromCreatedAt', null);
-        $toCreatedAt = $request->query('toCreatedAt', null);
-        
-        $fromAt = $request->query('fromAt', null);
-        $toAt = $request->query('toAt', null);
-
-        if($launcher != null)
-            $filters->where('launcher_id', $launcher);
-            
-        if($tag != null)
-            $filters->whereRaw("tags LIKE '%" . $tag . "%'");
-            
-        if($type != null) {
-            if($type == "online")
-                $filters->whereNull('city_id');
-            else
-                $filters->whereNotNull('city_id');
-        }
-            
-        if($isInTopList != null)
-            $filters->where('is_in_top_list', $isInTopList);
-            
-        if($status != null)
-            $filters->where('status', $status);
-            
-        if($fromCreatedAt != null)
-            $filters->whereDate('created_at', '>=', self::ShamsiToMilady($fromCreatedAt));
-            
-        if($toCreatedAt != null)
-            $filters->whereDate('created_at', '<=', self::ShamsiToMilady($toCreatedAt));
-
-        $isAdmin = false;
-
-        if($request->user() != null && (
-            $request->user()->level == User::$ADMIN_LEVEL ||
-            $request->user()->level == User::$EDITOR_LEVEL
-        )) {
-            
-            $isAdmin = true;
-
-            if($visibility != null)
-                $filters->where('visibility', $visibility);
-                
-            if($comment != null) {
-                if($comment)
-                    $filters->where('new_comment_count', 0);
-                else
-                    $filters->where('new_comment_count', '>', 0);
-            }
-
-            if($off != null) {
-                $today = (int)self::getToday()['date'];
-                if($off)
-                    $filters->whereNotNull('off')->where('off_expiration', '>=', $today);
-                else
-                    $filters->where(function ($query) use ($today) {
-                        $query->whereNull('off')->orWhere('off_expiration', '<', $today);
-                    });
-            }
-
-        }
-        else
-            $filters->where('visibility', true);
-
-        if($justVisibles && $isAdmin)
-            $filters->where('visibility', true);
-
-        if($orderByType == null || (
-                $orderByType != 'asc' && 
-                $orderByType != 'desc'
-        ))
-            $orderByType = 'desc';
-
-        if($orderBy != null) {
-            if($orderBy == 'createdAt')
-                $filters->orderBy('id', $orderByType);
-            else if(in_array($orderBy, 
-                [
-                    'rate', 'seen', 'rate_count', 'priority',
-                    'comment_count', 'new_comment_count'
-                ]
-            ))
-                $filters->orderBy($orderBy, $orderByType);
-        }
-        else {
-            $orderBy = 'createAt';
-            $orderByType = 'desc';
-            if($isAdmin)
-                $filters->orderBy('id', 'desc');
-            else
-                $filters->orderBy('priority', 'asc');
-        }
-
-        return $filters;
-    }
-
-
 
     /**
      * Display a listing of the resource.
@@ -216,7 +104,7 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-        $events = $this->build_filters($request)->get();
+        $events = self::build_filters($request)->get();
         $events = EventAdminDigest::collection($events)->toArray($request);
         
         $launcherFilter = $request->query('launcher', null);
@@ -283,14 +171,32 @@ class EventController extends Controller
      */
     public function list(Request $request)
     {
+
+        $validator = [
+            'key' => 'nullable|persian_alpha|min:2|max:15'
+        ];
+
+        $validator = Validator::make($request->query(), $validator);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+
         $params = [];
         foreach($request->query() as $key => $val) {
             $params[str_replace('amp;', '', $key)] = $val;
         }
 
-        $limit = $params['limit'];
+        $limit = $request->query('limit', 8);
+        $key = $request->query('key', null);
+        $page = $request->query('page', 1);
+
+        if($key != null && $page > 1)
+            return abort(401);
         
-        $filters = $this->build_filters($request, true);
+        $filters = self::build_filters($request, true, $key != null);
+
         $events = $filters->paginate($limit == null ? 30 : $limit);
 
         return response()->json([
