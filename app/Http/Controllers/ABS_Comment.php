@@ -248,7 +248,7 @@ class ABS_Comment extends Controller
             $updateUrl = route('event_comment.update', ['event_comment' => $model->id]);
         }
         else if($model instanceof Comment) {
-            $backUrl = route('product.comment.index', ['launcher' => $model->launcher_id]);
+            $backUrl = route('product.comment.index', ['product' => $model->product_id]);
             $updateUrl = route('comment.update', ['comment' => $model->id]);
         }
 
@@ -380,7 +380,7 @@ class ABS_Comment extends Controller
             $ref = $model->launcher;
         if($model instanceof EventComment)
             $ref = $model->event;
-        else if($model instanceof Product)
+        else if($model instanceof Comment)
             $ref = $model->product;
 
         if(!$model->status)

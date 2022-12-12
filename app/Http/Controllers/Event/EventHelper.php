@@ -1,0 +1,244 @@
+<?php
+
+namespace App\Http\Controllers\Event;
+
+use App\Http\Controllers\Controller;
+use App\Models\Event;
+
+class EventHelper extends Controller {
+
+    static function build_filters($request, $justVisibles=false, $returnStr=false) {
+        
+        $filters = Event::where('id', '>', '0');
+
+        $launchers = $request->query('launchers', null);
+        $maxPrice = $request->query('maxPrice', null);
+        $minPrice = $request->query('minPrice', null);
+        $languages = $request->query('languages', null);
+        $levels = $request->query('levels', null);
+        $facilities = $request->query('facilities', null);
+        $cities = $request->query('cities', null);
+        $type = $request->query('type', null);
+
+        $tag = $request->query('tag', null);
+        $status = $request->query('status', null);
+        $visibility = $request->query('visibility', null);
+        $orderBy = $request->query('orderBy', null);
+        $orderByType = $request->query('orderByType', null);
+        $isInTopList = $request->query('isInTopList', null);
+        $off = $request->query('off', null);
+        $comment = $request->query('comment', null);
+
+        $fromCreatedAt = $request->query('fromCreatedAt', null);
+        $toCreatedAt = $request->query('toCreatedAt', null);
+        
+        $fromAt = $request->query('fromAt', null);
+        $toAt = $request->query('toAt', null);
+        
+        $filters_arr = [];
+
+        if($launchers != null)
+            array_push($filters_arr, ['launcher_id', $launchers]);
+            
+        if($cities != null)
+            array_push($filters_arr, ['cities', $launchers]);
+
+        if($languages != null)
+            array_push($filters_arr, ['launguage', $languages, 'like']);
+
+        if($facilities != null)
+            array_push($filters_arr, ['facilities', $facilities, 'like']);
+
+        if($levels != null)
+            array_push($filters_arr, ['level_description', $levels, 'like']);
+
+        if($minPrice != null)
+            array_push($filters_arr, ['price', '>=', $minPrice]);
+            
+        if($maxPrice != null)
+            array_push($filters_arr, ['price', '<=', $maxPrice]);
+
+        // if($tag != null)
+        //     $filters->whereRaw("tags LIKE '%" . $tag . "%'");
+            
+        if($type != null) {
+            if($type == "online")
+                array_push($filters_arr, ['city_id', 'null']);
+            else
+                array_push($filters_arr, ['city_id', 'not_null']);
+        }
+            
+        // if($isInTopList != null)
+        //     $filters->where('is_in_top_list', $isInTopList);
+            
+        // if($status != null)
+        //     $filters->where('status', $status);
+            
+        // if($fromCreatedAt != null)
+        //     $filters->whereDate('created_at', '>=', self::ShamsiToMilady($fromCreatedAt));
+            
+        // if($toCreatedAt != null)
+        //     $filters->whereDate('created_at', '<=', self::ShamsiToMilady($toCreatedAt));
+
+        // $isAdmin = false;
+
+        // if($request->user() != null && (
+        //     $request->user()->level == User::$ADMIN_LEVEL ||
+        //     $request->user()->level == User::$EDITOR_LEVEL
+        // )) {
+            
+        //     $isAdmin = true;
+
+        //     if($visibility != null)
+        //         $filters->where('visibility', $visibility);
+                
+        //     if($comment != null) {
+        //         if($comment)
+        //             $filters->where('new_comment_count', 0);
+        //         else
+        //             $filters->where('new_comment_count', '>', 0);
+        //     }
+
+        //     if($off != null) {
+        //         $today = (int)self::getToday()['date'];
+        //         if($off)
+        //             $filters->whereNotNull('off')->where('off_expiration', '>=', $today);
+        //         else
+        //             $filters->where(function ($query) use ($today) {
+        //                 $query->whereNull('off')->orWhere('off_expiration', '<', $today);
+        //             });
+        //     }
+
+        // }
+        // else
+        //     $filters->where('visibility', true);
+
+        // if($justVisibles && $isAdmin)
+        //     $filters->where('visibility', true);
+
+        // if($orderByType == null || (
+        //         $orderByType != 'asc' && 
+        //         $orderByType != 'desc'
+        // ))
+        //     $orderByType = 'desc';
+
+        // if($orderBy != null) {
+        //     if($orderBy == 'createdAt')
+        //         $filters->orderBy('id', $orderByType);
+        //     else if(in_array($orderBy, 
+        //         [
+        //             'rate', 'seen', 'rate_count', 'priority',
+        //             'comment_count', 'new_comment_count'
+        //         ]
+        //     ))
+        //         $filters->orderBy($orderBy, $orderByType);
+        // }
+        // else {
+        //     $orderBy = 'createAt';
+        //     $orderByType = 'desc';
+        //     if($isAdmin)
+        //         $filters->orderBy('id', 'desc');
+        //     else
+        //         $filters->orderBy('priority', 'asc');
+        // }
+
+        if($returnStr) {
+            
+            $filters = "";
+            $first = true;
+
+            foreach($filters_arr as $filter) {
+
+                if(count($filter) == 2 && is_array($filter[1])) {
+
+                    if($first) {
+                        $filters .= ' (';
+                        $first = false;
+                    }
+                    else
+                        $filters .= ' and (';
+
+                    $first_cluase = true;
+
+                    foreach($filter[1] as $itr) {
+                        if($first_cluase) {
+                            $first_cluase = false;
+                            if(count($filters_arr) == 1)
+                                $filters .= $filter[0] . ' = ' . $itr;
+                            else
+                                $filters .= $filter[0] . ' like "%' . $itr . '%"';
+                        }
+                        else {
+                            if(count($filters_arr) == 1)
+                                $filters .= ' or ' . $filter[0] . ' = ' . $itr;
+                            else
+                                $filters .= ' or ' . $filter[0] . ' like "%' . $itr . '%"';
+                        }
+                    }
+                    $filters .= ')';
+                    continue;
+                }
+
+
+                if(count($filter) == 2 && $filter[1] == "null")
+                    $op = "is null";
+                else if(count($filter) == 2 && $filter[1] == "not_null")
+                    $op = "is not null";
+                else
+                    $op = count($filter) == 2 ? "=" : $filter[1];
+
+                if($first) {
+                    $first = false;
+                    $filters .= $filter[0] . $op . $filter[count($filter) - 1];
+                }
+                else
+                    $filters .= ' and ' . $filter[0] . $op . $filter[count($filter) - 1];
+
+            }
+            return $filters;
+        }
+
+        foreach($filters_arr as $filter) {
+            if(count($filter) == 3) {
+                if($filter[0] == 'createdAt')
+                    $filters->whereDate($filter[0], $filter[1], $filter[2]);
+                else {
+                    $filters->where($filter[0], $filter[1], $filter[2]);
+                }
+            }
+            else if(count($filter) == 2 && $filter[1] == "null")
+                $filters->whereNull($filter[0]);
+            else if(count($filter) == 2 && $filter[1] == "not_null")
+                    $filters->whereNotNull($filter[0]);
+            else if($filter[0] == 'createdAt')
+                $filters->whereDate($filter[0], $filter[1]);
+            else if($filter[0] == 'tags' && is_array($filter[1])) {
+                $tags = $filter[1];
+                $filters->where(function ($query) use ($tags) {
+                    foreach($tags as $tag) {
+                        $query->orWhereLike('tag', $tag);
+                    }
+                });
+            }
+            else if($filter[0] == 'launcher_id' && is_array($filter[1])) {
+                $launchers = $filter[1];
+                $filters->where(function ($query) use ($launchers) {
+                    foreach($launchers as $launcher) {
+                        $query->orWhere('launcher_id', $launcher);
+                    }
+                });
+            }
+            
+            else if(is_array($filter[1]))
+                $filters->whereIn($filter[0], $filter[1]);
+            else
+                $filters->where($filter[0], $filter[1]);
+        }
+
+
+        return $filters;
+    }
+
+}
+
+?>
