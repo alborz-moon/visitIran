@@ -203,6 +203,7 @@ class ABS_Comment extends Controller
         }
 
         if($request->has('rate')) {
+            
             if(!$needUpdateTable) {
                 $model->rate = round(($model->rate * $model->rate_count - $comment->rate + $request['rate']) / $model->rate_count, 2);
                 $needUpdateTable = true;

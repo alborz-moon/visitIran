@@ -444,8 +444,21 @@
                     <div class="product-tab-title">
                         {{-- {{ $product['name'] }} --}}
                         <div class="fontSize18 bold mb-5">دیدگاه ها </div>
-                        @include('shop.product.write-comment', ['itemId' => $event['id'], 'sendComment' => route('event.event_comment_store', ['event' => $event['id']])])])
-                        {{-- @include('shop.product.write-comment', ['productId' => $product['id']]) --}}                        
+                        @include('shop.product.write-comment', 
+                        ['itemId' => $event['id'],
+                        'itemImg' => $event['img'],
+                        'itemName' => $event['title'], 
+                        'sendComment' => route('event.event_comment.store', 
+                        ['event' => $event['id']])])
+                        
+                        @include('shop.product.comments-show', [
+                            'type' => 'event', 
+                            'fetchUrl' => route('event.event_comment.list', 
+                            ['event' => $event['id']]), 
+                            'itemtId' => $event['id'],
+                            'rate' => $event['launcher_rate'],
+                            'rate_count' => $event['launcher_rate_count']
+                        ])                     
                     </div>
                     <div class="expandable-text pt-1" style="height: auto">
                         <div class="expandable-text_text fa-num">

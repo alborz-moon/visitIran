@@ -21,9 +21,9 @@
                                 <i class="icon-visit-person colorWhiteGray verticalAlign-2 px-2"></i>
                             </button>
                         </div>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="container">
             <div class="row">
@@ -40,7 +40,22 @@
             <div class="row">
                 <div class="col-lg-9">
                     <!-- start of product-comments -->
-                    <div class="comments">commnets</div>
+                    <div class="fontSize18 bold mb-5">دیدگاه ها </div>
+                        @include('shop.product.write-comment', 
+                        ['itemId' => $launcher['id'],
+                        'itemImg' => $launcher['img'],
+                        'itemName' => $launcher['company_name'], 
+                        'sendComment' => route('launcher.launcher_comment.store', 
+                        ['launcher' => $launcher['id']])])
+                        
+                        @include('shop.product.comments-show', [
+                            'type' => 'launcher', 
+                            'fetchUrl' => route('launcher.launcher_comment.list', 
+                            ['launcher' => $launcher['id']]), 
+                            'itemtId' => $launcher['id'],
+                            'rate' => $launcher['rate'],
+                            'rate_count' => $launcher['rate_count']
+                        ])
                         {{-- @include('shop.product.write-comment')
                         @include('shop.product.comments-show') --}}
                         <!-- end of product-comments -->
