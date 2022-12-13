@@ -106,6 +106,7 @@ class CategoryController extends Controller
 
         $catId = $category->id;
         $whereClause = "products.visibility = true and category_id = " . $catId;
+        
         $minMax = DB::select('select max(price) as maxPrice, min(price) as minPrice from products where ' . $whereClause);
         $sellers = DB::select('select distinct(seller_id) as id, sellers.name from sellers, products where seller_id = sellers.id and ' . $whereClause);
         $brands = DB::select('select distinct(brand_id) as id, brands.name from products, brands where brand_id = brands.id and ' . $whereClause);
@@ -156,7 +157,6 @@ class CategoryController extends Controller
         $categories = DB::select('select distinct(category_id) as id, categories.name from products, categories where category_id = categories.id and ' . $whereClause);
         $sellers = DB::select('select distinct(seller_id) as id, sellers.name from sellers, products where seller_id = sellers.id and ' . $whereClause);
         $brands = DB::select('select distinct(brand_id) as id, brands.name from products, brands where brand_id = brands.id and ' . $whereClause);
-        
         
         return view('shop.list', [
             'path' => [],

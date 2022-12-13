@@ -4,7 +4,7 @@
         <div class="remodal-content">
             <div class="search-container">
               <form action="#" class="search-form">
-                <input min="3" id="searchInput" type="text" class="form-control search-field marginLeft48" placeholder="جستجو کنید..">
+                <input min="3" id="searchInput" type="text" class="form-control search-field marginLeft48 searchInput" placeholder="جستجو کنید..">
               </form>
               
             </div>
@@ -22,13 +22,13 @@
               </div>
             @endif
             <hr>
-            <div id="searchDetails">
+            <div id="searchDetails" class="searchDetails">
             </div>
         </div>
     </div>
 <!-- end of personal-info-fullname-modal -->
 <script>
-    $('#searchInput').on('keyup',function(){
+    $('.searchInput').on('keyup',function(){
         if (this.value.length > 2){
           $.ajax({
              type: 'post',
@@ -39,6 +39,7 @@
              },
              success: function(res) {
                 var html= "";
+                
                 if(res.status === "ok") {
                   if (res.data.length != 0){
                     for (var i = 0; i < res.data.length; i++){
@@ -52,7 +53,7 @@
                       html += '</div>';
                     }
                   }
-                  $("#searchDetails").empty().append(html);
+                  $(".searchDetails").empty().append(html);
                 }
              }
          });

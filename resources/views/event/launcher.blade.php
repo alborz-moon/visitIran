@@ -12,7 +12,6 @@
                             <div class="fontSize22 bold">Onix code</div>
                             <div class="spaceBetween gap15">
                                 <div style="display: flex!important" class="align-items-center px-2 fontSize15 colorYellow"><i class=" fontSize15 icon-visit-star me-1 fontSize14 verticalAlign-2"></i> 4.9<span class="textColor mx-1">(از <span id="rate_count"></span> رای)</span></div>
-                                
                             </div>
                         </div>
                         <div class="position-absolute zIndex2 followBtn">

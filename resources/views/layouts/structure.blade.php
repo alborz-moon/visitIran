@@ -197,81 +197,45 @@
             <!-- end of page-header-top -->
         </header>
         <!-- end of page-header -->
-        <header class="page-header-responsive d-md-none p-0 zIndex1">
+        <header class="page-header-responsive d-md-none p-0">
             {{-- @include('layouts.top-banner') --}}
             <!-- start banner -->
+            <div id="parentSearchMobile">
+                <button id="closeSearch" type="button" class="btn-close customCloseIconBanner p-0 position-absolute l-0 hidden zIndex1"></button>
+                
+                <div id="container-search" class="search-container p-2 hidden">
+                <form action="#" class="search-form">
+                  <input min="3" id="searchInput" type="text" class="form-control search-field marginLeft48 searchInput" placeholder="جستجو کنید..">
+                </form>
+                @if(isset($top_categories))
+                  <div id="hiddenCat" class="d-flex flexwrap gap10 my-3 hidden">
+                    @foreach ($top_categories as $cat)
+                      <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal">
+                        {{ $cat['name'] }}
+                      </a>  
+                    @endforeach
+                  </div>
+                @endif
+                <hr>
+                <div id="searchDetails" class="searchDetails">
+                </div>
+
+                </div>
+            </div>
             <div class="alert banner-container alert-dismissible fade show showTopBanner hidden" role="alert" id="topBanner">
                 <a href="#" target="_blank" id="" class="banner-placement rounded-0 infobox"
                     style="height: 60px;"></a>
-                <button id="close" type="button" class="btn-close customCloseIconBanner p-0" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            <div id="parentSearchMobile hidden d-none">
-                <button id="closeSearch" type="button" class="btn-close customCloseIconBanner p-0 position-absolute"></button>
-                <div class="search-container">
-              <form action="#" class="search-form">
-                <input min="3" id="searchInput" type="text" class="form-control search-field marginLeft48" placeholder="جستجو کنید..">
-              </form>
-              
-            </div>
-            <button id="searchBtn" data-remodal-action="close" class="btn-search btn-action b-0 customSearch colorblue d-flex">
-              <i class="icon-visit-close customSearch"></i>
-            </button>
-            
-            @if(isset($top_categories))
-              <div class="d-flex flexwrap gap10 my-3">
-                @foreach ($top_categories as $cat)
-                  <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal">
-                    {{ $cat['name'] }}
-                  </a>  
-                @endforeach
-              </div>
-            @endif
-            <hr>
-            <div id="searchDetails">
+                <button id="close" type="button" class="btn-close customCloseIconBanner p-0 " data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
 
-            </div>
-            <script>
-    $('#searchInput').on('keyup',function(){
-        if (this.value.length > 2){
-          $.ajax({
-             type: 'post',
-             url: '{{ route('product-search') }}',
-             data: {
-                key: this.value,
-                return_type: 'card' 
-             },
-             success: function(res) {
-                var html= "";
-                if(res.status === "ok") {
-                  if (res.data.length != 0){
-                    for (var i = 0; i < res.data.length; i++){
-                      
-                      html += '<div class="d-flex my-2 padding15">';
-                      html += '<div class="icon-visit-search fontSize15 padding5"></div>';
-                      html += '<div class="d-flex flexDirectionColumn">';
-                      html += '<a href="' + res.data[i].href + '" class="fontSize14 colorBlack">' + res.data[i].name + '</a>';
-                      html += '<div class="fontSize12 colorBlue">' + res.data[i].category + '</div>';
-                      html += '</div>';
-                      html += '</div>';
-                    }
-                  }
-                  $("#searchDetails").empty().append(html);
-                }
-             }
-         });
-        }
-        $('#searchBtn').css('display','flex');
-    });
-</script>
+            
+            
             <!-- end banner -->
             <div class="page-header-responsive-row">
                 <div class="d-flex align-items-center">
                     <div class="navigation-container zIndex5">
                         <div class="navigation">
-                            <div class="position-absolute t-0 l-0 ">
-                                <button type="button" class="btn-close customCloseIconBanner p-0"></button>
-                            </div>
+
                             <div class="navigation-header">
                                 <div class="logo-container logo-box p-0">
                                     <a href="#" class="d-flex flexDirectionRow logo alignItemsStart p-2">
@@ -322,7 +286,11 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="navigation-overlay"></div>
+                        <div class="navigation-overlay">
+                            <div class="position-absolute t-0 l-0 ">
+                                <button type="button" class="btn-close customCloseIconBanner p-0"></button>
+                            </div>
+                        </div>
                     </div>
                      <div class="d-flex align-items-center flex-grow-1 pe-3 zIndex3 position-relative">
                             <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop">
@@ -340,7 +308,7 @@
             <div class="mobileMenu">
                 <div class="customMobileMenuBoxShadow w-100 h-100">
                     <div class="d-flex justify-content-center gap30">
-                        <button  class="d-flex b-0 m-0 p-0 toggle-navigation">
+                        <button class="d-flex b-0 m-0 p-0 toggle-navigation">
                             <div class="menuCircle">
                                     <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
                                         <i class="icon-visit-menu fontSize30 colorBlack"></i>
@@ -358,13 +326,22 @@
                         </button>
                         <script>
                             $('#searchMobile').on('click',function(){
+                                $('#closeSearch').removeClass('hidden');
+                                $('#hiddenCat').removeClass('hidden');
                                 $('#parentSearchMobile').addClass('search-mobile').css('bottom','0');
                                 $('#searchMobile').removeClass('hidden');
+                                $('#container-search').removeClass('hidden');
+                                $('body').css('overflow','hidden');
                             });
                             $('#closeSearch').on('click',function(){
-                                $('#closeSearch').css('bottom','-100%');
-                                $('#searchMobile').addClass('hidden');
+                                $('#closeSearch').addClass('hidden');
+                                $('#hiddenCat').addClass('hidden');
+                                $('#container-search').addClass('hidden');
+                                $('#parentSearchMobile').addClass('search-mobile').css('bottom','-100%');
+                                $('body').css('overflow','auto');
+                                // $('#searchMobile').addClass('hidden');
                             });
+
                         </script>
                         <a href="" class="d-flex b-0 m-0 p-0">
                             <div class="menuCircle">
