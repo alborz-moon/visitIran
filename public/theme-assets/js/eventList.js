@@ -59,18 +59,18 @@ function buildQuery() {
         $("#levels_filters_count_container").addClass("hidden");
     }
 
-    // let brands = [];
-    // $("input[name='brands']").each(function () {
-    //     if ($(this).prop("checked")) brands.push($(this).attr("value"));
-    // });
-    // if (brands.length > 0) {
-    //     $("#brands_filters_count_container").removeClass("hidden");
-    //     $("#brands_filters_count").empty().append(brands.length);
-    //     query.append("brand", brands);
-    //     total_filters_count += brands.length;
-    // } else {
-    //     $("#brands_filters_count_container").addClass("hidden");
-    // }
+    let facilities = [];
+    $("input[name='facilities']").each(function () {
+        if ($(this).prop("checked")) facilities.push($(this).attr("value"));
+    });
+    if (facilities.length > 0) {
+        $("#facilities_filters_count_container").removeClass("hidden");
+        $("#facilities_filters_count").empty().append(facilities.length);
+        query.append("facilities", facilities);
+        total_filters_count += facilities.length;
+    } else {
+        $("#facilities_filters_count_container").addClass("hidden");
+    }
 
     // var features = [];
     // $("select[name='feature_filter']").each(function () {
@@ -134,7 +134,7 @@ function filter() {
                 $("#nothingToShow").removeClass("hidden");
                 return;
             }
-            let html = renderEvents(res.data, "sample");
+            let html = renderEvents(res.data, "sampleEvent");
             $("#events_div").empty().append(html).removeClass("hidden");
             $("#shimmer").addClass("hidden");
             $("#nothingToShow").addClass("hidden");
@@ -150,9 +150,10 @@ function renderEvents(data, prefix) {
     if (data === undefined) return "";
 
     data.forEach((elem) => {
-        setProductVals(prefix, elem);
+        setEventVals(prefix, elem);
         let id = elem.id;
-        var newElem = $("#sample_product_div").html();
+
+        var newElem = $("#sample_event_div").html();
 
         newElem = newElem
             .replace(prefix + "Img", prefix + "Img_" + id)
