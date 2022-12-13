@@ -76,9 +76,9 @@ function setEventVals(prefix, elem) {
     $("#" + prefix + "Header2").text(elem.name);
     $("#" + prefix + "Tag").text(elem.category);
 
-    if (elem.launcher !== "") {
+    if (elem.place !== "") {
         $("#" + prefix + "LauncherParent").removeClass("hidden");
-        $("#" + prefix + "Launcher").text(elem.launcher);
+        $("#" + prefix + "Launcher").text(elem.place);
     }
     if (elem.launcher2 !== "") {
         $("#" + prefix + "LauncherParent2").removeClass("hidden");
@@ -187,4 +187,8 @@ function renderEventSlider(data, prefix) {
 
 function redirect(id, name) {
     window.open(productPrefixRoute + "/" + id + "/" + name, "_blank");
+}
+
+function event_redirect(id, name) {
+    window.open(eventPrefixRoute + "/" + id + "/" + name, "_blank");
 }

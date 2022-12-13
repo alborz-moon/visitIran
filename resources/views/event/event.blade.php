@@ -180,31 +180,11 @@
                                     <div class="product-seller-row-detail">
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container">
-                                                @foreach ($event['language'] as $languages)
-                                                @if ($languages == 'fa' )
-                                                <span class="fontSize13 colorBlack">فارسی</span><span
-                                                    class="mx-1">-</span>
-                                                @endif
-                                                @if ($languages == 'tr' )
-                                                <span class="fontSize13 colorBlack">ترکی</span><span
-                                                    class="mx-1">-</span>
-                                                @endif
-                                                @if ($languages == 'en' )
-                                                <span class="fontSize13 colorBlack">انگلیسی</span><span
-                                                    class="mx-1">-</span>
-                                                @endif
-                                                @if ($languages == 'gr' )
-                                                <span class="fontSize13 colorBlack">آلمانی</span><span
-                                                    class="mx-1">-</span>
-                                                @endif
-                                                @if ($languages == 'fr' )
-                                                <span class="fontSize13 colorBlack">فرانسه</span><span
-                                                    class="mx-1">-</span>
-                                                @endif
-                                                @if ($languages == 'ar' )
-                                                <span class="fontSize13 colorBlack">عربی</span><span
-                                                    class="mx-1">-</span>
-                                                @endif
+                                                @foreach ($event['language'] as $lang)
+                                                    <span class="fontSize13 colorBlack">
+                                                        @lang($lang)
+                                                        <span class="mx-1">-</span>
+                                                    </span>
                                                 @endforeach
                                             </div>
                                         </div>

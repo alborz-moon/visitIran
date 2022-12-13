@@ -155,9 +155,6 @@ class EventTagController extends Controller
             if($maxPrice == null || $maxPrice < $attr->price)
                 $maxPrice = $attr->price;
 
-            if(array_search($attr->language, $langs) === false)
-                array_push($langs, $attr->language);
-
             if(array_search($attr->level_description, $levels) === false)
                 array_push($levels, $attr->level_description);
 
@@ -173,6 +170,12 @@ class EventTagController extends Controller
 
                 if(array_search($facil, $facilities) === false)
                     array_push($facilities, $facil);
+            }
+
+            $l = explode('_', $attr->language);
+            foreach($l as $itr) {
+                if(array_search($itr, $langs) === false)
+                    array_push($langs, $itr);
             }
             
         }

@@ -15,7 +15,8 @@ class EventUserDigest extends JsonResource
     public function toArray($request)
     {
         
-        $off = $this->activeOff();
+        // $off = $this->activeOff();
+        $off = null;
 
         $priceAfterOff = $this->price;
         if($off != null && $off['type'] === 'value')
@@ -27,14 +28,15 @@ class EventUserDigest extends JsonResource
             'id' => $this->id,
             'img' => $this->img == null ? asset('default.png') : asset('storage/products/' . $this->img),
             'alt' => $this->alt,
-            'slug' => $this->slug == null ? $this->name : $this->slug,
+            'slug' => $this->slug == null ? $this->title : $this->slug,
             'rate' => $this->rate == null ? 4 : round($this->rate, 1),
             'name' => $this->title,
-            'launcher' => $this->launcher->company_name,
+            'launcher' => '', //$this->launcher->company_name
             'price' => number_format($this->price, 0),
             'off' => $off,
             'category' => $this->tags,
             'priceAfterOff' => number_format($priceAfterOff, 0),
+            'place' => $this->city_id != null ? '' : $this->link //$this->city->name
         ];
     }
 }
