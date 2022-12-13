@@ -35,7 +35,6 @@
                              html += '<div class="swiper-slide main-swiper-slide"><a target="_blank" href=' + res.data[i].href + ' style="background-image: url(' + res.data[i].img_large + ')!important;border-radius:0;"><img style="border-radius:0;" class="imgResponsive" src="' + res.data[i].img_large + '" alt=""></a></div>';
                          }
                       }else if (width > 520) {
-                      
                           for(var i = 0; i < res.data.length; i++) {
                              html += '<div class="swiper-slide main-swiper-slide"><a target="_blank" href=' + res.data[i].href + ' style="background-image: url(' + res.data[i].img_mid + ')!important;border-radius:0;"><img style="border-radius:0;" class="imgResponsive" src="' + res.data[i].img_mid + '" alt=""></a></div>';
                           }
@@ -43,9 +42,8 @@
                           for(var i = 0; i < res.data.length; i++) {
                               html += '<div class="swiper-slide main-swiper-slide"><a target="_blank" href=' + res.data[i].href + ' style="background-image: url(' + res.data[i].img_small + ')!important;border-radius:0;"><img style="border-radius:0;" class="imgResponsive" src="' + res.data[i].img_small + '" alt=""></a></div>';
                           }
-                      }
-                     
-                        $("#slider").empty().append(html);
+                      } 
+                    $("#slider").empty().append(html);
                  }
              }
          });

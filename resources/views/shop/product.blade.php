@@ -191,6 +191,8 @@
                         <!-- start of product-comments -->
                         @include('shop.product.write-comment', [
                             'itemId' => $product['id'],
+                            'itemImg' => $product['img'],
+                            'itemName' => $product['name'],
                             'sendComment' => route('api.product.comment.store', ['product' => $product['id']])])
                         @include('shop.product.comments-show', [
                             'type' => 'product', 
