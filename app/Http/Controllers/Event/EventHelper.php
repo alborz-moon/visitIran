@@ -9,7 +9,10 @@ class EventHelper extends Controller {
 
     static function build_filters($request, $justVisibles=false, $returnStr=false) {
         
-        $filters = Event::where('id', '>', '0');
+        $filters = null;
+
+        if($justVisibles)
+            $filters = Event::where('visibility', true)->where('status', 'confirmed')->where('end_registry', '>', time());
 
         $launchers = $request->query('launchers', null);
         $maxPrice = $request->query('maxPrice', null);
@@ -18,9 +21,9 @@ class EventHelper extends Controller {
         $levels = $request->query('levels', null);
         $facilities = $request->query('facilities', null);
         $cities = $request->query('cities', null);
-        $type = $request->query('type', null);
-
+        $types = $request->query('types', null);
         $tag = $request->query('tag', null);
+
         $status = $request->query('status', null);
         $visibility = $request->query('visibility', null);
         $orderBy = $request->query('orderBy', null);
@@ -38,19 +41,19 @@ class EventHelper extends Controller {
         $filters_arr = [];
 
         if($launchers != null)
-            array_push($filters_arr, ['launcher_id', $launchers]);
+            array_push($filters_arr, ['launcher_id', explode(',', $launchers)]);
             
         if($cities != null)
-            array_push($filters_arr, ['cities', $launchers]);
+            array_push($filters_arr, ['city_id', explode(',', $cities)]);
 
         if($languages != null)
-            array_push($filters_arr, ['launguage', $languages, 'like']);
+            array_push($filters_arr, ['language', $languages, 'like']);
 
         if($facilities != null)
             array_push($filters_arr, ['facilities', $facilities, 'like']);
 
         if($levels != null)
-            array_push($filters_arr, ['level_description', $levels, 'like']);
+            array_push($filters_arr, ['level_description', explode(',', $levels)]);
 
         if($minPrice != null)
             array_push($filters_arr, ['price', '>=', $minPrice]);
@@ -58,14 +61,20 @@ class EventHelper extends Controller {
         if($maxPrice != null)
             array_push($filters_arr, ['price', '<=', $maxPrice]);
 
-        // if($tag != null)
-        //     $filters->whereRaw("tags LIKE '%" . $tag . "%'");
+        if($tag != null)
+            array_push($filters_arr, ['tags', $tag, 'like']);
             
-        if($type != null) {
-            if($type == "online")
-                array_push($filters_arr, ['city_id', 'null']);
-            else
-                array_push($filters_arr, ['city_id', 'not_null']);
+        if($types != null) {
+            $types = explode(',', $types);
+            if(count($types) == 1) {
+                
+                $type = $types[0];
+
+                if($type == "online")
+                    array_push($filters_arr, ['city_id', 'null']);
+                else
+                    array_push($filters_arr, ['city_id', 'not_null']);
+            }
         }
             
         // if($isInTopList != null)
@@ -149,7 +158,10 @@ class EventHelper extends Controller {
 
             foreach($filters_arr as $filter) {
 
-                if(count($filter) == 2 && is_array($filter[1])) {
+                if(count($filter) == 3 && $filter[2] == 'like')
+                    $filter[1] = explode(',', $filter[1]);
+
+                if(is_array($filter[1])) {
 
                     if($first) {
                         $filters .= ' (';
@@ -163,13 +175,13 @@ class EventHelper extends Controller {
                     foreach($filter[1] as $itr) {
                         if($first_cluase) {
                             $first_cluase = false;
-                            if(count($filters_arr) == 1)
+                            if(count($filters_arr) == 2)
                                 $filters .= $filter[0] . ' = ' . $itr;
                             else
                                 $filters .= $filter[0] . ' like "%' . $itr . '%"';
                         }
                         else {
-                            if(count($filters_arr) == 1)
+                            if(count($filters_arr) == 2)
                                 $filters .= ' or ' . $filter[0] . ' = ' . $itr;
                             else
                                 $filters .= ' or ' . $filter[0] . ' like "%' . $itr . '%"';
@@ -198,10 +210,40 @@ class EventHelper extends Controller {
             return $filters;
         }
 
+
         foreach($filters_arr as $filter) {
+            
             if(count($filter) == 3) {
                 if($filter[0] == 'createdAt')
                     $filters->whereDate($filter[0], $filter[1], $filter[2]);
+                else if($filter[2] == "like") {
+                    $items = explode(',', $filter[1]);
+                    $tmp_key = $filter[0];
+                    $filters->where(function ($query) use ($items, $tmp_key) {
+
+                        $first_cluase = true;
+                        $like_query = "";
+
+                        foreach($items as $item) {
+                            if($first_cluase) {
+                                $first_cluase = false;
+                                if($tmp_key == "language")
+                                    $like_query .= $tmp_key . " like '%_" . $item . "_%'";
+                                else
+                                    $like_query .= $tmp_key . " like '%" . $item . "%'";
+                            }
+                            else {
+                                if($tmp_key == "language")
+                                    $like_query .= " or " . $tmp_key . " like '%_" . $item . "_%'";
+                                else
+                                    $like_query .= " or " . $tmp_key . " like '%" . $item . "%'";
+                            }
+                        }
+
+                        $query->whereRaw($like_query);
+                        
+                    });
+                }
                 else {
                     $filters->where($filter[0], $filter[1], $filter[2]);
                 }
@@ -228,14 +270,21 @@ class EventHelper extends Controller {
                     }
                 });
             }
-            
+            else if($filter[0] == 'level_description' && is_array($filter[1])) {
+                $levels = $filter[1];
+                $filters->where(function ($query) use ($levels) {
+                    foreach($levels as $level) {
+                        $query->orWhere('level_description', $level);
+                    }
+                });
+            }
             else if(is_array($filter[1]))
                 $filters->whereIn($filter[0], $filter[1]);
             else
                 $filters->where($filter[0], $filter[1]);
         }
 
-
+        // dd($filters->toSql());
         return $filters;
     }
 

@@ -164,6 +164,35 @@ class EventController extends EventHelper
     }
 
     
+    public function search(Request $request) {
+
+        $validator = [
+            'key' => 'required|persian_alpha|min:2|max:15',
+            'tag' => 'nullable|string|exists:events.event_tags,name',
+            'return_type' => ['required', Rule::in(['digest', 'card'])]
+        ];
+        
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator);
+
+        $events = Event::like($request['key'], 
+            $request->has('tag') ? $request['tag'] : null,
+            $request['return_type']
+        );
+
+        
+        if($request['return_type'] == 'digest')
+            return EventUserDigest::collection($events)->toArray($request);
+        
+        // return response()->json([
+        //     'status' => 'ok',
+        //     'data' => ProductDigestUser::collection($products)->toArray($request)
+        // ]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -173,7 +202,7 @@ class EventController extends EventHelper
     {
 
         $validator = [
-            'key' => 'nullable|persian_alpha|min:2|max:15'
+            // 'key' => 'nullable|persian_alpha|min:2|max:15'
         ];
 
         $validator = Validator::make($request->query(), $validator);
@@ -188,7 +217,7 @@ class EventController extends EventHelper
             $params[str_replace('amp;', '', $key)] = $val;
         }
 
-        $limit = $request->query('limit', 8);
+        $limit = $request->query('limit', 30);
         $key = $request->query('key', null);
         $page = $request->query('page', 1);
 
@@ -197,7 +226,12 @@ class EventController extends EventHelper
         
         $filters = self::build_filters($request, true, $key != null);
 
-        $events = $filters->paginate($limit == null ? 30 : $limit);
+        if($key == null) {
+            $events = $filters->skip(($page - 1) * $limit)->take($limit)->get();
+        }
+        else {
+            $events = Event::like($key, null, 'digest', $filters);
+        }
 
         return response()->json([
             'status' => 'ok',

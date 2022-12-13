@@ -523,7 +523,6 @@
             console.log('child unchecked');
             var status=true;
             sibblingsli.each(function(){
-            console.log('sibb');
             if($(this).children().prop('checked')) status=false;
             });
             if(status) parentinput.prop('checked',false);
@@ -532,7 +531,27 @@
 
 
         $(document).ready(function() {
+
+            
+            let minMaxChange = false;
+            let minMaxFetch = false;
+
+            document.body.onmouseup = function() {
+                if(minMaxChange && !minMaxFetch) {
+                    minMaxChange = false;
+                    minMaxFetch = true;
+                    filter();
+                }
+            }
+
+            var skipSlider = document.getElementById("slider-non-linear-step");
+            skipSlider.noUiSlider.on("update", function (values, handle) {
+                minMaxChange = true;
+                minMaxFetch = false;
                 
+            });
+
+
             $("#top-categories-parent").on('click', function() {
                 if($(this).attr('data-drop-down') === 'true') {
                     $("#top-categories-container").addClass('hidden');
@@ -557,14 +576,6 @@
             });
             
             $("#has_selling_offs").on('change', function() {
-                filter();
-            });
-
-            $(document).on('mouseup', ".noUi-handle-upper", function(){
-                filter();
-            });
-            
-            $(document).on('mouseup', ".noUi-handle-lower", function(){
                 filter();
             });
 

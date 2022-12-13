@@ -61,6 +61,17 @@ class EventFactory extends Factory
             $end_registry = Carbon::now()->addDays(70)->timestamp;
         }
 
+        $langs_count = random_int(1, 4);
+        $langs = [];
+
+        for($i = 0; $i < $langs_count; $i++) {
+            $l = $languages[random_int(0, 4)];
+            while(array_search($l, $langs) !== false)
+                $l = $languages[random_int(0, 4)];
+            array_push($langs, $l);
+        }
+        
+
         return [
             'title' => $this->faker->name(),
             'start_registry' => $start_registry,
@@ -70,7 +81,7 @@ class EventFactory extends Factory
             'tags' => $tags,
             'ticket_description' => random_int(10, 1000) < 500 ? $this->faker->text() : null,
             'level_description' => $levels[random_int(0, 3)],
-            'language' => $languages[random_int(0, 4)],
+            'language' => implode('_', $langs),
             'age_description' => $ages[random_int(0, 4)],
             'description' => $this->faker->text(),
             'status' => random_int(1, 100) > 30 ? 'confirmed' : 'rejected',

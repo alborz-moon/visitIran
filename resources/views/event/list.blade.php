@@ -5,12 +5,12 @@
     <script>
 
         let LIST_API = '{{ route('api.event.list') }}';
-        let HOME_API = '{{ route('home') }}';
+        let HOME_API = '{{ route('event.home') }}';
         let defaultMinPrice=  '{{ number_format($minPrice) }}';
         let defaultMaxPrice=  '{{ number_format($maxPrice) }}';
-        let productPrefixRoute = HOME_API + "/product";
+        let eventPrefixRoute = HOME_API + "/event";
         
-        let catId = '{{ isset($id) ? $id : -1 }}';
+        let cat = '{{ isset($name) ? $name : -1 }}';
 
     </script>
 
@@ -83,9 +83,9 @@
                                     <div class="widget-content widget--search">
                                         <form action="#">
                                             <div class="form-element-row">
-                                                <input type="text" name="s" class="form-control"
+                                                <input id="searchBoxInput" type="text" name="s" class="form-control"
                                                     placeholder="نام محصول یا…">
-                                                <i class="ri-search-line icon"></i>
+                                                <i onclick="filter()" class="ri-search-line icon cursorPointer"></i>
                                             </div>
                                         </form>
                                     </div>
@@ -276,6 +276,40 @@
                                 <!-- end of widget -->
 
 
+                                <!-- start of widget -->
+                                <div class="widget widget-collapse mb-3">
+                                    <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseGroupingType" aria-expanded="false"
+                                        aria-controls="collapseGroupingType" role="button">نوع رویداد
+                                        
+                                        <div id="type_filters_count_container" class="hidden">
+                                            <i class="circle colorBlue align-self-center"></i>
+                                            <span class="colorBlue fontSize12">
+                                                <span id="type_filters_count" ></span><span> فیلتر</span>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    <div class="widget-content widget--search collapse" id="collapseGroupingType">
+                                        
+                                        <div class="filter-options do-simplebar pt-2 mt-2">
+                                            <div id="types">
+                                                <li class="form-check">
+                                                    <input name="types" class="form-check-input" type="checkbox" value="online" />
+                                                    مجازی
+                                                </li>
+                                                <li class="form-check">
+                                                    <input name="types" class="form-check-input" type="checkbox" value="not_online" />
+                                                    حضوری
+                                                </li>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end of widget -->
+
+
                                 @if(isset($tags))
                                     <!-- start of widget -->
                                     <div class="widget widget-collapse mb-3">
@@ -381,315 +415,8 @@
                                             <div class="ui-box-content p-0">
                                                 <div class="row mx-0">
                                                     
-                                                    <div id="sample_product_div" class="hidden">
-                                                        {{-- @include('event.productCard', ['key' => 'sample']) --}}
-                                                        <div class="d-flex gap10 flexWrap">
-                                                                                                                    <div class="customEventWidthBox ml-0">
-                                                            <div>
-                                                                <!-- start of product-card -->
-                                                                <div class="product-card customEventBorderBox">
-                                                                    <div class="product-thumbnail mx-n15">
-                                                                        <a>
-                                                                            <img style="width: 300px;height: 180px;max-width: 300px !important;">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="product-card-body">
-                                                                        <h2 class="product-title">
-                                                                            <a class="textColor fontSize14 bold"></a>
-                                                                        </h2>
-                                                                        <h2 class="product-title">
-                                                                            <span class="fontSize14">شروع</span>
-                                                                            <a class="textColor fontSize14"></a>
-                                                                        </h2>
-                                                                        <div class="product-variant">
-                                                                            <span class="colorWhite customBoxLabel fontSize11"></span>
-                                                                        </div>
-                                                                        <div class="colorCircle"></div>
-                                                                        <div class="product-price fa-num">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <span class="fontSize15 pl-10 position-relative">
-                                                                                    <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="">
-                                                                                    <span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span>
-                                                                                </span>
-                                                                                <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                            </div>
-                                                                            <div class="fontSize20">
-                                                                                <span></span>
-                                                                                <span class="fontSize20 colorYellow">ت</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="product-card-footer mb-2">
-                                                                        <div class="textColor">
-                                                                            <span class="bold">مکان </span>
-                                                                            <span</span>
-                                                                        </div>
-                                                                        <div class="textColor">
-                                                                            <span class="bold">برگزار کننده</span>
-                                                                            <span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end of product-card -->
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="customEventWidthBox ml-0">
-                                                            <div>
-                                                                <!-- start of product-card -->
-                                                                <div class="product-card customEventBorderBox">
-                                                                    <div class="product-thumbnail mx-n15">
-                                                                        <a>
-                                                                            <img style="width: 300px;height: 180px;max-width: 300px !important;">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="product-card-body">
-                                                                        <h2 class="product-title">
-                                                                            <a class="textColor fontSize14 bold"></a>
-                                                                        </h2>
-                                                                        <h2 class="product-title">
-                                                                            <span class="fontSize14">شروع</span>
-                                                                            <a class="textColor fontSize14"></a>
-                                                                        </h2>
-                                                                        <div class="product-variant">
-                                                                            <span class="colorWhite customBoxLabel fontSize11"></span>
-                                                                        </div>
-                                                                        <div class="colorCircle"></div>
-                                                                        <div class="product-price fa-num">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <span class="fontSize15 pl-10 position-relative">
-                                                                                    <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="">
-                                                                                    <span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span>
-                                                                                </span>
-                                                                                <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                            </div>
-                                                                            <div class="fontSize20">
-                                                                                <span></span>
-                                                                                <span class="fontSize20 colorYellow">ت</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="product-card-footer mb-2">
-                                                                        <div class="textColor">
-                                                                            <span class="bold">مکان </span>
-                                                                            <span</span>
-                                                                        </div>
-                                                                        <div class="textColor">
-                                                                            <span class="bold">برگزار کننده</span>
-                                                                            <span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end of product-card -->
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="customEventWidthBox ml-0">
-                                                            <div>
-                                                                <!-- start of product-card -->
-                                                                <div class="product-card customEventBorderBox">
-                                                                    <div class="product-thumbnail mx-n15">
-                                                                        <a>
-                                                                            <img style="width: 300px;height: 180px;max-width: 300px !important;">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="product-card-body">
-                                                                        <h2 class="product-title">
-                                                                            <a class="textColor fontSize14 bold"></a>
-                                                                        </h2>
-                                                                        <h2 class="product-title">
-                                                                            <span class="fontSize14">شروع</span>
-                                                                            <a class="textColor fontSize14"></a>
-                                                                        </h2>
-                                                                        <div class="product-variant">
-                                                                            <span class="colorWhite customBoxLabel fontSize11"></span>
-                                                                        </div>
-                                                                        <div class="colorCircle"></div>
-                                                                        <div class="product-price fa-num">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <span class="fontSize15 pl-10 position-relative">
-                                                                                    <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="">
-                                                                                    <span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span>
-                                                                                </span>
-                                                                                <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                            </div>
-                                                                            <div class="fontSize20">
-                                                                                <span></span>
-                                                                                <span class="fontSize20 colorYellow">ت</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="product-card-footer mb-2">
-                                                                        <div class="textColor">
-                                                                            <span class="bold">مکان </span>
-                                                                            <span</span>
-                                                                        </div>
-                                                                        <div class="textColor">
-                                                                            <span class="bold">برگزار کننده</span>
-                                                                            <span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end of product-card -->
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="customEventWidthBox ml-0">
-                                                            <div>
-                                                                <!-- start of product-card -->
-                                                                <div class="product-card customEventBorderBox">
-                                                                    <div class="product-thumbnail mx-n15">
-                                                                        <a>
-                                                                            <img style="width: 300px;height: 180px;max-width: 300px !important;">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="product-card-body">
-                                                                        <h2 class="product-title">
-                                                                            <a class="textColor fontSize14 bold"></a>
-                                                                        </h2>
-                                                                        <h2 class="product-title">
-                                                                            <span class="fontSize14">شروع</span>
-                                                                            <a class="textColor fontSize14"></a>
-                                                                        </h2>
-                                                                        <div class="product-variant">
-                                                                            <span class="colorWhite customBoxLabel fontSize11"></span>
-                                                                        </div>
-                                                                        <div class="colorCircle"></div>
-                                                                        <div class="product-price fa-num">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <span class="fontSize15 pl-10 position-relative">
-                                                                                    <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="">
-                                                                                    <span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span>
-                                                                                </span>
-                                                                                <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                            </div>
-                                                                            <div class="fontSize20">
-                                                                                <span></span>
-                                                                                <span class="fontSize20 colorYellow">ت</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="product-card-footer mb-2">
-                                                                        <div class="textColor">
-                                                                            <span class="bold">مکان </span>
-                                                                            <span</span>
-                                                                        </div>
-                                                                        <div class="textColor">
-                                                                            <span class="bold">برگزار کننده</span>
-                                                                            <span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end of product-card -->
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="customEventWidthBox ml-0">
-                                                            <div>
-                                                                <!-- start of product-card -->
-                                                                <div class="product-card customEventBorderBox">
-                                                                    <div class="product-thumbnail mx-n15">
-                                                                        <a>
-                                                                            <img style="width: 300px;height: 180px;max-width: 300px !important;">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="product-card-body">
-                                                                        <h2 class="product-title">
-                                                                            <a class="textColor fontSize14 bold"></a>
-                                                                        </h2>
-                                                                        <h2 class="product-title">
-                                                                            <span class="fontSize14">شروع</span>
-                                                                            <a class="textColor fontSize14"></a>
-                                                                        </h2>
-                                                                        <div class="product-variant">
-                                                                            <span class="colorWhite customBoxLabel fontSize11"></span>
-                                                                        </div>
-                                                                        <div class="colorCircle"></div>
-                                                                        <div class="product-price fa-num">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <span class="fontSize15 pl-10 position-relative">
-                                                                                    <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="">
-                                                                                    <span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span>
-                                                                                </span>
-                                                                                <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                            </div>
-                                                                            <div class="fontSize20">
-                                                                                <span></span>
-                                                                                <span class="fontSize20 colorYellow">ت</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="product-card-footer mb-2">
-                                                                        <div class="textColor">
-                                                                            <span class="bold">مکان </span>
-                                                                            <span</span>
-                                                                        </div>
-                                                                        <div class="textColor">
-                                                                            <span class="bold">برگزار کننده</span>
-                                                                            <span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end of product-card -->
-                                                            </div>
-                                                        </div>
-
-                                                        
-                                                        <div class="customEventWidthBox ml-0">
-                                                            <div>
-                                                                <!-- start of product-card -->
-                                                                <div class="product-card customEventBorderBox">
-                                                                    <div class="product-thumbnail mx-n15">
-                                                                        <a>
-                                                                            <img style="width: 300px;height: 180px;max-width: 300px !important;">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="product-card-body">
-                                                                        <h2 class="product-title">
-                                                                            <a class="textColor fontSize14 bold"></a>
-                                                                        </h2>
-                                                                        <h2 class="product-title">
-                                                                            <span class="fontSize14">شروع</span>
-                                                                            <a class="textColor fontSize14"></a>
-                                                                        </h2>
-                                                                        <div class="product-variant">
-                                                                            <span class="colorWhite customBoxLabel fontSize11"></span>
-                                                                        </div>
-                                                                        <div class="colorCircle"></div>
-                                                                        <div class="product-price fa-num">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <span class="fontSize15 pl-10 position-relative">
-                                                                                    <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="">
-                                                                                    <span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span>
-                                                                                </span>
-                                                                                <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                            </div>
-                                                                            <div class="fontSize20">
-                                                                                <span></span>
-                                                                                <span class="fontSize20 colorYellow">ت</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="product-card-footer mb-2">
-                                                                        <div class="textColor">
-                                                                            <span class="bold">مکان </span>
-                                                                            <span</span>
-                                                                        </div>
-                                                                        <div class="textColor">
-                                                                            <span class="bold">برگزار کننده</span>
-                                                                            <span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end of product-card -->
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        </div>
+                                                    <div id="sample_event_div" class="hidden">
+                                                        @include('event.event.event_card', ['key' => 'sampleEvent'])
                                                     </div>
 
                                                     <div id="shimmer" class="hidden" style="display: flex; flex-wrap: wrap; gap: 10px;">
@@ -832,7 +559,46 @@
     @parent
 
     {{-- <script src="{{ asset('theme-assets/js/lazyLoading.js') }}"></script> --}}
-    {{-- <script src="{{ asset('theme-assets/js/home.js') }}"></script> --}}
+    <script src="{{ asset('theme-assets/js/home.js') }}"></script>
     <script src="{{ asset('theme-assets/js/eventList.js') }}"></script>
+
+    <script>
+
+        $(document).ready(function() {
+
+            let minMaxChange = false;
+            let minMaxFetch = false;
+
+            document.body.onmouseup = function() {
+                if(minMaxChange && !minMaxFetch) {
+                    minMaxChange = false;
+                    minMaxFetch = true;
+                    filter();
+                }
+            }
+
+            var skipSlider = document.getElementById("slider-non-linear-step");
+            skipSlider.noUiSlider.on("update", function (values, handle) {
+                minMaxChange = true;
+                minMaxFetch = false;
+                
+            });
+
+            $("#orderBy").on('change', function() {
+                filter();
+            });
+
+            $("#has_selling_stock").on('change', function() {
+                filter();
+            });
+            
+            $("#has_selling_offs").on('change', function() {
+                filter();
+            });
+
+
+        });
+
+    </script>
 
 @stop

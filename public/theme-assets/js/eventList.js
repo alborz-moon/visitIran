@@ -2,14 +2,14 @@ let page = 1;
 
 function buildQuery() {
     let query = new URLSearchParams();
-    if (catId != "-1") query.append("parent", catId);
+    if (cat != "-1") query.append("tag", cat);
 
-    // let off = $("#has_selling_offs").prop("checked") ? 1 : 0;
+    let off = $("#has_selling_offs").prop("checked") ? 1 : 0;
     // let min = $("#has_selling_stock").prop("checked") ? 1 : 0;
     let minPrice = $("#skip-value-lower").val().replaceAll(",", "");
     let maxPrice = $("#skip-value-upper").val().replaceAll(",", "");
     // let orderBy = $("#orderBy").val();
-    // let searchKey = $("#searchBoxInput").val();
+    let searchKey = $("#searchBoxInput").val();
 
     var total_filters_count = 0;
 
@@ -30,7 +30,7 @@ function buildQuery() {
     //     query.append("orderByType", s[1]);
     // }
 
-    // if (searchKey !== "") query.append("key", searchKey);
+    if (searchKey !== "") query.append("key", searchKey);
 
     // let categories = [];
     // $("input[name='categories']").each(function () {
@@ -59,34 +59,71 @@ function buildQuery() {
         $("#levels_filters_count_container").addClass("hidden");
     }
 
-    // let brands = [];
-    // $("input[name='brands']").each(function () {
-    //     if ($(this).prop("checked")) brands.push($(this).attr("value"));
-    // });
-    // if (brands.length > 0) {
-    //     $("#brands_filters_count_container").removeClass("hidden");
-    //     $("#brands_filters_count").empty().append(brands.length);
-    //     query.append("brand", brands);
-    //     total_filters_count += brands.length;
-    // } else {
-    //     $("#brands_filters_count_container").addClass("hidden");
-    // }
+    let types = [];
+    $("input[name='types']").each(function () {
+        if ($(this).prop("checked")) types.push($(this).attr("value"));
+    });
 
-    // var features = [];
-    // $("select[name='feature_filter']").each(function () {
-    //     var selected = $(this).find(":selected").val();
-    //     if (selected === "all") return;
-    //     var featureId = $(this).attr("data-id");
-    //     features.push(featureId + "_" + selected);
-    // });
-    // if (features.length > 0) {
-    //     $("#features_filters_count_container").removeClass("hidden");
-    //     $("#features_filters_count").empty().append(brands.length);
-    //     query.append("features", features);
-    //     total_filters_count += features.length;
-    // } else {
-    //     $("#features_filters_count_container").addClass("hidden");
-    // }
+    if (types.length > 0) {
+        $("#types_filters_count_container").removeClass("hidden");
+        $("#types_filters_count").empty().append(types.length);
+        query.append("types", types);
+        total_filters_count += types.length;
+    } else {
+        $("#types_filters_count_container").addClass("hidden");
+    }
+
+    let facilities = [];
+    $("input[name='facilities']").each(function () {
+        if ($(this).prop("checked")) facilities.push($(this).attr("value"));
+    });
+    if (facilities.length > 0) {
+        $("#facilities_filters_count_container").removeClass("hidden");
+        $("#facilities_filters_count").empty().append(facilities.length);
+        query.append("facilities", facilities);
+        total_filters_count += facilities.length;
+    } else {
+        $("#facilities_filters_count_container").addClass("hidden");
+    }
+
+    let langs = [];
+    $("input[name='langs']").each(function () {
+        if ($(this).prop("checked")) langs.push($(this).attr("value"));
+    });
+    if (langs.length > 0) {
+        $("#langs_filters_count_container").removeClass("hidden");
+        $("#langs_filters_count").empty().append(langs.length);
+        query.append("languages", langs);
+        total_filters_count += langs.length;
+    } else {
+        $("#langs_filters_count_container").addClass("hidden");
+    }
+
+    let launchers = [];
+    $("input[name='launchers']").each(function () {
+        if ($(this).prop("checked")) launchers.push($(this).attr("value"));
+    });
+    if (launchers.length > 0) {
+        $("#launchers_filters_count_container").removeClass("hidden");
+        $("#launchers_filters_count").empty().append(launchers.length);
+        query.append("launchers", launchers);
+        total_filters_count += launchers.length;
+    } else {
+        $("#launchers_filters_count_container").addClass("hidden");
+    }
+
+    let cities = [];
+    $("input[name='cities']").each(function () {
+        if ($(this).prop("checked")) cities.push($(this).attr("value"));
+    });
+    if (cities.length > 0) {
+        $("#cities_filters_count_container").removeClass("hidden");
+        $("#cities_filters_count").empty().append(cities.length);
+        query.append("cities", cities);
+        total_filters_count += cities.length;
+    } else {
+        $("#cities_filters_count_container").addClass("hidden");
+    }
 
     // if (total_filters_count > 0) {
     //     $("#total_filters").removeClass("hidden");
@@ -134,13 +171,13 @@ function filter() {
                 $("#nothingToShow").removeClass("hidden");
                 return;
             }
-            let html = renderEvents(res.data, "sample");
+            let html = renderEvents(res.data, "sampleEvent");
             $("#events_div").empty().append(html).removeClass("hidden");
             $("#shimmer").addClass("hidden");
             $("#nothingToShow").addClass("hidden");
             $("#total_count")
                 .empty()
-                .append(res.count + " کالا");
+                .append(res.count + " رویداد");
         },
     });
 }
@@ -150,9 +187,10 @@ function renderEvents(data, prefix) {
     if (data === undefined) return "";
 
     data.forEach((elem) => {
-        setProductVals(prefix, elem);
+        setEventVals(prefix, elem);
         let id = elem.id;
-        var newElem = $("#sample_product_div").html();
+
+        var newElem = $("#sample_event_div").html();
 
         newElem = newElem
             .replace(prefix + "Img", prefix + "Img_" + id)
@@ -164,7 +202,7 @@ function renderEvents(data, prefix) {
             .replace(prefix + "MultiColor", prefix + "MultiColor_" + id);
 
         html +=
-            "<div onclick=\"redirect('" +
+            "<div onclick=\"event_redirect('" +
             id +
             "', '" +
             elem.slug +
@@ -177,7 +215,7 @@ function renderEvents(data, prefix) {
 }
 
 $(document).ready(function () {
-    $(document).on("change", "input[name='languages']", function () {
+    $(document).on("change", "input[name='langs']", function () {
         filter();
     });
     $(document).on("change", "input[name='levels']", function () {
@@ -186,9 +224,16 @@ $(document).ready(function () {
     $(document).on("change", "input[name='facilities']", function () {
         filter();
     });
+    $(document).on("change", "input[name='launchers']", function () {
+        filter();
+    });
     $(document).on("change", "input[name='cities']", function () {
         filter();
     });
+    $(document).on("change", "input[name='types']", function () {
+        filter();
+    });
+    filter();
 });
 
 function clearAllFilters() {

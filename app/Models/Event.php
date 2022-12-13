@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Event extends Model
 {
@@ -96,5 +97,30 @@ class Event extends Model
                 ];
         }
 
+    }
+
+
+    public static function like($key, $tag, $returnType, $filtersWhere=null) {
+
+        $selects = $returnType == 'card' ? 
+            'events.*, brands.name as brand_name, sellers.name as seller_name' : 
+            'events.id, events.title, events.slug, events.price, events.img, events.alt, events.rate, events.tags, events.city_id, events.link';
+
+        $join_where = $returnType == 'card' ? 
+            'categories.id = products.category_id and products.brand_id = brands.id and ' :
+            ' ';
+
+
+        $where = '';
+        if($filtersWhere != null)
+            $where .= $filtersWhere;
+
+
+        $from = $returnType == 'card' ? 'categories, brands, products left join sellers on ' .
+            'seller_id = sellers.id' : 'events';
+
+        return DB::connection('mysql2')->select(
+            'select ' . $selects . ' from ' . $from . ' where ' . $join_where . $where
+        );
     }
 }
