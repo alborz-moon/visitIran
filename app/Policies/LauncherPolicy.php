@@ -32,8 +32,8 @@ class LauncherPolicy
     }
 
     public function update(User $user, Launcher $launcher) {
-        // return true;
-        return $launcher->user_id == $user->id;
+        return true;
+        // return $launcher->user_id == $user->id;
     }
 
     //todo : complete section
