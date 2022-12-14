@@ -87,6 +87,59 @@
                             </div>
                         </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
+                            <div class="ui-box-title">تصویر صفحه برگزار کننده</div>
+                            <div class="ui-box-content">
+                                <div class="row">
+                                    <div class="col-lg-12 mb-3">
+                                        <div class=" py-2">
+                                            <div style="visibility: hidden">
+                                                <input class="b-1" type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event)">
+                                                <input class="b-1" type="file" id="file-ip-2" accept="image/*" onchange="showPreviewProfile(event)">
+                                            </div>
+                                            <div id="producer" class="producer position-relative">
+                                                <img id="file-ip-1-preview" class="w-100 h-100" style="opacity: .4" alt="">
+                                                <div class="position-absolute transformTranslateCenter">عکس را بارگذاری کنید</div>
+                                                <div id="profileImg" class="profileImg">
+                                                    <img id="file-ip-2-preview" class="w-100 h-100 borderRadius50" accept="image/*" alt="">
+                                                </div>
+                                                <script>
+                                                      function showPreviewProfile(event){
+                                                        if (event.target.files.length > 0){
+                                                            var src = URL.createObjectURL(event.target.files[0]);
+                                                            var preview = document.getElementById("file-ip-2-preview");
+                                                            preview.src = src;
+                                                            preview.style.display = "flex";
+                                                        }
+                                                      }
+                                                      function showPreview(event){
+                                                        if(event.target.files.length > 0){
+                                                          var src = URL.createObjectURL(event.target.files[0]);
+                                                          var preview = document.getElementById("file-ip-1-preview");
+                                                          preview.src = src;
+                                                          preview.style.display = "flex";
+                                                        }
+                                                      }
+                                                      $(document).ready(function(){
+
+                                                        $('#producer').on('click',function(){
+                                                            
+                                                            $('#file-ip-1').click();
+                                                            
+                                                        });
+                                                        $('#profileImg').on('click',function(){
+                                                            
+                                                            $('#file-ip-2').click();
+                                                            
+                                                        });
+                                                      });
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">نوع برگزار کننده</div>
                             <div class="ui-box-content">
                                 <div class="row">
@@ -413,7 +466,6 @@
                 }
             });
         }
-
         $(document).ready(function(){
             
             var i = 1;

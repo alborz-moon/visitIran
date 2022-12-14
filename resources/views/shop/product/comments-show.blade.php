@@ -6,8 +6,8 @@
         <span class="product-users-rating">
             <span class="product-title fontSize15 marginLeft15 d-flex align-items-center">دیدگاه کاربران</span>
             <span class="rattingToStar"></span>
-            <span class="fw-bold me-1">{{ $product['rate'] }}</span>
-            <span class="text-muted fs-7">(از <span>{{ $product['all_rates_count'] }}</span> رای)</span>
+            <span class="fw-bold me-1">{{$rate}}</span>
+            <span class="text-muted fs-7">(از <span>{{$rate_count}}</span> رای)</span>
         </span>
         <span style="gap15">
             <i class="icon-visit-sort align-middle fontSize20 marginLeft15 colorYellow"></i>
@@ -27,7 +27,6 @@
             <div class="comments">
                 <!-- start of comment -->
                 <div id="comment" class="comment">
-
                 </div>
                 <!-- end of comment -->
             </div>
@@ -40,9 +39,54 @@
 
 <script src="{{ asset('theme-assets/js/lazyLoading.js') }}"></script>
 <script>
+    let page = 1;
+
+    function render_comments(data) {
+        let rate = data.rate;
+        let html = '<div class="customBoxComment">';
+        html += '<div class="comment">';
+        html += '<div class="d-flex spaceBetween">';
+        html += '<div>';
+        html += '<span class="comment-header colorBlack fontSize12 font400">';
+        html += '<span class="font800 ml-5">از</span>' + data.user + '</span>';
+        html += '<span class="m-3 colorBlack fontSize12 font400">';
+        html += '<span class="font800 ml-5">در</span>';
+        html +=  data.created_at + '</span>';
+        html += '</div>';
+        html += '<div>';
+        html += '<span>';
+        if(rate != null) {
+            for(var j = 5; j >= 1; j--) {
+                if(j <= rate)
+                    html += '<i class="icon-visit-star me-1 fontSize21"></i>';
+                else
+                    html += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
+            }
+        }
+        html += '</span>';
+        html += '</div>';
+        html += '</div>';
+        html += '</div>';
+        html +='<div class="comment-body">';
+        if(data.msg != null)
+        html += '<p>' + data.msg + '</p>';
+        html += '<ul>';
+        for(var j = 0; j < data.positive.length; j++) {
+            html += '<li class="comment-evaluation positive">' + data.positive[j] + '</li>';
+        }
+        for(var j = 0; j < data.negative.length; j++) {
+            html += '<li class="comment-evaluation negative">' + data.negative[j] + '</li>';
+        }  
+        html += '</ul></div>';
+        html += '</div>';
+        html += '</div>';
+
+        return html;
+    }
+
     $.ajax({
         type: 'get',
-        url: '{{ route('api.product.comment.list', ['product' => $productId]) }}',
+        url: '{{ $fetchUrl }}',
         headers: {
             'accept': 'application/json'
         },
@@ -50,65 +94,32 @@
             var html = "";
             if(res.status === "ok") {
                 for(var i = 0; i < res.data.length; i++) {
-                    let rate = res.data[i].rate;
-                    html += '<div class="customBoxComment">';
-                    html += '<div class="comment">';
-                    html += '<div class="d-flex spaceBetween">';
-                    html += '<div>';
-                    html += '<span class="comment-header colorBlack fontSize12 font400">';
-                    html += '<span class="font800 ml-5">از</span>' + res.data[i].user + '</span>';
-                    html += '<span class="m-3 colorBlack fontSize12 font400">';
-                    html += '<span class="font800 ml-5">در</span>';
-                    html +=  res.data[i].created_at + '</span>';
-                    html += '</div>';
-                    html += '<div>';
-                    html += '<span>';
-                    if(rate != null) {
-                        for(var j = 5; j >= 1; j--) {
-                            if(j <= rate)
-                                html += '<i class="icon-visit-star me-1 fontSize21"></i>';
-                            else
-                                html += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
-                        }
-                    }
-                   html += '</span>';
-                   html += '</div>';
-                   html += '</div>';
-                   html += '</div>';
-                   html +='<div class="comment-body">';
-                   if(res.data[i].msg != null)
-                   html += '<p>' + res.data[i].msg + '</p>';
-                   html += '<ul>';
-                    for(var j = 0; j < res.data[i].positive.length; j++) {
-                        html += '<li class="comment-evaluation positive">' + res.data[i].positive[j] + '</li>';
-                    }
-                    for(var j = 0; j < res.data[i].negative.length; j++) {
-                        html += '<li class="comment-evaluation negative">' + res.data[i].negative[j] + '</li>';
-                    }  
-                   html += '</ul></div>';
-                   html += '</div>';
-                   html += '</div>';
+                    html += render_comments(res.data[i]);
                }
-               $("#comment").empty().append(html);
-               init_lazy_loading('comment', 400, fetchMore);
+                $("#comment").empty().append(html);
+               init_lazy_loading('comment', 200, fetchMore);
             }
         }
     });
-function fetchMore(call_back) {
-    page++;
-    $.ajax({
-        type: "get",
-        url: LIST_API + "?page=" + page + "&" + buildQuery().toString(),
-        success: function (res) {
-            if (res.status !== "ok") return;
-            var length = res.data.length;
-            if (length == 0) {
-                return;
-            }
-            let html = renderProducts(res.data, "sample");
-            $("#products_div").append(html).removeClass("hidden");
-            call_back();
-        },
-    });
-}
+
+    function fetchMore(call_back) {
+        page++;
+        $.ajax({
+            type: "get",
+            url: '{{ $fetchUrl }}' + "?page=" + page,
+            success: function (res) {
+                if (res.status !== "ok") return;
+                
+                let html = '';
+
+                for(var i = 0; i < res.data.length; i++) {
+                    html += render_comments(res.data[i]);
+                }
+       
+                $("#comment").append(html);
+                call_back();
+            },
+        });
+    }
+
 </script>

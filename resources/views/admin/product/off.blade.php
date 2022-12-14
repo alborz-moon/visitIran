@@ -85,7 +85,7 @@
                     url: '{{ route('product.removeOff', ['product' => $item['id']]) }}',
                     success: function(res) {
                         if(res.status === "ok")
-                            alert("عملیات موردنظر با موفقیت انجام شد.");
+                            showSuccess("عملیات موردنظر با موفقیت انجام شد.");
                     }
                 });
             }

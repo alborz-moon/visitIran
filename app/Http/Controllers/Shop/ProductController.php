@@ -107,7 +107,8 @@ class ProductController extends ProductHelper
     public function search(Request $request) {
 
         $validator = [
-            'key' => 'required|persian_alpha|min:2|max:15',
+            // 'key' => 'required|persian_alpha|min:2|max:15',
+            'key' => 'required|min:2|max:15',
             'category_id' => 'nullable|integer|exists:categories,id',
             'return_type' => ['required', Rule::in(['digest', 'card'])]
         ];
@@ -126,7 +127,10 @@ class ProductController extends ProductHelper
         if($request['return_type'] == 'digest')
             return ProductVeryDigestResouece::collection($products)->toArray($request);
         
-        return ProductDigestUser::collection($products)->toArray($request);
+        return response()->json([
+            'status' => 'ok',
+            'data' => ProductDigestUser::collection($products)->toArray($request)
+        ]);
     }
 
     /**

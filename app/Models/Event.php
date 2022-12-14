@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Event extends Model
 {
@@ -64,6 +65,14 @@ class Event extends Model
     public function galleries() {
         return $this->hasMany(EventGallery::class);
     }
+    
+    public function buyers() {
+        return $this->hasMany(EventBuyer::class);
+    }
+    
+    public function comments() {
+        return $this->hasMany(EventComment::class);
+    }
 
     public function scopeActiveForRegistry($query) {
         $now = (int)Controller::getToday()['date'];
@@ -88,5 +97,44 @@ class Event extends Model
                 ];
         }
 
+    }
+
+    public static function staticActiveOff($off, $off_expiration, $off_type) {
+
+        if($off != null) {
+            $today = (int)Controller::getToday()['date'];
+            if((int)$off_expiration >= $today)
+                return [
+                    'type' => $off_type,
+                    'value' => $off
+                ];
+        }
+
+        return null;
+    }
+
+    public static function like($key, $tag, $returnType, $filtersWhere=null) {
+
+        $selects = $returnType == 'card' ? 
+            'events.*, brands.name as brand_name, sellers.name as seller_name' : 
+            'events.id, events.title, events.slug, events.price, events.img, events.alt, events.rate, events.tags, events.city_id, events.link, launchers.company_name, cities.name as city';
+
+        $join_where = $returnType == 'card' ? 
+            'categories.id = products.category_id and products.brand_id = brands.id and ' :
+            'launchers.id = events.launcher_id and ';
+
+        $where = $tag == null ? 'events.title like "%' . $key . '%"' :
+            'events.title like "%' . $key . '%" and tags like "%' . $tag . '%"';
+
+        if($filtersWhere != null)
+            $where .= ' and ' . $filtersWhere;
+
+
+        $from = $returnType == 'card' ? 'categories, brands, products left join sellers on ' .
+            'seller_id = sellers.id' : 'launchers, events left join cities on cities.id = events.city_id '; 
+
+        return DB::connection('mysql2')->select(
+            'select ' . $selects . ' from ' . $from . ' where ' . $join_where . $where
+        );
     }
 }

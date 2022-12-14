@@ -6,8 +6,18 @@ function buildQuery() {
 
     let off = $("#has_selling_offs").prop("checked") ? 1 : 0;
     let min = $("#has_selling_stock").prop("checked") ? 1 : 0;
-    let minPrice = $("#skip-value-lower").val().replaceAll(",", "");
-    let maxPrice = $("#skip-value-upper").val().replaceAll(",", "");
+
+    let maxPrice;
+    let minPrice;
+
+    if (defaultMaxPrice == -1 || defaultMinPrice == -1) {
+        maxPrice = "";
+        minPrice = "";
+    } else {
+        maxPrice = $("#skip-value-upper").val().replaceAll(",", "");
+        minPrice = $("#skip-value-lower").val().replaceAll(",", "");
+    }
+
     let orderBy = $("#orderBy").val();
     let searchKey = $("#searchBoxInput").val();
 

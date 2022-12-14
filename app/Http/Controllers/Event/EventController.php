@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Event;
 
-use App\Http\Controllers\Controller;
+use App\Http\Resources\EventAdminDigest;
 use App\Http\Resources\EventPhase1Resource;
 use App\Http\Resources\EventPhase2Resource;
 use App\Http\Resources\EventUserDigest;
@@ -15,105 +15,14 @@ use App\Models\Facility;
 use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class EventController extends Controller
+class EventController extends EventHelper
 {
-
-    private function build_filters($request, $justVisibles=false) {
-        
-        $filters = Event::where('id', '>', '0');
-        $launcher = $request->query('launcher', null);
-        $tag = $request->query('tag', null);
-        $visibility = $request->query('visibility', null);
-        $orderBy = $request->query('orderBy', null);
-        $orderByType = $request->query('orderByType', null);
-        $isInTopList = $request->query('isInTopList', null);
-        $off = $request->query('off', null);
-        $comment = $request->query('comment', null);
-
-        $fromCreatedAt = $request->query('fromCreatedAt', null);
-        $toCreatedAt = $request->query('toCreatedAt', null);
-
-        if($launcher != null)
-            $filters->where('launcher_id', $launcher);
-            
-        if($tag != null)
-            $filters->whereRaw("'{$tag}' LIKE tags");
-            
-        if($isInTopList != null)
-            $filters->where('is_in_top_list', $isInTopList);
-            
-        if($fromCreatedAt != null)
-            $filters->whereDate('created_at', '>=', self::ShamsiToMilady($fromCreatedAt));
-            
-        if($toCreatedAt != null)
-            $filters->whereDate('created_at', '<=', self::ShamsiToMilady($toCreatedAt));
-
-        $isAdmin = false;
-
-        if($request->user() != null && (
-            $request->user()->level == User::$ADMIN_LEVEL ||
-            $request->user()->level == User::$EDITOR_LEVEL
-        )) {
-            
-            $isAdmin = true;
-
-            if($visibility != null)
-                $filters->where('visibility', $visibility);
-                
-            if($comment != null) {
-                if($comment)
-                    $filters->where('new_comment_count', 0);
-                else
-                    $filters->where('new_comment_count', '>', 0);
-            }
-
-            if($off != null) {
-                $today = (int)self::getToday()['date'];
-                if($off)
-                    $filters->whereNotNull('off')->where('off_expiration', '>=', $today);
-                else
-                    $filters->where(function ($query) use ($today) {
-                        $query->whereNull('off')->orWhere('off_expiration', '<', $today);
-                    });
-            }
-
-        }
-        else
-            $filters->where('visibility', true);
-
-        if($justVisibles && $isAdmin)
-            $filters->where('visibility', true);
-
-        if($orderByType == null || (
-                $orderByType != 'asc' && 
-                $orderByType != 'desc'
-        ))
-            $orderByType = 'desc';
-
-        if($orderBy != null) {
-            if($orderBy == 'createdAt')
-                $filters->orderBy('id', $orderByType);
-            else if(in_array($orderBy, ['rate', 'seen', 'price', 
-                'rate_count', 'comment_count', 'new_comment_count', 'sell_count']))
-                $filters->orderBy($orderBy, $orderByType);
-        }
-        else {
-            $orderBy = 'createAt';
-            $orderByType = 'desc';
-            if($isAdmin)
-                $filters->orderBy('id', 'desc');
-            else
-                $filters->orderBy('priority', 'asc');
-        }
-
-        return $filters;
-    }
-
-
 
     /**
      * Display a listing of the resource.
@@ -169,14 +78,65 @@ class EventController extends Controller
         return view('event.event.create-contact', ['id' => $event->id]);
     }
 
+    public function changeStatus(Request $request) {
+
+        $validator = [
+            'status' => ['required', Rule::in(['pending', 'confirmed', 'rejected'])],
+            'event_id' => 'required|exists:mysql2.events,id'
+        ];
+
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator);
+
+        $event = Event::whereId($request['event_id'])->first();
+        $event->status = $request['status'];
+        $event->save();
+
+        return response()->json(['status' => 'ok']);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $events = self::build_filters($request)->get();
+        $events = EventAdminDigest::collection($events)->toArray($request);
+        
+        $launcherFilter = $request->query('launcher', null);
+        $tagFilter = $request->query('tag', null);
+        $typeFilter = $request->query('type', null);
+        $visibilityFilter = $request->query('visibility', null);
+        $statusFilter = $request->query('status', null);
+        $isInTopListFilter = $request->query('isInTopList', null);
+        $orderByTypeFilter = $request->query('orderByType', null);
+        $orderBy = $request->query('orderBy', null);
+
+        $launchers = DB::select('select l.id, l.company_name from events.events e, events.launchers l where e.launcher_id = l.id group by l.id');
+        $tags = DB::select('select label from events.event_tags where 1');
+
+        $fromCreatedAt = $request->query('fromCreatedAt', null);
+        $toCreatedAt = $request->query('toCreatedAt', null);
+
+        return view('admin.event.list', [
+            'items' => $events,
+            'launchers' => $launchers,
+            'tags' => $tags,
+            'launcherFilter' => $launcherFilter,
+            'fromCreatedAtFilter' => $fromCreatedAt,
+            'toCreatedAtFilter' => $toCreatedAt,
+            'isInTopListFilter' => $isInTopListFilter,
+            'orderByType' => $orderByTypeFilter,
+            'orderBy' => $orderBy,
+            'tagFilter' => $tagFilter,
+            'typeFilter' => $typeFilter,
+            'statusFilter' => $statusFilter,
+            'visibilityFilter' => $visibilityFilter
+        ]);
     }
 
     public function getDesc(Event $event, Request $request) {
@@ -204,6 +164,35 @@ class EventController extends Controller
     }
 
     
+    public function search(Request $request) {
+
+        $validator = [
+            'key' => 'required|persian_alpha|min:2|max:15',
+            'tag' => 'nullable|string|exists:events.event_tags,name',
+            'return_type' => ['required', Rule::in(['digest', 'card'])]
+        ];
+        
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator);
+
+        $events = Event::like($request['key'], 
+            $request->has('tag') ? $request['tag'] : null,
+            $request['return_type']
+        );
+
+        
+        if($request['return_type'] == 'digest')
+            return EventUserDigest::collection($events)->toArray($request);
+        
+        // return response()->json([
+        //     'status' => 'ok',
+        //     'data' => ProductDigestUser::collection($products)->toArray($request)
+        // ]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -211,15 +200,38 @@ class EventController extends Controller
      */
     public function list(Request $request)
     {
+
+        $validator = [
+            // 'key' => 'nullable|persian_alpha|min:2|max:15'
+        ];
+
+        $validator = Validator::make($request->query(), $validator);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+
         $params = [];
         foreach($request->query() as $key => $val) {
             $params[str_replace('amp;', '', $key)] = $val;
         }
 
-        $limit = $params['limit'];
+        $limit = $request->query('limit', 30);
+        $key = $request->query('key', null);
+        $page = $request->query('page', 1);
+
+        if($key != null && $page > 1)
+            return abort(401);
         
-        $filters = $this->build_filters($request, true);
-        $events = $filters->paginate($limit == null ? 30 : $limit);
+        $filters = self::build_filters($request, true, $key != null);
+
+        if($key == null) {
+            $events = $filters->skip(($page - 1) * $limit)->take($limit)->get();
+        }
+        else {
+            $events = Event::like($key, null, 'digest', $filters);
+        }
 
         return response()->json([
             'status' => 'ok',
@@ -336,11 +348,11 @@ class EventController extends Controller
      */
     public function show(Request $request, Event $event, string $slug)
     {
-        // if(!$event->visibility ||
-        //     ($event->slug != null && $slug != $event->slug) ||
-        //     ($event->slug == null && $slug != $event->name)
-        // )
-        //     return Redirect::route('403');
+        if(!$event->visibility ||
+            ($event->slug != null && $slug != $event->slug) ||
+            ($event->slug == null && $slug != $event->title)
+        )
+            return Redirect::route('403');
 
         $event->seen = $event->seen + 1;
         $event->save();
@@ -360,6 +372,8 @@ class EventController extends Controller
             ]);
 
         $comment = EventComment::userComment($event->id, $user->id);
+        
+        // dd(EventUserResource::make($event)->toArray($request));
         return view('event.event', [
             'event' => array_merge(
                 EventUserResource::make($event)->toArray($request), 
@@ -486,6 +500,12 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+
+        if($event->img != null && !empty($event->img) && 
+            file_exists(__DIR__ . '/../../../../public/storage/events/' . $event->img)
+        )
+            unlink(__DIR__ . '/../../../../public/storage/events/' . $event->img);
+
+        $event->delete();
     }
 }

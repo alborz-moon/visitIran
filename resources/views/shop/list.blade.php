@@ -33,8 +33,8 @@
 
         let LIST_API = '{{ route('api.product.list') }}';
         let HOME_API = '{{ route('home') }}';
-        let defaultMinPrice=  '{{ number_format($minPrice) }}';
-        let defaultMaxPrice=  '{{ number_format($maxPrice) }}';
+        let defaultMinPrice=  '{{ $minPrice == null ? -1 : number_format($minPrice) }}';
+        let defaultMaxPrice=  '{{ $maxPrice == null ? -1 : number_format($maxPrice) }}';
         let productPrefixRoute = HOME_API + "/product";
         
         let catId = '{{ isset($id) ? $id : -1 }}';
@@ -59,10 +59,9 @@
                         @include('layouts.tiles', ['category' => $id, 'mode' => 'list'])
                     @endif
 
-                    <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar">
-                        
+                    <div id="shopContainerFilter" class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar">
                         <div class="ui-sticky ui-sticky-top">
-                            <div class="ui-box sidebar-widgets customFilter ">
+                            <div class="ui-box sidebar-widgets customFilter">
                                 <!-- start of widget -->
                                 <div class="widget mb-3">
                                     <div class="spaceBetween">
@@ -153,7 +152,7 @@
                                                         <li class="form-check">
                                                             <input name="brands" class="form-check-input" type="checkbox" value="{{ $brand->id }}" />
                                                             {{ $brand->name }}
-                                                        </li>    
+                                                        </li>
                                                     @endforeach
                                                 </div>
                                             </div>
@@ -253,35 +252,38 @@
                                     </div>
                                     <!-- end of widget -->
                                 @endif
-                                <!-- start of widget -->
-                                <div class="widget widget-collapse">
-                                    <div class="widget-title widget-title--collapse-btn" data-bs-toggle="collapse"
-                                        data-bs-target="#collapsePriceFilter" aria-expanded="false"
-                                        aria-controls="collapsePriceFilter" role="button">محدوده قیمت </div>
-                                    <div class="widget-content widget--search fa-num collapse" id="collapsePriceFilter">
-                                        <div class="filter-price">
-                                            <div class="filter-slider">
-                                                <div id="slider-non-linear-step" class="price-slider"></div>
+
+                                @if($minPrice != null)
+                                    <!-- start of widget -->
+                                    <div class="widget widget-collapse">
+                                        <div class="widget-title widget-title--collapse-btn" data-bs-toggle="collapse"
+                                            data-bs-target="#collapsePriceFilter" aria-expanded="false"
+                                            aria-controls="collapsePriceFilter" role="button">محدوده قیمت </div>
+                                        <div class="widget-content widget--search fa-num collapse" id="collapsePriceFilter">
+                                            <div class="filter-price">
+                                                <div class="filter-slider">
+                                                    <div id="slider-non-linear-step" class="price-slider"></div>
+                                                </div>
+                                                <ul class="filter-range mb-4">
+                                                    <li>
+                                                        <input type="text" data-value="{{ $minPrice }}" value="{{ $minPrice }}" name="price[min]"
+                                                            data-range="{{ $minPrice }}" class="js-slider-range-from"
+                                                            id="skip-value-lower" disabled>
+                                                        <span class="fontSize20 colorYellow">ت</span>
+                                                    </li>
+                                                    <li class="label fw-bold">تا</li>
+                                                    <li>
+                                                        <input type="text" data-value="{{ $maxPrice }}" value="{{ $maxPrice }}"
+                                                            name="price[max]" data-range="{{ $maxPrice }}"
+                                                            class="js-slider-range-to" id="skip-value-upper" disabled>
+                                                        <span class="fontSize20 colorYellow">ت</span>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <ul class="filter-range mb-4">
-                                                <li>
-                                                    <input type="text" data-value="{{ $minPrice }}" value="{{ $minPrice }}" name="price[min]"
-                                                        data-range="{{ $minPrice }}" class="js-slider-range-from"
-                                                        id="skip-value-lower" disabled>
-                                                    <span class="fontSize20 colorYellow">ت</span>
-                                                </li>
-                                                <li class="label fw-bold">تا</li>
-                                                <li>
-                                                    <input type="text" data-value="{{ $maxPrice }}" value="{{ $maxPrice }}"
-                                                        name="price[max]" data-range="{{ $maxPrice }}"
-                                                        class="js-slider-range-to" id="skip-value-upper" disabled>
-                                                    <span class="fontSize20 colorYellow">ت</span>
-                                                </li>
-                                            </ul>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- end of widget -->
+                                    <!-- end of widget -->
+                                @endif
                                
                                 <!-- start of widget -->
                                 <div class="widget py-1 mt-3 mb-3">
@@ -312,8 +314,9 @@
                         </div>
                     </div>
                     <div class="col-xl-9 col-lg-9 col-md-8 px-0">
-                        <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar">فیلتر پیشرفته
-                            <i class="ri-equalizer-fill ms-1"></i></button>
+                        <button id="advancedFilterShopBtn" class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar">فیلتر پیشرفته
+                            <i class="ri-equalizer-fill ms-1"></i>
+                        </button>
                             
                         <div class="listing-products">
                             <div class="listing-products-content">
@@ -457,7 +460,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="responsive-sidebar-overlay"></div>
+                        <div class="responsive-sidebar-overlay">
+                            <button id="closeFilter" type="button" class="btn-close customCloseIconBanner p-0 position-absolute l-0 hidden zIndex1"></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -475,7 +480,17 @@
     <script src="{{ asset('theme-assets/js/productList.js') }}"></script>
 
     <script>
-
+        $(document).ready(function(){
+            $('#advancedFilterShopBtn').on('click',function(){
+                $('header').css('display','none');
+                $('html, body').animate({
+                   'scrollTop': -150
+                });
+            });
+            $('.responsive-sidebar-overlay').on('click',function(){
+                $('header').css('display','block');
+            });
+        });
         $(".parent input").on('click',function(){
             var _parent=$(this);
             var nextli=$(this).parent().next().children().children();
@@ -508,7 +523,6 @@
             console.log('child unchecked');
             var status=true;
             sibblingsli.each(function(){
-            console.log('sibb');
             if($(this).children().prop('checked')) status=false;
             });
             if(status) parentinput.prop('checked',false);
@@ -517,7 +531,27 @@
 
 
         $(document).ready(function() {
+
+            
+            let minMaxChange = false;
+            let minMaxFetch = false;
+
+            document.body.onmouseup = function() {
+                if(minMaxChange && !minMaxFetch) {
+                    minMaxChange = false;
+                    minMaxFetch = true;
+                    filter();
+                }
+            }
+
+            var skipSlider = document.getElementById("slider-non-linear-step");
+            skipSlider.noUiSlider.on("update", function (values, handle) {
+                minMaxChange = true;
+                minMaxFetch = false;
                 
+            });
+
+
             $("#top-categories-parent").on('click', function() {
                 if($(this).attr('data-drop-down') === 'true') {
                     $("#top-categories-container").addClass('hidden');
@@ -542,14 +576,6 @@
             });
             
             $("#has_selling_offs").on('change', function() {
-                filter();
-            });
-
-            $(document).on('mouseup', ".noUi-handle-upper", function(){
-                filter();
-            });
-            
-            $(document).on('mouseup', ".noUi-handle-lower", function(){
                 filter();
             });
 

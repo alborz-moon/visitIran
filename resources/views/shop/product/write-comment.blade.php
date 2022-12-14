@@ -8,8 +8,8 @@
                 <h5 class="modal-title" id="commentModalLabel">دیدگاه شما</h5>       
             </div>                                     
             <div class="d-flex">
-                <img class="b-0 commentImageProduct" src="{{ $product['img'] }}" alt="{{ $product['alt'] }}" />
-                <h5 class="fontSize16 align-self-end fontNormal mt-1 mr-15">{{ $product['name'] }}</h5>
+                <img class="b-0 commentImageProduct" src="{{ $itemImg }}" alt="" />
+                <h5 class="fontSize16 align-self-end fontNormal mt-1 mr-15">{{ $itemName }}</h5>
             </div>
             </div>
           <button id="close-comment-modal-btn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -146,7 +146,7 @@
 
         $.ajax({
             type: 'post',
-            url: '{{ route('api.product.comment.store', ['product' => $productId]) }}',
+            url: '{{ $sendComment }}',
             data: data,  
             success: function(res) {
                 if(res.status === 'ok') {

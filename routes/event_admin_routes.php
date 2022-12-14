@@ -1,16 +1,17 @@
 <?php
 
+use App\Http\Controllers\Event\EventCommentController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\EventGalleryController;
 use App\Http\Controllers\Event\EventSessionController;
 use App\Http\Controllers\Event\LauncherController;
 use App\Http\Controllers\Event\EventTagController;
 use App\Http\Controllers\Event\FacilityController;
+use App\Http\Controllers\Event\LauncherCommentController;
 use Illuminate\Support\Facades\Route;
 
 
 Route::resource('launcher', LauncherController::class)->except('update');
-
 
 Route::prefix('launcher')->group(function() {
 
@@ -45,6 +46,9 @@ Route::prefix('eventTags')->group(function() {
 
 
 Route::resource('event', EventController::class)->except('update');
+
+Route::post('event/changeStatus', [EventController::class, 'changeStatus'])->name('event.changeStatus');
+
 
 Route::prefix('event/{event}')->group(function() {
 

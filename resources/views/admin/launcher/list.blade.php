@@ -19,12 +19,7 @@
 مدیریت برگزار کنندگان
 @stop
 
-@section('createNew')
-'{{ route('product.create') }}'
-@stop
-
-@section('backBtn')
-    
+@section('addBtn')
 @stop
 
 @section('items')
@@ -136,6 +131,7 @@
                             <div class="flex gap10">
                                 <a target="_blank" data-toggle='tooltip' title="ویرایش" href="{{ route('launcher-edit', ['formId' => $item['id']]) }}" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a>
                                 {{-- <button data-toggle='tooltip' title="مدیریت رویدادها" onclick="document.location.href = '{{ route('event.index', ['product' => $item['id']]) }}'" class="btn btn-info"><span class="glyphicon glyphicon-list"></span></button> --}}
+                                <button data-toggle='tooltip' title="مدیریت نظرات" onclick="document.location.href = '{{ route('launcher.launcher_comment.index', ['launcher' => $item['id']]) }}'" class="btn btn-purple"><span class="glyphicon glyphicon-comment"></span></button>
                                 <button onclick="removeModal('item', {{$item['id']}}, '{{ route('product.destroy', ['product' => $item['id']]) }}')" data-toggle='tooltip' title="حذف" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
                                 
                             </div>
@@ -150,6 +146,7 @@
                     <td>{{ $item['user']['phone'] }}</td>
                     <td>{{ $item['type'] == 'haghighi' ? 'حقیقی' : 'حقوقی' }}</td>
                     <td>{{ $item['rate'] == null ? 'امتیازی ثبت نشده است' : $item['rate'] . ' از ' . $item['rate_count'] . ' رای'}}</td>
+                    
                     <td>{{ $item['comment_count'] == 0 ? 'کامنتی ثبت نشده است' : 'تعداد کل: ' . $item['comment_count'] . ' تعداد تایید نشده:' . $item['new_comment_count'] }}</td>
                     
                     <td>{{ $item['followers_count'] == 0 ? 'خریدی ثبت نشده است' : $item['seller_count'] }}</td>
@@ -222,10 +219,10 @@
                                 $("#status_rejected_" + launcherId).addClass('hidden');
                                 $("#status_text_" + launcherId).text('رد شده');
                             }
-                            alert("عملیات موردنظر با موفقیت انجام شد.");
+                            showSuccess("عملیات موردنظر با موفقیت انجام شد.");
                         }
                         else {
-                            alert(res.msg);
+                            showErr(res.msg);
                         }
                     }
                 });

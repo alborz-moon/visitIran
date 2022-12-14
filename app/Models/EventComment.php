@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class EventComment extends Model
 {
     use HasFactory;
+    protected $connection = 'mysql2';
 
     protected $fillable = [
         'id',
@@ -45,7 +46,7 @@ class EventComment extends Model
     }
 
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->setConnection('mysql')->belongsTo(User::class);
     }
     
 }

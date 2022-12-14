@@ -26,10 +26,16 @@ class EventUserResource extends JsonResource
         $er = Controller::MiladyToShamsi($end_registry, '/');
         $s = Controller::MiladyToShamsi($start, '/');
         $e = Controller::MiladyToShamsi($end, '/');
+        
+        $launcher = $this->launcher;
 
         return [
             'id' => $this->id,
             'launcher_id' => $this->launcher_id,
+            'launcher_title' => $launcher->title,
+            'launcher_rate' => $launcher->rate == null ? 4 : $launcher->rate,
+            'launcher_rate_count' => $launcher->rate_count,
+            'launcher_is_following' => true,
             'start' => $s,
             'end' => $e,
             'start_registry' => $sr,

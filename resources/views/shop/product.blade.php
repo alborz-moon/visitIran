@@ -189,8 +189,18 @@
                         </div>
                         <!-- end of product-params -->
                         <!-- start of product-comments -->
-                        @include('shop.product.write-comment', ['productId' => $product['id']])
-                        @include('shop.product.comments-show', ['productId' => $product['id']])
+                        @include('shop.product.write-comment', [
+                            'itemId' => $product['id'],
+                            'itemImg' => $product['img'],
+                            'itemName' => $product['name'],
+                            'sendComment' => route('api.product.comment.store', ['product' => $product['id']])])
+                        @include('shop.product.comments-show', [
+                            'type' => 'product', 
+                            'fetchUrl' => route('api.product.comment.list', ['product' => $product['id']]), 
+                            'itemtId' => $product['id'],
+                            'rate' => $product['rate'],
+                            'rate_count' => $product['all_rates_count']
+                        ])
                         <!-- end of product-comments -->
                     </div>
                     <div class="col-xl-3 col-lg-4 d-lg-block d-none">
@@ -203,7 +213,7 @@
                 </div>
             </div>
         </main>
-        <div class="remodal remodal-xs remodal-is-initialized remodal-is-opened" data-remodal-id="share-modal" data-remodal-options="hashTracking: false" tabindex="-1">
+{{-- <div class="remodal remodal-xs remodal-is-initialized remodal-is-opened" data-remodal-id="share-modal" data-remodal-options="hashTracking: false" tabindex="-1">
     <div class="remodal-header">
         <div class="remodal-title">اشتراک‌گذاری</div>
         <button data-remodal-action="close" class="remodal-close"></button>
@@ -232,7 +242,7 @@
             </div> 
         </div>
     </div>
-</div>
+</div> --}}
             
 
 <script>

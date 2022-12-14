@@ -68,6 +68,7 @@
             ============================================ -->
         <script src="{{asset('admin-panel/js/vendor/modernizr-2.8.3.min.js')}}"></script>
         <script src="{{asset('admin-panel/js/jquery.min.js')}}"></script>
+        <link href="{{ asset('theme-assets/css/dependencies/iziToast.min.css') }}" rel="stylesheet" />
 
         <script>
             function validateNumber(evt) {
@@ -145,6 +146,7 @@
                                 </li>
 
                                 <li class="nav-item"><a href="{{ route('launcher.index') }}" role="button" class="nav-link"><i></i> <span class="mini-dn">برگزار کنندگان</span></a></li>
+                                <li class="nav-item"><a href="{{ route('event.index') }}" role="button" class="nav-link"><i></i> <span class="mini-dn">رویدادها</span></a></li>
                             @endif
                         </ul>
                     @endif
@@ -233,11 +235,77 @@
             <!-- main JS
                 ============================================ -->
             <script src="{{asset('admin-panel/js/main.js')}}"></script>
+            <script src="{{ asset('theme-assets/js/dependencies/iziToast.min.js') }}"></script>
 
             <script type="text/javascript">
+            
+                function showErr(msg) {
+                    s = {
+                        rtl: true,
+                        class: "iziToast-" + "danger",
+                        title: "ناموفق",
+                        message: msg,
+                        animateInside: !1,
+                        position: "topRight",
+                        progressBar: !1,
+                        icon: 'ri-close-fill',
+                        timeout: 3200,
+                        transitionIn: "fadeInLeft",
+                        transitionOut: "fadeOut",
+                        transitionInMobile: "fadeIn",
+                        transitionOutMobile: "fadeOut",
+                        color: "red",
+                        };
+                    iziToast.show(s);
+                }
+
+                function showSuccess(msg) {
+                    s = {
+                        rtl: true,
+                        class: "iziToast-" + "danger",
+                        title: "موفق!",
+                        message: msg,
+                        animateInside: !1,
+                        position: "topRight",
+                        progressBar: !1,
+                        icon: 'ri-check-fill',
+                        timeout: 3200,
+                        transitionIn: "fadeInLeft",
+                        transitionOut: "fadeOut",
+                        transitionInMobile: "fadeIn",
+                        transitionOutMobile: "fadeOut",
+                        color: "green",
+                        type: 'success'
+                        };
+                    iziToast.show(s);
+                }
+
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            
+                        var errs = JSON.parse(XMLHttpRequest.responseText).errors;
+
+                        if(errs instanceof Object) {
+                            var errsText = '';
+
+                            Object.keys(errs).forEach(function(key) {
+                                errsText += errs[key] + "<br />";
+                            });
+
+                            showErr(errsText);    
+                        }
+                        else {
+                            var errsText = '';
+
+                            for(let i = 0; i < errs.length; i++)
+                                errsText += errs[i].value;
+                            
+                            showErr(errsText);
+                        }
                     }
                 });
 
@@ -279,11 +347,11 @@
                         success: function(res) {
                             if(res.status === "ok") {
                                 $("#myModal").addClass('hidden');
-                                alert("عملیات موردنظر با موفقیت انجام شد.");
+                                showSuccess("عملیات موردنظر با موفقیت انجام شد.");
                                 $("#" + item + "_" + itemID).remove();
                             }
                             else
-                                alert(res.msg);
+                                showErr(res.msg);
                         }
                     })
 

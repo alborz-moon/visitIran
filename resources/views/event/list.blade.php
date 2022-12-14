@@ -1,4 +1,22 @@
 @extends('layouts.structure')
+
+@section('seo')
+
+    <script>
+
+        let LIST_API = '{{ route('api.event.list') }}';
+        let HOME_API = '{{ route('event.home') }}';
+        let defaultMinPrice=  '{{ number_format($minPrice) }}';
+        let defaultMaxPrice=  '{{ number_format($maxPrice) }}';
+        let eventPrefixRoute = HOME_API + "/event";
+        
+        let cat = '{{ isset($name) ? $name : -1 }}';
+
+    </script>
+
+@stop
+
+
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
             <div class="container mt-3">
@@ -65,9 +83,9 @@
                                     <div class="widget-content widget--search">
                                         <form action="#">
                                             <div class="form-element-row">
-                                                <input type="text" name="s" class="form-control"
+                                                <input id="searchBoxInput" type="text" name="s" class="form-control"
                                                     placeholder="نام محصول یا…">
-                                                <i class="ri-search-line icon"></i>
+                                                <i onclick="filter()" class="ri-search-line icon cursorPointer"></i>
                                             </div>
                                         </form>
                                     </div>
@@ -97,37 +115,264 @@
                                 </div>
 
                                 <!-- start of widget -->
+                                <div class="widget widget-collapse mb-3">
+                                    <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseGroupingFacil" aria-expanded="false"
+                                        aria-controls="collapseGroupingFacil" role="button">امکانات ویژه 
+                                        
+                                        <div id="facilities_filters_count_container" class="hidden">
+                                            <i class="circle colorBlue align-self-center"></i>
+                                            <span class="colorBlue fontSize12">
+                                                <span id="facilities_filters_count" ></span><span> فیلتر</span>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    <div class="widget-content widget--search collapse" id="collapseGroupingFacil">
+                                        
+                                        <div class="filter-options do-simplebar pt-2 mt-2">
+                                            <div id="facilities">
+                                                @foreach ($facilities as $facil)
+                                                    <li class="form-check">
+                                                        <input name="facilities" class="form-check-input" type="checkbox" value="{{ $facil }}" />
+                                                        {{ $facil }}
+                                                    </li>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end of widget -->
+
+
+                                <!-- start of widget -->
+                                <div class="widget widget-collapse mb-3">
+                                    <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseGroupingLang" aria-expanded="false"
+                                        aria-controls="collapseGroupingLang" role="button">زبان
+                                        
+                                        <div id="langs_filters_count_container" class="hidden">
+                                            <i class="circle colorBlue align-self-center"></i>
+                                            <span class="colorBlue fontSize12">
+                                                <span id="langs_filters_count" ></span><span> فیلتر</span>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    <div class="widget-content widget--search collapse" id="collapseGroupingLang">
+                                        
+                                        <div class="filter-options do-simplebar pt-2 mt-2">
+                                            <div id="langs">
+                                                @foreach ($langs as $lang)
+                                                    <li class="form-check">
+                                                        <input name="langs" class="form-check-input" type="checkbox" value="{{ $lang }}" />
+                                                        <div>
+                                                            @lang($lang)
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end of widget -->
+
+
+                                <!-- start of widget -->
+                                <div class="widget widget-collapse mb-3">
+                                    <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseGroupingLevel" aria-expanded="false"
+                                        aria-controls="collapseGroupingLevel" role="button">سطح
+                                        
+                                        <div id="levels_filters_count_container" class="hidden">
+                                            <i class="circle colorBlue align-self-center"></i>
+                                            <span class="colorBlue fontSize12">
+                                                <span id="levels_filters_count" ></span><span> فیلتر</span>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    <div class="widget-content widget--search collapse" id="collapseGroupingLevel">
+                                        
+                                        <div class="filter-options do-simplebar pt-2 mt-2">
+                                            <div id="levels">
+                                                @foreach ($levels as $level)
+                                                    <li class="form-check">
+                                                        <input name="levels" class="form-check-input" type="checkbox" value="{{ $level }}" />
+                                                        <div>
+                                                            @level_description($level)
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end of widget -->
+
+                                <!-- start of widget -->
+                                <div class="widget widget-collapse mb-3">
+                                    <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseGroupingCity" aria-expanded="false"
+                                        aria-controls="collapseGroupingCity" role="button">شهر
+                                        
+                                        <div id="cities_filters_count_container" class="hidden">
+                                            <i class="circle colorBlue align-self-center"></i>
+                                            <span class="colorBlue fontSize12">
+                                                <span id="cities_filters_count" ></span><span> فیلتر</span>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    <div class="widget-content widget--search collapse" id="collapseGroupingCity">
+                                        
+                                        <div class="filter-options do-simplebar pt-2 mt-2">
+                                            <div id="levels">
+                                                @foreach ($cities as $city)
+                                                    <li class="form-check">
+                                                        <input name="cities" class="form-check-input" type="checkbox" value="{{ $city->id }}" />
+                                                        {{ $city->name }}
+                                                    </li>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end of widget -->
+
+                                <!-- start of widget -->
+                                <div class="widget widget-collapse mb-3">
+                                    <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseGroupingLauncher" aria-expanded="false"
+                                        aria-controls="collapseGroupingLauncher" role="button">برگزار کننده
+                                        
+                                        <div id="launchers_filters_count_container" class="hidden">
+                                            <i class="circle colorBlue align-self-center"></i>
+                                            <span class="colorBlue fontSize12">
+                                                <span id="launchers_filters_count" ></span><span> فیلتر</span>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    <div class="widget-content widget--search collapse" id="collapseGroupingLauncher">
+                                        
+                                        <div class="filter-options do-simplebar pt-2 mt-2">
+                                            <div id="launchers">
+                                                @foreach ($launchers as $launcher)
+                                                    <li class="form-check">
+                                                        <input name="launchers" class="form-check-input" type="checkbox" value="{{ $launcher->id }}" />
+                                                        {{ $launcher->company_name }}
+                                                    </li>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end of widget -->
+
+
+                                <!-- start of widget -->
+                                <div class="widget widget-collapse mb-3">
+                                    <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseGroupingType" aria-expanded="false"
+                                        aria-controls="collapseGroupingType" role="button">نوع رویداد
+                                        
+                                        <div id="type_filters_count_container" class="hidden">
+                                            <i class="circle colorBlue align-self-center"></i>
+                                            <span class="colorBlue fontSize12">
+                                                <span id="type_filters_count" ></span><span> فیلتر</span>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    <div class="widget-content widget--search collapse" id="collapseGroupingType">
+                                        
+                                        <div class="filter-options do-simplebar pt-2 mt-2">
+                                            <div id="types">
+                                                <li class="form-check">
+                                                    <input name="types" class="form-check-input" type="checkbox" value="online" />
+                                                    مجازی
+                                                </li>
+                                                <li class="form-check">
+                                                    <input name="types" class="form-check-input" type="checkbox" value="not_online" />
+                                                    حضوری
+                                                </li>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <!-- end of widget -->
+
+
+                                @if(isset($tags))
+                                    <!-- start of widget -->
+                                    <div class="widget widget-collapse mb-3">
+                                        <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseGroupingTag" aria-expanded="false"
+                                            aria-controls="collapseGroupingTag" role="button">دسته بندی
+                                            
+                                            <div id="tags_filters_count_container" class="hidden">
+                                                <i class="circle colorBlue align-self-center"></i>
+                                                <span class="colorBlue fontSize12">
+                                                    <span id="tags_filters_count" ></span><span> فیلتر</span>
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                        <div class="widget-content widget--search collapse" id="collapseGroupingTag">
+                                            
+                                            <div class="filter-options do-simplebar pt-2 mt-2">
+                                                <div id="tags">
+                                                    @foreach ($tags as $tag)
+                                                        <li class="form-check">
+                                                            <input name="tags" class="form-check-input" type="checkbox" value="{{ $level }}" />
+                                                            {{ $tag }}
+                                                        </li>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <!-- end of widget -->
+                                @endif
+
+                                <!-- start of widget -->
                                 <div class="widget widget-collapse">
                                     <div class="widget-title widget-title--collapse-btn" data-bs-toggle="collapse"
                                         data-bs-target="#collapsePriceFilter" aria-expanded="false"
                                         aria-controls="collapsePriceFilter" role="button">محدوده قیمت </div>
                                     <div class="widget-content widget--search fa-num collapse" id="collapsePriceFilter">
-                                        <form action="#" class="pt-2">
-                                            <div class="filter-price">
-                                                <div class="filter-slider">
-                                                    <div id="slider-non-linear-step" class="price-slider"></div>
-                                                </div>
-                                                <ul class="filter-range mb-4">
-                                                    <li>
-                                                        <input type="text" data-value="0" value="0" name="price[min]"
-                                                            data-range="0" class="js-slider-range-from"
-                                                            id="skip-value-lower" disabled>
-                                                        <span class="fontSize20 colorYellow">ت</span>
-                                                    </li>
-                                                    <li class="label fw-bold">تا</li>
-                                                    <li>
-                                                        <input type="text" data-value="2100000000" value="2100000000"
-                                                            name="price[max]" data-range="2100000000"
-                                                            class="js-slider-range-to" id="skip-value-upper" disabled>
-                                                        <span class="fontSize20 colorYellow">ت</span>
-                                                    </li>
-                                                </ul>
+                                        <div class="filter-price">
+                                            <div class="filter-slider">
+                                                <div id="slider-non-linear-step" class="price-slider"></div>
                                             </div>
-                                        </form>
+                                            <ul class="filter-range mb-4">
+                                                <li>
+                                                    <input type="text" data-value="{{ $minPrice }}" value="{{ $minPrice }}" name="price[min]"
+                                                        data-range="{{ $minPrice }}" class="js-slider-range-from"
+                                                        id="skip-value-lower" disabled>
+                                                    <span class="fontSize20 colorYellow">ت</span>
+                                                </li>
+                                                <li class="label fw-bold">تا</li>
+                                                <li>
+                                                    <input type="text" data-value="{{ $maxPrice }}" value="{{ $maxPrice }}"
+                                                        name="price[max]" data-range="{{ $maxPrice }}"
+                                                        class="js-slider-range-to" id="skip-value-upper" disabled>
+                                                    <span class="fontSize20 colorYellow">ت</span>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- end of widget -->
-                               
+
                                 <!-- start of widget -->
                                 <div class="widget py-1 mt-3 mb-3">
                                     <div class="widget-content widget--filter-switcher">
@@ -169,315 +414,9 @@
                                         <div class="ui-box pt-3 pb-0 px-0 mb-4">
                                             <div class="ui-box-content p-0">
                                                 <div class="row mx-0">
-                                                    {{-- class hidden --}}
-                                                    <div id="sample_product_div" class="">
-                                                        {{-- @include('event.productCard', ['key' => 'sample']) --}}
-                                                        <div class="d-flex gap10 flexWrap">
-                                                                                                                    <div class="customEventWidthBox ml-0">
-                                                            <div>
-                                                                <!-- start of product-card -->
-                                                                <div class="product-card customEventBorderBox">
-                                                                    <div class="product-thumbnail mx-n15">
-                                                                        <a>
-                                                                            <img style="width: 300px;height: 180px;max-width: 300px !important;">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="product-card-body">
-                                                                        <h2 class="product-title">
-                                                                            <a class="textColor fontSize14 bold"></a>
-                                                                        </h2>
-                                                                        <h2 class="product-title">
-                                                                            <span class="fontSize14">شروع</span>
-                                                                            <a class="textColor fontSize14"></a>
-                                                                        </h2>
-                                                                        <div class="product-variant">
-                                                                            <span class="colorWhite customBoxLabel fontSize11"></span>
-                                                                        </div>
-                                                                        <div class="colorCircle"></div>
-                                                                        <div class="product-price fa-num">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <span class="fontSize15 pl-10 position-relative">
-                                                                                    <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="">
-                                                                                    <span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span>
-                                                                                </span>
-                                                                                <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                            </div>
-                                                                            <div class="fontSize20">
-                                                                                <span></span>
-                                                                                <span class="fontSize20 colorYellow">ت</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="product-card-footer mb-2">
-                                                                        <div class="textColor">
-                                                                            <span class="bold">مکان </span>
-                                                                            <span</span>
-                                                                        </div>
-                                                                        <div class="textColor">
-                                                                            <span class="bold">برگزار کننده</span>
-                                                                            <span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end of product-card -->
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="customEventWidthBox ml-0">
-                                                            <div>
-                                                                <!-- start of product-card -->
-                                                                <div class="product-card customEventBorderBox">
-                                                                    <div class="product-thumbnail mx-n15">
-                                                                        <a>
-                                                                            <img style="width: 300px;height: 180px;max-width: 300px !important;">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="product-card-body">
-                                                                        <h2 class="product-title">
-                                                                            <a class="textColor fontSize14 bold"></a>
-                                                                        </h2>
-                                                                        <h2 class="product-title">
-                                                                            <span class="fontSize14">شروع</span>
-                                                                            <a class="textColor fontSize14"></a>
-                                                                        </h2>
-                                                                        <div class="product-variant">
-                                                                            <span class="colorWhite customBoxLabel fontSize11"></span>
-                                                                        </div>
-                                                                        <div class="colorCircle"></div>
-                                                                        <div class="product-price fa-num">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <span class="fontSize15 pl-10 position-relative">
-                                                                                    <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="">
-                                                                                    <span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span>
-                                                                                </span>
-                                                                                <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                            </div>
-                                                                            <div class="fontSize20">
-                                                                                <span></span>
-                                                                                <span class="fontSize20 colorYellow">ت</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="product-card-footer mb-2">
-                                                                        <div class="textColor">
-                                                                            <span class="bold">مکان </span>
-                                                                            <span</span>
-                                                                        </div>
-                                                                        <div class="textColor">
-                                                                            <span class="bold">برگزار کننده</span>
-                                                                            <span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end of product-card -->
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="customEventWidthBox ml-0">
-                                                            <div>
-                                                                <!-- start of product-card -->
-                                                                <div class="product-card customEventBorderBox">
-                                                                    <div class="product-thumbnail mx-n15">
-                                                                        <a>
-                                                                            <img style="width: 300px;height: 180px;max-width: 300px !important;">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="product-card-body">
-                                                                        <h2 class="product-title">
-                                                                            <a class="textColor fontSize14 bold"></a>
-                                                                        </h2>
-                                                                        <h2 class="product-title">
-                                                                            <span class="fontSize14">شروع</span>
-                                                                            <a class="textColor fontSize14"></a>
-                                                                        </h2>
-                                                                        <div class="product-variant">
-                                                                            <span class="colorWhite customBoxLabel fontSize11"></span>
-                                                                        </div>
-                                                                        <div class="colorCircle"></div>
-                                                                        <div class="product-price fa-num">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <span class="fontSize15 pl-10 position-relative">
-                                                                                    <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="">
-                                                                                    <span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span>
-                                                                                </span>
-                                                                                <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                            </div>
-                                                                            <div class="fontSize20">
-                                                                                <span></span>
-                                                                                <span class="fontSize20 colorYellow">ت</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="product-card-footer mb-2">
-                                                                        <div class="textColor">
-                                                                            <span class="bold">مکان </span>
-                                                                            <span</span>
-                                                                        </div>
-                                                                        <div class="textColor">
-                                                                            <span class="bold">برگزار کننده</span>
-                                                                            <span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end of product-card -->
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="customEventWidthBox ml-0">
-                                                            <div>
-                                                                <!-- start of product-card -->
-                                                                <div class="product-card customEventBorderBox">
-                                                                    <div class="product-thumbnail mx-n15">
-                                                                        <a>
-                                                                            <img style="width: 300px;height: 180px;max-width: 300px !important;">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="product-card-body">
-                                                                        <h2 class="product-title">
-                                                                            <a class="textColor fontSize14 bold"></a>
-                                                                        </h2>
-                                                                        <h2 class="product-title">
-                                                                            <span class="fontSize14">شروع</span>
-                                                                            <a class="textColor fontSize14"></a>
-                                                                        </h2>
-                                                                        <div class="product-variant">
-                                                                            <span class="colorWhite customBoxLabel fontSize11"></span>
-                                                                        </div>
-                                                                        <div class="colorCircle"></div>
-                                                                        <div class="product-price fa-num">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <span class="fontSize15 pl-10 position-relative">
-                                                                                    <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="">
-                                                                                    <span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span>
-                                                                                </span>
-                                                                                <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                            </div>
-                                                                            <div class="fontSize20">
-                                                                                <span></span>
-                                                                                <span class="fontSize20 colorYellow">ت</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="product-card-footer mb-2">
-                                                                        <div class="textColor">
-                                                                            <span class="bold">مکان </span>
-                                                                            <span</span>
-                                                                        </div>
-                                                                        <div class="textColor">
-                                                                            <span class="bold">برگزار کننده</span>
-                                                                            <span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end of product-card -->
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="customEventWidthBox ml-0">
-                                                            <div>
-                                                                <!-- start of product-card -->
-                                                                <div class="product-card customEventBorderBox">
-                                                                    <div class="product-thumbnail mx-n15">
-                                                                        <a>
-                                                                            <img style="width: 300px;height: 180px;max-width: 300px !important;">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="product-card-body">
-                                                                        <h2 class="product-title">
-                                                                            <a class="textColor fontSize14 bold"></a>
-                                                                        </h2>
-                                                                        <h2 class="product-title">
-                                                                            <span class="fontSize14">شروع</span>
-                                                                            <a class="textColor fontSize14"></a>
-                                                                        </h2>
-                                                                        <div class="product-variant">
-                                                                            <span class="colorWhite customBoxLabel fontSize11"></span>
-                                                                        </div>
-                                                                        <div class="colorCircle"></div>
-                                                                        <div class="product-price fa-num">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <span class="fontSize15 pl-10 position-relative">
-                                                                                    <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="">
-                                                                                    <span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span>
-                                                                                </span>
-                                                                                <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                            </div>
-                                                                            <div class="fontSize20">
-                                                                                <span></span>
-                                                                                <span class="fontSize20 colorYellow">ت</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="product-card-footer mb-2">
-                                                                        <div class="textColor">
-                                                                            <span class="bold">مکان </span>
-                                                                            <span</span>
-                                                                        </div>
-                                                                        <div class="textColor">
-                                                                            <span class="bold">برگزار کننده</span>
-                                                                            <span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end of product-card -->
-                                                            </div>
-                                                        </div>
-
-                                                        
-                                                        <div class="customEventWidthBox ml-0">
-                                                            <div>
-                                                                <!-- start of product-card -->
-                                                                <div class="product-card customEventBorderBox">
-                                                                    <div class="product-thumbnail mx-n15">
-                                                                        <a>
-                                                                            <img style="width: 300px;height: 180px;max-width: 300px !important;">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="product-card-body">
-                                                                        <h2 class="product-title">
-                                                                            <a class="textColor fontSize14 bold"></a>
-                                                                        </h2>
-                                                                        <h2 class="product-title">
-                                                                            <span class="fontSize14">شروع</span>
-                                                                            <a class="textColor fontSize14"></a>
-                                                                        </h2>
-                                                                        <div class="product-variant">
-                                                                            <span class="colorWhite customBoxLabel fontSize11"></span>
-                                                                        </div>
-                                                                        <div class="colorCircle"></div>
-                                                                        <div class="product-price fa-num">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <span class="fontSize15 pl-10 position-relative">
-                                                                                    <img src="{{ asset('theme-assets/images/svg/off.svg') }}" alt="">
-                                                                                    <span class="position-absolute fontSize10 colorWhite r-0 customOff">20%</span>
-                                                                                </span>
-                                                                                <del class="customlineText textColor fontSize15">26,900,000</del>
-                                                                            </div>
-                                                                            <div class="fontSize20">
-                                                                                <span></span>
-                                                                                <span class="fontSize20 colorYellow">ت</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="product-card-footer mb-2">
-                                                                        <div class="textColor">
-                                                                            <span class="bold">مکان </span>
-                                                                            <span</span>
-                                                                        </div>
-                                                                        <div class="textColor">
-                                                                            <span class="bold">برگزار کننده</span>
-                                                                            <span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end of product-card -->
-                                                            </div>
-                                                        </div>
-                                                        </div>
+                                                    
+                                                    <div id="sample_event_div" class="hidden">
+                                                        @include('event.event.event_card', ['key' => 'sampleEvent'])
                                                     </div>
 
                                                     <div id="shimmer" class="hidden" style="display: flex; flex-wrap: wrap; gap: 10px;">
@@ -503,7 +442,7 @@
                                                         @endfor
                                                     </div>
 
-                                                    <div id="products_div" class="hidden p-0" style="display: flex; flex-wrap: wrap; gap: 5px;">
+                                                    <div id="events_div" class="hidden p-0" style="display: flex; flex-wrap: wrap; gap: 5px;">
                                                     </div>
 
                                                 </div>
@@ -618,4 +557,48 @@
 
 @section('extraJS')
     @parent
+
+    {{-- <script src="{{ asset('theme-assets/js/lazyLoading.js') }}"></script> --}}
+    <script src="{{ asset('theme-assets/js/home.js') }}"></script>
+    <script src="{{ asset('theme-assets/js/eventList.js') }}"></script>
+
+    <script>
+
+        $(document).ready(function() {
+
+            let minMaxChange = false;
+            let minMaxFetch = false;
+
+            document.body.onmouseup = function() {
+                if(minMaxChange && !minMaxFetch) {
+                    minMaxChange = false;
+                    minMaxFetch = true;
+                    filter();
+                }
+            }
+
+            var skipSlider = document.getElementById("slider-non-linear-step");
+            skipSlider.noUiSlider.on("update", function (values, handle) {
+                minMaxChange = true;
+                minMaxFetch = false;
+                
+            });
+
+            $("#orderBy").on('change', function() {
+                filter();
+            });
+
+            $("#has_selling_stock").on('change', function() {
+                filter();
+            });
+            
+            $("#has_selling_offs").on('change', function() {
+                filter();
+            });
+
+
+        });
+
+    </script>
+
 @stop

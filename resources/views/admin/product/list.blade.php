@@ -287,10 +287,10 @@
                     success: function(res) {
 
                         if(res.status === "ok") {
-                            alert("عملیات موردنظر با موفقیت انجام شد.");
+                            showSuccess("عملیات موردنظر با موفقیت انجام شد.");
                         }
                         else {
-                            alert(res.msg);
+                            showErr(res.msg);
                         }
                     }
                 });
@@ -316,10 +316,10 @@
                                 $("#visibility_visible_" + productId).removeClass('hidden');
                                 $("#visibility_text_" + productId).text('عدم نمایش');
                             }
-                            alert("عملیات موردنظر با موفقیت انجام شد.");
+                            showSuccess("عملیات موردنظر با موفقیت انجام شد.");
                         }
                         else {
-                            alert(res.msg);
+                            showErr(res.msg);
                         }
                     }
                 });

@@ -157,32 +157,6 @@
                         //     location.reload();
                     });
                 }
-            };
-        function removeItem1(){
-            $('#removeItem1').remove();
-        }
-        function removeItem2(){
-            $('#removeItem2').remove();
-        }
-        function removeItem3(){
-            $('#removeItem3').remove();
-        }
-        function removeItem4(){
-            $('#removeItem4').remove();
-        }
-        function removeItem5(){
-            $('#removeItem5').remove();
-        }
-        $('#onlineOrOffline').on('change',function(){
-            onlineOrOffline = $('#onlineOrOffline').val();
-            if (onlineOrOffline=== 'online'){
-                // show or hide class for online
-            }else if(onlineOrOffline=== 'offline'){
-                // show or hide class for offline
-            }else{
-                // hide All
-            }
-        })
         $.ajax({
             type: 'get',
             url: '{{route('event.galleries.store',['event' => $id])}}',
