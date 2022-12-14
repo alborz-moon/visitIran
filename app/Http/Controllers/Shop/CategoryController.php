@@ -110,7 +110,8 @@ class CategoryController extends Controller
         else {
             $catIds = ProductHelper::get_all_subs_ids($category);
             $where = "(";
-            $first = true;
+            $where .= 'category_id = ' . $category->id;
+            $first = false;
 
             foreach($catIds as $catId) {
                 if($first) {
