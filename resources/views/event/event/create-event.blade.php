@@ -562,7 +562,7 @@ $.ajax({
 
 $.ajax({
     type: 'get',
-    url: "{{route('facilities.show ')}}",
+    url: "{{route('facilities.show')}}",
     headers: {
         'accept': 'application/json'
     },
