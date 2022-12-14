@@ -545,11 +545,13 @@
             }
 
             var skipSlider = document.getElementById("slider-non-linear-step");
-            skipSlider.noUiSlider.on("update", function (values, handle) {
-                minMaxChange = true;
-                minMaxFetch = false;
-                
-            });
+            if(skipSlider !== undefined && skipSlider !== null) {
+               skipSlider.noUiSlider.on("update", function (values, handle) {
+                    minMaxChange = true;
+                    minMaxFetch = false;
+                    
+                });
+            }
 
 
             $("#top-categories-parent").on('click', function() {
