@@ -331,7 +331,7 @@ class LauncherController extends Controller
 
             return response()->json([
                 'status' => 'nok',
-                'msg' => 'شما یکبار این فرم را پر کرده اید.'
+                'msg' => $x->getMessage()
             ]);
 
         }
