@@ -96,9 +96,9 @@
                                                 <input class="b-1" type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event)">
                                                 <input class="b-1" type="file" id="file-ip-2" accept="image/*" onchange="showPreviewProfile(event)">
                                             </div>
-                                            <div id="producer" class="producer position-relative">
+                                            <div  class="producer position-relative">
                                                 <img id="file-ip-1-preview" class="w-100 h-100" style="opacity: .4" alt="">
-                                                <div class="position-absolute transformTranslateCenter">عکس را بارگذاری کنید</div>
+                                                <div id="producer" class="position-absolute customTop center uploaderText">عکس را بارگذاری کنید</div>
                                                 <div id="profileImg" class="profileImg">
                                                     <img id="file-ip-2-preview" class="w-100 h-100 borderRadius50" accept="image/*" alt="">
                                                 </div>
