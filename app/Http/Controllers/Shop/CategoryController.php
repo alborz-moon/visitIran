@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Shop\Utility\ProductHelper;
 use App\Http\Resources\CategoryDigest;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CategoryUserDigest;
@@ -16,9 +17,31 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
+
+
+    public function search(Request $request) {
+
+        $validator = [
+            // 'key' => 'required|persian_alpha|min:2|max:15',
+            'key' => 'required|min:2|max:15'
+        ];
+
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator);
+        $categories = Category::where('name', 'like "%' . $request['key'] . '"')->get();
+        
+        return response()->json([
+            'status' => 'ok',
+            'data' => CategoryDigest::collection($categories)->toArray($request)
+        ]);
+    }
+
 
     public function get_top_categories_products(Request $request)
     {
@@ -103,9 +126,28 @@ class CategoryController extends Controller
         if(!$category->visibility)
             return Redirect::route('403');
 
+        $where = "";
+        if($category->products()->count() > 0)
+            $where = 'category_id = ' . $category->id;
+        else {
+            $catIds = ProductHelper::get_all_subs_ids($category);
+            $where = "(";
+            $where .= 'category_id = ' . $category->id;
+            $first = false;
+
+            foreach($catIds as $catId) {
+                if($first) {
+                    $where .= 'category_id = ' . $catId;
+                    $first = false;
+                }
+                else
+                    $where .= ' or category_id = ' . $catId;
+            }
+            $where .= ")";
+        }
 
         $catId = $category->id;
-        $whereClause = "products.visibility = true and category_id = " . $catId;
+        $whereClause = "products.visibility = true and " . $where;
         
         $minMax = DB::select('select max(price) as maxPrice, min(price) as minPrice from products where ' . $whereClause);
         $sellers = DB::select('select distinct(seller_id) as id, sellers.name from sellers, products where seller_id = sellers.id and ' . $whereClause);

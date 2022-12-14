@@ -8,6 +8,10 @@ use App\Http\Controllers\Shop\CommentController;
 
 use Illuminate\Support\Facades\Route;
 
+Route::post('search-product', [ProductController::class, 'search'])->name('product-search');
+
+Route::post('search-category', [CategoryController::class, 'search'])->name('category-search');
+
 Route::get('blogs', [BlogController::class, 'list'])->name('api.blog.list');
 
 Route::get('blog/{blog?}', [BlogController::class, 'show'])->name('api.blog.show');

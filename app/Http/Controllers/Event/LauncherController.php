@@ -320,7 +320,7 @@ class LauncherController extends Controller
                 $launcher[$key] = $request[$key];
             }
 
-            $launcher->status = false;
+            $launcher->status = 'pending';
             $launcher->save();
 
             return response()->json([
@@ -331,7 +331,7 @@ class LauncherController extends Controller
 
             return response()->json([
                 'status' => 'nok',
-                'msg' => 'شما یکبار این فرم را پر کرده اید.'
+                'msg' => $x->getMessage()
             ]);
 
         }

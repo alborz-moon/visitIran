@@ -33,7 +33,7 @@ Route::prefix('facilities')->group(function() {
 });
 
 
-Route::resource('eventTags', EventTagController::class)->except('update');
+Route::resource('eventTags', EventTagController::class)->except('update', 'show');
 
 Route::prefix('eventTags')->group(function() {
     

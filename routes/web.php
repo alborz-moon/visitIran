@@ -30,8 +30,6 @@ Route::middleware(['shareTopCategories'])->group(function() {
 
         Route::view('/', 'shop.welcome')->name('home');
     
-        Route::post('/search-product', [ProductController::class, 'search'])->name('product-search');
-    
         Route::get('/product/{product}/{slug}', [ProductController::class, 'showDetail'])->name('single-product');
     
         Route::get('/list/{category}/{slug}', [CategoryController::class, 'show'])->name('single-category');
@@ -136,7 +134,7 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
 
     Route::view('/', 'event.welcome')->name('event.home');
 
-    
+
     Route::get('/event/{event}/{slug}', [EventController::class, 'show'])->name('event');
 
     Route::get('/launcher/{launcher}/{slug}', [LauncherController::class, 'show_detail'])->name('launcher');

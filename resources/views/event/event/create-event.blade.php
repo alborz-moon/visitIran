@@ -71,8 +71,7 @@
 
 <script>
 var initialing = false;
-var GET_CITIES_URL = '{{ route('
-api.cities ') }}';
+var GET_CITIES_URL = '{{ url('api/cities ') }}';
 </script>
 @stop
 @section('content')
@@ -537,8 +536,7 @@ $('#onlineOrOffline').on('change', function() {
 
 $.ajax({
     type: 'get',
-    url: '{{route('
-    eventTags.show ')}}',
+    url: '{{route('eventTags.show ')}}',
     headers: {
         'accept': 'application/json'
     },
