@@ -775,9 +775,21 @@ table thead {
 .profileImg:hover {
     cursor: pointer;
 }
+.uploaderText {
+    color: #3f3f3f;
+    font-weight: 600;
+    padding: 80px;
+    border: 1px dotted #9e9e9e;
+}
+.uploaderText:hover {
+    cursor: pointer;
+}
+.customTop {
+    top: 15%;
+    left: 35%;
+}
 .producer {
     z-index: 1;
-    cursor: pointer;
     width: 100%;
     height: 250px;
     background-color: transparent;
@@ -786,9 +798,6 @@ table thead {
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
-}
-.producer:hover {
-    cursor: pointer;
 }
 .search-mobile {
     position: fixed;

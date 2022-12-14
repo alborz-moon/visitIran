@@ -118,7 +118,6 @@
                                         <div class="profile-user-info ui-box customUiBox">
                                             <div class="profile-detail">
                                                 <div class="d-flex align-items-center">
-                                                    
                                                     <div class="profile-info">
                                                         <a href="#" class="text-decoration-none text-dark fw-bold mb-2">
                                                             {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
@@ -210,9 +209,11 @@
                 @if(isset($top_categories))
                   <div id="hiddenCat" class="d-flex flexwrap gap10 my-3 hidden">
                     @foreach ($top_categories as $cat)
-                      <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal">
-                        {{ $cat['name'] }}
-                      </a>  
+                      <div class="d-flex noWrap">
+                        <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal whiteSpaceNoWrap">
+                            {{ $cat['name'] }}
+                        </a>
+                    </div>  
                     @endforeach
                   </div>
                 @endif
@@ -245,44 +246,8 @@
                                 </div>
                             </div>
                             <div class="navigation-body">
-                                <ul class="menu">
-                                    <li>
-                                        <a href="#" class="toggle-submenu">
-                                            <span>فرش</span>
-                                        </a>
-                                        <ul class="submenu">
-                                            <li class="close-submenu">
-                                                <i class="ri-arrow-right-s-line"></i>
-                                                منسوجات 
-                                            </li>
-                                            <li>
-                                                <a href="#" class="toggle-submenu">
-                                                    منسوجات
-                                                </a>
-                                                <ul class="submenu">
-                                                    <li class="close-submenu">
-                                                        <i class="ri-arrow-right-s-line"></i>
-                                                        منسوجات
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">لوازم</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">فرش دست بافت</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">رو فرشی</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">زیر فرش</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">خانه طراحان ایرانی</a>
-                                    </li>
+                                <ul id="moblieMenu" class="menu">
+                                    @include('layouts.mobile-menu')
                                 </ul>
                             </div>
                         </div>
@@ -363,7 +328,7 @@
                 </div>
             </div>
         </div>
-        @include('layouts.mobile-menu')
+        
         @include('shop.layouts.modal-search')
         <div class="hidden" id="sample-mini-cart-products">
             @include('shop.product.mini_card')
