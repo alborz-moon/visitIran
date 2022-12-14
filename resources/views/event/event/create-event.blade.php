@@ -626,18 +626,12 @@ $("#nextBtn").on('click', function() {
     }
     $.ajax({
         type: 'post',
-        url: '{{isset($id) ?  route('event.update ', ['
-        event ' => $id]) : route('
-        event.store ')}}',
+        url: "{{isset($id) ?  route('event.update', ['event' => $id]) : route('event.store')}}",
         data: data,
         success: function(res) {
             if (res.status === "ok") {
-                // alert("عملیات موردنظر با موفقیت انجام شد.");
                 showSuccess("عملیات موردنظر با موفقیت انجام شد.");
-                window.location.href = '{{isset($id) ? route('
-                addSessionsInfo ', ['
-                event ' => $id]) : route('
-                addSessionsInfo ') }}';
+                window.location.href = "{{isset($id) ? route('addSessionsInfo', ['event' => $id]) : route('addSessionsInfo') }}";
             } else {
                 alert(res.msg);
             }
@@ -660,7 +654,7 @@ setTimeout(checkFetchData, [500]);
 function getPhase1Info() {
     $.ajax({
         type: 'get',
-        url: "{{route('event.getPhase1Info',['event ' => $id])}}",
+        url: "{{route('event.getPhase1Info',['event' => $id])}}",
         headers: {
             'accept': 'application/json'
         },
