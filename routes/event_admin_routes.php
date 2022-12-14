@@ -37,8 +37,6 @@ Route::prefix('eventTags')->group(function() {
     
     Route::post('/{eventTag}', [EventTagController::class, 'update'])->name('eventTags.update');
 
-    Route::get('/list', [EventTagController::class, 'show'])->name('eventTags.show');
-
 });
 
 

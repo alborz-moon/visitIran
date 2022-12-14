@@ -27,6 +27,12 @@ Route::post('event_comment/{event_comment}', [EventCommentController::class, 'up
 
 Route::middleware(['myAuth'])->group(function() {
 
+    Route::prefix('eventTags')->group(function() {
+    
+        Route::get('/list', [EventTagController::class, 'show'])->name('eventTags.show');
+    
+    });
+
     Route::resource('launcher', LauncherController::class)->except('edit', 'create', 'update');
 
     Route::prefix('launcher')->group(function() {
