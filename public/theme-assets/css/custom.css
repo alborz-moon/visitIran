@@ -857,9 +857,10 @@ table thead {
     border: 1px solid #dedede;
     border-radius: 15px;
     box-shadow: 0 3px 6px 0px #00000029;
-    max-width: 242px !important;
     min-width: 242px !important;
     height: 400px;
+    padding-left: 8px;
+    padding-right: 8px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
@@ -1970,3 +1971,18 @@ figure .ck-widget {
         top: 0px;
     }
 }
+@media (max-width: 768px) {
+    .responsive-sidebar {
+        width: 84vw;
+    }
+}
+@media (max-width: 576px) {
+    .handleInMedia {
+        flex-basis: 97%;
+    }
+}
+/* @media (max-width: 768px) {
+    .handleInMedia {
+        flex-basis: 47.5%;
+    }
+} */

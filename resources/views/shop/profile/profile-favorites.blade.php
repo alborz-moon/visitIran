@@ -275,7 +275,7 @@
                     id +
                     "', '" +
                     elem.slug +
-                    '\')" class="cursorPointer">' +
+                    '\')" class="cursorPointer handleInMedia">' +
                     newElem +
                     "</div>";
             });
