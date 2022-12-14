@@ -91,7 +91,7 @@
                                     htmlMobile += '<ul id="subMenu_Father_' + res.data[i].subs[j].id + '" class="submenu">';
                                     htmlMobile += '<li onclick="backMenu(' + res.data[i].subs[j].id + ')" class="close-submenu"><i class="ri-arrow-right-s-line"></i>' + res.data[i].subs[j].name + '</li>';
                                     for (var k = 0; k < res.data[i].subs[j].subs.length; k++){   
-                                        htmlMobile += '<li><a href="#" onclick="selectMenu(' + res.data[i].subs[j].subs[k].id + ')" class="toggle-submenu">' + res.data[i].subs[j].subs[k].name + '</a>';
+                                        htmlMobile += '<li><a href="' + res.data[i].subs[j].subs[k].href + '" onclick="selectMenu(' + res.data[i].subs[j].subs[k].id + ')" class="toggle-submenu">' + res.data[i].subs[j].subs[k].name + '</a>';
                                     }
                                 htmlMobile += '</ul>';
                                 }   
