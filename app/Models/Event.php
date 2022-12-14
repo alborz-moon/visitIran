@@ -117,7 +117,7 @@ class Event extends Model
 
         $selects = $returnType == 'card' ? 
             'events.*, brands.name as brand_name, sellers.name as seller_name' : 
-            'events.id, events.title, events.slug, events.price, events.img, events.alt, events.rate, events.tags, events.city_id, events.link, launchers.company_name, cities.name as city';
+            'events.id, events.off, events.off_type, events.off_expiration, events.title, events.slug, events.price, events.img, events.alt, events.rate, events.tags, events.city_id, events.link, launchers.company_name, cities.name as city';
 
         $join_where = $returnType == 'card' ? 
             'categories.id = products.category_id and products.brand_id = brands.id and ' :

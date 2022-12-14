@@ -17,9 +17,31 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
+
+
+    public function search(Request $request) {
+
+        $validator = [
+            // 'key' => 'required|persian_alpha|min:2|max:15',
+            'key' => 'required|min:2|max:15'
+        ];
+
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator);
+        $categories = Category::where('name', 'like "%' . $request['key'] . '"')->get();
+        
+        return response()->json([
+            'status' => 'ok',
+            'data' => CategoryDigest::collection($categories)->toArray($request)
+        ]);
+    }
+
 
     public function get_top_categories_products(Request $request)
     {

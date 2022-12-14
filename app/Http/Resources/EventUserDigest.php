@@ -19,7 +19,7 @@ class EventUserDigest extends JsonResource
 
         if($this->resource instanceof Event) {
             $launcher = $this->launcher->company_name;
-            $city = $this->city->name;
+            $city = $this->city_id != null ? $this->city->name : null;
             $off = $this->activeOff();
         }
         else {

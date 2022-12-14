@@ -12,6 +12,8 @@ Route::get('events', [EventController::class, 'list'])->name('api.event.list');
 
 Route::get('show-launcher/{launcher}', [LauncherController::class, 'show_user'])->name('api.launcher.show-user');
 
+Route::post('/search-event', [EventController::class, 'search'])->name('event-search');
+
 
 Route::resource('launcher.launcher_comment', LauncherCommentController::class)->except('show', 'update')->shallow();
 

@@ -167,7 +167,8 @@ class EventController extends EventHelper
     public function search(Request $request) {
 
         $validator = [
-            'key' => 'required|persian_alpha|min:2|max:15',
+            // 'key' => 'required|persian_alpha|min:2|max:15',
+            'key' => 'required|min:2|max:15',
             'tag' => 'nullable|string|exists:events.event_tags,name',
             'return_type' => ['required', Rule::in(['digest', 'card'])]
         ];
@@ -176,6 +177,7 @@ class EventController extends EventHelper
             return abort(401);
 
         $request->validate($validator);
+        $request['return_type'] = 'digest';
 
         $events = Event::like($request['key'], 
             $request->has('tag') ? $request['tag'] : null,
@@ -183,7 +185,7 @@ class EventController extends EventHelper
         );
 
         
-        if($request['return_type'] == 'digest')
+        // if($request['return_type'] == 'digest')
             return EventUserDigest::collection($events)->toArray($request);
         
         // return response()->json([
