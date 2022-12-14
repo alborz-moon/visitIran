@@ -476,6 +476,7 @@ class EventController extends EventHelper
             $event[$key] = $request[$key];
         }
 
+        $event->status = 'pending';
         $event->save();
         return response()->json(['status' => 'ok']);
 

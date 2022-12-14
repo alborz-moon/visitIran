@@ -71,7 +71,7 @@
 
 <script>
 var initialing = false;
-var GET_CITIES_URL = '{{ route('api.cities ') }}';
+var GET_CITIES_URL = '{{ url('api/cities ') }}';
 </script>
 @stop
 @section('content')

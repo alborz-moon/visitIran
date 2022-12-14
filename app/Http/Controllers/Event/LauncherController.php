@@ -320,7 +320,7 @@ class LauncherController extends Controller
                 $launcher[$key] = $request[$key];
             }
 
-            $launcher->status = false;
+            $launcher->status = 'pending';
             $launcher->save();
 
             return response()->json([
