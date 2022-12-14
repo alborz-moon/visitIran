@@ -14,7 +14,7 @@ class AddPostalCodeInEventsTable extends Migration
     public function up()
     {
         Schema::connection('mysql2')->table('events', function (Blueprint $table) {
-            $table->string('postal_code')->length(10)->nullable();
+//            $table->string('postal_code')->length(10)->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddPostalCodeInEventsTable extends Migration
     public function down()
     {
         Schema::connection('mysql2')->table('events', function (Blueprint $table) {
-            $table->dropColumn('postal_code');
+//            $table->dropColumn('postal_code');
         });
     }
 }
