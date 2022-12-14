@@ -562,8 +562,7 @@ $.ajax({
 
 $.ajax({
     type: 'get',
-    url: '{{route('
-    facilities.show ')}}',
+    url: "{{route('facilities.show ')}}",
     headers: {
         'accept': 'application/json'
     },
@@ -627,8 +626,7 @@ $("#nextBtn").on('click', function() {
     }
     $.ajax({
         type: 'post',
-        url: '{{isset($id) ?  route('
-        event.update ', ['
+        url: '{{isset($id) ?  route('event.update ', ['
         event ' => $id]) : route('
         event.store ')}}',
         data: data,
@@ -662,9 +660,7 @@ setTimeout(checkFetchData, [500]);
 function getPhase1Info() {
     $.ajax({
         type: 'get',
-        url: '{{route('
-        event.getPhase1Info ',['
-        event ' => $id])}}',
+        url: "{{route('event.getPhase1Info',['event ' => $id])}}",
         headers: {
             'accept': 'application/json'
         },
