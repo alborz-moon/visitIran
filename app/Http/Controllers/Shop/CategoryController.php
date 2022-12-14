@@ -121,7 +121,7 @@ class CategoryController extends Controller
                 else
                     $where .= ' or category_id = ' . $catId;
             }
-            $where = ")";
+            $where .= ")";
         }
 
         $catId = $category->id;
