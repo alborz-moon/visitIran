@@ -536,7 +536,7 @@ $('#onlineOrOffline').on('change', function() {
 
 $.ajax({
     type: 'get',
-    url: '{{route('eventTags.show ')}}',
+    url: '{{url('api/eventTags/list ')}}',
     headers: {
         'accept': 'application/json'
     },
