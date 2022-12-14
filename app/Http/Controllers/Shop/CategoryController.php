@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Shop\Utility\ProductHelper;
 use App\Http\Resources\CategoryDigest;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CategoryUserDigest;
@@ -103,9 +104,27 @@ class CategoryController extends Controller
         if(!$category->visibility)
             return Redirect::route('403');
 
+        $where = "";
+        if($category->products()->count() > 0)
+            $where = 'category_id = ' . $category->id;
+        else {
+            $catIds = ProductHelper::get_all_subs_ids($category);
+            $where = "(";
+            $first = true;
+
+            foreach($catIds as $catId) {
+                if($first) {
+                    $where .= 'category_id = ' . $catId;
+                    $first = false;
+                }
+                else
+                    $where .= ' or category_id = ' . $catId;
+            }
+            $where = ")";
+        }
 
         $catId = $category->id;
-        $whereClause = "products.visibility = true and category_id = " . $catId;
+        $whereClause = "products.visibility = true and " . $where;
         
         $minMax = DB::select('select max(price) as maxPrice, min(price) as minPrice from products where ' . $whereClause);
         $sellers = DB::select('select distinct(seller_id) as id, sellers.name from sellers, products where seller_id = sellers.id and ' . $whereClause);

@@ -9,7 +9,7 @@ use App\Models\User;
 
 class ProductHelper extends Controller {
 
-    private static function get_all_subs_ids($cat) {
+    public static function get_all_subs_ids($cat) {
         
         $ids = [];
         array_push($ids, $cat->id);
