@@ -9,7 +9,7 @@ use App\Http\Controllers\Event\FacilityController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::resource('launcher', LauncherController::class)->except('update', 'store');
+Route::resource('launcher', LauncherController::class)->except('update', 'store', 'show');
 
 Route::prefix('launcher')->group(function() {
 
