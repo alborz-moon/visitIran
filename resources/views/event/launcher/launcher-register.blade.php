@@ -632,7 +632,7 @@
 
                 $.ajax({
                     type: 'post',
-                    url: '{{ $mode == 'create' ? route('launcher.store') : route('launcher.update', ['launcher' => $formId]) }}',
+                    url: "{{ $mode == 'create' ? route('launcher.store') : route('launcher.update', ['launcher' => $formId]) }}",
                     data: data,
                     success: function(res) {
                         if(res.status === "ok") {

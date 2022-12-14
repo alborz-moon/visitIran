@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Event\EventCommentController;
 use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\Event\EventTagController;
 use App\Http\Controllers\Event\LauncherBankAccountsController;
 use App\Http\Controllers\Event\LauncherCertificationsController;
 use App\Http\Controllers\Event\LauncherCommentController;
@@ -26,6 +27,12 @@ Route::post('event_comment/{event_comment}', [EventCommentController::class, 'up
 
 
 Route::middleware(['myAuth'])->group(function() {
+
+    Route::prefix('eventTags')->group(function() {
+    
+        Route::get('/list', [EventTagController::class, 'show'])->name('eventTags.show');
+    
+    });
 
     Route::resource('launcher', LauncherController::class)->except('edit', 'create', 'update');
 

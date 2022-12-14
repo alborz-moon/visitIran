@@ -9,8 +9,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Shop\BlogController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
+use App\Models\Launcher;
 use App\Models\State;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -149,6 +152,10 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
     Route::middleware(['myAuth'])->group(function() {
 
         Route::get('/launcher-register', function() {
+            $tmp = Launcher::where('user_id', Auth::user()->id)->first();
+            if($tmp != null)
+                return Redirect::route('launcher-edit', ['formId' => $tmp->id]);
+
             $states = State::orderBy('name', 'asc')->get();
             $mode = 'create';
             return view('event.launcher.launcher-register', compact('states', 'mode'));

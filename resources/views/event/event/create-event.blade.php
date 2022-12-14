@@ -71,7 +71,7 @@
 
 <script>
 var initialing = false;
-var GET_CITIES_URL = '{{ url('api/cities ') }}';
+var GET_CITIES_URL = '{{ route('api.cities') }}';
 </script>
 @stop
 @section('content')
@@ -536,7 +536,7 @@ $('#onlineOrOffline').on('change', function() {
 
 $.ajax({
     type: 'get',
-    url: '{{route('eventTags.show ')}}',
+    url: '{{url('api/eventTags/list ')}}',
     headers: {
         'accept': 'application/json'
     },
@@ -562,8 +562,7 @@ $.ajax({
 
 $.ajax({
     type: 'get',
-    url: '{{route('
-    facilities.show ')}}',
+    url: "{{route('facilities.show')}}",
     headers: {
         'accept': 'application/json'
     },
@@ -627,19 +626,12 @@ $("#nextBtn").on('click', function() {
     }
     $.ajax({
         type: 'post',
-        url: '{{isset($id) ?  route('
-        event.update ', ['
-        event ' => $id]) : route('
-        event.store ')}}',
+        url: "{{isset($id) ?  route('event.update', ['event' => $id]) : route('event.store')}}",
         data: data,
         success: function(res) {
             if (res.status === "ok") {
-                // alert("عملیات موردنظر با موفقیت انجام شد.");
                 showSuccess("عملیات موردنظر با موفقیت انجام شد.");
-                window.location.href = '{{isset($id) ? route('
-                addSessionsInfo ', ['
-                event ' => $id]) : route('
-                addSessionsInfo ') }}';
+                window.location.href = "{{isset($id) ? route('addSessionsInfo', ['event' => $id]) : route('addSessionsInfo') }}";
             } else {
                 alert(res.msg);
             }
@@ -662,9 +654,7 @@ setTimeout(checkFetchData, [500]);
 function getPhase1Info() {
     $.ajax({
         type: 'get',
-        url: '{{route('
-        event.getPhase1Info ',['
-        event ' => $id])}}',
+        url: "{{route('event.getPhase1Info',['event' => $id])}}",
         headers: {
             'accept': 'application/json'
         },

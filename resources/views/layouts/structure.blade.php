@@ -381,8 +381,10 @@
                 else {
                     var errsText = '';
 
-                    for(let i = 0; i < errs.length; i++)
-                        errsText += errs[i].value;
+                    if(errs !== undefined && errs !== null) {
+                        for(let i = 0; i < errs.length; i++)
+                            errsText += errs[i].value;
+                    }
                     
                     showErr(errsText);
                 }
