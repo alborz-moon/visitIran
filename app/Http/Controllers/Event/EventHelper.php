@@ -13,6 +13,8 @@ class EventHelper extends Controller {
 
         if($justVisibles)
             $filters = Event::where('visibility', true)->where('status', 'confirmed')->where('end_registry', '>', time());
+        else
+            $filters = Event::where('id', '>', 0);
 
         $launchers = $request->query('launchers', null);
         $maxPrice = $request->query('maxPrice', null);
@@ -288,7 +290,6 @@ class EventHelper extends Controller {
                 $filters->where($filter[0], $filter[1]);
         }
 
-        // dd($filters->toSql());
         return $filters;
     }
 
