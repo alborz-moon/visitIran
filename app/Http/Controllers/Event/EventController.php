@@ -104,7 +104,7 @@ class EventController extends EventHelper
      */
     public function index(Request $request)
     {
-        $events = self::build_filters($request)->get();
+        $events = self::build_filters($request, false, false)->get();
         $events = EventAdminDigest::collection($events)->toArray($request);
         
         $launcherFilter = $request->query('launcher', null);
