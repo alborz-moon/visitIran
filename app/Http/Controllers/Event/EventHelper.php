@@ -53,7 +53,7 @@ class EventHelper extends Controller {
             array_push($filters_arr, ['facilities', $facilities, 'like']);
 
         if($levels != null)
-            array_push($filters_arr, ['level_description', explode(',', $levels)]);
+            array_push($filters_arr, ['level_description', array_map(function($o){return "'" . $o . "'";}, explode(',', $levels))]);
 
         if($minPrice != null)
             array_push($filters_arr, ['price', '>=', $minPrice]);
@@ -175,13 +175,13 @@ class EventHelper extends Controller {
                     foreach($filter[1] as $itr) {
                         if($first_cluase) {
                             $first_cluase = false;
-                            if(count($filters_arr) == 2)
+                            if(count($filter) == 2)
                                 $filters .= $filter[0] . ' = ' . $itr;
                             else
                                 $filters .= $filter[0] . ' like "%' . $itr . '%"';
                         }
                         else {
-                            if(count($filters_arr) == 2)
+                            if(count($filter) == 2)
                                 $filters .= ' or ' . $filter[0] . ' = ' . $itr;
                             else
                                 $filters .= ' or ' . $filter[0] . ' like "%' . $itr . '%"';
@@ -192,10 +192,14 @@ class EventHelper extends Controller {
                 }
 
 
-                if(count($filter) == 2 && $filter[1] == "null")
-                    $op = "is null";
-                else if(count($filter) == 2 && $filter[1] == "not_null")
-                    $op = "is not null";
+                if(count($filter) == 2 && $filter[1] == "null") {
+                    $op = " is null ";
+                    $filter[1] = '';
+                }
+                else if(count($filter) == 2 && $filter[1] == "not_null") {
+                    $op = " is not null ";
+                    $filter[1] = '';
+                }
                 else
                     $op = count($filter) == 2 ? "=" : $filter[1];
 
