@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Event\EventCommentController;
 use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\Event\EventTagController;
 use App\Http\Controllers\Event\LauncherBankAccountsController;
 use App\Http\Controllers\Event\LauncherCertificationsController;
 use App\Http\Controllers\Event\LauncherCommentController;
