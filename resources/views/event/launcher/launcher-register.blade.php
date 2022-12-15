@@ -14,11 +14,22 @@
             <div class="row mb-5">
                 @include('event.launcher.launcher-menu')     
                     <div class="col-xl-9 col-lg-8 col-md-7">
-                        <div class="alert alert-warning alert-dismissible fade show mb-5 d-flex align-items-center spaceBetween" role="alert">
+                        <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
                             <div>
-                                در حال حاضر حساب کاربری شما غیر فعال است. پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
+                               در خواست ارتقا به برگذار کننده پس از ارسال توسط ادمین بازبینی و تایید خواهد شد  .
+                            </div>                       
+                        </div>
+                        <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
+                            <div>
+                                در حال حاضر حساب برگذار کننده شما غیر فعال است . پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
                             </div> 
-                            <a href="#" class="btn btn-sm btn-primary mx-3">تیکت ها</a>                        
+                            <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">مشاهده سوابق</a> 
+                        </div>
+                        <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
+                            <div>
+                                تایید حساب برگذار کننده با مشکل مواجه شده است . برای جزئیات بیشتر به پشتیبانی مراجه کنید.
+                            </div> 
+                            <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">پشتیبانی</a>
                         </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">اطلاعات رابط</div>
@@ -29,7 +40,7 @@
                                             <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
                                             <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between">
                                                 <input type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
-                                                <button class="btn btn-circle btn-outline-light"
+                                                <button class="btn btn-circle btn-outline-light hidden showPenEdit"
                                                     data-remodal-target="personal-info-fullname-modal"><i                                                       class="ri-ball-pen-fill"></i></button>
                                             </div>
                                             <div class="fs-6 fw-bold text-muted"></div>
@@ -64,7 +75,7 @@
                                             <div  class="fs-7 text-dark">تاریخ تولد</div>
                                             <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between">
                                                 <input type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد">
-                                                <button class="btn btn-circle btn-outline-light"
+                                                <button class="btn btn-circle btn-outline-light hidden showPenEdit"
                                                     data-remodal-target="personal-info-birth-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
@@ -97,10 +108,11 @@
                                                 <input class="b-1" type="file" id="file-ip-2" accept="image/*" onchange="showPreviewProfile(event)">
                                             </div>
                                             <div  class="producer position-relative">
-                                                <img id="file-ip-1-preview" class="w-100 h-100" style="opacity: .4" alt="">
+                                                <img id="file-ip-1-preview" style="border: 2px solid white;boxshadow: 0 3px 6px #00000029;background-color: #e5e5e5" class="w-100 h-100 objectfitCover" style="opacity: .4" alt="">
                                                 <div id="producer" class="position-absolute customTop center uploaderText">عکس را بارگذاری کنید</div>
                                                 <div id="profileImg" class="profileImg">
-                                                    <img id="file-ip-2-preview" class="w-100 h-100 borderRadius50" accept="image/*" alt="">
+                                                    <img id="file-ip-2-preview" style="border: 2px solid white;boxshadow: 0 3px 6px #00000029" class="w-100 h-100 objectfitCover" accept="image/*" alt="">
+                                                    <div id="producer" class="position-absolute customTop2 center uploaderImg"><i class="icon-visit-open"></i></div>
                                                 </div>
                                                 <script>
                                                       function showPreviewProfile(event){
@@ -147,7 +159,7 @@
                                         <div class=" py-2">
                                             <div  class="fs-7 text-dark">نوع شخصیت</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select id="launcherType" class="selectStyle">
+                                                <select id="launcherType" class="select2 selectStyle">
                                                     <option value="selectType" selected>انتخاب کنید</option>
                                                     <option value="haghighi">حقیقی</option>
                                                     <option value="hoghoghi">حقوقی</option>
@@ -505,6 +517,8 @@
                 var last = $('#last').val();
                 $('.setName').val(name +' ' + last );
                 $(".remodal-close").click();
+                $(".showPenEdit").removeClass('hidden');
+
             })
             $('#setUserBirthDay').on('click',function(){
                 var year = $('#Brithday_year').val();
@@ -590,7 +604,13 @@
                 var launcherSite = $('#launcherSite').val();
                 var launcherEmail = $('#launcherEmail').val();
                 var launcherPhone = $('#launcherPhone').val();
-                
+                $(".showPenEdit").removeClass('hidden')
+                if (userEmail == null || userEmail == undefined){
+                    $('#userEmail').css('backgroundColor','red')
+                }
+                if (launcherEmail == null || launcherEmail == undefined){
+                    $('#launcherEmail').css('backgroundColor','red')
+                }
                 if(launcherPhone !== undefined && launcherPhone.length > 0)
                     tels.push({
                         id: 222222222,
@@ -671,6 +691,7 @@
                 success: function (res) {
                     x = res.data.launcher_x;
                     y = res.data.launcher_y;
+                    $(".showPenEdit").removeClass('hidden');
                     $('#name').val(res.data.first_name);
                     $('#last').val(res.data.last_name);
                     $('.setName').val(res.data.first_name + ' ' + res.data.last_name)
@@ -681,7 +702,6 @@
                     $("#companyType").val(res.data.company_type);
                     $("#launcherAddress").val(res.data.launcher_address);
                     $(".launcherCityID").val(res.data.launcher_city_id);
-                    
                     $("#launcherEmail").val(res.data.launcher_email);
                     // $("#launcherPhone").val(res.data.launcher_phone);
                     var showPhone = '';
@@ -692,7 +712,6 @@
                         showPhone += '</button>';
                         showPhone += '</div>';
                         // tels.push
-                        
                         tels.push({
                             id: i,
                             val: res.data.launcher_phone[i]

@@ -128,3 +128,6 @@
 .icon-visit-menu:before {
     content: "\006a";
 }
+.icon-visit-open:before {
+    content: "\006b";
+}

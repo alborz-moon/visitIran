@@ -273,6 +273,13 @@ ul {
 .positionRelative {
     position: relative !important;
 }
+.fs-7 {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.objectfitCover {
+    object-fit: cover;
+}
 .logoImgFromTop {
     top: -5px;
     border-bottom-left-radius: 30px !important;
@@ -757,20 +764,20 @@ table thead {
     top: 50%;
     left: 50%;
     transform: translate(-50%, 0%);
+    -webkit-transform: translate(-50%, 0%);
+    -moz-transform: translate(-50%, 0%);
+    -ms-transform: translate(-50%, 0%);
+    -o-transform: translate(-50%, 0%);
 }
 .profileImg {
     position: absolute;
-    bottom: 10px;
-    right: 10px;
+    bottom: 5px;
+    right: 5px;
     width: 150px;
     height: 150px;
-    background-color: #009bb9;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
+    background-color: #ededed;
     z-index: 2;
+    box-shadow: inset 0 3px 6px 0 #00000029;
 }
 .profileImg:hover {
     cursor: pointer;
@@ -778,26 +785,44 @@ table thead {
 .uploaderText {
     color: #3f3f3f;
     font-weight: 600;
-    padding: 80px;
+    padding: 15px;
+    border: 1px dotted #9e9e9e;
+}
+.uploaderImg {
+    color: #3f3f3f;
+    font-weight: 600;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
     border: 1px dotted #9e9e9e;
 }
 .uploaderText:hover {
     cursor: pointer;
+    box-shadow: 0px 3px 6px #00000029;
 }
 .customTop {
-    top: 15%;
-    left: 35%;
+    top: 40%;
+    left: 4%;
+    background-color: #ffffffa3;
+}
+.customTop2 {
+    top: 40%;
+    left: 40%;
+    background-color: #ffffffa3;
 }
 .producer {
     z-index: 1;
     width: 100%;
     height: 250px;
-    background-color: transparent;
+    background-color: #a12e2e00;
     border-radius: 15px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
+    border: 2px solid white;
+    box-shadow: inset 0 3px 6px 0 #00000029;
 }
 .search-mobile {
     position: fixed;
