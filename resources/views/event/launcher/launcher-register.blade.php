@@ -202,7 +202,7 @@
                                         <div class=" py-2">
                                             <div  class="fs-7 text-dark">نوع شرکت</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select id="companyType" class="selectStyle">
+                                                <select id="companyType" class="select2 selectStyle">
                                                     <option value="card">نوع شرکت</option>
                                                     <option value="table">نوع شرکت 2</option>
                                                 </select>
@@ -287,7 +287,7 @@
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">وب سایت</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="launcherSite" type="text" class="form-control" style="direction: rtl" placeholder="وب سایت">
+                                                <input pattern="http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?" id="launcherSite" type="url" class="form-control" style="direction: rtl" placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -297,9 +297,9 @@
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
-                                            <div class="fs-7 text-dark">ایمیل</div>
+                                            <div class="fs-7 text-dark">پست الکترونیک</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="launcherEmail" type="text" class="form-control" style="direction: rtl" placeholder="ایمیل">
+                                                <input onkeypress="return isEmail(event) || isNumber(event)" id="launcherEmail" type="text" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -316,7 +316,7 @@
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
-                                            <div id="addTell" class="d-flex gap15"></div>
+                                            <div id="addTell" class="d-flex gap15 flexWrap mt-1"></div>
                                             <div class="fontSize14 colorBlack">در صورت وجود بیش از یک تلفن، آن ها را با فاصله از هم جدا نمایید.همچنین پیش شماره کشور و شهر نیز وارد شود. مانند +982111111111</div>
                                         </div>
                                     </div>
@@ -480,7 +480,7 @@
         }
         $(document).ready(function(){
             
-            var i = 1;
+            var idx = 1;
             $(document).on('click', '.remove-tel-btn', function () { 
                 let id = $(this).attr('data-id');
                 tels = tels.filter((elem, index) => {
@@ -497,14 +497,14 @@
                         showErr('شماره موردنظر معتبر نمی باشد.');
                         return;
                     }
-                    i++;
+                    idx++;
                     tels.push({
-                        id: i,
+                        id: idx,
                         val: launchPhone
                     });
-                    html += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + launchPhone + '';
-                    html += '<button class="btn btn-outline-light">';
-                    html += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
+                    html += '<div id="tel-modal-' + idx + '" class="item-button spaceBetween colorBlack">' + launchPhone + '';
+                    html += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
+                    html += '<i data-id="' + idx + '" class="remove-tel-btn ri-close-line"></i>';
                     html += '</button>';
                     html += '</div>';
                     $("#addTell").append(html);
@@ -616,9 +616,7 @@
                         id: 222222222,
                         val: launcherPhone
                     });
-
                 var launcherAddress = $('#launcherAddress').val();
-
                 if(x === undefined || y === undefined) {
                     showErr("لطفا مکان موردنظر خود را از روی نقضه انتخاب کنید");
                     return;
@@ -644,7 +642,7 @@
                     launcher_address: launcherAddress,
                 };
 
-                if(launcherType === "hoghoghi") {
+                if(launcherType == "hoghoghi") {
                     data.company_name = companyName;
                     data.code = code;
                     data.company_type = companyType;
@@ -664,7 +662,7 @@
                             else
                                 launcher_id = '{{ isset($formId) ? $formId : -1 }}';
                              
-                            window.location.href = '{{ route('launcher-document') }}' + "/" + launcher_id;
+                            // window.location.href = '{{ route('launcher-document') }}' + "/" + launcher_id;
                         }
                         else
                             showErr(res.msg);
@@ -707,7 +705,7 @@
                     var showPhone = '';
                     for(i = 0 ; i < res.data.launcher_phone.length; i++){
                         showPhone += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + res.data.launcher_phone[i] + '';
-                        showPhone += '<button class="btn btn-outline-light">';
+                        showPhone += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
                         showPhone += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
                         showPhone += '</button>';
                         showPhone += '</div>';
@@ -728,7 +726,6 @@
                     getCities(res.data.launcher_state_id, res.data.launcher_city_id);
                 }
             })
-
         </script>
     @endif
 

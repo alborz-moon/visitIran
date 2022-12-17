@@ -249,7 +249,7 @@ class LauncherController extends Controller
         )
             return response()->json([
                 'status' => 'nok',
-                'msg' => 'ایمیل وارد شده برای رابط در سیستم موجود است.'
+                'msg' => 'پست الکترونیک وارد شده برای رابط در سیستم موجود است.'
             ]);
 
         if($request['launcher_type'] == 'haghighi') {

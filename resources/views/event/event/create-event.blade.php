@@ -264,7 +264,7 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                                     <div class="fs-7 text-dark">لینک جلسه مجازی</div>
                                     <div class="d-flex align-items-center justify-content-between">
                                         <input id="link" type="url" class="form-control" style="direction: rtl"
-                                            placeholder=" آدرس سایت">
+                                            placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
                                         <button class="btn btn-circle btn-outline-light hidden">
                                             <i class="ri-ball-pen-fill"></i>
                                         </button>
@@ -484,7 +484,7 @@ function watchList(selectorId, arr, increamentor, elemId, resultPaneId) {
             var html = '<div id="' + elemId + '-' + increamentor +
                 '" class="item-button spaceBetween colorBlack">' + wantedElemCaption + '';
             html += '<button data-id="' + increamentor + '" class="remove-' + elemId +
-                '-btn btn btn-outline-light b-0">';
+                '-btn btn btn-outline-light borderRadius50 marginLeft3 b-0">';
             html += '<i class="ri-close-line"></i>'
             html += '</button></div>';
 
@@ -494,17 +494,12 @@ function watchList(selectorId, arr, increamentor, elemId, resultPaneId) {
             }, 500);
         }
     });
-
-    // alert('.remove-' + elemId + '-btn');
     $(document).on('click', '.remove-' + elemId + '-btn', function() {
-
         let id = $(this).attr('data-id');
         arr = arr.filter((elem, index) => {
             return elem.id != id;
         });
-
         $("#" + elemId + "-" + id).remove();
-
     });
 }
 
@@ -688,7 +683,7 @@ function getPhase1Info() {
                             language += '<div id="lang-' + idx +
                                 '" class="item-button spaceBetween colorBlack">' + elem.value + '';
                             language += '<button data-id="' + idx +
-                                '" class="remove-lang-btn btn btn-outline-light b-0">';
+                                '" class="remove-lang-btn btn btn-outline-light borderRadius50 marginLeft3 b-0">';
                             language += '<i class="ri-close-line"></i>';
                             language += '</button></div>';
 
@@ -713,7 +708,7 @@ function getPhase1Info() {
                             tags += '<div id="topic-' + elem.id +
                                 '" class="item-button spaceBetween colorBlack">' + res.data.tags[i] + '';
                             tags += '<button data-id="' + elem.id + '" class="remove-topic-btn remove-' +
-                                elem.id + '-btn btn btn-outline-light b-0">';
+                                elem.id + '-btn btn btn-outline-light borderRadius50 marginLeft3 b-0">';
                             tags += '<i class="ri-close-line"></i>';
                             tags += '</button></div>';
 

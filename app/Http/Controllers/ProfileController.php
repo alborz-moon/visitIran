@@ -37,7 +37,7 @@ class ProfileController extends Controller
             if(User::where('mail', $request['mail'])->count() > 0)
                 return response()->json([
                     'status' => 'nok',
-                    'msg' => 'ایمیل وارد شده در سیستم موجود است'
+                    'msg' => 'پست الکترونیک وارد شده در سیستم موجود است'
                 ]);
         }
 
