@@ -18,7 +18,7 @@
                             <a href="#" class="btn btn-sm btn-primary mx-3">تیکت ها</a>                        
                         </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
-                            <div class="ui-box-title">مدارک<span class="fontNormal fontSize12 mx-2">حداکثر 6 مگابایت و در فرمت های jpg, zip , pdf</span></div>
+                            <div class="ui-box-title">مدارک<span class="fontNormal fontSize12 mx-2">حداکثر 2 مگابایت و در فرمت های jpg, jpeg , png</span></div>
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-6 mb-3 zIndex0">
@@ -57,22 +57,6 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 mb-3 zIndex0">
-                                        <div id="certifications" class="boxGallery">
-                                        </div>
-                                        <div class="uploadBody">
-                                            <div class="uploadBorder">
-                                                <div class="uploadBodyBox">
-                                                    <div class="uploadTitleText">بارگذاری فایل مجوز - در صورت وجود</div>
-                                                    <form id="permision-form" action="{{ route('launcher.launcher_certifications.store',['launcher' => $formId]) }}" class="dropzone uploadBox">
-                                                        {{csrf_field()}}
-                                                    </form>
-                                                    {{-- <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
-                                                    <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3 zIndex0">
                                         <div id="userNIDCard" class="boxGallery">
                                         </div>
                                         <div class="uploadBody">
@@ -88,6 +72,23 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <hr>
+                                    <div class="col-lg-12 mb-3 zIndex0">
+                                        <div id="certifications" class="boxGallery">
+                                        </div>
+                                        <div class="uploadBody">
+                                            <div class="uploadBorder">
+                                                <div class="uploadBodyBox">
+                                                    <div class="uploadTitleText">بارگذاری فایل مجوز - در صورت وجود</div>
+                                                    <form id="permision-form" action="{{ route('launcher.launcher_certifications.store',['launcher' => $formId]) }}" class="dropzone uploadBox">
+                                                        {{csrf_field()}}
+                                                    </form>
+                                                    {{-- <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
+                                                    <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div> --}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             <div class="d-flex justify-content-end">
                             {{-- onclick="window.location.href = '{{ route('finance') }}';" --}}
@@ -95,13 +96,91 @@
                     </div>
                 </div>
                 <div class="spaceBetween mb-2">
-                    <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
-                    <button onclick="sendimg()" class="btn btn-sm btn-primary px-5">مرحله</button>
+                    <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</button>
+                    <button onclick="sendimg()" class="btn btn-sm btn-primary px-5">ارسال برای بازبینی</button>
                 </div>
                 </div>
             </div>
         </div>
+        <!-- start of personal-info-fullname-modal -->
+            <div class="remodal remodal-xl" data-remodal-id="companyLastChangesShow"
+                data-remodal-options="hashTracking: false">
+                <div class="remodal-header">
+                    <div class="remodal-title">مشاهده عکس</div>
+                    <button data-remodal-action="close" class="remodal-close"></button>
+                </div>
+                <div class="remodal-content">
+                    <div class="form-element-row mb-3">
+                        <div id="companyLastChangesImg">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="remodal-footer">
+                    <button data-remodal-action="close" class="btn btn-sm btn-primary px-3">بستن</button>
+                </div>
+            </div>
+        <!-- end of personal-info-fullname-modal -->
+        <!-- start of personal-info-fullname-modal -->
+            <div class="remodal remodal-xl" data-remodal-id="companyNewspaperShow"
+                data-remodal-options="hashTracking: false">
+                <div class="remodal-header">
+                    <div class="remodal-title">مشاهده عکس</div>
+                    <button data-remodal-action="close" class="remodal-close"></button>
+                </div>
+                <div class="remodal-content">
+                    <div class="form-element-row mb-3">
+                        <div id="companyNewspaperImg">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="remodal-footer">
+                    <button data-remodal-action="close" class="btn btn-sm btn-primary px-3">بستن</button>
+                </div>
+            </div>
+        <!-- end of personal-info-fullname-modal -->
+        <!-- start of personal-info-fullname-modal -->
+            <div class="remodal remodal-xl" data-remodal-id="userNIDCardShow"
+                data-remodal-options="hashTracking: false">
+                <div class="remodal-header">
+                    <div class="remodal-title">مشاهده عکس</div>
+                    <button data-remodal-action="close" class="remodal-close"></button>
+                </div>
+                <div class="remodal-content">
+                    <div class="form-element-row mb-3">
+                        <div id="userNIDCardImg">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="remodal-footer">
+                    <button data-remodal-action="close" class="btn btn-sm btn-primary px-3">بستن</button>
+                </div>
+            </div>
+        <!-- end of personal-info-fullname-modal -->
+        <!-- start of personal-info-fullname-modal -->
+            <div class="remodal remodal-xl" data-remodal-id="certificationsShow"
+                data-remodal-options="hashTracking: false">
+                <div class="remodal-header">
+                    <div class="remodal-title">مشاهده عکس</div>
+                    <button data-remodal-action="close" class="remodal-close"></button>
+                </div>
+                <div class="remodal-content">
+                    <div class="form-element-row mb-3">
+                        <div id="userNIDCardImg">
+                            <img id="certificationsGallery" class="w-100 h-100 objectFitCover" src="" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="remodal-footer">
+                    <button data-remodal-action="close" class="btn btn-sm btn-primary px-3">بستن</button>
+                </div>
+            </div>
+            
+        <!-- end of personal-info-fullname-modal -->
     </main>
+
 @stop
 
 @section('footer')
@@ -119,38 +198,52 @@
                     'accept': 'application/json'
                 },
                 success: function(res) {
-
                     var html= "";
                     var companyNewspaper="";
                     var userNIDCard ="";
                     var certifications="";
+                    var certificationsGallery="";
                     if(res.status === "ok") {      
                         if (res.data.company_last_changes.length !== 0 ){
-                            html += '<div class="square"><img class="w-100 h-100" src="' + res.data.company_last_changes + '" alt=""></div>';
+                            html += '<div data-remodal-target="companyLastChangesShow" class="square cursorPointer"><img class="w-100 h-100 objectfitCover" src="' + res.data.company_last_changes + '" alt=""></div>';
                             $("#companyLastChanges").empty().append(html);
+                            $('#companyLastChangesImg').empty().append('<img class="w-100 h-100" src="' + res.data.company_last_changes + '" alt="">');
+                        }else{
+                            $('#companyLastChanges').addClass('hidden');
                         }
                         if (res.data.company_newspaper.length !== 0 ){
-                            companyNewspaper += '<div class="square"><img class="w-100 h-100" src="' + res.data.company_newspaper + '" alt=""></div>';
+                            companyNewspaper += '<div data-remodal-target="companyNewspaperShow" class="square cursorPointer"><img class="w-100 h-100 objectfitCover" src="' + res.data.company_newspaper + '" alt=""></div>';
                             $("#companyNewspaper").empty().append(companyNewspaper);
+                            $('#companyNewspaperImg').empty().append('<img class="w-100 h-100" src="' + res.data.company_newspaper + '" alt="">');
+                        }else{
+                            $('#companyNewspaper').addClass('hidden');
                         }
                         if (res.data.user_NID_card.length !== 0 ){
-                            userNIDCard += '<div class="square"><img class="w-100 h-100" src="' + res.data.user_NID_card + '" alt=""></div>';
+                            userNIDCard += '<div data-remodal-target="userNIDCardShow" class="square cursorPointer"><img class="w-100 h-100 objectfitCover" src="' + res.data.user_NID_card + '" alt=""></div>';
                             $("#userNIDCard").empty().append(userNIDCard);
+                            $('#userNIDCardImg').empty().append('<img class="w-100 h-100" src="' + res.data.user_NID_card + '" alt="">');
+                        }else{
+                            $('#userNIDCard').addClass('hidden');
                         }
                         if (res.data.certifications.length !== 0 ){
-                            for(var i = 0; i < res.data.certifications.length; i++ ){
-                                certifications += '<div class="square"><img class="w-100 h-100" src="' + res.data.certifications[i].file + '" alt=""></div>';
-                                $("#certifications").empty().append(certifications);
-                            }
+                            for(var i = 0; i < res.data.certifications.length; i++ ){                                 
+                                certifications += '<div data-remodal-target="certificationsShow" onclick="sendImg(\'' + res.data.certifications[i].file + '\')" class="square cursorPointer"><img class="w-100 h-100 objectfitCover" src="' + res.data.certifications[i].file + '" alt=""></div>';
+                            } 
+                            $("#certifications").empty().append(certifications);
+                        }else{
+                            $('#certifications').addClass('hidden');
                         }
                            
                     }
                 }
                 });
             });
+            function sendImg(img){
+                $('#certificationsGallery').attr('src', img);
+            }
             Dropzone.options.newspaperForm = {
                 paramName: "company_newspaper_file", // The name that will be used to transfer the file
-                maxFilesize: 6, // MB
+                maxFilesize: 2, // MB
                 timeout: 180000,
                 parallelUploads: 1,
                 chunking: false,
@@ -176,6 +269,7 @@
                         //     location.reload();
                     });
                     this.on("complete", function (file) {
+                        $('.dz-image').addClass('btnRemoveDropzone');
                         // if(myPreventionFlag) {
                         //     $("#dropZoneNewspaper").removeClass('hidden');
                         //     showSuccess('با موفقیت بارگذاری شد.');
@@ -206,7 +300,7 @@
             };
             Dropzone.options.lastFiles = {
                 paramName: "company_last_changes_file", // The name that will be used to transfer the file
-                maxFilesize: 6, // MB
+                maxFilesize: 2, // MB
                 timeout: 180000,
                 parallelUploads: 1,
                 chunking: false,
@@ -232,6 +326,7 @@
                         //     location.reload();
                     });
                     this.on("complete", function (file) {
+                        $('.dz-image').addClass('btnRemoveDropzone');
                         // if(myPreventionFlag)
                         //     $("#dropZoneErr").removeClass('hidden');
                         // else
@@ -259,7 +354,7 @@
             };
             Dropzone.options.permisionForm = {
                 paramName: "img_file", // The name that will be used to transfer the file
-                maxFilesize: 6, // MB
+                maxFilesize: 10, // MB
                 timeout: 180000,
                 parallelUploads: 1,
                 chunking: false,
@@ -284,6 +379,7 @@
                         //     location.reload();
                     });
                     this.on("complete", function (file) {
+                        $('.dz-image').addClass('btnRemoveDropzone');
                         // if(myPreventionFlag)
                         //     $("#dropZoneErr").removeClass('hidden');
                         // else
@@ -311,7 +407,7 @@
             };
             Dropzone.options.nidForm = {
                     paramName: "user_NID_card_file", // The name that will be used to transfer the file
-                    maxFilesize: 6, // MB
+                    maxFilesize: 2, // MB
                     timeout: 180000,
                     parallelUploads: 1,
                     chunking: false,
@@ -340,7 +436,7 @@
                             //     location.reload();
                         });
                         this.on("complete", function (file) {
-                            
+                            $('.dz-image').addClass('btnRemoveDropzone');
                             // if(myPreventionFlag)
                             //     $("#dropZoneErr").removeClass('hidden');
                             // else
@@ -369,5 +465,12 @@
                         });
                     }
                 };
+                // $('.dz-details"').on('click',function(){
+                //     $('body').css('backgroundColor','red');
+                //     $('.dz-preview').remove();
+                //     $('.dz-details').remove();
+                //     $('.dz-image').remove();
+                //     $('.dz-progress').remove();
+                // });
     </script>
 @stop

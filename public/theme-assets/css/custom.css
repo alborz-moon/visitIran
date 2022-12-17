@@ -424,6 +424,9 @@ ul {
 .marginTop10 {
     margin-top: 10px;
 }
+.marginTop13 {
+    margin-top: 13px;
+}
 .marginLeft48 {
     margin-left: 48px;
 }
@@ -988,19 +991,32 @@ table thead {
 .flexDirectionColumn {
     flex-direction: column;
 }
-.dz-image::before {
+.btnRemoveDropzone {
+    cursor: pointer;
+}
+.btnRemoveDropzone::before {
     content: "\0067";
     font-size: 20px;
-    color: red;
+    color: #ff0000;
     font-family: visitiran;
     position: absolute;
     left: 5px;
     top: 5px;
-    z-index: 1;
-}
-z .dz-image::before :hover {
+    z-index: 1000000000;
     cursor: pointer;
 }
+.btnRemoveDropzone::before :hover {
+    cursor: pointer;
+}
+.btnRemoveDropzone:hover {
+    cursor: pointer;
+}
+.dz-image::before :hover {
+    cursor: pointer;
+}
+/* .dz-details {
+    z-index: 5 !important;
+} */
 .flexWrap {
     flex-wrap: wrap !important;
 }
@@ -1937,11 +1953,19 @@ figure .ck-widget {
     font-size: 14px;
 }
 .dropzone {
-    min-height: 150px;
-    border: 1px solid #dee2e6;
-    background: white;
+    min-height: 196px;
+    border: 2px dashed #e1e1e1;
+    background: #fbfbfb;
     padding: 20px 20px;
     border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+.dropzone .dz-message {
+    text-align: center;
+    margin: 4em 0;
 }
 .show-more,
 .show-less,
@@ -1965,6 +1989,9 @@ figure .ck-widget {
         max-width: 1500px !important;
     }
 } */
+.select2-container {
+    width: 100% !important;
+}
 .logo-container .logo img {
     margin-bottom: 0px;
     max-width: 100%;

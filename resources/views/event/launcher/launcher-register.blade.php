@@ -203,6 +203,7 @@
                                             <div  class="fs-7 text-dark">نوع شرکت</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select id="companyType" class="select2 selectStyle">
+                                                    <option value="selectType" selected>انتخاب کنید</option>
                                                     <option value="card">نوع شرکت</option>
                                                     <option value="table">نوع شرکت 2</option>
                                                 </select>
@@ -662,7 +663,7 @@
                             else
                                 launcher_id = '{{ isset($formId) ? $formId : -1 }}';
                              
-                            // window.location.href = '{{ route('launcher-document') }}' + "/" + launcher_id;
+                            window.location.href = '{{ route('launcher-document') }}' + "/" + launcher_id;
                         }
                         else
                             showErr(res.msg);
@@ -670,7 +671,6 @@
                 });
             })
         })
-        
     </script>
 @stop
 

@@ -277,7 +277,7 @@
                             <div class="menuCircle">
                                     <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
                                         <i class="icon-visit-menu fontSize30 colorBlack"></i>
-                                        <div class="fontSize14 colorBlack">منو</div>
+                                        <div class="fontSize14 colorBlack whiteSpaceNoWrap marginTop13">منو</div>
                                     </div>
                             </div>
                         </button>
@@ -285,7 +285,7 @@
                             <div class="menuCircle">
                                 <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
                                     <i class="icon-visit-search colorBlack fontSize30"></i>
-                                    <div class="fontSize14 colorBlack">جستوجو</div>
+                                    <div class="fontSize14 colorBlack whiteSpaceNoWrap marginTop13">جستوجو</div>
                                 </div>
                             </div>
                         </button>
@@ -312,7 +312,7 @@
                             <div class="menuCircle">
                                 <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
                                     <i class="icon-visit-basket fontSize30 colorYellow"></i>
-                                    <div class="fontSize14 colorBlack">سبد خرید</div>
+                                    <div class="fontSize14 colorBlack whiteSpaceNoWrap marginTop13">سبد خرید</div>
                                 </div>
                             </div>
                         </a>
@@ -320,7 +320,7 @@
                             <div class="menuCircle">
                                 <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
                                     <i class="icon-visit-person fontSize30 colorBlack"></i>
-                                    <div class="fontSize14 colorBlack whiteSpaceNoWrap">ورود/ثبت نام</div>
+                                    <div class="fontSize14 colorBlack whiteSpaceNoWrap marginTop13">ورود/ثبت نام</div>
                                 </div>
                             </div>
                         </a>
