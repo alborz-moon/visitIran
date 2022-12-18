@@ -1,10 +1,17 @@
-
 @extends('layouts.structure')
+
+@section('header')
+    @parent
+    <link rel="stylesheet" href="{{asset('theme-assets/bootstrap-datepicker.css?v=1')}}">
+    <script src="{{asset("theme-assets//bootstrap-datepicker.js")}}"></script>
+
     <script src="{{asset('theme-assets/dropzone/dropzone.js?v=1.2')}}"></script>
     <link rel="stylesheet" href="{{asset("theme-assets/dropzone/dropzone.css")}}">
     <script>
         var myPreventionFlag = false;
     </script>
+@stop
+
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
@@ -133,6 +140,7 @@
                 </div>
             </div>
         <!-- end of personal-info-fullname-modal -->
+
         <!-- start of personal-info-fullname-modal -->
             <div class="remodal remodal-xl" data-remodal-id="companyNewspaperShow"
                 data-remodal-options="hashTracking: false">
@@ -201,9 +209,11 @@
 
 @section('extraJS')
     @parent
-        <script>
-            $(document).ready(function(){
-                $.ajax({
+    <script>
+
+        $(document).ready(function() {
+
+            $.ajax({
                 type: 'get',
                 url: '{{ route('launcher.files', ['launcher' => $formId]) }}',
                 headers: {
@@ -216,16 +226,21 @@
                     var certifications="";
                     var certificationsGallery="";
                     if(res.status === "ok") {      
-                        if (res.data.company_last_changes.length !== 0 ){
-
-                            html += '<div data-remodal-target="companyLastChangesShow" class="square cursorPointer"><img class="w-100 h-100 objectfitCover" src="' + res.data.company_last_changes + '" alt=""></div>';
+                        if (res.data.company_last_changes.length !== 0) {
+                            html += '<div data-remodal-target="companyLastChangesShow" class="square cursorPointer">';
+                            html += '<img class="w-100 h-100 objectfitCover" src="' + res.data.company_last_changes + '">';
+                            html += '<i data-id="last_changes" class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
+                            html += '</div>';
                             $("#companyLastChanges").empty().append(html);
                             $('#companyLastChangesImg').empty().append('<img class="w-100 h-100 objectFitCover" src="' + res.data.company_last_changes + '" alt="">');
                         }else{
                             $('#companyLastChanges').addClass('hidden');
                         }
                         if (res.data.company_newspaper.length !== 0 ){
-                            companyNewspaper += '<div data-remodal-target="companyNewspaperShow" class="square cursorPointer"><img class="w-100 h-100 objectfitCover" src="' + res.data.company_newspaper + '" alt=""></div>';
+                            companyNewspaper += '<div data-remodal-target="companyNewspaperShow" class="square cursorPointer">';
+                            companyNewspaper += '<img class="w-100 h-100 objectfitCover" src="' + res.data.company_newspaper + '">';
+                            companyNewspaper += '<i data-id="last_changes" class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
+                            companyNewspaper +='</div>';
                             $("#companyNewspaper").empty().append(companyNewspaper);
                             $('#companyNewspaperImg').empty().append('<img class="w-100 h-100 objectFitCover" src="' + res.data.company_newspaper + '" alt="">');
                         }else{
@@ -246,244 +261,186 @@
                         }else{
                             $('#certifications').addClass('hidden');
                         }
-                           
+                        
                     }
                 }
-                });
             });
-            function sendImg(img){
-                $('#certificationsGallery').attr('src', img);
-            }
-            Dropzone.options.newspaperForm = {
-                paramName: "company_newspaper_file", // The name that will be used to transfer the file
-                maxFilesize: 2, // MB
-                timeout: 180000,
-                parallelUploads: 1,
-                chunking: false,
-                forceChunking: false,
-                uploadMultiple: false,
-                maxFiles: 1,
-                acceptedFiles: ".jpeg,.jpg,.png,.gif",
-                accept: function(file, done) {
-                    done();
-                },
-                init: function () {
-                    this.hiddenFileInput.removeAttribute('multiple');
-                    this.on('completemultiple', function () {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneNewspaper").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("queuecomplete", function (file) {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("complete", function (file) {
-                        $('.dz-image').addClass('btnRemoveDropzone');
-                        // if(myPreventionFlag) {
-                        //     $("#dropZoneNewspaper").removeClass('hidden');
-                        //     showSuccess('با موفقیت بارگذاری شد.');
-                        // }
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("success", function (file) {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("canceled", function (file) {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("error", function (file) {
+        });
 
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
+        function sendImg(img){
+            $('#certificationsGallery').attr('src', img);
+        }
+
+        let uploadedFiles = [];
+
+        Dropzone.options.newspaperForm = {
+            paramName: "company_newspaper_file", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            timeout: 180000,
+            parallelUploads: 1,
+            chunking: false,
+            forceChunking: false,
+            uploadMultiple: false,
+            maxFiles: 1,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            accept: function(file, done) {
+                done();
+            },
+            init: function () {
+                this.hiddenFileInput.removeAttribute('multiple');
+                this.on("success", function (file) {
+                    uploadedFiles.push({
+                        name: file.name,
+                        id: 'news_paper'
                     });
-                }
-            };
-            Dropzone.options.lastFiles = {
-                paramName: "company_last_changes_file", // The name that will be used to transfer the file
-                maxFilesize: 2, // MB
-                timeout: 180000,
-                parallelUploads: 1,
-                chunking: false,
-                forceChunking: false,
-                maxFiles: 1,
-                acceptedFiles: ".jpeg,.jpg,.png,.gif",
-                accept: function(file, done) {
-                    done();
+                    
+                    $(".dz-message").removeClass('block');
+                    showSuccess('فایل شما با موفقیت آپلود شد');
+                    $("#companyNewspaper").remove();
+                });
+            }
+        };
+
+        Dropzone.options.lastFiles = {
+            paramName: "company_last_changes_file",
+            maxFilesize: 2, // MB
+            timeout: 180000,
+            parallelUploads: 1,
+            chunking: false,
+            forceChunking: false,
+            maxFiles: 1,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            accept: function(file, done) {
+                done();
+            },
+            init: function () {
+                this.hiddenFileInput.removeAttribute('multiple');
+                
+                this.on("success", function (file) {
+                    uploadedFiles.push({
+                        name: file.name,
+                        id: 'last_changes'
+                    });
+                    
+                    $(".dz-message").removeClass('block');
+                    showSuccess('فایل شما با موفقیت آپلود شد');
+                    $("#companyLastChanges").remove();
+                });
+            }
+        };
+
+        Dropzone.options.permisionForm = {
+            paramName: "img_file", // The name that will be used to transfer the file
+            maxFilesize: 10, // MB
+            timeout: 180000,
+            parallelUploads: 1,
+            chunking: false,
+            forceChunking: false,
+            uploadMultiple: false,
+            maxFiles: 5,
+            accept: function(file, done) {
+                done();
+            },
+            init: function () {
+                this.on('completemultiple', function () {
+                    // if(myPreventionFlag)
+                    //     $("#dropZoneErr").removeClass('hidden');
+                    // else
+                    //     location.reload();
+                    // showSuccess('با موفقیت آپلود شد');
+                });
+                this.on("queuecomplete", function (file) {
+                    // if(myPreventionFlag)
+                    //     $("#dropZoneErr").removeClass('hidden');
+                    // else
+                    //     location.reload();
+                });
+                this.on("complete", function (file) {
+                    $('.dz-image').addClass('btnRemoveDropzone');
+                    // if(myPreventionFlag)
+                    //     $("#dropZoneErr").removeClass('hidden');
+                    // else
+                    //     location.reload();
+                });
+                this.on("success", function (file) {
+                    // if(myPreventionFlag)
+                    //     $("#dropZoneErr").removeClass('hidden');
+                    // else
+                    //     location.reload();
+                });
+                this.on("canceled", function (file) {
+                    // if(myPreventionFlag)
+                    //     $("#dropZoneErr").removeClass('hidden');
+                    // else
+                    //     location.reload();
+                });
+                this.on("error", function (file) {
+                    // if(myPreventionFlag)
+                    //     $("#dropZoneErr").removeClass('hidden');
+                    // else
+                    //     location.reload();
+                });
+            }
+        };
+
+        Dropzone.options.nidForm = {
+            paramName: "user_NID_card_file", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            timeout: 180000,
+            parallelUploads: 1,
+            chunking: false,
+            forceChunking: false,
+            uploadMultiple: false,
+            maxFiles: 1,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            accept: function(file, done) {
+                done();
+            },
+            init: function () {
+                this.hiddenFileInput.removeAttribute('multiple');
+                this.on("success", function (file) {
+                    
+                    uploadedFiles.push({
+                        name: file.name,
+                        id: 'NID'
+                    });
+                    
+                    $(".dz-message").removeClass('block');
+                    showSuccess('فایل شما با موفقیت آپلود شد');
+                    $("#userNIDCard").remove();
+                });
+            }
+        };
+
+        $(document).on('click', ".icon-visit-uploaded-delete", function() {
+            
+            let filename = $(this).siblings('.dz-filename').text();
+            let tmp = uploadedFiles.find(elem => elem.name === filename);
+            if(tmp === undefined)
+                return;
+
+            let parentElem = $(this).parent().parent();
+
+            $.ajax({
+                type: 'delete',
+                url: '{{ route('launcher.cert.destroy', ['launcher' => $formId]) }}',
+                data: {
+                    mode: tmp.id
                 },
-                init: function () {
-                    this.hiddenFileInput.removeAttribute('multiple');
-                    this.on('completemultiple', function () {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                        // showSuccess('با موفقیت آپلود شد');
-                    });
-                    this.on("queuecomplete", function (file) {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("complete", function (file) {
-                        $('.dz-image').addClass('btnRemoveDropzone');
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("success", function (file) {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("canceled", function (file) {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("error", function (file) {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                }
-            };
-            Dropzone.options.permisionForm = {
-                paramName: "img_file", // The name that will be used to transfer the file
-                maxFilesize: 10, // MB
-                timeout: 180000,
-                parallelUploads: 1,
-                chunking: false,
-                forceChunking: false,
-                uploadMultiple: false,
-                maxFiles: 5,
-                accept: function(file, done) {
-                    done();
-                },
-                init: function () {
-                    this.on('completemultiple', function () {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                        // showSuccess('با موفقیت آپلود شد');
-                    });
-                    this.on("queuecomplete", function (file) {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("complete", function (file) {
-                        $('.dz-image').addClass('btnRemoveDropzone');
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("success", function (file) {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("canceled", function (file) {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("error", function (file) {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                }
-            };
-            Dropzone.options.nidForm = {
-                    paramName: "user_NID_card_file", // The name that will be used to transfer the file
-                    maxFilesize: 2, // MB
-                    timeout: 180000,
-                    parallelUploads: 1,
-                    chunking: false,
-                    forceChunking: false,
-                    uploadMultiple: false,
-                    maxFiles: 1,
-                    acceptedFiles: ".jpeg,.jpg,.png,.gif",
-                    accept: function(file, done) {
-                        done();
-                    },
-                    init: function () {
-                        this.hiddenFileInput.removeAttribute('multiple');
-                        this.on('completemultiple', function () {
-                            
-                            // if(myPreventionFlag)
-                            //     $("#dropZoneErr").removeClass('hidden');
-                            // else
-                            //     location.reload();
-                            showSuccess('با موفقیت آپلود شد');
+                success: function(res) {
+                    if(res.status === 'ok') {
+                        uploadedFiles = uploadedFiles.filter((elem, index) => {
+                            return elem.id !== tmp.id;
                         });
-                        this.on("queuecomplete", function (file) {
-                            
-                            // if(myPreventionFlag)
-                            //     $("#dropZoneErr").removeClass('hidden');
-                            // else
-                            //     location.reload();
-                        });
-                        this.on("complete", function (file) {
-                            $('.dz-image').addClass('btnRemoveDropzone');
-                            // if(myPreventionFlag)
-                            //     $("#dropZoneErr").removeClass('hidden');
-                            // else
-                            //     location.reload();
-                        });
-                        this.on("success", function (file) {
-                            
-                            // if(myPreventionFlag)
-                            //     $("#dropZoneErr").removeClass('hidden');
-                            // else
-                            //     location.reload();
-                        });
-                        this.on("canceled", function (file) {
-                            
-                            // if(myPreventionFlag)
-                            //     $("#dropZoneErr").removeClass('hidden');
-                            // else
-                            //     location.reload();
-                        });
-                        this.on("error", function (file) {
-                            
-                            // if(myPreventionFlag)
-                            //     $("#dropZoneErr").removeClass('hidden');
-                            // else
-                            //     location.reload();
-                        });
+                        parentElem.remove();
+                        if(uploadedFiles.length === 0)
+                            $(".dz-message").addClass('block');
+                        
+                        showSuccess('فایل موردنظر با موفقیت حدف گردید.');
                     }
-                };
-                // $('.dz-details"').on('click',function(){
-                //     $('body').css('backgroundColor','red');
-                //     $('.dz-preview').remove();
-                //     $('.dz-details').remove();
-                //     $('.dz-image').remove();
-                //     $('.dz-progress').remove();
-                // });
+                }
+            });
+        });
+
     </script>
 @stop

@@ -7,6 +7,7 @@ use App\Http\Resources\LauncherDigest;
 use App\Http\Resources\LauncherFilesResource;
 use App\Http\Resources\LauncherFirstStepResource;
 use App\Http\Resources\LauncherResourceAdmin;
+use App\Models\Event;
 use App\Models\Launcher;
 use App\Models\LauncherComment;
 use Illuminate\Http\Request;
@@ -336,6 +337,43 @@ class LauncherController extends Controller
 
         }
 
+    }
+
+    public function removeFile(Launcher $launcher, Request $request) {
+
+        $request->validate([
+            'mode' => ['required', Rule::in('news_paper', 'last_changes', 'NID')]
+        ]);
+
+        if($request['mode'] === 'news_paper') {
+            if($launcher->company_newspaper != null && !empty($launcher->company_newspaper) &&
+                file_exists(__DIR__ . '/../../../../public/storage/launchers/' . $launcher->company_newspaper)
+            )
+                unlink(__DIR__ . '/../../../../public/storage/launchers/' . $launcher->company_newspaper);
+            
+            $launcher->company_newspaper = null;
+        }
+        
+        if($request['mode'] === 'last_changes') {
+            if($launcher->company_last_changes != null && !empty($launcher->company_last_changes) &&
+                file_exists(__DIR__ . '/../../../../public/storage/launchers/' . $launcher->company_last_changes)
+            )
+                unlink(__DIR__ . '/../../../../public/storage/launchers/' . $launcher->company_last_changes);
+            
+            $launcher->company_last_changes = null;
+        }
+        
+        if($request['mode'] === 'NID') {
+            if($launcher->user_NID_card != null && !empty($launcher->user_NID_card) &&
+                file_exists(__DIR__ . '/../../../../public/storage/launchers/' . $launcher->user_NID_card)
+            )
+                unlink(__DIR__ . '/../../../../public/storage/launchers/' . $launcher->user_NID_card);
+            
+            $launcher->user_NID_card = null;
+        }
+
+        $launcher->save();
+        return response()->json(['status' => 'ok']);
     }
 
     public function changeStatus(Request $request) {
