@@ -24,16 +24,18 @@
                                     <div class="col-lg-6 mb-3 zIndex0">
                                         <div id="companyNewspaper" class="boxGallery">
                                         </div>
-                                        
                                         <div class="uploadBody">
                                             <div class="uploadBorder">
                                                 <div class="uploadBodyBox">
-                                                    <div class="uploadTitleText">بارگذاری فایل روزنامه تاسیس </div>
                                                     <form id="newspaper-form" action="{{ route('launcher.update',['launcher' => $formId]) }}" class="dropzone uploadBox">
                                                         {{csrf_field()}}
                                                     </form>
                                                     {{-- <div id="dropZoneNewspaper" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div> --}}
                                                     {{-- <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div> --}}
+                                                    <div class="d-flex spaceBetween justifyContentCenter">
+                                                        <div class="uploadTitleText">بارگذاری فایل روزنامه تاسیس </div>
+                                                        <button class="colorBlue b-0 backgroundColorTransparent">ویرایش</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -46,12 +48,15 @@
                                         <div class="uploadBody">
                                             <div class="uploadBorder">
                                                 <div class="uploadBodyBox">
-                                                    <div class="uploadTitleText">بارگذاری فایل آخرین تغییرات</div>
                                                     <form id="last-files" action="{{ route('launcher.update',['launcher' => $formId])  }}" class="dropzone uploadBox">
                                                         {{csrf_field()}}
                                                     </form>
                                                     {{-- <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
                                                     <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div> --}}
+                                                    <div class="d-flex spaceBetween justifyContentCenter">    
+                                                        <div class="uploadTitleText">بارگذاری فایل آخرین تغییرات</div>
+                                                        <button class="colorBlue b-0 backgroundColorTransparent">ویرایش</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -62,12 +67,16 @@
                                         <div class="uploadBody">
                                             <div class="uploadBorder">
                                                 <div class="uploadBodyBox">
-                                                    <div class="uploadTitleText">بارگذاری فایل کارت ملی رابط</div>
+                                                    
                                                     <form action="{{ route('launcher.update',['launcher' => $formId]) }}" class="dropzone uploadBox" id="nid-form">
                                                         {{csrf_field()}}
                                                     </form>
                                                     {{-- <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
                                                     <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div> --}}
+                                                    <div class="d-flex spaceBetween justifyContentCenter">
+                                                        <div class="uploadTitleText">بارگذاری فایل کارت ملی رابط</div>
+                                                        <button class="colorBlue b-0 backgroundColorTransparent backgroundColorTransparent">ویرایش</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -79,12 +88,15 @@
                                         <div class="uploadBody">
                                             <div class="uploadBorder">
                                                 <div class="uploadBodyBox">
-                                                    <div class="uploadTitleText">بارگذاری فایل مجوز - در صورت وجود</div>
                                                     <form id="permision-form" action="{{ route('launcher.launcher_certifications.store',['launcher' => $formId]) }}" class="dropzone uploadBox">
                                                         {{csrf_field()}}
                                                     </form>
                                                     {{-- <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
                                                     <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div> --}}
+                                                    <div class="d-flex spaceBetween justifyContentCenter">
+                                                        <div class="uploadTitleText">بارگذاری فایل مجوز - در صورت وجود</div>
+                                                        <button class="colorBlue b-0 backgroundColorTransparent backgroundColorTransparent">ویرایش</ذ>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -205,23 +217,24 @@
                     var certificationsGallery="";
                     if(res.status === "ok") {      
                         if (res.data.company_last_changes.length !== 0 ){
+
                             html += '<div data-remodal-target="companyLastChangesShow" class="square cursorPointer"><img class="w-100 h-100 objectfitCover" src="' + res.data.company_last_changes + '" alt=""></div>';
                             $("#companyLastChanges").empty().append(html);
-                            $('#companyLastChangesImg').empty().append('<img class="w-100 h-100" src="' + res.data.company_last_changes + '" alt="">');
+                            $('#companyLastChangesImg').empty().append('<img class="w-100 h-100 objectFitCover" src="' + res.data.company_last_changes + '" alt="">');
                         }else{
                             $('#companyLastChanges').addClass('hidden');
                         }
                         if (res.data.company_newspaper.length !== 0 ){
                             companyNewspaper += '<div data-remodal-target="companyNewspaperShow" class="square cursorPointer"><img class="w-100 h-100 objectfitCover" src="' + res.data.company_newspaper + '" alt=""></div>';
                             $("#companyNewspaper").empty().append(companyNewspaper);
-                            $('#companyNewspaperImg').empty().append('<img class="w-100 h-100" src="' + res.data.company_newspaper + '" alt="">');
+                            $('#companyNewspaperImg').empty().append('<img class="w-100 h-100 objectFitCover" src="' + res.data.company_newspaper + '" alt="">');
                         }else{
                             $('#companyNewspaper').addClass('hidden');
                         }
                         if (res.data.user_NID_card.length !== 0 ){
                             userNIDCard += '<div data-remodal-target="userNIDCardShow" class="square cursorPointer"><img class="w-100 h-100 objectfitCover" src="' + res.data.user_NID_card + '" alt=""></div>';
                             $("#userNIDCard").empty().append(userNIDCard);
-                            $('#userNIDCardImg').empty().append('<img class="w-100 h-100" src="' + res.data.user_NID_card + '" alt="">');
+                            $('#userNIDCardImg').empty().append('<img class="w-100 h-100 objectFitCover" src="' + res.data.user_NID_card + '" alt="">');
                         }else{
                             $('#userNIDCard').addClass('hidden');
                         }

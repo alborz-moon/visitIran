@@ -286,6 +286,31 @@ ul {
     border-bottom-right-radius: 30px !important;
     box-shadow: 1px 3px 6px 0 #00000029 !important;
 }
+.errEmpty {
+    background-color: #ff0000;
+    color: #212121;
+}
+.errEmpty::placeholder {
+    color: #212121;
+}
+.haveValue,
+.haveValue:focus,
+.haveValue:focus-visible,
+.haveValue:active,
+.haveValue:visited,
+.haveValue:focus-within .haveValue:target {
+    background-color: #e6e5e5 !important;
+    color: #212121;
+}
+.haveValue::placeholder {
+    color: #212121;
+}
+.form-control:focus {
+    color: #212529;
+    background-color: #e6e5e5;
+    border-color: #e6e5e5;
+    outline: 0;
+}
 .zIndex3 {
     z-index: 3;
 }
@@ -703,6 +728,9 @@ table thead {
 .paddingTop15 {
     padding-top: 15px;
 }
+.backgroundColorTransparent {
+    background-color: transparent;
+}
 .backgroundColorBlue {
     background-color: #00b2bc !important;
 }
@@ -719,6 +747,11 @@ table thead {
     background-color: #efefef;
     padding: 0 15px;
     box-shadow: inset 0px 3px 6px 0px #dddddd;
+}
+.toggle-editable-btn {
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
 }
 .paddingRight15 {
     padding-right: 15px;

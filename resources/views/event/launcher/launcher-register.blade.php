@@ -7,6 +7,7 @@
       href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.css"
       rel="stylesheet"
     />
+    <script src="{{asset('theme-assets/js/Utilities.js')}}"></script>
 @stop
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
@@ -38,9 +39,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
-                                            <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between">
-                                                <input type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
-                                                <button class="btn btn-circle btn-outline-light hidden showPenEdit"
+                                            <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" id="nameLast" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
+                                                <button data-input-id="nameLast" class=" toggle-editable-btn btn btn-circle btn-outline-light"
                                                     data-remodal-target="personal-info-fullname-modal"><i                                                       class="ri-ball-pen-fill"></i></button>
                                             </div>
                                             <div class="fs-6 fw-bold text-muted"></div>
@@ -49,9 +50,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">شماره تلفن همراه</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input id="phone" type="tel" minlength="7"  maxlength="11" class="form-control " style="direction: rtl" placeholder="شماره تلفن همراه">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" id="phone" type="tel" minlength="7"  maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
+                                                <button data-input-id="phone" class=" toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -61,9 +62,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">پست الکترونیک</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input onkeypress="return isEmail(event) || isNumber(event)" id="userEmail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
-                                                <button class="btn btn-circle btn-outline-light hidden" >
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" onkeypress="return isEmail(event) || isNumber(event)" id="userEmail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
+                                                <button data-input-id="userEmail" class="toggle-editable-btn btn btn-circle btn-outline-light" >
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -73,9 +74,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">تاریخ تولد</div>
-                                            <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between">
-                                                <input type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد">
-                                                <button class="btn btn-circle btn-outline-light hidden showPenEdit"
+                                            <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" id="mainBrithday" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد">
+                                                <button data-input-id="mainBrithday" class="toggle-editable-btn btn btn-circle btn-outline-light"
                                                     data-remodal-target="personal-info-birth-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
@@ -85,9 +86,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">کد ملی</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
+                                                <button data-input-id="nid" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -158,9 +159,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-2">
                                             <div  class="fs-7 text-dark">نوع شخصیت</div>
-                                            <div class="d-flex align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
                                                 <select id="launcherType" class="select2 selectStyle">
-                                                    <option value="selectType" selected>انتخاب کنید</option>
+                                                    <option value="0" selected>انتخاب کنید</option>
                                                     <option value="haghighi">حقیقی</option>
                                                     <option value="hoghoghi">حقوقی</option>
                                                 </select>
@@ -174,24 +175,12 @@
                             <div class="ui-box-title">اطلاعات برگزار کننده</div>
                             <div class="ui-box-content">
                                 <div class="row">
-                                    <div class="col-lg-6 mb-3 hoghoghi_fields">
+                                    <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
-                                            <div class="fs-7 text-dark">نام حقوقی</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام حقوقی">
-                                                <button class="btn btn-circle btn-outline-light hidden">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3 haghighi_fields">
-                                        <div class=" py-1">
-                                            <div  class="fs-7 text-dark">نام برگزار کننده</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام برگزار کننده">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div id="nameOfProducer" class="fs-7 text-dark"></div>
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام">
+                                                <button data-input-id="companyName" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -200,10 +189,10 @@
                                     </div>
                                     <div class="col-lg-6 mb-3 hoghoghi_fields">
                                         <div class=" py-2">
-                                            <div  class="fs-7 text-dark">نوع شرکت</div>
+                                            <div class="fs-7 text-dark">نوع شرکت</div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select id="companyType" class="select2 selectStyle">
-                                                    <option value="selectType" selected>انتخاب کنید</option>
+                                                    <option value="0" selected>انتخاب کنید</option>
                                                     <option value="card">نوع شرکت</option>
                                                     <option value="table">نوع شرکت 2</option>
                                                 </select>
@@ -212,10 +201,10 @@
                                     </div>
                                     <div class="col-lg-6 mb-3 hoghoghi_fields">
                                         <div class=" py-1">
-                                            <div  class="fs-7 text-dark">شماره اقتصادی</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input onkeypress="return isNumber(event)" id="code" type="text" class="form-control" style="direction: rtl" placeholder="شماره اقتصادی">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="fs-7 text-dark">شماره اقتصادی</div>
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" onkeypress="return isNumber(event)" id="code" type="text" class="form-control" style="direction: rtl" placeholder="شماره اقتصادی">
+                                                <button data-input-id="code" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -225,9 +214,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">کد پستی</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input onkeypress="return isNumber(event)" maxlength="10" id="postalCode" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" onkeypress="return isNumber(event)" maxlength="10" id="postalCode" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
+                                                <button data-input-id="postalCode" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -262,9 +251,9 @@
                                     <div class="col-lg-12 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">آدرس</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <textarea id="launcherAddress" type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <textarea data-editable="false" id="launcherAddress" type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
+                                                <button data-input-id="launcherAddress" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -287,9 +276,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">وب سایت</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input pattern="http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?" id="launcherSite" type="url" class="form-control" style="direction: rtl" placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" id="launcherSite" type="url" class="form-control" style="direction: rtl" placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
+                                                <button data-input-id="launcherSite" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -299,9 +288,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
                                             <div class="fs-7 text-dark">پست الکترونیک</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input onkeypress="return isEmail(event) || isNumber(event)" id="launcherEmail" type="text" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" onkeypress="return isEmail(event) || isNumber(event)" id="launcherEmail" type="text" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
+                                                <button data-input-id="launcherEmail" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -311,7 +300,7 @@
                                     <div class="col-lg-12 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">تلفن</div>
-                                            <div class="d-flex align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
                                                 <input onkeypress="return isNumber(event)" minlength="7" maxlength="11" id="launcherPhone" type="text" class="form-control setEnter" style="direction: rtl" placeholder="تلفن">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
@@ -414,7 +403,7 @@
                 </div>
                 <div class="remodal-content">
                     <div class="form-element-row mb-3">
-                        <input onclick="" value="" type="text" class="form-control" disabled placeholder="انتخاب فایل">
+                        <input  onclick="" value="" type="text" class="form-control" disabled placeholder="انتخاب فایل">
                     </div>
                 </div>
                 <div class="remodal-footer">
@@ -538,8 +527,10 @@
                     $(".hoghoghi_fields").addClass('hidden');
                     $(".haghighi_fields").removeClass('hidden');
                     $(".hidden_all_fields").removeClass('hidden');
+                    $("#nameOfProducer").text('نام برگزار کننده');
                 } else if(launcherType === 'hoghoghi'){
                     // show or hide class for hoghoghi
+                    $("#nameOfProducer").text('نام حقوقی');
                     $(".hoghoghi_fields").removeClass('hidden');
                     $(".haghighi_fields").addClass('hidden');
                     $(".hidden_all_fields").removeClass('hidden');
@@ -586,15 +577,17 @@
 
             });
 
-
-            $('#submit').on('click',function() {
-
+            $('#submit').on('click',function() { 
+                var nameLast = $('#nameLast').val();
                 var name = $('#name').val();
                 var last = $('#last').val();
                 var phone =$('#phone').val();
                 var setName = $('.setName').val();
                 var userEmail = $('#userEmail').val();
                 var userBirthDay = $('.userBirthDay').val();
+                var mainBrithday = $('#mainBrithday').val();
+                var Brithday_day = $('#Brithday_day').val();
+                var Brithday_year =$('#Brithday_year').val();
                 var nid = $('#nid').val();
                 var companyName = $('#companyName').val();
                 var launcherType = $('#launcherType').val();
@@ -605,6 +598,21 @@
                 var launcherSite = $('#launcherSite').val();
                 var launcherEmail = $('#launcherEmail').val();
                 var launcherPhone = $('#launcherPhone').val();
+                var launcherAddress = $('#launcherAddress').val();
+                var launcherType = $('#launcherType').val();
+                var state02 = $('#state02').val()
+
+
+                let required_list_Select = ['launcherType', 'state02' , 'companyType'];
+                if(!checkSelect(required_list_Select)){
+                    return;
+                }
+                let required_list = ['name', 'last','nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail'];
+                if(!checkInputs(required_list)){
+                    alert("Ds");
+                    return;
+                }
+
                 $(".showPenEdit").removeClass('hidden')
                 if (userEmail == null || userEmail == undefined){
                     $('#userEmail').css('backgroundColor','red')
@@ -617,7 +625,7 @@
                         id: 222222222,
                         val: launcherPhone
                     });
-                var launcherAddress = $('#launcherAddress').val();
+                
                 if(x === undefined || y === undefined) {
                     showErr("لطفا مکان موردنظر خود را از روی نقضه انتخاب کنید");
                     return;
@@ -632,6 +640,7 @@
                     user_email: userEmail,
                     user_birth_day: userBirthDay,
                     user_NID: nid,
+                    company_name : companyName,
                     postal_code: postalCode,
                     launcher_city_id: launcherCityID,
                     launcher_site: launcherSite,
@@ -644,29 +653,26 @@
                 };
 
                 if(launcherType == "hoghoghi") {
-                    data.company_name = companyName;
                     data.code = code;
                     data.company_type = companyType;
                 }
-
                 $.ajax({
                     type: 'post',
                     url: "{{ $mode == 'create' ? route('launcher.store') : route('launcher.update', ['launcher' => $formId]) }}",
                     data: data,
                     success: function(res) {
                         if(res.status === "ok") {
-                            
-                            let launcher_id;
-
-                            if('{{ $mode }}' === 'create')
+                            let launcher_id;                            
+                            if('{{ $mode }}' === 'create'){
                                 launcher_id = res.id;
-                            else
+                            }else{
                                 launcher_id = '{{ isset($formId) ? $formId : -1 }}';
-                             
+                            }
                             window.location.href = '{{ route('launcher-document') }}' + "/" + launcher_id;
                         }
-                        else
+                        else{
                             showErr(res.msg);
+                        }
                     }
                 });
             })
@@ -695,9 +701,16 @@
                     $('.setName').val(res.data.first_name + ' ' + res.data.last_name)
                     $('#phone').val(res.data.phone);
                     $("#postalCode").val(res.data.postal_code);
-                    $("#code").val(res.data.code);
-                    $("#companyName").val(res.data.company_name);
-                    $("#companyType").val(res.data.company_type);
+                   
+                    
+                    if(res.data.launcher_type == "hoghoghi") {
+                        $("#companyName").val(res.data.company_name);
+                        $("#code").val(res.data.code);
+                        $("#companyType").val(res.data.company_type).change();
+                    }else if(launcherType == "haghighi") {
+                        $("#companyName").val(res.data.company_name);
+                    }
+                   
                     $("#launcherAddress").val(res.data.launcher_address);
                     $(".launcherCityID").val(res.data.launcher_city_id);
                     $("#launcherEmail").val(res.data.launcher_email);
