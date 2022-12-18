@@ -47,14 +47,15 @@ class EventGalleryController extends Controller
         $filename = $request->img_file->store('public/events');
         $filename = str_replace('public/events/', '', $filename);
         
-        EventGallery::create([
+        $tmp = EventGallery::create([
             'img' => $filename,
             'event_id' => $event->id,
             'priority' => 1000
         ]);
 
         return response()->json([
-            'status' => 'ok'
+            'status' => 'ok',
+            'id' => $tmp->id
         ]);
     }
 
@@ -64,8 +65,11 @@ class EventGalleryController extends Controller
      * @param  \App\Models\EventGallery  $eventGallery
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EventGallery $gallery)
+    public function destroy(EventGallery $gallery=null)
     {
+
+        if($gallery == null)
+            return abort(401);
         
         Gate::authorize('destroy', $gallery->event);
      

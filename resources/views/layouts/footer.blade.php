@@ -23,8 +23,8 @@
                     <div class="widget-title">از جدیدترین تخفیف ها باخبر شوید</div>
                     <div class="widget-content widget-newsletter">
                         <div class="form-element-row with-btn align-Items-end">
-                            <input id="mail" type="text" class="form-control"
-                                placeholder="آدرس ایمیل خود را وارد کنید">
+                            <input onkeypress="return isEmail(event) || isNumber(event)" id="mail" type="text" class="form-control"
+                                placeholder="آدرس پست الکترونیک خود را وارد کنید">
                             <button id="submitMailBtn" class="btn btn-primary backgroundGray alignSelfEnd customBtnAddress">ثبت</button>
                         </div>
                     </div>

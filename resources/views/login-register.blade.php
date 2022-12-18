@@ -23,7 +23,7 @@
                     {{-- <form action="api/auth" class="auth-form" method=""> --}}
                         <!-- start of form-element -->
                         <div class="form-element-row mb-5">
-                            <input onkeypress="return isEmail(event) || isNumber(event)" id="phone" type="text" class="form-control" placeholder="شماره موبایل یا ایمیل">
+                            <input onkeypress="return isEmail(event) || isNumber(event)" id="phone" type="text" class="form-control" placeholder="شماره موبایل یا پست الکترونیک">
                         </div>
                         <!-- end of form-element -->
                         <!-- start of form-element -->

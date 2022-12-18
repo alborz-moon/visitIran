@@ -7,6 +7,7 @@
       href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.css"
       rel="stylesheet"
     />
+    <script src="{{asset('theme-assets/js/Utilities.js')}}"></script>
 @stop
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
@@ -14,11 +15,22 @@
             <div class="row mb-5">
                 @include('event.launcher.launcher-menu')     
                     <div class="col-xl-9 col-lg-8 col-md-7">
-                        <div class="alert alert-warning alert-dismissible fade show mb-5 d-flex align-items-center spaceBetween" role="alert">
+                        <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
                             <div>
-                                در حال حاضر حساب کاربری شما غیر فعال است. پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
+                               در خواست ارتقا به برگذار کننده پس از ارسال توسط ادمین بازبینی و تایید خواهد شد  .
+                            </div>                       
+                        </div>
+                        <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
+                            <div>
+                                در حال حاضر حساب برگذار کننده شما غیر فعال است . پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
                             </div> 
-                            <a href="#" class="btn btn-sm btn-primary mx-3">تیکت ها</a>                        
+                            <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">مشاهده سوابق</a> 
+                        </div>
+                        <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
+                            <div>
+                                تایید حساب برگذار کننده با مشکل مواجه شده است . برای جزئیات بیشتر به پشتیبانی مراجه کنید.
+                            </div> 
+                            <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">پشتیبانی</a>
                         </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">اطلاعات رابط</div>
@@ -27,9 +39,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
-                                            <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between">
-                                                <input type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
-                                                <button class="btn btn-circle btn-outline-light"
+                                            <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" id="nameLast" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
+                                                <button data-input-id="nameLast" class=" toggle-editable-btn btn btn-circle btn-outline-light"
                                                     data-remodal-target="personal-info-fullname-modal"><i                                                       class="ri-ball-pen-fill"></i></button>
                                             </div>
                                             <div class="fs-6 fw-bold text-muted"></div>
@@ -38,9 +50,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">شماره تلفن همراه</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input id="phone" type="tel" minlength="7"  maxlength="11" class="form-control " style="direction: rtl" placeholder="شماره تلفن همراه">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" id="phone" type="tel" minlength="7"  maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
+                                                <button data-input-id="phone" class=" toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -50,9 +62,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">پست الکترونیک</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input onkeypress="return isEmail(event) || isNumber(event)" id="userEmail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
-                                                <button class="btn btn-circle btn-outline-light hidden" >
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" onkeypress="return isEmail(event) || isNumber(event)" id="userEmail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
+                                                <button data-input-id="userEmail" class="toggle-editable-btn btn btn-circle btn-outline-light" >
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -62,9 +74,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">تاریخ تولد</div>
-                                            <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between">
-                                                <input type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد">
-                                                <button class="btn btn-circle btn-outline-light"
+                                            <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" id="mainBrithday" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد">
+                                                <button data-input-id="mainBrithday" class="toggle-editable-btn btn btn-circle btn-outline-light"
                                                     data-remodal-target="personal-info-birth-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
@@ -74,9 +86,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">کد ملی</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
+                                                <button data-input-id="nid" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -96,11 +108,12 @@
                                                 <input class="b-1" type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event)">
                                                 <input class="b-1" type="file" id="file-ip-2" accept="image/*" onchange="showPreviewProfile(event)">
                                             </div>
-                                            <div id="producer" class="producer position-relative">
-                                                <img id="file-ip-1-preview" class="w-100 h-100" style="opacity: .4" alt="">
-                                                <div class="position-absolute transformTranslateCenter">عکس را بارگذاری کنید</div>
+                                            <div  class="producer position-relative">
+                                                <img id="file-ip-1-preview" style="border: 2px solid white;boxshadow: 0 3px 6px #00000029;background-color: #e5e5e5" class="w-100 h-100 objectfitCover" style="opacity: .4" alt="">
+                                                <div id="producer" class="position-absolute customTop center uploaderText">عکس را بارگذاری کنید</div>
                                                 <div id="profileImg" class="profileImg">
-                                                    <img id="file-ip-2-preview" class="w-100 h-100 borderRadius50" accept="image/*" alt="">
+                                                    <img id="file-ip-2-preview" style="border: 2px solid white;boxshadow: 0 3px 6px #00000029" class="w-100 h-100 objectfitCover" accept="image/*" alt="">
+                                                    <div id="producer" class="position-absolute customTop2 center uploaderImg"><i class="icon-visit-open"></i></div>
                                                 </div>
                                                 <script>
                                                       function showPreviewProfile(event){
@@ -146,9 +159,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-2">
                                             <div  class="fs-7 text-dark">نوع شخصیت</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <select id="launcherType" class="selectStyle">
-                                                    <option value="selectType" selected>انتخاب کنید</option>
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <select id="launcherType" class="select2 selectStyle">
+                                                    <option value="0" selected>انتخاب کنید</option>
                                                     <option value="haghighi">حقیقی</option>
                                                     <option value="hoghoghi">حقوقی</option>
                                                 </select>
@@ -162,24 +175,12 @@
                             <div class="ui-box-title">اطلاعات برگزار کننده</div>
                             <div class="ui-box-content">
                                 <div class="row">
-                                    <div class="col-lg-6 mb-3 hoghoghi_fields">
+                                    <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
-                                            <div class="fs-7 text-dark">نام حقوقی</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام حقوقی">
-                                                <button class="btn btn-circle btn-outline-light hidden">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3 haghighi_fields">
-                                        <div class=" py-1">
-                                            <div  class="fs-7 text-dark">نام برگزار کننده</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام برگزار کننده">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div id="nameOfProducer" class="fs-7 text-dark"></div>
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام">
+                                                <button data-input-id="companyName" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -188,9 +189,10 @@
                                     </div>
                                     <div class="col-lg-6 mb-3 hoghoghi_fields">
                                         <div class=" py-2">
-                                            <div  class="fs-7 text-dark">نوع شرکت</div>
+                                            <div class="fs-7 text-dark">نوع شرکت</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <select id="companyType" class="selectStyle">
+                                                <select id="companyType" class="select2 selectStyle">
+                                                    <option value="0" selected>انتخاب کنید</option>
                                                     <option value="card">نوع شرکت</option>
                                                     <option value="table">نوع شرکت 2</option>
                                                 </select>
@@ -199,10 +201,10 @@
                                     </div>
                                     <div class="col-lg-6 mb-3 hoghoghi_fields">
                                         <div class=" py-1">
-                                            <div  class="fs-7 text-dark">شماره اقتصادی</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input onkeypress="return isNumber(event)" id="code" type="text" class="form-control" style="direction: rtl" placeholder="شماره اقتصادی">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="fs-7 text-dark">شماره اقتصادی</div>
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" onkeypress="return isNumber(event)" id="code" type="text" class="form-control" style="direction: rtl" placeholder="شماره اقتصادی">
+                                                <button data-input-id="code" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -212,9 +214,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">کد پستی</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input onkeypress="return isNumber(event)" maxlength="10" id="postalCode" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" onkeypress="return isNumber(event)" maxlength="10" id="postalCode" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
+                                                <button data-input-id="postalCode" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -249,9 +251,9 @@
                                     <div class="col-lg-12 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">آدرس</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <textarea id="launcherAddress" type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <textarea data-editable="false" id="launcherAddress" type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
+                                                <button data-input-id="launcherAddress" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -274,9 +276,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">وب سایت</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input id="launcherSite" type="text" class="form-control" style="direction: rtl" placeholder="وب سایت">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" id="launcherSite" type="url" class="form-control" style="direction: rtl" placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
+                                                <button data-input-id="launcherSite" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -285,10 +287,10 @@
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <div class=" py-1">
-                                            <div class="fs-7 text-dark">ایمیل</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input id="launcherEmail" type="text" class="form-control" style="direction: rtl" placeholder="ایمیل">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="fs-7 text-dark">پست الکترونیک</div>
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="false" onkeypress="return isEmail(event) || isNumber(event)" id="launcherEmail" type="text" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
+                                                <button data-input-id="launcherEmail" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -298,13 +300,13 @@
                                     <div class="col-lg-12 mb-3">
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">تلفن</div>
-                                            <div class="d-flex align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
                                                 <input onkeypress="return isNumber(event)" minlength="7" maxlength="11" id="launcherPhone" type="text" class="form-control setEnter" style="direction: rtl" placeholder="تلفن">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
-                                            <div id="addTell" class="d-flex gap15"></div>
+                                            <div id="addTell" class="d-flex gap15 flexWrap mt-1"></div>
                                             <div class="fontSize14 colorBlack">در صورت وجود بیش از یک تلفن، آن ها را با فاصله از هم جدا نمایید.همچنین پیش شماره کشور و شهر نیز وارد شود. مانند +982111111111</div>
                                         </div>
                                     </div>
@@ -401,7 +403,7 @@
                 </div>
                 <div class="remodal-content">
                     <div class="form-element-row mb-3">
-                        <input onclick="" value="" type="text" class="form-control" disabled placeholder="انتخاب فایل">
+                        <input  onclick="" value="" type="text" class="form-control" disabled placeholder="انتخاب فایل">
                     </div>
                 </div>
                 <div class="remodal-footer">
@@ -468,7 +470,7 @@
         }
         $(document).ready(function(){
             
-            var i = 1;
+            var idx = 1;
             $(document).on('click', '.remove-tel-btn', function () { 
                 let id = $(this).attr('data-id');
                 tels = tels.filter((elem, index) => {
@@ -485,14 +487,14 @@
                         showErr('شماره موردنظر معتبر نمی باشد.');
                         return;
                     }
-                    i++;
+                    idx++;
                     tels.push({
-                        id: i,
+                        id: idx,
                         val: launchPhone
                     });
-                    html += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + launchPhone + '';
-                    html += '<button class="btn btn-outline-light">';
-                    html += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
+                    html += '<div id="tel-modal-' + idx + '" class="item-button spaceBetween colorBlack">' + launchPhone + '';
+                    html += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
+                    html += '<i data-id="' + idx + '" class="remove-tel-btn ri-close-line"></i>';
                     html += '</button>';
                     html += '</div>';
                     $("#addTell").append(html);
@@ -505,6 +507,8 @@
                 var last = $('#last').val();
                 $('.setName').val(name +' ' + last );
                 $(".remodal-close").click();
+                $(".showPenEdit").removeClass('hidden');
+
             })
             $('#setUserBirthDay').on('click',function(){
                 var year = $('#Brithday_year').val();
@@ -523,8 +527,10 @@
                     $(".hoghoghi_fields").addClass('hidden');
                     $(".haghighi_fields").removeClass('hidden');
                     $(".hidden_all_fields").removeClass('hidden');
+                    $("#nameOfProducer").text('نام برگزار کننده');
                 } else if(launcherType === 'hoghoghi'){
                     // show or hide class for hoghoghi
+                    $("#nameOfProducer").text('نام حقوقی');
                     $(".hoghoghi_fields").removeClass('hidden');
                     $(".haghighi_fields").addClass('hidden');
                     $(".hidden_all_fields").removeClass('hidden');
@@ -571,15 +577,17 @@
 
             });
 
-
-            $('#submit').on('click',function() {
-
+            $('#submit').on('click',function() { 
+                var nameLast = $('#nameLast').val();
                 var name = $('#name').val();
                 var last = $('#last').val();
                 var phone =$('#phone').val();
                 var setName = $('.setName').val();
                 var userEmail = $('#userEmail').val();
                 var userBirthDay = $('.userBirthDay').val();
+                var mainBrithday = $('#mainBrithday').val();
+                var Brithday_day = $('#Brithday_day').val();
+                var Brithday_year =$('#Brithday_year').val();
                 var nid = $('#nid').val();
                 var companyName = $('#companyName').val();
                 var launcherType = $('#launcherType').val();
@@ -590,15 +598,33 @@
                 var launcherSite = $('#launcherSite').val();
                 var launcherEmail = $('#launcherEmail').val();
                 var launcherPhone = $('#launcherPhone').val();
-                
+                var launcherAddress = $('#launcherAddress').val();
+                var launcherType = $('#launcherType').val();
+                var state02 = $('#state02').val()
+
+
+                let required_list_Select = ['launcherType', 'state02' , 'companyType'];
+                if(!checkSelect(required_list_Select)){
+                    return;
+                }
+                let required_list = ['name', 'last','nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail'];
+                // if(!checkInputs(required_list)){
+                //     return;
+                // }
+
+                $(".showPenEdit").removeClass('hidden')
+                if (userEmail == null || userEmail == undefined){
+                    $('#userEmail').css('backgroundColor','red')
+                }
+                if (launcherEmail == null || launcherEmail == undefined){
+                    $('#launcherEmail').css('backgroundColor','red')
+                }
                 if(launcherPhone !== undefined && launcherPhone.length > 0)
                     tels.push({
                         id: 222222222,
                         val: launcherPhone
                     });
-
-                var launcherAddress = $('#launcherAddress').val();
-
+                
                 if(x === undefined || y === undefined) {
                     showErr("لطفا مکان موردنظر خود را از روی نقضه انتخاب کنید");
                     return;
@@ -613,6 +639,7 @@
                     user_email: userEmail,
                     user_birth_day: userBirthDay,
                     user_NID: nid,
+                    company_name : companyName,
                     postal_code: postalCode,
                     launcher_city_id: launcherCityID,
                     launcher_site: launcherSite,
@@ -624,35 +651,31 @@
                     launcher_address: launcherAddress,
                 };
 
-                if(launcherType === "hoghoghi") {
-                    data.company_name = companyName;
+                if(launcherType == "hoghoghi") {
                     data.code = code;
                     data.company_type = companyType;
                 }
-
                 $.ajax({
                     type: 'post',
-                    url: '{{ $mode == 'create' ? route('launcher.store') : route('launcher.update', ['launcher' => $formId]) }}',
+                    url: "{{ $mode == 'create' ? route('launcher.store') : route('launcher.update', ['launcher' => $formId]) }}",
                     data: data,
                     success: function(res) {
                         if(res.status === "ok") {
-                            
-                            let launcher_id;
-
-                            if('{{ $mode }}' === 'create')
+                            let launcher_id;                            
+                            if('{{ $mode }}' === 'create'){
                                 launcher_id = res.id;
-                            else
+                            }else{
                                 launcher_id = '{{ isset($formId) ? $formId : -1 }}';
-                             
+                            }
                             window.location.href = '{{ route('launcher-document') }}' + "/" + launcher_id;
                         }
-                        else
+                        else{
                             showErr(res.msg);
+                        }
                     }
                 });
             })
         })
-        
     </script>
 @stop
 
@@ -671,28 +694,34 @@
                 success: function (res) {
                     x = res.data.launcher_x;
                     y = res.data.launcher_y;
+                    $(".showPenEdit").removeClass('hidden');
                     $('#name').val(res.data.first_name);
                     $('#last').val(res.data.last_name);
                     $('.setName').val(res.data.first_name + ' ' + res.data.last_name)
                     $('#phone').val(res.data.phone);
                     $("#postalCode").val(res.data.postal_code);
-                    $("#code").val(res.data.code);
-                    $("#companyName").val(res.data.company_name);
-                    $("#companyType").val(res.data.company_type);
+                   
+                    
+                    if(res.data.launcher_type == "hoghoghi") {
+                        $("#companyName").val(res.data.company_name);
+                        $("#code").val(res.data.code);
+                        $("#companyType").val(res.data.company_type).change();
+                    }else if(launcherType == "haghighi") {
+                        $("#companyName").val(res.data.company_name);
+                    }
+                   
                     $("#launcherAddress").val(res.data.launcher_address);
                     $(".launcherCityID").val(res.data.launcher_city_id);
-                    
                     $("#launcherEmail").val(res.data.launcher_email);
                     // $("#launcherPhone").val(res.data.launcher_phone);
                     var showPhone = '';
                     for(i = 0 ; i < res.data.launcher_phone.length; i++){
                         showPhone += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + res.data.launcher_phone[i] + '';
-                        showPhone += '<button class="btn btn-outline-light">';
+                        showPhone += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
                         showPhone += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
                         showPhone += '</button>';
                         showPhone += '</div>';
                         // tels.push
-                        
                         tels.push({
                             id: i,
                             val: res.data.launcher_phone[i]
@@ -709,7 +738,6 @@
                     getCities(res.data.launcher_state_id, res.data.launcher_city_id);
                 }
             })
-
         </script>
     @endif
 

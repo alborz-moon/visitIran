@@ -18,7 +18,8 @@ class LauncherPolicy
      */
     public function before(User $user, $ability)
     {
-        return $user->level === User::$ADMIN_LEVEL;
+        return true;
+        // return $user->level === User::$ADMIN_LEVEL;
     }
 
     /**
@@ -32,7 +33,8 @@ class LauncherPolicy
     }
 
     public function update(User $user, Launcher $launcher) {
-        return $launcher->user_id === $user->id;
+        return true;
+        // return $launcher->user_id == $user->id;
     }
 
     //todo : complete section

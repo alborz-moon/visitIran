@@ -20,6 +20,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+.block {
+    display: block !important;
+}
 .icon-visit-visit-rightchevron:before {
     content: "\0041";
 }
@@ -116,7 +119,14 @@
 .icon-visit-close:before {
     content: "\0066";
 }
-.icon-visit-delete:before {
+.icon-visit-uploaded-delete {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 10000000;
+}
+.icon-visit-delete:before,
+.icon-visit-uploaded-delete::before {
     content: "\0067";
 }
 .icon-visit-check:before {
@@ -127,4 +137,7 @@
 }
 .icon-visit-menu:before {
     content: "\006a";
+}
+.icon-visit-open:before {
+    content: "\006b";
 }

@@ -82,7 +82,7 @@
                     <th>عملیات</th>
                     <th>نام</th>
                     <th>تاریخ عضویت</th>
-                    <th>تعداد ایمیل دریافتی</th>
+                    <th>تعداد پست الکترونیک دریافتی</th>
                 </tr>
             </thead>
             <tbody>
@@ -93,7 +93,7 @@
                         <td>
                             <div class="flex flex-col gap10">
                                 <div class="flex gap10">
-                                    <button data-toggle='tooltip' title="ایمیل های دریافتی" onclick="document.location.href = '{{ route('product.productGallery.index', ['product' => $item['id']]) }}'" class="btn btn-success"><span class="glyphicon glyphicon-envelope"></span></button>
+                                    <button data-toggle='tooltip' title="پست الکترونیک دریافتی" onclick="document.location.href = '{{ route('product.productGallery.index', ['product' => $item['id']]) }}'" class="btn btn-success"><span class="glyphicon glyphicon-envelope"></span></button>
                                     <button data-toggle='tooltip' title="حذف" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
                                 </div>
                             </div>

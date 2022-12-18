@@ -29,10 +29,13 @@
             },
             success: function(res) {
                 var html= "";
+                var htmlMobile="";
                 if(res.status == "ok") {
+
                     for(var i = 0; i < res.data.length; i++) {
                         if (i==0) {
                             html += '<li class="mega-menu-category show">';
+                            
                         }
                         else{
                             html += '<li class="mega-menu-category">';
@@ -41,7 +44,7 @@
                         if (res.data[i].subs.length != 0){
                             html += '<ul class="mega-menu">';
                             for(var j = 0; j < res.data[i].subs.length; j++) {
-                                    html += '<li class="parent"><a class="colorBlue customBold" href="' + res.data[i].subs[j].href + '">' + res.data[i].subs[j].name + '</a></li>';
+                                    html += '<li class="parent"><a class="colorBlue customBold" href="' + res.data[i].subs[j].href + '">' + res.data[i].subs[j].name + '</a>';
                                 if (res.data[i].subs[j].subs.length != 0){
                                     for(var k = 0; k < res.data[i].subs[j].subs.length; k++) {
                                         html += '<li><a href="' + res.data[i].subs[j].subs[k].href + '">' + res.data[i].subs[j].subs[k].name + '</a></li>';

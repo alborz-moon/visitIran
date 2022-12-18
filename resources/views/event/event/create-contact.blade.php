@@ -119,9 +119,9 @@
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <div class="py-1">
-                                            <div  class="fs-7 text-dark">ایمیل</div>
+                                            <div  class="fs-7 text-dark">پست الکترونیک</div>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="email" onkeypress="return isEmail(event) || isNumber(event)" type="email" class="form-control" style="direction: rtl" placeholder="ایمیل">
+                                                <input id="email" onkeypress="return isEmail(event) || isNumber(event)" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -246,7 +246,7 @@
                         val: launchPhone
                     });
                     html += '<div id="tel-modal-' + idx + '" class="item-button spaceBetween colorBlack">' + launchPhone + '';
-                    html += '<button class="btn btn-outline-light">';
+                    html += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
                     html += '<i data-id="' + idx + '" class="remove-tel-btn ri-close-line"></i>';
                     html += '</button>';
                     html += '</div>';
@@ -299,7 +299,7 @@
                                     val: res.data.phone[i]
                                 });
                                 html += '<div id="tel-modal-' + idx + '" class="item-button spaceBetween colorBlack">' + res.data.phone[i] + '';
-                                html += '<button class="btn btn-outline-light">';
+                                html += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
                                 html += '<i data-id="' + idx + '" class="remove-tel-btn ri-close-line"></i>';
                                 html += '</button>';
                                 html += '</div>';

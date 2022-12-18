@@ -14,7 +14,7 @@
                 <div class="ui-box bg-white">
                     <div class="ui-box-title fs-5 fw-bold">تماس با ما</div>
                     <div class="ui-box-subtitle flex-wrap">
-                        لطفاً پیش از ارسال ایمیل یا تماس تلفنی، ابتدا <a href="#" class="link mx-2">پرسش های متداول</a>
+                        لطفاً پیش از ارسال پست الکترونیک یا تماس تلفنی، ابتدا <a href="#" class="link mx-2">پرسش های متداول</a>
                         را
                         مشاهده کنید.
                     </div>
@@ -54,8 +54,8 @@
                                 <div class="col-md-6">
                                     <!-- start of form-element -->
                                     <div class="form-element-row mb-5">
-                                        <label class="label">ایمیل</label>
-                                        <input type="text" class="form-control" placeholder="example@example.com">
+                                        <label class="label">پست الکترونیک</label>
+                                        <input onkeypress="return isEmail(event) || isNumber(event)" type="text" class="form-control" placeholder="example@example.com">
                                     </div>
                                     <!-- end of form-element -->
                                 </div>

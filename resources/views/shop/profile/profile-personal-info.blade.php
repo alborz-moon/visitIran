@@ -177,12 +177,12 @@
             <div class="remodal remodal-xs" data-remodal-id="personal-info-email-modal"
                 data-remodal-options="hashTracking: false">
                 <div class="remodal-header">
-                    <div class="remodal-title">ایمیل</div>
+                    <div class="remodal-title">پست الکترونیک</div>
                     <button data-remodal-action="close" class="remodal-close"></button>
                 </div>
                 <div class="remodal-content">
                     <div class="form-element-row mb-3">
-                        <input id="email_info" type="email" class="form-control" placeholder="">
+                        <input onkeypress="return isEmail(event) || isNumber(event)" id="email_info" type="email" class="form-control" placeholder="">
                     </div>
                 </div>
 

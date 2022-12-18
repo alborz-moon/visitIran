@@ -1,4 +1,3 @@
-
 @extends('layouts.structure')
 @section('header')
     @parent
@@ -11,8 +10,9 @@
         var myPreventionFlag = false;
     </script>
 @stop
+
 @section('content')
-        <main class="page-content TopParentBannerMoveOnTop">
+    <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
             <div class="row mb-5">
                 @include('event.launcher.launcher-menu')     
@@ -103,71 +103,74 @@
         $("#date_input_create_event_start").datepicker(datePickerOptions);
         var certifications="";
 
+        let uploadedFiles = [];
+
         Dropzone.options.galleryForm = {
-                paramName: "img_file", // The name that will be used to transfer the file
-                maxFilesize: 6, // MB
-                timeout: 180000,
-                parallelUploads: 1,
-                chunking: false,
-                forceChunking: false,
-                uploadMultiple: false,
-                maxFiles: 15,
-                accept: function(file, done) {
-                    done();
-                },
-                init: function () {
-                    this.on('completemultiple', function () {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                        // showSuccess('با موفقیت آپلود شد');
+            paramName: "img_file", // The name that will be used to transfer the file
+            maxFilesize: 6, // MB
+            timeout: 180000,
+            parallelUploads: 1,
+            chunking: false,
+            forceChunking: false,
+            uploadMultiple: false,
+            maxFiles: 15,
+            accept: function(file, done) {
+                done();
+            },
+            init: function () {
+                this.on('completemultiple', function () {
+                    console.log("completemultiple");
+                });
+                this.on("queuecomplete", function (file) {
+                    // if(myPreventionFlag)
+                    //     $("#dropZoneErr").removeClass('hidden');
+                    // else
+                    //     location.reload();
+                });
+                this.on("complete", function (file) {
+                    // myDropzone.on("complete", function(file) {
+                    //   myDropzone.removeFile(file);
+                    // });
+                    // if(myPreventionFlag)
+                    //     $("#dropZoneErr").removeClass('hidden');
+                    // else
+                    //     location.reload();
+                });
+                this.on("success", function (file, res, e) {
+                    uploadedFiles.push({
+                        name: file.name,
+                        id: res.id
                     });
-                    this.on("queuecomplete", function (file) {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("complete", function (file) {
-                        // myDropzone.on("complete", function(file) {
-                        //   myDropzone.removeFile(file);
-                        // });
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("success", function (file) {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("canceled", function (file) {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                    this.on("error", function (file) {
-                        // if(myPreventionFlag)
-                        //     $("#dropZoneErr").removeClass('hidden');
-                        // else
-                        //     location.reload();
-                    });
-                }
+                    
+                    $(".dz-message").removeClass('block');
+                    showSuccess('فایل شما با موفقیت آپلود شد');
+                });
+                this.on("canceled", function (file) {
+                    // if(myPreventionFlag)
+                    //     $("#dropZoneErr").removeClass('hidden');
+                    // else
+                    //     location.reload();
+                });
+                this.on("error", function (file) {
+                    // if(myPreventionFlag)
+                    //     $("#dropZoneErr").removeClass('hidden');
+                    // else
+                    //     location.reload();
+                });
+            }
+        }
+        
         $.ajax({
             type: 'get',
-            url: '{{route('event.galleries.store',['event' => $id])}}',
+            url: '{{route('event.galleries.index',['event' => $id])}}',
             success: function(res) {
-                var gallery = [];
+                var gallery = "";
                 if(res.status === "ok") {
                     if(res.data.length != 0) {
                         for(i = 0; i < res.data.length; i ++ ){
-                            gallery += '<div id="' + res.data[i].id + '" class="certificationsImg">';
+                            gallery += '<div id="gallery_' + res.data[i].id + '" class="certificationsImg">';
                             gallery += '<img class="w-100 h-100" src="' + res.data[i].img + '" alt="">';
-                            gallery += '<i class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
+                            gallery += '<i data-id=' + res.data[i].id + ' class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
                             gallery += '</div>';
                         }
                         $("#certifications").empty().append(gallery);
@@ -175,6 +178,51 @@
                 }
             }
         });
+
+        $(document).on('click', ".icon-visit-uploaded-delete", function() {
+            
+            let filename = $(this).siblings('.dz-filename').text();
+            let tmp = uploadedFiles.find(elem => elem.name === filename);
+            if(tmp === undefined)
+                return;
+
+            let parentElem = $(this).parent().parent();
+
+            $.ajax({
+                type: 'delete',
+                url: '{{ route('event.galleries.destroy') }}' + "/" + tmp.id,
+                success: function(res) {
+                    if(res.status === 'ok') {
+                        uploadedFiles = uploadedFiles.filter((elem, index) => {
+                            return elem.id !== tmp.id;
+                        });
+                        parentElem.remove();
+                        if(uploadedFiles.length === 0)
+                            $(".dz-message").addClass('block');
+                        
+                        showSuccess('فایل موردنظر با موفقیت حدف گردید.');
+                    }
+                }
+            });
+        });
+
+
+        $(document).on('click', ".icon-visit-delete", function() {
+            
+            let id = $(this).attr('data-id');
+
+            $.ajax({
+                type: 'delete',
+                url: '{{ route('event.galleries.destroy') }}' + "/" + id,
+                success: function(res) {
+                    if(res.status === 'ok') {
+                        $("#gallery_" + id).remove();
+                        showSuccess('فایل موردنظر با موفقیت حدف گردید.');
+                    }
+                }
+            });
+        });
+
     $("#nextBtn").on('click', function () {
         var description = $('#description').val()
         $.ajax({

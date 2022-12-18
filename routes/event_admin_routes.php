@@ -1,17 +1,15 @@
 <?php
 
-use App\Http\Controllers\Event\EventCommentController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\EventGalleryController;
 use App\Http\Controllers\Event\EventSessionController;
 use App\Http\Controllers\Event\LauncherController;
 use App\Http\Controllers\Event\EventTagController;
 use App\Http\Controllers\Event\FacilityController;
-use App\Http\Controllers\Event\LauncherCommentController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::resource('launcher', LauncherController::class)->except('update');
+Route::resource('launcher', LauncherController::class)->except('update', 'store', 'show');
 
 Route::prefix('launcher')->group(function() {
 
@@ -33,13 +31,11 @@ Route::prefix('facilities')->group(function() {
 });
 
 
-Route::resource('eventTags', EventTagController::class)->except('update');
+Route::resource('eventTags', EventTagController::class)->except('update', 'show');
 
 Route::prefix('eventTags')->group(function() {
     
     Route::post('/{eventTag}', [EventTagController::class, 'update'])->name('eventTags.update');
-
-    Route::get('/list', [EventTagController::class, 'show'])->name('eventTags.show');
 
 });
 
@@ -69,7 +65,10 @@ Route::prefix('event/{event}')->group(function() {
 
 Route::resource('event.sessions', EventSessionController::class)->except('create', 'edit', 'update', 'destroy')->shallow();
 
-Route::resource('event.galleries', EventGalleryController::class)->only('index', 'store', 'destroy')->shallow();
+Route::resource('event.galleries', EventGalleryController::class)->only('index', 'store')->shallow();
+
+Route::delete('event/galleries/{gallery?}', [EventGalleryController::class, 'destroy'])->name('event.galleries.destroy');
+
 
 Route::delete('eventSession/{eventSession?}', [EventSessionController::class, 'destroy'])->name('sessions.destroy');
 

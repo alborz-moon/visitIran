@@ -9,8 +9,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Shop\BlogController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
+use App\Models\Launcher;
 use App\Models\State;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,8 +32,6 @@ Route::middleware(['shareTopCategories'])->group(function() {
     Route::domain(Controller::$SHOP_SITE)->group(function() {
 
         Route::view('/', 'shop.welcome')->name('home');
-    
-        Route::post('/search-product', [ProductController::class, 'search'])->name('product-search');
     
         Route::get('/product/{product}/{slug}', [ProductController::class, 'showDetail'])->name('single-product');
     
@@ -136,7 +137,7 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
 
     Route::view('/', 'event.welcome')->name('event.home');
 
-    
+
     Route::get('/event/{event}/{slug}', [EventController::class, 'show'])->name('event');
 
     Route::get('/launcher/{launcher}/{slug}', [LauncherController::class, 'show_detail'])->name('launcher');
@@ -151,6 +152,10 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
     Route::middleware(['myAuth'])->group(function() {
 
         Route::get('/launcher-register', function() {
+            $tmp = Launcher::where('user_id', Auth::user()->id)->first();
+            if($tmp != null)
+                return Redirect::route('launcher-edit', ['formId' => $tmp->id]);
+
             $states = State::orderBy('name', 'asc')->get();
             $mode = 'create';
             return view('event.launcher.launcher-register', compact('states', 'mode'));

@@ -37,16 +37,18 @@ class HomeController extends Controller
 
     public function getDesc(Request $request, Category $category = null) {
         
+        $config = Config::where('site', $request->getHost() === self::$EVENT_SITE ? 'event' : 'shop')->first();
+
         if($category == null) {
             return response()->json([
                 'status' => 'ok',
-                'data' => Config::where('site', $request->getHost() === self::$EVENT_SITE ? 'event' : 'shop')->first()->desc_default
+                'data' => $config == null ? '' : $config->desc_default
             ]);
         }
 
         return response()->json([
             'status' => 'ok',
-            'data' => Config::where('site', $request->getHost() === self::$EVENT_SITE ? 'event' : 'shop')->first()->desc_default
+            'data' => $config == null ? '' : $config->desc_default
         ]);
     }
 

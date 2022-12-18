@@ -124,12 +124,8 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <!-- end of widget -->
-
                                 @endif
-
-
                                 @if(isset($brands) && count($brands) > 0)
                                     <!-- start of widget -->
                                     <div class="widget widget-collapse mb-3">
@@ -461,7 +457,9 @@
                             </div>
                         </div>
                         <div class="responsive-sidebar-overlay">
-                            <button id="closeFilter" type="button" class="btn-close customCloseIconBanner p-0 position-absolute l-0 hidden zIndex1"></button>
+                            <div>
+                                <button id="closeFilter" type="button" class="btn-close customCloseIconBanner p-0 position-absolute l-0 zIndex1"></button>
+                            </div>
                         </div>
                     </div>
                 </div>

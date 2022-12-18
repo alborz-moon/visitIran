@@ -71,8 +71,7 @@
 
 <script>
 var initialing = false;
-var GET_CITIES_URL = '{{ route('
-api.cities ') }}';
+var GET_CITIES_URL = '{{ route('api.cities') }}';
 </script>
 @stop
 @section('content')
@@ -265,7 +264,7 @@ api.cities ') }}';
                                     <div class="fs-7 text-dark">لینک جلسه مجازی</div>
                                     <div class="d-flex align-items-center justify-content-between">
                                         <input id="link" type="url" class="form-control" style="direction: rtl"
-                                            placeholder=" آدرس سایت">
+                                            placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
                                         <button class="btn btn-circle btn-outline-light hidden">
                                             <i class="ri-ball-pen-fill"></i>
                                         </button>
@@ -485,7 +484,7 @@ function watchList(selectorId, arr, increamentor, elemId, resultPaneId) {
             var html = '<div id="' + elemId + '-' + increamentor +
                 '" class="item-button spaceBetween colorBlack">' + wantedElemCaption + '';
             html += '<button data-id="' + increamentor + '" class="remove-' + elemId +
-                '-btn btn btn-outline-light b-0">';
+                '-btn btn btn-outline-light borderRadius50 marginLeft3 b-0">';
             html += '<i class="ri-close-line"></i>'
             html += '</button></div>';
 
@@ -495,17 +494,12 @@ function watchList(selectorId, arr, increamentor, elemId, resultPaneId) {
             }, 500);
         }
     });
-
-    // alert('.remove-' + elemId + '-btn');
     $(document).on('click', '.remove-' + elemId + '-btn', function() {
-
         let id = $(this).attr('data-id');
         arr = arr.filter((elem, index) => {
             return elem.id != id;
         });
-
         $("#" + elemId + "-" + id).remove();
-
     });
 }
 
@@ -537,8 +531,7 @@ $('#onlineOrOffline').on('change', function() {
 
 $.ajax({
     type: 'get',
-    url: '{{route('
-    eventTags.show ')}}',
+    url: '{{url('api/eventTags/list ')}}',
     headers: {
         'accept': 'application/json'
     },
@@ -564,8 +557,7 @@ $.ajax({
 
 $.ajax({
     type: 'get',
-    url: '{{route('
-    facilities.show ')}}',
+    url: "{{route('facilities.show')}}",
     headers: {
         'accept': 'application/json'
     },
@@ -629,19 +621,12 @@ $("#nextBtn").on('click', function() {
     }
     $.ajax({
         type: 'post',
-        url: '{{isset($id) ?  route('
-        event.update ', ['
-        event ' => $id]) : route('
-        event.store ')}}',
+        url: "{{isset($id) ?  route('event.update', ['event' => $id]) : route('event.store')}}",
         data: data,
         success: function(res) {
             if (res.status === "ok") {
-                // alert("عملیات موردنظر با موفقیت انجام شد.");
                 showSuccess("عملیات موردنظر با موفقیت انجام شد.");
-                window.location.href = '{{isset($id) ? route('
-                addSessionsInfo ', ['
-                event ' => $id]) : route('
-                addSessionsInfo ') }}';
+                window.location.href = "{{isset($id) ? route('addSessionsInfo', ['event' => $id]) : route('addSessionsInfo') }}";
             } else {
                 alert(res.msg);
             }
@@ -664,9 +649,7 @@ setTimeout(checkFetchData, [500]);
 function getPhase1Info() {
     $.ajax({
         type: 'get',
-        url: '{{route('
-        event.getPhase1Info ',['
-        event ' => $id])}}',
+        url: "{{route('event.getPhase1Info',['event' => $id])}}",
         headers: {
             'accept': 'application/json'
         },
@@ -700,7 +683,7 @@ function getPhase1Info() {
                             language += '<div id="lang-' + idx +
                                 '" class="item-button spaceBetween colorBlack">' + elem.value + '';
                             language += '<button data-id="' + idx +
-                                '" class="remove-lang-btn btn btn-outline-light b-0">';
+                                '" class="remove-lang-btn btn btn-outline-light borderRadius50 marginLeft3 b-0">';
                             language += '<i class="ri-close-line"></i>';
                             language += '</button></div>';
 
@@ -725,7 +708,7 @@ function getPhase1Info() {
                             tags += '<div id="topic-' + elem.id +
                                 '" class="item-button spaceBetween colorBlack">' + res.data.tags[i] + '';
                             tags += '<button data-id="' + elem.id + '" class="remove-topic-btn remove-' +
-                                elem.id + '-btn btn btn-outline-light b-0">';
+                                elem.id + '-btn btn btn-outline-light borderRadius50 marginLeft3 b-0">';
                             tags += '<i class="ri-close-line"></i>';
                             tags += '</button></div>';
 
