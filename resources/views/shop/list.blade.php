@@ -529,7 +529,7 @@
 
 
         $(document).ready(function() {
-
+            $(".customBorderBoxShadow").addClass("minWidth200");
             
             let minMaxChange = false;
             let minMaxFetch = false;

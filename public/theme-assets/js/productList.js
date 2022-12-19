@@ -123,6 +123,7 @@ function fetchMore(call_back) {
             }
             let html = renderProducts(res.data, "sample");
             $("#products_div").append(html).removeClass("hidden");
+
             call_back();
         },
     });
@@ -146,6 +147,7 @@ function filter() {
             }
             let html = renderProducts(res.data, "sample");
             $("#products_div").empty().append(html).removeClass("hidden");
+            $(".customBorderBoxShadow").addClass("minWidth200");
             $("#shimmer").addClass("hidden");
             $("#nothingToShow").addClass("hidden");
             $("#total_count")

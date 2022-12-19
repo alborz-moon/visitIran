@@ -703,7 +703,6 @@
                     $('#phone').val(res.data.phone);
                     $("#postalCode").val(res.data.postal_code);
                    
-                    
                     if(res.data.launcher_type == "hoghoghi") {
                         $("#companyName").val(res.data.company_name);
                         $("#code").val(res.data.code);

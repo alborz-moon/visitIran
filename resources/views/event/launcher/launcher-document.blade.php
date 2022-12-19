@@ -227,7 +227,7 @@
                     var certificationsGallery="";
                     if(res.status === "ok") {      
                         if (res.data.company_last_changes.length !== 0) {
-                            html += '<div data-remodal-target="companyLastChangesShow" class="square cursorPointer">';
+                            html += '<div data-remodal-target="companyLastChangesShow" class="square cursorPointer position-relative">';
                             html += '<img class="w-100 h-100 objectfitCover" src="' + res.data.company_last_changes + '">';
                             html += '<i data-id="last_changes" class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
                             html += '</div>';
@@ -237,7 +237,7 @@
                             $('#companyLastChanges').addClass('hidden');
                         }
                         if (res.data.company_newspaper.length !== 0 ){
-                            companyNewspaper += '<div data-remodal-target="companyNewspaperShow" class="square cursorPointer">';
+                            companyNewspaper += '<div data-remodal-target="companyNewspaperShow" class="square cursorPointer position-relative">';
                             companyNewspaper += '<img class="w-100 h-100 objectfitCover" src="' + res.data.company_newspaper + '">';
                             companyNewspaper += '<i data-id="last_changes" class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
                             companyNewspaper +='</div>';
@@ -247,7 +247,10 @@
                             $('#companyNewspaper').addClass('hidden');
                         }
                         if (res.data.user_NID_card.length !== 0 ){
-                            userNIDCard += '<div data-remodal-target="userNIDCardShow" class="square cursorPointer"><img class="w-100 h-100 objectfitCover" src="' + res.data.user_NID_card + '" alt=""></div>';
+                            userNIDCard += '<div data-remodal-target="userNIDCardShow" class="square cursorPointer position-relative">';
+                            userNIDCard += '<img class="w-100 h-100 objectfitCover" src="' + res.data.user_NID_card + '" alt="">';
+                            userNIDCard += '<i data-id="last_changes" class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
+                            userNIDCard += '</div>';
                             $("#userNIDCard").empty().append(userNIDCard);
                             $('#userNIDCardImg').empty().append('<img class="w-100 h-100 objectFitCover" src="' + res.data.user_NID_card + '" alt="">');
                         }else{
@@ -255,7 +258,10 @@
                         }
                         if (res.data.certifications.length !== 0 ){
                             for(var i = 0; i < res.data.certifications.length; i++ ){                                 
-                                certifications += '<div data-remodal-target="certificationsShow" onclick="sendImg(\'' + res.data.certifications[i].file + '\')" class="square cursorPointer"><img class="w-100 h-100 objectfitCover" src="' + res.data.certifications[i].file + '" alt=""></div>';
+                                certifications += '<div data-remodal-target="certificationsShow" onclick="sendImg(\'' + res.data.certifications[i].file + '\')" class="square cursorPointer position-relative">';
+                                certifications += '<img class="w-100 h-100 objectfitCover" src="' + res.data.certifications[i].file + '" alt="">';
+                                certifications += '<i data-id="last_changes" class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
+                                certifications += '</div>';
                             } 
                             $("#certifications").empty().append(certifications);
                         }else{
