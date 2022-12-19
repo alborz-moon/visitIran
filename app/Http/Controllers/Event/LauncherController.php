@@ -219,7 +219,7 @@ class LauncherController extends Controller
             'launcher_y' => ['nullable','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
             'company_newspaper_file' => 'nullable|image',
             'company_last_changes_file' => 'nullable|image',
-            'user_NID_card_file' => 'nullable|image',
+            'user_nid_card_file' => 'nullable|image',
         ];
 
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
@@ -295,9 +295,9 @@ class LauncherController extends Controller
 
 
 
-        if($request->has('user_NID_card_file')) {
+        if($request->has('user_nid_card_file')) {
          
-            $filename = $request->user_NID_card_file->store('public/launchers');
+            $filename = $request->user_nid_card_file->store('public/launchers');
             $filename = str_replace('public/launchers/', '', $filename);   
                 
             if($launcher->user_NID_card != null && !empty($launcher->user_NID_card) && 
@@ -312,7 +312,7 @@ class LauncherController extends Controller
             
             foreach($request->keys() as $key) {
                 
-                if($key == '_token' || $key == 'user_NID_card_file' || 
+                if($key == '_token' || $key == 'user_nid_card_file' || 
                     $key == 'company_last_changes_file' || $key == 'company_newspaper_file')
                     continue;
 

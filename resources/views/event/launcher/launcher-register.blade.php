@@ -40,7 +40,7 @@
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
                                             <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="false" id="nameLast" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
+                                                <input data-editable="true" id="nameLast" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
                                                 <button data-input-id="nameLast" class=" toggle-editable-btn btn btn-circle btn-outline-light"
                                                     data-remodal-target="personal-info-fullname-modal"><i                                                       class="ri-ball-pen-fill"></i></button>
                                             </div>
@@ -51,7 +51,7 @@
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">شماره تلفن همراه</div>
                                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="false" id="phone" type="tel" minlength="7"  maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
+                                                <input data-editable="true" onkeypress="return isNumber(event) " id="phone" type="tel" minlength="7"  maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
                                                 <button data-input-id="phone" class=" toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -63,7 +63,7 @@
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">پست الکترونیک</div>
                                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="false" onkeypress="return isEmail(event) || isNumber(event)" id="userEmail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
+                                                <input data-editable="true" onkeypress="return isEmail(event) || isNumber(event)" id="userEmail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
                                                 <button data-input-id="userEmail" class="toggle-editable-btn btn btn-circle btn-outline-light" >
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -75,7 +75,7 @@
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">تاریخ تولد</div>
                                             <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="false" id="mainBrithday" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد">
+                                                <input data-editable="true" id="mainBrithday" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد">
                                                 <button data-input-id="mainBrithday" class="toggle-editable-btn btn btn-circle btn-outline-light"
                                                     data-remodal-target="personal-info-birth-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
@@ -87,7 +87,7 @@
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">کد ملی</div>
                                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="false" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
+                                                <input data-editable="true" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
                                                 <button data-input-id="nid" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -179,7 +179,7 @@
                                         <div class=" py-1">
                                             <div id="nameOfProducer" class="fs-7 text-dark"></div>
                                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="false" id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام">
+                                                <input data-editable="true" id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام">
                                                 <button data-input-id="companyName" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -205,7 +205,7 @@
                                         <div class=" py-1">
                                             <div class="fs-7 text-dark">شماره اقتصادی</div>
                                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="false" onkeypress="return isNumber(event)" id="code" type="text" class="form-control" style="direction: rtl" placeholder="شماره اقتصادی">
+                                                <input data-editable="true" onkeypress="return isNumber(event)" id="code" type="text" class="form-control" style="direction: rtl" placeholder="شماره اقتصادی">
                                                 <button data-input-id="code" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -217,7 +217,7 @@
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">کد پستی</div>
                                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="false" onkeypress="return isNumber(event)" maxlength="10" id="postalCode" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
+                                                <input data-editable="true" onkeypress="return isNumber(event)" maxlength="10" id="postalCode" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
                                                 <button data-input-id="postalCode" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -254,7 +254,7 @@
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">آدرس</div>
                                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <textarea data-editable="false" id="launcherAddress" type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
+                                                <textarea data-editable="true" id="launcherAddress" type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
                                                 <button data-input-id="launcherAddress" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -279,7 +279,7 @@
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">وب سایت</div>
                                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="false" id="launcherSite" type="url" class="form-control" style="direction: rtl" placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
+                                                <input data-editable="true" id="launcherSite" type="url" class="form-control" style="direction: rtl" placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
                                                 <button data-input-id="launcherSite" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -291,7 +291,7 @@
                                         <div class=" py-1">
                                             <div class="fs-7 text-dark">پست الکترونیک</div>
                                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="false" onkeypress="return isEmail(event) || isNumber(event)" id="launcherEmail" type="text" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
+                                                <input data-editable="true" onkeypress="return isEmail(event) || isNumber(event)" id="launcherEmail" type="text" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
                                                 <button data-input-id="launcherEmail" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -336,11 +336,11 @@
                 <div class="remodal-content">
                     <div class="form-element-row mb-3">
                         <label class="label fs-7">نام</label>
-                        <input id="name" value="" type="text" class="form-control" placeholder="نام">
+                        <input data-editable="true" id="name" value="" type="text" class="form-control" placeholder="نام">
                     </div>
                     <div class="form-element-row">
                         <label class="label fs-7">نام خانوادگی</label>
-                        <input id="last" type="text" class="form-control" placeholder="نام خانوادگی">
+                        <input data-editable="true" id="last" type="text" class="form-control" placeholder="نام خانوادگی">
                     </div>
                 </div>
                 <div class="remodal-footer">
@@ -360,7 +360,7 @@
                         <div class="col-4">
                             <div class="form-element-row">
                                 <label class="label fs-7">سال</label>
-                                <input onkeypress="return isNumber(event)" minlength="4" maxlength="4" value="" id="Brithday_year" type="text" minlength="4" maxlength="10" class="form-control" placeholder="">
+                                <input data-editable="true" onkeypress="return isNumber(event)" minlength="4" maxlength="4" value="" id="Brithday_year" type="text" minlength="4" maxlength="10" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-4">
@@ -386,7 +386,7 @@
                         <div class="col-4">
                             <div class="form-element-row">
                                 <label class="label fs-7">روز</label>
-                                <input onkeypress="return isNumber(event)" minlength="2" maxlength="2" id="Brithday_day" value="" type="text" class="form-control" placeholder="">
+                                <input data-editable="true" onkeypress="return isNumber(event)" minlength="2" maxlength="2" id="Brithday_day" value="" type="text" class="form-control" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -405,7 +405,7 @@
                 </div>
                 <div class="remodal-content">
                     <div class="form-element-row mb-3">
-                        <input  onclick="" value="" type="text" class="form-control" disabled placeholder="انتخاب فایل">
+                        <input data-editable="true" onclick="" value="" type="text" class="form-control" disabled placeholder="انتخاب فایل">
                     </div>
                 </div>
                 <div class="remodal-footer">
@@ -471,7 +471,9 @@
             });
         }
         $(document).ready(function(){
-            
+            $('input').attr("data-editable", "true");
+            $('textarea').attr("data-editable", "true");
+            $('.toggle-editable-btn').addClass('hidden');
             var idx = 1;
             $(document).on('click', '.remove-tel-btn', function () { 
                 let id = $(this).attr('data-id');
@@ -610,9 +612,9 @@
                     return;
                 }
                 let required_list = ['name', 'last','nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail'];
-                // if(!checkInputs(required_list)){
-                //     return;
-                // }
+                if(!checkInputs(required_list)){
+                    return;
+                }
 
                 $(".showPenEdit").removeClass('hidden')
                 if (userEmail == null || userEmail == undefined){
@@ -694,9 +696,15 @@
                 type: 'get',
                 url: '{{ route('launcher.show', ['launcher' => $formId]) }}',
                 success: function (res) {
+                    $('input').attr("data-editable", "false");
+                    $('textarea').attr("data-editable", "false");
+                    $('.toggle-editable-btn').removeClass('hidden');
+                    $('#name').attr("data-editable", "true");
+                    $('#last').attr("data-editable", "true");
+                    $('#Brithday_year').attr("data-editable", "true");
+                    $('#Brithday_day').attr("data-editable", "true");
                     x = res.data.launcher_x;
                     y = res.data.launcher_y;
-                    $(".showPenEdit").removeClass('hidden');
                     $('#name').val(res.data.first_name);
                     $('#last').val(res.data.last_name);
                     $('.setName').val(res.data.first_name + ' ' + res.data.last_name)

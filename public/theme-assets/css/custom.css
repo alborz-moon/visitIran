@@ -1988,21 +1988,6 @@ figure .ck-widget {
     font-weight: 500;
     font-size: 14px;
 }
-.dropzone {
-    min-height: 196px;
-    border: 2px dashed #e1e1e1;
-    background: #fbfbfb;
-    padding: 20px 20px;
-    border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 20px;
-    -o-border-radius: 20px;
-}
-.dropzone .dz-message {
-    text-align: center;
-    margin: 4em 0;
-}
 .show-more,
 .show-less,
 .link {
