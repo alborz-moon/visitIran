@@ -193,8 +193,10 @@
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <select id="companyType" class="select2 selectStyle">
                                                     <option value="0" selected>انتخاب کنید</option>
-                                                    <option value="card">نوع شرکت</option>
-                                                    <option value="table">نوع شرکت 2</option>
+                                                    <option value="art">موسسه فرهنگی و هنری</option>
+                                                    <option value="taxi">آژانس</option>
+                                                    <option value="spic">سهامی خاص</option>
+                                                    <option value="om">سهامی عام</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -701,7 +703,6 @@
                     $('#phone').val(res.data.phone);
                     $("#postalCode").val(res.data.postal_code);
                    
-                    
                     if(res.data.launcher_type == "hoghoghi") {
                         $("#companyName").val(res.data.company_name);
                         $("#code").val(res.data.code);

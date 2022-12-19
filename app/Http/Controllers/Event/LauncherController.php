@@ -43,9 +43,8 @@ class LauncherController extends Controller
      */
     public function showFiles(Request $request, Launcher $launcher)
     {
-        
-        if($request->user()->id != $launcher->user_id)
-            return abort(401);
+
+        Gate::authorize('update', $launcher);
 
         return response()->json([
             'status' => 'ok',
