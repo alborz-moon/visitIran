@@ -610,10 +610,9 @@
                     return;
                 }
                 let required_list = ['name', 'last','nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail'];
-                if(!checkInputs(required_list)){
-                    alert("Ds");
-                    return;
-                }
+                // if(!checkInputs(required_list)){
+                //     return;
+                // }
 
                 $(".showPenEdit").removeClass('hidden')
                 if (userEmail == null || userEmail == undefined){

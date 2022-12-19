@@ -65,7 +65,10 @@ Route::prefix('event/{event}')->group(function() {
 
 Route::resource('event.sessions', EventSessionController::class)->except('create', 'edit', 'update', 'destroy')->shallow();
 
-Route::resource('event.galleries', EventGalleryController::class)->only('index', 'store', 'destroy')->shallow();
+Route::resource('event.galleries', EventGalleryController::class)->only('index', 'store')->shallow();
+
+Route::delete('event/galleries/{gallery?}', [EventGalleryController::class, 'destroy'])->name('event.galleries.destroy');
+
 
 Route::delete('eventSession/{eventSession?}', [EventSessionController::class, 'destroy'])->name('sessions.destroy');
 

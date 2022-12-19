@@ -61,7 +61,7 @@ function checkSelect(required_list_Select) {
 
     required_list_Select.forEach((elem) => {
         let tmpVal = $("#" + elem).val();
-        if (tmpVal.length == 0) {
+        if (tmpVal === undefined || tmpVal === null || tmpVal.length == 0) {
             $("#select2-" + elem + "-container").addClass("errEmpty");
             isValid = false;
         } else if (tmpVal.length > 0) {

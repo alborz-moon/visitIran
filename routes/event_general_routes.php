@@ -46,6 +46,8 @@ Route::middleware(['myAuth'])->group(function() {
 
         Route::post('/launcher_bank_accounts/{launcher_bank?}', [LauncherBankAccountsController::class, 'update'])->name('launcher_bank_accounts.update');
     
+        Route::delete('/{launcher}/certificate', [LauncherController::class, 'removeFile'])->name('launcher.cert.destroy');
+
         Route::delete('/launcher_bank_accounts/{launcher_bank?}', [LauncherBankAccountsController::class, 'destroy'])->name('launcher_bank_accounts.destroy');
 
     });
