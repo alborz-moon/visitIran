@@ -13,10 +13,24 @@
 @stop
 
 @section('content')
-        <main class="page-content TopParentBannerMoveOnTop">
+    <main class="page-content TopParentBannerMoveOnTop">
+
+        <style>
+            .dark {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 100000;
+                background-color: #cccccc67;
+            }
+        </style>
+        <div class="dark hidden"></div>
+        
         <div class="container">
             <div class="row mb-5">
-                @include('event.launcher.launcher-menu')     
+                @include('event.launcher.launcher-menu')
                     <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="alert alert-warning alert-dismissible fade show mb-5 d-flex align-items-center spaceBetween" role="alert">
                             <div>
@@ -31,14 +45,14 @@
 
                                     @include('event.launcher.dropZone', [
                                         'label' => 'بارگذاری فایل روزنامه تاسیس',
-                                        'key' => 'company_newspaper',
-                                        'camelKey' => 'companyNewspaper',
+                                        'key' => 'company_newspaper_file',
+                                        'camelKey' => 'companyNewspaperFile',
                                     ])
                                     
                                     @include('event.launcher.dropZone', [
                                         'label' => 'بارگذاری فایل آخرین تغییرات',
-                                        'key' => 'company_last_changes',
-                                        'camelKey' => 'companyLastChanges',
+                                        'key' => 'company_last_changes_file',
+                                        'camelKey' => 'companyLastChangesFile',
                                     ])
 
                                     @include('event.launcher.dropZone', [
@@ -158,7 +172,29 @@
             </div>
             
         <!-- end of personal-info-fullname-modal -->
+
+
+        <!-- start of personal-info-fullname-modal -->
+        <div class="remodal remodal-xl" data-remodal-id="dropZoneModal"
+            data-remodal-options="hashTracking: false">
+            <div class="remodal-header">
+                <div class="remodal-title">ویرایش عکس</div>
+                <button data-remodal-action="close" class="remodal-close"></button>
+            </div>
+            <div class="remodal-content">
+                <div id="dropZoneModalDropZoneContainer" class="form-element-row mb-3">
+                    
+                </div>
+            </div>
+            <div class="remodal-footer">
+                <button data-remodal-action="close" class="btn btn-sm btn-primary px-3">بستن</button>
+            </div>
+        </div>
+        <!-- end of personal-info-fullname-modal -->
+
+
     </main>
+
 
 @stop
 
@@ -172,68 +208,6 @@
 
         let updateLauncherURL = "{{ route('launcher.update',['launcher' => $formId])  }}";
         let csrf_field = '{{csrf_field()}}';
-
-        function createDropZone(mode, parent) {
-
-            let html = '<div class="uploadBody">';
-            html += '<div class="uploadBorder">';
-            html += '<div class="uploadBodyBox">';
-            html += '<form id=' + mode + ' action="' + updateLauncherURL + '" class="dropzone uploadBox">';
-            html += csrf_field;
-            html += '</form>';
-            html += '</div>';
-            html += '</div>';
-            html += '</div>';
-
-            $("#" + parent).append(html);
-
-            let myDropZone = null;
-            let camel = null;
-if(mode === 'last_changes') {
-                // myDropZone = Dropzone.options.lastChanges;
-                camel = "LastChanges";
-            }
-            
-
-            setTimeout(() => {
-            
-            Dropzone.options.lastChanges = {
-                paramName: "company_" + mode + "_file",
-                maxFilesize: 2, // MB
-                timeout: 180000,
-                parallelUploads: 1,
-                chunking: false,
-                forceChunking: false,
-                maxFiles: 1,
-                acceptedFiles: ".jpeg,.jpg,.png,.gif",
-                accept: function(file, done) {
-                    done();
-                },
-                init: function () {
-                    this.hiddenFileInput.removeAttribute('multiple');
-                    
-                    this.on("success", function (file) {
-                        uploadedFiles.push({
-                            name: file.name,
-                            id: mode
-                        });
-                        
-                        $(".dz-message").removeClass('block');
-                        showSuccess('فایل شما با موفقیت آپلود شد');
-                        $("#company" + camel).remove();
-                    });
-                }
-            };
-    
-            }, 2000);
-            
-        }
-
-        $(document).on('click', '.editUploadedImgBtn', function () { 
-
-            $(this).attr('data-mode');
-
-        });
 
         $(document).ready(function() {
 
@@ -254,32 +228,38 @@ if(mode === 'last_changes') {
                         if (res.data.company_last_changes.length !== 0) {
                             html += '<div data-remodal-target="companyLastChangesShow" class="square cursorPointer position-relative">';
                             html += '<img class="w-100 h-100 objectfitCover" src="' + res.data.company_last_changes + '">';
-                            html += '<i data-id="last_changes" class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
                             html += '</div>';
-                            $("#companyLastChanges").empty().append(html);
-                            $("#lastChangeEditBtn").removeClass('hidden');
+                            $("#drop_zone_container_company_last_changes_file").addClass('hidden');
+                            $("#gallery_container_company_last_changes_file").append(html);
+                            $("#edit_btn_company_last_changes_file").removeClass('hidden');
                             $('#companyLastChangesImg').empty().append('<img class="w-100 h-100 objectFitCover" src="' + res.data.company_last_changes + '" alt="">');
                         }else {
                             $('#companyLastChanges').addClass('hidden');
-                            createDropZone("last_changes", 'lastChangesParentDIV');
+                            $("#gallery_container_company_last_changes_file").remove();
                         }
                         if (res.data.company_newspaper.length !== 0 ){
                             companyNewspaper += '<div data-remodal-target="companyNewspaperShow" class="square cursorPointer position-relative">';
                             companyNewspaper += '<img class="w-100 h-100 objectfitCover" src="' + res.data.company_newspaper + '">';
                             companyNewspaper +='</div>';
-                            $("#companyNewspaper").empty().append(companyNewspaper);
+                            $("#drop_zone_container_company_newspaper_file").addClass('hidden');
+                            $("#gallery_container_company_newspaper_file").append(companyNewspaper);
+                            $("#edit_btn_company_newspaper_file").removeClass('hidden');
                             $('#companyNewspaperImg').empty().append('<img class="w-100 h-100 objectFitCover" src="' + res.data.company_newspaper + '" alt="">');
                         }else{
                             $('#companyNewspaper').addClass('hidden');
+                            $("#gallery_container_company_newspaper_file").remove();
                         }
                         if (res.data.user_NID_card.length !== 0 ){
                             userNIDCard += '<div data-remodal-target="userNIDCardShow" class="square cursorPointer position-relative">';
                             userNIDCard += '<img class="w-100 h-100 objectfitCover" src="' + res.data.user_NID_card + '" alt="">';
                             userNIDCard += '</div>';
-                            $("#gallery_container_user_nid_card_file").empty().append(userNIDCard);
+                            $("#drop_zone_container_user_nid_card_file").addClass('hidden');
+                            $("#gallery_container_user_nid_card_file").append(userNIDCard);
+                            $("#edit_btn_user_nid_card_file").removeClass('hidden');
                             $('#userNIDCardImg').empty().append('<img class="w-100 h-100 objectFitCover" src="' + res.data.user_NID_card + '" alt="">');
                         }else{
                             $('#userNIDCard').addClass('hidden');
+                            $("#gallery_container_user_nid_card_file").remove();
                         }
                         if (res.data.certifications.length !== 0 ){
                             for(var i = 0; i < res.data.certifications.length; i++ ){                                 
@@ -303,33 +283,33 @@ if(mode === 'last_changes') {
 
         let uploadedFiles = [];
 
-        Dropzone.options.newspaperForm = {
-            paramName: "company_newspaper_file", // The name that will be used to transfer the file
-            maxFilesize: 2, // MB
-            timeout: 180000,
-            parallelUploads: 1,
-            chunking: false,
-            forceChunking: false,
-            uploadMultiple: false,
-            maxFiles: 1,
-            acceptedFiles: ".jpeg,.jpg,.png,.gif",
-            accept: function(file, done) {
-                done();
-            },
-            init: function () {
-                this.hiddenFileInput.removeAttribute('multiple');
-                this.on("success", function (file) {
-                    uploadedFiles.push({
-                        name: file.name,
-                        id: 'news_paper'
-                    });
+        // Dropzone.options.newspaperForm = {
+        //     paramName: "company_newspaper_file", // The name that will be used to transfer the file
+        //     maxFilesize: 2, // MB
+        //     timeout: 180000,
+        //     parallelUploads: 1,
+        //     chunking: false,
+        //     forceChunking: false,
+        //     uploadMultiple: false,
+        //     maxFiles: 1,
+        //     acceptedFiles: ".jpeg,.jpg,.png,.gif",
+        //     accept: function(file, done) {
+        //         done();
+        //     },
+        //     init: function () {
+        //         this.hiddenFileInput.removeAttribute('multiple');
+        //         this.on("success", function (file) {
+        //             uploadedFiles.push({
+        //                 name: file.name,
+        //                 id: 'news_paper'
+        //             });
                     
-                    $(".dz-message").removeClass('block');
-                    showSuccess('فایل شما با موفقیت آپلود شد');
-                    $("#companyNewspaper").remove();
-                });
-            }
-        };
+        //             $(".dz-message").removeClass('block');
+        //             showSuccess('فایل شما با موفقیت آپلود شد');
+        //             $("#companyNewspaper").remove();
+        //         });
+        //     }
+        // };
 
         Dropzone.options.permisionForm = {
             paramName: "img_file", // The name that will be used to transfer the file
@@ -385,34 +365,34 @@ if(mode === 'last_changes') {
             }
         };
 
-        Dropzone.options.nidForm = {
-            paramName: "user_NID_card_file", // The name that will be used to transfer the file
-            maxFilesize: 2, // MB
-            timeout: 180000,
-            parallelUploads: 1,
-            chunking: false,
-            forceChunking: false,
-            uploadMultiple: false,
-            maxFiles: 1,
-            acceptedFiles: ".jpeg,.jpg,.png,.gif",
-            accept: function(file, done) {
-                done();
-            },
-            init: function () {
-                this.hiddenFileInput.removeAttribute('multiple');
-                this.on("success", function (file) {
+        // Dropzone.options.nidForm = {
+        //     paramName: "user_NID_card_file", // The name that will be used to transfer the file
+        //     maxFilesize: 2, // MB
+        //     timeout: 180000,
+        //     parallelUploads: 1,
+        //     chunking: false,
+        //     forceChunking: false,
+        //     uploadMultiple: false,
+        //     maxFiles: 1,
+        //     acceptedFiles: ".jpeg,.jpg,.png,.gif",
+        //     accept: function(file, done) {
+        //         done();
+        //     },
+        //     init: function () {
+        //         this.hiddenFileInput.removeAttribute('multiple');
+        //         this.on("success", function (file) {
                     
-                    uploadedFiles.push({
-                        name: file.name,
-                        id: 'NID'
-                    });
+        //             uploadedFiles.push({
+        //                 name: file.name,
+        //                 id: 'NID'
+        //             });
                     
-                    $(".dz-message").removeClass('block');
-                    showSuccess('فایل شما با موفقیت آپلود شد');
-                    $("#userNIDCard").remove();
-                });
-            }
-        };
+        //             $(".dz-message").removeClass('block');
+        //             showSuccess('فایل شما با موفقیت آپلود شد');
+        //             $("#userNIDCard").remove();
+        //         });
+        //     }
+        // };
 
         $(document).on('click', ".icon-visit-uploaded-delete", function() {
             

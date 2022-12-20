@@ -21,8 +21,10 @@ class LauncherResourceAdmin extends JsonResource
             'id' => $this->id,
             'created_at' => Controller::getPersianDate($this->created_at),
             'user' => [
-                'name' => $user->first_name . ' ' . $user->last_name,
-                'phone' => $user->phone,
+                // 'name' => $user->first_name . ' ' . $user->last_name,
+                // 'phone' => $user->phone,
+                'name' => '',
+                'phone' => '',
             ],
             'type' => $this->launcher_type,
             'status' => $this->status,
