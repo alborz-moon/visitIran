@@ -26,13 +26,36 @@
             </div>
         </div>
     </div>
+    <div id="parentSearchMobile" class="pt-4">
+        <button id="closeSearch" type="button" class="btn-close customCloseIconBanner p-0 position-absolute l-0 hidden zIndex1"></button>
+        
+        <div id="container-search" class="search-container p-2 hidden">
+        <form action="#" class="search-form">
+          <input min="3" id="searchInput" type="text" class="form-control search-field marginLeft48 searchInput" placeholder="جستجو کنید..">
+        </form>
+        @if(isset($top_categories))
+          <div id="hiddenCat" class="d-flex flexWrap gap10 my-3 hidden">
+            @foreach ($top_categories as $cat)
+              <div class="d-flex noWrap">
+                <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal whiteSpaceNoWrap">
+                    {{ $cat['name'] }}
+                </a>
+            </div>  
+            @endforeach
+          </div>
+        @endif
+        <hr>
+        <div id="searchDetails" class="searchDetails">
+        </div>
+        </div>
+    </div>
 <!-- end of personal-info-fullname-modal -->
 <script>
     $('.searchInput').on('keyup',function(){
         if (this.value.length > 2){
           $.ajax({
              type: 'post',
-             url: '{{ route('product-search') }}',
+             url:  '{{ $route }}' ,
              data: {
                 key: this.value,
                 return_type: 'card' 
@@ -59,5 +82,21 @@
          });
         }
         $('#searchBtn').css('display','flex');
+    });
+    $('#searchMobile').on('click',function(){
+        $('#closeSearch').removeClass('hidden');
+        $('#hiddenCat').removeClass('hidden');
+        $('#parentSearchMobile').addClass('search-mobile').css('bottom','0');
+        $('#searchMobile').removeClass('hidden');
+        $('#container-search').removeClass('hidden');
+        $('body').css('overflow','hidden');
+    });
+    $('#closeSearch').on('click',function(){
+        $('#closeSearch').addClass('hidden');
+        $('#hiddenCat').addClass('hidden');
+        $('#container-search').addClass('hidden');
+        $('#parentSearchMobile').addClass('search-mobile').css('bottom','-100%');
+        $('body').css('overflow','auto');
+        // $('#searchMobile').addClass('hidden');
     });
 </script>

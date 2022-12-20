@@ -199,30 +199,7 @@
         <header class="page-header-responsive d-md-none p-0">
             {{-- @include('layouts.top-banner') --}}
             <!-- start banner -->
-            <div id="parentSearchMobile">
-                <button id="closeSearch" type="button" class="btn-close customCloseIconBanner p-0 position-absolute l-0 hidden zIndex1"></button>
-                
-                <div id="container-search" class="search-container p-2 hidden">
-                <form action="#" class="search-form">
-                  <input min="3" id="searchInput" type="text" class="form-control search-field marginLeft48 searchInput" placeholder="جستجو کنید..">
-                </form>
-                @if(isset($top_categories))
-                  <div id="hiddenCat" class="d-flex flexwrap gap10 my-3 hidden">
-                    @foreach ($top_categories as $cat)
-                      <div class="d-flex noWrap">
-                        <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal whiteSpaceNoWrap">
-                            {{ $cat['name'] }}
-                        </a>
-                    </div>  
-                    @endforeach
-                  </div>
-                @endif
-                <hr>
-                <div id="searchDetails" class="searchDetails">
-                </div>
 
-                </div>
-            </div>
             <div class="alert banner-container alert-dismissible fade show showTopBanner hidden" role="alert" id="topBanner">
                 <a href="#" target="_blank" id="" class="banner-placement rounded-0 infobox"
                     style="height: 60px;"></a>
@@ -289,25 +266,6 @@
                                 </div>
                             </div>
                         </button>
-                        <script>
-                            $('#searchMobile').on('click',function(){
-                                $('#closeSearch').removeClass('hidden');
-                                $('#hiddenCat').removeClass('hidden');
-                                $('#parentSearchMobile').addClass('search-mobile').css('bottom','0');
-                                $('#searchMobile').removeClass('hidden');
-                                $('#container-search').removeClass('hidden');
-                                $('body').css('overflow','hidden');
-                            });
-                            $('#closeSearch').on('click',function(){
-                                $('#closeSearch').addClass('hidden');
-                                $('#hiddenCat').addClass('hidden');
-                                $('#container-search').addClass('hidden');
-                                $('#parentSearchMobile').addClass('search-mobile').css('bottom','-100%');
-                                $('body').css('overflow','auto');
-                                // $('#searchMobile').addClass('hidden');
-                            });
-
-                        </script>
                         <a href="" class="d-flex b-0 m-0 p-0">
                             <div class="menuCircle">
                                 <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
@@ -328,8 +286,8 @@
                 </div>
             </div>
         </div>
-        
-        @include('shop.layouts.modal-search')
+        {{-- route('product-search') --}}
+        @include('layouts.modal-search', ['route'=>  route('event-search')])
         <div class="hidden" id="sample-mini-cart-products">
             @include('shop.product.mini_card')
         </div>
