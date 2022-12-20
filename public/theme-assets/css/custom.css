@@ -320,7 +320,8 @@ ul {
 .haveValue:focus-visible,
 .haveValue:active,
 .haveValue:visited,
-.haveValue:focus-within .haveValue:target {
+.haveValue:focus-within,
+.haveValue:target {
     background-color: #e6e5e5 !important;
     color: #212121;
 }

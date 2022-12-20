@@ -88,19 +88,19 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                                     data-title="اطلاعات کلی"></span></a>
                         </li>
                         <li>
-                            <a
-                                href="{{ isset($id) ? route('addSessionsInfo', ['event' => $id]) : route('addSessionsInfo') }}"><span
-                                    class="checkout-step-title" data-title="زمان برگزاری"></span></a>
+                            <a href="{{ isset($id) ? route('addSessionsInfo', ['event' => $id]) : route('addSessionsInfo') }}">
+                                <span class="checkout-step-title" data-title="زمان برگزاری"></span>
+                            </a>
                         </li>
                         <li>
-                            <a
-                                href="{{ isset($id) ? route('addPhase2Info', ['event' => $id]) : route('addPhase2Info') }}"><span
-                                    class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
+                            <a href="{{ isset($id) ? route('addPhase2Info', ['event' => $id]) : route('addPhase2Info') }}">
+                                <span class="checkout-step-title" data-title="ثبت نام و تماس"></span>
+                            </a>
                         </li>
                         <li>
-                            <a
-                                href="{{ isset($id) ? route('addGalleryToEvent', ['event' => $id]) : route('addGalleryToEvent') }}"><span
-                                    class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
+                            <a href="{{ isset($id) ? route('addGalleryToEvent', ['event' => $id]) : route('addGalleryToEvent') }}">
+                                <span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span>
+                            </a>
                         </li>
                     </ul>
                     <a href="#" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
@@ -140,6 +140,7 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                                     <div class="fs-7 text-dark">سطح برگزاری</div>
                                     <div class="d-flex align-items-center justify-content-between">
                                         <select id="level" class="select2 w-100">
+                                            <option value="0">انتخاب کنید</option>
                                             <option value="national">ملی</option>
                                             <option value="state">استانی</option>
                                             <option value="local">محلی</option>
@@ -183,8 +184,11 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                     </div>
                 </div>
                 <div class="ui-box bg-white mb-5 boxShadow">
-                    <div class="ui-box-title">امکانات ویژه <span class="fontSize12 mx-2 fontNormal">از موارد زیر انتخاب
-                            کنید</span></div>
+                    <div class="ui-box-title">امکانات ویژه 
+                        <span class="fontSize12 mx-2 fontNormal">
+                        از موارد زیر انتخاب کنید
+                        </span>
+                    </div>
                     <div class="ui-box-content">
                         <div class="row">
                             <div class="col-lg-12 mb-3">
@@ -543,7 +547,6 @@ $.ajax({
             tagsList = res.data;
 
             if (res.data.length != 0) {
-
                 eventTag += '<option value="0">انتخاب کنید</option>';
 
                 for (var i = 0; i < res.data.length; i++)
@@ -588,7 +591,6 @@ $("#nextBtn").on('click', function() {
     var state = $('#state02').val();
     var city = $('#city02').val();
     var postalCode = $('#postalCode').val();
-
     var address = $('#address').val();
     var link = $('#link').val();
     $('input[name=facility]').each(function() {
@@ -596,6 +598,12 @@ $("#nextBtn").on('click', function() {
             selectedFacility.push($(this).attr('id'));
         }
     });
+
+    var required_list = ['eventName', 'postalCode' , 'link']
+    checkInputs(required_list);
+    
+    var required_list_Select = ['ageCondi' , 'level', 'state02', 'onlineOrOffline'];
+    checkSelect(required_list_Select);
 
     let data = {
         title: eventName,

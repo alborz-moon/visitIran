@@ -64,7 +64,9 @@ function checkSelect(required_list_Select) {
         if (tmpVal === undefined || tmpVal === null || tmpVal.length == 0) {
             $("#select2-" + elem + "-container").addClass("errEmpty");
             isValid = false;
+            alert(tmpVal);
         } else if (tmpVal.length > 0) {
+            alert(tmpVal);
             $("#select2-" + elem + "-container")
                 .addClass("haveValue")
                 .addClass("borderRadius15")
