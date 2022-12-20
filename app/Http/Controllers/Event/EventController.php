@@ -186,8 +186,10 @@ class EventController extends EventHelper
 
         
         // if($request['return_type'] == 'digest')
-            return EventUserDigest::collection($events)->toArray($request);
-        
+            return response()->json([
+                'status' => 'ok',
+                'data' => EventUserDigest::collection($events)->toArray($request)
+            ]);
         // return response()->json([
         //     'status' => 'ok',
         //     'data' => ProductDigestUser::collection($products)->toArray($request)

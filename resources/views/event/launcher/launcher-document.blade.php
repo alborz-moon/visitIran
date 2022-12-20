@@ -14,18 +14,6 @@
 
 @section('content')
     <main class="page-content TopParentBannerMoveOnTop">
-
-        <style>
-            .dark {
-                position: fixed;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 100000;
-                background-color: #cccccc67;
-            }
-        </style>
         <div class="dark hidden"></div>
         
         <div class="container">

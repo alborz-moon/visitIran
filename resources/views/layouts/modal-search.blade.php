@@ -13,12 +13,17 @@
             </button>
             
             @if(isset($top_categories))
-              <div class="d-flex flexwrap gap10 my-3">
-                @foreach ($top_categories as $cat)
-                  <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal">
-                    {{ $cat['name'] }}
-                  </a>  
-                @endforeach
+              <div class="d-flex flexWrap gap10 my-3">
+                  <div id="defaultCatgories">
+                    @foreach ($top_categories as $cat)
+                      <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal">
+                        {{ $cat['name'] }}
+                      </a>
+                    @endforeach
+                  </div>
+                  <div class="d-flex afterCatgories">
+
+                  </div>
               </div>
             @endif
             <hr>
@@ -28,20 +33,24 @@
     </div>
     <div id="parentSearchMobile" class="pt-4">
         <button id="closeSearch" type="button" class="btn-close customCloseIconBanner p-0 position-absolute l-0 hidden zIndex1"></button>
-        
         <div id="container-search" class="search-container p-2 hidden">
         <form action="#" class="search-form">
           <input min="3" id="searchInput" type="text" class="form-control search-field marginLeft48 searchInput" placeholder="جستجو کنید..">
         </form>
         @if(isset($top_categories))
           <div id="hiddenCat" class="d-flex flexWrap gap10 my-3 hidden">
-            @foreach ($top_categories as $cat)
-              <div class="d-flex noWrap">
-                <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal whiteSpaceNoWrap">
-                    {{ $cat['name'] }}
-                </a>
-            </div>  
-            @endforeach
+            <div id="defaultCatgoriesMobile">
+              @foreach ($top_categories as $cat)
+                <div class="d-flex noWrap">
+                  <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal whiteSpaceNoWrap">
+                      {{ $cat['name'] }}
+                  </a>
+                </div>  
+              @endforeach
+            </div>
+            <div class="d-flex afterCatgories">
+
+            </div>
           </div>
         @endif
         <hr>
@@ -62,11 +71,10 @@
              },
              success: function(res) {
                 var html= "";
-                
+                $('#defaultCatgories').addClass('hidden');
                 if(res.status === "ok") {
                   if (res.data.length != 0){
                     for (var i = 0; i < res.data.length; i++){
-                      
                       html += '<div class="d-flex my-2 padding15">';
                       html += '<div class="icon-visit-search fontSize15 padding5"></div>';
                       html += '<div class="d-flex flexDirectionColumn">';
@@ -81,8 +89,27 @@
              }
          });
         }
+        $.ajax({
+          type: 'post',
+          url:  '{{ route('category-search') }}' ,
+          data: {
+             key: this.value,
+          },
+          success: function(res) {
+            var html= "";
+            if(res.status === "ok") {
+               if(res.data.length != 0){
+                 for(var i = 0; i < res.data.length; i++) {
+                     html += '<a href="' + res.data[i].href + '" class="btn btn-search-modal whiteSpaceNoWrap">' + res.data[i].name + '</a>';
+                 }
+               }
+            }
+            $(".afterCatgories").empty().append(html);
+          }
+      });
         $('#searchBtn').css('display','flex');
     });
+
     $('#searchMobile').on('click',function(){
         $('#closeSearch').removeClass('hidden');
         $('#hiddenCat').removeClass('hidden');
@@ -97,6 +124,5 @@
         $('#container-search').addClass('hidden');
         $('#parentSearchMobile').addClass('search-mobile').css('bottom','-100%');
         $('body').css('overflow','auto');
-        // $('#searchMobile').addClass('hidden');
     });
 </script>

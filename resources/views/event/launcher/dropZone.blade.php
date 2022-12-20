@@ -1,16 +1,5 @@
 <style>
 
-    .myModal {
-        position: fixed;
-        z-index: 1000000000;
-        top: 40%;
-        left: 20%;
-        width: 60%;
-        padding: 40px;
-        background-color: white;
-        border: 1px solid;
-    }
-
 </style>
 
 <div id="drop_zone_parent_{{ $key }}" class="col-lg-6 mb-3 zIndex0">
@@ -51,7 +40,7 @@
 
     function show_modal(key) {
         $("#drop_zone_parent_" + key).removeClass('zIndex0');
-        $("#drop_zone_container_" + key).append('<button id="close_my_modal_' + key + '" onclick="closeMyModal(\'' + key + '\')">انصراف</button>').addClass('myModal').removeClass('hidden');
+        $("#drop_zone_container_" + key).append('<button class="btn btn-primary mt-2 floatLeft" id="close_my_modal_' + key + '" onclick="closeMyModal(\'' + key + '\')">انصراف</button>').addClass('myModal b-0').removeClass('hidden');
         $(".dark").removeClass('hidden');
     }
 

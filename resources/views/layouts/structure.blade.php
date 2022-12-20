@@ -196,7 +196,7 @@
             <!-- end of page-header-top -->
         </header>
         <!-- end of page-header -->
-        <header class="page-header-responsive d-md-none p-0">
+        <header class="page-header-responsive d-md-none p-0 zIndex2">
             {{-- @include('layouts.top-banner') --}}
             <!-- start banner -->
 
@@ -287,7 +287,7 @@
             </div>
         </div>
         {{-- route('product-search') --}}
-        @include('layouts.modal-search', ['route'=>  route('event-search')])
+        @include('layouts.modal-search', ['route'=> request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE ?  route('product-search')  : route('event-search')])
         <div class="hidden" id="sample-mini-cart-products">
             @include('shop.product.mini_card')
         </div>
