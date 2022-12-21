@@ -107,7 +107,7 @@
                             </div>
                             <div class="user-option user-option--account  paddingRight15 btnHover">
                                 @if(!Auth::check())
-                                    <a href="{{ route('login-register') }}" class="user-option-btn user-option-btn--account gap10 hoverGold textColor">
+                                    <a href="{{ route('login-register') }}" class="user-option-btn user-option-btn--account gap10 hoverGold textColor setLinkUrl">
                                         <i class="icon-visit-person customHeader"></i>ورود / ثبت نام
                                     </a>
                                 @else
@@ -196,7 +196,7 @@
             <!-- end of page-header-top -->
         </header>
         <!-- end of page-header -->
-        <header class="page-header-responsive d-md-none p-0 zIndex2">
+        <header class="page-header-responsive d-md-none p-0">
             {{-- @include('layouts.top-banner') --}}
             <!-- start banner -->
 
@@ -274,14 +274,25 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="" class="d-flex b-0 m-0 p-0">
-                            <div class="menuCircle">
-                                <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
-                                    <i class="icon-visit-person fontSize30 colorBlack"></i>
-                                    <div class="fontSize14 colorBlack whiteSpaceNoWrap">ورود/ثبت نام</div>
+                        @if(!Auth::check())
+                            <a href="{{ route('login-register') }}" class="d-flex b-0 m-0 p-0 setLinkUrl">
+                                <div class="menuCircle">
+                                    <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
+                                        <i class="icon-visit-person fontSize30 colorBlack"></i>
+                                        <div class="fontSize14 colorBlack whiteSpaceNoWrap">ورود/ثبت نام</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        @else
+                            <a href="{{ route('profile.personal-info') }}" class="d-flex b-0 m-0 p-0">
+                                <div class="menuCircle">
+                                    <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
+                                        <i class="icon-visit-person fontSize30 colorBlack"></i>
+                                        <div class="fontSize14 colorBlack whiteSpaceNoWrap">صفحه شخصی</div>
+                                    </div>
+                                </div>
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>

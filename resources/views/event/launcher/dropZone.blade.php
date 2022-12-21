@@ -1,13 +1,9 @@
-<style>
-
-</style>
-
 <div id="drop_zone_parent_{{ $key }}" class="col-lg-6 mb-3 zIndex0">
     <div class="d-flex spaceBetween justifyContentCenter">
         <div class="uploadTitleText">{{$label}}</div>
         {{-- data-remodal-target="dropZoneModal" --}}
         {{-- onclick="cloneElemToModal('{{ $key }}')" --}}
-        <button onclick="show_modal('{{ $key }}')" id="edit_btn_{{ $key }}" class="hidden colorBlue b-0 backgroundColorTransparent backgroundColorTransparent">ویرایش</button>
+        <button onclick="show_modal('{{ $key }}')" id="edit_btn_{{ $key }}" class="hidden colorBlue b-0 backgroundColorTransparent">ویرایش</button>
     </div>
     <div id="gallery_container_{{$key}}" class="boxGallery">
     </div>
@@ -16,12 +12,9 @@
         <div class="uploadBody">
             <div class="uploadBorder">
                 <div class="uploadBodyBox">
-                    
                     <form action="{{ route('launcher.update',['launcher' => $formId]) }}" class="dropzone uploadBox" id="{{$key}}">
                         {{csrf_field()}}
                     </form>
-                    {{-- <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
-                    <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div> --}}
                 </div>
             </div>
         </div>
@@ -60,12 +53,10 @@
         init: function () {
             this.hiddenFileInput.removeAttribute('multiple');
             this.on("success", function (file) {
-                
                 uploadedFiles.push({
                     name: file.name,
                     id: '{{$key}}'
                 });
-                
                 $(".dz-message").removeClass('block');
                 showSuccess('فایل شما با موفقیت آپلود شد');
                 $("#gallery_container_{{$key}}").remove();

@@ -48,7 +48,6 @@
                                         'key' => 'user_nid_card_file',
                                         'camelKey' => 'userNidCardFile',
                                     ])
-
                                     <hr>
                                     <div class="col-lg-12 mb-3 zIndex0">
                                          <div class="d-flex spaceBetween justifyContentCenter">

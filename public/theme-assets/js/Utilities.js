@@ -44,7 +44,9 @@ function checkInputs(required_list) {
     required_list.forEach((elem) => {
         let tmpVal = $("#" + elem).val();
         if (tmpVal.length == 0) {
-            $("#" + elem).addClass("errEmpty");
+            $("#" + elem)
+                .addClass("errEmpty")
+                .removeClass("haveValue");
             isValid = false;
         } else if (tmpVal.length > 0) {
             $("#" + elem)
@@ -61,18 +63,37 @@ function checkSelect(required_list_Select) {
 
     required_list_Select.forEach((elem) => {
         let tmpVal = $("#" + elem).val();
-        if (tmpVal === undefined || tmpVal === null || tmpVal.length == 0) {
-            $("#select2-" + elem + "-container").addClass("errEmpty");
+        if (tmpVal === undefined || tmpVal === null || tmpVal == 0) {
+            $("#select2-" + elem + "-container")
+                .addClass("errEmpty")
+                .removeClass("haveValue");
             isValid = false;
-            alert(tmpVal);
         } else if (tmpVal.length > 0) {
-            alert(tmpVal);
             $("#select2-" + elem + "-container")
                 .addClass("haveValue")
-                .addClass("borderRadius15")
                 .removeClass("errEmpty");
         }
     });
+
+    return isValid;
+}
+
+function checkArr(required_Arr, Arr) {
+    let isValid = true;
+
+    for (let i = 0; i < required_Arr.length; i++) {
+        let elem = required_Arr[i];
+        if (Arr[i].length == 0) {
+            $("#select2-" + elem + "-container")
+                .addClass("errEmpty")
+                .removeClass("haveValue");
+            isValid = false;
+        } else if (Arr[i].length > 0) {
+            $("#select2-" + elem + "-container")
+                .addClass("haveValue")
+                .removeClass("errEmpty");
+        }
+    }
 
     return isValid;
 }
@@ -101,4 +122,11 @@ $(document).ready(function () {
             $("#" + id).attr("data-editable", "true");
         else $("#" + id).attr("data-editable", "false");
     });
+    var url = location.href;
+    localStorage.setItem("url", url);
+    function loadOldUrl() {
+        location.href = localStorage.getItem("url");
+    }
+    //when button clicked
+    document.querySelector(".setLinkUrl").addEventListener("click", loadUrl);
 });

@@ -41,8 +41,10 @@
                                             <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
                                             <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between position-relative">
                                                 <input data-editable="true" id="nameLast" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
-                                                <button data-input-id="nameLast" class=" toggle-editable-btn btn btn-circle btn-outline-light"
-                                                    data-remodal-target="personal-info-fullname-modal"><i                                                       class="ri-ball-pen-fill"></i></button>
+                                                <button data-input-id="nameLast" class="toggle-editable-btn btn btn-circle btn-outline-light"
+                                                    data-remodal-target="personal-info-fullname-modal">
+                                                    <i class="ri-ball-pen-fill"></i>
+                                                </button>
                                             </div>
                                             <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
@@ -194,6 +196,7 @@
                                                 <select id="companyType" class="select2 selectStyle">
                                                     <option value="0" selected>انتخاب کنید</option>
                                                     <option value="art">موسسه فرهنگی و هنری</option>
+                                                    <option value="limit">مسئولیت محدود</option>
                                                     <option value="taxi">آژانس</option>
                                                     <option value="spic">سهامی خاص</option>
                                                     <option value="om">سهامی عام</option>
@@ -303,7 +306,7 @@
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">تلفن</div>
                                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input onkeypress="return isNumber(event)" minlength="7" maxlength="11" id="launcherPhone" type="text" class="form-control setEnter" style="direction: rtl" placeholder="تلفن">
+                                                <input data-editable="true" onkeypress="return isNumber(event)" minlength="7" maxlength="11" id="launcherPhone" type="text" class="form-control setEnter" style="direction: rtl" placeholder="تلفن">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -471,6 +474,7 @@
             });
         }
         $(document).ready(function(){
+            $('#launcherPhone').attr("data-editable", "true");
             $('input').attr("data-editable", "true");
             $('textarea').attr("data-editable", "true");
             $('.toggle-editable-btn').addClass('hidden');
@@ -608,14 +612,13 @@
 
 
                 let required_list_Select = ['launcherType', 'state02' , 'companyType'];
-                if(!checkSelect(required_list_Select)){
-                    return;
+                let required_list = ['nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail'];
+                let inputList = checkInputs(required_list);
+                let selectList = checkSelect(required_list_Select);  
+                if( !inputList || !selectList){
+                //    return
                 }
-                let required_list = ['name', 'last','nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail'];
-                if(!checkInputs(required_list)){
-                    return;
-                }
-
+                
                 $(".showPenEdit").removeClass('hidden')
                 if (userEmail == null || userEmail == undefined){
                     $('#userEmail').css('backgroundColor','red')
@@ -703,6 +706,7 @@
                     $('#last').attr("data-editable", "true");
                     $('#Brithday_year').attr("data-editable", "true");
                     $('#Brithday_day').attr("data-editable", "true");
+                    $('#launcherPhone').attr("data-editable", "true");
                     x = res.data.launcher_x;
                     y = res.data.launcher_y;
                     $('#name').val(res.data.first_name);
