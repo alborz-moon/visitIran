@@ -12,7 +12,7 @@
         <div class="uploadBody">
             <div class="uploadBorder">
                 <div class="uploadBodyBox">
-                    <form action="{{ route('launcher.update',['launcher' => $formId]) }}" class="dropzone uploadBox" id="{{$key}}">
+                    <form action="{{ $route }}" class="dropzone uploadBox" id="{{$key}}">
                         {{csrf_field()}}
                     </form>
                 </div>
@@ -45,7 +45,7 @@
         chunking: false,
         forceChunking: false,
         uploadMultiple: false,
-        maxFiles: 1,
+        maxFiles: '{{$maxFiles}}',
         acceptedFiles: ".jpeg,.jpg,.png,.gif",
         accept: function(file, done) {
             done();

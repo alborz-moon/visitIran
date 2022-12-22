@@ -442,6 +442,16 @@
                         $('.TopParentBannerMoveOnTop').addClass('marginTopMediaQuaryForSlider');
                         $('.StickyMenuMoveOnTop').addClass('stickyTop')
                     })
+                    // function setUrl() {
+                    //     var url = location.href;
+                    //     localStorage.setItem("url", url);
+                    // }
+                    // function loadOldUrl() {
+                    //     location.href = localStorage.getItem("url");
+                    // }
+                    // //when button clicked
+                    // $(".setLinkUrl").on("click", setUrl);
+                    // $("#comeBackLastPage").on("click", $(this).attr("href", loadOldUrl));
                 });
                 var width = window.innerWidth;
               $.ajax({

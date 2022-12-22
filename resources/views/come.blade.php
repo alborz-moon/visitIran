@@ -24,7 +24,8 @@
                     <a href='{{ route('profile.personal-info') }}' class="btn btn-block btn-primary mb-3"><i class="ri-user-6-fill me-2"></i> تکمیل حساب
                         کاربری</a>
                     <div class="text-center">
-                        <a href='{{ $is_in_event ? route('event.home') : route('home') }}' class="hoverBoldYellow colorYellow">بازگشت به صفحه‌ای که در آن بودید</a>
+                        {{-- {{ $is_in_event ? route('event.home') : route('home') }} --}}
+                        <a id="comeBackLastPage" href="" class="hoverBoldYellow colorYellow">بازگشت به صفحه‌ای که در آن بودید</a>
                     </div>
                 </div>
                 <!-- end of auth-box -->

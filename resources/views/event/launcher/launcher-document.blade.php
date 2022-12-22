@@ -35,23 +35,37 @@
                                         'label' => 'بارگذاری فایل روزنامه تاسیس',
                                         'key' => 'company_newspaper_file',
                                         'camelKey' => 'companyNewspaperFile',
+                                        'maxFiles' => 1,
+                                        'route' => route('launcher.update',['launcher' => $formId]),
                                     ])
                                     
                                     @include('event.launcher.dropZone', [
                                         'label' => 'بارگذاری فایل آخرین تغییرات',
                                         'key' => 'company_last_changes_file',
                                         'camelKey' => 'companyLastChangesFile',
+                                        'maxFiles' => 1,
+                                        'route' => route('launcher.update',['launcher' => $formId]),
                                     ])
 
                                     @include('event.launcher.dropZone', [
                                         'label' => 'بارگذاری فایل کارت ملی رابط',
                                         'key' => 'user_nid_card_file',
                                         'camelKey' => 'userNidCardFile',
+                                        'maxFiles' => 1,
+                                        'route' => route('launcher.update',['launcher' => $formId]),
                                     ])
                                     <hr>
-                                    <div class="col-lg-12 mb-3 zIndex0">
+                                    @include('event.launcher.dropZone', [
+                                        'label' => 'بارگذاری فایل مجوز - در صورت وجود',
+                                        'key' => 'permision-form',
+                                        'camelKey' => 'permisionForm',
+                                        'maxFiles' => 10,
+                                        'route' => route('launcher.launcher_certifications.store',['launcher' => $formId]),
+                                    ])
+                                    
+                                    {{-- <div class="col-lg-12 mb-3 zIndex0">
                                          <div class="d-flex spaceBetween justifyContentCenter">
-                                            <div class="uploadTitleText">بارگذاری فایل مجوز - در صورت وجود</div>
+                                            <div class="uploadTitleText"></div>
                                             <button class="colorBlue b-0 backgroundColorTransparent backgroundColorTransparent">ویرایش</ذ>
                                         </div>
                                         <div id="certifications" class="boxGallery">
@@ -62,12 +76,11 @@
                                                     <form id="permision-form" action="{{ route('launcher.launcher_certifications.store',['launcher' => $formId]) }}" class="dropzone uploadBox">
                                                         {{csrf_field()}}
                                                     </form>
-                                                    {{-- <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
-                                                    <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div> --}}
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
+
                                 </div>
                             <div class="d-flex justify-content-end">
                             {{-- onclick="window.location.href = '{{ route('finance') }}';" --}}

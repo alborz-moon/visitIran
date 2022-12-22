@@ -122,11 +122,4 @@ $(document).ready(function () {
             $("#" + id).attr("data-editable", "true");
         else $("#" + id).attr("data-editable", "false");
     });
-    var url = location.href;
-    localStorage.setItem("url", url);
-    function loadOldUrl() {
-        location.href = localStorage.getItem("url");
-    }
-    //when button clicked
-    document.querySelector(".setLinkUrl").addEventListener("click", loadUrl);
 });
