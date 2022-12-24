@@ -1564,6 +1564,9 @@ select:focus-visible {
     background-size: cover;
     object-fit: cover;
 }
+.custom-swiper-slide {
+    width: 680px !important;
+}
 .mx-n15 {
     margin-left: -15px;
     margin-right: -15px;
@@ -2100,10 +2103,11 @@ figure .ck-widget {
     .ui-sticky.ui-sticky-top {
         top: 0px;
     }
-}
-@media (max-width: 768px) {
     .responsive-sidebar {
         width: 84vw;
+    }
+    .custom-swiper-slide {
+        width: 100% !important;
     }
 }
 @media (min-width: 1201px) {

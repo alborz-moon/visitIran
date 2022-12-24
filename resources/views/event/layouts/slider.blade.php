@@ -3873,7 +3873,7 @@ else if (typeof define === 'function' && define.amd) {
 
                     var widths = $(document).ready().width();
                     var mySwiper = new EventSwiper ('.custom-swiper-container', {
-                        speed: 400,
+                        speed: 400, 
                         // spaceBetween: widths > 768 ? 50 : 0,
                         initialSlide: 0,
                         //truewrapper adoptsheight of active slide

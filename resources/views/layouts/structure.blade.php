@@ -76,6 +76,7 @@
                                     <i class="icon-visit-search customHeader textColor" data-remodal-target="search-modal"></i>
                                 </button>
                             </div>
+                            @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                             <div class="user-option user-option--cart customBorderLeft1">
                                 <a href="{{route('cart')}}" class="user-option-btn user-option-btn--cart">
                                     <i class="icon-visit-basket customHeader colorYellow customBasket"></i>
@@ -105,6 +106,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                             <div class="user-option user-option--account  paddingRight15 btnHover">
                                 @if(!Auth::check())
                                     <a href="{{ route('login-register') }}" class="user-option-btn user-option-btn--account gap10 hoverGold textColor setLinkUrl">
@@ -163,17 +165,32 @@
                             <li class="nav-item">
                                 <a class="custom-nav-link hoverBold1 colorWhite" href="{{ route('home') }}"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/home.svg') }}" alt="">صفحه اصلی</a>
                             </li>
+                            @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                             <li class="nav-item align-self-center">
                             <div class="vertical-menu minWidthUnset">
                             <a class="vertical-menu-btn p-0 m-0 colorWhite fontNormal cursorPointer hoverBold1"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt="">دسته بندی کالاها</a>
                             <div class="vertical-menu-items marginFromRightHeaderNegative custom-vertical-menu-items zIndex2 mt-10">
                                 @include('layouts.menu')
                             </div>
-                        </div>                            
-                    </li>
+                            </div>                            
+                            </li>
                             <li class="nav-item">
                                 <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="index-1.html"><img class="iconSvg customIconTag" src="{{ asset('theme-assets/images/svg/label.svg') }}" alt="">پیشنهاد های ویژه</a>
                             </li>
+                            @endif
+
+                            @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
+                            <li class="nav-item">
+                                <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('event.home') }}">رویداد ها</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('launcher') }}">برگزارکننده</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('create-event') }}">ایجاد رویداد</a>
+                            </li>
+                            @endif
+
                         </ul>
                     </div>
                 </div>
