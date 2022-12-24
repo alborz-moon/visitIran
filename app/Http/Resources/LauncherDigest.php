@@ -10,7 +10,7 @@ class LauncherDigest extends JsonResource
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+    * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
     {
@@ -18,6 +18,7 @@ class LauncherDigest extends JsonResource
             'id' => $this->id,
             'alt' => $this->alt,
             'img' => $this->img == null ? asset('storage/launchers/default.png') : asset('storage/launchers/' . $this->img),
+            'back_img' => $this->back_img == null ? asset('storage/launchers/default.png') : asset('storage/launchers/' . $this->back_img),
             'keywords' => $this->keywords,
             'seo_tags' => $this->seo_tags,
             'digest' => $this->digest,

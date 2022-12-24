@@ -26,6 +26,7 @@ class Launcher extends Model
         'postal_code',
         'code',
         'img',
+        'back_img',
         'alt',
         'keywords',
         'digest',

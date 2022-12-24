@@ -17,6 +17,8 @@ class LauncherFirstStepResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'img' => $this->img == null ? asset('storage/launchers/default.png') : asset('storage/launchers/' . $this->img),
+            'back_img' => $this->back_img == null ? asset('storage/launchers/default.png') : asset('storage/launchers/' . $this->back_img),
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'phone' => $this->phone,
