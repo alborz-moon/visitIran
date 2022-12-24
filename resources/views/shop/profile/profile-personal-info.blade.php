@@ -4,7 +4,7 @@
         <main class="page-content TopParentBannerMoveOnTop">
             <div class="container mt-3">
                 <div class="row mb-5">
-                    @include('shop.profile.layouts.profile_menu')
+                        @include('shop.profile.layouts.profile_menu')     
                     <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="ui-box bg-white mb-5">
                             <div class="ui-box-title">اطلاعات شخصی</div>

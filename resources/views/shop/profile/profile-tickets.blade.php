@@ -4,8 +4,8 @@
         <main class="page-content TopParentBannerMoveOnTop">
             <div class="container">
                 <div class="row mb-5">
-                    @include('shop.profile.layouts.profile_menu')
-                                        <div class="col-xl-9 col-lg-8 col-md-7">
+                            @include('shop.profile.layouts.profile_menu')     
+                        <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="ui-box bg-white mb-5 p-0">
                             <div class="ui-box-title align-items-center justify-content-between">
                                 تیکتهای شما

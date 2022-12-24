@@ -1580,12 +1580,12 @@ select:focus-visible {
     font-weight: 600 !important;
     color: #c59358 !important;
 }
-.heightAddressBox {
-    height: 210px !important;
-}
 .hoverBold:hover {
     font-weight: 600 !important;
     color: #0089b7 !important;
+}
+.afterContentNone::after {
+    content: "" !important;
 }
 figure .ck-widget {
     text-align: center !important;
@@ -2044,6 +2044,13 @@ figure .ck-widget {
         max-width: 1500px !important;
     }
 } */
+.page-header-responsive {
+    z-index: 3;
+}
+.heightAddressBox {
+    height: 210px !important;
+    min-width: 250px;
+}
 .select2-container {
     width: 100% !important;
 }

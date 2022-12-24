@@ -222,11 +222,21 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="navigation-body">
-                                <ul id="moblieMenu" class="menu">
-                                    @include('layouts.mobile-menu')
-                                </ul>
-                            </div>
+
+                            @if(Auth::check())
+                                <div class="navigation-body">
+                                    <ul id="moblieMenu" class="menu">
+                                        @include('layouts.mobile-menu')
+                                        @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
+                                            @include('event.launcher.launcher-menu')
+                                        @endif
+                                    </ul>
+                    
+                                    @include('shop.profile.layouts.profile_menu',['mobileMenu' => true])
+
+                                </div>
+                            @endif
+
                         </div>
                         <div class="navigation-overlay">
                             <div class="position-absolute t-0 l-0 ">
@@ -441,17 +451,15 @@
                         $('#SliderParent').addClass('marginTopMediaQuaryForSlider');
                         $('.TopParentBannerMoveOnTop').addClass('marginTopMediaQuaryForSlider');
                         $('.StickyMenuMoveOnTop').addClass('stickyTop')
-                    })
-                    // function setUrl() {
-                    //     var url = location.href;
-                    //     localStorage.setItem("url", url);
-                    // }
-                    // function loadOldUrl() {
-                    //     location.href = localStorage.getItem("url");
-                    // }
-                    // //when button clicked
-                    // $(".setLinkUrl").on("click", setUrl);
-                    // $("#comeBackLastPage").on("click", $(this).attr("href", loadOldUrl));
+                    });
+
+                    function setUrl() {
+                        localStorage.setItem("url", location.href);
+                    }
+
+                    //when button clicked
+                    $(".setLinkUrl").on("click", setUrl);
+                    
                 });
                 var width = window.innerWidth;
               $.ajax({

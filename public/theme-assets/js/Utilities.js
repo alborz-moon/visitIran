@@ -115,11 +115,21 @@ $(document).ready(function () {
             return false;
         }
     });
-
+    // function getMethodHaveDisabledInput() {
+    //     let id = $(this).attr("data-input-id");
+    //     if ($("#" + id).attr("data-editable") == "true") {
+    //         $("#" + id).attr("data-editable", "false");
+    //         $("#" + id).attr("disabled","disabled");
+    //     }
+    // }
     $(".toggle-editable-btn").on("click", function () {
         let id = $(this).attr("data-input-id");
-        if ($("#" + id).attr("data-editable") == "false")
+        if ($("#" + id).attr("data-editable") == "false") {
             $("#" + id).attr("data-editable", "true");
-        else $("#" + id).attr("data-editable", "false");
+            $("#" + id).removeAttr("disabled");
+        } else {
+            $("#" + id).attr("data-editable", "false");
+            $("#" + id).attr("disabled", "disabled");
+        }
     });
 });

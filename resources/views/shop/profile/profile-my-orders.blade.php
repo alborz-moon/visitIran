@@ -4,8 +4,8 @@
         <main class="page-content">
             <div class="container">
                 <div class="row mb-5">
-                    @include('shop.profile.layouts.profile_menu')
-                                        <div class="col-xl-9 col-lg-8 col-md-7">
+                        @include('shop.profile.layouts.profile_menu')     
+                    <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="ui-box bg-white">
                             <div class="ui-box-title">تاریخچه سفارشات</div>
                             <div class="ui-box-content">

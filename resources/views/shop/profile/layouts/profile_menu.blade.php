@@ -1,4 +1,4 @@
-<div class="col-xl-3 col-lg-4 col-md-5 mb-md-0 mb-3">
+<div class="col-xl-3 col-lg-4 col-md-5 mb-md-0 mb-3 {{ isset($mobileMenu) && $mobileMenu == 'true' ? '' : 'd-none d-md-block'}} ">
     <div class="ui-sticky ui-sticky-top">
         <div class="profile-user-info py-3 ui-box bg-white">
             <div class="profile-detail">
