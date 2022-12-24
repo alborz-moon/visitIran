@@ -1561,8 +1561,8 @@ select:focus-visible {
     width: 650px;
     height: 380px;
     overflow: hidden;
-    background-size: contain;
-    object-fit: contain;
+    background-size: cover;
+    object-fit: cover;
 }
 .mx-n15 {
     margin-left: -15px;
