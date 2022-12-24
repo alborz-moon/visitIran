@@ -55,26 +55,31 @@
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">گالری عکس</div>
                                 <div class="col-lg-12 mb-3 zIndex0">
+                                        <div class="d-flex spaceBetween justifyContentCenter">
+                                            <div class="uploadTitleText">بارگذاری عکس</div>
+                                            {{-- data-remodal-target="dropZoneModal" --}}
+                                            {{-- onclick="cloneElemToModal('{{ $key }}')" --}}
+                                            <button onclick="" class="colorBlue b-0 backgroundColorTransparent">ویرایش</button>
+                                        </div>
                                     <div id="certifications" class="boxGallery gap10">
                                         <div class="certificationsImg">
                                             
                                         </div>
                                     </div>
-                                    <div class="uploadBody">
+                                    <div id="eventGallery" class="uploadBody">
                                         <div class="uploadBorder">
-                                            <div class="uploadBodyBox">
-                                                <div class="uploadTitleText">بارگذاری فایل مجوز - در صورت وجود</div>
+                                            <div class="uploadBodyBox" style="padding-bottom: 50px">
                                                 <form id="gallery-form" action="{{route('event.galleries.store', ['event' => $id])}}" class="dropzone uploadBox">
                                                     {{csrf_field()}}
                                                 </form>
                                                 {{-- <div id="dropZoneErr" style="margin-top: 25px; font-size: 1.2em; color: red;" class="hidden">شما اجازه بارگذاری چنین فایلی را ندارید.</div>
                                                 <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div> --}}
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
                         </div>
-                        {{-- onclick="window.location.href = '{{ route('show-events') }}';"  --}}
                         <div class="spaceBetween mb-2">
                             <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
                             <button id="nextBtn" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
@@ -95,6 +100,9 @@
 @section('extraJS')
     @parent
     <script>
+        $(document).ready(function() {
+            $("")
+        });
         var datePickerOptions = {
             numberOfMonths: 1,
             showButtonPanel: true,
@@ -233,9 +241,7 @@
             },
             success: function(res) {
                 if(res.status === "ok") {
-                    if(res.data.length != 0) {
-                        
-                    }
+                    window.location.href = "{{isset($id) ? route('show-events', ['event' => $id]) : route('show-events') }}";
                 }
             }
         });
@@ -246,9 +252,10 @@
         type: 'get',
         url: '{{route('event.get_desc',['event' => $id])}}',
         success: function(res) {
+            $("#eventGallery").addClass("hidden");
+            
             if(res.status === "ok") {
                 $('#description').val(res.data)
-                res.data 
             }
         }
     });

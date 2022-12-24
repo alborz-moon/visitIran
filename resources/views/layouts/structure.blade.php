@@ -67,7 +67,11 @@
                             </div>
                             <div class="marginFromRightHeader">
                                 <div class="notification-item--text colorYellow bold"> ویزیت ایران </div>
+                                @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                                 <div class="notification-item--text fontSize12 bold"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
+                                @else
+                                <div class="notification-item--text fontSize12 bold">دبیرخانه رویدادها</div>
+                                @endif 
                             </div>
                         </div>
                         <div class="user-options heightHeader customFilterGray">
@@ -76,6 +80,7 @@
                                     <i class="icon-visit-search customHeader textColor" data-remodal-target="search-modal"></i>
                                 </button>
                             </div>
+                            @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                             <div class="user-option user-option--cart customBorderLeft1">
                                 <a href="{{route('cart')}}" class="user-option-btn user-option-btn--cart">
                                     <i class="icon-visit-basket customHeader colorYellow customBasket"></i>
@@ -105,9 +110,10 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                             <div class="user-option user-option--account  paddingRight15 btnHover">
                                 @if(!Auth::check())
-                                    <a href="{{ route('login-register') }}" class="user-option-btn user-option-btn--account gap10 hoverGold textColor">
+                                    <a href="{{ route('login-register') }}" class="user-option-btn user-option-btn--account gap10 hoverGold textColor setLinkUrl">
                                         <i class="icon-visit-person customHeader"></i>ورود / ثبت نام
                                     </a>
                                 @else
@@ -163,17 +169,32 @@
                             <li class="nav-item">
                                 <a class="custom-nav-link hoverBold1 colorWhite" href="{{ route('home') }}"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/home.svg') }}" alt="">صفحه اصلی</a>
                             </li>
+                            @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                             <li class="nav-item align-self-center">
                             <div class="vertical-menu minWidthUnset">
                             <a class="vertical-menu-btn p-0 m-0 colorWhite fontNormal cursorPointer hoverBold1"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt="">دسته بندی کالاها</a>
                             <div class="vertical-menu-items marginFromRightHeaderNegative custom-vertical-menu-items zIndex2 mt-10">
                                 @include('layouts.menu')
                             </div>
-                        </div>                            
-                    </li>
+                            </div>                            
+                            </li>
                             <li class="nav-item">
                                 <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="index-1.html"><img class="iconSvg customIconTag" src="{{ asset('theme-assets/images/svg/label.svg') }}" alt="">پیشنهاد های ویژه</a>
                             </li>
+                            @endif
+
+                            @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
+                            <li class="nav-item">
+                                <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('event.home') }}">رویداد ها</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('launcher') }}">برگزارکننده</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('create-event') }}">ایجاد رویداد</a>
+                            </li>
+                            @endif
+
                         </ul>
                     </div>
                 </div>
@@ -199,30 +220,7 @@
         <header class="page-header-responsive d-md-none p-0">
             {{-- @include('layouts.top-banner') --}}
             <!-- start banner -->
-            <div id="parentSearchMobile">
-                <button id="closeSearch" type="button" class="btn-close customCloseIconBanner p-0 position-absolute l-0 hidden zIndex1"></button>
-                
-                <div id="container-search" class="search-container p-2 hidden">
-                <form action="#" class="search-form">
-                  <input min="3" id="searchInput" type="text" class="form-control search-field marginLeft48 searchInput" placeholder="جستجو کنید..">
-                </form>
-                @if(isset($top_categories))
-                  <div id="hiddenCat" class="d-flex flexwrap gap10 my-3 hidden">
-                    @foreach ($top_categories as $cat)
-                      <div class="d-flex noWrap">
-                        <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal whiteSpaceNoWrap">
-                            {{ $cat['name'] }}
-                        </a>
-                    </div>  
-                    @endforeach
-                  </div>
-                @endif
-                <hr>
-                <div id="searchDetails" class="searchDetails">
-                </div>
 
-                </div>
-            </div>
             <div class="alert banner-container alert-dismissible fade show showTopBanner hidden" role="alert" id="topBanner">
                 <a href="#" target="_blank" id="" class="banner-placement rounded-0 infobox"
                     style="height: 60px;"></a>
@@ -241,15 +239,29 @@
                                 <div class="logo-container logo-box p-0">
                                     <a href="#" class="d-flex flexDirectionRow logo alignItemsStart p-2">
                                         <div><img src="{{ asset('theme-assets/images/menuImage.png') }}"  width="110" alt=""></div>
+                                        @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                                         <div class="logo-text colorBlue d-flex alignSelfCenter mx-2">دسته بندی کالاها<img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt=""></div>
+                                        @else
+                                        <div class="logo-text colorBlue d-flex alignSelfCenter mx-2">دبیرخانه رویدادها<img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt=""></div>
+                                        @endif
                                     </a>
                                 </div>
                             </div>
-                            <div class="navigation-body">
-                                <ul id="moblieMenu" class="menu">
-                                    @include('layouts.mobile-menu')
-                                </ul>
-                            </div>
+
+                            @if(Auth::check())
+                                <div class="navigation-body">
+                                    <ul id="moblieMenu" class="menu">
+                                        @include('layouts.mobile-menu')
+                                        @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
+                                            @include('event.launcher.launcher-menu')
+                                        @endif
+                                    </ul>
+                    
+                                    @include('shop.profile.layouts.profile_menu',['mobileMenu' => true])
+
+                                </div>
+                            @endif
+
                         </div>
                         <div class="navigation-overlay">
                             <div class="position-absolute t-0 l-0 ">
@@ -275,10 +287,10 @@
                     <div class="d-flex justify-content-center gap30">
                         <button class="d-flex b-0 m-0 p-0 toggle-navigation">
                             <div class="menuCircle">
-                                    <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
-                                        <i class="icon-visit-menu fontSize30 colorBlack"></i>
-                                        <div class="fontSize14 colorBlack whiteSpaceNoWrap">منو</div>
-                                    </div>
+                                <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
+                                    <i class="icon-visit-menu fontSize30 colorBlack"></i>
+                                    <div class="fontSize14 colorBlack whiteSpaceNoWrap">منو</div>
+                                </div>
                             </div>
                         </button>
                         <button id="searchMobile" class="d-flex b-0 m-0 p-0">
@@ -289,25 +301,6 @@
                                 </div>
                             </div>
                         </button>
-                        <script>
-                            $('#searchMobile').on('click',function(){
-                                $('#closeSearch').removeClass('hidden');
-                                $('#hiddenCat').removeClass('hidden');
-                                $('#parentSearchMobile').addClass('search-mobile').css('bottom','0');
-                                $('#searchMobile').removeClass('hidden');
-                                $('#container-search').removeClass('hidden');
-                                $('body').css('overflow','hidden');
-                            });
-                            $('#closeSearch').on('click',function(){
-                                $('#closeSearch').addClass('hidden');
-                                $('#hiddenCat').addClass('hidden');
-                                $('#container-search').addClass('hidden');
-                                $('#parentSearchMobile').addClass('search-mobile').css('bottom','-100%');
-                                $('body').css('overflow','auto');
-                                // $('#searchMobile').addClass('hidden');
-                            });
-
-                        </script>
                         <a href="" class="d-flex b-0 m-0 p-0">
                             <div class="menuCircle">
                                 <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
@@ -316,20 +309,31 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="" class="d-flex b-0 m-0 p-0">
-                            <div class="menuCircle">
-                                <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
-                                    <i class="icon-visit-person fontSize30 colorBlack"></i>
-                                    <div class="fontSize14 colorBlack whiteSpaceNoWrap">ورود/ثبت نام</div>
+                        @if(!Auth::check())
+                            <a href="{{ route('login-register') }}" class="d-flex b-0 m-0 p-0 setLinkUrl">
+                                <div class="menuCircle">
+                                    <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
+                                        <i class="icon-visit-person fontSize30 colorBlack"></i>
+                                        <div class="fontSize14 colorBlack whiteSpaceNoWrap">ورود/ثبت نام</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        @else
+                            <button id="profileMenuMobile" class="d-flex b-0 m-0 p-0 toggle-navigation">
+                                <div class="menuCircle">
+                                    <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
+                                        <i class="icon-visit-person fontSize30 colorBlack"></i>
+                                        <div class="fontSize14 colorBlack whiteSpaceNoWrap">صفحه شخصی</div>
+                                    </div>
+                                </div>
+                            </button>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
-        
-        @include('shop.layouts.modal-search')
+        {{-- route('product-search') --}}
+        @include('layouts.modal-search', ['route'=> request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE ?  route('product-search')  : route('event-search')])
         <div class="hidden" id="sample-mini-cart-products">
             @include('shop.product.mini_card')
         </div>
@@ -472,7 +476,15 @@
                         $('#SliderParent').addClass('marginTopMediaQuaryForSlider');
                         $('.TopParentBannerMoveOnTop').addClass('marginTopMediaQuaryForSlider');
                         $('.StickyMenuMoveOnTop').addClass('stickyTop')
-                    })
+                    });
+
+                    function setUrl() {
+                        localStorage.setItem("url", location.href);
+                    }
+
+                    //when button clicked
+                    $(".setLinkUrl").on("click", setUrl);
+                    
                 });
                 var width = window.innerWidth;
               $.ajax({
@@ -487,7 +499,6 @@
                                 $(".showTopBanner").remove();
                                 $('.TopParentBannerMoveOnTop').css('marginTop','-60px');
                                 $('.StickyMenuMoveOnTop').css('top', '90px');
-
                                 return;
                             }
                             $('.showTopBanner').removeClass('hidden');
@@ -504,6 +515,7 @@
               const popover = new bootstrap.Popover('.example-popover', {
                   container: 'body'
                 })
+            
             
     </script>   
     @section('extraJS')

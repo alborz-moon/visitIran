@@ -8,6 +8,9 @@
       rel="stylesheet"
     />
     <script src="{{asset('theme-assets/js/Utilities.js')}}"></script>
+    <script>
+        let GET_CITIES_URL = '{{ route('api.cities') }}';
+    </script>
 @stop
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
@@ -41,8 +44,10 @@
                                             <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
                                             <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between position-relative">
                                                 <input data-editable="true" id="nameLast" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
-                                                <button data-input-id="nameLast" class=" toggle-editable-btn btn btn-circle btn-outline-light"
-                                                    data-remodal-target="personal-info-fullname-modal"><i                                                       class="ri-ball-pen-fill"></i></button>
+                                                <button data-input-id="nameLast" class="toggle-editable-btn btn btn-circle btn-outline-light"
+                                                    data-remodal-target="personal-info-fullname-modal">
+                                                    <i class="ri-ball-pen-fill"></i>
+                                                </button>
                                             </div>
                                             <div class="fs-6 fw-bold text-muted"></div>
                                         </div>
@@ -194,9 +199,10 @@
                                                 <select id="companyType" class="select2 selectStyle">
                                                     <option value="0" selected>انتخاب کنید</option>
                                                     <option value="art">موسسه فرهنگی و هنری</option>
-                                                    <option value="taxi">آژانس</option>
-                                                    <option value="spic">سهامی خاص</option>
-                                                    <option value="om">سهامی عام</option>
+                                                    <option value="limit">مسئولیت محدود</option>
+                                                    <option value="agency">آژانس</option>
+                                                    <option value="spec">سهامی خاص</option>
+                                                    <option value="public">سهامی عام</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -303,7 +309,7 @@
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">تلفن</div>
                                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input onkeypress="return isNumber(event)" minlength="7" maxlength="11" id="launcherPhone" type="text" class="form-control setEnter" style="direction: rtl" placeholder="تلفن">
+                                                <input data-editable="true" onkeypress="return isNumber(event)" minlength="7" maxlength="11" id="launcherPhone" type="text" class="form-control setEnter" style="direction: rtl" placeholder="تلفن">
                                                 <button class="btn btn-circle btn-outline-light hidden">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -442,35 +448,9 @@
         let x;
         let y;
         var map = undefined;
-        
-        function getCities(stateId, selectedCity = undefined) {
-            if(stateId == 0) {
-                $("#city02").empty();
-                return;
-            }
-            $.ajax({
-                type: 'get',
-                url: '{{ route('api.cities') }}',
-                data: {
-                    state_id: stateId
-                },
-                success: function(res) {    
-                    if(res.status !== 'ok') {
-                        $("#city02").empty();
-                        return;
-                    }   
-                    let html = '<option value="0">انتخاب کنید</option>';
-                    res.data.forEach(elem => {
-                        if(selectedCity !== undefined && elem.id === selectedCity)
-                            html += '<option selected value="' + elem.id + '">' + elem.name + '</option>';
-                        else
-                            html += '<option value="' + elem.id + '">' + elem.name + '</option>';
-                    });
-                    $("#city02").empty().append(html);
-                }
-            });
-        }
+     
         $(document).ready(function(){
+            $('#launcherPhone').attr("data-editable", "true");
             $('input').attr("data-editable", "true");
             $('textarea').attr("data-editable", "true");
             $('.toggle-editable-btn').addClass('hidden');
@@ -608,14 +588,13 @@
 
 
                 let required_list_Select = ['launcherType', 'state02' , 'companyType'];
-                if(!checkSelect(required_list_Select)){
-                    return;
+                let required_list = ['nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail'];
+                let inputList = checkInputs(required_list);
+                let selectList = checkSelect(required_list_Select);  
+                if( !inputList || !selectList){
+                //    return
                 }
-                let required_list = ['name', 'last','nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail'];
-                if(!checkInputs(required_list)){
-                    return;
-                }
-
+                
                 $(".showPenEdit").removeClass('hidden')
                 if (userEmail == null || userEmail == undefined){
                     $('#userEmail').css('backgroundColor','red')
@@ -633,7 +612,7 @@
                     showErr("لطفا مکان موردنظر خود را از روی نقضه انتخاب کنید");
                     return;
                 }
-                
+
                 let data = {
                     first_name: name,
                     last_name: last,
@@ -659,10 +638,30 @@
                     data.code = code;
                     data.company_type = companyType;
                 }
+
+                let formData = new FormData();
+
+                for ( var key in data ) {
+                   formData.append(key, data[key]);
+                }
+
+                const inputFile = document.getElementById("file-ip-1");
+                for (const file of inputFile.files) {
+                    formData.append("back_img_file", file);
+                }
+
+
+                const inputFile2 = document.getElementById("file-ip-2");
+                for (const file of inputFile2.files) {
+                    formData.append("img_file", file);
+                }
+
                 $.ajax({
                     type: 'post',
                     url: "{{ $mode == 'create' ? route('launcher.store') : route('launcher.update', ['launcher' => $formId]) }}",
-                    data: data,
+                    data: formData,
+                    processData : false,
+                    contentType : false,
                     success: function(res) {
                         if(res.status === "ok") {
                             let launcher_id;                            
@@ -703,6 +702,7 @@
                     $('#last').attr("data-editable", "true");
                     $('#Brithday_year').attr("data-editable", "true");
                     $('#Brithday_day').attr("data-editable", "true");
+                    $('#launcherPhone').attr("data-editable", "true");
                     x = res.data.launcher_x;
                     y = res.data.launcher_y;
                     $('#name').val(res.data.first_name);
@@ -710,7 +710,6 @@
                     $('.setName').val(res.data.first_name + ' ' + res.data.last_name)
                     $('#phone').val(res.data.phone);
                     $("#postalCode").val(res.data.postal_code);
-                   
                     if(res.data.launcher_type == "hoghoghi") {
                         $("#companyName").val(res.data.company_name);
                         $("#code").val(res.data.code);
@@ -718,25 +717,34 @@
                     }else if(launcherType == "haghighi") {
                         $("#companyName").val(res.data.company_name);
                     }
-                   
+                    
+                    if(res.data.back_img !== null && res.data.back_img !== undefined && res.data.back_img !== 'null' && res.data.back_img.length > 0)
+                        $("#file-ip-1-preview").attr('src', res.data.back_img);
+
+                    if(res.data.img !== null && res.data.img !== undefined && res.data.img !== 'null' && res.data.img.length > 0)
+                        $("#file-ip-2-preview").attr('src', res.data.img);
+
                     $("#launcherAddress").val(res.data.launcher_address);
                     $(".launcherCityID").val(res.data.launcher_city_id);
                     $("#launcherEmail").val(res.data.launcher_email);
+
                     // $("#launcherPhone").val(res.data.launcher_phone);
-                    var showPhone = '';
-                    for(i = 0 ; i < res.data.launcher_phone.length; i++){
-                        showPhone += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + res.data.launcher_phone[i] + '';
-                        showPhone += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
-                        showPhone += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
-                        showPhone += '</button>';
-                        showPhone += '</div>';
-                        // tels.push
-                        tels.push({
-                            id: i,
-                            val: res.data.launcher_phone[i]
-                        });
-                    };
-                    $("#addTell").append(showPhone);
+
+                    // var showPhone = '';
+                    // for(i = 0 ; i < res.data.launcher_phone.length; i++){
+                    //     showPhone += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + res.data.launcher_phone[i] + '';
+                    //     showPhone += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
+                    //     showPhone += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
+                    //     showPhone += '</button>';
+                    //     showPhone += '</div>';
+                    //     // tels.push
+                    //     tels.push({
+                    //         id: i,
+                    //         val: res.data.launcher_phone[i]
+                    //     });
+                    // };
+
+                    // $("#addTell").append(showPhone);
                     $("#launcherSite").val(res.data.launcher_site);
                     $("#launcherType").val(res.data.launcher_type).change();
                     $("#nid").val(res.data.user_NID);

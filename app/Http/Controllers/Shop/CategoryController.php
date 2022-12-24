@@ -34,7 +34,8 @@ class CategoryController extends Controller
             return abort(401);
 
         $request->validate($validator);
-        $categories = Category::where('name', 'like "%' . $request['key'] . '"')->get();
+        $categories = Category::where('name', 'like', '%' . $request['key'] . '%')
+            ->get();
         
         return response()->json([
             'status' => 'ok',

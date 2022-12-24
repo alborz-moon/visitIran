@@ -3873,8 +3873,8 @@ else if (typeof define === 'function' && define.amd) {
 
                     var widths = $(document).ready().width();
                     var mySwiper = new EventSwiper ('.custom-swiper-container', {
-                        speed: 400,
-                        spaceBetween: widths > 768 ? 50 : 0,
+                        speed: 400, 
+                        // spaceBetween: widths > 768 ? 50 : 0,
                         initialSlide: 0,
                         //truewrapper adoptsheight of active slide
                         autoHeight: true,
@@ -3897,25 +3897,17 @@ else if (typeof define === 'function' && define.amd) {
                         // "slide", "fade", "cube", "coverflow" or "flip"
                         effect: 'slide',
                         // Distance between slides in px.
-                        spaceBetween: widths > 768 ? 20 : 0,
+                        spaceBetween: widths > 1000 ? 20 : 0,
                         //
-                        slidesPerView: widths > 768 ? 2 : 1,
+                        slidesPerView: widths > 1000 ? 2 : 1,
                         //
                         centeredSlides: true,
                         //
-                        slidesOffsetBefore: 0,
+                        slidesOffsetBefore:  widths > 1000 ? 0 : 0,
                         //
                         grabCursor: true,
-                        breakpoints: {
-                            1200: {
-                                slidesPerView: 3,
-                            },
-                            768: {
-                                slidesPerView: 1,
-                                
-                            },
-                        },
-                    })        
+
+                    });        
                  }
              }
          });

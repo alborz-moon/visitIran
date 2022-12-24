@@ -186,8 +186,10 @@ class EventController extends EventHelper
 
         
         // if($request['return_type'] == 'digest')
-            return EventUserDigest::collection($events)->toArray($request);
-        
+            return response()->json([
+                'status' => 'ok',
+                'data' => EventUserDigest::collection($events)->toArray($request)
+            ]);
         // return response()->json([
         //     'status' => 'ok',
         //     'data' => ProductDigestUser::collection($products)->toArray($request)
@@ -337,6 +339,33 @@ class EventController extends EventHelper
 
         $request->validate($validator);
         $event->description = $request['description'];
+        $event->save();
+        
+        return response()->json(['status' => 'ok']);
+    }
+
+    public function set_main_img(Event $event, Request $request)
+    {
+        Gate::authorize('update', $event);
+
+        $validator = [
+            'img_file' => 'required|image'
+        ];
+        
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator);
+        
+        
+        $filename = $request->img_file->store('public/events');
+        $filename = str_replace('public/events/', '', $filename);   
+            
+        if($event->img != null && !empty($event->img) && 
+            file_exists(__DIR__ . '/../../../../public/storage/events/' . $event->img))
+            unlink(__DIR__ . '/../../../../public/storage/events/' . $event->img);
+
+        $event->img = $filename;
         $event->save();
         
         return response()->json(['status' => 'ok']);

@@ -69,6 +69,14 @@ class User extends Authenticatable
         return $query->where('status', '=', User::$ACTIVE);
     }
 
+    public function isLauncher() {
+        
+        if($this->level === User::$ADMIN_LEVEL) return true;
+
+        $l = $this->launcher;
+        return $l != null && $l->status === 'confirmed';
+    }
+
     public function offs() {
         return $this->hasMany(Off::class);
     }

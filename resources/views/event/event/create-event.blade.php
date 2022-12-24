@@ -88,19 +88,19 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                                     data-title="اطلاعات کلی"></span></a>
                         </li>
                         <li>
-                            <a
-                                href="{{ isset($id) ? route('addSessionsInfo', ['event' => $id]) : route('addSessionsInfo') }}"><span
-                                    class="checkout-step-title" data-title="زمان برگزاری"></span></a>
+                            <a href="{{ isset($id) ? route('addSessionsInfo', ['event' => $id]) : route('addSessionsInfo') }}">
+                                <span class="checkout-step-title" data-title="زمان برگزاری"></span>
+                            </a>
                         </li>
                         <li>
-                            <a
-                                href="{{ isset($id) ? route('addPhase2Info', ['event' => $id]) : route('addPhase2Info') }}"><span
-                                    class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
+                            <a href="{{ isset($id) ? route('addPhase2Info', ['event' => $id]) : route('addPhase2Info') }}">
+                                <span class="checkout-step-title" data-title="ثبت نام و تماس"></span>
+                            </a>
                         </li>
                         <li>
-                            <a
-                                href="{{ isset($id) ? route('addGalleryToEvent', ['event' => $id]) : route('addGalleryToEvent') }}"><span
-                                    class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
+                            <a href="{{ isset($id) ? route('addGalleryToEvent', ['event' => $id]) : route('addGalleryToEvent') }}">
+                                <span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span>
+                            </a>
                         </li>
                     </ul>
                     <a href="#" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
@@ -113,9 +113,9 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                                 <div class="py-2">
                                     <div class="fs-7 text-dark">نام رویداد</div>
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <input id="eventName" type="text" class="form-control" style="direction: rtl"
+                                        <input data-editable="true" id="eventName" type="text" class="form-control" style="direction: rtl"
                                             placeholder="نام رویداد">
-                                        <button class="btn btn-circle btn-outline-light hidden"><i
+                                        <button data-input-id="eventName" class="toggle-editable-btn btn btn-circle btn-outline-light"><i
                                                 class="ri-ball-pen-fill"></i></button>
                                     </div>
                                     <div class="fs-6 fw-bold text-muted"></div>
@@ -140,6 +140,7 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                                     <div class="fs-7 text-dark">سطح برگزاری</div>
                                     <div class="d-flex align-items-center justify-content-between">
                                         <select id="level" class="select2 w-100">
+                                            <option value="0">انتخاب کنید</option>
                                             <option value="national">ملی</option>
                                             <option value="state">استانی</option>
                                             <option value="local">محلی</option>
@@ -183,8 +184,11 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                     </div>
                 </div>
                 <div class="ui-box bg-white mb-5 boxShadow">
-                    <div class="ui-box-title">امکانات ویژه <span class="fontSize12 mx-2 fontNormal">از موارد زیر انتخاب
-                            کنید</span></div>
+                    <div class="ui-box-title">امکانات ویژه 
+                        <span class="fontSize12 mx-2 fontNormal">
+                        از موارد زیر انتخاب کنید
+                        </span>
+                    </div>
                     <div class="ui-box-content">
                         <div class="row">
                             <div class="col-lg-12 mb-3">
@@ -215,7 +219,7 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                         </div>
                     </div>
                 </div>
-                <div class="ui-box bg-white mb-5 boxShadow hidden_all_fields hidden">
+                <div class="ui-box bg-white mb-5 boxShadow hidden_all_fields">
                     <div class="ui-box-title">اطلاعات رویداد</div>
                     <div class="ui-box-content">
                         <div class="row">
@@ -249,10 +253,10 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                                 <div class="py-1">
                                     <div class="fs-7 text-dark">کد پستی</div>
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <input id="postalCode" onkeypress="return isNumber(event)" minlength="10"
+                                        <input data-editable="true" id="postalCode" onkeypress="return isNumber(event)" minlength="10"
                                             maxlength="10" type="text" class="form-control" style="direction: rtl"
                                             placeholder="کد پستی">
-                                        <button class="btn btn-circle btn-outline-light hidden">
+                                        <button data-input-id="postalCode" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                             <i class="ri-ball-pen-fill"></i>
                                         </button>
                                     </div>
@@ -265,7 +269,7 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                                     <div class="d-flex align-items-center justify-content-between">
                                         <input id="link" type="url" class="form-control" style="direction: rtl"
                                             placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
-                                        <button class="btn btn-circle btn-outline-light hidden">
+                                        <button class="btn btn-circle btn-outline-light">
                                             <i class="ri-ball-pen-fill"></i>
                                         </button>
                                     </div>
@@ -275,9 +279,9 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                                 <div class="py-1 hidden_online_fields hidden">
                                     <div class="fs-7 text-dark">آدرس</div>
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <textarea id="address" type="text" class="form-control" style="direction: rtl"
+                                        <textarea data-editable="true" id="address" type="text" class="form-control" style="direction: rtl"
                                             placeholder="آدرس"></textarea>
-                                        <button class="btn btn-circle btn-outline-light hidden">
+                                        <button data-input-id="launcherAddress" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                             <i class="ri-ball-pen-fill"></i>
                                         </button>
                                     </div>
@@ -460,6 +464,13 @@ var facilitiesList = undefined;
 var tagsList = undefined;
 var selectedFacility = [];
 
+$(document).ready(function(){
+    $('#launcherPhone').attr("data-editable", "true");
+    $('input').attr("data-editable", "true");
+    $('textarea').attr("data-editable", "true");
+    $('.toggle-editable-btn').addClass('hidden');
+});
+
 function watchList(selectorId, arr, increamentor, elemId, resultPaneId) {
 
     $('#' + selectorId).on('change', function() {
@@ -543,7 +554,6 @@ $.ajax({
             tagsList = res.data;
 
             if (res.data.length != 0) {
-
                 eventTag += '<option value="0">انتخاب کنید</option>';
 
                 for (var i = 0; i < res.data.length; i++)
@@ -588,7 +598,6 @@ $("#nextBtn").on('click', function() {
     var state = $('#state02').val();
     var city = $('#city02').val();
     var postalCode = $('#postalCode').val();
-
     var address = $('#address').val();
     var link = $('#link').val();
     $('input[name=facility]').each(function() {
@@ -596,7 +605,18 @@ $("#nextBtn").on('click', function() {
             selectedFacility.push($(this).attr('id'));
         }
     });
+    var required_list = ['eventName', 'postalCode' , 'link'];
+    var required_list_Select = ['level', 'state02', 'onlineOrOffline'];
+    var required_Arr = ['topicEvent', 'lang'];
+    var Arr = [topicList, langList];
 
+    var inputList = checkInputs(required_list);
+    var selectList = checkSelect(required_list_Select);
+    var selectAddBox = checkArr(required_Arr, Arr);
+
+    if(!inputList || !selectList || !selectAddBox){
+        // return;
+    }
     let data = {
         title: eventName,
         facilities_arr: selectedFacility,

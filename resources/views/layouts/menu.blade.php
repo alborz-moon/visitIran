@@ -35,7 +35,6 @@
                     for(var i = 0; i < res.data.length; i++) {
                         if (i==0) {
                             html += '<li class="mega-menu-category show">';
-                            
                         }
                         else{
                             html += '<li class="mega-menu-category">';
