@@ -3,7 +3,7 @@
 ========================================================================== */
 
 .page-header-responsive {
-    padding: 10px .75rem;
+    padding: 10px 0.75rem;
     position: relative;
     z-index: 100;
 
@@ -47,7 +47,7 @@
         padding-bottom: 60px;
         overflow-y: auto;
         z-index: 3;
-        transition: all .3s ease-in;
+        transition: all 0.3s ease-in;
 
         .navigation-body {
             padding: 10px 15px;
@@ -62,9 +62,7 @@
             }
 
             .menu {
-
                 li {
-
                     a {
                         display: flex;
                         align-items: center;
@@ -95,7 +93,8 @@
                         background-color: #fff;
                         box-sizing: border-box;
                         padding: 15px;
-                        transition: all .3s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+                        transition: all 0.3s
+                            cubic-bezier(0.55, 0.055, 0.675, 0.19);
                         z-index: 1;
 
                         .close-submenu {
@@ -151,7 +150,7 @@
         right: 0;
         left: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, .8);
+        background-color: rgba(0, 0, 0, 0.8);
         z-index: 2;
         display: none;
     }

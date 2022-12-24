@@ -67,7 +67,11 @@
                             </div>
                             <div class="marginFromRightHeader">
                                 <div class="notification-item--text colorYellow bold"> ویزیت ایران </div>
+                                @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                                 <div class="notification-item--text fontSize12 bold"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
+                                @else
+                                <div class="notification-item--text fontSize12 bold">دبیرخانه رویدادها</div>
+                                @endif 
                             </div>
                         </div>
                         <div class="user-options heightHeader customFilterGray">
@@ -235,7 +239,11 @@
                                 <div class="logo-container logo-box p-0">
                                     <a href="#" class="d-flex flexDirectionRow logo alignItemsStart p-2">
                                         <div><img src="{{ asset('theme-assets/images/menuImage.png') }}"  width="110" alt=""></div>
+                                        @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                                         <div class="logo-text colorBlue d-flex alignSelfCenter mx-2">دسته بندی کالاها<img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt=""></div>
+                                        @else
+                                        <div class="logo-text colorBlue d-flex alignSelfCenter mx-2">دبیرخانه رویدادها<img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt=""></div>
+                                        @endif
                                     </a>
                                 </div>
                             </div>
@@ -279,10 +287,10 @@
                     <div class="d-flex justify-content-center gap30">
                         <button class="d-flex b-0 m-0 p-0 toggle-navigation">
                             <div class="menuCircle">
-                                    <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
-                                        <i class="icon-visit-menu fontSize30 colorBlack"></i>
-                                        <div class="fontSize14 colorBlack whiteSpaceNoWrap">منو</div>
-                                    </div>
+                                <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
+                                    <i class="icon-visit-menu fontSize30 colorBlack"></i>
+                                    <div class="fontSize14 colorBlack whiteSpaceNoWrap">منو</div>
+                                </div>
                             </div>
                         </button>
                         <button id="searchMobile" class="d-flex b-0 m-0 p-0">
@@ -311,14 +319,14 @@
                                 </div>
                             </a>
                         @else
-                            <a href="{{ route('profile.personal-info') }}" class="d-flex b-0 m-0 p-0">
+                            <button id="profileMenuMobile" class="d-flex b-0 m-0 p-0 toggle-navigation">
                                 <div class="menuCircle">
                                     <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
                                         <i class="icon-visit-person fontSize30 colorBlack"></i>
                                         <div class="fontSize14 colorBlack whiteSpaceNoWrap">صفحه شخصی</div>
                                     </div>
                                 </div>
-                            </a>
+                            </button>
                         @endif
                     </div>
                 </div>
@@ -491,7 +499,6 @@
                                 $(".showTopBanner").remove();
                                 $('.TopParentBannerMoveOnTop').css('marginTop','-60px');
                                 $('.StickyMenuMoveOnTop').css('top', '90px');
-
                                 return;
                             }
                             $('.showTopBanner').removeClass('hidden');
@@ -508,6 +515,7 @@
               const popover = new bootstrap.Popover('.example-popover', {
                   container: 'body'
                 })
+            
             
     </script>   
     @section('extraJS')

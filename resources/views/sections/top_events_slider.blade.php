@@ -2,9 +2,22 @@
 <div id="{{ $id }}" class="w-100 my-slider mb-5 hidden">
     <div class="container">
         <div class="d-flex spaceBetween alignItemsCenter">
-            <span class="ui-box-title fontSize20"> 
-                <img class="p-2" src="{{ asset('./theme-assets/images/svg/headlineTitle.svg') }}" alt="">{{ $title }}
+            <span class="ui-box-title fontSize20 d-flex"> 
+                <img class="p-2" src="{{ asset('./theme-assets/images/svg/headlineTitle.svg') }}" alt="">{{ $title }} 
+            <span class="marginTopNegative10">
+            @if (isset($fill_input))
+            <div style="width: 250px;">
+            <select class="select2 seachbar-select w-100" aria-placeholder="" name="">
+                <option selected value="1">نوع رویداد</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+                <option value="4">Four</option>
+            </select>
+            </div>
+            @endif
             </span>
+            </span>
+            
             <span class="alignItemsCenter colorBlue"><a class="hoverBold" href="{{ isset($href) ? $href : '' }}">مشاهده همه</a></span>
         </div>
         <div class="ui-box-content">

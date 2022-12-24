@@ -7,7 +7,11 @@
                 <div class="widget widget-footer mb-4">
                         <div class="widget-title">پشتیبانی</div>
                         <div class="colorYellow customPaddingTopBottom10">هفت روز هفته از ساعت ۸ الی ۱۷</div>
+                        @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                         <div class="textColor customPaddingTopBottom10">تلفن پشتیبانی : ۸۸۸۱۹۵۶۸-۰۲۱</div>
+                        @else
+                        <div class="textColor customPaddingTopBottom10">تلفن پشتیبانی : 88819562-۰۲۱</div>
+                        @endif
                     <div class="widget-content widget-socials">
                         <ul>
                             <li><a href="#"><i class="ri-facebook-circle-fill"></i></a></li>
@@ -20,7 +24,11 @@
             </div>
             <div class="col-lg-3 col-md-4 ol-sm-6 col-12">
                 <div class="widget widget-footer">
+                    @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                     <div class="widget-title">از جدیدترین تخفیف ها باخبر شوید</div>
+                    @else
+                    <div class="widget-title">از تخفیف های ما با خبر شوید</div>
+                    @endif
                     <div class="widget-content widget-newsletter">
                         <div class="form-element-row with-btn align-Items-end">
                             <input onkeypress="return isEmail(event) || isNumber(event)" id="mail" type="text" class="form-control"
@@ -62,8 +70,13 @@
                 <div class="col-lg-12 mb-4">
                     <div class="expandable-text pt-1" style="height: 100px;">
                         <div class="expandable-text_text fa-num">
+                            @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                             <div class="fs-6 fw-bold mb-2">سامانه فروش صنایع دستی و هنرهای تزئینی 
                             </div>
+                            @else
+                            <div class="fs-6 fw-bold mb-2">دبیرخانه رویدادها 
+                            </div>
+                            @endif
                             <div id="footerDesc" class="fs-7 text-secondary text-justify">
                             </div>
                         </div>

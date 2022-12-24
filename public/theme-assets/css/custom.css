@@ -472,6 +472,9 @@ ul {
 .marginTop10 {
     margin-top: 10px;
 }
+.marginTopNegative10 {
+    margin-top: -10px;
+}
 .marginTop13 {
     margin-top: 13px;
 }

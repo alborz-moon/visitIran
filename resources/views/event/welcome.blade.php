@@ -15,9 +15,9 @@
                     'key' => 'mostSeenEvent', 'title' => 'پر فروش ترین ها', 'not_fill_id' => 'most_seen_events_when_not_filled'])
 
                 @include('layouts.banner')
-                
+
                 @include('sections.top_events_slider', ['id' => 'latest_events_when_filled', 'searchKey' => 'createdAt',
-                 'key' => 'latestEvent', 'title' => 'درضمینه', 'not_fill_id' => 'latest_events_when_not_filled'])
+                 'key' => 'latestEvent', 'title' => 'درضمینه', 'not_fill_id' => 'latest_events_when_not_filled','fill_input' => 'eventType'])
 
                 @include('sections.top_events_slider', ['id' => 'most_like_events_when_filled', 'searchKey' => 'rate', 
                     'key' => 'mostLikeEvent', 'title' => 'بهترین برگزار کننده', 'not_fill_id' => 'most_like_events_when_not_filled'])
