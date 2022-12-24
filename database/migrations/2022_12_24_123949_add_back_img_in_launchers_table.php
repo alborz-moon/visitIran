@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddNameAndPhoneToLaunchersTable extends Migration
+class AddBackImgInLaunchersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,7 @@ class AddNameAndPhoneToLaunchersTable extends Migration
     public function up()
     {
         Schema::connection('mysql2')->table('launchers', function (Blueprint $table) {
-        //    $table->string('first_name');
-        //    $table->string('last_name');
-        //    $table->string('phone')->unique();
+            $table->string('back_img')->length(100)->nullable();
         });
     }
 
@@ -28,10 +26,7 @@ class AddNameAndPhoneToLaunchersTable extends Migration
     public function down()
     {
         Schema::connection('mysql2')->table('launchers', function (Blueprint $table) {
-        //    $table->dropColumn('first_name');
-        //    $table->dropColumn('last_name');
-        //    $table->dropUnique(['phone']);
-        //    $table->dropColumn('phone');
+            $table->dropColumn('back_img');
         });
     }
 }

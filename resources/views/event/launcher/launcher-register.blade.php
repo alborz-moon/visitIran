@@ -8,6 +8,9 @@
       rel="stylesheet"
     />
     <script src="{{asset('theme-assets/js/Utilities.js')}}"></script>
+    <script>
+        let GET_CITIES_URL = '{{ route('api.cities') }}';
+    </script>
 @stop
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
@@ -197,9 +200,9 @@
                                                     <option value="0" selected>انتخاب کنید</option>
                                                     <option value="art">موسسه فرهنگی و هنری</option>
                                                     <option value="limit">مسئولیت محدود</option>
-                                                    <option value="taxi">آژانس</option>
-                                                    <option value="spic">سهامی خاص</option>
-                                                    <option value="om">سهامی عام</option>
+                                                    <option value="agency">آژانس</option>
+                                                    <option value="spec">سهامی خاص</option>
+                                                    <option value="public">سهامی عام</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -445,34 +448,7 @@
         let x;
         let y;
         var map = undefined;
-        
-        function getCities(stateId, selectedCity = undefined) {
-            if(stateId == 0) {
-                $("#city02").empty();
-                return;
-            }
-            $.ajax({
-                type: 'get',
-                url: '{{ route('api.cities') }}',
-                data: {
-                    state_id: stateId
-                },
-                success: function(res) {    
-                    if(res.status !== 'ok') {
-                        $("#city02").empty();
-                        return;
-                    }   
-                    let html = '<option value="0">انتخاب کنید</option>';
-                    res.data.forEach(elem => {
-                        if(selectedCity !== undefined && elem.id === selectedCity)
-                            html += '<option selected value="' + elem.id + '">' + elem.name + '</option>';
-                        else
-                            html += '<option value="' + elem.id + '">' + elem.name + '</option>';
-                    });
-                    $("#city02").empty().append(html);
-                }
-            });
-        }
+     
         $(document).ready(function(){
             $('#launcherPhone').attr("data-editable", "true");
             $('input').attr("data-editable", "true");
@@ -636,7 +612,7 @@
                     showErr("لطفا مکان موردنظر خود را از روی نقضه انتخاب کنید");
                     return;
                 }
-                
+
                 let data = {
                     first_name: name,
                     last_name: last,
@@ -662,10 +638,30 @@
                     data.code = code;
                     data.company_type = companyType;
                 }
+
+                let formData = new FormData();
+
+                for ( var key in data ) {
+                   formData.append(key, data[key]);
+                }
+
+                const inputFile = document.getElementById("file-ip-1");
+                for (const file of inputFile.files) {
+                    formData.append("back_img_file", file);
+                }
+
+
+                const inputFile2 = document.getElementById("file-ip-2");
+                for (const file of inputFile2.files) {
+                    formData.append("img_file", file);
+                }
+
                 $.ajax({
                     type: 'post',
                     url: "{{ $mode == 'create' ? route('launcher.store') : route('launcher.update', ['launcher' => $formId]) }}",
-                    data: data,
+                    data: formData,
+                    processData : false,
+                    contentType : false,
                     success: function(res) {
                         if(res.status === "ok") {
                             let launcher_id;                            
@@ -721,25 +717,34 @@
                     }else if(launcherType == "haghighi") {
                         $("#companyName").val(res.data.company_name);
                     }
-                   
+                    
+                    if(res.data.back_img !== null && res.data.back_img !== undefined && res.data.back_img !== 'null' && res.data.back_img.length > 0)
+                        $("#file-ip-1-preview").attr('src', res.data.back_img);
+
+                    if(res.data.img !== null && res.data.img !== undefined && res.data.img !== 'null' && res.data.img.length > 0)
+                        $("#file-ip-2-preview").attr('src', res.data.img);
+
                     $("#launcherAddress").val(res.data.launcher_address);
                     $(".launcherCityID").val(res.data.launcher_city_id);
                     $("#launcherEmail").val(res.data.launcher_email);
+
                     // $("#launcherPhone").val(res.data.launcher_phone);
-                    var showPhone = '';
-                    for(i = 0 ; i < res.data.launcher_phone.length; i++){
-                        showPhone += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + res.data.launcher_phone[i] + '';
-                        showPhone += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
-                        showPhone += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
-                        showPhone += '</button>';
-                        showPhone += '</div>';
-                        // tels.push
-                        tels.push({
-                            id: i,
-                            val: res.data.launcher_phone[i]
-                        });
-                    };
-                    $("#addTell").append(showPhone);
+
+                    // var showPhone = '';
+                    // for(i = 0 ; i < res.data.launcher_phone.length; i++){
+                    //     showPhone += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + res.data.launcher_phone[i] + '';
+                    //     showPhone += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
+                    //     showPhone += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
+                    //     showPhone += '</button>';
+                    //     showPhone += '</div>';
+                    //     // tels.push
+                    //     tels.push({
+                    //         id: i,
+                    //         val: res.data.launcher_phone[i]
+                    //     });
+                    // };
+
+                    // $("#addTell").append(showPhone);
                     $("#launcherSite").val(res.data.launcher_site);
                     $("#launcherType").val(res.data.launcher_type).change();
                     $("#nid").val(res.data.user_NID);

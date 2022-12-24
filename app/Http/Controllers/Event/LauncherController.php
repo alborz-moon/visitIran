@@ -62,6 +62,8 @@ class LauncherController extends Controller
     {
         
         $validator = [
+            'img_file' => 'required|image',
+            'back_img_file' => 'nullable|image',
             'first_name' => 'required|string|min:2',
             'last_name' => 'required|string|min:2',
             'phone' => 'required|regex:/(09)[0-9]{9}/|unique:mysql2.launchers,phone',
@@ -70,7 +72,7 @@ class LauncherController extends Controller
             'user_birth_day' => 'required', //|date
             'launcher_type' => ['required', Rule::in(['haghighi', 'hoghoghi'])],
             'company_name' => 'required_if:launcher_type,hoghoghi|string|min:2',
-            'company_type' => 'required_if:launcher_type,hoghoghi|string|min:2',
+            'company_type' => ['required_if:launcher_type,hoghoghi', Rule::in(['agancy', 'art', 'limit', 'spec', 'public'])],
             'postal_code' => 'required_if:launcher_type,hoghoghi|regex:/[1-9][0-9]{9}/',
             'code' => 'required_if:launcher_type,hoghoghi|numeric',
             'launcher_address' => 'required|string|min:2',
@@ -104,6 +106,18 @@ class LauncherController extends Controller
                 $launcher_phone_str .= $itr . '__';
             
             $request['launcher_phone'] = substr($launcher_phone_str, 0, strlen($launcher_phone_str) - 2);
+        }
+
+        if($request->has('img_file')) {
+            $filename = $request->img_file->store('public/launchers');
+            $filename = str_replace('public/launchers/', '', $filename);   
+            $request['img'] = $filename;
+        }
+
+        if($request->has('back_img_file')) {
+            $filename = $request->back_img_file->store('public/launchers');
+            $filename = str_replace('public/launchers/', '', $filename);   
+            $request['back_img'] = $filename;
         }
 
         try {
@@ -198,6 +212,8 @@ class LauncherController extends Controller
         Gate::authorize('update', $launcher);
         
         $validator = [
+            'img_file' => 'nullable|image',
+            'back_img_file' => 'nullable|image',
             'first_name' => 'nullable|string|min:2',
             'last_name' => 'nullable|string|min:2',
             'phone' => 'nullable|regex:/(09)[0-9]{9}/',
@@ -206,14 +222,15 @@ class LauncherController extends Controller
             'user_birth_day' => 'nullable', //|date
             'launcher_type' => ['nullable', Rule::in(['haghighi', 'hoghoghi'])],
             'company_name' => 'nullable|string|min:2',
-            'company_type' => 'nullable|string|min:2',
+            'company_type' => ['nullable', Rule::in(['agancy', 'art', 'limit', 'spec', 'public'])],
             'postal_code' => 'nullable|regex:/[1-9][0-9]{9}/',
             'code' => 'nullable|numeric',
             'launcher_address' => 'nullable|string|min:2',
             'launcher_email' => 'nullable|email',
             'launcher_site' => 'nullable|string|min:2',
-            'launcher_phone' => 'nullable|array|min:1',
-            'launcher_phone.*' => 'required|numeric|digits_between:7,11',
+            // 'launcher_phone' => 'nullable|array|min:1',
+            // 'launcher_phone.*' => 'required|numeric|digits_between:7,11',
+            'launcher_phone' => 'nullable|string|min:1',
             'launcher_city_id' => 'nullable|exists:mysql2.cities,id',
             'launcher_x' => ['nullable','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'launcher_y' => ['nullable','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
@@ -259,15 +276,39 @@ class LauncherController extends Controller
             $request['code'] = null;
         }
 
-        if($request->has('launcher_phone')) {
-            $launcher_phone_str = "";
+        // if($request->has('launcher_phone')) {
+        //     $launcher_phone_str = "";
 
-            foreach($request['launcher_phone'] as $itr)
-                $launcher_phone_str .= $itr . '__';
+        //     foreach($request['launcher_phone'] as $itr)
+        //         $launcher_phone_str .= $itr . '__';
             
-            $request['launcher_phone'] = substr($launcher_phone_str, 0, strlen($launcher_phone_str) - 2);
-        }
+        //     $request['launcher_phone'] = substr($launcher_phone_str, 0, strlen($launcher_phone_str) - 2);
+        // }
         
+        if($request->has('img_file')) {
+         
+            $filename = $request->img_file->store('public/launchers');
+            $filename = str_replace('public/launchers/', '', $filename);   
+                
+            if($launcher->img != null && !empty($launcher->img) && 
+                file_exists(__DIR__ . '/../../../../public/storage/launchers/' . $launcher->img))
+                unlink(__DIR__ . '/../../../../public/storage/launchers/' . $launcher->img);
+
+            $launcher->img = $filename;
+        }
+
+        if($request->has('back_img_file')) {
+         
+            $filename = $request->back_img_file->store('public/launchers');
+            $filename = str_replace('public/launchers/', '', $filename);   
+                
+            if($launcher->back_img != null && !empty($launcher->back_img) && 
+                file_exists(__DIR__ . '/../../../../public/storage/launchers/' . $launcher->back_img))
+                unlink(__DIR__ . '/../../../../public/storage/launchers/' . $launcher->back_img);
+
+            $launcher->back_img = $filename;
+        }
+
         if($request->has('company_newspaper_file')) {
          
             $filename = $request->company_newspaper_file->store('public/launchers');
@@ -312,7 +353,8 @@ class LauncherController extends Controller
             
             foreach($request->keys() as $key) {
                 
-                if($key == '_token' || $key == 'user_nid_card_file' || 
+                if($key == '_token' || $key == 'user_nid_card_file' || $key == 'img_file' ||
+                    $key == 'back_img_file' ||
                     $key == 'company_last_changes_file' || $key == 'company_newspaper_file')
                     continue;
 

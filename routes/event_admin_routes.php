@@ -58,6 +58,8 @@ Route::prefix('event/{event}')->group(function() {
 
     Route::post('store_desc', [EventController::class, 'store_desc'])->name('event.store_desc');
 
+    Route::post('set_main_img', [EventController::class, 'set_main_img'])->name('event.set_main_img');
+
     Route::post('/', [EventController::class, 'update'])->name('event.update');
     
 });
