@@ -17,7 +17,7 @@ class Controller extends BaseController
 //   public static $EVENT_SITE = 'myevent.com';
 //   public static $SHOP_SITE = 'myshop.com';
 
-    public static $EVENT_SITE = 'myevent.com';
+    public static $EVENT_SITE = 'events.visitiran.ir';
     public static $SHOP_SITE = 'hcshop.taci.ir';
     
     public static function hasAnyExcept($expected, $real) {
