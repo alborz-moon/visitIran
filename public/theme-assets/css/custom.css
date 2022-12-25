@@ -822,6 +822,7 @@ table thead {
 .search-mobile-toggle {
     right: 0;
 }
+
 .transformTranslateCenter {
     top: 50%;
     left: 50%;
@@ -891,6 +892,19 @@ table thead {
     right: 0;
     bottom: -100%;
     width: 100vw;
+    height: 100vh;
+    background-color: rgb(255, 255, 255);
+    padding-bottom: 60px;
+    overflow-y: auto;
+    z-index: 5;
+    -webkit-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+}
+.user-wrapper-mobile {
+    position: fixed;
+    bottom: 0;
+    right: -110%;
+    width: 84vw;
     height: 100vh;
     background-color: rgb(255, 255, 255);
     padding-bottom: 60px;

@@ -1,3 +1,5 @@
+<?php $isLauncher = Auth::check() && Auth::user()->isLauncher(); ?>
+
 <div class="col-xl-3 col-lg-4 col-md-5 mb-md-0 mb-3 zIndex0">
     <div class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">
         <div class="profile-user-info py-3 ui-box bg-white">
@@ -34,25 +36,74 @@
                     </ul>
                 </div>
             </div>
+          
             <ul class="nav nav-items-with-icon flex-column" style="border-bottom: 1px solid #dedede;padding-bottom: 15px;">
+                @if($isLauncher)
+                <li id="simpleProducer" class="nav-item">
+                    <a  onclick="$('#simpleProfileHidden').removeClass('hidden');" role="button" class="nav-link whiteSpaceNoWrap textColor"><i class="nav-link-icon ri-user-line"></i>
+                    بازگشت به پروفایل عادی
+                    </a>
+                </li>
+                @else
                 <li id="goLauncher" class="nav-item hidden">
                     <a role="button" class="nav-link whiteSpaceNoWrap textColor"><i class="nav-link-icon ri-user-line"></i>
                     ارتقا به برگزار کننده
                     </a>
                 </li>
-                <li id="simpleProducer" class="nav-item hidden">
+                
+                @endif
+                <li id="launcherProducer" class="nav-item hidden">
+                    <a role="button" class="nav-link whiteSpaceNoWrap textColor"><i class="nav-link-icon ri-user-line"></i>
+                        رفتن به پروفایل برگزار کننده
+                    </a>
+                </li>
+                {{-- <li id="launcherProducer" class="nav-item hidden">
+                    <a role="button" class="nav-link whiteSpaceNoWrap textColor"><i class="nav-link-icon ri-user-line"></i>
+                        رفتن به پروفایل برگزار کننده
+                    </a>
+                </li> --}}
+                {{-- <li id="simpleProducer" class="nav-item hidden">
                     <a role="button" class="nav-link whiteSpaceNoWrap textColor"><i class="nav-link-icon ri-user-line"></i>
                     بازگشت به پروفایل عادی
                     </a>
-                </li>
-                <li id="launcherProducer" class="nav-item hidden">
-                    <a role="button" class="nav-link whiteSpaceNoWrap textColor"><i class="nav-link-icon ri-user-line"></i>
-                        رفتن به پروفایل برگذار کننده
-                    </a>
-                </li>
+                </li> --}}
             </ul>
-            
-            <ul id="simpleProfileHidden" class="nav nav-items-with-icon flex-column hidden">
+            @if($isLauncher)
+                <ul id="launcherProfileHidden" class="nav nav-items-with-icon flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href=""><i class="nav-link-icon ri-file-list-3-line"></i>
+                            ایجاد رویداد
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href=""><i class="nav-link-icon ri-heart-3-line"></i> 
+                            رویداد ها ی من
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href=""><i class="nav-link-icon ri-chat-1-line"></i>
+                        اطلاعات مالی
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href=""><i class="nav-link-icon ri-notification-line"></i>
+                            گزارشات مالی
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href=""><i class="nav-link-icon ri-user-line"></i>
+                        اطلاعات برگزار کننده
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href=""><i class="nav-link-icon ri-logout-box-r-line"></i>
+                            خروج</a>
+                    </li>
+                </ul>
+            @endif
+
+
+            <ul id="simpleProfileHidden" class="nav nav-items-with-icon flex-column {{ $isLauncher ? 'hidden' : '' }}">
                 <li class="nav-item">
                     <a class="nav-link" href=""><i class="nav-link-icon ri-file-list-3-line"></i>
                         بلیط های من    
@@ -80,37 +131,6 @@
                         خروج</a>
                 </li>
             </ul>
-            <ul id="launcherProfileHidden" class="nav nav-items-with-icon flex-column hidden">
-                <li class="nav-item">
-                    <a class="nav-link" href=""><i class="nav-link-icon ri-file-list-3-line"></i>
-                        ایجاد رویداد
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href=""><i class="nav-link-icon ri-heart-3-line"></i> 
-                        رویداد ها ی من
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href=""><i class="nav-link-icon ri-chat-1-line"></i>
-                    اطلاعات بانی
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href=""><i class="nav-link-icon ri-notification-line"></i>
-                        گزارشات مالی
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href=""><i class="nav-link-icon ri-user-line"></i> اطلاعات
-                    اطلاعات برگذار کننده
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href=""><i class="nav-link-icon ri-logout-box-r-line"></i>
-                        خروج</a>
-                </li>
-            </ul>
         </div>
     </div>
 </div>
@@ -119,7 +139,7 @@
         $('#goLauncher').removeClass('hidden').on('click',function(){
             window.location.href = "{{route('launcher') }}";
         });
-        $('#simpleProfileHidden').removeClass('hidden');
+        
         $('#launcherProducer').on('click',function(){
             $('#simpleProfileHidden').addClass('hidden');
             $('#launcherProfileHidden').removeClass('hidden');

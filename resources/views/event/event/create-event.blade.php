@@ -103,8 +103,30 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                             </a>
                         </li>
                     </ul>
-                    <a href="#" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
                 </div>
+                @if (isset($launchers))
+                <div class="ui-box bg-white mb-5 boxShadow">
+                    <div class="ui-box-title">اطلاعات کلی</div>
+                    <div class="ui-box-content">
+                        <div class="row">
+                            <div class="col-lg-6 mb-3">
+                                <div class="py-2">
+                                    <div class="fs-7 text-dark">نام برگزار کننده</div>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <select id="nameProducer" class="select2 w-100">
+                                            <option value="0">انتخاب کنید</option>
+                                            @foreach($launchers as $launchers)
+                                                <option value="{{ $item['value'] }}">{{ $item['name'] }}</option>
+                                            
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
                 <div class="ui-box bg-white mb-5 boxShadow">
                     <div class="ui-box-title">اطلاعات کلی</div>
                     <div class="ui-box-content">

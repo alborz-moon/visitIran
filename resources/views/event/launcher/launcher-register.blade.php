@@ -20,18 +20,18 @@
                     <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
                             <div>
-                               در خواست ارتقا به برگذار کننده پس از ارسال توسط ادمین بازبینی و تایید خواهد شد  .
+                               در خواست ارتقا به برگزار کننده پس از ارسال توسط ادمین بازبینی و تایید خواهد شد  .
                             </div>                       
                         </div>
                         <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
                             <div>
-                                در حال حاضر حساب برگذار کننده شما غیر فعال است . پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
+                                در حال حاضر حساب برگزار کننده شما غیر فعال است . پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
                             </div> 
                             <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">مشاهده سوابق</a> 
                         </div>
                         <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
                             <div>
-                                تایید حساب برگذار کننده با مشکل مواجه شده است . برای جزئیات بیشتر به پشتیبانی مراجه کنید.
+                                تایید حساب برگزار کننده با مشکل مواجه شده است . برای جزئیات بیشتر به پشتیبانی مراجه کنید.
                             </div> 
                             <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">پشتیبانی</a>
                         </div>
@@ -322,7 +322,7 @@
                             </div>
                         </div>
                         <div class="spaceBetween mb-2">
-                            <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</button>
+                            <a href="" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
                             <button id="submit" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
                         </div>
                         <div class="d-flex justify-content-end">
