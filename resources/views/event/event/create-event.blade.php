@@ -615,7 +615,7 @@ $("#nextBtn").on('click', function() {
     var selectAddBox = checkArr(required_Arr, Arr);
 
     if(!inputList || !selectList || !selectAddBox){
-        // return;
+        return;
     }
     let data = {
         title: eventName,

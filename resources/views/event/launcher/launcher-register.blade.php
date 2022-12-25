@@ -591,8 +591,9 @@
                 let required_list = ['nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail'];
                 let inputList = checkInputs(required_list);
                 let selectList = checkSelect(required_list_Select);  
+                
                 if( !inputList || !selectList){
-                //    return
+                   return
                 }
                 
                 $(".showPenEdit").removeClass('hidden')
@@ -627,9 +628,6 @@
                     launcher_city_id: launcherCityID,
                     launcher_site: launcherSite,
                     launcher_email: launcherEmail,
-                    launcher_phone: tels.map((elem, index) => {
-                        return elem.val;
-                    }),
                     launcher_type: launcherType,
                     launcher_address: launcherAddress,
                 };
@@ -644,6 +642,10 @@
                 for ( var key in data ) {
                    formData.append(key, data[key]);
                 }
+
+                tels.forEach((elem, index) => {
+                    formData.append('launcher_phone[]', elem.val);
+                });
 
                 const inputFile = document.getElementById("file-ip-1");
                 for (const file of inputFile.files) {
@@ -728,23 +730,22 @@
                     $(".launcherCityID").val(res.data.launcher_city_id);
                     $("#launcherEmail").val(res.data.launcher_email);
 
-                    // $("#launcherPhone").val(res.data.launcher_phone);
 
-                    // var showPhone = '';
-                    // for(i = 0 ; i < res.data.launcher_phone.length; i++){
-                    //     showPhone += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + res.data.launcher_phone[i] + '';
-                    //     showPhone += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
-                    //     showPhone += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
-                    //     showPhone += '</button>';
-                    //     showPhone += '</div>';
-                    //     // tels.push
-                    //     tels.push({
-                    //         id: i,
-                    //         val: res.data.launcher_phone[i]
-                    //     });
-                    // };
+                    var showPhone = '';
+                    for(i = 0 ; i < res.data.launcher_phone.length; i++){
+                        showPhone += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + res.data.launcher_phone[i] + '';
+                        showPhone += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
+                        showPhone += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
+                        showPhone += '</button>';
+                        showPhone += '</div>';
+                        
+                        tels.push({
+                            id: i,
+                            val: res.data.launcher_phone[i]
+                        });
+                    };
 
-                    // $("#addTell").append(showPhone);
+                    $("#addTell").append(showPhone);
                     $("#launcherSite").val(res.data.launcher_site);
                     $("#launcherType").val(res.data.launcher_type).change();
                     $("#nid").val(res.data.user_NID);

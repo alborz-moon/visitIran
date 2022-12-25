@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use DateTime;
 
 class EventHelper extends Controller {
 
@@ -25,6 +26,7 @@ class EventHelper extends Controller {
         $cities = $request->query('cities', null);
         $types = $request->query('types', null);
         $tag = $request->query('tag', null);
+        $date = $request->query('date', null);
 
         $status = $request->query('status', null);
         $visibility = $request->query('visibility', null);
@@ -288,6 +290,19 @@ class EventHelper extends Controller {
                 $filters->whereIn($filter[0], $filter[1]);
             else
                 $filters->where($filter[0], $filter[1]);
+        }
+        
+        if($date != null) {
+            $filters->join('event_sessions', 'events.id', '=', 'event_id');
+
+            $d = self::ShamsiToMilady($date, '-');
+            
+            $d= new DateTime($d);
+            dd($d);
+            $timestamp = $date->getTimestamp();
+
+            $filters->where('event_sessions.start', '<=', $timestamp);
+            $filters->where('event_sessions.end', '>=', $timestamp);
         }
 
         return $filters;

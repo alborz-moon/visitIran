@@ -4,16 +4,37 @@ namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventTagResource;
-use App\Http\Resources\FacilityResource;
-use App\Http\Resources\FeatureResourceUser;
 use App\Models\EventTag;
-use App\Models\Facility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class EventTagController extends Controller
 {
+
+
+    public function search(Request $request) {
+
+        //todo : uncomment
+        $validator = [
+            // 'key' => 'required|persian_alpha|min:2|max:15',
+            'key' => 'required|min:2|max:15'
+        ];
+
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator);
+        $categories = EventTag::where('label', 'like', '%' . $request['key'] . '%')
+            ->get();
+        
+        return response()->json([
+            'status' => 'ok',
+            'data' => EventTagResource::collection($categories)->toArray($request)
+        ]);
+    }
+
+    
     /**
      * Display a listing of the resource.
      *

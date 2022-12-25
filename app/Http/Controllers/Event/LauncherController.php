@@ -228,9 +228,8 @@ class LauncherController extends Controller
             'launcher_address' => 'nullable|string|min:2',
             'launcher_email' => 'nullable|email',
             'launcher_site' => 'nullable|string|min:2',
-            // 'launcher_phone' => 'nullable|array|min:1',
-            // 'launcher_phone.*' => 'required|numeric|digits_between:7,11',
-            'launcher_phone' => 'nullable|string|min:1',
+            'launcher_phone' => 'nullable|array|min:1',
+            'launcher_phone.*' => 'required|numeric|digits_between:7,11',
             'launcher_city_id' => 'nullable|exists:mysql2.cities,id',
             'launcher_x' => ['nullable','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'launcher_y' => ['nullable','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
@@ -276,14 +275,14 @@ class LauncherController extends Controller
             $request['code'] = null;
         }
 
-        // if($request->has('launcher_phone')) {
-        //     $launcher_phone_str = "";
+        if($request->has('launcher_phone')) {
+            $launcher_phone_str = "";
 
-        //     foreach($request['launcher_phone'] as $itr)
-        //         $launcher_phone_str .= $itr . '__';
+            foreach($request['launcher_phone'] as $itr)
+                $launcher_phone_str .= $itr . '__';
             
-        //     $request['launcher_phone'] = substr($launcher_phone_str, 0, strlen($launcher_phone_str) - 2);
-        // }
+            $request['launcher_phone'] = substr($launcher_phone_str, 0, strlen($launcher_phone_str) - 2);
+        }
         
         if($request->has('img_file')) {
          
