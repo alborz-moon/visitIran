@@ -14,17 +14,8 @@ class LauncherVeryDigest extends JsonResource
      */
     public function toArray($request)
     {
-        $user = $this->user;
-        //todo: uncomment
-
         return [
             'id' => $this->id,
-            'user' => [
-                // 'name' => $user->first_name . ' ' . $user->last_name,
-                // 'phone' => $user->phone,
-                'name' => '',
-                'phone' => '',
-            ],
             'company_name' => $this->company_name
         ];
     }

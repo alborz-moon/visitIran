@@ -115,9 +115,8 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                                     <div class="d-flex align-items-center justify-content-between">
                                         <select id="nameProducer" class="select2 w-100">
                                             <option value="0">انتخاب کنید</option>
-                                            @foreach($launchers as $launchers)
-                                                <option value="{{ $item['value'] }}">{{ $item['name'] }}</option>
-                                            
+                                            @foreach($launchers as $launcher)
+                                                <option value="{{ $launcher['id'] }}">{{ $launcher['company_name'] }}</option>
                                             @endforeach
                                         </select>
                                     </div>

@@ -36,7 +36,9 @@ class EventController extends EventHelper
         $mode = 'create';
 
         if($request->user()->isEditor()) {
+            
             $launchers = LauncherVeryDigest::collection(Launcher::all())->toArray($request);
+            // dd($launchers);
             return view('event.event.create-event', compact('states', 'mode', 'launchers'));
         }
 
