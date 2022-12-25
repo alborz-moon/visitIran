@@ -621,6 +621,7 @@ $("#nextBtn").on('click', function() {
     var postalCode = $('#postalCode').val();
     var address = $('#address').val();
     var link = $('#link').val();
+    var nameProducer = $('#nameProducer').val();
     $('input[name=facility]').each(function() {
         if ($(this).is(":checked")) {
             selectedFacility.push($(this).attr('id'));
@@ -660,6 +661,9 @@ $("#nextBtn").on('click', function() {
     } else if (onlineOrOffline == "online") {
         data.link = link;
     }
+    if (nameProducer != undefined){
+        data.launcher= {'id': nameProducer};
+    }
     $.ajax({
         type: 'post',
         url: "{{isset($id) ?  route('event.update', ['event' => $id]) : route('event.store')}}",
@@ -698,12 +702,12 @@ function getPhase1Info() {
 
             if (res.status === "ok") {
                 if (res.data.length != 0) {
-
+                    
                     $('#eventName').val(res.data.title);
                     $('#ageCondi').val(res.data.age_description).change();
                     $('#level').val(res.data.level_description).change();
                     $('#onlineOrOffline').val(res.data.type).change();
-
+                    $('#nameProducer').val(res.data.launcher.id).change();
                     if (res.data.type === "offline") {
                         initialing = true;
                         x = res.data.x;
