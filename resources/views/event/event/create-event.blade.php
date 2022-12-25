@@ -113,7 +113,7 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                                 <div class="py-2">
                                     <div class="fs-7 text-dark">نام برگزار کننده</div>
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <select id="nameProducer" class="select2 w-100">
+                                        <select id="launcher" class="select2 w-100">
                                             <option value="0">انتخاب کنید</option>
                                             @foreach($launchers as $launcher)
                                                 <option value="{{ $launcher['id'] }}">{{ $launcher['company_name'] }}</option>
@@ -513,6 +513,7 @@ function watchList(selectorId, arr, increamentor, elemId, resultPaneId) {
                 id: increamentor,
                 value: wantedElem
             });
+
             var html = '<div id="' + elemId + '-' + increamentor +
                 '" class="item-button spaceBetween colorBlack">' + wantedElemCaption + '';
             html += '<button data-id="' + increamentor + '" class="remove-' + elemId +
@@ -621,14 +622,19 @@ $("#nextBtn").on('click', function() {
     var postalCode = $('#postalCode').val();
     var address = $('#address').val();
     var link = $('#link').val();
-    var nameProducer = $('#nameProducer').val();
+    var launcher = undefined;
+
+    if($('#launcher').length)
+        launcher = $('#launcher').val();
+
     $('input[name=facility]').each(function() {
         if ($(this).is(":checked")) {
             selectedFacility.push($(this).attr('id'));
         }
     });
-    var required_list = ['eventName', 'postalCode' , 'link'];
-    var required_list_Select = ['level', 'state02', 'onlineOrOffline'];
+
+    var required_list = (onlineOrOffline == "offline") ? ['postalCode', 'eventName'] : ['eventName', 'link'];
+    var required_list_Select = (onlineOrOffline == "offline") ? ['level', 'state02', 'city02', 'onlineOrOffline'] : ['level', 'onlineOrOffline'];
     var required_Arr = ['topicEvent', 'lang'];
     var Arr = [topicList, langList];
 
@@ -636,14 +642,14 @@ $("#nextBtn").on('click', function() {
     var selectList = checkSelect(required_list_Select);
     var selectAddBox = checkArr(required_Arr, Arr);
 
-    if(!inputList || !selectList || !selectAddBox){
+    if(!inputList || !selectList || !selectAddBox)
         return;
-    }
+    
     let data = {
         title: eventName,
         facilities_arr: selectedFacility,
         tags_arr: topicList.map((elem, index) => {
-            return elem.id;
+            return elem.value;
         }),
         language_arr: langList.map((elem, index) => {
             return elem.value;
@@ -661,8 +667,8 @@ $("#nextBtn").on('click', function() {
     } else if (onlineOrOffline == "online") {
         data.link = link;
     }
-    if (nameProducer != undefined){
-        data.launcher= {'id': nameProducer};
+    if (launcher != undefined){
+        data.launcher_id = launcher;
     }
     $.ajax({
         type: 'post',
@@ -670,8 +676,15 @@ $("#nextBtn").on('click', function() {
         data: data,
         success: function(res) {
             if (res.status === "ok") {
+                
                 showSuccess("عملیات موردنظر با موفقیت انجام شد.");
-                window.location.href = "{{isset($id) ? route('addSessionsInfo', ['event' => $id]) : route('addSessionsInfo') }}";
+
+                @if(isset($id))
+                    window.location.href = "{{ route('addSessionsInfo', ['event' => $id]) }}";
+                @else
+                    window.location.href = "{{ route('addSessionsInfo') }}" + "/" + res.id;
+                @endif
+                
             } else {
                 alert(res.msg);
             }
@@ -707,7 +720,8 @@ function getPhase1Info() {
                     $('#ageCondi').val(res.data.age_description).change();
                     $('#level').val(res.data.level_description).change();
                     $('#onlineOrOffline').val(res.data.type).change();
-                    $('#nameProducer').val(res.data.launcher.id).change();
+                    $('#launcher').val(res.data.launcher.id).change();
+
                     if (res.data.type === "offline") {
                         initialing = true;
                         x = res.data.x;

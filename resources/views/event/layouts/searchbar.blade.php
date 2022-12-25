@@ -10,27 +10,27 @@
     </span>
     <div class="row mb-5">
         <div class="col-sm-12 col-md-3 ">
-            <select class="select2 seachbar-select w-100" placeholder="" name="state">
-                <option selected value="1">نام رویداد</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-                <option value="4">Four</option>
+            <select class="select2 seachbar-select w-100" placeholder="" id="tagFilter">
+                <option selected value="0">موضوع رویداد</option>
+                @foreach ($tags as $tag)
+                    <option value="{{ $tag->label }}">{{ $tag->label }}</option>
+                @endforeach
             </select>
         </div>
         <div class="col-sm-12 col-md-3 ">
-            <select class="select2 seachbar-select w-100" aria-placeholder="" name="">
-                <option selected value="1">برگزار کننده</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-                <option value="4">Four</option>
+            <select class="select2 seachbar-select w-100" aria-placeholder="" id="launcherFilter">
+                <option selected value="0">برگزار کننده</option>
+                @foreach ($launchers as $launcher)
+                    <option value="{{ $launcher->id }}">{{ $launcher->company_name }}</option>
+                @endforeach
             </select>
         </div>
         <div class="col-sm-12 col-md-3 ">
-            <select class="select2 seachbar-select w-100" aria-placeholder="" name="">
-                <option selected value="1">محل برگزاری</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-                <option value="4">Four</option>
+            <select class="select2 seachbar-select w-100" aria-placeholder="" id="cityFilter">
+                <option selected value="0">محل برگزاری</option>
+                @foreach ($cities as $city)
+                    <option value="{{ $city->id }}">{{ $city->name }}</option>
+                @endforeach
             </select>
         </div>
         <div class="col-sm-6 col-md-2 ">
@@ -40,7 +40,7 @@
             </label>
         </div>
         <div class="col-sm-6 col-md-1  m-auto">
-            <button class="btn btn-primary whiteSpaceNoWrap">جست و جو</button>
+            <button onclick="goToListPage()" class="btn btn-primary whiteSpaceNoWrap">جست و جو</button>
         </div>
     </div>
 </div>
@@ -51,5 +51,26 @@
             showButtonPanel: true,
             dateFormat: "yy/mm/dd"
         };
-        $("#date_input_start").datepicker(datePickerOptions);
+    $("#date_input_start").datepicker(datePickerOptions);
+
+    function goToListPage() {
+
+        let query = new URLSearchParams();
+        
+        let tag = $('#tagFilter').val();
+        let launcher = $('#launcherFilter').val();
+        let city = $('#cityFilter').val();
+
+        if(tag != 0)
+            query.append('tag', tag);
+
+        if(launcher != 0)
+            query.append('launcher', launcher);
+
+        if(city != 0)
+            query.append('city', city);
+
+        document.location.href = '{{ route('event.category.list', ['orderBy' => 'createdAt']) }}' + "?" + query.toString();
+    }
+
 </script>

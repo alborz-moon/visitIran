@@ -16,14 +16,19 @@ class LauncherResourceAdmin extends JsonResource
     public function toArray($request)
     {
         $user = $this->user;
+        //todo : uncomment
 
         return [
             'id' => $this->id,
             'created_at' => Controller::getPersianDate($this->created_at),
             'user' => [
-                'name' => $user->first_name . ' ' . $user->last_name,
-                'phone' => $user->phone,
+                // 'name' => $user->first_name . ' ' . $user->last_name,
+                // 'phone' => $user->phone,
+
+                'name' => '',
+                'phone' => '',
             ],
+            'company_name' => $this->company_name,
             'type' => $this->launcher_type,
             'status' => $this->status,
             'followers_count' => $this->followers_count,

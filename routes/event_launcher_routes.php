@@ -16,7 +16,7 @@ Route::get('/addPhase2Info/{event?}', [EventController::class, 'addPhase2Info'])
 
 Route::get('/addGalleryToEvent/{event?}', [EventController::class, 'addGalleryToEvent'])->name('addGalleryToEvent');
 
-Route::resource('event', EventController::class)->except('update');
+Route::resource('event', EventController::class)->except('update', 'destroy');
 
 
 Route::prefix('event/{event}')->group(function() {

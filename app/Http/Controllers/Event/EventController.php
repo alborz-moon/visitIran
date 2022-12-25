@@ -237,7 +237,6 @@ class EventController extends EventHelper
             return response()->json($validator->errors(), 400);
         }
 
-
         $params = [];
         foreach($request->query() as $key => $val) {
             $params[str_replace('amp;', '', $key)] = $val;
@@ -449,7 +448,7 @@ class EventController extends EventHelper
             'age_description' => ['required', Rule::in(['child', 'teen', 'adult', 'all', 'old'])],
             'level_description' => ['required', Rule::in(['national', 'state', 'local', 'pro'])],
             'tags_arr' => 'required|array',
-            'tags_arr.*' => 'required|integer|exists:mysql2.event_tags,id',
+            'tags_arr.*' => 'required|exists:mysql2.event_tags,id',
             'language_arr' => 'required|array',
             'language_arr.*' => ['required', Rule::in(['fa', 'en', 'ar', 'fr', 'gr', 'tr'])],
             'facilities_arr' => 'nullable|array',
@@ -571,5 +570,6 @@ class EventController extends EventHelper
             unlink(__DIR__ . '/../../../../public/storage/events/' . $event->img);
 
         $event->delete();
+        return response()->json(['status' => 'ok']);
     }
 }

@@ -293,16 +293,22 @@ class EventHelper extends Controller {
         }
         
         if($date != null) {
-            $filters->join('event_sessions', 'events.id', '=', 'event_id');
-
-            $d = self::ShamsiToMilady($date, '-');
             
-            $d= new DateTime($d);
-            dd($d);
-            $timestamp = $date->getTimestamp();
+            $d = self::ShamsiToMilady($date, '-');
+            $d= DateTime::createFromFormat('Y-m-d', $d);
+            
+            if ($d === false) {
+                $timestamp = null;
+            } else {
+                $timestamp = $d->getTimestamp();
+            }
 
-            $filters->where('event_sessions.start', '<=', $timestamp);
-            $filters->where('event_sessions.end', '>=', $timestamp);
+            if($timestamp != null) {
+                $filters->join('event_sessions', 'events.id', '=', 'event_id');
+                $filters->where('event_sessions.start', '<=', $timestamp);
+                $filters->where('event_sessions.end', '>=', $timestamp);
+                $filters->select('events.*');
+            }
         }
 
         return $filters;

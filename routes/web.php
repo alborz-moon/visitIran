@@ -14,6 +14,7 @@ use App\Models\Launcher;
 use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
@@ -137,8 +138,15 @@ Route::middleware(['myAuth'])->group(function() {
 Route::domain(Controller::$EVENT_SITE)->group(function() {
 
     Route::get('/', function() {
+        
         $tags = EventTag::visible()->get();
-        return view('event.welcome', compact('tags'));
+
+        $whereClause = "events.visibility = true and end_registry > " . time();
+
+        $cities = DB::connection('mysql2')->select('select cities.id, cities.name from events, cities where city_id is not null and city_id = cities.id and ' . $whereClause . ' group by(cities.id)');
+        $launchers = DB::connection('mysql2')->select('select distinct(launcher_id) as id, launchers.company_name from launchers, events where launcher_id = launchers.id and ' . $whereClause);
+
+        return view('event.welcome', compact('tags', 'launchers', 'cities'));
     })->name('event.home');
 
 
@@ -156,9 +164,15 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
     Route::middleware(['myAuth'])->group(function() {
 
         Route::get('/launcher-register', function() {
-            $tmp = Launcher::where('user_id', Auth::user()->id)->first();
-            if($tmp != null)
-                return Redirect::route('launcher-edit', ['formId' => $tmp->id]);
+            
+            $user = Auth::user();
+            $editor = $user->isEditor();
+            
+            if(!$editor) {
+                $tmp = Launcher::where('user_id', $user->id)->first();
+                if($tmp != null)
+                    return Redirect::route('launcher-edit', ['formId' => $tmp->id]);
+            }
 
             $states = State::orderBy('name', 'asc')->get();
             $mode = 'create';

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventTagResource;
+use App\Http\Resources\EventUserDigest;
 use App\Models\EventTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -57,7 +58,7 @@ class EventTagController extends Controller
     {
         return response()->json([
             'status' => 'ok',
-            'data' => EventTagResource::collection(EventTag::all())->toArray($request)
+            'data' => EventTagResource::collection($request->user()->isEditor() ? EventTag::visible()->get() : EventTag::all())->toArray($request)
         ]);
     }
 
@@ -150,13 +151,40 @@ class EventTagController extends Controller
     }
 
 
-    public function list(EventTag $tag, Request $request) {
+    public function list(EventTag $tag) {
         
         if(!$tag->visibility)
             return Redirect::route('403');
 
         $label = $tag->label;
         $whereClause = "events.visibility = true and end_registry > " . time() . " and tags like '%" . $label . "%'";
+        return $this->returnListPage($whereClause, $tag);    
+    }
+
+    public function allCategories(string $orderBy, Request $request) {
+        
+        $tag = $request->query('tag', null);
+        $launcher = $request->query('launcher', null);
+        $city = $request->query('city', null);
+
+        $whereClause = "events.visibility = true and end_registry > " . time();
+        $whereClause2 = "";
+
+        if($tag != null)
+            $whereClause2 .= " and tags like '%" . $tag . "%'";
+        
+        if($launcher != null)
+            $whereClause2 .= " and launcher_id = " . $launcher;
+
+        if($city != null)
+            $whereClause2 .= " and city_id = " . $city;
+
+        return $this->returnListPage($whereClause, null, $whereClause2, $request);
+    }
+
+
+    private function returnListPage($whereClause, $tag=null, $initialSet=null, $request=null) {
+
         $attrs = DB::connection('mysql2')->select('select price, language, facilities, age_description, level_description from events where ' . $whereClause);
         $cities = DB::connection('mysql2')->select('select cities.id, cities.name from events, cities where city_id is not null and city_id = cities.id and ' . $whereClause . ' group by(cities.id)');
         $launchers = DB::connection('mysql2')->select('select distinct(launcher_id) as id, launchers.company_name from launchers, events where launcher_id = launchers.id and ' . $whereClause);
@@ -201,8 +229,37 @@ class EventTagController extends Controller
             
         }
 
+        if($tag == null) {
+            if($initialSet == null)
+                return view('event.list', [
+                    'launchers' => $launchers,
+                    'maxPrice' => $maxPrice,
+                    'minPrice' => $minPrice,
+                    'cities' => $cities,
+                    'facilities' => $facilities,
+                    'langs' => $langs,
+                    'ages' => $ages,
+                    'levels' => $levels
+                ]);
+
+            return view('event.list', [
+                'launchers' => $launchers,
+                'maxPrice' => $maxPrice,
+                'minPrice' => $minPrice,
+                'cities' => $cities,
+                'facilities' => $facilities,
+                'langs' => $langs,
+                'ages' => $ages,
+                'levels' => $levels,
+                'initialSet' => EventUserDigest::collection(
+                    DB::connection('mysql2')->select('select events.*, launchers.company_name, cities.name as city from launchers, events left join cities on events.city_id = cities.id where events.launcher_id = launchers.id and ' . $whereClause . $initialSet)
+                )->toArray($request)
+            ]);
+        }
+            
+
         return view('event.list', [
-            'name' => $label,
+            'name' => $tag->label,
             'id' => $tag->id,
             'launchers' => $launchers,
             'maxPrice' => $maxPrice,
@@ -216,30 +273,4 @@ class EventTagController extends Controller
     }
 
     
-    public function allCategories(string $orderBy, Request $request) {
-        
-        $catId = null;
-        $whereClause = $catId == null ? "products.visibility = true" : "products.visibility = true and category_id = " . $catId;
-        $minMax = DB::select('select max(price) as maxPrice, min(price) as minPrice from products where ' . $whereClause);
-        $categories = DB::select('select distinct(category_id) as id, categories.name from products, categories where category_id = categories.id and ' . $whereClause);
-        $sellers = DB::select('select distinct(seller_id) as id, sellers.name from sellers, products where seller_id = sellers.id and ' . $whereClause);
-        $brands = DB::select('select distinct(brand_id) as id, brands.name from products, brands where brand_id = brands.id and ' . $whereClause);
-        
-        
-        return view('shop.list', [
-            'path' => [],
-            'orderBy' => $orderBy,
-            'name' => 'تازه ترین ها',
-            'features' => [],
-            'has_sub' => false,
-            'categories' => $categories,
-            'sellers' => $sellers,
-            'brands' => $brands,
-            'maxPrice' => $minMax[0]->maxPrice,
-            'minPrice' => $minMax[0]->minPrice,
-        ]);
-
-    }
-
-
 }

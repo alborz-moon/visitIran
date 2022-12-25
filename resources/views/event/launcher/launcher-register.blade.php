@@ -562,6 +562,7 @@
             });
 
             $('#submit').on('click',function() { 
+
                 var nameLast = $('#nameLast').val();
                 var name = $('#name').val();
                 var last = $('#last').val();
@@ -587,12 +588,20 @@
                 var state02 = $('#state02').val()
 
 
-                let required_list_Select = ['launcherType', 'state02' , 'companyType'];
-                let required_list = ['nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail'];
+                let required_list_Select = (launcherType == "hoghoghi") ? 
+                    ['launcherType', 'state02', 'city02', 'companyType'] :
+                    ['launcherType', 'state02', 'city02']
+                ;
+                
+                let required_list = (launcherType == "hoghoghi") ? 
+                    ['nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail'] :
+                    ['nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail', 'code']
+                ;
+
                 let inputList = checkInputs(required_list);
                 let selectList = checkSelect(required_list_Select);  
                 
-                if( !inputList || !selectList){
+                if( !inputList || !selectList) {
                    return
                 }
                 
