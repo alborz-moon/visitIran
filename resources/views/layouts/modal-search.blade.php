@@ -39,9 +39,9 @@
         </form>
         @if(isset($top_categories))
           <div id="hiddenCat" class="d-flex flexWrap gap10 my-3 hidden">
-            <div id="defaultCatgoriesMobile">
+            <div id="defaultCatgoriesMobile d-flex flexWrap gap10">
               @foreach ($top_categories as $cat)
-                <div class="d-flex noWrap">
+                <div class="d-flex flexWrap gap10">
                   <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal whiteSpaceNoWrap">
                       {{ $cat['name'] }}
                   </a>
@@ -107,7 +107,7 @@
             $(".afterCatgories").empty().append(html);
           }
       });
-        $('#searchBtn').css('display','flex');
+
     });
 
     $('#searchMobile').on('click',function(){

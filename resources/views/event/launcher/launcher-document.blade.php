@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <div class="spaceBetween mb-2">
-                    <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</button>
+                    <a href="{{ route('launcher') }}" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
                     <button onclick="sendimg()" class="btn btn-sm btn-primary px-5">ارسال برای بازبینی</button>
                 </div>
                 </div>

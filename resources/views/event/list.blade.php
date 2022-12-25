@@ -21,7 +21,6 @@
         <main class="page-content TopParentBannerMoveOnTop">
             <div class="container mt-3">
                 <div class="row">
-                    @include('event.layouts.searchbar')
                     <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar">
                         {{-- @include('sections.top_categories_products') --}}
                         <!-- start of breadcrumb -->
