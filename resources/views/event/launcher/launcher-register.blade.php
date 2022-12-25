@@ -20,18 +20,18 @@
                     <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
                             <div>
-                               در خواست ارتقا به برگذار کننده پس از ارسال توسط ادمین بازبینی و تایید خواهد شد  .
+                               در خواست ارتقا به برگزار کننده پس از ارسال توسط ادمین بازبینی و تایید خواهد شد  .
                             </div>                       
                         </div>
                         <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
                             <div>
-                                در حال حاضر حساب برگذار کننده شما غیر فعال است . پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
+                                در حال حاضر حساب برگزار کننده شما غیر فعال است . پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
                             </div> 
                             <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">مشاهده سوابق</a> 
                         </div>
                         <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
                             <div>
-                                تایید حساب برگذار کننده با مشکل مواجه شده است . برای جزئیات بیشتر به پشتیبانی مراجه کنید.
+                                تایید حساب برگزار کننده با مشکل مواجه شده است . برای جزئیات بیشتر به پشتیبانی مراجه کنید.
                             </div> 
                             <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">پشتیبانی</a>
                         </div>
@@ -322,7 +322,7 @@
                             </div>
                         </div>
                         <div class="spaceBetween mb-2">
-                            <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</button>
+                            <a href="" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
                             <button id="submit" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
                         </div>
                         <div class="d-flex justify-content-end">
@@ -562,6 +562,7 @@
             });
 
             $('#submit').on('click',function() { 
+
                 var nameLast = $('#nameLast').val();
                 var name = $('#name').val();
                 var last = $('#last').val();
@@ -587,12 +588,21 @@
                 var state02 = $('#state02').val()
 
 
-                let required_list_Select = ['launcherType', 'state02' , 'companyType'];
-                let required_list = ['nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail'];
+                let required_list_Select = (launcherType == "hoghoghi") ? 
+                    ['launcherType', 'state02', 'city02', 'companyType'] :
+                    ['launcherType', 'state02', 'city02']
+                ;
+                
+                let required_list = (launcherType == "hoghoghi") ? 
+                    ['nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail'] :
+                    ['nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail', 'code']
+                ;
+
                 let inputList = checkInputs(required_list);
                 let selectList = checkSelect(required_list_Select);  
-                if( !inputList || !selectList){
-                //    return
+                
+                if( !inputList || !selectList) {
+                   return
                 }
                 
                 $(".showPenEdit").removeClass('hidden')
@@ -627,9 +637,6 @@
                     launcher_city_id: launcherCityID,
                     launcher_site: launcherSite,
                     launcher_email: launcherEmail,
-                    launcher_phone: tels.map((elem, index) => {
-                        return elem.val;
-                    }),
                     launcher_type: launcherType,
                     launcher_address: launcherAddress,
                 };
@@ -644,6 +651,10 @@
                 for ( var key in data ) {
                    formData.append(key, data[key]);
                 }
+
+                tels.forEach((elem, index) => {
+                    formData.append('launcher_phone[]', elem.val);
+                });
 
                 const inputFile = document.getElementById("file-ip-1");
                 for (const file of inputFile.files) {
@@ -728,23 +739,22 @@
                     $(".launcherCityID").val(res.data.launcher_city_id);
                     $("#launcherEmail").val(res.data.launcher_email);
 
-                    // $("#launcherPhone").val(res.data.launcher_phone);
 
-                    // var showPhone = '';
-                    // for(i = 0 ; i < res.data.launcher_phone.length; i++){
-                    //     showPhone += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + res.data.launcher_phone[i] + '';
-                    //     showPhone += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
-                    //     showPhone += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
-                    //     showPhone += '</button>';
-                    //     showPhone += '</div>';
-                    //     // tels.push
-                    //     tels.push({
-                    //         id: i,
-                    //         val: res.data.launcher_phone[i]
-                    //     });
-                    // };
+                    var showPhone = '';
+                    for(i = 0 ; i < res.data.launcher_phone.length; i++){
+                        showPhone += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + res.data.launcher_phone[i] + '';
+                        showPhone += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
+                        showPhone += '<i data-id="' + i + '" class="remove-tel-btn ri-close-line"></i>';
+                        showPhone += '</button>';
+                        showPhone += '</div>';
+                        
+                        tels.push({
+                            id: i,
+                            val: res.data.launcher_phone[i]
+                        });
+                    };
 
-                    // $("#addTell").append(showPhone);
+                    $("#addTell").append(showPhone);
                     $("#launcherSite").val(res.data.launcher_site);
                     $("#launcherType").val(res.data.launcher_type).change();
                     $("#nid").val(res.data.user_NID);

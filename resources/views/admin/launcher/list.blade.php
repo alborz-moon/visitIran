@@ -20,6 +20,7 @@
 @stop
 
 @section('addBtn')
+<a href="{{ route('launcher') }}">ایجاد برگزار کننده جدید</a>
 @stop
 
 @section('items')
@@ -110,6 +111,7 @@
             <tr>
                 <th>ردیف</th>
                 <th>عملیات</th>
+                <th>نام شرکت</th>
                 <th>نام کاربر</th>
                 <th>شماره تماس کاربر</th>
                 <th>نوع برگزار کننده</th>
@@ -142,6 +144,7 @@
                         </div>
                         
                     </td>
+                    <td>{{ $item['company_name'] }}</td>
                     <td>{{ $item['user']['name'] }}</td>
                     <td>{{ $item['user']['phone'] }}</td>
                     <td>{{ $item['type'] == 'haghighi' ? 'حقیقی' : 'حقوقی' }}</td>

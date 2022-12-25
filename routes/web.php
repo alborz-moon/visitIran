@@ -9,10 +9,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Shop\BlogController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
+use App\Models\EventTag;
 use App\Models\Launcher;
 use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
@@ -135,7 +137,17 @@ Route::middleware(['myAuth'])->group(function() {
 
 Route::domain(Controller::$EVENT_SITE)->group(function() {
 
-    Route::view('/', 'event.welcome')->name('event.home');
+    Route::get('/', function() {
+        
+        $tags = EventTag::visible()->get();
+
+        $whereClause = "events.visibility = true and end_registry > " . time();
+
+        $cities = DB::connection('mysql2')->select('select cities.id, cities.name from events, cities where city_id is not null and city_id = cities.id and ' . $whereClause . ' group by(cities.id)');
+        $launchers = DB::connection('mysql2')->select('select distinct(launcher_id) as id, launchers.company_name from launchers, events where launcher_id = launchers.id and ' . $whereClause);
+
+        return view('event.welcome', compact('tags', 'launchers', 'cities'));
+    })->name('event.home');
 
 
     Route::get('/event/{event}/{slug}', [EventController::class, 'show'])->name('event');
@@ -152,9 +164,15 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
     Route::middleware(['myAuth'])->group(function() {
 
         Route::get('/launcher-register', function() {
-            $tmp = Launcher::where('user_id', Auth::user()->id)->first();
-            if($tmp != null)
-                return Redirect::route('launcher-edit', ['formId' => $tmp->id]);
+            
+            $user = Auth::user();
+            $editor = $user->isEditor();
+            
+            if(!$editor) {
+                $tmp = Launcher::where('user_id', $user->id)->first();
+                if($tmp != null)
+                    return Redirect::route('launcher-edit', ['formId' => $tmp->id]);
+            }
 
             $states = State::orderBy('name', 'asc')->get();
             $mode = 'create';
@@ -178,20 +196,20 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
         Route::get('/launcher-finance/{formId}', function($formId) {
             return view('event.launcher.launcher-finance', compact('formId'));
         })->name('finance');
-
-        Route::get('/create-event', [EventController::class, 'create'])->name('create-event');
-        
-        Route::get('/update-event/{event}', [EventController::class, 'edit'])->name('update-event');
-
-        Route::get('/addSessionsInfo/{event?}', [EventController::class, 'addSessionsInfo'])->name('addSessionsInfo');
-
-        Route::get('/addPhase2Info/{event?}', [EventController::class, 'addPhase2Info'])->name('addPhase2Info');
     
-       Route::get('/addGalleryToEvent/{event?}', [EventController::class, 'addGalleryToEvent'])->name('addGalleryToEvent');
-    
-       Route::view('/show-events','event.event.show-events')->name('show-events');
+        Route::view('/show-events','event.event.show-events')->name('show-events');
        
     });
+
+
+    Route::middleware(['launcherLevel'])->prefix('admin')->group(function() {
+    
+        Route::domain(Controller::$EVENT_SITE)->group(base_path('routes/event_launcher_routes.php'));
+        
+    });
+    
+    
+
 
 
 });

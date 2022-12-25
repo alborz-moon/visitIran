@@ -7,13 +7,14 @@ use App\Http\Resources\EventPhase1Resource;
 use App\Http\Resources\EventPhase2Resource;
 use App\Http\Resources\EventUserDigest;
 use App\Http\Resources\EventUserResource;
+use App\Http\Resources\LauncherVeryDigest;
 use App\Models\Config;
 use App\Models\Event;
 use App\Models\EventComment;
 use App\Models\EventTag;
 use App\Models\Facility;
+use App\Models\Launcher;
 use App\Models\State;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -31,17 +32,20 @@ class EventController extends EventHelper
      */
     public function create(Request $request)
     {
-        $user = $request->user();
-        
-        if($user->level != User::$ADMIN_LEVEL && $user->launcher()->active()->first() == null)
-            return view('errors.403');
-
         $states = State::orderBy('name', 'asc')->get();
         $mode = 'create';
+
+        if($request->user()->isEditor()) {
+            
+            $launchers = LauncherVeryDigest::collection(Launcher::all())->toArray($request);
+            // dd($launchers);
+            return view('event.event.create-event', compact('states', 'mode', 'launchers'));
+        }
+
         return view('event.event.create-event', compact('states', 'mode'));
     }
 
-    public function edit(Event $event) {
+    public function edit(Event $event, Request $request) {
         
         if(!Gate::allows('update', $event))
             return Redirect::route('create-event');
@@ -49,6 +53,11 @@ class EventController extends EventHelper
         $states = State::orderBy('name', 'asc')->get();
         $mode = 'edit';
         $id = $event->id;
+        
+        if($request->user()->isEditor()) {
+            $launchers = LauncherVeryDigest::collection(Launcher::all())->toArray($request);
+            return view('event.event.create-event', compact('states', 'mode', 'id', 'launchers'));
+        }
 
         return view('event.event.create-event', compact('states', 'mode', 'id'));
     }
@@ -148,10 +157,23 @@ class EventController extends EventHelper
     }
 
     public function getPhase1Info(Event $event, Request $request) {
+        
         Gate::authorize('getPhaseInfo', $event);
+        $isEditor = $request->user()->isEditor();
+
+        if(!$isEditor)
+            return response()->json([
+                'status' => 'ok',
+                'data' => EventPhase1Resource::make($event)->toArray($request)
+            ]);
+
+        $eventTmp = EventPhase1Resource::make($event)->toArray($request);
+        $eventTmp['launcher'] = LauncherVeryDigest::make($event->launcher)->toArray($request);
+
+
         return response()->json([
             'status' => 'ok',
-            'data' => EventPhase1Resource::make($event)->toArray($request)
+            'data' => $eventTmp
         ]);
     }
 
@@ -214,7 +236,6 @@ class EventController extends EventHelper
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-
 
         $params = [];
         foreach($request->query() as $key => $val) {
@@ -427,7 +448,7 @@ class EventController extends EventHelper
             'age_description' => ['required', Rule::in(['child', 'teen', 'adult', 'all', 'old'])],
             'level_description' => ['required', Rule::in(['national', 'state', 'local', 'pro'])],
             'tags_arr' => 'required|array',
-            'tags_arr.*' => 'required|integer|exists:mysql2.event_tags,id',
+            'tags_arr.*' => 'required|exists:mysql2.event_tags,id',
             'language_arr' => 'required|array',
             'language_arr.*' => ['required', Rule::in(['fa', 'en', 'ar', 'fr', 'gr', 'tr'])],
             'facilities_arr' => 'nullable|array',
@@ -439,6 +460,7 @@ class EventController extends EventHelper
             'postal_code' => 'required_if:type,offline|regex:/[1-9][0-9]{9}/',
             'address' => 'required_if:type,offline|string|min:2',
             'link' => 'required_if:type,online|url',
+            'launcher_id' => 'nullable|exists:mysql2.launchers,id'
         ];
 
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
@@ -479,6 +501,13 @@ class EventController extends EventHelper
             $request['facilities'] = implode('_', $facilities_arr);
         }
 
+        $isEditor = $request->user()->isEditor();
+        if(
+            (!$isEditor && $request->has('launcher_id')) ||
+            ($isEditor && !$request->has('launcher_id'))
+        )
+            return abort(401);
+            
         $request['tags'] = implode('_', $tags_arr);
         $request['language'] = implode('_', $lang_arr);
 
@@ -488,7 +517,7 @@ class EventController extends EventHelper
         unset($request['language_arr']);
 
         if($event == null) {
-            $request['launcher_id'] = $request->user()->launcher->id;
+            $request['launcher_id'] = $isEditor ? $request['launcher_id'] : $request->user()->launcher->id;
             $event = Event::create($request->toArray());
 
             return response()->json([
@@ -505,7 +534,9 @@ class EventController extends EventHelper
             $event[$key] = $request[$key];
         }
 
-        $event->status = 'pending';
+        if(!$isEditor)
+            $event->status = 'pending';
+
         $event->save();
         return response()->json(['status' => 'ok']);
 
@@ -539,5 +570,6 @@ class EventController extends EventHelper
             unlink(__DIR__ . '/../../../../public/storage/events/' . $event->img);
 
         $event->delete();
+        return response()->json(['status' => 'ok']);
     }
 }

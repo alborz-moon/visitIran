@@ -15,4 +15,8 @@ class EventTag extends Model
         'label',
         'visibility'
     ];
+
+    public function scopeVisible($query) {
+        return $query->where('visibility', true);
+    }
 }

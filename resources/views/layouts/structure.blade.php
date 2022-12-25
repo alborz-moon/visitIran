@@ -167,7 +167,11 @@
                     <div class="d-flex align-items-center">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a class="custom-nav-link hoverBold1 colorWhite" href="{{ route('home') }}"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/home.svg') }}" alt="">صفحه اصلی</a>
+                                @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+                                    <a class="custom-nav-link hoverBold1 colorWhite" href="{{ route('home') }}"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/home.svg') }}" alt="">صفحه اصلی</a>
+                                @else
+                                    <a class="custom-nav-link hoverBold1 colorWhite" href="{{ route('event.home') }}"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/home.svg') }}" alt="">صفحه اصلی</a>
+                                @endif
                             </li>
                             @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                             <li class="nav-item align-self-center">
@@ -185,7 +189,7 @@
 
                             @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
                             <li class="nav-item">
-                                <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('event.home') }}">رویداد ها</a>
+                                <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('event.category.list',['createAt']) }}">رویداد ها</a>
                             </li>
                             <li class="nav-item">
                                 <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('launcher') }}">برگزارکننده</a>
@@ -251,13 +255,13 @@
                             @if(Auth::check())
                                 <div class="navigation-body">
                                     <ul id="moblieMenu" class="menu">
-                                        @include('layouts.mobile-menu')
-                                        @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
+                                        {{-- @include('layouts.mobile-menu') --}}
+                                        {{-- @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
                                             @include('event.launcher.launcher-menu')
-                                        @endif
+                                        @endif --}}
                                     </ul>
                     
-                                    @include('shop.profile.layouts.profile_menu',['mobileMenu' => true])
+                                    {{-- @include('shop.profile.layouts.profile_menu',['mobileMenu' => true]) --}}
 
                                 </div>
                             @endif
@@ -301,6 +305,7 @@
                                 </div>
                             </div>
                         </button>
+                        @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                         <a href="" class="d-flex b-0 m-0 p-0">
                             <div class="menuCircle">
                                 <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
@@ -309,6 +314,7 @@
                                 </div>
                             </div>
                         </a>
+                        @endif
                         @if(!Auth::check())
                             <a href="{{ route('login-register') }}" class="d-flex b-0 m-0 p-0 setLinkUrl">
                                 <div class="menuCircle">
@@ -319,7 +325,7 @@
                                 </div>
                             </a>
                         @else
-                            <button id="profileMenuMobile" class="d-flex b-0 m-0 p-0 toggle-navigation">
+                            <button id="userToggleMobile" class="d-flex b-0 m-0 p-0">
                                 <div class="menuCircle">
                                     <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
                                         <i class="icon-visit-person fontSize30 colorBlack"></i>
@@ -334,6 +340,7 @@
         </div>
         {{-- route('product-search') --}}
         @include('layouts.modal-search', ['route'=> request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE ?  route('product-search')  : route('event-search')])
+        @include('layouts.modal-user-mobile')
         <div class="hidden" id="sample-mini-cart-products">
             @include('shop.product.mini_card')
         </div>

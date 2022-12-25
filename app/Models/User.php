@@ -77,6 +77,13 @@ class User extends Authenticatable
         return $l != null && $l->status === 'confirmed';
     }
 
+
+    public function isEditor() {
+        return $this->level === User::$ADMIN_LEVEL ||
+            $this->level === User::$EDITOR_LEVEL;
+    }
+
+
     public function offs() {
         return $this->hasMany(Off::class);
     }

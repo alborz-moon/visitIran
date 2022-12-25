@@ -65,9 +65,9 @@ class Controller extends BaseController
         return gregorian_to_jalali($d[0],$d[1],$d[2],'/');
     }
     
-    public static function ShamsiToMilady($date){
+    public static function ShamsiToMilady($date, $delimeter='/'){
         include_once 'jdate.php';
-        $date = explode('/', $date);
+        $date = explode($delimeter, $date);
         return jalali_to_gregorian($date[0],$date[1],$date[2], '-');
     }
     

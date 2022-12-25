@@ -1,9 +1,6 @@
 @extends('layouts.structure')
 
 @section('content')
-    @if(Auth::check() && Auth::user()->isLauncher())
-    <p style="font-size: 50px">salam</p>
-    @endif
     <main class="page-content TopParentBannerMoveOnTop">
         <div class="container mt-3">
             <div class="row mb-5">

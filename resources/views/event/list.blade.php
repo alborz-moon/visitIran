@@ -21,7 +21,6 @@
         <main class="page-content TopParentBannerMoveOnTop">
             <div class="container mt-3">
                 <div class="row">
-                    @include('event.layouts.searchbar')
                     <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar">
                         {{-- @include('sections.top_categories_products') --}}
                         <!-- start of breadcrumb -->
@@ -91,29 +90,7 @@
                                     </div>
                                 </div>
                                 <!-- end of widget -->
-                                <!-- start of widget -->
-                                <div class="widget widget-collapse mb-3">
-                                    <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseGrouping" aria-expanded="false"
-                                        aria-controls="collapseGrouping" role="button">دسته بندی <i class="circle colorBlue align-self-center"></i><span class="colorBlue fontSize12">1 فیلتر</span></div>
-                                    <div class="widget-content widget--search collapse" id="collapseGrouping">
-                                        <form action="#" class="pt-2">
-                                            <div class="filter-options do-simplebar pt-2 mt-2">
-                                                    <div class="parent form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""/>
-                                                        <ul class="child form-check">
-                                                                <li class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value="" />
-                                                                </li>
-                                                        </ul>
-                                                    </div>
-                                                <div id="brands"></div>
-                                                <div id="sellers"></div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-
+                                
                                 <!-- start of widget -->
                                 <div class="widget widget-collapse mb-3">
                                     <div class="widget-title widget-title--collapse-btn d-flex gap10 align-items-center" data-bs-toggle="collapse"
@@ -568,9 +545,11 @@
 
             let minMaxChange = false;
             let minMaxFetch = false;
+            let currValues = [defaultMinPrice, defaultMaxPrice];
 
             document.body.onmouseup = function() {
                 if(minMaxChange && !minMaxFetch) {
+                    console.log(minMaxChange);
                     minMaxChange = false;
                     minMaxFetch = true;
                     filter();
@@ -578,10 +557,14 @@
             }
 
             var skipSlider = document.getElementById("slider-non-linear-step");
+
             skipSlider.noUiSlider.on("update", function (values, handle) {
-                minMaxChange = true;
-                minMaxFetch = false;
                 
+                if(parseInt(values[0]) != parseInt(currValues[0]) || parseInt(values[1] != parseInt(currValues[1]))) {
+                    minMaxChange = true;
+                    minMaxFetch = false;
+                    currValues = values;
+                }
             });
 
             $("#orderBy").on('change', function() {
@@ -596,6 +579,19 @@
                 filter();
             });
 
+            @if(!isset($initialSet))
+                filter();
+            @else
+                let data = JSON.parse('{!! json_encode($initialSet) !!}');
+                let html = renderEvents(data, "sampleEvent");
+                $("#events_div").empty().append(html).removeClass("hidden");
+                $("#shimmer").addClass("hidden");
+                $("#nothingToShow").addClass("hidden");
+                $("#total_count")
+                    .empty()
+                    .append(data.length + " رویداد");
+                $();
+            @endif
 
         });
 

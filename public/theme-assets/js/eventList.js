@@ -177,7 +177,7 @@ function filter() {
             $("#nothingToShow").addClass("hidden");
             $("#total_count")
                 .empty()
-                .append(res.count + " رویداد");
+                .append(length + " رویداد");
         },
     });
 }
@@ -233,7 +233,6 @@ $(document).ready(function () {
     $(document).on("change", "input[name='types']", function () {
         filter();
     });
-    filter();
 });
 
 function clearAllFilters() {

@@ -20,12 +20,7 @@ class LauncherAccess
     {
         $user = $request->user();
 
-        if($user == null || 
-            (
-                $user->level != User::$ADMIN_LEVEL &&
-                $user->level != User::$LAUNCHER_LEVEL
-            )
-        )
+        if($user == null || !$user->isLauncher())
             return Redirect::route('403');
 
         return $next($request);
