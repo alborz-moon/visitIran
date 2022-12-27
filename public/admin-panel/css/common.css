@@ -217,15 +217,15 @@ table th {
     min-width: 120px;
     text-align: center;
 }
-tbody tr:nth-child(even) {
+/* tbody tr:nth-child(even) {
     background-color: #ddd;
-}
+} */
 table {
     width: 100%;
 }
-table th {
+/* table th {
     background-color: #ddd;
-}
+} */
 .mCSB_scrollTools,
 .mCSB_scrollTools .mCSB_buttonDown,
 .mCSB_scrollTools .mCSB_buttonLeft,

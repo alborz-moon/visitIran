@@ -74,7 +74,7 @@
                                     @endforeach
                                 </div>
                                 <div id="table-view" class="hidden">
-                                    <table>
+                                    <table  id="table" data-toggle="table" data-search="true" data-show-columns="true"  data-key-events="true" data-show-toggle="true" data-resizable="true" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
                                         <thead>
                                             <th>نام</th>
                                             <th>تعداد زیردسته</th>

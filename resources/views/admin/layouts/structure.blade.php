@@ -38,6 +38,7 @@
         <!-- animate CSS
             ============================================ -->
         <link rel="stylesheet" href="{{asset('admin-panel/css/animate.css')}}">
+        <link rel="stylesheet" href="{{asset('admin-panel/css/modal.css')}}">
 
         <!-- jvectormap CSS
             ============================================ -->
@@ -48,12 +49,14 @@
         <link rel="stylesheet" href="{{asset('admin-panel/css/data-table/bootstrap-table.css')}}">
         <link rel="stylesheet" href="{{asset('admin-panel/css/data-table/bootstrap-editable.css')}}">
 
+        <link rel="stylesheet" href="{{asset('admin-panel/css/accordions.css')}}">
+
         <!-- normalize CSS
             ============================================ -->
         <link rel="stylesheet" href="{{asset('admin-panel/css/normalize.css')}}">
         <!-- charts CSS
             ============================================ -->
-        <link rel="stylesheet" href="{{asset('admin-panel/css/c3.min.css')}}">
+        <link rel="stylesheet" href="{{asset('admin-panel/css/tabs.css')}}">
         <!-- style CSS
             ============================================ -->
         <link rel="stylesheet" href="{{asset('admin-panel/css/style.css')}}">
@@ -89,12 +92,11 @@
                 }
             }
         </script>
-
     @show
 
 </head>
 
-<body class="materialdesign">
+<body class="darklayout">
 
     <!--[if lt IE 8]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -104,6 +106,8 @@
         <div class="left-sidebar-pro">
             <nav id="sidebar">
                 <div class="sidebar-header">
+                    <a href="{{ request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE ? route('home') : route('event.home') }}"><img src="{{ asset('theme-assets/images/avatar/default.png') }}" alt="">
+                    </a>
                     <h3>پنل ادمین</h3>
                 </div>
                 <div class="left-custom-menu-adp-wrap">
@@ -113,13 +117,23 @@
                                 <li class="nav-item"><a data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i></i> <span class="mini-dn">تنظیمات سیستمی</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                                     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                                         <a href="{{route('category.index')}}" class="dropdown-item">مدیریت دسته ها</a>
-                                        <a href="{{route('infobox.index')}}" class="dropdown-item">مدیریت بنر اطلاعات</a>
-                                        <a href="{{route('faq.index')}}" class="dropdown-item">مدیریت سوالات متداول</a>
                                         <a href="{{route('slider.index')}}" class="dropdown-item">مدیریت اسلایدر</a>
                                         <a href="{{route('brand.index')}}" class="dropdown-item">مدیریت برند ها</a>
-                                        <a href="{{route('blog.index')}}" class="dropdown-item">مدیریت بلاگ ها</a>
-                                        <a href="{{route('banner.index')}}" class="dropdown-item">مدیریت بنر های تبلیغاتی</a>
                                         <a href="{{route('config.index')}}" class="dropdown-item">پیکربندی</a>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item"><a data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i></i> <span class="mini-dn">مدیریت محتوا</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                                    <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                                        <a href="{{route('faq.index')}}" class="dropdown-item">مدیریت سوالات متداول</a>
+                                        <a href="{{route('blog.index')}}" class="dropdown-item">مدیریت بلاگ ها</a>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item"><a data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i></i> <span class="mini-dn">مدیریت تبلیغات</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                                    <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                                        <a href="{{route('infobox.index')}}" class="dropdown-item">مدیریت بنر اطلاعات</a>
+                                        <a href="{{route('banner.index')}}" class="dropdown-item">مدیریت بنر های تبلیغاتی</a>
                                     </div>
                                 </li>
 
@@ -133,21 +147,35 @@
                                 <li class="nav-item"><a href="{{ route('off.index') }}" role="button" class="nav-link"><i></i> <span class="mini-dn">تخفیفات</span></a></li>
                                 <li class="nav-item"><a href="{{ route('product.index') }}" role="button" class="nav-link"><i></i> <span class="mini-dn">مدیریت محصولات</span></a></li>
                             @else
+
                                 <li class="nav-item"><a data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i></i> <span class="mini-dn">تنظیمات سیستمی</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                                    <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                                        <a href="{{route('faq.index')}}" class="dropdown-item">مدیریت سوالات متداول</a>
+                                        <a href="{{route('slider.index')}}" class="dropdown-item">مدیریت اسلایدر</a>
+                                        <a href="{{route('config.index')}}" class="dropdown-item">پیکربندی</a>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item"><a data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i></i> <span class="mini-dn">مدیریت محتوا</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                                     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                                         <a href="{{route('facilities.index')}}" class="dropdown-item">مدیریت امکانات ویژه</a>
                                         <a href="{{route('eventTags.index')}}" class="dropdown-item">مدیریت تگ ها</a>
+                                    </div>
+                                </li>
+                                
+                                <li class="nav-item"><a data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i></i> <span class="mini-dn">مدیریت تبلیغات</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                                    <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                                         <a href="{{route('infobox.index')}}" class="dropdown-item">مدیریت بنر اطلاعات</a>
-                                        <a href="{{route('faq.index')}}" class="dropdown-item">مدیریت سوالات متداول</a>
-                                        <a href="{{route('slider.index')}}" class="dropdown-item">مدیریت اسلایدر</a>
                                         <a href="{{route('banner.index')}}" class="dropdown-item">مدیریت بنر های تبلیغاتی</a>
-                                        <a href="{{route('config.index')}}" class="dropdown-item">پیکربندی</a>
                                     </div>
                                 </li>
 
                                 <li class="nav-item"><a href="{{ route('launcher.index') }}" role="button" class="nav-link"><i></i> <span class="mini-dn">برگزار کنندگان</span></a></li>
                                 <li class="nav-item"><a href="{{ route('event.index') }}" role="button" class="nav-link"><i></i> <span class="mini-dn">رویدادها</span></a></li>
+                                
                             @endif
+
+                            <li class="nav-item"><a href="{{ route('logout') }}" role="button" class="nav-link"><i></i> <span class="mini-dn">خروج</span></a></li>
                         </ul>
                     @endif
                 </div>
@@ -158,7 +186,7 @@
             @yield('content')
         </div>
 
-        <div id="myModal" class="modal hidden">
+        <div id="myModal" class="modal hidden modal-adminpro-general fullwidth-popup-InformationproModal fade bounceInDown animated in">
             <div class="modal-content">
                 <input type="hidden" value="" id="slideId" name="id">
                 <input type="hidden" value="delete" name="kind">
