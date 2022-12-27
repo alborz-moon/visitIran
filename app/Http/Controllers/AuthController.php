@@ -120,7 +120,12 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request) {
+        
         Auth::logout($request->user());
+        
+        if($request->getHost() == self::$EVENT_SITE)
+            return Redirect::route('event.home');
+            
         return Redirect::route('home');
     }
 }

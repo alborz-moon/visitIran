@@ -311,9 +311,9 @@ input:checked + .slider:before {
 td {
     padding: 8px;
 }
-tr:nth-child(even) {
+/* tr:nth-child(even) {
     background-color: #ccc;
-}
+} */
 
 label {
     width: 100px;
