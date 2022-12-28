@@ -13,325 +13,329 @@
     </script>
 @stop
 @section('content')
-        <main class="page-content TopParentBannerMoveOnTop">
+    <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
             <div class="row mb-5">
-                @include('event.launcher.launcher-menu')     
-                    <div class="col-xl-9 col-lg-8 col-md-7">
-                        <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
-                            <div>
-                               در خواست ارتقا به برگزار کننده پس از ارسال توسط ادمین بازبینی و تایید خواهد شد  .
-                            </div>                       
-                        </div>
-                        <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
-                            <div>
-                                در حال حاضر حساب برگزار کننده شما غیر فعال است . پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
-                            </div> 
-                            <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">مشاهده سوابق</a> 
-                        </div>
-                        <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
-                            <div>
-                                تایید حساب برگزار کننده با مشکل مواجه شده است . برای جزئیات بیشتر به پشتیبانی مراجه کنید.
-                            </div> 
-                            <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">پشتیبانی</a>
-                        </div>
-                        <div class="ui-box bg-white mb-5 boxShadow">
-                            <div class="ui-box-title">اطلاعات رابط</div>
-                            <div class="ui-box-content">
-                                <div class="row">
-                                    <div class="col-lg-6 mb-3">
-                                        <div class=" py-1">
-                                            <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
-                                            <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="true" id="nameLast" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
-                                                <button data-input-id="nameLast" class="toggle-editable-btn btn btn-circle btn-outline-light"
-                                                    data-remodal-target="personal-info-fullname-modal">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
+                <?php $isEditor = Auth::user()->isEditor(); ?>
+                @if(!$isEditor)
+                    @include('event.launcher.launcher-menu')
+                @endif
+                <div class="{{ $isEditor ? 'col-xl-12 col-lg-12 col-md-12' : 'col-xl-9 col-lg-8 col-md-7'}}">
+                
+                    <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
+                        <div>
+                            در خواست ارتقا به برگزار کننده پس از ارسال توسط ادمین بازبینی و تایید خواهد شد  .
+                        </div>                       
+                    </div>
+                    <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
+                        <div>
+                            در حال حاضر حساب برگزار کننده شما غیر فعال است . پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
+                        </div> 
+                        <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">مشاهده سوابق</a> 
+                    </div>
+                    <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
+                        <div>
+                            تایید حساب برگزار کننده با مشکل مواجه شده است . برای جزئیات بیشتر به پشتیبانی مراجه کنید.
+                        </div> 
+                        <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">پشتیبانی</a>
+                    </div>
+                    <div class="ui-box bg-white mb-5 boxShadow">
+                        <div class="ui-box-title">اطلاعات رابط</div>
+                        <div class="ui-box-content">
+                            <div class="row">
+                                <div class="col-lg-6 mb-3">
+                                    <div class=" py-1">
+                                        <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
+                                        <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between position-relative">
+                                            <input data-editable="true" id="nameLast" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
+                                            <button data-input-id="nameLast" class="toggle-editable-btn btn btn-circle btn-outline-light"
+                                                data-remodal-target="personal-info-fullname-modal">
+                                                <i class="ri-ball-pen-fill"></i>
+                                            </button>
                                         </div>
+                                        <div class="fs-6 fw-bold text-muted"></div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class=" py-1">
-                                            <div  class="fs-7 text-dark">شماره تلفن همراه</div>
-                                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="true" onkeypress="return isNumber(event) " id="phone" type="tel" minlength="7"  maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
-                                                <button data-input-id="phone" class=" toggle-editable-btn btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <div class=" py-1">
+                                        <div  class="fs-7 text-dark">شماره تلفن همراه</div>
+                                        <div class="d-flex align-items-center justify-content-between position-relative">
+                                            <input data-editable="true" onkeypress="return isNumber(event) " id="phone" type="tel" minlength="7"  maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
+                                            <button data-input-id="phone" class=" toggle-editable-btn btn btn-circle btn-outline-light">
+                                                <i class="ri-ball-pen-fill"></i>
+                                            </button>
                                         </div>
+                                        <div class="fs-6 fw-bold text-muted"></div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class=" py-1">
-                                            <div  class="fs-7 text-dark">پست الکترونیک</div>
-                                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="true" onkeypress="return isEmail(event) || isNumber(event)" id="userEmail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
-                                                <button data-input-id="userEmail" class="toggle-editable-btn btn btn-circle btn-outline-light" >
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <div class=" py-1">
+                                        <div  class="fs-7 text-dark">پست الکترونیک</div>
+                                        <div class="d-flex align-items-center justify-content-between position-relative">
+                                            <input data-editable="true" onkeypress="return isEmail(event) || isNumber(event)" id="userEmail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
+                                            <button data-input-id="userEmail" class="toggle-editable-btn btn btn-circle btn-outline-light" >
+                                                <i class="ri-ball-pen-fill"></i>
+                                            </button>
                                         </div>
+                                        <div class="fs-6 fw-bold text-muted"></div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class=" py-1">
-                                            <div  class="fs-7 text-dark">تاریخ تولد</div>
-                                            <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="true" id="mainBrithday" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد">
-                                                <button data-input-id="mainBrithday" class="toggle-editable-btn btn btn-circle btn-outline-light"
-                                                    data-remodal-target="personal-info-birth-modal"><i
-                                                        class="ri-ball-pen-fill"></i></button>
-                                            </div>
-                                            <div id="brithdayVal" class="fs-6 fw-bold text-muted"></div>
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <div class=" py-1">
+                                        <div  class="fs-7 text-dark">تاریخ تولد</div>
+                                        <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between position-relative">
+                                            <input data-editable="true" id="mainBrithday" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد">
+                                            <button data-input-id="mainBrithday" class="toggle-editable-btn btn btn-circle btn-outline-light"
+                                                data-remodal-target="personal-info-birth-modal"><i
+                                                    class="ri-ball-pen-fill"></i></button>
                                         </div>
+                                        <div id="brithdayVal" class="fs-6 fw-bold text-muted"></div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class=" py-1">
-                                            <div  class="fs-7 text-dark">کد ملی</div>
-                                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="true" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
-                                                <button data-input-id="nid" class="toggle-editable-btn btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <div class=" py-1">
+                                        <div  class="fs-7 text-dark">کد ملی</div>
+                                        <div class="d-flex align-items-center justify-content-between position-relative">
+                                            <input data-editable="true" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
+                                            <button data-input-id="nid" class="toggle-editable-btn btn btn-circle btn-outline-light">
+                                                <i class="ri-ball-pen-fill"></i>
+                                            </button>
                                         </div>
+                                        <div class="fs-6 fw-bold text-muted"></div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="ui-box bg-white mb-5 boxShadow">
-                            <div class="ui-box-title">تصویر صفحه برگزار کننده</div>
-                            <div class="ui-box-content">
-                                <div class="row">
-                                    <div class="col-lg-12 mb-3">
-                                        <div class=" py-2">
-                                            <div style="visibility: hidden">
-                                                <input class="b-1" type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event)">
-                                                <input class="b-1" type="file" id="file-ip-2" accept="image/*" onchange="showPreviewProfile(event)">
-                                            </div>
-                                            <div  class="producer position-relative">
-                                                <img id="file-ip-1-preview" style="border: 2px solid white;boxshadow: 0 3px 6px #00000029;background-color: #e5e5e5" class="w-100 h-100 objectfitCover" style="opacity: .4" alt="">
-                                                <div id="producer" class="position-absolute customTop center uploaderText">عکس را بارگذاری کنید</div>
-                                                <div id="profileImg" class="profileImg">
-                                                    <img id="file-ip-2-preview" style="border: 2px solid white;boxshadow: 0 3px 6px #00000029" class="w-100 h-100 objectfitCover" accept="image/*" alt="">
-                                                    <div id="producer" class="position-absolute customTop2 center uploaderImg"><i class="icon-visit-open"></i></div>
-                                                </div>
-                                                <script>
-                                                      function showPreviewProfile(event){
-                                                        if (event.target.files.length > 0){
-                                                            var src = URL.createObjectURL(event.target.files[0]);
-                                                            var preview = document.getElementById("file-ip-2-preview");
-                                                            preview.src = src;
-                                                            preview.style.display = "flex";
-                                                        }
-                                                      }
-                                                      function showPreview(event){
-                                                        if(event.target.files.length > 0){
-                                                          var src = URL.createObjectURL(event.target.files[0]);
-                                                          var preview = document.getElementById("file-ip-1-preview");
-                                                          preview.src = src;
-                                                          preview.style.display = "flex";
-                                                        }
-                                                      }
-                                                      $(document).ready(function(){
-
-                                                        $('#producer').on('click',function(){
-                                                            
-                                                            $('#file-ip-1').click();
-                                                            
-                                                        });
-                                                        $('#profileImg').on('click',function(){
-                                                            
-                                                            $('#file-ip-2').click();
-                                                            
-                                                        });
-                                                      });
-                                                </script>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ui-box bg-white mb-5 boxShadow">
-                            <div class="ui-box-title">نوع برگزار کننده</div>
-                            <div class="ui-box-content">
-                                <div class="row">
-                                    <div class="col-lg-6 mb-3">
-                                        <div class=" py-2">
-                                            <div  class="fs-7 text-dark">نوع شخصیت</div>
-                                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <select id="launcherType" class="select2 selectStyle">
-                                                    <option value="0" selected>انتخاب کنید</option>
-                                                    <option value="haghighi">حقیقی</option>
-                                                    <option value="hoghoghi">حقوقی</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ui-box bg-white mb-5 boxShadow hidden_all_fields hidden">
-                            <div class="ui-box-title">اطلاعات برگزار کننده</div>
-                            <div class="ui-box-content">
-                                <div class="row">
-                                    <div class="col-lg-6 mb-3">
-                                        <div class=" py-1">
-                                            <div id="nameOfProducer" class="fs-7 text-dark"></div>
-                                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="true" id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام">
-                                                <button data-input-id="companyName" class="toggle-editable-btn btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3 hoghoghi_fields">
-                                        <div class=" py-2">
-                                            <div class="fs-7 text-dark">نوع شرکت</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <select id="companyType" class="select2 selectStyle">
-                                                    <option value="0" selected>انتخاب کنید</option>
-                                                    <option value="art">موسسه فرهنگی و هنری</option>
-                                                    <option value="limit">مسئولیت محدود</option>
-                                                    <option value="agency">آژانس</option>
-                                                    <option value="spec">سهامی خاص</option>
-                                                    <option value="public">سهامی عام</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3 hoghoghi_fields">
-                                        <div class=" py-1">
-                                            <div class="fs-7 text-dark">شماره اقتصادی</div>
-                                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="true" onkeypress="return isNumber(event)" id="code" type="text" class="form-control" style="direction: rtl" placeholder="شماره اقتصادی">
-                                                <button data-input-id="code" class="toggle-editable-btn btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class=" py-1">
-                                            <div  class="fs-7 text-dark">کد پستی</div>
-                                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="true" onkeypress="return isNumber(event)" maxlength="10" id="postalCode" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
-                                                <button data-input-id="postalCode" class="toggle-editable-btn btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <!-- start of form-element -->
-                                        <div class="form-element-row">
-                                            <label class="label fs-7">استان</label>
-                                            
-                                            <select onchange="getCities($(this).val())" class="select2" name="state02" id="state02">
-                                                <option value="0">انتخاب کنید</option>
-                                                @foreach ($states as $state)
-                                                    <option value="{{ $state->id }}">{{ $state->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <!-- end of form-element -->
-                                    </div>
-                                    <div id="ha" class="col-lg-6 mb-3">
-                                        <!-- start of form-element -->
-                                        <div class="form-element-row">
-                                            <div class="form-element-row">
-                                                <label class="label fs-7">شهر</label>
-                                                <select class="select2 launcherCityID" name="city02" id="city02">
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <!-- end of form-element -->
-                                    </div>
-                                    <div class="col-lg-12 mb-3">
-                                        <div class=" py-1">
-                                            <div  class="fs-7 text-dark">آدرس</div>
-                                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <textarea data-editable="true" id="launcherAddress" type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
-                                                <button data-input-id="launcherAddress" class="toggle-editable-btn btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 mb-3">
-                                        <div class=" py-1">
-                                            <div  class="fs-7 text-dark">نقشه</div>
-                                            <div id="launchermap" style="width: 100%; height: 250px"></div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ui-box bg-white mb-5 boxShadow hidden_all_fields hidden">
-                            <div class="ui-box-title">اطلاعات تماس</div>
-                            <div class="ui-box-content">
-                                <div class="row">
-                                    <div class="col-lg-6 mb-3">
-                                        <div class=" py-1">
-                                            <div  class="fs-7 text-dark">وب سایت</div>
-                                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="true" id="launcherSite" type="url" class="form-control" style="direction: rtl" placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
-                                                <button data-input-id="launcherSite" class="toggle-editable-btn btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 mb-3">
-                                        <div class=" py-1">
-                                            <div class="fs-7 text-dark">پست الکترونیک</div>
-                                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="true" onkeypress="return isEmail(event) || isNumber(event)" id="launcherEmail" type="text" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
-                                                <button data-input-id="launcherEmail" class="toggle-editable-btn btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div class="fs-6 fw-bold text-muted"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 mb-3">
-                                        <div class=" py-1">
-                                            <div  class="fs-7 text-dark">تلفن</div>
-                                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="true" onkeypress="return isNumber(event)" minlength="7" maxlength="11" id="launcherPhone" type="text" class="form-control setEnter" style="direction: rtl" placeholder="تلفن">
-                                                <button class="btn btn-circle btn-outline-light hidden">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                            <div id="addTell" class="d-flex gap15 flexWrap mt-1"></div>
-                                            <div class="fontSize14 colorBlack">در صورت وجود بیش از یک تلفن، آن ها را با فاصله از هم جدا نمایید.همچنین پیش شماره کشور و شهر نیز وارد شود. مانند +982111111111</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="spaceBetween mb-2">
-                            <a href="" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
-                            <button id="submit" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
-                        </div>
-                        <div class="d-flex justify-content-end">
-                            <a href="" class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</a>
                         </div>
                     </div>
-            </div>
+                    <div class="ui-box bg-white mb-5 boxShadow">
+                        <div class="ui-box-title">تصویر صفحه برگزار کننده</div>
+                        <div class="ui-box-content">
+                            <div class="row">
+                                <div class="col-lg-12 mb-3">
+                                    <div class=" py-2">
+                                        <div style="visibility: hidden">
+                                            <input class="b-1" type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event)">
+                                            <input class="b-1" type="file" id="file-ip-2" accept="image/*" onchange="showPreviewProfile(event)">
+                                        </div>
+                                        <div  class="producer position-relative">
+                                            <img id="file-ip-1-preview" style="border: 2px solid white;boxshadow: 0 3px 6px #00000029;background-color: #e5e5e5" class="w-100 h-100 objectfitCover" style="opacity: .4" alt="">
+                                            <div id="producer" class="position-absolute customTop center uploaderText">عکس را بارگذاری کنید</div>
+                                            <div id="profileImg" class="profileImg">
+                                                <img id="file-ip-2-preview" style="border: 2px solid white;boxshadow: 0 3px 6px #00000029" class="w-100 h-100 objectfitCover" accept="image/*" alt="">
+                                                <div id="producer" class="position-absolute customTop2 center uploaderImg"><i class="icon-visit-open"></i></div>
+                                            </div>
+                                            <script>
+                                                    function showPreviewProfile(event){
+                                                    if (event.target.files.length > 0){
+                                                        var src = URL.createObjectURL(event.target.files[0]);
+                                                        var preview = document.getElementById("file-ip-2-preview");
+                                                        preview.src = src;
+                                                        preview.style.display = "flex";
+                                                    }
+                                                    }
+                                                    function showPreview(event){
+                                                    if(event.target.files.length > 0){
+                                                        var src = URL.createObjectURL(event.target.files[0]);
+                                                        var preview = document.getElementById("file-ip-1-preview");
+                                                        preview.src = src;
+                                                        preview.style.display = "flex";
+                                                    }
+                                                    }
+                                                    $(document).ready(function(){
+
+                                                    $('#producer').on('click',function(){
+                                                        
+                                                        $('#file-ip-1').click();
+                                                        
+                                                    });
+                                                    $('#profileImg').on('click',function(){
+                                                        
+                                                        $('#file-ip-2').click();
+                                                        
+                                                    });
+                                                    });
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-box bg-white mb-5 boxShadow">
+                        <div class="ui-box-title">نوع برگزار کننده</div>
+                        <div class="ui-box-content">
+                            <div class="row">
+                                <div class="col-lg-6 mb-3">
+                                    <div class=" py-2">
+                                        <div  class="fs-7 text-dark">نوع شخصیت</div>
+                                        <div class="d-flex align-items-center justify-content-between position-relative">
+                                            <select id="launcherType" class="select2 selectStyle">
+                                                <option value="0" selected>انتخاب کنید</option>
+                                                <option value="haghighi">حقیقی</option>
+                                                <option value="hoghoghi">حقوقی</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-box bg-white mb-5 boxShadow hidden_all_fields hidden">
+                        <div class="ui-box-title">اطلاعات برگزار کننده</div>
+                        <div class="ui-box-content">
+                            <div class="row">
+                                <div class="col-lg-6 mb-3">
+                                    <div class=" py-1">
+                                        <div id="nameOfProducer" class="fs-7 text-dark"></div>
+                                        <div class="d-flex align-items-center justify-content-between position-relative">
+                                            <input data-editable="true" id="companyName" type="text" class="form-control" style="direction: rtl" placeholder="نام">
+                                            <button data-input-id="companyName" class="toggle-editable-btn btn btn-circle btn-outline-light">
+                                                <i class="ri-ball-pen-fill"></i>
+                                            </button>
+                                        </div>
+                                        <div class="fs-6 fw-bold text-muted"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-3 hoghoghi_fields">
+                                    <div class=" py-2">
+                                        <div class="fs-7 text-dark">نوع شرکت</div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <select id="companyType" class="select2 selectStyle">
+                                                <option value="0" selected>انتخاب کنید</option>
+                                                <option value="art">موسسه فرهنگی و هنری</option>
+                                                <option value="limit">مسئولیت محدود</option>
+                                                <option value="agency">آژانس</option>
+                                                <option value="spec">سهامی خاص</option>
+                                                <option value="public">سهامی عام</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-3 hoghoghi_fields">
+                                    <div class=" py-1">
+                                        <div class="fs-7 text-dark">شماره اقتصادی</div>
+                                        <div class="d-flex align-items-center justify-content-between position-relative">
+                                            <input data-editable="true" onkeypress="return isNumber(event)" id="code" type="text" class="form-control" style="direction: rtl" placeholder="شماره اقتصادی">
+                                            <button data-input-id="code" class="toggle-editable-btn btn btn-circle btn-outline-light">
+                                                <i class="ri-ball-pen-fill"></i>
+                                            </button>
+                                        </div>
+                                        <div class="fs-6 fw-bold text-muted"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <div class=" py-1">
+                                        <div  class="fs-7 text-dark">کد پستی</div>
+                                        <div class="d-flex align-items-center justify-content-between position-relative">
+                                            <input data-editable="true" onkeypress="return isNumber(event)" maxlength="10" id="postalCode" type="text" class="form-control" style="direction: rtl" placeholder="کد پستی">
+                                            <button data-input-id="postalCode" class="toggle-editable-btn btn btn-circle btn-outline-light">
+                                                <i class="ri-ball-pen-fill"></i>
+                                            </button>
+                                        </div>
+                                        <div class="fs-6 fw-bold text-muted"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <!-- start of form-element -->
+                                    <div class="form-element-row">
+                                        <label class="label fs-7">استان</label>
+                                        
+                                        <select onchange="getCities($(this).val())" class="select2" name="state02" id="state02">
+                                            <option value="0">انتخاب کنید</option>
+                                            @foreach ($states as $state)
+                                                <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <!-- end of form-element -->
+                                </div>
+                                <div id="ha" class="col-lg-6 mb-3">
+                                    <!-- start of form-element -->
+                                    <div class="form-element-row">
+                                        <div class="form-element-row">
+                                            <label class="label fs-7">شهر</label>
+                                            <select class="select2 launcherCityID" name="city02" id="city02">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- end of form-element -->
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <div class=" py-1">
+                                        <div  class="fs-7 text-dark">آدرس</div>
+                                        <div class="d-flex align-items-center justify-content-between position-relative">
+                                            <textarea data-editable="true" id="launcherAddress" type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
+                                            <button data-input-id="launcherAddress" class="toggle-editable-btn btn btn-circle btn-outline-light">
+                                                <i class="ri-ball-pen-fill"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <div class=" py-1">
+                                        <div  class="fs-7 text-dark">نقشه</div>
+                                        <div id="launchermap" style="width: 100%; height: 250px"></div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-box bg-white mb-5 boxShadow hidden_all_fields hidden">
+                        <div class="ui-box-title">اطلاعات تماس</div>
+                        <div class="ui-box-content">
+                            <div class="row">
+                                <div class="col-lg-6 mb-3">
+                                    <div class=" py-1">
+                                        <div  class="fs-7 text-dark">وب سایت</div>
+                                        <div class="d-flex align-items-center justify-content-between position-relative">
+                                            <input data-editable="true" id="launcherSite" type="url" class="form-control" style="direction: rtl" placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
+                                            <button data-input-id="launcherSite" class="toggle-editable-btn btn btn-circle btn-outline-light">
+                                                <i class="ri-ball-pen-fill"></i>
+                                            </button>
+                                        </div>
+                                        <div class="fs-6 fw-bold text-muted"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <div class=" py-1">
+                                        <div class="fs-7 text-dark">پست الکترونیک</div>
+                                        <div class="d-flex align-items-center justify-content-between position-relative">
+                                            <input data-editable="true" onkeypress="return isEmail(event) || isNumber(event)" id="launcherEmail" type="text" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
+                                            <button data-input-id="launcherEmail" class="toggle-editable-btn btn btn-circle btn-outline-light">
+                                                <i class="ri-ball-pen-fill"></i>
+                                            </button>
+                                        </div>
+                                        <div class="fs-6 fw-bold text-muted"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <div class=" py-1">
+                                        <div  class="fs-7 text-dark">تلفن</div>
+                                        <div class="d-flex align-items-center justify-content-between position-relative">
+                                            <input data-editable="true" onkeypress="return isNumber(event)" minlength="7" maxlength="11" id="launcherPhone" type="text" class="form-control setEnter" style="direction: rtl" placeholder="تلفن">
+                                            <button class="btn btn-circle btn-outline-light hidden">
+                                                <i class="ri-ball-pen-fill"></i>
+                                            </button>
+                                        </div>
+                                        <div id="addTell" class="d-flex gap15 flexWrap mt-1"></div>
+                                        <div class="fontSize14 colorBlack">در صورت وجود بیش از یک تلفن، آن ها را با فاصله از هم جدا نمایید.همچنین پیش شماره کشور و شهر نیز وارد شود. مانند +982111111111</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spaceBetween mb-2">
+                        <a href="" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
+                        <button id="submit" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <a href="" class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</a>
+                    </div>
+                </div>
         </div>
-    </main>
+    </div>
+</main>
     <!-- start of personal-info-fullname-modal -->
             <div class="remodal remodal-xs" data-remodal-id="personal-info-fullname-modal"
                 data-remodal-options="hashTracking: false">

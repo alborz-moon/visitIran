@@ -117,7 +117,6 @@
                                 <li class="nav-item"><a data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i></i> <span class="mini-dn">تنظیمات سیستمی</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                                     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                                         <a href="{{route('category.index')}}" class="dropdown-item">مدیریت دسته ها</a>
-                                        <a href="{{route('slider.index')}}" class="dropdown-item">مدیریت اسلایدر</a>
                                         <a href="{{route('brand.index')}}" class="dropdown-item">مدیریت برند ها</a>
                                         <a href="{{route('config.index')}}" class="dropdown-item">پیکربندی</a>
                                     </div>
@@ -132,7 +131,8 @@
 
                                 <li class="nav-item"><a data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i></i> <span class="mini-dn">مدیریت تبلیغات</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                                     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-                                        <a href="{{route('infobox.index')}}" class="dropdown-item">مدیریت بنر اطلاعات</a>
+                                        <a href="{{route('infobox.index')}}" class="dropdown-item">مدیریت بنر هدر</a>
+                                        <a href="{{route('slider.index')}}" class="dropdown-item">مدیریت اسلایدر</a>
                                         <a href="{{route('banner.index')}}" class="dropdown-item">مدیریت بنر های تبلیغاتی</a>
                                     </div>
                                 </li>
@@ -150,8 +150,6 @@
 
                                 <li class="nav-item"><a data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i></i> <span class="mini-dn">تنظیمات سیستمی</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                                     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-                                        <a href="{{route('faq.index')}}" class="dropdown-item">مدیریت سوالات متداول</a>
-                                        <a href="{{route('slider.index')}}" class="dropdown-item">مدیریت اسلایدر</a>
                                         <a href="{{route('config.index')}}" class="dropdown-item">پیکربندی</a>
                                     </div>
                                 </li>
@@ -160,12 +158,14 @@
                                     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                                         <a href="{{route('facilities.index')}}" class="dropdown-item">مدیریت امکانات ویژه</a>
                                         <a href="{{route('eventTags.index')}}" class="dropdown-item">مدیریت تگ ها</a>
+                                        <a href="{{route('faq.index')}}" class="dropdown-item">مدیریت سوالات متداول</a>
                                     </div>
                                 </li>
                                 
                                 <li class="nav-item"><a data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i></i> <span class="mini-dn">مدیریت تبلیغات</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                                     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-                                        <a href="{{route('infobox.index')}}" class="dropdown-item">مدیریت بنر اطلاعات</a>
+                                        <a href="{{route('infobox.index')}}" class="dropdown-item">مدیریت بنر هدر</a>
+                                        <a href="{{route('slider.index')}}" class="dropdown-item">مدیریت اسلایدر</a>
                                         <a href="{{route('banner.index')}}" class="dropdown-item">مدیریت بنر های تبلیغاتی</a>
                                     </div>
                                 </li>

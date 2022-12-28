@@ -15,8 +15,11 @@
     <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
             <div class="row mb-5">
-                @include('event.launcher.launcher-menu')     
-                <div class="col-xl-9 col-lg-8 col-md-7">
+                <?php $isEditor = Auth::user()->isEditor(); ?>
+                @if(!$isEditor)
+                    @include('event.launcher.launcher-menu')
+                @endif
+                <div class="{{ $isEditor ? 'col-xl-12 col-lg-12 col-md-12' : 'col-xl-9 col-lg-8 col-md-7'}}">
                     <div class="d-flex spaceBetween align-items-center">
                         <span class="colorBlack  fontSize15 bold d-none d-md-block fontSize16 bold">ایجاد رویداد</span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
@@ -55,18 +58,13 @@
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">گالری عکس</div>
                                 <div class="col-lg-12 mb-3 zIndex0">
-                                        <div class="d-flex spaceBetween justifyContentCenter">
-                                            <div class="uploadTitleText">بارگذاری عکس</div>
-                                            {{-- data-remodal-target="dropZoneModal" --}}
-                                            {{-- onclick="cloneElemToModal('{{ $key }}')" --}}
-                                            <button onclick="" class="colorBlue b-0 backgroundColorTransparent">ویرایش</button>
-                                        </div>
+                                        
                                     <div id="certifications" class="boxGallery gap10">
                                         <div class="certificationsImg">
-                                            
                                         </div>
                                     </div>
-                                    <div id="eventGallery" class="uploadBody">
+
+                                    <div iclass="uploadBody">
                                         <div class="uploadBorder">
                                             <div class="uploadBodyBox" style="padding-bottom: 50px">
                                                 <form id="gallery-form" action="{{route('event.galleries.store', ['event' => $id])}}" class="dropzone uploadBox">
@@ -100,34 +98,25 @@
 @section('extraJS')
     @parent
     <script>
-        $(document).ready(function() {
-            $("")
-        });
-        var datePickerOptions = {
-            numberOfMonths: 1,
-            showButtonPanel: true,
-            dateFormat: "yy/mm/dd"
-        };
-        $("#date_input_create_event_start").datepicker(datePickerOptions);
-        var certifications="";
-
+    
         let uploadedFiles = [];
+        let total = 0;
 
         Dropzone.options.galleryForm = {
             paramName: "img_file", // The name that will be used to transfer the file
-            maxFilesize: 6, // MB
+            maxFilesize: 5, // MB
             timeout: 180000,
             parallelUploads: 1,
             chunking: false,
             forceChunking: false,
             uploadMultiple: false,
-            maxFiles: 15,
+            maxFiles: 8,
             accept: function(file, done) {
                 done();
             },
             init: function () {
                 this.on('completemultiple', function () {
-                    console.log("completemultiple");
+                    
                 });
                 this.on("queuecomplete", function (file) {
                     // if(myPreventionFlag)
@@ -175,6 +164,7 @@
                 var gallery = "";
                 if(res.status === "ok") {
                     if(res.data.length != 0) {
+                        total = res.data.length;
                         for(i = 0; i < res.data.length; i ++ ){
                             gallery += '<div id="gallery_' + res.data[i].id + '" class="certificationsImg">';
                             gallery += '<img class="w-100 h-100" src="' + res.data[i].img + '" alt="">';
@@ -182,6 +172,9 @@
                             gallery += '</div>';
                         }
                         $("#certifications").empty().append(gallery);
+                    }
+                    else {
+                        $("#certifications").remove();
                     }
                 }
             }
@@ -226,6 +219,13 @@
                     if(res.status === 'ok') {
                         $("#gallery_" + id).remove();
                         showSuccess('فایل موردنظر با موفقیت حدف گردید.');
+
+                        console.log(uploadedFiles.length);
+                        total--;
+
+                        if(total === 0)
+                            $("#certifications").remove();
+
                     }
                 }
             });
@@ -252,8 +252,6 @@
         type: 'get',
         url: '{{route('event.get_desc',['event' => $id])}}',
         success: function(res) {
-            $("#eventGallery").addClass("hidden");
-            
             if(res.status === "ok") {
                 $('#description').val(res.data)
             }

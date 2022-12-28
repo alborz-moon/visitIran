@@ -33,26 +33,14 @@ class LauncherCertificationsController extends Controller
         $filename = $request->img_file->store('public/launchers');
         $filename = str_replace('public/launchers/', '', $filename);
         
-        LauncherCert::create([
+        $tmp = LauncherCert::create([
             'file' => $filename,
             'launcher_id' => $launcher->id
         ]);
-
+        
         return response()->json([
-            'status' => 'ok'
+            'status' => 'ok',
+            'id' => $tmp->id
         ]);
-    }
-
-    
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\LauncherCert  $launcherCert
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(LauncherCert $launcherCert)
-    {
-        //
     }
 }

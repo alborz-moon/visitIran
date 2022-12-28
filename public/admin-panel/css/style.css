@@ -4834,3 +4834,6 @@ input {
 .logo-wrap-pro {
     display: none;
 }
+.btn-primary {
+    color: #fff !important;
+}

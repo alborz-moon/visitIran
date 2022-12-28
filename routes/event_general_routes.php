@@ -63,7 +63,7 @@ Route::middleware(['myAuth'])->group(function() {
     });
 
 
-    Route::resource('launcher.launcher_certifications', LauncherCertificationsController::class)->only('store', 'destroy')->shallow();
+    Route::resource('launcher.launcher_certifications', LauncherCertificationsController::class)->only('store')->shallow();
 
     Route::resource('launcher.launcher_bank_accounts', LauncherBankAccountsController::class)->only('store', 'index')->shallow();
 
