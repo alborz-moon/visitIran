@@ -11,8 +11,11 @@
         <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
             <div class="row mb-5">
-                @include('event.launcher.launcher-menu')     
-                <div class="col-xl-9 col-lg-8 col-md-7">
+                <?php $isEditor = Auth::user()->isEditor(); ?>
+                @if(!$isEditor)
+                    @include('event.launcher.launcher-menu')
+                @endif
+                <div class="{{ $isEditor ? 'col-xl-12 col-lg-12 col-md-12' : 'col-xl-9 col-lg-8 col-md-7'}}">
                     <div class="d-flex spaceBetween align-items-center">
                         <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">

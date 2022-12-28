@@ -379,8 +379,12 @@ class LauncherController extends Controller
 
     public function removeFile(Launcher $launcher, Request $request) {
 
+
+        Gate::authorize('update', $launcher);
+
         $request->validate([
-            'mode' => ['required', Rule::in('news_paper', 'last_changes', 'NID')]
+            'mode' => ['required', Rule::in('news_paper', 'last_changes', 'NID', 'cert')],
+            'id' => 'nullable|exists:mysql2.launcher_certifications,id'
         ]);
 
         if($request['mode'] === 'news_paper') {
@@ -408,6 +412,24 @@ class LauncherController extends Controller
                 unlink(__DIR__ . '/../../../../public/storage/launchers/' . $launcher->user_NID_card);
             
             $launcher->user_NID_card = null;
+        }
+
+        if($request['mode'] === 'cert') {
+
+            if(!$request->has('id'))
+                return abort(401);
+
+            $cert = $launcher->certs()->where('id', $request['id'])->first();
+            if($cert == null)
+                return abort(401);
+
+            if($cert->file != null && !empty($cert->file) &&
+                file_exists(__DIR__ . '/../../../../public/storage/launchers/' . $cert->file)
+            )
+                unlink(__DIR__ . '/../../../../public/storage/launchers/' . $cert->file);
+            
+            $cert->delete();
+            return response()->json(['status' => 'ok']);
         }
 
         $launcher->save();

@@ -77,7 +77,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href=""><i class="nav-link-icon ri-heart-3-line"></i> 
-                            رویداد ها ی من
+                            رویداد های من
                         </a>
                     </li>
                     <li class="nav-item">

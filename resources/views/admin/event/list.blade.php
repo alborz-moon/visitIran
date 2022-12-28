@@ -20,7 +20,7 @@
 @stop
 
 @section('addBtn')
-<a href="{{ route('create-event') }}">ایجاد رویداد جدید</a>
+<a target="_blank" href="{{ route('create-event') }}">ایجاد رویداد جدید</a>
 @stop
 
 @section('items')

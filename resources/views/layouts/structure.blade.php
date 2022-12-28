@@ -139,6 +139,14 @@
                                                         های من
                                                     </a>
                                                 </li>
+                                                @if(Auth::check() && Auth::user()->isEditor())
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="{{request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE ? route('shop.panel') : route('event.panel')}}"><i
+                                                                class="nav-link-icon ri-file-list-3-line"></i>
+                                                            پنل ادمین
+                                                        </a>
+                                                    </li>
+                                                @endif
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="{{ route('logout') }}"><i
                                                             class="nav-link-icon ri-logout-box-r-line"></i>
@@ -175,12 +183,12 @@
                             </li>
                             @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                             <li class="nav-item align-self-center">
-                            <div class="vertical-menu minWidthUnset">
-                            <a class="vertical-menu-btn p-0 m-0 colorWhite fontNormal cursorPointer hoverBold1"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt="">دسته بندی کالاها</a>
-                            <div class="vertical-menu-items marginFromRightHeaderNegative custom-vertical-menu-items zIndex2 mt-10">
-                                @include('layouts.menu')
-                            </div>
-                            </div>                            
+                                <div class="vertical-menu minWidthUnset">
+                                    <a class="vertical-menu-btn p-0 m-0 colorWhite fontNormal cursorPointer hoverBold1"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt="">دسته بندی کالاها</a>
+                                    <div class="vertical-menu-items marginFromRightHeaderNegative custom-vertical-menu-items zIndex2 mt-10">
+                                        @include('layouts.menu')
+                                    </div>
+                                </div>                            
                             </li>
                             <li class="nav-item">
                                 <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="index-1.html"><img class="iconSvg customIconTag" src="{{ asset('theme-assets/images/svg/label.svg') }}" alt="">پیشنهاد های ویژه</a>

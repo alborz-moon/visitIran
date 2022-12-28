@@ -20,7 +20,7 @@
 @stop
 
 @section('addBtn')
-<a href="{{ route('launcher') }}">ایجاد برگزار کننده جدید</a>
+<a target="_blank" href="{{ route('launcher') }}">ایجاد برگزار کننده جدید</a>
 @stop
 
 @section('items')
