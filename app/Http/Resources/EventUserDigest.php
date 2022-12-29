@@ -23,11 +23,13 @@ class EventUserDigest extends JsonResource
             $launcher = $this->launcher->company_name;
             $city = $this->city_id != null ? $this->city->name : null;
             $off = $this->activeOff();
+            $first_session = $this->session()->first();
         }
         else {
             $launcher = $this->company_name;
             $city = $this->city;
             $off = Event::staticActiveOff($this->off, $this->off_expiration, $this->off_type);
+            $first_session = EventSession::where('event_id', $this->id)->first();
         }
 
         $priceAfterOff = $this->price;
@@ -37,8 +39,6 @@ class EventUserDigest extends JsonResource
             $priceAfterOff = $this->price * (100 - $off['value']) / 100;
 
         $slug = $this->slug == null ? $this->title : $this->slug;
-
-        $first_session = $this->session()->first();
 
         if($first_session != null) {
             $start = date("Y/m/d H:i", $first_session->start);
