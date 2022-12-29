@@ -58,6 +58,7 @@ class ProductController extends ProductHelper
         
         $filters = self::build_filters($request);
         $products = $filters->paginate($limit == null ? 30 : $limit);
+        
 
         if($request->user() != null && (
             $request->user()->level == User::$ADMIN_LEVEL ||

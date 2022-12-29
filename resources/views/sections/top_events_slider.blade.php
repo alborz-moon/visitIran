@@ -4,18 +4,31 @@
         <div class="d-flex spaceBetween alignItemsCenter">
             <span class="ui-box-title fontSize20 d-flex"> 
                 <img class="p-2" src="{{ asset('./theme-assets/images/svg/headlineTitle.svg') }}" alt="">{{ $title }} 
-            <span class="marginTopNegative10">
-            @if (isset($fill_input))
-            <div style="width: 250px;">
-            <select class="select2 seachbar-select w-100" aria-placeholder="" name="">
-                <option selected value="1">نوع رویداد</option>
-            </select>
-            </div>
-            @endif
-            </span>
+                <span class="marginTopNegative10">
+                    @if (isset($fill_input))
+                        <div style="width: 250px;">
+                            <select id="allTagsFilter2" onchange="changeTag($(this).val())" class="select2 seachbar-select w-100">
+                                <option selected value="0">موضوع رویداد</option>
+                                @foreach ($tags as $tag)
+                                    <option value="{{ $tag->label }}">{{ $tag->label }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
+                </span>
             </span>
             
-            <span class="alignItemsCenter colorBlue"><a class="hoverBold" href="{{ isset($href) ? $href : '' }}">مشاهده همه</a></span>
+            <span class="alignItemsCenter colorBlue">
+                @if(isset($href))
+                    <a class="hoverBold" target="_blank" href="{{ isset($href) ? $href : '' }}">
+                        مشاهده همه
+                    </a>
+                @else
+                    <a class="seeAll hoverBold cursorPointer">
+                        مشاهده همه
+                    </a>
+                @endif
+                </span>
         </div>
         <div class="ui-box-content">
             <!-- Slider main container -->
@@ -86,50 +99,55 @@
 
 
 <script>
-
+    
     $(document).ready(function() {
-        $.ajax({
-            type: 'get',
-            url: '{{ isset($api) ? $api : route('api.event.list', ['orderBy' => $searchKey, 'limit' => 8]) }}',
-            success: function(res) {
-                let html = renderEventSlider(res.data, '{{ $key }}');
-                $("#" + '{{ $key }}' + "sSlider").empty().append(html).removeClass('hidden');
-                $("#" + '{{ $not_fill_id }}').remove();
-                $("#" + '{{ $id }}').removeClass('hidden');
-                
-                const productSpecialsSwiperSlider = new Swiper(
-                    "." + '{{ $key }}' + "-product-swiper-slider",
-                    {
-                        // Optional parameters
-                        spaceBetween: 10,
+        
+        let url = null;
+        @if(isset($api))
+            url = '{{ $api }}';
+        @else
+            let query = new URLSearchParams();
+            query.append("orderBy", '{{ $searchKey }}');
+            query.append("limit", 8);
+            url = '{{ route('api.event.list') }}' + '?' + query.toString();
+        @endif
 
-                        // Navigation arrows
-                        navigation: {
-                        nextEl: ".swiper-button-next",
-                        prevEl: ".swiper-button-prev",
-                        },
-
-                        breakpoints: {
-                        1200: {
-                            slidesPerView: 3.5,
-                        },
-                        992: {
-                            slidesPerView: 3,
-                            spaceBetween: 10,
-                        },
-                        576: {
-                            slidesPerView: 2.4,
-                            spaceBetween: 5,
-                        },
-                        480: {
-                            slidesPerView: 1,
-                            spaceBetween: 8,
-                        },
-                        },
-                    }
-                    );
-            }
-        });
+        @if (isset($fill_input))
+            fetchData(url, "{{ $key }}", "{{ $id }}", "{{ $not_fill_id }}", true);
+        @else
+            fetchData(url, "{{ $key }}", "{{ $id }}", "{{ $not_fill_id }}");
+        @endif
     });
+
+    @if (isset($fill_input))
+
+        $(document).on('click', '.seeAll', function() {
+            
+            let query = new URLSearchParams();
+            
+            let selectedTag = $("#allTagsFilter2").val();
+
+            if(selectedTag != "0")
+                query.append("tag", selectedTag);
+
+            let url = '{{ route('event.category.list', ['orderBy' => $searchKey]) }}' + '?' + query.toString();
+            window.open(url, '_blank').focus();
+
+        });
+    
+        function changeTag(selectedTag) {
+                
+            let query = new URLSearchParams();
+            query.append("orderBy", '{{ $searchKey }}');
+            
+            if(selectedTag != "0")
+                query.append("tag", selectedTag);
+
+            query.append("limit", 8);
+            url = '{{ route('api.event.list') }}' + '?' + query.toString();
+        
+            fetchData(url, "{{ $key }}", "{{ $id }}", "{{ $not_fill_id }}", true);
+        }
+    @endif
 
 </script>

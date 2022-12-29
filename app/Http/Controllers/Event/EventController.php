@@ -237,21 +237,21 @@ class EventController extends EventHelper
             return response()->json($validator->errors(), 400);
         }
 
-        $params = [];
-        foreach($request->query() as $key => $val) {
-            $params[str_replace('amp;', '', $key)] = $val;
-        }
-
         $limit = $request->query('limit', 30);
         $key = $request->query('key', null);
         $page = $request->query('page', 1);
 
+
         if($key != null && $page > 1)
             return abort(401);
-        
+
         $filters = self::build_filters($request, true, $key != null);
 
         if($key == null) {
+            
+            if($limit != 30)
+                $filters->where('is_in_top_list', true);
+
             $events = $filters->skip(($page - 1) * $limit)->take($limit)->get();
         }
         else {
