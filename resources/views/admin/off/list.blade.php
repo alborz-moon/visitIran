@@ -19,6 +19,13 @@
 مدیریت تخفیف ها
 @stop
 
+@section('preBtn')
+    <h3 style="text-align: right">
+        جست و جو پیشرفته
+        <span data-status="close" style="cursor: pointer; font-size: 16px" id="toggleProSearchBtn" class="glyphicon glyphicon-chevron-down"></span>
+    </h3>
+@stop
+
 @section('createNew')
 '{{ route('off.create') }}'
 @stop
@@ -33,11 +40,7 @@
         @endforeach
     @else
 
-        <h3 style="text-align: right">
-            جست و جو پیشرفته
-            <span data-status="close" style="cursor: pointer" id="toggleProSearchBtn" class="glyphicon glyphicon-chevron-down"></span>
-        </h3>
-        <div id="pro_search" class="flex gap30 margin20 flex-wrap hidden">
+        <div id="pro_search" class="flex margin20 flex-wrap hidden" style="row-gap:30px; column-gap:10px">
 
             <div class="flex gap10 center">
                 <label class="width-auto" for="categoryFilter">دسته</label>
@@ -173,7 +176,7 @@
                                 <div class="flex gap10">
                                     <button data-toggle='tooltip' title="ویرایش" onclick="document.location.href = '{{ route('product.edit', ['product' => $item['id']]) }}'" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></button>
                                     <button data-toggle='tooltip' title="استفاده کنندگان" onclick="document.location.href = '{{ route('product.productGallery.index', ['product' => $item['id']]) }}'" class="btn btn-success"><span class="glyphicon glyphicon-user"></span></button>
-                                    <button data-toggle='tooltip' title="حذف" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                                    <button onclick="removeModal('item', {{$item['id']}}, '{{ route('off.destroy', ['off' => $item['id']]) }}')" data-toggle='tooltip' title="حذف" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
                                 </div>
                             </div>
                             
