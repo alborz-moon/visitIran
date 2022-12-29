@@ -230,7 +230,16 @@
                     <td>{{ $item['price'] }}</td>
                     <td>{{ $item['buyers'] }}</td>
                     <td>{{ $item['priority'] }}</td>
-                    <td>{{ $item['is_in_top_list'] == 1 ? 'بله' : 'خیر' }}</td>
+                    <td>
+                        <p id="is_in_top_list_text_{{ $item['id'] }}">{{ $item['is_in_top_list'] == 1 ? 'بله' : 'خیر' }}</p>
+                        @if($item['is_in_top_list'] == 1)
+                            <button class="btn btn-danger changeIsInTopListBtn" data-value='remove' data-id='{{ $item['id'] }}' id="is_in_top_list_remove_{{ $item['id'] }}">حذف از برترینها</button>
+                            <button class="hidden btn btn-success changeIsInTopListBtn" data-value='add' data-id='{{ $item['id'] }}' id="is_in_top_list_add_{{ $item['id'] }}">افزودن به برترینها</button>
+                        @else
+                            <button class="hidden btn btn-danger changeIsInTopListBtn" data-value='remove' data-id='{{ $item['id'] }}' id="is_in_top_list_remove_{{ $item['id'] }}">حذف از برترینها</button>
+                            <button class="btn btn-success changeIsInTopListBtn" data-value='add' data-id='{{ $item['id'] }}' id="is_in_top_list_add_{{ $item['id'] }}">افزودن به برترینها</button>
+                        @endif
+                    </td>
                     <td>{{ $item['rate'] == null ? 'امتیازی ثبت نشده است' : $item['rate'] . ' از ' . $item['rate_count'] . ' رای'}}</td>
                     <td>{{ $item['comment_count'] == 0 ? 'کامنتی ثبت نشده است' : 'تعداد کل: ' . $item['comment_count'] . ' تعداد تایید نشده:' . $item['new_comment_count'] }}</td>
                     
@@ -256,8 +265,41 @@
             $('.changeStatusBtn').on('click', function() {
                 changeStatus($(this).attr('data-id'), $(this).attr('data-value'));
             });
+            
+            $(document).on('click', '.changeIsInTopListBtn', function() {
+                changeIsInTopList($(this).attr('data-id'), $(this).attr('data-value'));
+            });
 
 
+            function changeIsInTopList(eventId, newStatus) {
+                $.ajax({
+                    type: 'post',
+                    url: '{{ route('event.changeIsInTopList') }}',
+                    data: {
+                        'event_id': eventId
+                    },
+                    success: function(res) {
+
+                        if(res.status === "ok") {
+                            if(newStatus == 'add') {
+                                $("#is_in_top_list_remove_" + eventId).removeClass('hidden');
+                                $("#is_in_top_list_add_" + eventId).addClass('hidden');
+                                $("#is_in_top_list_text_" + eventId).text('بله');
+                            }
+                            else {
+                                $("#is_in_top_list_remove_" + eventId).addClass('hidden');
+                                $("#is_in_top_list_add_" + eventId).removeClass('hidden');
+                                $("#is_in_top_list_text_" + eventId).text('خیر');
+                            }
+                            showSuccess("عملیات موردنظر با موفقیت انجام شد.");
+                        }
+                        else {
+                            showErr(res.msg);
+                        }
+                    }
+                });
+            }
+            
             function changeStatus(eventId, newStatus) {
                 $.ajax({
                     type: 'post',
