@@ -12,7 +12,7 @@
                 @include('event.layouts.box', ['id' => 'most_like_events_when_not_filled', 'title' => 'بهترین برگزار کننده'])
                 
                 @include('sections.top_events_slider', ['id' => 'most_seen_events_when_filled', 'searchKey' => 'seen', 
-                    'key' => 'mostSeenEvent', 'title' => 'پر فروش ترین ها', 'not_fill_id' => 'most_seen_events_when_not_filled'])
+                    'key' => 'mostSeenEvent', 'href' => route('event.category.list', ['orderBy', 'price']), 'title' => 'پر فروش ترین ها', 'not_fill_id' => 'most_seen_events_when_not_filled'])
 
                 @include('layouts.banner')
 
@@ -35,5 +35,6 @@
 
 @section('extraJS')
     @parent
+    <script src="{{ asset('theme-assets/js/event.js') }}"></script>
     <script src="{{ asset('theme-assets/js/home.js') }}"></script>
 @stop

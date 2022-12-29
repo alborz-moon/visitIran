@@ -43,7 +43,6 @@ class EventUserDigest extends JsonResource
         if($first_session != null) {
             $start = date("Y/m/d H:i", $first_session->start);
             $s = Controller::MiladyToShamsi($start, '/');
-            $start = explode(' ', $start)[1];
         }
         else {
             $start = '';
@@ -62,7 +61,6 @@ class EventUserDigest extends JsonResource
             'off' => $off,
             'category' => $this->tags,
             'start_date' => $s,
-            'start_time' => $start,
             'priceAfterOff' => number_format($priceAfterOff, 0),
             'place' => $this->city_id != null ? $city : $this->link,
             'href' => route('event', ['event' => $this->id, 'slug' => $slug])
