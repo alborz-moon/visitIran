@@ -19,23 +19,25 @@
 مدیریت رویدادها
 @stop
 
-@section('addBtn')
-<a target="_blank" href="{{ route('create-event') }}">ایجاد رویداد جدید</a>
+@section('preBtn')
+
+    <h3 style="text-align: right">
+        جست و جو پیشرفته
+        <span data-status="close" style="cursor: pointer; font-size: 16px;" id="toggleProSearchBtn" class="glyphicon glyphicon-chevron-down"></span>
+    </h3>
+
 @stop
+
+@section('createNew')
+'{{ route('create-event') }}'
+@stop
+
 
 @section('items')
 
 <center style="margin-top: 20px">
-    
 
-    <p>تعداد کل: {{ count($items) }}</p>
-
-    <h3 style="text-align: right">
-        جست و جو پیشرفته
-        <span data-status="close" style="cursor: pointer" id="toggleProSearchBtn" class="glyphicon glyphicon-chevron-down"></span>
-    </h3>
-
-    <div id="pro_search" class="flex gap30 margin20 flex-wrap hidden">
+    <div id="pro_search" class="flex margin20 flex-wrap hidden"  style="row-gap:30px; column-gap:10px">
         <div class="flex gap10 center">
             <label class="width-auto" for="statusFilter">وضعیت</label>
             <select id="statusFilter">
@@ -82,6 +84,7 @@
                 <option {{ isset($orderBy) && $orderBy == 'createdAt' ? 'selected' : '' }} value="createdAt">زمان ایجاد</option>
                 <option {{ isset($orderBy) && $orderBy == 'rate' ? 'selected' : '' }} value="rate">محبوبیت</option>
                 <option {{ isset($orderBy) && $orderBy == 'seen' ? 'selected' : '' }} value="seen">بازدید</option>
+                <option {{ isset($orderBy) && $orderBy == 'price' ? 'selected' : '' }} value="price">قیمت</option>
                 <option {{ isset($orderBy) && $orderBy == 'rate_count' ? 'selected' : '' }} value="rate_count">تعداد رای</option>
                 <option {{ isset($orderBy) && $orderBy == 'comment_count' ? 'selected' : '' }} value="comment_count">تعداد نظرات</option>
                 <option {{ isset($orderBy) && $orderBy == 'new_comment_count' ? 'selected' : '' }} value="new_comment_count">تعداد نظرات تایید نشده</option>
@@ -152,6 +155,8 @@
         
     </div>
 
+    <p>تعداد کل: {{ count($items) }}</p>
+    
     <table id="table" data-toggle="table" data-search="true" data-show-columns="true"  data-key-events="true" data-show-toggle="true" data-resizable="true" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
         <thead>
             <tr>
@@ -200,17 +205,17 @@
                     <td>
                         <p id="status_text_{{ $item['id'] }}">{{ $item['status'] == 'pending' ? "در حال بررسی" : ($item['status'] == 'confirmed' ? "تایید شده" : "رد شده")}}</p>
                         @if($item['status'] == 'pending')
-                            <button class="btn btn-success changeStatusBtn" data-value='confirmed' data-id='{{ $item['id'] }}' id="status_confirmed_{{ $item['id'] }}">تغییر وضعیت به تایید شده</button>
-                            <button class="btn btn-danger changeStatusBtn" data-value='rejected' data-id='{{ $item['id'] }}' id="status_rejected_{{ $item['id'] }}">تغییر وضعیت به رد شده</button>
-                            <button class="hidden btn btn-primary changeStatusBtn" data-value='pending' data-id='{{ $item['id'] }}' id="status_pending_{{ $item['id'] }}">تغییر وضعیت به در حال بررسی</button>
+                            <button class="btn btn-success changeStatusBtn" data-value='confirmed' data-id='{{ $item['id'] }}' id="status_confirmed_{{ $item['id'] }}">تایید شده</button>
+                            <button class="btn btn-danger changeStatusBtn" data-value='rejected' data-id='{{ $item['id'] }}' id="status_rejected_{{ $item['id'] }}">رد شده</button>
+                            <button class="hidden btn btn-primary changeStatusBtn" data-value='pending' data-id='{{ $item['id'] }}' id="status_pending_{{ $item['id'] }}">در حال بررسی</button>
                         @elseif($item['status'] == 'confirmed')
-                            <button class="hidden btn btn-success changeStatusBtn" data-value='confirmed' data-id='{{ $item['id'] }}' id="status_confirmed_{{ $item['id'] }}">تغییر وضعیت به تایید شده</button>
-                            <button class="btn btn-danger changeStatusBtn" data-value='rejected' data-id='{{ $item['id'] }}' id="status_rejected_{{ $item['id'] }}">تغییر وضعیت به رد شده</button>
-                            <button class="btn btn-primary changeStatusBtn" data-value='pending' data-id='{{ $item['id'] }}' id="status_pending_{{ $item['id'] }}">تغییر وضعیت به در حال بررسی</button>
+                            <button class="hidden btn btn-success changeStatusBtn" data-value='confirmed' data-id='{{ $item['id'] }}' id="status_confirmed_{{ $item['id'] }}">تایید شده</button>
+                            <button class="btn btn-danger changeStatusBtn" data-value='rejected' data-id='{{ $item['id'] }}' id="status_rejected_{{ $item['id'] }}">رد شده</button>
+                            <button class="btn btn-primary changeStatusBtn" data-value='pending' data-id='{{ $item['id'] }}' id="status_pending_{{ $item['id'] }}">در حال بررسی</button>
                         @else
-                            <button class="btn btn-success changeStatusBtn" data-value='confirmed' data-id='{{ $item['id'] }}' id="status_confirmed_{{ $item['id'] }}">تغییر وضعیت به تایید شده</button>
-                            <button class="hidden btn btn-danger changeStatusBtn" data-value='rejected' data-id='{{ $item['id'] }}' id="status_rejected_{{ $item['id'] }}">تغییر وضعیت به رد شده</button>
-                            <button class="btn btn-primary changeStatusBtn" data-value='pending' data-id='{{ $item['id'] }}' id="status_pending_{{ $item['id'] }}">تغییر وضعیت به در حال بررسی</button>
+                            <button class="btn btn-success changeStatusBtn" data-value='confirmed' data-id='{{ $item['id'] }}' id="status_confirmed_{{ $item['id'] }}">تایید شده</button>
+                            <button class="hidden btn btn-danger changeStatusBtn" data-value='rejected' data-id='{{ $item['id'] }}' id="status_rejected_{{ $item['id'] }}">رد شده</button>
+                            <button class="btn btn-primary changeStatusBtn" data-value='pending' data-id='{{ $item['id'] }}' id="status_pending_{{ $item['id'] }}">در حال بررسی</button>
                         @endif
                     </td>
                     
@@ -225,7 +230,7 @@
                     <td>{{ $item['price'] }}</td>
                     <td>{{ $item['buyers'] }}</td>
                     <td>{{ $item['priority'] }}</td>
-                    <td>{{ $item['is_in_top_list'] }}</td>
+                    <td>{{ $item['is_in_top_list'] == 1 ? 'بله' : 'خیر' }}</td>
                     <td>{{ $item['rate'] == null ? 'امتیازی ثبت نشده است' : $item['rate'] . ' از ' . $item['rate_count'] . ' رای'}}</td>
                     <td>{{ $item['comment_count'] == 0 ? 'کامنتی ثبت نشده است' : 'تعداد کل: ' . $item['comment_count'] . ' تعداد تایید نشده:' . $item['new_comment_count'] }}</td>
                     

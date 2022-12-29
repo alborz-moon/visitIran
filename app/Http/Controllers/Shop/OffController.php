@@ -138,7 +138,7 @@ class OffController extends Controller
             'amount' => 'required|integer|min:0',
             'off_type' => ['required', Rule::in(['value', 'percent'])],
             'off_expiration' => 'required|date',
-            'username' => 'nullable|exists:users,username',
+            'username' => 'nullable|exists:users,phone',
             'category_id' => 'nullable|exists:categories,id',
             'brand_id' => 'nullable|exists:brands,id',
             'seller_id' => 'nullable|exists:sellers,id',

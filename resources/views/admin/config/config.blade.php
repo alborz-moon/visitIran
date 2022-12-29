@@ -6,7 +6,11 @@
     </script>
     <script src="https://cdn.ckeditor.com/ckeditor5/10.0.1/decoupled-document/ckeditor.js"></script>
     <script src="{{asset('admin-panel/js/ckeditor.js?v=2.2')}}"></script>
-    
+    <style>
+        label {
+            width: 300px !important;
+        }
+    </style>
 @stop
 
 @section('title')

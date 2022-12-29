@@ -19,8 +19,15 @@
 مدیریت برگزار کنندگان
 @stop
 
-@section('addBtn')
-<a target="_blank" href="{{ route('launcher') }}">ایجاد برگزار کننده جدید</a>
+@section('preBtn')
+    <h3 style="text-align: right">
+        جست و جو پیشرفته
+        <span data-status="close" style="cursor: pointer; font-size: 16px" id="toggleProSearchBtn" class="glyphicon glyphicon-chevron-down"></span>
+    </h3>
+@stop
+
+@section('createNew')
+'{{ route('launcher') }}'
 @stop
 
 @section('items')
@@ -30,12 +37,7 @@
 
     <p>تعداد کل: {{ count($items) }}</p>
 
-    <h3 style="text-align: right">
-        جست و جو پیشرفته
-        <span data-status="close" style="cursor: pointer" id="toggleProSearchBtn" class="glyphicon glyphicon-chevron-down"></span>
-    </h3>
-
-    <div id="pro_search" class="flex gap30 margin20 flex-wrap hidden">
+    <div id="pro_search" class="flex margin20 flex-wrap hidden" style="row-gap:30px; column-gap:10px">
         <div class="flex gap10 center">
             <label class="width-auto" for="visibilityFilter">وضعیت</label>
             <select id="visibilityFilter">
@@ -156,17 +158,17 @@
                     <td>
                         <p id="status_text_{{ $item['id'] }}">{{ $item['status'] == 'pending' ? "در حال بررسی" : ($item['status'] == 'confirmed' ? "تایید شده" : "رد شده")}}</p>
                         @if($item['status'] == 'pending')
-                            <button class="btn btn-success changeStatusBtn" data-value='confirmed' data-id='{{ $item['id'] }}' id="status_confirmed_{{ $item['id'] }}">تغییر وضعیت به تایید شده</button>
-                            <button class="btn btn-danger changeStatusBtn" data-value='rejected' data-id='{{ $item['id'] }}' id="status_rejected_{{ $item['id'] }}">تغییر وضعیت به رد شده</button>
-                            <button class="hidden btn btn-primary changeStatusBtn" data-value='pending' data-id='{{ $item['id'] }}' id="status_pending_{{ $item['id'] }}">تغییر وضعیت به در حال بررسی</button>
+                            <button class="btn btn-success changeStatusBtn" data-value='confirmed' data-id='{{ $item['id'] }}' id="status_confirmed_{{ $item['id'] }}">تایید شده</button>
+                            <button class="btn btn-danger changeStatusBtn" data-value='rejected' data-id='{{ $item['id'] }}' id="status_rejected_{{ $item['id'] }}">رد شده</button>
+                            <button class="hidden btn btn-primary changeStatusBtn" data-value='pending' data-id='{{ $item['id'] }}' id="status_pending_{{ $item['id'] }}">در حال بررسی</button>
                         @elseif($item['status'] == 'confirmed')
-                            <button class="hidden btn btn-success changeStatusBtn" data-value='confirmed' data-id='{{ $item['id'] }}' id="status_confirmed_{{ $item['id'] }}">تغییر وضعیت به تایید شده</button>
-                            <button class="btn btn-danger changeStatusBtn" data-value='rejected' data-id='{{ $item['id'] }}' id="status_rejected_{{ $item['id'] }}">تغییر وضعیت به رد شده</button>
-                            <button class="btn btn-primary changeStatusBtn" data-value='pending' data-id='{{ $item['id'] }}' id="status_pending_{{ $item['id'] }}">تغییر وضعیت به در حال بررسی</button>
+                            <button class="hidden btn btn-success changeStatusBtn" data-value='confirmed' data-id='{{ $item['id'] }}' id="status_confirmed_{{ $item['id'] }}">تایید شده</button>
+                            <button class="btn btn-danger changeStatusBtn" data-value='rejected' data-id='{{ $item['id'] }}' id="status_rejected_{{ $item['id'] }}">رد شده</button>
+                            <button class="btn btn-primary changeStatusBtn" data-value='pending' data-id='{{ $item['id'] }}' id="status_pending_{{ $item['id'] }}">در حال بررسی</button>
                         @else
-                            <button class="btn btn-success changeStatusBtn" data-value='confirmed' data-id='{{ $item['id'] }}' id="status_confirmed_{{ $item['id'] }}">تغییر وضعیت به تایید شده</button>
-                            <button class="hidden btn btn-danger changeStatusBtn" data-value='rejected' data-id='{{ $item['id'] }}' id="status_rejected_{{ $item['id'] }}">تغییر وضعیت به رد شده</button>
-                            <button class="btn btn-primary changeStatusBtn" data-value='pending' data-id='{{ $item['id'] }}' id="status_pending_{{ $item['id'] }}">تغییر وضعیت به در حال بررسی</button>
+                            <button class="btn btn-success changeStatusBtn" data-value='confirmed' data-id='{{ $item['id'] }}' id="status_confirmed_{{ $item['id'] }}">تایید شده</button>
+                            <button class="hidden btn btn-danger changeStatusBtn" data-value='rejected' data-id='{{ $item['id'] }}' id="status_rejected_{{ $item['id'] }}">رد شده</button>
+                            <button class="btn btn-primary changeStatusBtn" data-value='pending' data-id='{{ $item['id'] }}' id="status_pending_{{ $item['id'] }}">در حال بررسی</button>
                         @endif
                     </td>
                     <td>{{ $item['seen'] }}</td>

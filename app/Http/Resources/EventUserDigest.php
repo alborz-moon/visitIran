@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Models\EventSession;
 use App\Models\Launcher;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -36,6 +38,18 @@ class EventUserDigest extends JsonResource
 
         $slug = $this->slug == null ? $this->title : $this->slug;
 
+        $first_session = $this->session()->first();
+
+        if($first_session != null) {
+            $start = date("Y/m/d H:i", $first_session->start);
+            $start = explode(' ', $start)[1];
+            $s = Controller::MiladyToShamsi($start, '/');
+        }
+        else {
+            $start = '';
+            $s = '';
+        }
+        
         return [
             'id' => $this->id,
             'img' => $this->img == null ? asset('default.png') : asset('storage/products/' . $this->img),
@@ -47,6 +61,8 @@ class EventUserDigest extends JsonResource
             'price' => number_format($this->price, 0),
             'off' => $off,
             'category' => $this->tags,
+            'start_date' => $s,
+            'start_time' => $start,
             'priceAfterOff' => number_format($priceAfterOff, 0),
             'place' => $this->city_id != null ? $city : $this->link,
             'href' => route('event', ['event' => $this->id, 'slug' => $slug])

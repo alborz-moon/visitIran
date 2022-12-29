@@ -49,7 +49,7 @@
             </div>
             
             <div>
-                <label for="slug">slug(اختیاری)</label>
+                <label for="slug">نامک(اختیاری)</label>
                 <input value="{{ isset($item) ? $item['slug'] : '' }}" placeholder="این فیلد اختیاری است" type="text" name="slug" id="slug" />
             </div>
 
@@ -70,7 +70,7 @@
 
 
             <div>
-                <label for="tags">تگ ها(اختیاری)</label>
+                <label for="tags">تگ موضوعی(اختیاری)</label>
                 <textarea name="tags" id="tags">{{ isset($item) ? $item['tags'] : '' }}</textarea>
             </div>
 
@@ -107,7 +107,7 @@
 
         <div class="flex center gap10">
             <span onclick="document.location.href = '{{ route('blog.index') }}'" class="btn btn-danger">بازگشت</span>
-            <span class="btn green" id="saveBtn">ذخیره</span>
+            <span class="btn btn-primary" id="saveBtn">ذخیره</span>
         </div>
 
     </form>

@@ -12,6 +12,7 @@ use App\Http\Controllers\Shop\ProductController;
 use App\Models\EventTag;
 use App\Models\Launcher;
 use App\Models\State;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;

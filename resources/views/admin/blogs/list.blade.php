@@ -23,8 +23,8 @@
     @else
         @foreach($items as $item)
             <div style="min-height: 250px" class="col-xs-12 col-lg-3" id="item_{{ $item['id'] }}">
-                <h4>{{ $item['header'] }}</h4>
-                <img src="{{$item['img']}}" alt="{{ $item['alt'] }}">
+                <h4 class="white-color font-size-17 font-wight-600">{{ $item['header'] }}</h4>
+                <img class="my-form-img" src="{{$item['img']}}" alt="{{ $item['alt'] }}">
                 <div>
                     <div class="opBox" id="opBox_{{ $item['id'] }}">
                         <button class="btn btn-primary" onclick="document.location.href = '{{ route('blog.edit', ['blog' => $item['id']]) }}'">مشاهده اطلاعات</button>

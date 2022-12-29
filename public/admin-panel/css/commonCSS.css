@@ -15,6 +15,18 @@ body {
     animation: sk-stretchdelay 1.2s infinite ease-in-out;
 }
 
+.font-size-17 {
+    font-size: 17px !important;
+}
+
+.font-family-600 {
+    font-family: 600 !important;
+}
+
+.white-color {
+    color: #fff;
+}
+
 .header_text {
     color: #963019;
     border-bottom: 2px solid;

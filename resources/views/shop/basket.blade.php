@@ -105,7 +105,12 @@
             renderBasket();
 
             $("#goToShipingBtn").on('click', function() {
-                document.location.href = '{{ route('shipping') }}';
+                @if(Auth::check())
+                    document.location.href = '{{ route('shipping') }}';
+                @else
+                    localStorage.setItem("url", '{{ URL::current() }}');
+                    document.location.href = '{{ route('login-register') }}';
+                @endif
             })
         })
     </script>

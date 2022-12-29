@@ -6,9 +6,7 @@
 
 @section('content')
 
-    <div class="col-md-1"></div>
-
-    <div class="col-md-10">
+    <div class="col-md-12">
         <div class="sparkline8-list shadow-reset mg-tb-30">
             <div class="sparkline8-hd">
                 <div class="main-sparkline8-hd flex space-between">
@@ -30,17 +28,24 @@
                 <div id="mainContainer" class="page-content" style="margin-top: 5%; margin: 50px; direction: rtl">
 
                     <div class="row">
-                        <div class="flex center gap10">
-                            <button onclick="document.location.href = '{{ route('category.create') }}'" class="btn btn-success">افزودن مورد جدید</button>
-                            <button onclick="$('#addBatchModal').removeClass('hidden')" class="btn btn-success">افزودن دسته ای</button>
+                        <div class="flex flex-start gap50">
+
+                            <div>
+                                <button onclick="document.location.href = '{{ route('category.create') }}'" class="btn btn-success">افزودن مورد جدید</button>
+                                <button onclick="$('#addBatchModal').removeClass('hidden')" class="btn btn-success">افزودن دسته ای</button>
+                            </div>
+                            
+                            <div>
+                                <label for="presentType">نوع نمایش</label>
+                                <select id="presentType">
+                                    <option value="card">کارتی</option>
+                                    <option value="table">جدولی</option>
+                                </select>
+                            </div>
+                            
                         </div>
 
                         <div class="flex flex-start gap10 margin20">
-                            <label for="presentType">نوع نمایش</label>
-                            <select id="presentType">
-                                <option value="card">کارتی</option>
-                                <option value="table">جدولی</option>
-                            </select>
                         </div>
 
                         <div class="col-xs-12">
@@ -56,17 +61,17 @@
                                     @foreach($categories as $category)
                                         <div class="col-xs-12 col-lg-3" id="item_{{ $category['id'] }}">
                                             <center>
-                                                <h5>{{ $category['name'] }}</h5>
+                                                <h5 class="white-color font-size-17 font-wight-600">{{ $category['name'] }}</h5>
                                             </center>
-                                            <img src="{{$category['img']}}" alt="{{ $category['alt'] }}" style="width:100%; height: 100%">
-                                            <div class="flex space-between flex-wrap gap10">
-                                                <button class="btn btn-primary" onclick="document.location.href = '{{ route('category.edit', ['category' => $category['id']]) }}'">مشاهده اطلاعات</button>
-                                                <button class="btn btn-danger" onclick="removeModal('item', {{$category['id']}}, '{{ route('category.destroy', ['category' => $category['id']]) }}')">حذف</button>
+                                            <img src="{{$category['img']}}" alt="{{ $category['alt'] }}" class="my-form-img">
+                                            <div class="flex space-between flex-wrap gap10 padding-6-6">
+                                                <button class="btn btn-primary padding-6-6" onclick="document.location.href = '{{ route('category.edit', ['category' => $category['id']]) }}'">مشاهده اطلاعات</button>
+                                                <button class="btn btn-danger padding-6-6" onclick="removeModal('item', {{$category['id']}}, '{{ route('category.destroy', ['category' => $category['id']]) }}')">حذف</button>
                                                 @if($category['has_sub'])
-                                                    <button style="width: 100%" onclick="document.location.href = '{{ route('category.sub', ['category' => $category['id']]) }}'" class="btn btn-info">مشاهده زیر دسته ها</button>
+                                                    <button onclick="document.location.href = '{{ route('category.sub', ['category' => $category['id']]) }}'" class="btn btn-info padding-6-6">مشاهده زیر دسته ها</button>
                                                 @else
-                                                    <button onclick="document.location.href = '{{ route('category.features.index', ['category' => $category['id']]) }}'" class="btn btn-info">ویژگی ها</button>
-                                                    <button onclick="document.location.href = '{{ route('product.index', ['category' => $category['id']]) }}'" class="btn btn-warning">محصولات</button>
+                                                    <button onclick="document.location.href = '{{ route('category.features.index', ['category' => $category['id']]) }}'" class="btn btn-info padding-6-6">ویژگی ها</button>
+                                                    <button onclick="document.location.href = '{{ route('product.index', ['category' => $category['id']]) }}'" class="btn btn-warning padding-6-6">محصولات</button>
                                                 @endif
                                             </div>
                                             
@@ -95,14 +100,14 @@
                                                     <td>{{ $category['products_count'] }}</td>
                                                 @endif
                                                 <td>
-                                                    <div class="flex space-between flex-wrap gap10">
-                                                        <button class="btn btn-primary" onclick="document.location.href = '{{ route('category.edit', ['category' => $category['id']]) }}'">مشاهده اطلاعات</button>
-                                                        <button class="btn btn-danger" onclick="removeModal('item', {{$category['id']}}, '{{ route('category.destroy', ['category' => $category['id']]) }}')">حذف</button>
+                                                    <div class="flex flex-wrap gap10">
+                                                        <button class="btn btn-primary padding-6-6" onclick="document.location.href = '{{ route('category.edit', ['category' => $category['id']]) }}'">مشاهده اطلاعات</button>
+                                                        <button class="btn btn-danger padding-6-6" onclick="removeModal('item', {{$category['id']}}, '{{ route('category.destroy', ['category' => $category['id']]) }}')">حذف</button>
                                                         @if($category['has_sub'])
-                                                            <button style="width: 100%" onclick="document.location.href = '{{ route('category.sub', ['category' => $category['id']]) }}'" class="btn btn-info">مشاهده زیر دسته ها</button>
+                                                            <button onclick="document.location.href = '{{ route('category.sub', ['category' => $category['id']]) }}'" class="btn btn-info padding-6-6">مشاهده زیر دسته ها</button>
                                                         @else
-                                                            <button onclick="document.location.href = '{{ route('category.features.index', ['category' => $category['id']]) }}'" class="btn btn-info">ویژگی ها</button>
-                                                            <button onclick="document.location.href = '{{ route('product.index', ['category' => $category['id']]) }}'" class="btn btn-warning">محصولات</button>
+                                                            <button onclick="document.location.href = '{{ route('category.features.index', ['category' => $category['id']]) }}'" class="btn btn-info padding-6-6">ویژگی ها</button>
+                                                            <button onclick="document.location.href = '{{ route('product.index', ['category' => $category['id']]) }}'" class="btn btn-warning padding-6-6">محصولات</button>
                                                         @endif
                                                     </div>
                                                 </td>
@@ -118,8 +123,6 @@
             </div>
         </div>
     </div>
-
-    <div class="col-md-1"></div>
 
 
     <div id="addBatchModal" class="modal hidden">

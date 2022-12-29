@@ -33,7 +33,11 @@
                 این مبلغ اضافه خواهد شد
             </div>
             <div class="checkout-bill-row checkout-bill-action">
-                <a id="{{ $nextBtnId }}" class="btn btn-block btn-primary">ادامه فرایند خرید</a>
+                @if(Auth::check())
+                    <a id="{{ $nextBtnId }}" class="btn btn-block btn-primary">ادامه فرایند خرید</a>
+                @else
+                    <a id="{{ $nextBtnId }}" class="btn btn-block btn-primary">ورود به سایت برای ادامه خرید</a>
+                @endif
             </div>
         </div>
         <!-- end of checkout-bill -->

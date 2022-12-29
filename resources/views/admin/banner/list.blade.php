@@ -11,7 +11,7 @@
 @section('items')
     @foreach($items as $item)
         <div style="min-height: 250px" class="column col-xs-12 col-lg-6 myContainer" id="item_{{ $item['id'] }}">
-            <img src="{{$item['img']}}" alt="{{ $item['alt'] }}" style="width:100%; height: 100%">
+            <img class="my-form-img" src="{{$item['img']}}" alt="{{ $item['alt'] }}">
             <div class="overlay">
                 <div class="opBox" id="opBox_{{ $item['id'] }}">
                     <button class="btn btn-primary" onclick="document.location.href = '{{ route('banner.edit', ['banner' => $item['id']]) }}'">مشاهده اطلاعات</button>
