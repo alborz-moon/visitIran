@@ -1,7 +1,7 @@
 @extends('admin.layouts.list')
 
 @section('title')
-مدیریت بنر اطلاعات
+مدیریت بنر هدر
 @stop
 
 @section('createNew')

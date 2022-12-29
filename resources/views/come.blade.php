@@ -40,9 +40,6 @@
         $("#comeBackLastPage").on('click', function() {
             let url = localStorage.getItem("url");
             if(url === undefined || url === null) return;
-            console.log('====================================');
-            console.log(url);
-            console.log('====================================');
             location.href = url;
         });
             

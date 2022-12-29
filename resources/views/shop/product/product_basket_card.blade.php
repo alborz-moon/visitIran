@@ -158,27 +158,46 @@
         else
             basket = JSON.parse(basket);
 
-        basket.push({
-            count: wantedCount,
-            color: wantedColor,
-            colorLabel: wantedColorLabel,
-            id: Date.now() + "_" + '{{ $product['id'] }}',
-            product_id: '{{ $product['id'] }}',
-            detail: {
-                'title': '{{ $product['name'] }}',
-                'img': '{{ $product['img'] }}',
-                'alt': '{{ $product['alt'] }}',
-                'href': '{{ url()->current() }}',
-                'price': '{{ $product['price'] }}',
-                'seller': '{{ $product['seller'] }}',
-                'category': '{{ $product['category'] }}',
-                'feature': wantedFeature,
-                'brand': '{{ $product['brand'] }}',
-                'guarantee': '{{ isset($product['guarantee']) ? $product['guarantee'] : null }}',
-                'off_type': '{{ isset($product['off']) ? $product['off']['type'] : null }}',
-                'off_value': '{{ isset($product['off']) ? $product['off']['value'] : null }}',
-            }
+        let wantedProduct = '{{ $product['id'] }}';
+
+        tmp = basket.find((elem, idx) => {
+            return elem.product_id === wantedProduct && elem.color === wantedColor &&
+                elem.detail.feature === wantedFeature;
         });
+
+        if(tmp !== undefined) {
+            tmp.count += wantedCount;
+            basket = basket.map((elem, index) => {
+
+                if(elem.id === tmp.id)
+                    return tmp;
+
+                return elem;
+            });
+        }
+        else {
+            basket.push({
+                count: wantedCount,
+                color: wantedColor,
+                colorLabel: wantedColorLabel,
+                id: Date.now() + "_" + wantedProduct,
+                product_id: wantedProduct,
+                detail: {
+                    'title': '{{ $product['name'] }}',
+                    'img': '{{ $product['img'] }}',
+                    'alt': '{{ $product['alt'] }}',
+                    'href': '{{ url()->current() }}',
+                    'price': '{{ $product['price'] }}',
+                    'seller': '{{ $product['seller'] }}',
+                    'category': '{{ $product['category'] }}',
+                    'feature': wantedFeature,
+                    'brand': '{{ $product['brand'] }}',
+                    'guarantee': '{{ isset($product['guarantee']) ? $product['guarantee'] : null }}',
+                    'off_type': '{{ isset($product['off']) ? $product['off']['type'] : null }}',
+                    'off_value': '{{ isset($product['off']) ? $product['off']['value'] : null }}',
+                }
+            });
+        }
 
         window.localStorage.setItem("basket", JSON.stringify(basket));
         showSuccess('به سبد اضافه شد!');

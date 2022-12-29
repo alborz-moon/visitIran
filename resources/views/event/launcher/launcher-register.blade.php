@@ -39,6 +39,26 @@
                         </div> 
                         <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">پشتیبانی</a>
                     </div>
+
+                    
+                    <div class="ui-box bg-white mb-5 boxShadow">
+                        <div class="ui-box-title">کاربر مدنظر</div>
+                        <div class="ui-box-content">
+                            <div class="row">
+                                <div class=" py-1">
+                                        <div  class="fs-7 text-dark">شماره تلفن همراه کاربر مدنظر</div>
+                                        <div class="d-flex align-items-center justify-content-between position-relative">
+                                            <input id="user-phone" data-editable="true" onkeypress="return isNumber(event)" type="tel" minlength="7"  maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه کاربر مدنظر">
+                                            <button data-input-id="phone" class=" toggle-editable-btn btn btn-circle btn-outline-light">
+                                                <i class="ri-ball-pen-fill"></i>
+                                            </button>
+                                        </div>
+                                        <div class="fs-6 fw-bold text-muted"></div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="ui-box bg-white mb-5 boxShadow">
                         <div class="ui-box-title">اطلاعات رابط</div>
                         <div class="ui-box-content">
@@ -670,6 +690,10 @@
                 for (const file of inputFile2.files) {
                     formData.append("img_file", file);
                 }
+
+                const userPhone = $("#user-phone").val();
+                if(userPhone !== undefined)
+                    formData.append("user_phone", userPhone);
 
                 $.ajax({
                     type: 'post',

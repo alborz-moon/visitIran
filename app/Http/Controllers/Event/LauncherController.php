@@ -7,9 +7,9 @@ use App\Http\Resources\LauncherDigest;
 use App\Http\Resources\LauncherFilesResource;
 use App\Http\Resources\LauncherFirstStepResource;
 use App\Http\Resources\LauncherResourceAdmin;
-use App\Models\Event;
 use App\Models\Launcher;
 use App\Models\LauncherComment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
@@ -62,6 +62,7 @@ class LauncherController extends Controller
     {
         
         $validator = [
+            'user_phone' => 'nullable|exists:users,phone',
             'img_file' => 'required|image',
             'back_img_file' => 'nullable|image',
             'first_name' => 'required|string|min:2',
@@ -87,6 +88,10 @@ class LauncherController extends Controller
 
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
+
+        // $user = User::where('phone', $request['user_phone'])->first();
+        // if($user->launcher())
+
 
         $request->validate($validator);
 

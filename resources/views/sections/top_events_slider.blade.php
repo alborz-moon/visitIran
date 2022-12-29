@@ -9,9 +9,6 @@
             <div style="width: 250px;">
             <select class="select2 seachbar-select w-100" aria-placeholder="" name="">
                 <option selected value="1">نوع رویداد</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-                <option value="4">Four</option>
             </select>
             </div>
             @endif

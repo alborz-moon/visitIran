@@ -6,8 +6,7 @@
 
 
 @section('content')
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
+    <div class="col-md-12">
         <div class="sparkline8-list shadow-reset mg-tb-30">
             <div class="sparkline8-hd">
                 <div class="main-sparkline8-hd">
@@ -54,7 +53,5 @@
             </div>
         </div>
     </div>
-
-    <div class="col-md-1"></div>
     
 @stop

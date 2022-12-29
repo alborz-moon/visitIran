@@ -73,7 +73,16 @@ function setEventVals(prefix, elem) {
         .attr("src", elem.img)
         .attr("alt", elem.alt);
     $("#" + prefix + "Header").text(elem.name);
-    $("#" + prefix + "Header2").text(elem.name);
+    if (
+        elem.start_date !== undefined &&
+        elem.start_date.length > 0 &&
+        elem.start_time !== undefined &&
+        elem.start_time.length > 0
+    )
+        $("#" + prefix + "Header2").text(
+            elem.start_date + " " + elem.start_time
+        );
+
     $("#" + prefix + "Tag").text(elem.category);
 
     if (elem.place !== "") {

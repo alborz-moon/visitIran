@@ -6,6 +6,7 @@ use App\Http\Resources\SliderResource;
 use App\Models\Slider;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redirect;
 
 class SliderController extends Controller
@@ -33,11 +34,15 @@ class SliderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function list(Request $request)
-    {    
+    {
         if($request->getHost() == self::$EVENT_SITE)
-            return SliderResource::collection(Slider::visible()->event()->orderBy('priority', 'desc')->get())->additional(['status' => 'ok']);
+            return SliderResource::collection(Cache::tags('event')->rememberForever('slides', function() {
+                return Slider::visible()->event()->orderBy('priority', 'desc')->get();
+            }))->additional(['status' => 'ok']);
 
-        return SliderResource::collection(Slider::visible()->shop()->orderBy('priority', 'desc')->get())->additional(['status' => 'ok']);
+        return SliderResource::collection(Cache::tags('shop')->rememberForever('slides', function() {
+            return Slider::visible()->shop()->orderBy('priority', 'desc')->get();
+        }))->additional(['status' => 'ok']);
     }
 
     

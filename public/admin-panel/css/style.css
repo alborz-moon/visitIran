@@ -4063,7 +4063,8 @@ ul.profile-contact-menu {
 }
 .sparkline8-list .sparkline8-hd,
 .sparkline8-list .sparkline8-graph {
-    background: #393939 !important;
+    /* background: #393939 !important; */
+    background: #606060 !important;
 }
 .left-custom-menu-adp-wrap
     ul.left-sidebar-menu-pro
@@ -4279,7 +4280,8 @@ ul.breadcome-menu {
 .darklayout .sparkline14-hd,
 .darklayout .sparkline15-hd,
 .darklayout .sparkline16-hd {
-    background: #393939;
+    /* background: #393939; */
+    background: #606060;
     border-bottom: 1px solid #303030;
 }
 .darklayout .fixed-table-container {
@@ -4309,9 +4311,19 @@ label,
 .ck-content {
     color: #fff;
 }
-.myContainer > .mCS_img_loaded {
+.myContainer > .mCS_img_loaded,
+.my-form-img {
+    box-shadow: 0px 3px 4px 1px #5252526e;
+    border: 2px solid white;
+    margin-bottom: 10px;
     object-fit: contain !important;
 }
+
+.my-form-img {
+    width: 100%;
+    height: 100%;
+}
+
 .darklayout .fixed-table-container tbody td {
     border-left: 1px solid #303030;
 }
@@ -4836,4 +4848,8 @@ input {
 }
 .btn-primary {
     color: #fff !important;
+}
+
+.fixed-table-toolbar {
+    display: flex !important;
 }

@@ -29,7 +29,9 @@ class EventHelper extends Controller {
         $date = $request->query('date', null);
 
         $status = $request->query('status', null);
+        $launcher = $request->query('launcher', null);
         $visibility = $request->query('visibility', null);
+        $type = $request->query('type', null);
         $orderBy = $request->query('orderBy', null);
         $orderByType = $request->query('orderByType', null);
         $isInTopList = $request->query('isInTopList', null);
@@ -43,6 +45,25 @@ class EventHelper extends Controller {
         $toAt = $request->query('toAt', null);
         
         $filters_arr = [];
+
+        if($type != null) {
+            if($type == "online")
+                array_push($filters_arr, ['city_id', 'null']);
+            else
+                array_push($filters_arr, ['city_id', 'not_null']);
+        }
+
+        if($status != null)
+            array_push($filters_arr, ['status', $status]);
+            
+        if($isInTopList != null)
+            array_push($filters_arr, ['is_in_top_list', $isInTopList]);
+            
+        if($launcher != null)
+            array_push($filters_arr, ['launcher_id', $launcher]);
+            
+        if($visibility != null)
+            array_push($filters_arr, ['visibility', $visibility]);
 
         if($launchers != null)
             array_push($filters_arr, ['launcher_id', explode(',', $launchers)]);
@@ -80,12 +101,6 @@ class EventHelper extends Controller {
                     array_push($filters_arr, ['city_id', 'not_null']);
             }
         }
-            
-        // if($isInTopList != null)
-        //     $filters->where('is_in_top_list', $isInTopList);
-            
-        // if($status != null)
-        //     $filters->where('status', $status);
             
         // if($fromCreatedAt != null)
         //     $filters->whereDate('created_at', '>=', self::ShamsiToMilady($fromCreatedAt));
@@ -309,6 +324,12 @@ class EventHelper extends Controller {
                 $filters->where('event_sessions.end', '>=', $timestamp);
                 $filters->select('events.*');
             }
+        }
+
+        if($orderBy != null) {
+            if($orderBy == 'createdAt')
+                $orderBy = 'created_at';
+            $filters->orderBy($orderBy, $orderByType == null ? 'desc' : $orderByType);
         }
 
         return $filters;
