@@ -202,6 +202,7 @@ class OffController extends Controller
      */
     public function destroy(Off $off)
     {
-        //
+        $off->delete();
+        return response()->json(['status' => 'ok']);
     }
 }

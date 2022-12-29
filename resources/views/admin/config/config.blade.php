@@ -71,8 +71,8 @@
             @endif
         </div>
         <textarea id="desc_default" class="hidden" name="desc_default"></textarea>
-        <div class="flex center gap10">
-            <span class="btn green" id="saveBtn">ذخیره</span>
+        <div class="flex center gap10 margin20">
+            <span class="btn btn-primary" id="saveBtn">ذخیره</span>
         </div>
 
     </form>
