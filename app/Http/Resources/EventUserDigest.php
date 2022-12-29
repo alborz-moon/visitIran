@@ -42,8 +42,8 @@ class EventUserDigest extends JsonResource
 
         if($first_session != null) {
             $start = date("Y/m/d H:i", $first_session->start);
-            $start = explode(' ', $start)[1];
             $s = Controller::MiladyToShamsi($start, '/');
+            $start = explode(' ', $start)[1];
         }
         else {
             $start = '';
