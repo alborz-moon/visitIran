@@ -106,6 +106,25 @@ class EventController extends EventHelper
         return response()->json(['status' => 'ok']);
     }
 
+    
+    public function changeIsInTopList(Request $request) {
+
+        $validator = [
+            'event_id' => 'required|exists:mysql2.events,id'
+        ];
+
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator);
+
+        $event = Event::whereId($request['event_id'])->first();
+        $event->is_in_top_list = !$event->is_in_top_list;
+        $event->save();
+
+        return response()->json(['status' => 'ok']);
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -40,6 +40,8 @@ Route::prefix('eventTags')->group(function() {
 
 Route::post('event/changeStatus', [EventController::class, 'changeStatus'])->name('event.changeStatus');
 
+Route::post('event/changeIsInTopList', [EventController::class, 'changeIsInTopList'])->name('event.changeIsInTopList');
+
 
 Route::view('/panel', 'admin.home')->name('event.panel');
 
