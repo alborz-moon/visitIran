@@ -23,7 +23,7 @@ class EventUserDigest extends JsonResource
             $launcher = $this->launcher->company_name;
             $city = $this->city_id != null ? $this->city->name : null;
             $off = $this->activeOff();
-            $first_session = $this->session()->first();
+            $first_session = $this->sessions()->first();
         }
         else {
             $launcher = $this->company_name;
