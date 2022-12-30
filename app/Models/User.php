@@ -68,6 +68,26 @@ class User extends Authenticatable
     public function scopeActive($query) {
         return $query->where('status', '=', User::$ACTIVE);
     }
+    
+    public function scopeAdmin($query) {
+        return $query->where('level', '=', User::$ADMIN_LEVEL);
+    }
+    
+    public function scopeEditor($query) {
+        return $query->where('level', '=', User::$EDITOR_LEVEL);
+    }
+
+    public function scopeReport($query) {
+        return $query->where('level', '=', User::$REPORT_LEVEL);
+    }
+    
+    public function scopeNews($query) {
+        return $query->where('level', '=', User::$NEWS_LEVEL);
+    }
+
+    public function scopeFinance($query) {
+        return $query->where('level', '=', User::$FINANCE_LEVEL);
+    }
 
     public function isLauncher() {
         

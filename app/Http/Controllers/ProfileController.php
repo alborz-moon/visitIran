@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\State;
 use App\Models\User;
+use App\Rules\NID;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -16,7 +17,7 @@ class ProfileController extends Controller
             'first_name' => 'nullable|string|min:2',
             'last_name' => 'nullable|string|min:2',
             'mail' => 'nullable|email',
-            'nid' => 'nullable|regex:/[0-9]{10}/',
+            'nid' => ['nullable', 'regex:/[0-9]{10}/', new NID],
             'birth_day' => 'nullable|date',
             'payment_back' => ['nullable', Rule::in([User::$PAYMENT_BACK_WALLET, User::$PAYMENT_BACK_ONLINE])],
         ];

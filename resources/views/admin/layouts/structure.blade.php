@@ -162,6 +162,17 @@
                                     </div>
                                 </li>
                                 
+                                <li class="nav-item"><a data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i></i> <span class="mini-dn">کاربران</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                                    <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                                        <a href="{{route('users.index', ['level' => 'admin'])}}" class="dropdown-item">ادمین ها</a>
+                                        <a href="{{route('users.index', ['level' => 'editor'])}}" class="dropdown-item">ویرایش کنندگان</a>
+                                        <a href="{{route('users.index', ['level' => 'report'])}}" class="dropdown-item">گزارش گیرندگان</a>
+                                        <a href="{{route('users.index', ['level' => 'finance'])}}" class="dropdown-item">گزارش گیرندگان مالی</a>
+                                        <a href="{{route('users.index', ['level' => 'news'])}}" class="dropdown-item">مدیریت بلاگها</a>
+                                        <a href="{{route('launcher.index')}}" class="dropdown-item">برگزار کنندگان</a>
+                                    </div>
+                                </li>
+                                
                                 <li class="nav-item"><a data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i></i> <span class="mini-dn">مدیریت تبلیغات</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                                     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                                         <a href="{{route('infobox.index')}}" class="dropdown-item">مدیریت بنر هدر</a>
@@ -170,7 +181,6 @@
                                     </div>
                                 </li>
 
-                                <li class="nav-item"><a href="{{ route('launcher.index') }}" role="button" class="nav-link"><i></i> <span class="mini-dn">برگزار کنندگان</span></a></li>
                                 <li class="nav-item"><a href="{{ route('event.index') }}" role="button" class="nav-link"><i></i> <span class="mini-dn">رویدادها</span></a></li>
                                 
                             @endif
@@ -347,9 +357,6 @@
                 }
 
                 function isEN(evt) {
-                    console.log('====================================');
-                    console.log(evt);
-                    console.log('====================================');
                     // return /^[a-zA-Z]+$/.test(evt.);
                 }
 

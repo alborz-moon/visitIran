@@ -6,9 +6,9 @@
 
 @section('form')
 
-    <center>
+    <center id="errs">
         @if($errors->any())
-            {{ implode('', $errors->all(':message')) }}
+            {!! implode('<br />', $errors->all(':message')) !!}
         @endif
     </center>
 
