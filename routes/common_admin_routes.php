@@ -7,13 +7,20 @@ use App\Http\Controllers\FAQController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\InfoBoxController;
-
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
 Route::resource('infobox', InfoBoxController::class)->except(['show', 'update']);
 
 Route::post('infobox/{infobox}', [InfoBoxController::class, 'update'])->name('infobox.update');
+
+
+Route::resource('users', UserController::class)->except(['show', 'update'])->middleware('adminLevel');
+
+Route::post('users/{user}', [UserController::class, 'update'])->name('users.update');
+
+Route::post('change', [UserController::class, 'change'])->name('users.change');
 
 
 Route::resource('slider', SliderController::class)->except(['show', 'update']);

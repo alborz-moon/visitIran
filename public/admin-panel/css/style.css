@@ -4853,3 +4853,10 @@ input {
 .fixed-table-toolbar {
     display: flex !important;
 }
+
+.nav .open > a,
+.nav .open > a:focus,
+.nav .open > a:hover {
+    background-color: #645858 !important;
+    padding: 5px !important;
+}
