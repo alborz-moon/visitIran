@@ -1610,6 +1610,9 @@ select:focus-visible {
 figure .ck-widget {
     text-align: center !important;
 }
+figure .ck-widget > img .mCS_img_loaded {
+    max-width: 100% !important;
+}
 .image-style-align-left {
     float: left !important;
     margin-right: 1.5rem;

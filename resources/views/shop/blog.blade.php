@@ -1,9 +1,9 @@
 @extends('layouts.structure')
 @section('seo')
-    <title>غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال</title>
-    <meta property="og:title" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
-    <meta name="twitter:title" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
-    <meta property="og:site_name" content="غذاهای محلی یا جاهای دیدنی کیش | تونل باد میکامال" />
+    <title>{{ $blog['header'] }}</title>
+    <meta property="og:title" content="{{ $blog['header'] }}" />
+    <meta name="twitter:title" content="{{ $blog['header'] }}" />
+    <meta property="og:site_name" content="{{ $blog['header'] }}" />
 
     
     <meta property="og:image" content="{{ $blog['img'] }}"/>
@@ -20,7 +20,7 @@
 @section('content')
             <main class="page-content TopParentBannerMoveOnTop">
             <div class="container">
-                <h2 class="mt-4 mb-2">اخبار</h2>
+                {{-- <h2 class="mt-4 mb-2">اخبار</h2> --}}
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-9 col-md-8 col-sm-12 mb-4">

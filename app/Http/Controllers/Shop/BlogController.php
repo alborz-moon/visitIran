@@ -200,6 +200,7 @@ class BlogController extends BlogHelper
         )
             return Redirect::route('403');
 
+            // dd( BlogResource::make($blog)->toArray($request));
         return view('shop.blog', [
             'blog' => BlogResource::make($blog)->toArray($request)
         ]);
