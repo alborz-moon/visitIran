@@ -10,6 +10,7 @@ use App\Http\Resources\LauncherResourceAdmin;
 use App\Models\Launcher;
 use App\Models\LauncherComment;
 use App\Models\User;
+use App\Rules\NID;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
@@ -61,14 +62,16 @@ class LauncherController extends Controller
     public function store(Request $request)
     {
         
+        $isEditor = $request->user()->isEditor();
+
         $validator = [
-            'user_phone' => 'nullable|exists:users,phone',
+            'user_phone' => $isEditor ? 'bail|required|regex:/(09)[0-9]{9}/|exists:users,phone' : 'nullable|string',
             'img_file' => 'required|image',
             'back_img_file' => 'nullable|image',
             'first_name' => 'required|string|min:2',
             'last_name' => 'required|string|min:2',
             'phone' => 'required|regex:/(09)[0-9]{9}/|unique:mysql2.launchers,phone',
-            'user_NID' => 'required|regex:/[0-9]{10}/|unique:mysql2.launchers,user_NID',
+            'user_NID' => ['bail', 'required','regex:/[0-9]{10}/','unique:mysql2.launchers,user_NID', new NID],
             'user_email' => 'required|email|unique:mysql2.launchers,user_email',
             'user_birth_day' => 'required', //|date
             'launcher_type' => ['required', Rule::in(['haghighi', 'hoghoghi'])],
@@ -89,19 +92,24 @@ class LauncherController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        // $user = User::where('phone', $request['user_phone'])->first();
-        // if($user->launcher())
-
-
         $request->validate($validator);
+
+        if($request->has('user_phone')) {
+            $user = User::where('phone', $request['user_phone'])->first();
+            if($user->launcher != null)
+                return response()->json(['status' => 'nok', 'msg' => 'کاربر مدنظر این فرم را قبلا پر کرده است']);
+
+            $request['user_id'] = $user->id;
+        }
+        else
+            $request['user_id'] = $request->user()->id;
+
 
         if($request['launcher_type'] == 'haghighi') {
             $request['company_type'] = null;
             $request['postal_code'] = null;
             $request['code'] = null;
         }
-
-        $request['user_id'] = $request->user()->id;
         
         if($request->has('launcher_phone')) {
             $launcher_phone_str = "";
@@ -221,7 +229,7 @@ class LauncherController extends Controller
             'first_name' => 'nullable|string|min:2',
             'last_name' => 'nullable|string|min:2',
             'phone' => 'nullable|regex:/(09)[0-9]{9}/',
-            'user_NID' => 'nullable|regex:/[0-9]{10}/',
+            'user_NID' => ['nullable', 'regex:/[0-9]{10}/', new NID],
             'user_email' => 'nullable|email',
             'user_birth_day' => 'nullable', //|date
             'launcher_type' => ['nullable', Rule::in(['haghighi', 'hoghoghi'])],

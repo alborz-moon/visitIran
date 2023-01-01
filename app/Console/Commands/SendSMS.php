@@ -58,7 +58,7 @@ class SendSMS extends Command
         // soap client
         $client = new \SoapClient( $url, $options);
         $result = $client->send(
-            ["تست ارسال پيامک. Sample Text for test.", "test2: ".date('Y-m-d H:i:s')], // messages
+            ["تست ارسال پيامک. Sample Text for test."], // messages
             ["30009629"], // short numbers can be 1 or same count as recipients (mobiles)
             [$phone], // recipients
             [], // client-side unique IDs.

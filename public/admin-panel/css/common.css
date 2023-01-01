@@ -336,3 +336,6 @@ center {
 #mainContainer {
     transform: rotateX(180deg) !important;
 }
+#errs {
+    color: white !important;
+}

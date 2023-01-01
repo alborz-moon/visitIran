@@ -12,7 +12,7 @@
     @foreach($items as $item)
         <div class="col-xs-12 col-lg-3" id="item_{{ $item['id'] }}">
             <center>
-                <h4>{{ $item['name'] }}</h4>
+                <h4 class="white-color font-size-17 font-wight-600">{{ $item['name'] }}</h4>
             </center>
             <img src="{{$item['logo']}}" alt="{{ $item['alt'] }}" style="width:100%; height: 100%">
             <div class="flex space-between">

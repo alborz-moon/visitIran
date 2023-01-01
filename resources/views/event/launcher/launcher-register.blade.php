@@ -40,12 +40,12 @@
                         <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">پشتیبانی</a>
                     </div>
 
-                    
-                    <div class="ui-box bg-white mb-5 boxShadow">
-                        <div class="ui-box-title">کاربر مدنظر</div>
-                        <div class="ui-box-content">
-                            <div class="row">
-                                <div class=" py-1">
+                    @if($isEditor)                    
+                        <div class="ui-box bg-white mb-5 boxShadow">
+                            <div class="ui-box-title">کاربر مدنظر</div>
+                            <div class="ui-box-content">
+                                <div class="row">
+                                    <div class=" py-1">
                                         <div  class="fs-7 text-dark">شماره تلفن همراه کاربر مدنظر</div>
                                         <div class="d-flex align-items-center justify-content-between position-relative">
                                             <input id="user-phone" data-editable="true" onkeypress="return isNumber(event)" type="tel" minlength="7"  maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه کاربر مدنظر">
@@ -55,9 +55,10 @@
                                         </div>
                                         <div class="fs-6 fw-bold text-muted"></div>
                                     </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
 
                     <div class="ui-box bg-white mb-5 boxShadow">
                         <div class="ui-box-title">اطلاعات رابط</div>
@@ -618,8 +619,8 @@
                 ;
                 
                 let required_list = (launcherType == "hoghoghi") ? 
-                    ['nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail'] :
-                    ['nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail', 'code']
+                    ['nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail', 'code'] :
+                    ['nameLast' ,'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail']
                 ;
 
                 let inputList = checkInputs(required_list);
