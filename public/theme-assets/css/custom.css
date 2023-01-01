@@ -495,7 +495,7 @@ ul {
 .blogImgSize {
     width: 100px !important;
     height: 60px !important;
-    object-fit: contain;
+    object-fit: cover;
 }
 .customSearch::before {
     font-size: 40px;
