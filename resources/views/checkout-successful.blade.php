@@ -55,7 +55,7 @@
                                     </div>
                                     <div class="col-lg-2 col-md-3 col-sm-4 col-6">
                                         <div class="text-muted mb-2">تاریخ</div>
-                                        <div class="text-dark">۲۵ دی ۱۴۰۰</div>
+                                        <div class="text-dark">تاریخ</div>
                                     </div>
                                 </div>
                             </div>

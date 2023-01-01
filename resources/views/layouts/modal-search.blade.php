@@ -22,7 +22,6 @@
                     @endforeach
                   </div>
                   <div class="d-flex afterCatgories">
-
                   </div>
               </div>
             @endif
@@ -61,7 +60,10 @@
 <!-- end of personal-info-fullname-modal -->
 <script>
     $('.searchInput').on('keyup',function(){
-        if (this.value.length > 2){
+      console.log('====================================');
+      console.log(this.value.length);
+      console.log('====================================');
+        if (this.value.length > 3){
           $.ajax({
              type: 'post',
              url:  '{{ $route }}' ,
@@ -88,10 +90,10 @@
                 }
              }
          });
-        }
-        $.ajax({
+         
+         $.ajax({
           type: 'post',
-          url:  '{{ route('category-search') }}' ,
+          url:  '{{  $routeCat }}' ,
           data: {
              key: this.value,
           },
@@ -106,7 +108,9 @@
             }
             $(".afterCatgories").empty().append(html);
           }
-      });
+        });
+        }
+
 
     });
 

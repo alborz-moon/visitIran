@@ -36,7 +36,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script src="{{ asset('theme-assets/js/dependencies/jquery-3.6.0.min.js') }}"></script>
     @section('seo')
-        <title>ویزیت ایران | خانه</title>
+        <title>بازارگاه صنایع دستی | خانه</title>
     @show
 
     @section('header')
@@ -63,10 +63,10 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center flex-grow-1 pe-3 zIndex3 position-relative">
                             <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop">
-                                    <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="120" alt="">
+                                    <img src="{{ asset('theme-assets/images/menuImage2.svg') }}" width="90" alt="">
                             </div>
                             <div class="marginFromRightHeader">
-                                <div class="notification-item--text colorYellow bold"> ویزیت ایران </div>
+                                <div class="notification-item--text colorYellow bold"> بازارگاه صنایع دستی </div>
                                 @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                                 <div class="notification-item--text fontSize12 bold"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
                                 @else
@@ -191,7 +191,7 @@
                                 </div>                            
                             </li>
                             <li class="nav-item">
-                                <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="index-1.html"><img class="iconSvg customIconTag" src="{{ asset('theme-assets/images/svg/label.svg') }}" alt="">پیشنهاد های ویژه</a>
+                                <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{route('category.list', ['orderBy' => 'createdAt'])}}"><img class="iconSvg customIconTag" src="{{ asset('theme-assets/images/svg/label.svg') }}" alt="">پیشنهاد های ویژه</a>
                             </li>
                             @endif
 
@@ -219,7 +219,7 @@
                                     <a class=" custom-nav-link colorWhite hoverBold1" href="{{ route('blog-list') }}">تازه‌ها</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class=" custom-nav-link colorWhite hoverBold1" href="#">درباره ما</a>
+                                    <a class=" custom-nav-link colorWhite hoverBold1" href="https://hcshop.taci.ir/blog/12/%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87_%D9%85%D8%A7">درباره ما</a>
                                 </li>
                             </ul>
                         </div>
@@ -250,7 +250,7 @@
                             <div class="navigation-header">
                                 <div class="logo-container logo-box p-0">
                                     <a href="#" class="d-flex flexDirectionRow logo alignItemsStart p-2">
-                                        <div><img src="{{ asset('theme-assets/images/menuImage.png') }}"  width="110" alt=""></div>
+                                        <div><img src="{{ asset('theme-assets/images/menuImage2.svg') }}"  width="110" alt=""></div>
                                         @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                                         <div class="logo-text colorBlue d-flex alignSelfCenter mx-2">دسته بندی کالاها<img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt=""></div>
                                         @else
@@ -283,10 +283,10 @@
                     </div>
                      <div class="d-flex align-items-center flex-grow-1 pe-3 zIndex3 position-relative">
                             <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop">
-                                    <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="70" alt="">
+                                    <img src="{{ asset('theme-assets/images/menuImage2.svg') }}" width="80" alt="">
                             </div>
                             <div class="marginFromRightHeader">
-                                <div class="notification-item--text colorYellow bold"> ویزیت ایران </div>
+                                <div class="notification-item--text colorYellow bold"> بازارگاه صنایع دستی </div>
                                 <div class="notification-item--text fontSize12 bold"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
                             </div>
                     </div>
@@ -347,7 +347,10 @@
             </div>
         </div>
         {{-- route('product-search') --}}
-        @include('layouts.modal-search', ['route'=> request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE ?  route('product-search')  : route('event-search')])
+        @include('layouts.modal-search', 
+        ['route'=> request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE ?  route('product-search')  : route('event-search')],
+        ['routeCat'=> request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE ?  route('category-search')  : route('search-event-tag')]
+        )
         @include('layouts.modal-user-mobile')
         <div class="hidden" id="sample-mini-cart-products">
             @include('shop.product.mini_card')

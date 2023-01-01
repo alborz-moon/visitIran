@@ -46,10 +46,10 @@
                                                     <div class="mb-3">
                                                         <div class="row">
                                                             <div class="col-xl-3 col-lg-4 col-md-auto col-sm-6">
-                                                                <span class="user-order-meta fa-num">23 آبان 1400</span>
+                                                                <span class="user-order-meta fa-num">تاریخ</span>
                                                             </div>
                                                             <div class="col-xl-3 col-lg-4 col-md-auto col-sm-6">
-                                                                <span class="user-order-meta">DKC-233189114</span>
+                                                                <span class="user-order-meta">شماره سفارش</span>
                                                             </div>
                                                             <div class="col-xl-3 col-lg-4 col-md-auto col-sm-6">
                                                                 <span class="user-order-meta">سفارش درحال ارسال</span>
@@ -58,7 +58,7 @@
                                                     </div>
                                                     <div>
                                                         <span class="text-muted fw-bold">مبلغ کل:</span>
-                                                        <span class="fw-bold fa-num">۴۲,۴۱۵,۰۰۰
+                                                        <span class="fw-bold fa-num">مبلغ سفارش
                                                             <span>تومان</span></span>
                                                     </div>
                                                     <a href="{{ route('profile.my-order-detail') }}"
@@ -94,10 +94,10 @@
                                                     <div class="mb-3">
                                                         <div class="row">
                                                             <div class="col-xl-3 col-lg-4 col-md-auto col-sm-6">
-                                                                <span class="user-order-meta fa-num">23 آبان 1400</span>
+                                                                <span class="user-order-meta fa-num">تاریخ</span>
                                                             </div>
                                                             <div class="col-xl-3 col-lg-4 col-md-auto col-sm-6">
-                                                                <span class="user-order-meta">DKC-233189114</span>
+                                                                <span class="user-order-meta">شماره سفارش</span>
                                                             </div>
                                                             <div class="col-xl-3 col-lg-4 col-md-auto col-sm-6">
                                                                 <span class="user-order-meta">ارسال شده</span>
@@ -106,7 +106,7 @@
                                                     </div>
                                                     <div>
                                                         <span class="text-muted fw-bold">مبلغ کل:</span>
-                                                        <span class="fw-bold fa-num">۴۲,۴۱۵,۰۰۰
+                                                        <span class="fw-bold fa-num">مبلغ سفارش
                                                             <span>تومان</span></span>
                                                     </div>
                                                     <a href="{{ route('profile.my-order-detail') }}"
@@ -142,10 +142,10 @@
                                                     <div class="mb-3">
                                                         <div class="row">
                                                             <div class="col-xl-3 col-lg-4 col-md-auto col-sm-6">
-                                                                <span class="user-order-meta fa-num">23 آبان 1400</span>
+                                                                <span class="user-order-meta fa-num">تاریخ</span>
                                                             </div>
                                                             <div class="col-xl-3 col-lg-4 col-md-auto col-sm-6">
-                                                                <span class="user-order-meta">DKC-233189114</span>
+                                                                <span class="user-order-meta">شماره سفارش</span>
                                                             </div>
                                                             <div class="col-xl-3 col-lg-4 col-md-auto col-sm-6">
                                                                 <span class="user-order-meta">سفارش لغو شده</span>
@@ -154,7 +154,7 @@
                                                     </div>
                                                     <div>
                                                         <span class="text-muted fw-bold">مبلغ کل:</span>
-                                                        <span class="fw-bold fa-num">۴۲,۴۱۵,۰۰۰
+                                                        <span class="fw-bold fa-num">مبلغ سفارش
                                                             <span>تومان</span></span>
                                                     </div>
                                                     <a href="{{ route('profile.my-order-detail') }}"

@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#C59358">
     <meta name="msapplication-navbutton-color" content="#C59358">
     <meta name="apple-mobile-web-app-status-bar-style" content="#C59358">
-    <title>ویزیت ایران | خانه</title>
+    <title>بازارگاه صنایع دستی | خانه</title>
     <link rel="stylesheet" href="{{ asset('theme-assets/css/dependencies.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/theme.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/custom.css') }}">
