@@ -99,6 +99,36 @@ class Controller extends BaseController
         return ["date" => $day, "time" => $time];
     }
 
+    public static function sendSMS($phone, $text) {
+
+        $username = 'tourism';
+        $password = 'RWgEwZfVJRivoKdO';
+        $domain = 'magfa';
+
+        // url
+        $url = 'https://sms.magfa.com/api/soap/sms/v2/server?wsdl';
+        // soap options
+        $options = [
+            'login' => "$username/$domain",'password' => $password, // -Credientials
+            'cache_wsdl' => WSDL_CACHE_NONE, // -No WSDL Cache
+            'compression' => (SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | 5), // -Compression *
+            'trace' => false // -Optional (debug)
+        ];
+        // * Accept response compression and compress requests using gzip with compression level 5
+
+        // soap client
+        $client = new \SoapClient( $url, $options);
+        $result = $client->send(
+            [$text], // messages
+            ["30009629"], // short numbers can be 1 or same count as recipients (mobiles)
+            [$phone], // recipients
+            [], // client-side unique IDs.
+            [], // Encodings are optional, The system will guess it, itself ;)
+            [], // UDHs, Please read Magfa UDH Documnet
+            [] // Message priorities (unused).
+        );
+    }
+
     protected static $COMMON_ERRS = [
         'postal_code.required' => 'لطفا کدپستی موردنظر را وارد نمایید',
         'postal_code.regex' => 'کد پستی موردنظر نامعتبر است',
