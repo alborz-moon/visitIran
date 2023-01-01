@@ -1,7 +1,7 @@
 @extends('layouts.structure')
 
 @section('seo')
-    <title>ویزیت ایران | {{ $product['name'] }}</title>
+    <title>بازارگاه صنایع دستی | {{ $product['name'] }}</title>
     <meta property="og:title" content="{{ $product['name'] }}" />
     <meta name="twitter:title" content="{{ $product['name'] }}" />
     <meta property="og:site_name" content="{{ $product['name'] }}" />

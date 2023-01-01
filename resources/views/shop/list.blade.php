@@ -1,7 +1,7 @@
 
 @extends('layouts.structure')
 @section('seo')
-    <title>ویزیت ایران | از ایران ویزیت</title>
+    <title>بازارگاه صنایع دستی | از ایران ویزیت</title>
     <meta property="og:title" content="از ایران ویزیت" />
     <meta name="twitter:title" content="از ایران ویزیت" />
     <meta property="og:site_name" content="از ایران ویزیت" />

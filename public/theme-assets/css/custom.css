@@ -431,7 +431,7 @@ ul {
     left: 0;
 }
 .marginFromRightHeader {
-    margin-right: 160px;
+    margin-right: 120px;
 }
 .marginFromRightHeaderMobile {
     margin-right: 90px;
@@ -2024,6 +2024,9 @@ figure .ck-widget {
     -ms-transform: rotate(30deg);
     -o-transform: rotate(30deg);
 }
+.logo-container.logo-box {
+    min-width: 110px !important;
+}
 .customRemoveBtn {
     background-color: #fff !important;
     display: flex;
@@ -2111,7 +2114,8 @@ figure .ck-widget {
         margin-right: 105px;
     }
     .logo-container.logo-box {
-        min-width: 100px !important;
+        min-width: 95px !important;
+        padding: 5px;
     }
     .customEventImgSizeSlider {
         width: 100%;
