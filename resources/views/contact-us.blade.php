@@ -47,7 +47,7 @@
                                     <!-- start of form-element -->
                                     <div class="form-element-row mb-5">
                                         <label class="label">نام و نام خانوادگی</label>
-                                        <input type="text" class="form-control" placeholder="نام کامل">
+                                        <input type="text" class="form-control" placeholder="نام کامل" disabled>
                                     </div>
                                     <!-- end of form-element -->
                                 </div>

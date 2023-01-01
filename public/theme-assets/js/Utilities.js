@@ -98,14 +98,28 @@ function checkArr(required_Arr, Arr) {
     return isValid;
 }
 
+// function preventBackspace(e) {
+//                 var evt = e || window.event;
+//                 if (evt) {
+//                     var keyCode = evt.charCode || evt.keyCode;
+//                     if (keyCode === 8) {
+//                         if (evt.preventDefault) {
+//                             evt.preventDefault();
+//                         } else {
+//                             evt.returnValue = false;
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+
 $(document).ready(function () {
     $("input").on("keypress", function () {
         if (
             $(this).attr("data-editable") !== undefined &&
             $(this).attr("data-editable") == "false"
-        ) {
+        )
             return false;
-        }
     });
     $("textarea").on("keypress", function () {
         if (
@@ -132,4 +146,12 @@ $(document).ready(function () {
             $("#" + id).attr("disabled", "disabled");
         }
     });
+    function disabledInputForGet() {
+        $("input").each(function () {
+            if ($(this).attr("data-editable") != "true") {
+                $(this).attr("disabled", "disabled");
+            }
+        });
+        $("textarea").attr("disabled", "disabled");
+    }
 });

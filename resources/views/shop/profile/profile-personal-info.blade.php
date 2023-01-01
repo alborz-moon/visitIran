@@ -14,7 +14,7 @@
                                     <div class="py-1">
                                         <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
                                         <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between">
-                                            <input id="nameVal" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
+                                            <input id="nameVal" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی" disabled>
                                             <button id="editBtnName" class="btn btn-circle btn-outline-light hidden"
                                                 data-remodal-target="personal-info-fullname-modal "><i class="ri-ball-pen-fill"></i>
                                             </button>
@@ -66,7 +66,7 @@
                                     <div class="py-1">
                                         <div  class="fs-7 text-dark">تاریخ تولد</div>
                                         <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between">
-                                            <input id="brithdayVal" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد">
+                                            <input id="brithdayVal" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد" disabled>
                                             <button id="editBtnBirdthday" class="btn btn-circle btn-outline-light hidden"
                                                 data-remodal-target="personal-info-birth-modal"><i
                                                     class="ri-ball-pen-fill"></i></button>
