@@ -538,9 +538,7 @@
             })
 
             $('#launcherType').on('change',function(){
-
                 var launcherType = $('#launcherType').val();
-
                 if (launcherType === 'haghighi') {
                     // show or hide class for haghighi
                     $(".hoghoghi_fields").addClass('hidden');
