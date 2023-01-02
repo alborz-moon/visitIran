@@ -93,35 +93,35 @@
                                 </button>
                             </div>
                             @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
-                            <div class="user-option user-option--cart customBorderLeft1">
-                                <a href="{{route('cart')}}" class="user-option-btn user-option-btn--cart">
-                                    <i class="icon-visit-basket customHeader colorYellow customBasket"></i>
-                                    <div id="basketItems" class="addBasket hidden"></div>
-                                </a>
-                                <div class="mini-cart">
-                                    
-                                    <div class="mini-cart-header">
-                                        <span id="basket-items-count" class="mini-cart-products-count fa-num"></span>
-                                        <a href="{{route('cart')}}" class="btn btn-link px-0">مشاهده سبد خرید <i
-                                                class="ri-arrow-left-s-fill"></i></a>
-                                    </div>
-
-                                    <div id="basket-items"></div>
-                                    
-                                    <div class="mini-cart-footer">
-                                        <div class="mini-cart-total">
-                                            <span class="mini-cart-total-label">مبلغ قابل پرداخت:</span>
-                                            <span id="mini-cart-total-value" class="mini-cart-total-value fa-num"><span
-                                                    class="currency">تومان</span></span>
+                                <div class="user-option user-option--cart customBorderLeft1">
+                                    <a href="{{route('cart')}}" class="user-option-btn user-option-btn--cart">
+                                        <i class="icon-visit-basket customHeader colorYellow customBasket"></i>
+                                        <div id="basketItems" class="addBasket hidden"></div>
+                                    </a>
+                                    <div class="mini-cart">
+                                        
+                                        <div class="mini-cart-header">
+                                            <span id="basket-items-count" class="mini-cart-products-count fa-num"></span>
+                                            <a href="{{route('cart')}}" class="btn btn-link px-0">مشاهده سبد خرید <i
+                                                    class="ri-arrow-left-s-fill"></i></a>
                                         </div>
-                                        @if(Auth::check())
-                                            <a href="{{ route('cart') }}" class="btn btn-primary">ثبت سفارش</a>
-                                        @else
-                                            <a href="{{ route('login-register') }}" class="btn btn-primary">ورود و ثبت سفارش</a>
-                                        @endif
+
+                                        <div id="basket-items"></div>
+                                        
+                                        <div class="mini-cart-footer">
+                                            <div class="mini-cart-total">
+                                                <span class="mini-cart-total-label">مبلغ قابل پرداخت:</span>
+                                                <span id="mini-cart-total-value" class="mini-cart-total-value fa-num"><span
+                                                        class="currency">تومان</span></span>
+                                            </div>
+                                            @if(Auth::check())
+                                                <a href="{{ route('cart') }}" class="btn btn-primary">ثبت سفارش</a>
+                                            @else
+                                                <a href="{{ route('login-register') }}" class="btn btn-primary">ورود و ثبت سفارش</a>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             @endif
                             <div class="user-option user-option--account  paddingRight15 btnHover">
                                 @if(!Auth::check())
@@ -193,29 +193,29 @@
                                 @endif
                             </li>
                             @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
-                            <li class="nav-item align-self-center">
-                                <div class="vertical-menu minWidthUnset">
-                                    <a class="vertical-menu-btn p-0 m-0 colorWhite fontNormal cursorPointer hoverBold1"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt="">دسته بندی کالاها</a>
-                                    <div class="vertical-menu-items marginFromRightHeaderNegative custom-vertical-menu-items zIndex2 mt-10">
-                                        @include('layouts.menu')
-                                    </div>
-                                </div>                            
-                            </li>
-                            <li class="nav-item">
-                                <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{route('category.list', ['orderBy' => 'createdAt'])}}"><img class="iconSvg customIconTag" src="{{ asset('theme-assets/images/svg/label.svg') }}" alt="">پیشنهاد های ویژه</a>
-                            </li>
+                                <li class="nav-item align-self-center">
+                                    <div class="vertical-menu minWidthUnset">
+                                        <a class="vertical-menu-btn p-0 m-0 colorWhite fontNormal cursorPointer hoverBold1"><img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt="">دسته بندی کالاها</a>
+                                        <div class="vertical-menu-items marginFromRightHeaderNegative custom-vertical-menu-items zIndex2 mt-10">
+                                            @include('layouts.menu')
+                                        </div>
+                                    </div>                            
+                                </li>
+                                <li class="nav-item">
+                                    <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{route('category.list', ['orderBy' => 'createdAt'])}}"><img class="iconSvg customIconTag" src="{{ asset('theme-assets/images/svg/label.svg') }}" alt="">پیشنهاد های ویژه</a>
+                                </li>
                             @endif
 
                             @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
-                            <li class="nav-item">
-                                <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('event.category.list',['createAt']) }}">رویداد ها</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('launcher') }}">برگزارکننده</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('create-event') }}">ایجاد رویداد</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('event.category.list',['createAt']) }}">رویداد ها</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('launcher') }}">برگزارکننده</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('create-event') }}">ایجاد رویداد</a>
+                                </li>
                             @endif
 
                         </ul>
@@ -241,7 +241,7 @@
         </header>
         <!-- end of page-header -->
         <header class="page-header-responsive d-md-none p-0">
-            {{-- @include('layouts.top-banner') --}}
+            
             <!-- start banner -->
 
             <div class="alert banner-container alert-dismissible fade show showTopBanner hidden" role="alert" id="topBanner">
@@ -249,10 +249,9 @@
                     style="height: 60px;"></a>
                 <button id="close" type="button" class="btn-close customCloseIconBanner p-0 " data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-
-            
             
             <!-- end banner -->
+
             <div class="page-header-responsive-row">
                 <div class="d-flex align-items-center">
                     <div class="navigation-container zIndex5">
@@ -261,11 +260,11 @@
                                 <div class="logo-container logo-box p-0">
                                     <a href="#" class="d-flex flexDirectionRow logo alignItemsStart p-2">
                                         @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
-                                        <div><img src="{{ asset('theme-assets/images/menuImage2.svg') }}"  width="110" alt=""></div>
-                                        <div class="logo-text colorBlue d-flex alignSelfCenter mx-2">دسته بندی کالاها<img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt=""></div>
+                                            <div><img src="{{ asset('theme-assets/images/menuImage2.svg') }}"  width="110" alt=""></div>
+                                            <div class="logo-text colorBlue d-flex alignSelfCenter mx-2">دسته بندی کالاها<img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt=""></div>
                                         @else
-                                        <div class="logo-text colorBlue d-flex alignSelfCenter mx-2">دبیرخانه رویدادها<img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt=""></div>
-                                        <div><img class="headerImageEvent" src="{{ asset('theme-assets/images/menuImage.png') }}" width="120" alt=""></div>
+                                            <div class="logo-text colorBlue d-flex alignSelfCenter mx-2">دبیرخانه رویدادها<img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt=""></div>
+                                            <div><img class="headerImageEvent" src="{{ asset('theme-assets/images/menuImage.png') }}" width="120" alt=""></div>
                                         @endif
                                     </a>
                                 </div>
@@ -286,35 +285,40 @@
                             @endif
 
                         </div>
+
                         <div class="navigation-overlay">
                             <div class="position-absolute t-0 l-0 ">
                                 <button type="button" class="btn-close customCloseIconBanner p-0"></button>
                             </div>
                         </div>
+
                     </div>
+
                      <div class="d-flex align-items-center flex-grow-1 pe-3 zIndex3 position-relative">
-                            
-                            @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
-                                <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop">
-                                    <img src="{{ asset('theme-assets/images/menuImage2.svg') }}" width="80" alt="">
-                                </div>
-                            @else
-                                <div class="logo-container logo-boxEvent me-3 positionAbsolute logoImgFromTop">
-                                    <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="80" alt="">
-                                </div>
-                            @endif
+                        
+                        @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+                            <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop">
+                                <img src="{{ asset('theme-assets/images/menuImage2.svg') }}" width="80" alt="">
                             </div>
-                            @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+                        @else
+                            <div class="logo-container logo-boxEvent me-3 positionAbsolute logoImgFromTop">
+                                <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="80" alt="">
+                            </div>
+                        @endif
+
+
+                        @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                             <div class="marginFromRightHeader">
                                 <div class="notification-item--text colorYellow bold"> بازارگاه صنایع دستی </div>
                                 <div class="notification-item--text fontSize12 bold"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
                             </div>
-                            @else
+                        @else
                             <div class="marginFromRightHeader">
                                 <div class="notification-item--text colorYellow bold">ویزیت ایران</div>
                                 <div class="notification-item--text fontSize12 bold">دبیرخانه رویدادها</div>
                             </div>
-                            @endif
+                        @endif
+                        
                     </div>
                 </div>
             </div>
