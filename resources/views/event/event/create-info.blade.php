@@ -43,10 +43,16 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-12 mb-3">
-                                        <div class="py-2">
-                                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                                
+                                            <div id="mainPicEvent" class="boxGallery gap10">
+
                                             </div>
+                                            @include('event.launcher.dropZone', [
+                                                'label' => 'عکس اصلی رویداد',
+                                                'key' => 'img_file',
+                                                'camelKey' => 'imgFile',
+                                                'maxFiles' => 1,
+                                                'route' => route('event.set_main_img',['event' => $id]),
+                                            ]);
                                         </div>
                                     </div>
                                 </div>
@@ -198,6 +204,25 @@
                 }
             }
         });
+        $.ajax({
+            type: 'get',
+            url: '{{route('event.get_main_img' ,['event' => $id])}}',
+            success: function(res) {
+                var mainProfileEvent = "";
+                if(res.status === "ok") {
+                    if (res.img.length != 0){
+                        console.log('====================================');
+                        console.log(res.img);
+                        console.log('====================================');
+                        mainProfileEvent += '<div class="">';
+                        mainProfileEvent += '<img class="w-100 h-100" src="' + res.img + '" alt="">';
+                        mainProfileEvent += '<i class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
+                        mainProfileEvent += '</div>';
+                        $("#mainPicEvent").empty().append(mainProfileEvent);
+                    }
+                }
+            }
+        });
 
         $(document).on('click', ".icon-visit-uploaded-delete", function() {
             
@@ -219,7 +244,6 @@
                         parentElem.remove();
                         if(uploadedFiles.length === 0)
                             $(".dz-message").addClass('block');
-                        
                         showSuccess('فایل موردنظر با موفقیت حدف گردید.');
                     }
                 }
@@ -238,13 +262,10 @@
                     if(res.status === 'ok') {
                         $("#gallery_" + id).remove();
                         showSuccess('فایل موردنظر با موفقیت حدف گردید.');
-
                         console.log(uploadedFiles.length);
                         total--;
-
                         if(total === 0)
                             $("#certifications").remove();
-
                     }
                 }
             });
@@ -273,6 +294,16 @@
         success: function(res) {
             if(res.status === "ok") {
                 $('#description').val(res.data)
+                    $("input").each(function() {
+                        if ($(this).attr('data-editable') != 'true' ){
+                            $(this).attr('disabled', 'disabled');
+                        }
+                    });
+                    $("textarea").each(function() {
+                        if ($(this).attr('data-editable') != 'true' ){
+                            $(this).attr('disabled', 'disabled');
+                        }
+                    });
             }
         }
     });

@@ -806,6 +806,12 @@ function getPhase1Info() {
 
                         }
                     }
+                    $("input").each(function() {
+                        if ($(this).attr('data-editable') != 'true' ){
+                            $(this).attr('disabled', 'disabled');
+                        }
+                    });
+                    $("textarea").attr('disabled', 'disabled');
 
                 }
             }

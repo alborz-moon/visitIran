@@ -411,6 +411,12 @@ class EventController extends EventHelper
         return response()->json(['status' => 'ok']);
     }
 
+    public function get_main_img(Event $event, Request $request)
+    {           
+        return response()->json(['status' => 'ok', 'img' => $event->img != null ? asset('storage/event/' . $event->img) : '']);
+    }
+
+
     /**
      * Display the specified resource.
      *
