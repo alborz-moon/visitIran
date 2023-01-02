@@ -43,10 +43,12 @@
                     <div class="widget-title">برای مشتریان</div>
                     <div class="widget-content widget-list">
                         <ul>
-                            <li><a href="https://hcshop.taci.ir/blog/15/%D8%B3%DB%8C%D8%A7%D8%B3%D8%AA_%D8%AD%D8%B1%DB%8C%D9%85_%D8%AE%D8%B5%D9%88%D8%B5%DB%8C">سیاست حریم خصوصی</a></li>
-                            <li><a href="https://hcshop.taci.ir/blog/17/%D9%82%D9%88%D8%A7%D9%86%DB%8C%D9%86_%D9%88_%D9%85%D9%82%D8%B1%D8%B1%D8%A7%D8%AA">قوانین و مقررات</a></li>
-                            <li><a href="https://hcshop.taci.ir/blog/12/%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87_%D9%85%D8%A7">درباره ما</a></li>
-                            <li><a href="https://hcshop.taci.ir/blog/16/%D9%86%D8%AD%D9%88%D9%87_%D8%A7%D8%B1%D8%B3%D8%A7%D9%84_%DA%A9%D8%A7%D9%84%D8%A7_%D9%88_%D8%B9%D9%88%D8%AF%D8%AA">نحوه ارسال کالا و عودت</a></li>
+                            @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+                                <li><a href="https://hcshop.taci.ir/blog/15/%D8%B3%DB%8C%D8%A7%D8%B3%D8%AA_%D8%AD%D8%B1%DB%8C%D9%85_%D8%AE%D8%B5%D9%88%D8%B5%DB%8C">سیاست حریم خصوصی</a></li>
+                                <li><a href="https://hcshop.taci.ir/blog/17/%D9%82%D9%88%D8%A7%D9%86%DB%8C%D9%86_%D9%88_%D9%85%D9%82%D8%B1%D8%B1%D8%A7%D8%AA">قوانین و مقررات</a></li>
+                                <li><a href="https://hcshop.taci.ir/blog/12/%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87_%D9%85%D8%A7">درباره ما</a></li>
+                                <li><a href="https://hcshop.taci.ir/blog/16/%D9%86%D8%AD%D9%88%D9%87_%D8%A7%D8%B1%D8%B3%D8%A7%D9%84_%DA%A9%D8%A7%D9%84%D8%A7_%D9%88_%D8%B9%D9%88%D8%AF%D8%AA">نحوه ارسال کالا و عودت</a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>

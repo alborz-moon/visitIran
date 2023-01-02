@@ -39,14 +39,28 @@
                         <a href="{{ route('addPhase2Info', ['event' => $id]) }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
                     </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
+                            <div class="ui-box-title"> عکس اصلی رویداد</div>
+                            <div class="ui-box-content">
+                                <div class="row">
+                                    <div class="col-lg-12 mb-3">
+                                        <div class="py-2">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">توضیحات</div>
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-12 mb-3">
                                         <div class="py-2">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <textarea id="description" type="text" class="form-control" style="direction: rtl" placeholder="توضیحات"></textarea>
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <textarea data-editable="true" id="description" type="text" class="form-control" style="direction: rtl" placeholder="توضیحات"></textarea>
+                                                <button data-input-id="description" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -156,13 +170,18 @@
                 });
             }
         }
-        
+        $(document).ready(function(){
+            $('textarea').attr("data-editable", "true");
+            $('.toggle-editable-btn').addClass('hidden');
+        });
         $.ajax({
             type: 'get',
             url: '{{route('event.galleries.index',['event' => $id])}}',
             success: function(res) {
                 var gallery = "";
                 if(res.status === "ok") {
+                    $('textarea').attr("data-editable", "false");
+                    $('.toggle-editable-btn').removeClass('hidden');
                     if(res.data.length != 0) {
                         total = res.data.length;
                         for(i = 0; i < res.data.length; i ++ ){
