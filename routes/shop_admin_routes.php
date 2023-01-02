@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Shop\BlogController;
 use App\Http\Controllers\Shop\BrandController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\CommentController;
@@ -40,12 +39,6 @@ Route::resource('category.features', FeatureController::class)->except('show', '
 
 Route::post('feature/{feature}', [FeatureController::class, 'update'])->name('feature.update');
 
-
-Route::resource('blog', BlogController::class)->except(['show', 'update']);
-
-Route::post('blog/addBatch', [BlogController::class, 'addBatch'])->name('blog.addBatch');
-
-Route::post('blog/{blog}', [BlogController::class, 'update'])->name('blog.update');
 
 
 Route::resource('off', OffController::class)->except(['show', 'update']);

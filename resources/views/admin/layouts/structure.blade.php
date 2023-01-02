@@ -65,6 +65,7 @@
         <link rel="stylesheet" href="{{asset('admin-panel/css/responsive.css')}}">
         <link rel="stylesheet" href="{{asset('admin-panel/css/common.css')}}">
         <link rel="stylesheet" href="{{asset('admin-panel/css/commonCSS.css')}}">
+        <link rel="stylesheet" href="{{asset('theme-assets/css/fontface.css')}}">
 
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <!-- modernizr JS
@@ -158,6 +159,7 @@
                                     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                                         <a href="{{route('facilities.index')}}" class="dropdown-item">مدیریت امکانات ویژه</a>
                                         <a href="{{route('eventTags.index')}}" class="dropdown-item">مدیریت تگ ها</a>
+                                        <a href="{{route('blog.index')}}" class="dropdown-item">مدیریت بلاگ ها</a>
                                         <a href="{{route('faq.index')}}" class="dropdown-item">مدیریت سوالات متداول</a>
                                     </div>
                                 </li>

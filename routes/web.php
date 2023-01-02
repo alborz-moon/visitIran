@@ -6,13 +6,12 @@ use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\EventTagController;
 use App\Http\Controllers\Event\LauncherController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Shop\BlogController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Models\EventTag;
 use App\Models\Launcher;
 use App\Models\State;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -52,15 +51,14 @@ Route::middleware(['shareTopCategories'])->group(function() {
             return view('shop.shipping', compact('states'));
         })->name('shipping');
     
-        Route::get('/blog/{blog}/{slug}',  [BlogController::class, 'show'])->name('blog');
-    
-        Route::view('/blog-list',  'shop.blog-list')->name('blog-list');
-    
         Route::view('payment', 'shop.payment')->name('payment');
         
     
     });
     
+    Route::get('/blog/{blog}/{slug}',  [BlogController::class, 'show'])->name('blog');
+    
+    Route::view('/blog-list',  'shop.blog-list')->name('blog-list');
     
 
 });
@@ -101,6 +99,12 @@ Route::view('login', 'admin.login')->name('loginPage');
 
 Route::view('verification', 'verification')->name('verification');
 
+
+Route::get('blogs', [BlogController::class, 'list'])->name('api.blog.list');
+
+Route::get('blog/{blog?}', [BlogController::class, 'show'])->name('api.blog.show');
+
+Route::get('blogs/getDistinctTags', [BlogController::class, 'distinctTags'])->name('api.blog.getDistinctTags');
 
 
 Route::middleware(['myAuth'])->group(function() {

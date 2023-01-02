@@ -10,7 +10,8 @@ class BlogHelper extends Controller {
 
     public static function build_filters($request, $justVisibles=false) {
         
-        $filters = Blog::where('id', '>', '0');
+        $filters = ($request->getHost() == self::$EVENT_SITE) ? Blog::where('site', 'event') : Blog::where('site', 'shop');
+
         $tag = $request->query('tag', null);
         $visibility = $request->query('visibility', null);
         $orderBy = $request->query('orderBy', null);

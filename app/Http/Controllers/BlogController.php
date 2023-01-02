@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Shop;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Shop\Utility\BlogHelper;
 use App\Http\Resources\BlogDigest;
@@ -21,8 +21,14 @@ class BlogController extends BlogHelper
      */
     public function index(Request $request)
     {
+
+        if($request->getHost() == self::$EVENT_SITE)
+            return view('admin.blogs.list', [
+                'items' => BlogDigest::collection(Blog::event()->get())->toArray($request)
+            ]);
+
         return view('admin.blogs.list', [
-            'items' => BlogDigest::collection(Blog::all())->toArray($request)
+            'items' => BlogDigest::collection(Blog::shop()->get())->toArray($request)
         ]);
     }
 
@@ -34,7 +40,6 @@ class BlogController extends BlogHelper
      */
     public function list(Request $request)
     {
-        // sleep(100);
         $filter = self::build_filters($request, true);
 
         return response()->json([
@@ -112,6 +117,11 @@ class BlogController extends BlogHelper
 
             $request['img'] = $filename;
         }
+
+        if($request->getHost() == self::$EVENT_SITE)
+            $request['site'] = 'event';
+        else
+            $request['site'] = 'shop';
 
         Blog::create($request->toArray());
         return Redirect::route('blog.index');
@@ -200,7 +210,6 @@ class BlogController extends BlogHelper
         )
             return Redirect::route('403');
 
-            // dd( BlogResource::make($blog)->toArray($request));
         return view('shop.blog', [
             'blog' => BlogResource::make($blog)->toArray($request)
         ]);
@@ -212,9 +221,14 @@ class BlogController extends BlogHelper
      *
      * @return \Illuminate\Http\Response
      */
-    public function distinctTags()
+    public function distinctTags(Request $request)
     {
-        $blogs = Blog::visible()->select('tags')->get();
+     
+        if($request->getHost() == self::$EVENT_SITE)
+            $blogs = Blog::event()->visible()->select('tags')->get();
+        else
+            $blogs = Blog::shop()->visible()->select('tags')->get();
+
         $distinctTags = [];
 
         foreach($blogs as $blog) {
