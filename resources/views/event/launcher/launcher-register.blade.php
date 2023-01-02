@@ -68,7 +68,7 @@
                                     <div class=" py-1">
                                         <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
                                         <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between position-relative">
-                                            <input data-editable="true" id="nameLast" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی">
+                                            <input data-editable="true" id="nameLast" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی" disabled>
                                             <button data-input-id="nameLast" class="toggle-editable-btn btn btn-circle btn-outline-light"
                                                 data-remodal-target="personal-info-fullname-modal">
                                                 <i class="ri-ball-pen-fill"></i>
@@ -105,7 +105,7 @@
                                     <div class=" py-1">
                                         <div  class="fs-7 text-dark">تاریخ تولد</div>
                                         <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between position-relative">
-                                            <input data-editable="true" id="mainBrithday" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد">
+                                            <input data-editable="true" id="mainBrithday" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد" disabled>
                                             <button data-input-id="mainBrithday" class="toggle-editable-btn btn btn-circle btn-outline-light"
                                                 data-remodal-target="personal-info-birth-modal"><i
                                                     class="ri-ball-pen-fill"></i></button>
@@ -514,23 +514,31 @@
             $('#getName').on('click',function(){
                 var name = $('#name').val();
                 var last = $('#last').val();
-                $('.setName').val(name +' ' + last );
-                $(".remodal-close").click();
-                $(".showPenEdit").removeClass('hidden');
-
-            })
+                if (name.length == 0 || last.length == 0) {
+                    showErr("لطفا نام و نام خانوادگی را وارد نمائید.");
+                    return
+                }else{
+                    $('.setName').val(name +' ' + last );
+                    $(".remodal-close").click();
+                    $(".showPenEdit").removeClass('hidden');
+                }
+            });
             $('#setUserBirthDay').on('click',function(){
                 var year = $('#Brithday_year').val();
                 var month = $('#Brithday_month').val();
                 var day =$('#Brithday_day').val();
-                $('.userBirthDay').val(year + '/' + month + '/' + day);
-                $(".remodal-close").click();
+
+                if (year.length == 0 || month.length == 0 || month == 0 || day.length == 0) {
+                    showErr("لطفا تاریخ تولد را وارد کنید.");
+                    return
+                }else{
+                    $('.userBirthDay').val(year + '/' + month + '/' + day);
+                    $(".remodal-close").click();
+                }
             })
 
             $('#launcherType').on('change',function(){
-
                 var launcherType = $('#launcherType').val();
-
                 if (launcherType === 'haghighi') {
                     // show or hide class for haghighi
                     $(".hoghoghi_fields").addClass('hidden');
@@ -692,9 +700,9 @@
                     formData.append("img_file", file);
                 }
 
-                const userPhone = $("#user-phone").val();
-                if(userPhone !== undefined)
-                    formData.append("user_phone", userPhone);
+                // const userPhone = $("#user-phone").val();
+                // if(userPhone !== undefined)
+                //     formData.append("user_phone", userPhone);
 
                 $.ajax({
                     type: 'post',
@@ -792,6 +800,12 @@
                     $(".userBirthDay").val(res.data.user_birth_day);
                     $("#state02").val(res.data.launcher_state_id).change();
                     getCities(res.data.launcher_state_id, res.data.launcher_city_id);
+                    $("input").each(function() {
+                        if ($(this).attr('data-editable') != 'true' ){
+                            $(this).attr('disabled', 'disabled');
+                        }
+                    });
+                    $("textarea").attr('disabled', 'disabled');
                 }
             })
         </script>

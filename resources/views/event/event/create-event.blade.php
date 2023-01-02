@@ -135,7 +135,7 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                             <div class="col-lg-12 mb-3">
                                 <div class="py-2">
                                     <div class="fs-7 text-dark">نام رویداد</div>
-                                    <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center justify-content-between position-relative">
                                         <input data-editable="true" id="eventName" type="text" class="form-control" style="direction: rtl"
                                             placeholder="نام رویداد">
                                         <button data-input-id="eventName" class="toggle-editable-btn btn btn-circle btn-outline-light"><i
@@ -275,7 +275,7 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                             <div class="col-lg-6 mb-3 hidden_online_fields">
                                 <div class="py-1">
                                     <div class="fs-7 text-dark">کد پستی</div>
-                                    <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center justify-content-between position-relative">
                                         <input data-editable="true" id="postalCode" onkeypress="return isNumber(event)" minlength="10"
                                             maxlength="10" type="text" class="form-control" style="direction: rtl"
                                             placeholder="کد پستی">
@@ -289,10 +289,10 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                             <div class="col-lg-12 mb-3 hidden_url_fields hidden">
                                 <div class="py-1">
                                     <div class="fs-7 text-dark">لینک جلسه مجازی</div>
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <input id="link" type="url" class="form-control" style="direction: rtl"
+                                    <div class="d-flex align-items-center justify-content-between position-relative">
+                                        <input data-editable="true" id="link" type="url" class="form-control" style="direction: rtl"
                                             placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
-                                        <button class="btn btn-circle btn-outline-light">
+                                        <button data-input-id="link" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                             <i class="ri-ball-pen-fill"></i>
                                         </button>
                                     </div>
@@ -301,10 +301,10 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                             <div class="col-lg-12 mb-3">
                                 <div class="py-1 hidden_online_fields hidden">
                                     <div class="fs-7 text-dark">آدرس</div>
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <textarea data-editable="true" id="address" type="text" class="form-control" style="direction: rtl"
-                                            placeholder="آدرس"></textarea>
-                                        <button data-input-id="launcherAddress" class="toggle-editable-btn btn btn-circle btn-outline-light">
+                                    <div class="d-flex align-items-center justify-content-between position-relative">
+                                        <textarea data-editable="true" id="address" type="text" class="form-control" style="direction: rtl" placeholder="آدرس">
+                                        </textarea>
+                                        <button data-input-id="address" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                             <i class="ri-ball-pen-fill"></i>
                                         </button>
                                     </div>
@@ -490,8 +490,9 @@ var selectedFacility = [];
 $(document).ready(function(){
     $('#launcherPhone').attr("data-editable", "true");
     $('input').attr("data-editable", "true");
-    $('textarea').attr("data-editable", "true");
+    $('textarea').attr("data-editable", "true")
     $('.toggle-editable-btn').addClass('hidden');
+    $('#onlineOrOffline').val(0).change();
 });
 
 function watchList(selectorId, arr, increamentor, elemId, resultPaneId) {
@@ -585,6 +586,16 @@ $.ajax({
                     .label + '</option>';
                 $("#topicEvent").empty().append(eventTag);
             }
+            $("input").each(function() {
+                if ($(this).attr('data-editable') != 'true' ){
+                    $(this).attr('disabled', 'disabled');
+                }
+            });
+            $("textarea").each(function() {
+                if ($(this).attr('data-editable') != 'true' ){
+                    $(this).attr('disabled', 'disabled');
+                }
+            });
         }
     }
 });
@@ -717,7 +728,9 @@ function getPhase1Info() {
 
             if (res.status === "ok") {
                 if (res.data.length != 0) {
-                    
+                    $('input').attr("data-editable", "false");
+                    $('textarea').attr("data-editable", "false");
+                    $('.toggle-editable-btn').removeClass('hidden');
                     $('#eventName').val(res.data.title);
                     $('#ageCondi').val(res.data.age_description).change();
                     $('#level').val(res.data.level_description).change();

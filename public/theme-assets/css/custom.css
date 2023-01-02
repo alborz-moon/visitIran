@@ -433,6 +433,15 @@ ul {
 .marginFromRightHeader {
     margin-right: 120px;
 }
+.marginFromRightHeaderEvent {
+    margin-right: 140px;
+}
+.marginFromRightHeaderShop {
+    margin-right: 120px;
+}
+.ml-140 {
+    margin-left: 140px !important;
+}
 .marginFromRightHeaderMobile {
     margin-right: 90px;
 }
@@ -495,7 +504,7 @@ ul {
 .blogImgSize {
     width: 100px !important;
     height: 60px !important;
-    object-fit: contain;
+    object-fit: cover;
 }
 .customSearch::before {
     font-size: 40px;
@@ -822,7 +831,9 @@ table thead {
 .search-mobile-toggle {
     right: 0;
 }
-
+.page-header-responsive-row {
+    height: 50px;
+}
 .transformTranslateCenter {
     top: 50%;
     left: 50%;
@@ -1818,12 +1829,15 @@ figure .ck-widget {
 }
 @media (min-width: 768px) {
     .mt-md-110 {
-        margin-top: 110px;
+        margin-top: 62px;
     }
 }
 @media (max-width: 768px) {
+    .headerImgMT15 {
+        margin-top: 15px;
+    }
     .mt-md-110 {
-        margin-top: 0px;
+        margin-top: -48px;
     }
     .TopParentBannerMoveOnTop {
         margin-top: 0;
@@ -2111,7 +2125,7 @@ figure .ck-widget {
 }
 @media (max-width: 768px) {
     .logoImgFromTop {
-        top: 0;
+        top: -20px;
     }
     .marginFromRightHeader {
         margin-right: 105px;
@@ -2119,6 +2133,10 @@ figure .ck-widget {
     .logo-container.logo-box {
         min-width: 95px !important;
         padding: 5px;
+    }
+    .logo-boxEvent {
+        min-width: 100px !important;
+        padding: 10px;
     }
     .customEventImgSizeSlider {
         width: 100%;

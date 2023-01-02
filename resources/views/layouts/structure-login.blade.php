@@ -8,7 +8,11 @@
     <meta name="theme-color" content="#C59358">
     <meta name="msapplication-navbutton-color" content="#C59358">
     <meta name="apple-mobile-web-app-status-bar-style" content="#C59358">
-    <title>بازارگاه صنایع دستی | خانه</title>
+    @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+        <title>بازارگاه صنایع دستی | خانه</title>
+    @else
+        <title>ویزیت ایران | خانه</title>
+    @endif
     <link rel="stylesheet" href="{{ asset('theme-assets/css/dependencies.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/theme.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/custom.css') }}">

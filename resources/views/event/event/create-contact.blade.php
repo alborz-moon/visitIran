@@ -41,9 +41,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div data-remodal-target="time-and-date-start-modal" class="fs-7 text-dark">تاریخ و ساعت شروع</div>
                                         <div class="py-2">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input id="setDateStart" data-remodal-target="time-and-date-start-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت شروع">
-                                                <button data-remodal-target="time-and-date-start-modal" class="btn btn-circle btn-outline-light d-none">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="true" id="setDateStart" data-remodal-target="time-and-date-start-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت شروع">
+                                                <button data-input-id="setDateStart" data-remodal-target="time-and-date-start-modal" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i></button>
                                             </div>
                                         </div>
@@ -51,9 +51,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class="py-2">
                                             <div data-remodal-target="time-and-date-stop-modal" class="fs-7 text-dark">تاریخ و ساعت پایان</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input id="setDateStop" data-remodal-target="time-and-date-stop-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت پایان">
-                                                <button data-remodal-target="time-and-date-stop-modal" class="btn btn-circle btn-outline-light d-none"><i
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="true" id="setDateStop" data-remodal-target="time-and-date-stop-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت پایان">
+                                                <button data-input-id="setDateStop" data-remodal-target="time-and-date-stop-modal" class="toggle-editable-btn btn btn-circle btn-outline-light"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
                                         </div>
@@ -67,10 +67,10 @@
                                 <div class="row">
                                     <div class="col-lg-6 mb-3">
                                         <div class="py-1">
-                                            <div  class="fs-7 text-dark">توضیحات</div>
-                                            <div class="d-flex align-items-center justify-content-between">
+                                            <div data-editable="true" class="fs-7 text-dark">توضیحات</div>
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
                                                 <input id="desc" type="text" class="form-control" style="direction: rtl" placeholder="توضیحات">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                                <button data-input-id="desc" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -80,9 +80,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">قیمت به تومان</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input id="price" onkeypress="return isNumber(event)" type="text" class="form-control" style="direction: rtl" placeholder="قیمت به تومان">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="true" id="price" onkeypress="return isNumber(event)" type="text" class="form-control" style="direction: rtl" placeholder="قیمت به تومان">
+                                                <button data-input-id="price" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -91,10 +91,10 @@
                                     </div>
                                     <div class="col-lg-6 mb-3">
                                         <div class="py-1">
-                                            <div  class="fs-7 text-dark">ظرفیت</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input id="capacity" onkeypress="return isNumber(event)" type="text" class="form-control" style="direction: rtl" placeholder="ظرفیت">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="fs-7 text-dark">ظرفیت</div>
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="true" id="capacity" onkeypress="return isNumber(event)" type="text" class="form-control" style="direction: rtl" placeholder="ظرفیت">
+                                                <button data-input-id="capacity" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -111,9 +111,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">وب سایت</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input id="site"  type="url" class="form-control" style="direction: rtl" placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="true" id="site"  type="url" class="form-control" style="direction: rtl" placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
+                                                <button data-input-id="site" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -123,9 +123,9 @@
                                     <div class="col-lg-6 mb-3">
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">پست الکترونیک</div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <input id="email" onkeypress="return isEmail(event) || isNumber(event)" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <input data-editable="true" id="email" onkeypress="return isEmail(event) || isNumber(event)" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
+                                                <button data-input-id="email" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
                                             </div>
@@ -135,11 +135,11 @@
                                     <div class="col-lg-12 mb-3">
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">تلفن</div>
-                                            <div class="d-flex align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
                                                 <input onkeypress="return isNumber(event)" minlength="7" maxlength="11" id="launcherPhone" type="text" class="form-control setEnter" style="direction: rtl" placeholder="تلفن">
-                                                <button class="btn btn-circle btn-outline-light hidden">
+                                                {{-- <button class="btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
-                                                </button>
+                                                </button> --}}
                                             </div>
                                             <div id="addTell" class="d-flex gap15"></div>
                                             <div class="fontSize14 colorBlack">در صورت وجود بیش از یک تلفن، آن ها را با فاصله از هم جدا نمایید.همچنین پیش شماره کشور و شهر نیز وارد شود. مانند +982111111111</div>
@@ -226,6 +226,9 @@
     var tels = [];
 
         $(document).ready(function(){
+            
+
+            $('.toggle-editable-btn').addClass('hidden');
             var idx = 1;
             $(document).on('click', '.remove-tel-btn', function () { 
                 let id = $(this).attr('data-id');
@@ -280,6 +283,8 @@
                  'accept': 'application/json'
                 },
                 success: function(res) {
+                        $('input').attr("data-editable", "false");
+                        $('.toggle-editable-btn').removeClass('hidden');
                         $('#time_input_start').val(res.data.start_registry_time);
                         $('#date_input_start').val(res.data.start_registry_date);
                         $('#time_input_stop').val(res.data.end_registry_time);
@@ -309,6 +314,29 @@
                             }
                             $("#addTell").append(html);
                         }
+                        $("input").each(function() {
+                            if ( $(this).attr('data-editable') != 'true' ){
+                                $(this).attr('disabled', 'disabled');
+                            }
+                        });
+                        $(".toggle-editable-btn").on("click", function () {
+                            let id = $(this).attr("data-input-id");
+                            if ($("#" + id).attr("data-editable") == "false") {
+                                $("#" + id).attr("data-editable", "true");
+                                $("#" + id).removeAttr("disabled");
+                            } else {
+                                $("#" + id).attr("data-editable", "false");
+                                $("#" + id).attr("disabled", "disabled");
+                            }
+                        });
+            $("#launcherPhone").attr("data-editable", "true").removeAttr("disabled");
+            $("#setDateStart").attr("data-editable", "true").removeAttr("disabled");
+            $("#setDateStop").attr("data-editable", "true").removeAttr("disabled");
+            $("#date_input_start").attr("data-editable", "true").removeAttr("disabled");
+            $("#time_input_start").attr("data-editable", "true").removeAttr("disabled");
+            $("#date_input_stop").attr("data-editable", "true").removeAttr("disabled");
+            $("#time_input_stop").attr("data-editable", "true").removeAttr("disabled");                   
+                        // $("textarea").attr('disabled', 'disabled');
                 }
             });
         });
