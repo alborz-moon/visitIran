@@ -433,6 +433,15 @@ ul {
 .marginFromRightHeader {
     margin-right: 120px;
 }
+.marginFromRightHeaderEvent {
+    margin-right: 140px;
+}
+.marginFromRightHeaderShop {
+    margin-right: 120px;
+}
+.ml-140 {
+    margin-left: 140px !important;
+}
 .marginFromRightHeaderMobile {
     margin-right: 90px;
 }
@@ -2111,14 +2120,18 @@ figure .ck-widget > img .mCS_img_loaded {
 }
 @media (max-width: 768px) {
     .logoImgFromTop {
-        top: 0;
+        top: -20px;
     }
     .marginFromRightHeader {
-        margin-right: 105px;
+        margin-right: 95px;
     }
     .logo-container.logo-box {
         min-width: 95px !important;
         padding: 5px;
+    }
+    .logo-boxEvent {
+        min-width: 100px !important;
+        padding: 10px;
     }
     .customEventImgSizeSlider {
         width: 100%;

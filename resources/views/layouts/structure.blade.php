@@ -36,7 +36,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script src="{{ asset('theme-assets/js/dependencies/jquery-3.6.0.min.js') }}"></script>
     @section('seo')
-        <title>بازارگاه صنایع دستی | خانه</title>
+        @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+            <title>بازارگاه صنایع دستی | خانه</title>
+        @else
+            <title>ویزیت ایران | خانه</title>
+        @endif
     @show
 
     @section('header')
@@ -62,17 +66,25 @@
                 <div class="container heightHeader customBackgroundWhite">
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center flex-grow-1 pe-3 zIndex3 position-relative">
+                            
                             <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop">
-                                    <img src="{{ asset('theme-assets/images/menuImage2.svg') }}" width="90" alt="">
-                            </div>
-                            <div class="marginFromRightHeader">
-                                <div class="notification-item--text colorYellow bold"> بازارگاه صنایع دستی </div>
                                 @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
-                                <div class="notification-item--text fontSize12 bold"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
+                                    <img src="{{ asset('theme-assets/images/menuImage2.svg') }}" width="90" alt="">
                                 @else
-                                <div class="notification-item--text fontSize12 bold">دبیرخانه رویدادها</div>
-                                @endif 
+                                    <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="110" alt="">
+                                @endif
                             </div>
+                            @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+                                <div class="marginFromRightHeaderShop">
+                                    <div class="notification-item--text colorYellow bold"> بازارگاه صنایع دستی </div>
+                                    <div class="notification-item--text fontSize12 bold"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
+                                </div>
+                            @else
+                                <div class="marginFromRightHeaderEvent">
+                                    <div class="notification-item--text colorYellow bold">ویزیت ایران</div>
+                                    <div class="notification-item--text fontSize12 bold">دبیرخانه رویدادها</div>
+                                </div>
+                            @endif                            
                         </div>
                         <div class="user-options heightHeader customFilterGray">
                             <div class="user-option user-option--search customBorderLeft1" data-remodal-target="search-modal">
@@ -157,7 +169,6 @@
                                         </div>
                                     </div>
                                 @endif
-                                
                             </div>
                         </div>
                     </div>
@@ -212,7 +223,7 @@
                 </div>
             </div>
             <!-- end of page-header-bottom -->
-                        </div>
+                    </div>
                         <div class="page-header--top-left">
                             <ul class="nav nav-light justify-content-end">
                                 <li class="nav-item d-md-none d-lg-block">
@@ -246,15 +257,15 @@
                 <div class="d-flex align-items-center">
                     <div class="navigation-container zIndex5">
                         <div class="navigation">
-
                             <div class="navigation-header">
                                 <div class="logo-container logo-box p-0">
                                     <a href="#" class="d-flex flexDirectionRow logo alignItemsStart p-2">
-                                        <div><img src="{{ asset('theme-assets/images/menuImage2.svg') }}"  width="110" alt=""></div>
                                         @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+                                        <div><img src="{{ asset('theme-assets/images/menuImage2.svg') }}"  width="110" alt=""></div>
                                         <div class="logo-text colorBlue d-flex alignSelfCenter mx-2">دسته بندی کالاها<img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt=""></div>
                                         @else
                                         <div class="logo-text colorBlue d-flex alignSelfCenter mx-2">دبیرخانه رویدادها<img class="iconSvg" src="{{ asset('theme-assets/images/svg/headline.svg') }}" alt=""></div>
+                                        <div><img class="headerImageEvent" src="{{ asset('theme-assets/images/menuImage.png') }}" width="120" alt=""></div>
                                         @endif
                                     </a>
                                 </div>
@@ -282,13 +293,28 @@
                         </div>
                     </div>
                      <div class="d-flex align-items-center flex-grow-1 pe-3 zIndex3 position-relative">
-                            <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop">
+                            
+                            @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+                                <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop">
                                     <img src="{{ asset('theme-assets/images/menuImage2.svg') }}" width="80" alt="">
+                                </div>
+                            @else
+                                <div class="logo-container logo-boxEvent me-3 positionAbsolute logoImgFromTop">
+                                    <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="80" alt="">
+                                </div>
+                            @endif
                             </div>
+                            @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                             <div class="marginFromRightHeader">
                                 <div class="notification-item--text colorYellow bold"> بازارگاه صنایع دستی </div>
                                 <div class="notification-item--text fontSize12 bold"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
                             </div>
+                            @else
+                            <div class="marginFromRightHeader">
+                                <div class="notification-item--text colorYellow bold">ویزیت ایران</div>
+                                <div class="notification-item--text fontSize12 bold">دبیرخانه رویدادها</div>
+                            </div>
+                            @endif
                     </div>
                 </div>
             </div>

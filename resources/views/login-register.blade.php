@@ -6,11 +6,20 @@
             <div class="auth-container">
                 <div class="d-flex">
                     <div class="logo-container logo-box me-3 logoImgFromTop">
-                            <img src="{{ asset('theme-assets/images/menuImage2.svg') }}" width="120" alt="">
+                        @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+                            <img src="{{ asset('theme-assets/images/menuImage2.svg') }}" width="110" alt="">
+                        @else
+                            <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="120" alt="">
+                        @endif
                     </div>
                     <div>
-                        <div class="notification-item--text colorYellow bold"> بازارگاه صنایع دستی </div>
-                        <div class="notification-item--text fontSize12"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
+                        @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+                            <div class="notification-item--text colorYellow bold"> بازارگاه صنایع دستی </div>
+                            <div class="notification-item--text fontSize12"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
+                        @else
+                            <div class="notification-item--text colorYellow bold">ویزیت ایران</div>
+                            <div class="notification-item--text fontSize12">دبیرخانه رویدادها</div>
+                        @endif
                         <div class="notification-item--text fontSize18 bold mt-3 mb-3">ورود / ثبت نام</div>
                     </div>
                 </div>
