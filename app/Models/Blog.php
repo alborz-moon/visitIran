@@ -21,11 +21,20 @@ class Blog extends Model
         'tags',
         'article_tags',
         'alt',
-        'slug'
+        'slug',
+        'site'
     ];
 
     public function scopeVisible($query) {
         return $query->where('visibility', true);
     }
 
+    
+    public function scopeEvent($query) {
+        return $query->where('site', 'event');
+    }
+    
+    public function scopeShop($query) {
+        return $query->where('site', 'shop');
+    }
 }

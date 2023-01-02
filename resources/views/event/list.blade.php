@@ -1,6 +1,7 @@
 @extends('layouts.structure')
 
 @section('seo')
+    <title>ویزیت ایران | خانه</title>
 
     <script>
 
@@ -590,7 +591,7 @@
                 $("#total_count")
                     .empty()
                     .append(data.length + " رویداد");
-                $();
+                $("#");
             @endif
 
         });

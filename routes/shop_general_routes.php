@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Shop\AddressController;
-use App\Http\Controllers\Shop\BlogController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\CommentController;
@@ -11,12 +10,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('search-product', [ProductController::class, 'search'])->name('product-search');
 
 Route::post('search-category', [CategoryController::class, 'search'])->name('category-search');
-
-Route::get('blogs', [BlogController::class, 'list'])->name('api.blog.list');
-
-Route::get('blog/{blog?}', [BlogController::class, 'show'])->name('api.blog.show');
-
-Route::get('blogs/getDistinctTags', [BlogController::class, 'distinctTags'])->name('api.blog.getDistinctTags');
 
 Route::get('product/{product?}', [ProductController::class, 'show'])->name('api.product.show');
 

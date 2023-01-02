@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{ asset('theme-assets/css/dependencies.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/theme.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/visitiran.css') }}">
+    <link rel="stylesheet" href="{{asset('theme-assets/css/fontface.css')}}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/custom.css') }}">
     
     <meta name="csrf-token" content="{{ csrf_token() }}" />
