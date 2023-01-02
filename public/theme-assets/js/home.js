@@ -175,7 +175,7 @@ function renderEventSlider(data, prefix) {
             .replace(prefix + "Rate", prefix + "Rate_" + id);
 
         html +=
-            "<div onclick=\"redirect('" +
+            "<div onclick=\"event_redirect('" +
             id +
             "', '" +
             elem.slug +

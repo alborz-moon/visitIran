@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\HomeController;
@@ -52,5 +53,12 @@ Route::post('uploadImg', [HomeController::class, 'uploadImg'])->name('uploadImg'
 Route::resource('config', ConfigController::class)->only(['index']);
 
 Route::post('config', [ConfigController::class, 'update'])->name('config.update');
+
+
+Route::resource('blog', BlogController::class)->except(['show', 'update']);
+
+Route::post('blog/addBatch', [BlogController::class, 'addBatch'])->name('blog.addBatch');
+
+Route::post('blog/{blog}', [BlogController::class, 'update'])->name('blog.update');
 
 ?>
