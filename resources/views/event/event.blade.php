@@ -372,10 +372,10 @@
                 <!-- start of product-content-expert-summary -->
                 <div class="details product-tab-content product-content-expert-summary tab-content pb-2 mb-4"
                     id="scrollspyHeading1">
-                    <div class="product-tab-title">
+                    {{-- <div class="product-tab-title">
                         <div class="fontSize18 bold ">بررسی بشقاب میناکاری گرد رنگ آبی طرح ستاره مدل 1000100013</div>
-                    </div>
-                    <div id="checkHeight" class="expandable-text pt-1 ">
+                    </div> --}}
+                    {{-- <div id="checkHeight" class="expandable-text pt-1 ">
                         <div class="expandable-text_text" id="getInnerHeight">
                             <p>
                                 گوشی موبایل «iPhone 13» پرچم‌دار جدید شرکت اپل است که با چند ویژگی جدید و دوربین دوگانه
@@ -389,7 +389,7 @@
                                 اشیا فوکوس و بِلار داشته باشد.
                             </p>
 
-                        </div>
+                        </div> --}}
                         <div
                             class="expandable-text-expand-btn justify-content-start text-sm d-flex justify-content-end">
                             <span class="show-more active">

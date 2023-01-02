@@ -31,7 +31,7 @@
         </div>
     </div>
     <div id="parentSearchMobile" class="pt-4">
-        <button id="closeSearch" type="button" class="btn-close customCloseIconBanner p-0 position-absolute l-0 hidden zIndex1"></button>
+        <button id="closeSearch" onclick='$("#mainPageContent").css("marginTop", "-25px")' type="button" class="btn-close customCloseIconBanner p-0 position-absolute l-0 hidden zIndex1"></button>
         <div id="container-search" class="search-container p-2 hidden">
         <form action="#" class="search-form">
           <input min="3" id="searchInput" type="text" class="form-control search-field marginLeft48 searchInput" placeholder="جستجو کنید..">

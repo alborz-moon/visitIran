@@ -226,12 +226,14 @@
                     </div>
                         <div class="page-header--top-left">
                             <ul class="nav nav-light justify-content-end">
-                                <li class="nav-item d-md-none d-lg-block">
-                                    <a class=" custom-nav-link colorWhite hoverBold1" href="{{ route('blog-list') }}">تازه‌ها</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class=" custom-nav-link colorWhite hoverBold1" href="https://hcshop.taci.ir/blog/12/%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87_%D9%85%D8%A7">درباره ما</a>
-                                </li>
+                                @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+                                    <li class="nav-item d-md-none d-lg-block">
+                                        <a class=" custom-nav-link colorWhite hoverBold1" href="{{ route('blog-list') }}">تازه‌ها</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class=" custom-nav-link colorWhite hoverBold1" href="https://hcshop.taci.ir/blog/12/%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87_%D9%85%D8%A7">درباره ما</a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -298,11 +300,11 @@
                         
                         @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                             <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop">
-                                <img src="{{ asset('theme-assets/images/menuImage2.svg') }}" width="80" alt="">
+                                <img class="headerImgMT15" src="{{ asset('theme-assets/images/menuImage2.svg') }}" width="80" alt="">
                             </div>
                         @else
-                            <div class="logo-container logo-boxEvent me-3 positionAbsolute logoImgFromTop">
-                                <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="80" alt="">
+                            <div class="logo-container logo-boxEvent me-3 positionAbsolute logoImgFromTop backColorWhite">
+                                <img class="headerImgMT15" src="{{ asset('theme-assets/images/menuImage.png') }}" width="80" alt="">
                             </div>
                         @endif
 
@@ -562,7 +564,7 @@
               });
               const popover = new bootstrap.Popover('.example-popover', {
                   container: 'body'
-                })
+                });
             
             
     </script>   

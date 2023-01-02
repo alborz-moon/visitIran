@@ -375,7 +375,7 @@
                                     </div>
                                     <!-- end of tab-pane -->
                                     <!-- start of tab-pane -->
-                                    <div class="tab-pane fade" id="most-popular" role="tabpanel"
+                                    {{-- <div class="tab-pane fade" id="most-popular" role="tabpanel"
                                         aria-labelledby="most-popular-tab">
                                         <div class="ui-box pt-3 pb-0 px-0 mb-4">
                                             <div class="ui-box-content">
@@ -451,7 +451,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <!-- end of tab-pane -->
                                 </div>
                             </div>

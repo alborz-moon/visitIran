@@ -831,7 +831,9 @@ table thead {
 .search-mobile-toggle {
     right: 0;
 }
-
+.page-header-responsive-row {
+    height: 50px;
+}
 .transformTranslateCenter {
     top: 50%;
     left: 50%;
@@ -1827,12 +1829,15 @@ figure .ck-widget > img .mCS_img_loaded {
 }
 @media (min-width: 768px) {
     .mt-md-110 {
-        margin-top: 110px;
+        margin-top: 62px;
     }
 }
 @media (max-width: 768px) {
+    .headerImgMT15 {
+        margin-top: 15px;
+    }
     .mt-md-110 {
-        margin-top: 0px;
+        margin-top: -48px;
     }
     .TopParentBannerMoveOnTop {
         margin-top: 0;
@@ -2123,7 +2128,7 @@ figure .ck-widget > img .mCS_img_loaded {
         top: -20px;
     }
     .marginFromRightHeader {
-        margin-right: 95px;
+        margin-right: 105px;
     }
     .logo-container.logo-box {
         min-width: 95px !important;
