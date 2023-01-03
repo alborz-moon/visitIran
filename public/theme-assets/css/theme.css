@@ -302,7 +302,7 @@ body {
 }
 
 .ui-box {
-    background-color: #f8f8f8;
+    background-color: #eaeaea;
     border: 1px solid #eee;
     border-radius: 18px;
     padding: 0px 35px;
@@ -2818,7 +2818,7 @@ body.loaded .product-card .product-thumbnail a::before {
     position: absolute;
     right: 0;
     left: 0;
-    background-color: #f8f8f8;
+    background-color: #eaeaea;
     border: 1px solid #eee;
     border-radius: 15px;
     -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);

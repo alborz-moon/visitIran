@@ -7,9 +7,7 @@
 
     <script src="{{asset('theme-assets/dropzone/dropzone.js?v=1.2')}}"></script>
     <link rel="stylesheet" href="{{asset("theme-assets/dropzone/dropzone.css")}}">
-    <script>
-        var myPreventionFlag = false;
-    </script>
+    
 @stop
 
 @section('content')
@@ -199,8 +197,6 @@
     @parent
     <script>
 
-        let updateLauncherURL = "{{ route('launcher.update',['launcher' => $formId])  }}";
-        let csrf_field = '{{csrf_field()}}';
         let total = 0;
 
         $(document).ready(function() {

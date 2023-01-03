@@ -33,7 +33,7 @@ Route::prefix('event/{event}')->group(function() {
 
     Route::post('set_main_img', [EventController::class, 'set_main_img'])->name('event.set_main_img');
     
-    Route::post('get_main_img', [EventController::class, 'get_main_img'])->name('event.get_main_img');
+    Route::get('get_main_img', [EventController::class, 'get_main_img'])->name('event.get_main_img');
 
     Route::post('/', [EventController::class, 'update'])->name('event.update');
     

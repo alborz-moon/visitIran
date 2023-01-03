@@ -3,9 +3,15 @@
 @section('header')
 
     @parent
+    
+    <script src="{{URL::asset("theme-assets/js/moment.js")}}"></script>
+
+    <link rel="stylesheet" href="{{URL::asset('theme-assets/css/bootstrap-material-datetimepicker.css')}}">
+    <script src="{{URL::asset("theme-assets/js/bootstrap-material-datetimepicker.js")}}"></script>
 
     <link rel="stylesheet" href="{{URL::asset('theme-assets/bootstrap-datepicker.css?v=1')}}">
-    <script src="{{URL::asset("theme-assets//bootstrap-datepicker.js")}}"></script>
+    <script src="{{URL::asset("theme-assets/bootstrap-datepicker.js")}}"></script>
+    
 @stop
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
@@ -59,7 +65,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-end">
-                                        <button id="addedItem" class="btn btn-sm btn-primary px-3">افزودن</button>
+                                        <button data-remodal-target="addtoTable" class="btn btn-sm btn-primary px-3">افزودن</button>
                                     </div>
                                 </div>
                             </div>
@@ -86,17 +92,54 @@
                             </div>
                         </div>
                         <div class="spaceBetween mb-2">
-                            <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
-                            <button onclick="window.location.href = '{{ route('addPhase2Info', ['event' => $id]) }}';" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
-                        </div> 
-                        <div class="d-flex justify-content-end">
-                            <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>
+                            <a href="{{route('addPhase2Info', ['event' => $id])}}" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</a>
+                            @if(isset($id))
+                                <button data-remodal-target="modalAreYouSure" class="btn btn-sm btn-primary px-5">اعمال تغییرات</button>
+                            @else
+                                <a href="{{route('addPhase2Info', ['event' => $id])}}" class="btn btn-sm btn-primary px-5 nextBtn">ثبت اطلاعات</a>
+                            @endif
                         </div>
+                        @if(isset($id))
+                            <div class="d-flex justify-content-end">
+                                <a href="{{route('addPhase2Info', ['event' => $id])}}" class="colorBlue fontSize14 ml-33">مشاهده مرحله بعد</a>
+                            </div>
+                        @endif
                     </div>
             </div>
         </div>
-    </main>
-    <!-- start of personal-info-fullname-modal -->
+        <div class="remodal remodal-xl" data-remodal-id="modalAreYouSure"
+            data-remodal-options="hashTracking: false">
+            <div class="remodal-header">
+                <div class="remodal-title">آیا مطمئن هستید؟</div>
+                <button data-remodal-action="close" class="remodal-close"></button>
+            </div>
+            <div class="remodal-content">
+                <div class="form-element-row mb-3 fontSize14">
+                    با ثبت تغییرات اطلاعات شما دوباره برای بازبینی ارسال می گردد و رویداد تا زمان اعمال تغییرات نمایش داده نمی شود. آیا مطمئن هستید؟
+                </div>
+            </div>
+            <div class="remodal-footer">
+                <button data-remodal-action="close" class="btn btn-sm px-3">انصراف</button>
+                <a target="_blank" href="{{route('addPhase2Info', ['event' => $id])}}" class="btn btn-sm btn-primary px-3">بله</a>
+            </div>
+        </div>
+        <div class="remodal remodal-xl" data-remodal-id="addtoTable"
+            data-remodal-options="hashTracking: false">
+            <div class="remodal-header">
+                <div class="remodal-title">آیا مطمئن هستید؟</div>
+                <button data-remodal-action="close" class="remodal-close"></button>
+            </div>
+            <div class="remodal-content">
+                <div class="form-element-row mb-3 fontSize14">
+                    با ثبت تغییرات اطلاعات شما دوباره برای بازبینی ارسال می گردد و رویداد تا زمان اعمال تغییرات نمایش داده نمی شود. آیا مطمئن هستید؟
+                </div>
+            </div>
+            <div class="remodal-footer">
+                <button data-remodal-action="close" class="btn btn-sm px-3">انصراف</button>
+                <button id="addedItem" data-remodal-action="close" class="btn btn-sm btn-primary px-3">بله</button>
+            </div>
+        </div>
+        <!-- start of personal-info-fullname-modal -->
             <div class="remodal remodal-xs" data-remodal-id="time-and-date-start-modal"
                 data-remodal-options="hashTracking: false">
                 <div class="remodal-header">
@@ -111,17 +154,17 @@
                             <input id="date_input_start" class="tripDateInput w-100 form-control directionLtr backColorWhite" placeholder="13xx/xx/xx" required readonly type="text">
                         </label>
                     </div>
-                    <div class="form-element-row">
+                    <div class="form-element-row label-floating is-empty">
                         <label class="label fs-7">زمان شروع</label>
-                        <input id="time_input_start" type="time" data-clear-btn="true" class="form-control" placeholder="؟؟:؟؟">
+                        <input id="time_input_start" data-dtp="dtp_dKXUf" type="text" data-clear-btn="true" class="form-control" placeholder="؟؟:؟؟">
                     </div>
                 </div>
                 <div class="remodal-footer">
                     <button id="startSessionBtn" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
                 </div>
             </div>
-        <!-- end of personal-info-fullname-modal -->
-        <!-- start of personal-info-fullname-modal -->
+        <!-- end-modal -->
+        <!-- start-modal -->
             <div class="remodal remodal-xs" data-remodal-id="time-and-date-stop-modal"
                 data-remodal-options="hashTracking: false">
                 <div class="remodal-header">
@@ -138,15 +181,15 @@
                     </div>
                     <div class="form-element-row">
                         <label class="label fs-7">زمان پایان</label>
-                        <input id="time_input_stop" type="time" class="form-control" placeholder="؟؟:؟؟">
+                        <input id="time_input_stop" type="text" class="form-control" placeholder="؟؟:؟؟">
                     </div>
                 </div>
                 <div class="remodal-footer">
                     <button id="stopSessionBtn" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
                 </div>
             </div>
-        <!-- end of personal-info-fullname-modal -->
-
+        <!-- end-modal -->
+    </main>
 @stop
 
 @section('footer')
@@ -161,9 +204,12 @@
     var timeStop = '';
     var dateStop = '';
     let idx = 0;
+    
     var arrDateTime = [];
     $(document).ready(function() {
-
+        $('#time_input_start').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
+        $('#time_input_stop').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
+        
         var datePickerOptions = {
             numberOfMonths: 1,
             showButtonPanel: true,
@@ -176,20 +222,30 @@
         $(document).on('click', "#startSessionBtn", function () {
             timeStart =$('#time_input_start').val();
             dateStart = $('#date_input_start').val();
+            if (timeStart.length == 0 || dateStart.length == 0){
+                showErr("تاریخ شروع و زمان شروع را وارد کنید");
+                return;
+            }else{
                 $('#setDateStart').val(timeStart + ' ' + dateStart);                
                 $(".remodal-close").click();
+            }
         });
         $(document).on('click', "#stopSessionBtn", function () {
             timeStop = $('#time_input_stop').val();
             dateStop = $('#date_input_stop').val();
+            if (timeStop.length == 0 || dateStop.length == 0){
+                showErr("تاریخ پایان و زمان پایان را وارد کنید");
+                return;
+            }else{
                 $('#setDateStop').val(timeStop + ' ' + dateStop);
                 $(".remodal-close").click();               
+            }
         });
     });
 
     $("#addedItem").on('click', function () {
         if (timeStart == '' || dateStart == '' || timeStop == '' || dateStop == '') {
-            showErr('sd');
+            showErr('تاریخ و زمان شروع و پایان را اضافه کنید.');
             return;
         }
 

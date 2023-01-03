@@ -1,18 +1,14 @@
 @extends('layouts.structure')
 @section('header')
     @parent
-    <link rel="stylesheet" href="{{asset('theme-assets/bootstrap-datepicker.css?v=1')}}">
-    <script src="{{asset("theme-assets//bootstrap-datepicker.js")}}"></script>
-
     <script src="{{asset('theme-assets/dropzone/dropzone.js?v=1.2')}}"></script>
     <link rel="stylesheet" href="{{asset("theme-assets/dropzone/dropzone.css")}}">
-    <script>
-        var myPreventionFlag = false;
-    </script>
+    <script src="{{asset('theme-assets/js/Utilities.js')}}"></script>
 @stop
 
 @section('content')
     <main class="page-content TopParentBannerMoveOnTop">
+        <div class="dark hidden"></div>
         <div class="container">
             <div class="row mb-5">
                 <?php $isEditor = Auth::user()->isEditor(); ?>
@@ -43,34 +39,13 @@
                             <div class="ui-box-content">
                                 <div class="row">
                                     <div class="col-lg-12 mb-3">
-                                            <div id="mainPicEvent" class="boxGallery gap10">
-
-                                            </div>
-                                            @include('event.launcher.dropZone', [
-                                                'label' => 'عکس اصلی رویداد',
-                                                'key' => 'img_file',
-                                                'camelKey' => 'imgFile',
-                                                'maxFiles' => 1,
-                                                'route' => route('event.set_main_img',['event' => $id]),
-                                            ]);
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ui-box bg-white mb-5 boxShadow">
-                            <div class="ui-box-title">توضیحات</div>
-                            <div class="ui-box-content">
-                                <div class="row">
-                                    <div class="col-lg-12 mb-3">
-                                        <div class="py-2">
-                                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <textarea data-editable="true" id="description" type="text" class="form-control" style="direction: rtl" placeholder="توضیحات"></textarea>
-                                                <button data-input-id="description" class="toggle-editable-btn btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        @include('event.launcher.dropZone', [
+                                            'label' => 'عکس اصلی رویداد',
+                                            'key' => 'main_img',
+                                            'camelKey' => 'mainImg',
+                                            'maxFiles' => 1,
+                                            'route' => route('event.set_main_img',['event' => $id]),
+                                        ])
                                     </div>
                                 </div>
                             </div>
@@ -98,6 +73,23 @@
                                     </div>
                                 </div>
                         </div>
+                        <div class="ui-box bg-white mb-5 boxShadow">
+                            <div class="ui-box-title">توضیحات</div>
+                            <div class="ui-box-content">
+                                <div class="row">
+                                    <div class="col-lg-12 mb-3">
+                                        <div class="py-2">
+                                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                                <textarea data-editable="true" id="description" type="text" class="form-control" style="direction: rtl" placeholder="توضیحات"></textarea>
+                                                <button data-input-id="description" class="toggle-editable-btn btn btn-circle btn-outline-light">
+                                                    <i class="ri-ball-pen-fill"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="spaceBetween mb-2">
                             <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
                             <button id="nextBtn" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
@@ -106,6 +98,39 @@
                             <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>
                         </div>
                     </div>
+            </div>
+        </div>
+        <div class="remodal remodal-xl" data-remodal-id="mainImgShow"
+            data-remodal-options="hashTracking: false">
+            <div class="remodal-header">
+                <div class="remodal-title">مشاهده عکس</div>
+                <button data-remodal-action="close" class="remodal-close"></button>
+            </div>
+            <div class="remodal-content">
+                <div class="form-element-row mb-3">
+                    <div id="mainImgModal">
+                    </div>
+                </div>
+            </div>
+            <div class="remodal-footer">
+                <button data-remodal-action="close" class="btn btn-sm btn-primary px-3">بستن</button>
+            </div>
+        </div>
+        <div class="remodal remodal-xl" data-remodal-id="mainGallery"
+            data-remodal-options="hashTracking: false">
+            <div class="remodal-header">
+                <div class="remodal-title">مشاهده عکس</div>
+                <button data-remodal-action="close" class="remodal-close"></button>
+            </div>
+            <div class="remodal-content">
+                <div class="form-element-row mb-3">
+                    <div>
+                        <img id="mainGalleryModal" class="w-100 h-100 objectFitCover" src="" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="remodal-footer">
+                <button data-remodal-action="close" class="btn btn-sm btn-primary px-3">بستن</button>
             </div>
         </div>
     </main>
@@ -118,7 +143,7 @@
 @section('extraJS')
     @parent
     <script>
-    
+        
         let uploadedFiles = [];
         let total = 0;
 
@@ -135,44 +160,13 @@
                 done();
             },
             init: function () {
-                this.on('completemultiple', function () {
-                    
-                });
-                this.on("queuecomplete", function (file) {
-                    // if(myPreventionFlag)
-                    //     $("#dropZoneErr").removeClass('hidden');
-                    // else
-                    //     location.reload();
-                });
-                this.on("complete", function (file) {
-                    // myDropzone.on("complete", function(file) {
-                    //   myDropzone.removeFile(file);
-                    // });
-                    // if(myPreventionFlag)
-                    //     $("#dropZoneErr").removeClass('hidden');
-                    // else
-                    //     location.reload();
-                });
                 this.on("success", function (file, res, e) {
                     uploadedFiles.push({
                         name: file.name,
                         id: res.id
                     });
-                    
                     $(".dz-message").removeClass('block');
                     showSuccess('فایل شما با موفقیت آپلود شد');
-                });
-                this.on("canceled", function (file) {
-                    // if(myPreventionFlag)
-                    //     $("#dropZoneErr").removeClass('hidden');
-                    // else
-                    //     location.reload();
-                });
-                this.on("error", function (file) {
-                    // if(myPreventionFlag)
-                    //     $("#dropZoneErr").removeClass('hidden');
-                    // else
-                    //     location.reload();
                 });
             }
         }
@@ -180,6 +174,12 @@
             $('textarea').attr("data-editable", "true");
             $('.toggle-editable-btn').addClass('hidden');
         });
+        function sendimg(img){
+            console.log('====================================');
+            console.log(img);
+            console.log('====================================');
+            $("#mainGalleryModal").attr('src', img);
+        }
         $.ajax({
             type: 'get',
             url: '{{route('event.galleries.index',['event' => $id])}}',
@@ -191,7 +191,7 @@
                     if(res.data.length != 0) {
                         total = res.data.length;
                         for(i = 0; i < res.data.length; i ++ ){
-                            gallery += '<div id="gallery_' + res.data[i].id + '" class="certificationsImg">';
+                            gallery += '<div onclick="sendimg(\'' + res.data[i].img + '\')" data-remodal-target="mainGallery" id="gallery_' + res.data[i].id + '" class="certificationsImg">';
                             gallery += '<img class="w-100 h-100" src="' + res.data[i].img + '" alt="">';
                             gallery += '<i data-id=' + res.data[i].id + ' class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
                             gallery += '</div>';
@@ -210,15 +210,17 @@
             success: function(res) {
                 var mainProfileEvent = "";
                 if(res.status === "ok") {
+
                     if (res.img.length != 0){
-                        console.log('====================================');
-                        console.log(res.img);
-                        console.log('====================================');
-                        mainProfileEvent += '<div class="">';
-                        mainProfileEvent += '<img class="w-100 h-100" src="' + res.img + '" alt="">';
-                        mainProfileEvent += '<i class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
-                        mainProfileEvent += '</div>';
-                        $("#mainPicEvent").empty().append(mainProfileEvent);
+                        let html = '<div data-remodal-target="mainImgShow" class="square cursorPointer position-relative certificationsImg">';
+                        html += '<img class="w-100 h-100 objectfitCover" src="' + res.img + '">';
+                        html += '</div>';
+                        $("#drop_zone_container_main_img").addClass('hidden');
+                        $("#gallery_container_main_img").append(html);
+                        $("#edit_btn_main_img").removeClass('hidden');
+                        $('#mainImgModal').empty().append('<img class="w-100 h-100 objectFitCover" src="' + res.img + '" alt="">')
+                    }else {
+                        $("#gallery_container_main_img").remove();
                     }
                 }
             }
@@ -244,6 +246,7 @@
                         parentElem.remove();
                         if(uploadedFiles.length === 0)
                             $(".dz-message").addClass('block');
+                        
                         showSuccess('فایل موردنظر با موفقیت حدف گردید.');
                     }
                 }
@@ -262,8 +265,10 @@
                     if(res.status === 'ok') {
                         $("#gallery_" + id).remove();
                         showSuccess('فایل موردنظر با موفقیت حدف گردید.');
+
                         console.log(uploadedFiles.length);
                         total--;
+
                         if(total === 0)
                             $("#certifications").remove();
                     }
@@ -286,19 +291,12 @@
             }
         });
     });
-
-    
     $.ajax({
         type: 'get',
         url: '{{route('event.get_desc',['event' => $id])}}',
         success: function(res) {
             if(res.status === "ok") {
-                $('#description').val(res.data)
-                    $("input").each(function() {
-                        if ($(this).attr('data-editable') != 'true' ){
-                            $(this).attr('disabled', 'disabled');
-                        }
-                    });
+                $('#description').val(res.data);
                     $("textarea").each(function() {
                         if ($(this).attr('data-editable') != 'true' ){
                             $(this).attr('disabled', 'disabled');

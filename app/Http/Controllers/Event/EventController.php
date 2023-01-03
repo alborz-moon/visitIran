@@ -389,7 +389,7 @@ class EventController extends EventHelper
         Gate::authorize('update', $event);
 
         $validator = [
-            'img_file' => 'required|image'
+            'main_img' => 'required|image'
         ];
         
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
@@ -398,7 +398,7 @@ class EventController extends EventHelper
         $request->validate($validator);
         
         
-        $filename = $request->img_file->store('public/events');
+        $filename = $request->main_img->store('public/events');
         $filename = str_replace('public/events/', '', $filename);   
             
         if($event->img != null && !empty($event->img) && 
@@ -413,7 +413,7 @@ class EventController extends EventHelper
 
     public function get_main_img(Event $event, Request $request)
     {           
-        return response()->json(['status' => 'ok', 'img' => $event->img != null ? asset('storage/event/' . $event->img) : '']);
+        return response()->json(['status' => 'ok', 'img' => $event->img != null ? asset('storage/events/' . $event->img) : '']);
     }
 
 

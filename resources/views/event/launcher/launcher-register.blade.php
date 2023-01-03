@@ -351,7 +351,7 @@
                         <button id="submit" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <a href="" class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</a>
+                        <button id="submit" class="btn btn-sm btn-primary px-5">مشاهده مرحله بعد</button>
                     </div>
                 </div>
         </div>
