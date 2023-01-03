@@ -315,10 +315,11 @@
                             $("#addTell").append(html);
                         }
                         $("input").each(function() {
-                            if ( $(this).attr('data-editable') != 'true' ){
+                            if ($(this).attr('data-editable') != 'true' ){
                                 $(this).attr('disabled', 'disabled');
                             }
                         });
+                        $("textarea").attr('disabled', 'disabled');
                         $(".toggle-editable-btn").on("click", function () {
                             let id = $(this).attr("data-input-id");
                             if ($("#" + id).attr("data-editable") == "false") {

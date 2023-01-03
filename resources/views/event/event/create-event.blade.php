@@ -321,12 +321,35 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                 </div>
                 <div class="spaceBetween mb-2">
                     <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
-                    <a id="nextBtn" class="btn btn-sm btn-primary px-5">مرحله بعد</a>
+                    @if(isset($id))
+                        <button data-remodal-target="modalAreYouSure" class="btn btn-sm btn-primary px-5">اعمال تغییرات</button>
+                    @else
+                        <button class="btn btn-sm btn-primary px-5 nextBtn">ثبت اطلاعات</button>
+                    @endif
+                    
                 </div>
-                <div class="d-flex justify-content-end">
-                    <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>
-                </div>
+                @if(isset($id))
+                    <div class="d-flex justify-content-end">
+                        <a href="{{route('addSessionsInfo', ['event' => $id])}}" class="colorBlue fontSize14 ml-33">مشاهده مرحله بعد</a>
+                    </div>
+                @endif
             </div>
+        </div>
+    </div>
+    <div class="remodal remodal-xl" data-remodal-id="modalAreYouSure"
+        data-remodal-options="hashTracking: false">
+        <div class="remodal-header">
+            <div class="remodal-title">آیا مطمئن هستید؟</div>
+            <button data-remodal-action="close" class="remodal-close"></button>
+        </div>
+        <div class="remodal-content">
+            <div class="form-element-row mb-3 fontSize14">
+                با ثبت تغییرات اطلاعات شما دوباره برای بازبینی ارسال می گردد و رویداد تا زمان اعمال تغییرات نمایش داده نمی شود. آیا مطمئن هستید؟
+            </div>
+        </div>
+        <div class="remodal-footer">
+            <button data-remodal-action="close" class="btn btn-sm px-3">انصراف</button>
+            <button data-remodal-action="close" class="btn btn-sm btn-primary px-3 nextBtn">بله</button>
         </div>
     </div>
 </main>
@@ -401,40 +424,6 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
     </div>
 </div>
 <!-- end of personal-info-birth-modal -->
-<!-- start of personal-info-fullname-modal -->
-<div class="remodal remodal-xs" data-remodal-id="personal-add-file-modal" data-remodal-options="hashTracking: false">
-    <div class="remodal-header">
-        <div class="remodal-title">انتخاب فایل</div>
-        <button data-remodal-action="close" class="remodal-close"></button>
-    </div>
-    <div class="remodal-content">
-        <div class="form-element-row mb-3">
-            <input onclick="" value="" type="text" class="form-control" disabled placeholder="انتخاب فایل">
-        </div>
-    </div>
-    <div class="remodal-footer">
-        <button onclick="window.location.href = '{{ route('addSessionsInfo') }}';"
-            class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
-    </div>
-</div>
-<!-- end of personal-info-fullname-modal -->
-<!-- start of personal-info-fullname-modal -->
-<div class="remodal remodal-xs" data-remodal-id="personal-compare-file-modal"
-    data-remodal-options="hashTracking: false">
-    <div class="remodal-header">
-        <div class="remodal-title">انتخاب فایل</div>
-        <button data-remodal-action="close" class="remodal-close"></button>
-    </div>
-    <div class="remodal-content">
-        <div class="form-element-row mb-3">
-            <input onclick="" value="" type="text" class="form-control" disabled placeholder="انتخاب فایل">
-        </div>
-    </div>
-    <div class="remodal-footer">
-        <button class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
-    </div>
-</div>
-<!-- end of personal-info-fullname-modal -->
 @stop
 
 @section('footer')
@@ -586,16 +575,7 @@ $.ajax({
                     .label + '</option>';
                 $("#topicEvent").empty().append(eventTag);
             }
-            $("input").each(function() {
-                if ($(this).attr('data-editable') != 'true' ){
-                    $(this).attr('disabled', 'disabled');
-                }
-            });
-            $("textarea").each(function() {
-                if ($(this).attr('data-editable') != 'true' ){
-                    $(this).attr('disabled', 'disabled');
-                }
-            });
+            
         }
     }
 });
@@ -626,7 +606,7 @@ $.ajax({
     }
 });
 
-$("#nextBtn").on('click', function() {
+$(".nextBtn").on('click', function() {
     var eventName = $('#eventName').val();
     var ageCondi = $('#ageCondi').val();
     var level = $('#level').val();
@@ -662,6 +642,9 @@ $("#nextBtn").on('click', function() {
         title: eventName,
         facilities_arr: selectedFacility,
         tags_arr: topicList.map((elem, index) => {
+            console.log('====================================');
+            console.log(topicList);
+            console.log('====================================');
             return elem.value;
         }),
         language_arr: langList.map((elem, index) => {
@@ -703,6 +686,7 @@ $("#nextBtn").on('click', function() {
             }
         }
     });
+
 });
 
 @if(isset($id))
@@ -747,7 +731,7 @@ function getPhase1Info() {
                         createMap();
                         getCities(res.data.state_id, res.data.city_id);
                     } else {
-
+                        $('#link').val(res.data.link);
                     }
 
                     var language = '';
@@ -766,7 +750,6 @@ function getPhase1Info() {
                                 value: elem.key
                             });
                         }
-
                         idx = res.data.language.length + 1;
                         $("#addLang").append(language);
                     }
@@ -788,7 +771,7 @@ function getPhase1Info() {
 
                             topicList.push({
                                 id: elem.id,
-                                value: elem.label
+                                value: elem.id
                             });
                         }
                         idxTopic = res.data.tags.length + 1;
@@ -806,6 +789,12 @@ function getPhase1Info() {
 
                         }
                     }
+                    $("input").each(function() {
+                        if ($(this).attr('data-editable') != 'true' ){
+                            $(this).attr('disabled', 'disabled');
+                        }
+                    });
+                    $("textarea").attr('disabled', 'disabled');
 
                 }
             }

@@ -513,6 +513,9 @@ ul {
     filter: grayscale(0.5);
     -webkit-filter: grayscale(0.5);
 } */
+.ml-33 {
+    margin-left: 33px;
+}
 .catDetails {
     text-align: center;
     padding: 10px;
