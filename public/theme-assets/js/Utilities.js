@@ -155,3 +155,15 @@ $(document).ready(function () {
         $("textarea").attr("disabled", "disabled");
     }
 });
+
+function getFormattedTime(time) {
+    let day = new Intl.DateTimeFormat("fa-IR", {
+        day: "numeric",
+    }).format(time);
+
+    let weekday = new Intl.DateTimeFormat("fa-IR", {
+        weekday: "short",
+    }).format(time);
+
+    return day + weekday;
+}

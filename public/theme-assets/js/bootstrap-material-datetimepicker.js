@@ -2,8 +2,6 @@
     var pluginName = "bootstrapMaterialDatePicker";
     var pluginDataName = "plugin_" + pluginName;
 
-    moment.locale("en");
-
     function Plugin(element, options) {
         this.currentView = 0;
 

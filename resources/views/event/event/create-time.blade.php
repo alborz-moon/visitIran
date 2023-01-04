@@ -5,13 +5,17 @@
     @parent
     
     <script src="{{URL::asset("theme-assets/js/moment.js")}}"></script>
+    <script src="{{URL::asset("theme-assets/js/moment-jalaali.js")}}"></script>
 
     <link rel="stylesheet" href="{{URL::asset('theme-assets/css/bootstrap-material-datetimepicker.css')}}">
     <script src="{{URL::asset("theme-assets/js/bootstrap-material-datetimepicker.js")}}"></script>
 
     <link rel="stylesheet" href="{{URL::asset('theme-assets/bootstrap-datepicker.css?v=1')}}">
     <script src="{{URL::asset("theme-assets/bootstrap-datepicker.js")}}"></script>
-    
+    {{-- <script>
+        moment.locale("fa"); 
+        moment().format('LLLL');
+    </script> --}}
 @stop
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">

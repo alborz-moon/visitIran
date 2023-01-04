@@ -3,6 +3,11 @@
 @section('header')
 
     @parent
+    <script src="{{URL::asset("theme-assets/js/moment.js")}}"></script>
+
+    <link rel="stylesheet" href="{{URL::asset('theme-assets/css/bootstrap-material-datetimepicker.css')}}">
+    <script src="{{URL::asset("theme-assets/js/bootstrap-material-datetimepicker.js")}}"></script>
+
 
     <link rel="stylesheet" href="{{URL::asset('theme-assets/bootstrap-datepicker.css?v=1')}}">
     <script src="{{URL::asset("theme-assets//bootstrap-datepicker.js")}}"></script>
@@ -42,7 +47,7 @@
                                         <div data-remodal-target="time-and-date-start-modal" class="fs-7 text-dark">تاریخ و ساعت شروع</div>
                                         <div class="py-2">
                                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="true" id="setDateStart" data-remodal-target="time-and-date-start-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت شروع">
+                                                <input data-editable="true" id="setDateStart" data-remodal-target="time-and-date-start-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت شروع" disabled>
                                                 <button data-input-id="setDateStart" data-remodal-target="time-and-date-start-modal" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i></button>
                                             </div>
@@ -52,7 +57,7 @@
                                         <div class="py-2">
                                             <div data-remodal-target="time-and-date-stop-modal" class="fs-7 text-dark">تاریخ و ساعت پایان</div>
                                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="true" id="setDateStop" data-remodal-target="time-and-date-stop-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت پایان">
+                                                <input data-editable="true" id="setDateStop" data-remodal-target="time-and-date-stop-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت پایان" disabled>
                                                 <button data-input-id="setDateStop" data-remodal-target="time-and-date-stop-modal" class="toggle-editable-btn btn btn-circle btn-outline-light"><i
                                                         class="ri-ball-pen-fill"></i></button>
                                             </div>
@@ -149,13 +154,35 @@
                             </div>
                         </div>
                         <div class="spaceBetween mb-2">
-                            <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
-                            <button id="submit" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
-                        </div> 
-                        <div class="d-flex justify-content-end">
-                            <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>
+                            <a href="" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</a>
+                            @if(isset($id))
+                                <button data-remodal-target="modalAreYouSure" class="btn btn-sm btn-primary px-5">اعمال تغییرات</button>
+                            @else
+                                <button class="btn btn-sm btn-primary px-5 nextBtn">ثبت اطلاعات</button>
+                            @endif
                         </div>
+                        @if(isset($id))
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ route('addGalleryToEvent', ['event' => $id]) }}" class="colorBlue fontSize14 ml-33">مشاهده مرحله بعد</a>
+                            </div>
+                        @endif
                     </div>
+            </div>
+        </div>
+        <div class="remodal remodal-xl" data-remodal-id="modalAreYouSure"
+            data-remodal-options="hashTracking: false">
+            <div class="remodal-header">
+                <div class="remodal-title">آیا مطمئن هستید؟</div>
+                <button data-remodal-action="close" class="remodal-close"></button>
+            </div>
+            <div class="remodal-content">
+                <div class="form-element-row mb-3 fontSize14">
+                    با ثبت تغییرات اطلاعات شما دوباره برای بازبینی ارسال می گردد و رویداد تا زمان اعمال تغییرات نمایش داده نمی شود. آیا مطمئن هستید؟
+                </div>
+            </div>
+            <div class="remodal-footer">
+                <button data-remodal-action="close" class="btn btn-sm px-3">انصراف</button>
+                <a target="_blank" class="btn btn-sm btn-primary px-3 nextBtn">بله</a>
             </div>
         </div>
     </main>
@@ -176,7 +203,7 @@
                     </div>
                     <div class="form-element-row">
                         <label class="label fs-7">زمان شروع</label>
-                        <input id="time_input_start" type="time" data-clear-btn="true" class="form-control" placeholder="؟؟:؟؟">
+                        <input id="time_start" type="text" data-clear-btn="true" class="form-control" placeholder="؟؟:؟؟">
                     </div>
                 </div>
                 <div class="remodal-footer">
@@ -201,7 +228,7 @@
                     </div>
                     <div class="form-element-row">
                         <label class="label fs-7">زمان پایان</label>
-                        <input id="time_input_stop" type="time" class="form-control" placeholder="؟؟:؟؟">
+                        <input id="time_stop" type="text" class="form-control" placeholder="؟؟:؟؟">
                     </div>
                 </div>
                 <div class="remodal-footer">
@@ -227,6 +254,8 @@
 
         $(document).ready(function(){
             
+            $('#time_start').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
+            $('#time_stop').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
 
             $('.toggle-editable-btn').addClass('hidden');
             var idx = 1;
@@ -261,21 +290,30 @@
                 }
             });
 
-            
+
             $(document).on('click', "#startSessionBtn", function () {
-                timeStart =$('#time_input_start').val();
+                timeStart =$('#time_start').val();
                 dateStart = $('#date_input_start').val();
-            
+                if (timeStart.length == 0 || dateStart.length == 0){
+                    showErr("تاریخ شروع و زمان شروع را وارد کنید");
+                    return;
+                }else{
                     $('#setDateStart').val(timeStart + ' ' + dateStart);                
                     $(".remodal-close").click();
+                }
             });
             $(document).on('click', "#stopSessionBtn", function () {
-                timeStop = $('#time_input_stop').val();
+                timeStop = $('#time_stop').val();
                 dateStop = $('#date_input_stop').val();
-    
+                if (timeStop.length == 0 || dateStop.length == 0){
+                    showErr("تاریخ پایان و زمان پایان را وارد کنید");
+                    return;
+                }else{
                     $('#setDateStop').val(timeStop + ' ' + dateStop);
                     $(".remodal-close").click();               
+                }            
             });
+            
             $.ajax({
                 type: 'get',
                 url: '{{ route('event.getPhase2Info',['event' => $id]) }}',
@@ -283,16 +321,34 @@
                  'accept': 'application/json'
                 },
                 success: function(res) {
-                        $('input').attr("data-editable", "false");
-                        $('.toggle-editable-btn').removeClass('hidden');
-                        $('#time_input_start').val(res.data.start_registry_time);
-                        $('#date_input_start').val(res.data.start_registry_date);
-                        $('#time_input_stop').val(res.data.end_registry_time);
-                        $('#date_input_stop').val(res.data.end_registry_date);
-                        if (res.start_registry_date != undefined && res.data.start_registry_date != undefined || res.data.end_registry_date != undefined && res.data.end_registry_date != undefined ){
-                            $('#setDateStart').val(res.data.start_registry_date + ' ' +  res.data.start_registry_date);
-                            $('#setDateStop').val(res.data.end_registry_date + ' ' +  res.data.end_registry_date);
+                        if (res.data.price != null){
+                            $('input').attr("data-editable", "false");
+                            $('.toggle-editable-btn').removeClass('hidden');
+                        }else{
+                            $('input').attr("data-editable", "true");
                         }
+                        if(res.data.start_registry_time.length > 0)
+                            $('#time_start').val(res.data.start_registry_time);
+                           
+                        if(res.data.start_registry_date.length > 0)
+                            $('#date_input_start').val(res.data.start_registry_date);
+                        
+                        if(res.data.start_registry_time.length > 0)
+                            $('#time_stop').val(res.data.end_registry_time);
+                           
+                        if(res.data.start_registry_date.length > 0)
+                            $('#date_input_stop').val(res.data.end_registry_date);
+
+                        if (res.start_registry_time != undefined && res.data.start_registry_date != undefined || res.data.end_registry_time != undefined && res.data.end_registry_date != undefined ){
+                            
+                            if(res.data.start_registry_date.length > 0 && res.data.start_registry_date.length > 0){
+                                $('#setDateStart').val(res.data.start_registry_time + ' ' +  res.data.start_registry_date);
+                            }
+                            if(res.data.end_registry_date.length > 0 && res.data.end_registry_time.length > 0){
+                                $('#setDateStop').val(res.data.end_registry_time + ' ' +  res.data.end_registry_date);
+                            }
+                        }
+
                         $('#desc').val(res.data.ticket_description);
                         $('#price').val(res.data.price);
                         $('#capacity').val(res.data.capacity);
@@ -334,9 +390,9 @@
             $("#setDateStart").attr("data-editable", "true").removeAttr("disabled");
             $("#setDateStop").attr("data-editable", "true").removeAttr("disabled");
             $("#date_input_start").attr("data-editable", "true").removeAttr("disabled");
-            $("#time_input_start").attr("data-editable", "true").removeAttr("disabled");
+            $("#time_start").attr("data-editable", "true").removeAttr("disabled");
             $("#date_input_stop").attr("data-editable", "true").removeAttr("disabled");
-            $("#time_input_stop").attr("data-editable", "true").removeAttr("disabled");                   
+            $("#time_stop").attr("data-editable", "true").removeAttr("disabled");                   
                         // $("textarea").attr('disabled', 'disabled');
                 }
             });
@@ -349,25 +405,49 @@
         $("#date_input_start").datepicker(datePickerOptions);
         $("#date_input_stop").datepicker(datePickerOptions);
         
-        $('#submit').on('click',function() {
+        $('.nextBtn').on('click',function() {
+            function checkInputs(required_list) {
+                let isValid = true;
+
+                required_list.forEach((elem) => {
+                    let tmpVal = $("#" + elem).val();
+                    if (tmpVal.length == 0) {
+                        $("#" + elem)
+                            .addClass("errEmpty")
+                            .removeClass("haveValue");
+                        isValid = false;
+                    } else if (tmpVal.length > 0) {
+                        $("#" + elem)
+                            .addClass("haveValue")
+                            .removeClass("errEmpty");
+                    }
+                });
+            
+                return isValid;
+            }
+            var required_list = ['price','setDateStart','setDateStop'];
+            var inputList = checkInputs(required_list);
+            if( !inputList ) {
+               return
+            }
             var desc = $('#desc').val();
             var price =$('#price').val();
             var capacity = $('#capacity').val();
             var site =$('#site').val();
             var email =$('#email').val();
             var date_input_start = $('#date_input_start').val();
-            var time_input_start = $('#time_input_start').val();
+            var time_start = $('#time_start').val();
             var date_input_stop = $('#date_input_stop').val();
-            var time_input_stop =$('#time_input_stop').val();
+            var time_stop =$('#time_stop').val();
 
             $.ajax({
                 type: 'post',
                 url: '{{ route('event.store_phase2',['event' => $id]) }}',
                 data: {
                     'start_registry_date': date_input_start,
-                    'start_registry_time': time_input_start,
+                    'start_registry_time': time_start,
                     'end_registry_date': date_input_stop,
-                    'end_registry_time': time_input_stop,
+                    'end_registry_time': time_stop,
                     'price': price,
                     'ticket_description' : desc,
                     'capacity': capacity,

@@ -138,8 +138,9 @@ ul {
 .myModal {
     position: fixed;
     z-index: 11;
-    top: 40%;
-    left: 20%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 60%;
     padding: 40px;
     background-color: white;
@@ -198,7 +199,25 @@ ul {
     font-weight: 600;
     margin-bottom: 10px;
 }
-.objectfitCover {
+.selectFocus {
+    background-color: red;
+    color: red;
+}
+.ui-datepicker-today .ui-state-default {
+    background: #019cba !important;
+    color: #ffff !important;
+}
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+    background-color: #c59358 !important;
+    color: #ffff !important;
+}
+.selectFocus:focus {
+    background-color: rgb(0, 255, 85);
+    color: rgb(0, 26, 255);
+}
+.objectFitCover {
     object-fit: cover;
 }
 .logoImgFromTop {
@@ -420,12 +439,14 @@ ul {
     flex-wrap: wrap;
     border: 1px solid #efefef;
     padding: 15px;
+    gap: 15px;
 }
 .imgSizeEvent {
     max-width: 990px !important;
     max-height: 600px !important;
 }
 .square {
+    object-fit: cover;
     width: 96px;
     height: 96px;
     background-size: contain;
@@ -993,6 +1014,9 @@ table thead {
     top: 5px;
     z-index: 1000000000;
     cursor: pointer;
+}
+.product-card .product-price {
+    height: 50px;
 }
 .btnRemoveDropzone::before :hover {
     cursor: pointer;
@@ -2014,8 +2038,6 @@ figure .ck-widget > img .mCS_img_loaded {
     }
     .myModal {
         width: 100%;
-        top: 50%;
-        left: 0%;
     }
 }
 @media (max-width: 992px) {

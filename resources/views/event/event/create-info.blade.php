@@ -3,7 +3,7 @@
     @parent
     <script src="{{asset('theme-assets/dropzone/dropzone.js?v=1.2')}}"></script>
     <link rel="stylesheet" href="{{asset("theme-assets/dropzone/dropzone.css")}}">
-    <script src="{{asset('theme-assets/js/Utilities.js')}}"></script>
+    {{-- <script src="{{asset('theme-assets/js/Utilities.js')}}"></script> --}}
 @stop
 
 @section('content')
@@ -40,6 +40,7 @@
                                 <div class="row">
                                     <div class="col-lg-12 mb-3">
                                         @include('event.launcher.dropZone', [
+                                            'col' => 'col-12', 
                                             'label' => 'عکس اصلی رویداد',
                                             'key' => 'main_img',
                                             'camelKey' => 'mainImg',
@@ -55,7 +56,7 @@
                                 <div class="col-lg-12 mb-3 zIndex0">
                                         
                                     <div id="certifications" class="boxGallery gap10">
-                                        <div class="certificationsImg">
+                                        <div class="square">
                                         </div>
                                     </div>
 
@@ -91,12 +92,18 @@
                             </div>
                         </div>
                         <div class="spaceBetween mb-2">
-                            <button class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</button>
-                            <button id="nextBtn" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
-                        </div> 
-                        <div class="d-flex justify-content-end">
-                            <p class="colorBlue fontSize14">ذخیره و ادامه در زمانی دیگر</p>
+                            <a href="" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</a>
+                            @if(isset($id))
+                                <button data-remodal-target="modalAreYouSure" class="btn btn-sm btn-primary px-5">ارسال برای بازبینی</button>
+                            @else
+                                <button class="btn btn-sm btn-primary px-5 nextBtn">ارسال برای بازبینی</button>
+                            @endif
                         </div>
+                        {{-- @if(isset($id))
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ route('show-events') }}" class="colorBlue fontSize14 ml-33">مشاهده مرحله بعد</a>
+                            </div>
+                        @endif --}}
                     </div>
             </div>
         </div>
@@ -131,6 +138,22 @@
             </div>
             <div class="remodal-footer">
                 <button data-remodal-action="close" class="btn btn-sm btn-primary px-3">بستن</button>
+            </div>
+        </div>
+        <div class="remodal remodal-xl" data-remodal-id="modalAreYouSure"
+            data-remodal-options="hashTracking: false">
+            <div class="remodal-header">
+                <div class="remodal-title">آیا مطمئن هستید؟</div>
+                <button data-remodal-action="close" class="remodal-close"></button>
+            </div>
+            <div class="remodal-content">
+                <div class="form-element-row mb-3 fontSize14">
+                    با ثبت تغییرات اطلاعات شما دوباره برای بازبینی ارسال می گردد و رویداد تا زمان اعمال تغییرات نمایش داده نمی شود. آیا مطمئن هستید؟
+                </div>
+            </div>
+            <div class="remodal-footer">
+                <button data-remodal-action="close" class="btn btn-sm px-3">انصراف</button>
+                <button class="btn btn-sm btn-primary px-3 nextBtn">بله</button>
             </div>
         </div>
     </main>
@@ -173,11 +196,17 @@
         $(document).ready(function(){
             $('textarea').attr("data-editable", "true");
             $('.toggle-editable-btn').addClass('hidden');
+            $(".toggle-editable-btn").on("click", function () {
+                if ($('textarea').attr("data-editable") == "false") {
+                    $('textarea').attr("data-editable", "true");
+                    $('textarea').removeAttr("disabled");
+                } else {
+                    $('textarea').attr("data-editable", "false");
+                    $('textarea').attr("disabled", "disabled");
+                }
+            });
         });
         function sendimg(img){
-            console.log('====================================');
-            console.log(img);
-            console.log('====================================');
             $("#mainGalleryModal").attr('src', img);
         }
         $.ajax({
@@ -187,12 +216,11 @@
                 var gallery = "";
                 if(res.status === "ok") {
                     $('textarea').attr("data-editable", "false");
-                    $('.toggle-editable-btn').removeClass('hidden');
                     if(res.data.length != 0) {
                         total = res.data.length;
                         for(i = 0; i < res.data.length; i ++ ){
-                            gallery += '<div onclick="sendimg(\'' + res.data[i].img + '\')" data-remodal-target="mainGallery" id="gallery_' + res.data[i].id + '" class="certificationsImg">';
-                            gallery += '<img class="w-100 h-100" src="' + res.data[i].img + '" alt="">';
+                            gallery += '<div onclick="sendimg(\'' + res.data[i].img + '\')" data-remodal-target="mainGallery" id="gallery_' + res.data[i].id + '" class="square cursorPointer">';
+                            gallery += '<img class="w-100 h-100 objectFitCover" src="' + res.data[i].img + '" alt="">';
                             gallery += '<i data-id=' + res.data[i].id + ' class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
                             gallery += '</div>';
                         }
@@ -210,10 +238,9 @@
             success: function(res) {
                 var mainProfileEvent = "";
                 if(res.status === "ok") {
-
                     if (res.img.length != 0){
-                        let html = '<div data-remodal-target="mainImgShow" class="square cursorPointer position-relative certificationsImg">';
-                        html += '<img class="w-100 h-100 objectfitCover" src="' + res.img + '">';
+                        let html = '<div data-remodal-target="mainImgShow" class="square cursorPointer position-relative square">';
+                        html += '<img class="w-100 h-100 objectFitCover" src="' + res.img + '">';
                         html += '</div>';
                         $("#drop_zone_container_main_img").addClass('hidden');
                         $("#gallery_container_main_img").append(html);
@@ -276,8 +303,36 @@
             });
         });
 
-    $("#nextBtn").on('click', function () {
-        var description = $('#description').val()
+    $(".nextBtn").on('click', function () {
+        function checkInputs(required_list) {
+            let isValid = true;
+
+            required_list.forEach((elem) => {
+                let tmpVal = $("#" + elem).val();
+                if (tmpVal.length == 0) {
+                    $("#" + elem)
+                        .addClass("errEmpty")
+                        .removeClass("haveValue");
+                    isValid = false;
+                } else if (tmpVal.length > 0) {
+                    $("#" + elem)
+                        .addClass("haveValue")
+                        .removeClass("errEmpty");
+                }
+            });
+            return isValid;
+        }
+        var description = $('#description').val();
+        if (description.length == 0){
+            var required_list = ['description'];
+            var inputList = checkInputs(required_list);
+            if( !inputList ) {
+               return
+            }
+            showErr("فیلد توضیحات را پر کنید.");
+            return;
+        }
+
         $.ajax({
             type: 'post',
             url: '{{route('event.store_desc',['event' => $id])}}',
@@ -296,12 +351,21 @@
         url: '{{route('event.get_desc',['event' => $id])}}',
         success: function(res) {
             if(res.status === "ok") {
-                $('#description').val(res.data);
+                if (res.data.length != 0){
                     $("textarea").each(function() {
                         if ($(this).attr('data-editable') != 'true' ){
                             $(this).attr('disabled', 'disabled');
+                            $(this).attr('data-editable', 'false');
+                            $('.toggle-editable-btn').removeClass('hidden');
                         }
                     });
+                }else{
+                    if ($(this).attr('data-editable') != 'false' ){
+                            $(this).removeAttr('disabled', 'disabled');
+                            $(this).attr('data-editable', 'true');
+                        }
+                }
+                $('#description').val(res.data);    
             }
         }
     });

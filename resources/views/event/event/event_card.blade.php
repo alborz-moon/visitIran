@@ -1,7 +1,7 @@
 <div class="product-card customEventBorderBox">
     <div class="product-thumbnail mx-n15">
         <a>
-            <img style="width: 300px;height: 180px;max-width: 300px !important;" id="{{ $key }}Img">
+            <img class="objectFitCover" style="width: 300px;height: 180px;max-width: 300px !important;" id="{{ $key }}Img">
         </a>
     </div>
     <div class="product-card-body">

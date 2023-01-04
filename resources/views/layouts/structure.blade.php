@@ -89,8 +89,8 @@
                         </div>
                         <div class="user-options heightHeader customFilterGray">
                             <div class="user-option user-option--search customBorderLeft1" data-remodal-target="search-modal">
-                                <button class="user-option-btn user-option-btn--search gap10 b-0" data-remodal-target="search-modal">
-                                    <i class="icon-visit-search customHeader textColor" data-remodal-target="search-modal"></i>
+                                <button class="user-option-btn user-option-btn--search gap10 b-0 btnHover" data-remodal-target="search-modal">
+                                    <i class="icon-visit-search customHeader textColor btnHover" data-remodal-target="search-modal"></i>
                                 </button>
                             </div>
                             @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
@@ -523,6 +523,12 @@
             iziToast.show(s);
         }
         $(document).ready(function() {
+                $(document).on('select2:open', (e) => {
+                        const selectId = e.target.id;
+                        $(".select2-search__field[aria-controls='select2-"+selectId+"-results']").each(function (key,value,){
+                            value.focus();
+                        });
+                });
                     $('#close').on('click', function() {
                         $('#SliderParent').addClass('marginTopMediaQuaryForSlider');
                         $('.TopParentBannerMoveOnTop').addClass('marginTopMediaQuaryForSlider');
@@ -565,9 +571,7 @@
               });
               const popover = new bootstrap.Popover('.example-popover', {
                   container: 'body'
-                });
-            
-            
+              });            
     </script>   
     @section('extraJS')
     @show
