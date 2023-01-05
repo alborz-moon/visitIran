@@ -206,7 +206,7 @@ function renderEvents(data, prefix) {
             id +
             "', '" +
             elem.slug +
-            '\')" class="cursorPointer">' +
+            '\')" class="cursorPointer eventHandleInMedia">' +
             newElem +
             "</div>";
     });

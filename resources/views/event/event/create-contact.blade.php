@@ -253,7 +253,7 @@
     var tels = [];
 
         $(document).ready(function(){
-            
+
             $('#time_start').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
             $('#time_stop').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
 
@@ -400,7 +400,7 @@
         var datePickerOptions = {
             numberOfMonths: 1,
             showButtonPanel: true,
-            dateFormat: "yy/mm/dd"
+            dateFormat: "DD d M سال yy"
         };
         $("#date_input_start").datepicker(datePickerOptions);
         $("#date_input_stop").datepicker(datePickerOptions);
@@ -467,7 +467,9 @@
                 }
             });
         });
-
+            $(document).ready(function () {
+                $("ssssssssss").addClass("hidden");
+            });
 
 
         

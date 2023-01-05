@@ -44,6 +44,7 @@ function checkInputs(required_list) {
     required_list.forEach((elem) => {
         let tmpVal = $("#" + elem).val();
         if (tmpVal.length == 0) {
+            showErr("همه فیلد ها را پر کنید.");
             $("#" + elem)
                 .addClass("errEmpty")
                 .removeClass("haveValue");
@@ -64,6 +65,7 @@ function checkSelect(required_list_Select) {
     required_list_Select.forEach((elem) => {
         let tmpVal = $("#" + elem).val();
         if (tmpVal === undefined || tmpVal === null || tmpVal == 0) {
+            showErr("همه فیلد ها را پر کنید.");
             $("#select2-" + elem + "-container")
                 .addClass("errEmpty")
                 .removeClass("haveValue");
@@ -84,6 +86,7 @@ function checkArr(required_Arr, Arr) {
     for (let i = 0; i < required_Arr.length; i++) {
         let elem = required_Arr[i];
         if (Arr[i].length == 0) {
+            showErr("همه فیلد ها را پر کنید.");
             $("#select2-" + elem + "-container")
                 .addClass("errEmpty")
                 .removeClass("haveValue");
@@ -97,22 +100,6 @@ function checkArr(required_Arr, Arr) {
 
     return isValid;
 }
-
-// function preventBackspace(e) {
-//                 var evt = e || window.event;
-//                 if (evt) {
-//                     var keyCode = evt.charCode || evt.keyCode;
-//                     if (keyCode === 8) {
-//                         if (evt.preventDefault) {
-//                             evt.preventDefault();
-//                         } else {
-//                             evt.returnValue = false;
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-
 $(document).ready(function () {
     $("input").on("keypress", function () {
         if (
@@ -129,13 +116,7 @@ $(document).ready(function () {
             return false;
         }
     });
-    // function getMethodHaveDisabledInput() {
-    //     let id = $(this).attr("data-input-id");
-    //     if ($("#" + id).attr("data-editable") == "true") {
-    //         $("#" + id).attr("data-editable", "false");
-    //         $("#" + id).attr("disabled","disabled");
-    //     }
-    // }
+
     $(".toggle-editable-btn").on("click", function () {
         let id = $(this).attr("data-input-id");
         if ($("#" + id).attr("data-editable") == "false") {

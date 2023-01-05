@@ -20,7 +20,7 @@
 
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
-            <div class="container mt-3">
+            <div class="container">
                 <div class="row">
                     <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar">
                         {{-- @include('sections.top_categories_products') --}}
@@ -356,8 +356,7 @@
                                     <div class="widget-content widget--filter-switcher">
                                         <div class="form-check form-switch mb-0">
                                             <input class="form-check-input" type="checkbox" id="has_selling_stock">
-                                            <label class="form-check-label" for="has_selling_stock">فقط کالاهای
-                                                موجود</label>
+                                            <label class="form-check-label" for="has_selling_stock">رویداد های دارای ظرفیت</label>
                                         </div>
                                     </div>
                                 </div>
@@ -367,8 +366,7 @@
                                     <div class="widget-content widget--filter-switcher">
                                         <div class="form-check form-switch mb-0">
                                             <input class="form-check-input" type="checkbox" id="has_selling_offs">
-                                            <label class="form-check-label" for="has_sellingoffs">فقط کالاهای
-                                                دارای تخفیف</label>
+                                            <label class="form-check-label" for="has_sellingoffs">فقط رویداد های دارای تخفیف</label>
                                         </div>
                                     </div>
                                 </div>
@@ -380,8 +378,11 @@
                         </div>
                     </div>
                     <div class="col-xl-9 col-lg-9 col-md-8 px-0">
+                            {{-- @include('event.layouts.searchbar') --}}
                         <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar">فیلتر پیشرفته
-                            <i class="ri-equalizer-fill ms-1"></i></button>
+                            <i class="ri-equalizer-fill ms-1"></i>
+                        </button>
+
                         <div class="listing-products">
                             <div class="listing-products-content">
                                 <!-- start of tab-content -->
@@ -389,7 +390,7 @@
                                     <!-- start of tab-pane -->
                                     <div class="tab-pane fade show active" id="most-visited" role="tabpanel"
                                         aria-labelledby="most-visited-tab">
-                                        <div class="ui-box pt-3 pb-0 px-0 mb-4">
+                                        <div class="ui-box p-1 mb-4">
                                             <div class="ui-box-content p-0">
                                                 <div class="row mx-0">
                                                     

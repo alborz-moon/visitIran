@@ -49,7 +49,7 @@
                                         <div  class="fs-7 text-dark">شماره تلفن همراه کاربر مدنظر</div>
                                         <div class="d-flex align-items-center justify-content-between position-relative">
                                             <input id="user-phone" data-editable="true" onkeypress="return isNumber(event)" type="tel" minlength="7"  maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه کاربر مدنظر">
-                                            <button data-input-id="phone" class=" toggle-editable-btn btn btn-circle btn-outline-light">
+                                            <button data-input-id="user-phone" class=" toggle-editable-btn btn btn-circle btn-outline-light">
                                                 <i class="ri-ball-pen-fill"></i>
                                             </button>
                                         </div>
@@ -146,35 +146,30 @@
                                                 <div id="producer" class="position-absolute customTop2 center uploaderImg"><i class="icon-visit-open"></i></div>
                                             </div>
                                             <script>
-                                                    function showPreviewProfile(event){
+                                                function showPreviewProfile(event){
                                                     if (event.target.files.length > 0){
                                                         var src = URL.createObjectURL(event.target.files[0]);
                                                         var preview = document.getElementById("file-ip-2-preview");
                                                         preview.src = src;
                                                         preview.style.display = "flex";
                                                     }
-                                                    }
-                                                    function showPreview(event){
+                                                }
+                                                function showPreview(event){
                                                     if(event.target.files.length > 0){
                                                         var src = URL.createObjectURL(event.target.files[0]);
                                                         var preview = document.getElementById("file-ip-1-preview");
                                                         preview.src = src;
                                                         preview.style.display = "flex";
                                                     }
-                                                    }
-                                                    $(document).ready(function(){
-
+                                                }
+                                                $(document).ready(function(){
                                                     $('#producer').on('click',function(){
-                                                        
                                                         $('#file-ip-1').click();
-                                                        
                                                     });
                                                     $('#profileImg').on('click',function(){
-                                                        
                                                         $('#file-ip-2').click();
-                                                        
                                                     });
-                                                    });
+                                                });
                                             </script>
                                         </div>
                                     </div>
@@ -282,6 +277,18 @@
                                     <!-- end of form-element -->
                                 </div>
                                 <div class="col-lg-12 mb-3">
+                                    <div class="py-1 hidden_online_fields">
+                                        <div class="fs-7 text-dark">آدرس</div>
+                                        <div class="d-flex align-items-center justify-content-between position-relative">
+                                            <textarea data-editable="true" id="launcherAddress" type="text" class="form-control" style="direction: rtl" placeholder="آدرس">
+                                            </textarea>
+                                            <button data-input-id="launcherAddress" class="toggle-editable-btn btn btn-circle btn-outline-light">
+                                                <i class="ri-ball-pen-fill"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mb-3">
                                     <div class=" py-1">
                                         <div  class="fs-7 text-dark">نقشه</div>
                                         <div id="launchermap" style="width: 100%; height: 250px"></div>
@@ -382,7 +389,7 @@
         </div>
         <div class="remodal-footer">
             <button data-remodal-action="close" class="btn btn-sm px-3">انصراف</button>
-            <a target="_blank" class="btn btn-sm btn-primary px-3 submit">بله</a>
+            <button data-remodal-action="close" class="btn btn-sm btn-primary px-3 submit">بله</button>
         </div>
         </div>
         <!-- start of personal-info-fullname-modal -->
@@ -610,8 +617,8 @@
                 var launcherSite = $('#launcherSite').val();
                 var launcherEmail = $('#launcherEmail').val();
                 var launcherPhone = $('#launcherPhone').val();
-                var launcherAddress = $('#launcherAddress').val();
                 var launcherType = $('#launcherType').val();
+                var launcherAddress = $('#launcherAddress').val();
                 var state02 = $('#state02').val()
 
 
@@ -694,9 +701,9 @@
                     formData.append("img_file", file);
                 }
 
-                // const userPhone = $("#user-phone").val();
-                // if(userPhone !== undefined)
-                //     formData.append("user_phone", userPhone);
+                const userPhone = $("#user-phone").val();
+                if(userPhone !== undefined)
+                    formData.append("user_phone", userPhone);
 
                 $.ajax({
                     type: 'post',
@@ -769,8 +776,10 @@
                     $("#launcherAddress").val(res.data.launcher_address);
                     $(".launcherCityID").val(res.data.launcher_city_id);
                     $("#launcherEmail").val(res.data.launcher_email);
-
-
+        
+                    if (res.data.user_phone){
+                        $("#user-phone").val(res.data.user_phone);
+                    }
                     var showPhone = '';
                     for(i = 0 ; i < res.data.launcher_phone.length; i++){
                         showPhone += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + res.data.launcher_phone[i] + '';

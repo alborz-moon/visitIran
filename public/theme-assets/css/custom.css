@@ -220,6 +220,13 @@ ul {
 .objectFitCover {
     object-fit: cover;
 }
+.imgCardEvent {
+    background-position: center;
+    object-fit: cover;
+    object-position: center;
+    height: 180px;
+    min-width: 250px !important;
+}
 .logoImgFromTop {
     top: -5px;
     border-bottom-left-radius: 30px !important;
@@ -446,6 +453,7 @@ ul {
     max-height: 600px !important;
 }
 .square {
+    position: relative;
     object-fit: cover;
     width: 96px;
     height: 96px;
@@ -908,8 +916,7 @@ table thead {
     border: 1px solid #dedede;
     border-radius: 15px;
     box-shadow: 0 3px 6px 0px #00000029;
-    max-width: 310px !important;
-    min-width: 310px !important;
+    min-width: 300px;
     height: 400px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
@@ -2104,5 +2111,15 @@ figure .ck-widget > img .mCS_img_loaded {
 @media only screen and (min-width: 300px) and (max-width: 447px) {
     .handleInMedia {
         flex-basis: calc(100% - 15px);
+    }
+}
+@media (min-width: 1241px) {
+    .eventHandleInMedia {
+        flex-basis: calc(31.3333333% - 15px);
+    }
+}
+@media only screen and (min-width: 991px) and (max-width: 1241px) {
+    .eventHandleInMedia {
+        flex-basis: calc(50% - 15px);
     }
 }

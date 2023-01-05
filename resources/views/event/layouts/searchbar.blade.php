@@ -49,13 +49,11 @@
 
 <script>
     var datePickerOptions = {
-            numberOfMonths: 1,
-            showButtonPanel: true,
-            dateFormat: "DD d M سال yy"
-        };
-    $("#date_input_start").datepicker(datePickerOptions).on('change', function () { 
-        // alert(getFormattedTime($(this).val()));
-     });
+        numberOfMonths: 1,
+        showButtonPanel: true,
+        dateFormat: "DD d M سال yy"
+    };
+    $("#date_input_start").datepicker(datePickerOptions).on('change', function () {});
 
     function goToListPage() {
 
