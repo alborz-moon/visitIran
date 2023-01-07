@@ -45,7 +45,7 @@
         <div id="date_btn_start_edit">تاریخ شروع</div>
         <label class="tripCalenderSection">
             <span class="calendarIcon"></span>
-            <input id="date_input_start" class="tripDateInput" placeholder="13xx/xx/xx" required readonly type="text">
+            <input id="date_input_start" class="tripDateInput" placeholder="14XX/XX/XX" required readonly type="text">
         </label>
     </div>
     <div class="container">

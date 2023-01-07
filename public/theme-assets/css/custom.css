@@ -412,6 +412,7 @@ ul {
 .marginTop13 {
     margin-top: 13px;
 }
+
 .marginLeft48 {
     margin-left: 48px;
 }
@@ -1058,6 +1059,9 @@ table thead {
 }
 .justifyContentLeft {
     justify-content: left !important;
+}
+.justifyContentCenter {
+    justify-content: center !important;
 }
 .product-detail-container .product-seller-info {
     padding: 4px;
@@ -2068,7 +2072,7 @@ figure .ck-widget > img .mCS_img_loaded {
         margin-right: 105px;
     }
     .logo-container.logo-box {
-        min-width: 95px !important;
+        min-width: 90px !important;
         padding: 5px;
     }
     .logo-boxEvent {
@@ -2087,6 +2091,9 @@ figure .ck-widget > img .mCS_img_loaded {
     }
     .custom-swiper-slide {
         width: 100% !important;
+    }
+    .marginTop14 {
+        margin-top: 14px;
     }
 }
 @media (min-width: 1201px) {

@@ -199,7 +199,7 @@
                         <div id="date_btn_start_edit" class="label fs-7 font600">تاریخ شروع</div>
                         <label class="tripCalenderSection w-100">
                             <span class="calendarIcon"></span>
-                            <input id="date_input_start" class="tripDateInput w-100 form-control directionLtr backColorWhite" placeholder="13xx/xx/xx" required readonly type="text">
+                            <input id="date_input_start" class="tripDateInput w-100 form-control directionLtr backColorWhite" placeholder="14XX/XX/XX" required readonly type="text">
                         </label>
                     </div>
                     <div class="form-element-row">
@@ -224,7 +224,7 @@
                         <label class="label fs-7 font600">تاریخ پایان</label>
                         <label class="tripCalenderSection w-100">
                             <span class="calendarIcon"></span>
-                            <input id="date_input_stop" class="tripDateInput w-100 form-control directionLtr backColorWhite" placeholder="13xx/xx/xx" required readonly type="text">
+                            <input id="date_input_stop" class="tripDateInput w-100 form-control directionLtr backColorWhite" placeholder="14XX/XX/XX" required readonly type="text">
                         </label>
                     </div>
                     <div class="form-element-row">
@@ -468,7 +468,6 @@
                 showErr("همه فیلد ها را پر کنید.");
                 return
             }
-
             $.ajax({
                 type: 'post',
                 url: '{{ route('event.store_phase2',['event' => $id]) }}',
