@@ -544,6 +544,7 @@
     <script>
 
         $(document).ready(function() {
+             $(".customEventBorderBox").addClass("minWidth250");
 
             let minMaxChange = false;
             let minMaxFetch = false;

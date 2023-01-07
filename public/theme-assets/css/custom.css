@@ -899,6 +899,9 @@ table thead {
 .minWidth200 {
     min-width: 218px !important;
 }
+.minWidth250 {
+    min-width: 250px !important;
+}
 .customBorderBoxShadow {
     border: 1px solid #dedede;
     border-radius: 15px;
@@ -917,7 +920,7 @@ table thead {
     border-radius: 15px;
     box-shadow: 0 3px 6px 0px #00000029;
     min-width: 300px;
-    height: 400px;
+    height: 420px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
@@ -2113,13 +2116,33 @@ figure .ck-widget > img .mCS_img_loaded {
         flex-basis: calc(100% - 15px);
     }
 }
-@media (min-width: 1241px) {
+@media (min-width: 1042px) {
     .eventHandleInMedia {
-        flex-basis: calc(31.3333333% - 15px);
+        flex-basis: calc(33.333333% - 5px);
     }
 }
-@media only screen and (min-width: 991px) and (max-width: 1241px) {
+@media only screen and (min-width: 785px) and (max-width: 1041px) {
     .eventHandleInMedia {
-        flex-basis: calc(50% - 15px);
+        flex-basis: calc(50% - 5px);
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 784px) {
+    .eventHandleInMedia {
+        flex-basis: calc(100% - 5px);
+    }
+}
+@media only screen and (min-width: 526px) and (max-width: 767px) {
+    .eventHandleInMedia {
+        flex-basis: calc(50% - 5px);
+    }
+}
+@media only screen and (max-width: 525px) {
+    .eventHandleInMedia {
+        flex-basis: calc(100% - 5px);
+    }
+}
+@media only screen and (max-width: 576px) {
+    .customEventBorderBox {
+        height: 430px;
     }
 }
