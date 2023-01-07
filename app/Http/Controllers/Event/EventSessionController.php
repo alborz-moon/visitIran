@@ -20,6 +20,7 @@ class EventSessionController extends Controller
     {
         return response()->json([
             'status' => 'ok',
+            'mode' => $event->price == null ? 'create' : 'edit',
             'data' => EventSessionResource::collection($event->sessions)->toArray($request)
         ]);
     }

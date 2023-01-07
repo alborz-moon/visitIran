@@ -635,8 +635,10 @@ $(".nextBtn").on('click', function() {
     var selectList = checkSelect(required_list_Select);
     var selectAddBox = checkArr(required_Arr, Arr);
 
-    if(!inputList || !selectList || !selectAddBox)
+    if(!inputList || !selectList || !selectAddBox){
+        showErr("همه فیلد ها را پر کنید.")
         return;
+    }
     
     let data = {
         title: eventName,

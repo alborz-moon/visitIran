@@ -636,7 +636,8 @@
                 let selectList = checkSelect(required_list_Select);  
                 
                 if( !inputList || !selectList) {
-                   return
+                    showErr("فیلد توضیحات را پر کنید.");
+                    return
                 }
                 
                 $(".showPenEdit").removeClass('hidden')

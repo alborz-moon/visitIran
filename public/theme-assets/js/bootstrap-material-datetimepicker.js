@@ -333,12 +333,12 @@
                 //  '<button class="dtp-btn-now btn btn-flat hidden">' +
                 //  this.params.nowText +
                 //  "</button>" +
-                '<button class="btn btn-primary dtp-btn-ok btn btn-flat">' +
+                '<button onclick="$(this).text(\'تایید\');" class="btn btn-primary dtp-btn-ok btn btn-flat">' +
                 this.params.clearText +
                 "</button>" +
-                '<button class="btn btn-primary dtp-btn-ok btn btn-flat hidden">' +
-                this.params.okText +
-                "</button>" +
+                // '<button id="selectMin" class="btn btn-primary dtp-btn-ok btn btn-flat hidden">' +
+                // this.params.okText +
+                // "</button>" +
                 '<button class="dtp-btn-cancel btn btn-flat">' +
                 this.params.cancelText +
                 "</button>" +

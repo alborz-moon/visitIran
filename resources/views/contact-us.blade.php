@@ -107,6 +107,8 @@
                 <!-- end of box => contact-us -->
             </div>
         </main>
+    <input id="date_input_start_formatted" type="hidden" />
+    <input id="date_input_stop_formatted" type="hidden" />
 @stop
 
 @section('footer')
@@ -118,28 +120,47 @@
     <script> 
         $(document).ready(function(){
             
-            
             $(document).on('click', "#startSessionBtn", function () {
                 var timeStart =$('#time_input_start').val();
-                var dateStart = $('#date_input_start').val();
-                alert(timeStart + ' ' + dateStart);
-                    $('#setDateStart').val(timeStart + ' ' + dateStart);                
+                var dateStart = $('#date_input_start_formatted').val();
+                var dateStart2 = $('#date_input_start').val();
+                if (timeStart.length == 0 || dateStart.length == 0){
+                    showErr("تاریخ پایان و زمان پایان را وارد کنید");
+                    return;
+                }else{
+                    $('#setDateStart').val(timeStart + ' ' + dateStart2);                
                     $(".remodal-close").click();
+                }
             });
             $(document).on('click', "#stopSessionBtn", function () {
                 var timeStop = $('#time_input_stop').val();
-                var dateStop = $('#date_input_stop').val();
-                alert(timeStop + ' ' + dateStop);
-                    $('#setDateStop').val(timeStop + ' ' + dateStop);
-                    $$(".remodal-close").click();               
+                var dateStop = $('#date_input_stop_formatted').val();
+                var dateStop2 = $('#date_input_stop').val();
+                if (timeStop.length == 0 || dateStop.length == 0){
+                    showErr("تاریخ پایان و زمان پایان را وارد کنید");
+                    return;
+                }else{
+                    $('#setDateStop').val(timeStop + ' ' + dateStop2);
+                    $(".remodal-close").click();               
+                }
             });
         });
         var datePickerOptions = {
             numberOfMonths: 1,
             showButtonPanel: true,
-            dateFormat: "yy/mm/dd"
+            dateFormat: "DD d M سال yy",
+            altFormat:"yy/mm/dd",
+            altField: $("#date_input_start_formatted")
         };
+        var datePickerOptionsEnd = {
+            numberOfMonths: 1,
+            showButtonPanel: true,
+            dateFormat: "DD d M سال yy",
+            altFormat:"yy/mm/dd",
+            altField: $("#date_input_stop_formatted")
+        };
+
         $("#date_input_start").datepicker(datePickerOptions);
-        $("#date_input_stop").datepicker(datePickerOptions);
+        $("#date_input_stop").datepicker(datePickerOptionsEnd);
     </script>
 @stop
