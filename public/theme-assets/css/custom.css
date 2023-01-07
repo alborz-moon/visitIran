@@ -138,8 +138,9 @@ ul {
 .myModal {
     position: fixed;
     z-index: 11;
-    top: 40%;
-    left: 20%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 60%;
     padding: 40px;
     background-color: white;
@@ -198,8 +199,33 @@ ul {
     font-weight: 600;
     margin-bottom: 10px;
 }
-.objectfitCover {
+.selectFocus {
+    background-color: red;
+    color: red;
+}
+.ui-datepicker-today .ui-state-default {
+    background: #019cba !important;
+    color: #ffff !important;
+}
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+    background-color: #c59358 !important;
+    color: #ffff !important;
+}
+.selectFocus:focus {
+    background-color: rgb(0, 255, 85);
+    color: rgb(0, 26, 255);
+}
+.objectFitCover {
     object-fit: cover;
+}
+.imgCardEvent {
+    background-position: center;
+    object-fit: cover;
+    object-position: center;
+    height: 180px;
+    min-width: 250px !important;
 }
 .logoImgFromTop {
     top: -5px;
@@ -420,12 +446,15 @@ ul {
     flex-wrap: wrap;
     border: 1px solid #efefef;
     padding: 15px;
+    gap: 15px;
 }
 .imgSizeEvent {
     max-width: 990px !important;
     max-height: 600px !important;
 }
 .square {
+    position: relative;
+    object-fit: cover;
     width: 96px;
     height: 96px;
     background-size: contain;
@@ -887,8 +916,7 @@ table thead {
     border: 1px solid #dedede;
     border-radius: 15px;
     box-shadow: 0 3px 6px 0px #00000029;
-    max-width: 310px !important;
-    min-width: 310px !important;
+    min-width: 300px;
     height: 400px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
@@ -993,6 +1021,9 @@ table thead {
     top: 5px;
     z-index: 1000000000;
     cursor: pointer;
+}
+.product-card .product-price {
+    height: 50px;
 }
 .btnRemoveDropzone::before :hover {
     cursor: pointer;
@@ -2014,8 +2045,6 @@ figure .ck-widget {
     }
     .myModal {
         width: 100%;
-        top: 50%;
-        left: 0%;
     }
 }
 @media (max-width: 992px) {
@@ -2082,5 +2111,15 @@ figure .ck-widget {
 @media only screen and (min-width: 300px) and (max-width: 447px) {
     .handleInMedia {
         flex-basis: calc(100% - 15px);
+    }
+}
+@media (min-width: 1241px) {
+    .eventHandleInMedia {
+        flex-basis: calc(31.3333333% - 15px);
+    }
+}
+@media only screen and (min-width: 991px) and (max-width: 1241px) {
+    .eventHandleInMedia {
+        flex-basis: calc(50% - 15px);
     }
 }

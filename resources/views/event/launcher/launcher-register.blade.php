@@ -49,7 +49,7 @@
                                         <div  class="fs-7 text-dark">شماره تلفن همراه کاربر مدنظر</div>
                                         <div class="d-flex align-items-center justify-content-between position-relative">
                                             <input id="user-phone" data-editable="true" onkeypress="return isNumber(event)" type="tel" minlength="7"  maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه کاربر مدنظر">
-                                            <button data-input-id="phone" class=" toggle-editable-btn btn btn-circle btn-outline-light">
+                                            <button data-input-id="user-phone" class=" toggle-editable-btn btn btn-circle btn-outline-light">
                                                 <i class="ri-ball-pen-fill"></i>
                                             </button>
                                         </div>
@@ -139,42 +139,37 @@
                                             <input class="b-1" type="file" id="file-ip-2" accept="image/*" onchange="showPreviewProfile(event)">
                                         </div>
                                         <div  class="producer position-relative">
-                                            <img id="file-ip-1-preview" style="border: 2px solid white;boxshadow: 0 3px 6px #00000029;background-color: #e5e5e5" class="w-100 h-100 objectfitCover" style="opacity: .4" alt="">
+                                            <img id="file-ip-1-preview" style="border: 2px solid white;boxshadow: 0 3px 6px #00000029;background-color: #e5e5e5" class="w-100 h-100 objectFitCover" style="opacity: .4" alt="">
                                             <div id="producer" class="position-absolute customTop center uploaderText">عکس را بارگذاری کنید</div>
                                             <div id="profileImg" class="profileImg">
-                                                <img id="file-ip-2-preview" style="border: 2px solid white;boxshadow: 0 3px 6px #00000029" class="w-100 h-100 objectfitCover" accept="image/*" alt="">
+                                                <img id="file-ip-2-preview" style="border: 2px solid white;boxshadow: 0 3px 6px #00000029" class="w-100 h-100 objectFitCover" accept="image/*" alt="">
                                                 <div id="producer" class="position-absolute customTop2 center uploaderImg"><i class="icon-visit-open"></i></div>
                                             </div>
                                             <script>
-                                                    function showPreviewProfile(event){
+                                                function showPreviewProfile(event){
                                                     if (event.target.files.length > 0){
                                                         var src = URL.createObjectURL(event.target.files[0]);
                                                         var preview = document.getElementById("file-ip-2-preview");
                                                         preview.src = src;
                                                         preview.style.display = "flex";
                                                     }
-                                                    }
-                                                    function showPreview(event){
+                                                }
+                                                function showPreview(event){
                                                     if(event.target.files.length > 0){
                                                         var src = URL.createObjectURL(event.target.files[0]);
                                                         var preview = document.getElementById("file-ip-1-preview");
                                                         preview.src = src;
                                                         preview.style.display = "flex";
                                                     }
-                                                    }
-                                                    $(document).ready(function(){
-
+                                                }
+                                                $(document).ready(function(){
                                                     $('#producer').on('click',function(){
-                                                        
                                                         $('#file-ip-1').click();
-                                                        
                                                     });
                                                     $('#profileImg').on('click',function(){
-                                                        
                                                         $('#file-ip-2').click();
-                                                        
                                                     });
-                                                    });
+                                                });
                                             </script>
                                         </div>
                                     </div>
@@ -282,10 +277,11 @@
                                     <!-- end of form-element -->
                                 </div>
                                 <div class="col-lg-12 mb-3">
-                                    <div class=" py-1">
-                                        <div  class="fs-7 text-dark">آدرس</div>
+                                    <div class="py-1 hidden_online_fields">
+                                        <div class="fs-7 text-dark">آدرس</div>
                                         <div class="d-flex align-items-center justify-content-between position-relative">
-                                            <textarea data-editable="true" id="launcherAddress" type="text" class="form-control" style="direction: rtl" placeholder="آدرس"></textarea>
+                                            <textarea data-editable="true" id="launcherAddress" type="text" class="form-control" style="direction: rtl" placeholder="آدرس">
+                                            </textarea>
                                             <button data-input-id="launcherAddress" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                 <i class="ri-ball-pen-fill"></i>
                                             </button>
@@ -299,6 +295,24 @@
                                     </div>
                                 </div>
                                 
+                            </div>
+                        </div>
+                    </div>
+                                        <div class="ui-box bg-white mb-5 boxShadow">
+                        <div class="ui-box-title">درباره برگزار کننده</div>
+                        <div class="ui-box-content">
+                            <div class="row">
+                                <div class="col-lg-12 mb-3">
+                                    <div class=" py-1">
+                                        <div  class="fs-7 text-dark">درباره من</div>
+                                        <div class="d-flex align-items-center justify-content-between position-relative">
+                                            <textarea data-editable="true" id="aboutme" type="text" class="form-control" style="direction: rtl" placeholder="درباره من"></textarea>
+                                            <button data-input-id="aboutme" class="toggle-editable-btn btn btn-circle btn-outline-light">
+                                                <i class="ri-ball-pen-fill"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -347,37 +361,58 @@
                         </div>
                     </div>
                     <div class="spaceBetween mb-2">
-                        <a href="" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
-                        <button id="submit" class="btn btn-sm btn-primary px-5">مرحله بعد</button>
+                        <a href="" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</a>
+                        @if($mode == 'edit')
+                            <button data-remodal-target="modalAreYouSure" class="btn btn-sm btn-primary px-5">اعمال تغییرات</button>
+                        @else
+                            <button class="btn btn-sm btn-primary px-5 submit">ثبت اطلاعات</button>
+                        @endif
                     </div>
-                    <div class="d-flex justify-content-end">
-                        <button id="submit" class="btn btn-sm btn-primary px-5">مشاهده مرحله بعد</button>
-                    </div>
+                    @if($mode == 'edit')
+                        <div class="d-flex justify-content-end">
+                            <a href="{{ route('launcher-document', ['formId' => $formId]) }}" class="colorBlue fontSize14 ml-33">مشاهده مرحله بعد</a>
+                        </div>
+                    @endif
                 </div>
         </div>
     </div>
-</main>
-    <!-- start of personal-info-fullname-modal -->
-            <div class="remodal remodal-xs" data-remodal-id="personal-info-fullname-modal"
-                data-remodal-options="hashTracking: false">
-                <div class="remodal-header">
-                    <div class="remodal-title">نام و نام خانوادگی</div>
-                    <button data-remodal-action="close" class="remodal-close"></button>
+    <div class="remodal remodal-xl" data-remodal-id="modalAreYouSure"
+        data-remodal-options="hashTracking: false">
+        <div class="remodal-header">
+            <div class="remodal-title">آیا مطمئن هستید؟</div>
+            <button data-remodal-action="close" class="remodal-close"></button>
+        </div>
+        <div class="remodal-content">
+            <div class="form-element-row mb-3 fontSize14">
+                با ثبت تغییرات اطلاعات شما دوباره برای بازبینی ارسال می گردد و رویداد تا زمان اعمال تغییرات نمایش داده نمی شود. آیا مطمئن هستید؟
+            </div>
+        </div>
+        <div class="remodal-footer">
+            <button data-remodal-action="close" class="btn btn-sm px-3">انصراف</button>
+            <button data-remodal-action="close" class="btn btn-sm btn-primary px-3 submit">بله</button>
+        </div>
+        </div>
+        <!-- start of personal-info-fullname-modal -->
+        <div class="remodal remodal-xs" data-remodal-id="personal-info-fullname-modal"
+            data-remodal-options="hashTracking: false">
+            <div class="remodal-header">
+                <div class="remodal-title">نام و نام خانوادگی</div>
+                <button data-remodal-action="close" class="remodal-close"></button>
+            </div>
+            <div class="remodal-content">
+                <div class="form-element-row mb-3">
+                    <label class="label fs-7">نام</label>
+                    <input data-editable="true" id="name" value="" type="text" class="form-control" placeholder="نام">
                 </div>
-                <div class="remodal-content">
-                    <div class="form-element-row mb-3">
-                        <label class="label fs-7">نام</label>
-                        <input data-editable="true" id="name" value="" type="text" class="form-control" placeholder="نام">
-                    </div>
-                    <div class="form-element-row">
-                        <label class="label fs-7">نام خانوادگی</label>
-                        <input data-editable="true" id="last" type="text" class="form-control" placeholder="نام خانوادگی">
-                    </div>
-                </div>
-                <div class="remodal-footer">
-                    <button id="getName" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
+                <div class="form-element-row">
+                    <label class="label fs-7">نام خانوادگی</label>
+                    <input data-editable="true" id="last" type="text" class="form-control" placeholder="نام خانوادگی">
                 </div>
             </div>
+            <div class="remodal-footer">
+                <button id="getName" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
+            </div>
+        </div>
         <!-- end of personal-info-fullname-modal -->
         <!-- start of personal-info-birth-modal -->
             <div class="remodal remodal-xs" data-remodal-id="personal-info-birth-modal"
@@ -427,41 +462,7 @@
                 </div>
             </div>
             <!-- end of personal-info-birth-modal -->
-            <!-- start of personal-info-fullname-modal -->
-            <div class="remodal remodal-xs" data-remodal-id="personal-add-file-modal"
-                data-remodal-options="hashTracking: false">
-                <div class="remodal-header">
-                    <div class="remodal-title">انتخاب فایل</div>
-                    <button data-remodal-action="close" class="remodal-close"></button>
-                </div>
-                <div class="remodal-content">
-                    <div class="form-element-row mb-3">
-                        <input data-editable="true" onclick="" value="" type="text" class="form-control" disabled placeholder="انتخاب فایل">
-                    </div>
-                </div>
-                <div class="remodal-footer">
-                    <button class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
-                </div>
-            </div>
-        <!-- end of personal-info-fullname-modal -->
-        <!-- start of personal-info-fullname-modal -->
-            <div class="remodal remodal-xs" data-remodal-id="personal-compare-file-modal"
-                data-remodal-options="hashTracking: false">
-                <div class="remodal-header">
-                    <div class="remodal-title">انتخاب فایل</div>
-                    <button data-remodal-action="close" class="remodal-close"></button>
-                </div>
-                <div class="remodal-content">
-                    <div class="form-element-row mb-3">
-                        <input onclick="" value="" type="text" class="form-control" disabled placeholder="انتخاب فایل">
-                    </div>
-                </div>
-                <div class="remodal-footer">
-                    <button class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
-                </div>
-            </div>
-        <!-- end of personal-info-fullname-modal -->
-        
+</main>
 <script src="https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/parsimap-geocoder/v1.0.0/parsimap-geocoder.js"></script>
 <link
   href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/parsimap-geocoder/v1.0.0/parsimap-geocoder.css"
@@ -594,7 +595,7 @@
 
             });
 
-            $('#submit').on('click',function() { 
+            $('.submit').on('click',function() { 
 
                 var nameLast = $('#nameLast').val();
                 var name = $('#name').val();
@@ -616,8 +617,8 @@
                 var launcherSite = $('#launcherSite').val();
                 var launcherEmail = $('#launcherEmail').val();
                 var launcherPhone = $('#launcherPhone').val();
-                var launcherAddress = $('#launcherAddress').val();
                 var launcherType = $('#launcherType').val();
+                var launcherAddress = $('#launcherAddress').val();
                 var state02 = $('#state02').val()
 
 
@@ -700,9 +701,9 @@
                     formData.append("img_file", file);
                 }
 
-                // const userPhone = $("#user-phone").val();
-                // if(userPhone !== undefined)
-                //     formData.append("user_phone", userPhone);
+                const userPhone = $("#user-phone").val();
+                if(userPhone !== undefined)
+                    formData.append("user_phone", userPhone);
 
                 $.ajax({
                     type: 'post',
@@ -775,8 +776,10 @@
                     $("#launcherAddress").val(res.data.launcher_address);
                     $(".launcherCityID").val(res.data.launcher_city_id);
                     $("#launcherEmail").val(res.data.launcher_email);
-
-
+        
+                    if (res.data.user_phone){
+                        $("#user-phone").val(res.data.user_phone);
+                    }
                     var showPhone = '';
                     for(i = 0 ; i < res.data.launcher_phone.length; i++){
                         showPhone += '<div id="tel-modal-' + i + '" class="item-button spaceBetween colorBlack">' + res.data.launcher_phone[i] + '';

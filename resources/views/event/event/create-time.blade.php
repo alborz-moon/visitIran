@@ -5,13 +5,17 @@
     @parent
     
     <script src="{{URL::asset("theme-assets/js/moment.js")}}"></script>
+    <script src="{{URL::asset("theme-assets/js/moment-jalaali.js")}}"></script>
 
     <link rel="stylesheet" href="{{URL::asset('theme-assets/css/bootstrap-material-datetimepicker.css')}}">
     <script src="{{URL::asset("theme-assets/js/bootstrap-material-datetimepicker.js")}}"></script>
 
     <link rel="stylesheet" href="{{URL::asset('theme-assets/bootstrap-datepicker.css?v=1')}}">
     <script src="{{URL::asset("theme-assets/bootstrap-datepicker.js")}}"></script>
-    
+    {{-- <script>
+        moment.locale("fa"); 
+        moment().format('LLLL');
+    </script> --}}
 @stop
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
@@ -48,7 +52,7 @@
                                         <div data-remodal-target="time-and-date-start-modal" class="fs-7 text-dark">تاریخ و ساعت شروع</div>
                                         <div class="py-2">
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <input id="setDateStart" data-remodal-target="time-and-date-start-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت شروع">
+                                                <input id="setDateStart" onclick="" data-remodal-target="time-and-date-start-modal" type="text" class="form-control" style="direction: rtl" placeholder="تاریخ و ساعت شروع">
                                                 <button data-remodal-target="time-and-date-start-modal" class="btn btn-circle btn-outline-light d-none">
                                                     <i class="ri-ball-pen-fill"></i></button>
                                             </div>
@@ -206,15 +210,15 @@
     let idx = 0;
     
     var arrDateTime = [];
+    var datePickerOptions = {
+        numberOfMonths: 1,
+        showButtonPanel: true,
+        dateFormat: "DD d M سال yy"
+    };
+    
     $(document).ready(function() {
         $('#time_input_start').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
         $('#time_input_stop').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
-        
-        var datePickerOptions = {
-            numberOfMonths: 1,
-            showButtonPanel: true,
-            dateFormat: "yy/mm/dd"
-        };
 
         $("#date_input_start").datepicker(datePickerOptions);
         $("#date_input_stop").datepicker(datePickerOptions);

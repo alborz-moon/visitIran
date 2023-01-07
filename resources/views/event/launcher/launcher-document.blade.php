@@ -79,7 +79,7 @@
             </div>
             <div class="spaceBetween mb-2">
                 <a href="{{ route('launcher') }}" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
-                <button onclick="sendimg()" class="btn btn-sm btn-primary px-5">ارسال برای بازبینی</button>
+                <button data-remodal-target="modalAreYouSure"  class="btn btn-sm btn-primary px-5">ارسال برای بازبینی</button>
             </div>
             </div>
         </div>
@@ -163,8 +163,39 @@
     </div>
     
 <!-- end of personal-info-fullname-modal -->
-
-
+<div class="remodal remodal-xl" data-remodal-id="modalAreYouSure"
+            data-remodal-options="hashTracking: false">
+            <div class="remodal-header">
+                <div class="remodal-title">آیا مطمئن هستید؟</div>
+                <button data-remodal-action="close" class="remodal-close"></button>
+            </div>
+            <div class="remodal-content">
+                <div class="form-element-row mb-3 fontSize14">
+                    با ثبت تغییرات اطلاعات شما دوباره برای بازبینی ارسال می گردد و رویداد تا زمان اعمال تغییرات نمایش داده نمی شود. آیا مطمئن هستید؟
+                </div>
+            </div>
+            <div class="remodal-footer">
+                <button data-remodal-action="close" class="btn btn-sm px-3">انصراف</button>
+                <a id="submit" target="_blank" class="btn btn-sm btn-primary px-3">بله</a>
+            </div>
+        </div>
+    <div class="remodal remodal-xl" data-remodal-id="mainGalleryModal"
+        data-remodal-options="hashTracking: false">
+        <div class="remodal-header">
+            <div class="remodal-title">مشاهده عکس</div>
+            <button data-remodal-action="close" class="remodal-close"></button>
+        </div>
+        <div class="remodal-content">
+            <div class="form-element-row mb-3">
+                <div>
+                    <img id="mainGallery" class="w-100 h-100 objectFitCover" src="" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="remodal-footer">
+            <button data-remodal-action="close" class="btn btn-sm btn-primary px-3">بستن</button>
+        </div>
+    </div>
     <!-- start of personal-info-fullname-modal -->
     <div class="remodal remodal-xl" data-remodal-id="dropZoneModal"
         data-remodal-options="hashTracking: false">
@@ -200,8 +231,6 @@
         let total = 0;
 
         $(document).ready(function() {
-
-
             $.ajax({
                 type: 'get',
                 url: '{{ route('launcher.files', ['launcher' => $formId]) }}',
@@ -223,7 +252,7 @@
 
                         if (res.data.company_last_changes.length !== 0) {
                             html += '<div data-remodal-target="companyLastChangesShow" class="square cursorPointer position-relative">';
-                            html += '<img class="w-100 h-100 objectfitCover" src="' + res.data.company_last_changes + '">';
+                            html += '<img class="w-100 h-100 objectFitCover" src="' + res.data.company_last_changes + '">';
                             html += '</div>';
                             $("#drop_zone_container_company_last_changes_file").addClass('hidden');
                             $("#gallery_container_company_last_changes_file").append(html);
@@ -235,7 +264,7 @@
                         }
                         if (res.data.company_newspaper.length !== 0 ){
                             companyNewspaper += '<div data-remodal-target="companyNewspaperShow" class="square cursorPointer position-relative">';
-                            companyNewspaper += '<img class="w-100 h-100 objectfitCover" src="' + res.data.company_newspaper + '">';
+                            companyNewspaper += '<img class="w-100 h-100 objectFitCover" src="' + res.data.company_newspaper + '">';
                             companyNewspaper +='</div>';
                             $("#drop_zone_container_company_newspaper_file").addClass('hidden');
                             $("#gallery_container_company_newspaper_file").append(companyNewspaper);
@@ -247,7 +276,7 @@
                         }
                         if (res.data.user_NID_card.length !== 0 ){
                             userNIDCard += '<div data-remodal-target="userNIDCardShow" class="square cursorPointer position-relative">';
-                            userNIDCard += '<img class="w-100 h-100 objectfitCover" src="' + res.data.user_NID_card + '" alt="">';
+                            userNIDCard += '<img class="w-100 h-100 objectFitCover" src="' + res.data.user_NID_card + '" alt="">';
                             userNIDCard += '</div>';
                             $("#drop_zone_container_user_nid_card_file").addClass('hidden');
                             $("#gallery_container_user_nid_card_file").append(userNIDCard);
@@ -260,8 +289,8 @@
                         if (res.data.certifications.length !== 0 ){
 
                             for(i = 0; i < res.data.certifications.length; i ++ ) {
-                                certifications += '<div id="gallery_' + res.data.certifications[i].id + '" class="certificationsImg">';
-                                certifications += '<img class="w-100 h-100" src="' + res.data.certifications[i].file + '" alt="">';
+                                certifications += '<div onclick="sendimg(\'' + res.data.certifications[i].file + '\')" data-remodal-target="mainGalleryModal" id="gallery_' + res.data.certifications[i].id + '" class="square cursorPointer">';
+                                certifications += '<img class="w-100 h-100 ObjectFitCover" src="' + res.data.certifications[i].file + '" alt="">';
                                 certifications += '<i data-id=' + res.data.certifications[i].id + ' class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
                                 certifications += '</div>';
                             }
@@ -275,11 +304,9 @@
                 }
             });
         });
-
-        function sendImg(img){
-            $('#certificationsGallery').attr('src', img);
+        function sendimg(img){
+            $("#mainGallery").attr('src', img);
         }
-
         let uploadedFiles = [];
 
         Dropzone.options.permisionForm = {
@@ -362,11 +389,13 @@
 
                         if(total === 0)
                             $("#certifications").remove();
-
                     }
                 }
             });
         });
 
+        $("#submit").on("click" , function (){
+            showSuccess("ارسال شد.");
+        });
     </script>
 @stop

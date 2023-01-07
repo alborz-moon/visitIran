@@ -2,8 +2,6 @@
     var pluginName = "bootstrapMaterialDatePicker";
     var pluginDataName = "plugin_" + pluginName;
 
-    moment.locale("en");
-
     function Plugin(element, options) {
         this.currentView = 0;
 
@@ -28,9 +26,9 @@
             shortTime: false,
             clearButton: false,
             nowButton: false,
-            cancelText: "انصراف",
+            cancelText: "بازگشت",
             okText: "تایید",
-            clearText: "Clear",
+            clearText: "انتخاب دقیقه",
             nowText: "Now",
             switchOnClick: false,
             triggerEvent: "focus",
@@ -335,10 +333,10 @@
                 //  '<button class="dtp-btn-now btn btn-flat hidden">' +
                 //  this.params.nowText +
                 //  "</button>" +
-                //  '<button class="dtp-btn-clear btn btn-flat hidden">' +
-                //  this.params.clearText +
-                //  "</button>" +
                 '<button class="btn btn-primary dtp-btn-ok btn btn-flat">' +
+                this.params.clearText +
+                "</button>" +
+                '<button class="btn btn-primary dtp-btn-ok btn btn-flat hidden">' +
                 this.params.okText +
                 "</button>" +
                 '<button class="dtp-btn-cancel btn btn-flat">' +
@@ -1598,3 +1596,6 @@
         },
     };
 })(jQuery, moment);
+$(document).ready(function () {
+    $("#btnChooseMin").removeClass("hidden");
+});

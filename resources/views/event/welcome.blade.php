@@ -2,9 +2,15 @@
 
 @section('content')
 
+    <script src="{{URL::asset("theme-assets/js/moment.js")}}"></script>
+    <script src="{{URL::asset("theme-assets/js/Utilities.js")}}"></script>
+    <script src="{{URL::asset("theme-assets/js/moment-jalaali.js")}}"></script>
+
+    <link rel="stylesheet" href="{{URL::asset('theme-assets/css/bootstrap-material-datetimepicker.css')}}">
+    <script src="{{URL::asset("theme-assets/js/bootstrap-material-datetimepicker.js")}}"></script>
+
     <script>
         var eventPrefixRoute = '{{ route('event.home') }}' + "/event";
-        
     </script>
 
     @include('event.layouts.slider')

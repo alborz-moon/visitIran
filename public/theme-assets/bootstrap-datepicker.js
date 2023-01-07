@@ -1827,6 +1827,11 @@ jQuery(function (t) {
                 60 *
                 1e7,
             formatDate: function (t, e, a) {
+                console.log("====================================");
+                console.log(t);
+                console.log(e);
+                console.log(a);
+                console.log("====================================");
                 if (!e) return "";
                 var i =
                         (a ? a.dayNamesShort : null) ||
