@@ -156,14 +156,15 @@
                         <div class="spaceBetween mb-2">
                             <a href="" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</a>
                             @if(isset($id))
-                                <button data-remodal-target="modalAreYouSure" class="btn btn-sm btn-primary px-5">اعمال تغییرات</button>
+                                <button data-remodal-target="modalAreYouSure" class="btn btn-sm btn-primary px-5 confrimFormHaveData">اعمال تغییرات</button>
+                                <button class="btn btn-sm btn-primary px-5 confrimFormEmpty nextBtn">ثبت اطلاعات</button>
                             @else
                                 <button class="btn btn-sm btn-primary px-5 nextBtn">ثبت اطلاعات</button>
                             @endif
                         </div>
                         @if(isset($id))
                             <div class="d-flex justify-content-end">
-                                <a href="{{ route('addGalleryToEvent', ['event' => $id]) }}" class="colorBlue fontSize14 ml-33">مشاهده مرحله بعد</a>
+                                <a href="{{ route('addGalleryToEvent', ['event' => $id]) }}" class="colorBlue fontSize14 ml-33 confrimFormHaveData">مشاهده مرحله بعد</a>
                             </div>
                         @endif
                     </div>
@@ -203,7 +204,7 @@
                     </div>
                     <div class="form-element-row">
                         <label class="label fs-7">زمان شروع</label>
-                        <input id="time_start" type="text" data-clear-btn="true" class="form-control" placeholder="؟؟:؟؟">
+                        <input id="time_start" type="text" data-clear-btn="true" class="form-control" placeholder="0:00">
                     </div>
                 </div>
                 <div class="remodal-footer">
@@ -228,7 +229,7 @@
                     </div>
                     <div class="form-element-row">
                         <label class="label fs-7">زمان پایان</label>
-                        <input id="time_stop" type="text" class="form-control" placeholder="؟؟:؟؟">
+                        <input id="time_stop" type="text" class="form-control" placeholder="0:00">
                     </div>
                 </div>
                 <div class="remodal-footer">
@@ -236,6 +237,8 @@
                 </div>
             </div>
         <!-- end of personal-info-fullname-modal -->
+    <input id="date_input_start_formatted" type="hidden" />
+    <input id="date_input_stop_formatted" type="hidden" />
 
 @stop
 
@@ -246,16 +249,34 @@
 @section('extraJS')
     @parent
     <script> 
-    var timeStart = '';
-    var dateStart = '';
-    var timeStop = '';
-    var dateStop = '';
-    var tels = [];
+        var timeStart = '';
+        var dateStart = '';
+        var timeStop = '';
+        var dateStop = '';
+        var tels = [];
 
+        var datePickerOptions = {
+            numberOfMonths: 1,
+            showButtonPanel: true,
+            dateFormat: "DD d M سال yy",
+            altFormat:"yy/mm/dd",
+            altField: $("#date_input_start_formatted")
+        };
+
+        var datePickerOptionsEnd = {
+            numberOfMonths: 1,
+            showButtonPanel: true,
+            dateFormat: "DD d M سال yy",
+            altFormat:"yy/mm/dd",
+            altField: $("#date_input_stop_formatted")
+        };
         $(document).ready(function(){
 
             $('#time_start').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
             $('#time_stop').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
+
+            $("#date_input_start").datepicker(datePickerOptions);
+            $("#date_input_stop").datepicker(datePickerOptionsEnd);
 
             $('.toggle-editable-btn').addClass('hidden');
             var idx = 1;
@@ -293,23 +314,25 @@
 
             $(document).on('click', "#startSessionBtn", function () {
                 timeStart =$('#time_start').val();
-                dateStart = $('#date_input_start').val();
+                dateStart = $('#date_input_start_formatted').val();
+                let dateStart2 = $('#date_input_start').val();
                 if (timeStart.length == 0 || dateStart.length == 0){
                     showErr("تاریخ شروع و زمان شروع را وارد کنید");
                     return;
                 }else{
-                    $('#setDateStart').val(timeStart + ' ' + dateStart);                
+                    $('#setDateStart').val(timeStart + ' ' + dateStart2);                
                     $(".remodal-close").click();
                 }
             });
             $(document).on('click', "#stopSessionBtn", function () {
                 timeStop = $('#time_stop').val();
-                dateStop = $('#date_input_stop').val();
+                dateStop = $('#date_input_stop_formatted').val();
+                dateStop2 = $('#date_input_stop').val();
                 if (timeStop.length == 0 || dateStop.length == 0){
                     showErr("تاریخ پایان و زمان پایان را وارد کنید");
                     return;
                 }else{
-                    $('#setDateStop').val(timeStop + ' ' + dateStop);
+                    $('#setDateStop').val(timeStop + ' ' + dateStop2);
                     $(".remodal-close").click();               
                 }            
             });
@@ -321,23 +344,36 @@
                  'accept': 'application/json'
                 },
                 success: function(res) {
+                        if (res.data.mode == "edit"){
+                            $(".confrimFormEmpty").addClass("hidden");
+                            $(".confrimFormHaveData").removeClass("hidden");
+                        }else {
+                            $(".confrimFormEmpty").removeClass("hidden");
+                            $(".confrimFormHaveData").addClass("hidden");       
+                        }
                         if (res.data.price != null){
                             $('input').attr("data-editable", "false");
                             $('.toggle-editable-btn').removeClass('hidden');
+                            // $(".confrimFormEmpty").addClass("hidden");
+                            // $(".confrimFormHaveData").removeClass("hidden");
                         }else{
                             $('input').attr("data-editable", "true");
+                            // $(".confrimFormEmpty").removeClass("hidden");
+                            // $(".confrimFormHaveData").addClass("hidden");
                         }
                         if(res.data.start_registry_time.length > 0)
                             $('#time_start').val(res.data.start_registry_time);
                            
                         if(res.data.start_registry_date.length > 0)
                             $('#date_input_start').val(res.data.start_registry_date);
+                            $('#date_input_start_formatted').val(res.data.start_registry_date);
                         
                         if(res.data.start_registry_time.length > 0)
                             $('#time_stop').val(res.data.end_registry_time);
                            
                         if(res.data.start_registry_date.length > 0)
                             $('#date_input_stop').val(res.data.end_registry_date);
+                            $('#date_input_stop_formatted').val(res.data.end_registry_date);
 
                         if (res.start_registry_time != undefined && res.data.start_registry_date != undefined || res.data.end_registry_time != undefined && res.data.end_registry_date != undefined ){
                             
@@ -386,24 +422,17 @@
                                 $("#" + id).attr("disabled", "disabled");
                             }
                         });
-            $("#launcherPhone").attr("data-editable", "true").removeAttr("disabled");
-            $("#setDateStart").attr("data-editable", "true").removeAttr("disabled");
-            $("#setDateStop").attr("data-editable", "true").removeAttr("disabled");
-            $("#date_input_start").attr("data-editable", "true").removeAttr("disabled");
-            $("#time_start").attr("data-editable", "true").removeAttr("disabled");
-            $("#date_input_stop").attr("data-editable", "true").removeAttr("disabled");
-            $("#time_stop").attr("data-editable", "true").removeAttr("disabled");                   
+                        $("#launcherPhone").attr("data-editable", "true").removeAttr("disabled");
+                        $("#setDateStart").attr("data-editable", "true").removeAttr("disabled");
+                        $("#setDateStop").attr("data-editable", "true").removeAttr("disabled");
+                        $("#date_input_start").attr("data-editable", "true").removeAttr("disabled");
+                        $("#time_start").attr("data-editable", "true").removeAttr("disabled");
+                        $("#date_input_stop").attr("data-editable", "true").removeAttr("disabled");
+                        $("#time_stop").attr("data-editable", "true").removeAttr("disabled");                   
                         // $("textarea").attr('disabled', 'disabled');
                 }
             });
         });
-        var datePickerOptions = {
-            numberOfMonths: 1,
-            showButtonPanel: true,
-            dateFormat: "DD d M سال yy"
-        };
-        $("#date_input_start").datepicker(datePickerOptions);
-        $("#date_input_stop").datepicker(datePickerOptions);
         
         $('.nextBtn').on('click',function() {
             function checkInputs(required_list) {
@@ -422,23 +451,23 @@
                             .removeClass("errEmpty");
                     }
                 });
-            
                 return isValid;
-            }
-            var required_list = ['price','setDateStart','setDateStop'];
-            var inputList = checkInputs(required_list);
-            if( !inputList ) {
-               return
             }
             var desc = $('#desc').val();
             var price =$('#price').val();
             var capacity = $('#capacity').val();
             var site =$('#site').val();
             var email =$('#email').val();
-            var date_input_start = $('#date_input_start').val();
+            var date_input_start = $('#date_input_start_formatted').val();
             var time_start = $('#time_start').val();
-            var date_input_stop = $('#date_input_stop').val();
+            var date_input_stop = $('#date_input_stop_formatted').val();
             var time_stop =$('#time_stop').val();
+            var required_list = ['price','setDateStart','setDateStop'];
+            var inputList = checkInputs(required_list);
+            if( !inputList ) {
+                showErr("همه فیلد ها را پر کنید.");
+                return
+            }
 
             $.ajax({
                 type: 'post',
@@ -466,12 +495,6 @@
                     }
                 }
             });
-        });
-            $(document).ready(function () {
-                $("ssssssssss").addClass("hidden");
-            });
-
-
-        
+        });      
     </script>
 @stop

@@ -69,7 +69,8 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-end">
-                                        <button data-remodal-target="addtoTable" class="btn btn-sm btn-primary px-3">افزودن</button>
+                                        <button data-remodal-target="addtoTable" class="btn btn-sm btn-primary px-3 confrimFormHaveData">افزودن</button>
+                                        <button id="addedItem" class="btn btn-sm btn-primary px-3 confrimFormEmpty addItem">افزودن</button>
                                     </div>
                                 </div>
                             </div>
@@ -98,14 +99,13 @@
                         <div class="spaceBetween mb-2">
                             <a href="{{route('addPhase2Info', ['event' => $id])}}" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</a>
                             @if(isset($id))
-                                <button data-remodal-target="modalAreYouSure" class="btn btn-sm btn-primary px-5">اعمال تغییرات</button>
-                            @else
-                                <a href="{{route('addPhase2Info', ['event' => $id])}}" class="btn btn-sm btn-primary px-5 nextBtn">ثبت اطلاعات</a>
+                                <button data-remodal-target="modalAreYouSure" class="btn btn-sm btn-primary px-5 confrimFormHaveData">اعمال تغییرات</button>
+                                <button id="goToNextPage" class="btn btn-sm btn-primary px-5 confrimFormEmpty">ثبت اطلاعات</button>
                             @endif
                         </div>
                         @if(isset($id))
                             <div class="d-flex justify-content-end">
-                                <a href="{{route('addPhase2Info', ['event' => $id])}}" class="colorBlue fontSize14 ml-33">مشاهده مرحله بعد</a>
+                                <a href="{{route('addPhase2Info', ['event' => $id])}}" class="colorBlue fontSize14 ml-33 confrimFormHaveData">مشاهده مرحله بعد</a>
                             </div>
                         @endif
                     </div>
@@ -124,7 +124,7 @@
             </div>
             <div class="remodal-footer">
                 <button data-remodal-action="close" class="btn btn-sm px-3">انصراف</button>
-                <a target="_blank" href="{{route('addPhase2Info', ['event' => $id])}}" class="btn btn-sm btn-primary px-3">بله</a>
+                <a target="_blank" class="btn btn-sm btn-primary px-3 nextBtn">بله</a>
             </div>
         </div>
         <div class="remodal remodal-xl" data-remodal-id="addtoTable"
@@ -160,7 +160,7 @@
                     </div>
                     <div class="form-element-row label-floating is-empty">
                         <label class="label fs-7">زمان شروع</label>
-                        <input id="time_input_start" data-dtp="dtp_dKXUf" type="text" data-clear-btn="true" class="form-control" placeholder="؟؟:؟؟">
+                        <input id="time_input_start" data-dtp="dtp_dKXUf" type="text" data-clear-btn="true" class="form-control" placeholder="0:00">
                     </div>
                 </div>
                 <div class="remodal-footer">
@@ -185,7 +185,7 @@
                     </div>
                     <div class="form-element-row">
                         <label class="label fs-7">زمان پایان</label>
-                        <input id="time_input_stop" type="text" class="form-control" placeholder="؟؟:؟؟">
+                        <input id="time_input_stop" type="text" class="form-control" placeholder="0:00">
                     </div>
                 </div>
                 <div class="remodal-footer">
@@ -194,6 +194,10 @@
             </div>
         <!-- end-modal -->
     </main>
+        
+    <input id="date_input_start_formatted" type="hidden" />
+    <input id="date_input_stop_formatted" type="hidden" />
+
 @stop
 
 @section('footer')
@@ -209,40 +213,54 @@
     var dateStop = '';
     let idx = 0;
     
-    var arrDateTime = [];
+    var listSize = 0;
+    
     var datePickerOptions = {
         numberOfMonths: 1,
         showButtonPanel: true,
-        dateFormat: "DD d M سال yy"
+        dateFormat: "DD d M سال yy",
+        altFormat:"yy/mm/dd",
+        altField: $("#date_input_start_formatted")
+    };
+
+    var datePickerOptionsEnd = {
+        numberOfMonths: 1,
+        showButtonPanel: true,
+        dateFormat: "DD d M سال yy",
+        altFormat:"yy/mm/dd",
+        altField: $("#date_input_stop_formatted")
     };
     
     $(document).ready(function() {
+       
         $('#time_input_start').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
         $('#time_input_stop').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
 
         $("#date_input_start").datepicker(datePickerOptions);
-        $("#date_input_stop").datepicker(datePickerOptions);
+        $("#date_input_stop").datepicker(datePickerOptionsEnd);
         
         $(document).on('click', "#startSessionBtn", function () {
             timeStart =$('#time_input_start').val();
-            dateStart = $('#date_input_start').val();
+            dateStart = $('#date_input_start_formatted').val();
+            let dateStart2 = $('#date_input_start').val();
             if (timeStart.length == 0 || dateStart.length == 0){
                 showErr("تاریخ شروع و زمان شروع را وارد کنید");
                 return;
             }else{
-                $('#setDateStart').val(timeStart + ' ' + dateStart);                
+                $('#setDateStart').val(timeStart + ' ' + dateStart2);                
                 $(".remodal-close").click();
             }
         });
         $(document).on('click', "#stopSessionBtn", function () {
             timeStop = $('#time_input_stop').val();
-            dateStop = $('#date_input_stop').val();
+            dateStop = $('#date_input_stop_formatted').val();
+            let dateStop2 = $('#date_input_stop').val();
             if (timeStop.length == 0 || dateStop.length == 0){
                 showErr("تاریخ پایان و زمان پایان را وارد کنید");
                 return;
             }else{
-                $('#setDateStop').val(timeStop + ' ' + dateStop);
-                $(".remodal-close").click();               
+                $('#setDateStop').val(timeStop + ' ' + dateStop2);
+                $(".remodal-close").click();
             }
         });
     });
@@ -267,10 +285,13 @@
             },
             success: function(res) {
                 if(res.status === "ok") {
+                    
+                    listSize++;
+
                     if (dateStart != '' && dateStop != '' && timeStart != ''  && timeStop != ''){
                         
                         var addedRowTable = '<tr id="row-' + res.id +  '">';
-                        addedRowTable += '<td class="fa-num">' + idx +  '</td>';
+                        addedRowTable += '<td class="fa-num">' + (idx + 1) +  '</td>';
                         addedRowTable += '<td class="fa-num">' + dateStart + ' ' + timeStart + '</td>';
                         addedRowTable += '<td class="fa-num">' + dateStop + ' ' + timeStop + '</td>';
                         addedRowTable += '<td>';
@@ -300,11 +321,22 @@
             'accept': 'application/json'
         },
         success: function(res) {
+        
+            if (res.mode == "edit"){
+                $(".confrimFormEmpty").addClass("hidden");
+                $(".confrimFormHaveData").removeClass("hidden");
+            }else {
+                $(".confrimFormEmpty").removeClass("hidden");
+                $(".confrimFormHaveData").addClass("hidden");       
+            }
             if(res.status === "ok") {
+                
+                listSize = res.data.length;
+
                 if (res.data.length !== 0){
-                    for(var i = 0; i < res.data.length ; i++){
+                    for(var i = 0; i < res.data.length ; i++) {
                         var addedRowTable = '<tr id="row-' + res.data[i].id + '">';
-                        addedRowTable += '<td class="fa-num">' + i + '</td>';
+                        addedRowTable += '<td class="fa-num">' + (i + 1) + '</td>';
                         addedRowTable += '<td class="fa-num">' + res.data[i].start_date +' '+ res.data[i].start_time + '</td>';
                         addedRowTable += '<td class="fa-num">' + res.data[i].end_date +' '+ res.data[i].end_time + '</td>';
                         addedRowTable += '<td>';
@@ -321,10 +353,22 @@
         }
     });
 
+    $("#goToNextPage").on("click", function(){
+        
+        if (listSize == 0) {
+            showErr("همه فیلد ها را پر کنید.");
+            return;
+        }
+
+        $("#goToNextPage").on("click", function(){
+            window.location.href = '{{ route('addPhase2Info', ['event' => $id])}}';
+        });
+
+    });
+
     $(document).on('click', '.remove-btn-sessions', function () {
 
         let id = $(this).attr('data-id');
-
 
         $.ajax({
             type: 'delete',
@@ -333,13 +377,25 @@
                 'accept': 'application/json'
             },
             success: function(res) {
-                if(res.status === "ok")
+                if(res.status === "ok") {
+                    listSize--;
                     $('#row-'+ id +'').remove();
+                }
             }
         });
-
-
+        
     });
-
+    $(".nextBtn").on("click", function(){
+        
+        if (listSize == 0){
+            showErr("همه فیلد ها را پر کنید.");
+            return
+        }
+        else{
+            window.location.href = '{{ route('addPhase2Info', ['event' => $id])}}';
+        }
+        
+    });
+    
     </script>
 @stop

@@ -327,6 +327,7 @@
             var required_list = ['description'];
             var inputList = checkInputs(required_list);
             if( !inputList ) {
+                showErr("فیلد توضیحات را پر کنید.");
                return
             }
             showErr("فیلد توضیحات را پر کنید.");

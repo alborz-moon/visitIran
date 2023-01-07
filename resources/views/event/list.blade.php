@@ -378,7 +378,7 @@
                         </div>
                     </div>
                     <div class="col-xl-9 col-lg-9 col-md-8 px-0">
-                            {{-- @include('event.layouts.searchbar') --}}
+                        @include('event.layouts.searchbar', ['forList' => true])
                         <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar">فیلتر پیشرفته
                             <i class="ri-equalizer-fill ms-1"></i>
                         </button>
@@ -386,7 +386,7 @@
                         <div class="listing-products">
                             <div class="listing-products-content">
                                 <!-- start of tab-content -->
-                                <div class="tab-content" id="sort-tabContent">
+                                <div class="tab-content marginTopNegative5" id="sort-tabContent">
                                     <!-- start of tab-pane -->
                                     <div class="tab-pane fade show active" id="most-visited" role="tabpanel"
                                         aria-labelledby="most-visited-tab">

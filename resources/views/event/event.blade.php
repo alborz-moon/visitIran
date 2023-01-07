@@ -372,24 +372,6 @@
                 <!-- start of product-content-expert-summary -->
                 <div class="details product-tab-content product-content-expert-summary tab-content pb-2 mb-4"
                     id="scrollspyHeading1">
-                    {{-- <div class="product-tab-title">
-                        <div class="fontSize18 bold ">بررسی بشقاب میناکاری گرد رنگ آبی طرح ستاره مدل 1000100013</div>
-                    </div> --}}
-                    {{-- <div id="checkHeight" class="expandable-text pt-1 ">
-                        <div class="expandable-text_text" id="getInnerHeight">
-                            <p>
-                                گوشی موبایل «iPhone 13» پرچم‌دار جدید شرکت اپل است که با چند ویژگی جدید و دوربین دوگانه
-                                روانه بازار شده است. اپل برای ویژگی‌ها و طراحی کلی این گوشی از همان فرمول چند سال اخیرش
-                                استفاده کرده است. نمایشگر آیفون 13 به پنل Super Retina مجهز ‌شده است تا تصاویر بسیار
-                                مطلوبی را به کاربر عرضه کندوشی‌های iPhone خود پردازنده گرافیکی‌ای را قرار داده که از سری 12 گوشی‌های خود 30
-                                درصد سریع‌تر است و این نویدبخش آن است که شما می‌توانید بازی‌هایی را با گرافیک و MAP
-                                سنگین تر و بزرگ‌تر اجرا کنید. یکی از ویژگی‌هایی که در iPhone 13 شاهد هستیم سیستم
-                                فیلمبرداری ProRes سینمایی آن است که می تواند انقلابی در فیلمبرداری گوشی‌های موبایل
-                                به‌راه انداخته باشد. این قابلیت می‌تواند نسبت به صورت روبرو بین افراد و یا بین فرد و
-                                اشیا فوکوس و بِلار داشته باشد.
-                            </p>
-
-                        </div> --}}
                         <div
                             class="expandable-text-expand-btn justify-content-start text-sm d-flex justify-content-end">
                             <span class="show-more active">

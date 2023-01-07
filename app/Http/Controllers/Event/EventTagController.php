@@ -188,6 +188,8 @@ class EventTagController extends Controller
         $attrs = DB::connection('mysql2')->select('select price, language, facilities, age_description, level_description from events where ' . $whereClause);
         $cities = DB::connection('mysql2')->select('select cities.id, cities.name from events, cities where city_id is not null and city_id = cities.id and ' . $whereClause . ' group by(cities.id)');
         $launchers = DB::connection('mysql2')->select('select distinct(launcher_id) as id, launchers.company_name from launchers, events where launcher_id = launchers.id and ' . $whereClause);
+        
+        $tags = EventTag::visible()->get();
 
         $minPrice = null;
         $maxPrice = null;
@@ -236,6 +238,7 @@ class EventTagController extends Controller
                     'maxPrice' => $maxPrice,
                     'minPrice' => $minPrice,
                     'cities' => $cities,
+                    'tags' => $tags,
                     'facilities' => $facilities,
                     'langs' => $langs,
                     'ages' => $ages,
@@ -246,6 +249,7 @@ class EventTagController extends Controller
                 'launchers' => $launchers,
                 'maxPrice' => $maxPrice,
                 'minPrice' => $minPrice,
+                'tags' => $tags,
                 'cities' => $cities,
                 'facilities' => $facilities,
                 'langs' => $langs,
