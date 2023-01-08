@@ -123,7 +123,7 @@ class Product extends Model
 
     public function featuresWithValue() {
         $features = DB::select(
-            'select category_features.id, category_features.unit, category_features.show_in_top, ' .
+            'select product_features.product_id, category_features.id, category_features.unit, category_features.show_in_top, ' .
                 'category_features.name, product_features.value, ' . 
                 'product_features.price, product_features.available_count ' . 
                 'from category_features join product_features on ' . 

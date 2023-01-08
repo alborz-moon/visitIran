@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\FAQ;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redirect;
@@ -43,8 +42,8 @@ class FAQController extends Controller
         return response()->json(
                 [
                     'status' => 'ok', 
-                    'data' => Cache::tags('event')->rememberForever('faq', function () {
-                        FAQ::visible()->shop()->orderBy('priority', 'asc')->get();
+                    'data' => Cache::tags('shop')->rememberForever('faq', function () {
+                        return FAQ::visible()->shop()->orderBy('priority', 'asc')->get();
                     })
                 ]
             );

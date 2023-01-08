@@ -266,6 +266,7 @@
         });
 
         let productId;
+        let maxCount = parseInt('{{ $product['available_count'] == -1 ? 100 : $product['available_count'] }}');
         
         try {
             productId = location.pathname.split('/product/')[1].split('/')[0];
@@ -305,11 +306,10 @@
                 let colors = '';
                 let property = '';
                 let params = '';
+
                 for (var i = 0; i < res.features.length; i++) {
 
                     if(res.features[i].name === 'multicolor') {
-                        
-                        console.log(res.features[i]);
 
                         $("#color-div").removeClass('hidden');
                         let val_label = res.features[i].value.split('__');
@@ -317,6 +317,10 @@
                         let prices = res.features[i].price !== undefined && 
                             res.features[i].price !== null && res.features[i].price != '' ? 
                                 res.features[i].price.split('$$') : null;
+
+                        let pricesAfterOff = res.features[i].pricesAfterOff !== undefined && 
+                            res.features[i].pricesAfterOff !== null && res.features[i].pricesAfterOff != '' ? 
+                                res.features[i].pricesAfterOff.split('$$') : null;
 
                         let counts = res.features[i].available_count === undefined || 
                                     res.features[i].available_count == null ? null : 
@@ -332,13 +336,13 @@
                             if(j == 0) {
 
                                 if(prices !== null) {
-                                    if(prices.length > j)
-                                        colors += 'data-price="' + prices[j] + '" id="productColor0' + j + '" checked>';
-                                    else
-                                        colors += 'data-price="" id="productColor0' + j + '" checked>';
-
-                                    finalPrice = prices[j];
-                                    $(".price").empty().append(prices[j]);
+                                    let p = prices.length > j ? prices[j] : '';
+                                    let pA = pricesAfterOff != null && pricesAfterOff.length > j ? pricesAfterOff[j] : '';
+                                    colors += 'data-price="' + p + '" data-after-price="' + pA + '" id="productColor0' + j + '" checked>';
+                                    finalPrice = p;
+                                    $(".price").empty().append(pA !== '' ? pA : p);
+                                    if(pA !== '')
+                                        $(".PriceBeforeOff").empty().append(p);
                                 }
                                 else if(counts !== null) {
                                     if(counts.length > j)
@@ -346,7 +350,7 @@
                                     else
                                         colors += 'data-count="" id="productColor0' + j + '" checked>';
 
-                                    finalAvailableCount = counts[j];
+                                    finalAvailableCount = Math.min(counts[j], maxCount);
                                     showAvailableCount(parseInt(finalAvailableCount));
                                 }
                                 
@@ -363,10 +367,9 @@
                             }
                             else {
                                 if(prices !== null) {
-                                    if(prices.length > j)
-                                        colors += 'data-price="' + prices[j] + '" id="productColor0' + j + '">';
-                                    else
-                                        colors += 'data-price="" id="productColor0' + j + '">';
+                                    let p = prices.length > j ? prices[j] : '';
+                                    let pA = pricesAfterOff != null && pricesAfterOff.length > j ? pricesAfterOff[j] : '';
+                                    colors += 'data-price="' + p + '" data-after-price="' + pA + '" id="productColor0' + j + '">';
                                 }
                                 else {
                                     if(counts.length > j)
@@ -394,7 +397,7 @@
                             unit = unit[1];
                         else
                             unit = undefined;
-
+                            
                         let optionHtml = '<div class="product-variant-selected-container spaceBetween hidden" >' +
                             '<div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18">' + res.features[i].name + '</div>' +
                             '<div class="line mr-15 ml-15"></div>' +
@@ -412,6 +415,10 @@
                         let vals = res.features[i].value.split('__')[0].split("$$");
                         
                         let prices = res.features[i].price == null ? null : res.features[i].price.split("$$");
+                        let pricesAfterOff = res.features[i].pricesAfterOff !== undefined && 
+                            res.features[i].pricesAfterOff !== null && res.features[i].pricesAfterOff != '' ? 
+                                res.features[i].pricesAfterOff.split('$$') : null;
+
                         let counts = res.features[i].available_count == null ? null : res.features[i].available_count.split("$$");
 
                         let sizes = "";
@@ -426,19 +433,39 @@
                                 wantedFeature = vals[0];
 
                                 if(prices != null) {
-                                    sizes += 'data-price="' + prices[j] + '"';
-                                    $(".price").empty().append(prices[j]);
-                                    finalPrice = prices[j];
+                                    
+                                    let p = prices[j];
+                                    let pA = pricesAfterOff !== null ? pricesAfterOff[j] : '';
+
+                                    sizes += 'data-price="' + p + '"';
+
+                                    if(pA !== '')
+                                        sizes += ' data-after-price="' + pA + '"';
+
+                                    finalPrice = p;
+
+                                    $(".price").empty().append(pA !== '' ? pA : p);
+                                    
+                                    if(pA !== undefined)
+                                        $(".PriceBeforeOff").empty().append(pA);
                                 }
                                 else {
                                     sizes += 'data-count="' + counts[j] + '"';
-                                    finalAvailableCount = counts[j];
+                                    finalAvailableCount = Math.min(counts[j], maxCount);
                                     showAvailableCount(parseInt(finalAvailableCount));
                                 }
                             }
                             else {
-                                if(prices != null)
-                                    sizes += 'data-price="' + prices[j] + '"';
+                                if(prices != null) {
+
+                                    let p = prices[j];
+                                    let pA = pricesAfterOff !== null ? pricesAfterOff[j] : '';
+
+                                    sizes += 'data-price="' + p + '"';
+
+                                    if(pA !== '')
+                                        sizes += ' data-after-price="' + pA + '"';
+                                }
                                 else
                                     sizes += 'data-count="' + counts[j] + '"';
                             }
@@ -457,9 +484,27 @@
                     }
 
                     params += '<li>';
-                    params += '<span class="param-title colorBlueWhite font600">' + res.features[i].name + '</span>';
-                    params += '<span class="param-value fontSize16">' + res.features[i].value + '</span>';
+
+                    if(res.features[i].name === 'multicolor')
+                        params += '<span class="param-title colorBlueWhite font600">رنگ</span>';
+                    else
+                        params += '<span class="param-title colorBlueWhite font600">' + res.features[i].name + '</span>';
+                    
+                    if(
+                        res.features[i].name === 'multicolor' || 
+                        res.features[i].available_count !== null || 
+                        res.features[i].price !== null
+                    ) {
+                        console.log(res.features[i].value.split(' ')[0]);
+                        console.log(res.features[i].value.split(' ')[0].split("__"));
+                        let vals_tmp = res.features[i].value.split(' ')[0].split("__")[0].split('$$');
+                        params += '<span class="param-value fontSize16">' + vals_tmp.join('، ') + '</span>';
+                    }
+                    else
+                        params += '<span class="param-value fontSize16">' + res.features[i].value + '</span>';
+
                     params += '</li>';
+                    
                 }
 
                 $("#params-list-div").empty().append(params);
@@ -477,7 +522,7 @@
         let critical_point = parseInt('{{ $critical_point }}');
 
         function showAvailableCount(count) {
-
+            
             if(count > critical_point) {
                 $(".show_if_available").removeClass('hidden');
                 $(".availableCount").empty().append('<span></span>');
@@ -497,11 +542,15 @@
         $(document).on("click","input[name='productColor']", function() {
             
             if($(this).attr('data-price') !== undefined) {
-                finalPrice = $(this).attr('data-price');
-                $(".price").empty().append(finalPrice);
+                let p = $(this).attr('data-price');
+                let pA = $(this).attr('data-after-price');
+                finalPrice = p;
+                $(".price").empty().append(pA !== undefined && pA.length > 0 ? pA : p);
+                if(pA !== undefined && pA.length > 0)
+                    $(".PriceBeforeOff").empty().append(p);
             }
             else {
-                finalAvailableCount = $(this).attr('data-count');
+                finalAvailableCount = Math.min($(this).attr('data-count'), maxCount);
                 showAvailableCount(parseInt(finalAvailableCount));
             }
 
@@ -522,11 +571,16 @@
             let selectedOption = $(this).find(":selected");
 
             if(selectedOption.attr('data-price') !== undefined) {
-                finalPrice = selectedOption.attr('data-price');
-                $(".price").empty().append(finalPrice);
+                
+                let p = selectedOption.attr('data-price');
+                let pA = selectedOption.attr('data-after-price');
+                finalPrice = p;
+                $(".price").empty().append(pA !== undefined && pA.length > 0 ? pA : p);
+                if(pA !== undefined && pA.length > 0)
+                    $(".PriceBeforeOff").empty().append(p);
             }
             else {
-                finalAvailableCount = selectedOption.attr('data-count');
+                finalAvailableCount = Math.min(selectedOption.attr('data-count'), maxCount);
                 showAvailableCount(parseInt(finalAvailableCount));
             }
             

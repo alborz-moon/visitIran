@@ -1,5 +1,5 @@
 <!-- start of product-card -->
-    <div class="product-card customBorderBoxShadow">
+    <div class="product-card customBorderBoxShadow" style="{{ isset($autoHeight) && $autoHeight ? 'height: auto;' : '' }}">
         <div class="product-thumbnail">
             <a>
                 <img id="{{ $key }}Img">
