@@ -28,13 +28,14 @@ class EventUserResource extends JsonResource
         $e = Controller::MiladyToShamsi($end, '/');
         
         $launcher = $this->launcher;
-
+        
         return [
             'id' => $this->id,
             'launcher_id' => $this->launcher_id,
             'launcher_title' => $launcher->title,
             'launcher_rate' => $launcher->rate == null ? 4 : $launcher->rate,
             'launcher_rate_count' => $launcher->rate_count,
+            'launcher_follower_count' => $launcher->follower_count,
             'launcher_is_following' => true,
             'start' => $s,
             'end' => $e,
@@ -61,6 +62,8 @@ class EventUserResource extends JsonResource
             'digest' => $this->digest,
             'keywords' => $this->keywords,
             'seo_tags' => $this->seo_tags,
+            'x' => $this->x,
+            'y' => $this->y,
             // 'city' => $this->city->name
         ];
     }

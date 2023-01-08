@@ -886,6 +886,18 @@ table thead {
     background-color: #c59358 !important;
     color: #fff;
 }
+
+.btnEventHover:hover {
+    background-color: #c59358 !important;
+    color: #fff;
+}
+.btnEventHover {
+    transition: 0.3s cubic-bezier(0, 0, 0.14, 0.12);
+    -webkit-transition: 0.3s cubic-bezier(0, 0, 0.14, 0.12);
+    -moz-transition: 0.3s cubic-bezier(0, 0, 0.14, 0.12);
+    -ms-transition: 0.3s cubic-bezier(0, 0, 0.14, 0.12);
+    -o-transition: 0.3s cubic-bezier(0, 0, 0.14, 0.12);
+}
 .btn.btn-secondary:hover {
     background-color: #b48146 !important;
     color: #fff;
@@ -1025,6 +1037,12 @@ table thead {
     top: 5px;
     z-index: 1000000000;
     cursor: pointer;
+}
+.fontWight400 {
+    font-weight: 400;
+}
+.ltr {
+    direction: ltr;
 }
 .product-card .product-price {
     height: 50px;
@@ -1737,6 +1755,7 @@ figure .ck-widget > img .mCS_img_loaded {
     padding: 10px;
 }
 .userCircleSize {
+    border: 1px solid #c59358;
     width: 50px;
     min-width: 50px;
     height: 50px;
@@ -2154,5 +2173,21 @@ figure .ck-widget > img .mCS_img_loaded {
 @media only screen and (max-width: 576px) {
     .customEventBorderBox {
         height: 430px;
+    }
+}
+@media only screen and (max-width: 991px) {
+    .customEventHandler {
+        display: none;
+    }
+    #customEventHandlerMobile {
+        display: block;
+    }
+}
+@media only screen and (min-width: 990px) {
+    .customEventHandler {
+        display: block;
+    }
+    #customEventHandlerMobile {
+        display: none;
     }
 }
