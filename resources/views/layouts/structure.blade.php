@@ -300,8 +300,8 @@
                      <div class="d-flex align-items-center flex-grow-1 pe-3 zIndex3 position-relative">
                         
                         @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
-                            <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop">
-                                <img class="headerImgMT15" src="{{ asset('theme-assets/images/menuImage2.svg') }}" width="80" alt="">
+                            <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop marginTop14 d-flex justifyContentCenter p-0">
+                                <img src="{{ asset('theme-assets/images/menuImage2.svg') }}" width="70" alt="">
                             </div>
                         @else
                             <div class="logo-container logo-boxEvent me-3 positionAbsolute logoImgFromTop backColorWhite">

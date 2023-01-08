@@ -12,8 +12,8 @@
                     <div class="colorBlack fontSize15">کد : <span>17486931867</span></div>
 
                     <div
-                        class="d-flex justify-content-center align-items-center customBoxShadowGallery mb-3 imgSizeEvent">
-                        <img class="w-100 h-100 pt-0 p-4" src="{{ $event['img'] }}" alt="">
+                        class="d-flex justify-content-center align-items-center customBoxShadowGallery mb-3 imgSizeEvent overFlowHidden">
+                        <img class="w-100 h-100 pt-0 p-4 objectFitCover" src="{{ $event['img'] }}" alt="">
                     </div>
                     <div class="customBoxShadowGallery">
                         <div class="d-flex alignItemsCenter flexWrap spaceBetween mb-4">
@@ -392,11 +392,7 @@
                     </div>
                     <div class="expandable-text pt-1" style="height: auto">
                         <div class="expandable-text_text fa-num">
-                            <!-- start of params-list -->
-                            <div class="params-list">
-                                <ul id="params-list-div"></ul>
-                            </div>
-                            <!-- end of params-list -->
+                            <div id="eventGallery"></div>
                         </div>
                     </div>
                 </div>

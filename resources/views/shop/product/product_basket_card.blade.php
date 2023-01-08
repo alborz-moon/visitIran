@@ -63,7 +63,7 @@
                                 @endif
                             </span>
                         </div>
-                        <del id="PriceBeforeOff" class="customlineText textColor fontSize15">{{ $product['price'] }}</del>
+                        <del id="PriceBeforeOff" class="customlineText textColor fontSize15 PriceBeforeOff">{{ $product['price'] }}</del>
                     </div>
                 </div>
             @endif
@@ -187,7 +187,8 @@
                     'img': '{{ $product['img'] }}',
                     'alt': '{{ $product['alt'] }}',
                     'href': '{{ url()->current() }}',
-                    'price': '{{ $product['price'] }}',
+                    // 'price': '{{ $product['price'] }}',
+                    'price': finalPrice,
                     'seller': '{{ $product['seller'] }}',
                     'category': '{{ $product['category'] }}',
                     'feature': wantedFeature,
