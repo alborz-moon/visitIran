@@ -7,10 +7,10 @@
       href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.css"
       rel="stylesheet"
     />
-    <script src="{{asset('theme-assets/js/Utilities.js')}}"></script>
     <script>
         let GET_CITIES_URL = '{{ route('api.cities') }}';
     </script>
+    <script src="{{asset('theme-assets/js/Utilities.js')}}"></script>
 @stop
 @section('content')
     <main class="page-content TopParentBannerMoveOnTop">
@@ -47,20 +47,26 @@
                                 <div class="row">
                                     <div class=" py-1">
                                         <div  class="fs-7 text-dark">شماره تلفن همراه کاربر مدنظر</div>
-                                        <div class="d-flex align-items-center justify-content-between position-relative">
-                                            <input id="user-phone" data-editable="true" onkeypress="return isNumber(event)" type="tel" minlength="7"  maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه کاربر مدنظر">
-                                            <button data-input-id="user-phone" class=" toggle-editable-btn btn btn-circle btn-outline-light">
-                                                <i class="ri-ball-pen-fill"></i>
-                                            </button>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="position-relative w-100">
+                                                    <input id="user-phone" data-editable="true" onkeypress="return isNumber(event)" type="tel" minlength="7"  maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه کاربر مدنظر">
+                                                    <button data-input-id="user-phone" class=" toggle-editable-btn btn btn-circle btn-outline-light">
+                                                        <i class="ri-ball-pen-fill"></i>
+                                                    </button>
+                                                </div>
+                                                <button id="searchUser" class="btn btn-primary btn-outline-light">
+                                                    جستجو
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div class="fs-6 fw-bold text-muted"></div>
+                                        {{-- <div class="fs-6 fw-bold text-muted"></div> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     @endif
 
-                    <div class="ui-box bg-white mb-5 boxShadow">
+                    <div class="ui-box bg-white mb-5 boxShadow searchUserContentHidden">
                         <div class="ui-box-title">اطلاعات رابط</div>
                         <div class="ui-box-content">
                             <div class="row">
@@ -128,7 +134,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ui-box bg-white mb-5 boxShadow">
+                    <div class="ui-box bg-white mb-5 boxShadow searchUserContentHidden">
                         <div class="ui-box-title">تصویر صفحه برگزار کننده</div>
                         <div class="ui-box-content">
                             <div class="row">
@@ -177,7 +183,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ui-box bg-white mb-5 boxShadow">
+                    <div class="ui-box bg-white mb-5 boxShadow searchUserContentHidden">
                         <div class="ui-box-title">نوع برگزار کننده</div>
                         <div class="ui-box-content">
                             <div class="row">
@@ -196,7 +202,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ui-box bg-white mb-5 boxShadow hidden_all_fields hidden">
+                    <div class="ui-box bg-white mb-5 boxShadow hidden_all_fields hidden searchUserContentHidden">
                         <div class="ui-box-title">اطلاعات برگزار کننده</div>
                         <div class="ui-box-content">
                             <div class="row">
@@ -298,7 +304,7 @@
                             </div>
                         </div>
                     </div>
-                                        <div class="ui-box bg-white mb-5 boxShadow">
+                    <div class="ui-box bg-white mb-5 boxShadow searchUserContentHidden">
                         <div class="ui-box-title">درباره برگزار کننده</div>
                         <div class="ui-box-content">
                             <div class="row">
@@ -316,7 +322,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ui-box bg-white mb-5 boxShadow hidden_all_fields hidden">
+                    <div class="ui-box bg-white mb-5 boxShadow hidden_all_fields hidden searchUserContentHidden">
                         <div class="ui-box-title">اطلاعات تماس</div>
                         <div class="ui-box-content">
                             <div class="row">
@@ -476,6 +482,11 @@
         var map = undefined;
      
         $(document).ready(function(){
+
+            $("#searchUser").on("click",function(){
+                $(".searchUserContentHidden").toggle();
+            });
+            
             $('#launcherPhone').attr("data-editable", "true");
             $('input').attr("data-editable", "true");
             $('textarea').attr("data-editable", "true");
@@ -686,17 +697,16 @@
                 for ( var key in data ) {
                    formData.append(key, data[key]);
                 }
-
+                
                 tels.forEach((elem, index) => {
                     formData.append('launcher_phone[]', elem.val);
                 });
-
+                
                 const inputFile = document.getElementById("file-ip-1");
                 for (const file of inputFile.files) {
                     formData.append("back_img_file", file);
                 }
-
-
+                
                 const inputFile2 = document.getElementById("file-ip-2");
                 for (const file of inputFile2.files) {
                     formData.append("img_file", file);
@@ -705,6 +715,7 @@
                 const userPhone = $("#user-phone").val();
                 if(userPhone !== undefined)
                     formData.append("user_phone", userPhone);
+
 
                 $.ajax({
                     type: 'post',
