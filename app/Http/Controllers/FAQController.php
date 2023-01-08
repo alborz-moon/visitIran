@@ -43,8 +43,8 @@ class FAQController extends Controller
         return response()->json(
                 [
                     'status' => 'ok', 
-                    'data' => Cache::tags('event')->rememberForever('faq', function () {
-                        FAQ::visible()->shop()->orderBy('priority', 'asc')->get();
+                    'data' => Cache::tags('shop')->rememberForever('faq', function () {
+                        return FAQ::visible()->shop()->orderBy('priority', 'asc')->get();
                     })
                 ]
             );
