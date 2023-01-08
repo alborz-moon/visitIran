@@ -15,6 +15,7 @@
     @endif
     <link rel="stylesheet" href="{{ asset('theme-assets/css/dependencies.css') }}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/theme.css') }}">
+    <link rel="stylesheet" href="{{asset('theme-assets/css/fontface.css')}}">
     <link rel="stylesheet" href="{{ asset('theme-assets/css/custom.css') }}">
     
     <script src="{{ asset('theme-assets/js/dependencies/jquery-3.6.0.min.js') }}"></script>

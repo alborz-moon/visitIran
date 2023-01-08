@@ -70,13 +70,14 @@ class LauncherController extends Controller
             'back_img_file' => 'nullable|image',
             'first_name' => 'required|string|min:2',
             'last_name' => 'required|string|min:2',
+            'about' => 'nullable|string',
             'phone' => 'required|regex:/(09)[0-9]{9}/|unique:mysql2.launchers,phone',
             'user_NID' => ['bail', 'required','regex:/[0-9]{10}/','unique:mysql2.launchers,user_NID', new NID],
             'user_email' => 'required|email|unique:mysql2.launchers,user_email',
             'user_birth_day' => 'required', //|date
             'launcher_type' => ['required', Rule::in(['haghighi', 'hoghoghi'])],
             'company_name' => 'required|string|min:2',
-            'company_type' => ['required_if:launcher_type,hoghoghi', Rule::in(['agancy', 'art', 'limit', 'spec', 'public'])],
+            'company_type' => ['required_if:launcher_type,hoghoghi', Rule::in(['agency', 'art', 'limit', 'spec', 'public'])],
             'postal_code' => 'required_if:launcher_type,hoghoghi|regex:/[1-9][0-9]{9}/',
             'code' => 'required_if:launcher_type,hoghoghi|numeric',
             'launcher_address' => 'required|string|min:2',
@@ -107,7 +108,6 @@ class LauncherController extends Controller
 
         if($request['launcher_type'] == 'haghighi') {
             $request['company_type'] = null;
-            $request['postal_code'] = null;
             $request['code'] = null;
         }
         
@@ -234,9 +234,10 @@ class LauncherController extends Controller
             'user_birth_day' => 'nullable', //|date
             'launcher_type' => ['nullable', Rule::in(['haghighi', 'hoghoghi'])],
             'company_name' => 'nullable|string|min:2',
-            'company_type' => ['nullable', Rule::in(['agancy', 'art', 'limit', 'spec', 'public'])],
+            'company_type' => ['nullable', Rule::in(['agency', 'art', 'limit', 'spec', 'public'])],
             'postal_code' => 'nullable|regex:/[1-9][0-9]{9}/',
             'code' => 'nullable|numeric',
+            'about' => 'nullable|string',
             'launcher_address' => 'nullable|string|min:2',
             'launcher_email' => 'nullable|email',
             'launcher_site' => 'nullable|string|min:2',
@@ -282,7 +283,6 @@ class LauncherController extends Controller
 
         if($request['launcher_type'] == 'haghighi') {
             $request['company_type'] = null;
-            $request['postal_code'] = null;
             $request['code'] = null;
         }
 

@@ -16,7 +16,8 @@ class EventGalleryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'img' => asset('storage/events/' . $this->img)
+            'img' => asset('storage/events/' . $this->img),
+            'alt' => $this->alt
         ];
     }
 }

@@ -40,7 +40,7 @@
                         <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">پشتیبانی</a>
                     </div>
 
-                    @if($isEditor)                    
+                    @if($isEditor && $mode !== 'edit')
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">کاربر مدنظر</div>
                             <div class="ui-box-content">
@@ -644,10 +644,10 @@
                 ;
 
                 let inputList = checkInputs(required_list);
-                let selectList = checkSelect(required_list_Select);  
+                let selectList = checkSelect(required_list_Select);
                 
                 if( !inputList || !selectList) {
-                    showErr("فیلد توضیحات را پر کنید.");
+                    showErr('لطفا همه فیلدهای لازم را پر نمایید');
                     return
                 }
                 
@@ -687,12 +687,23 @@
                     launcher_address: launcherAddress,
                 };
 
+                let about = $("#aboutme").val();
+                if(about !== undefined && about !== null && about.length > 0)
+                    data['about'] = about;
+
                 if(launcherType == "hoghoghi") {
                     data.code = code;
                     data.company_type = companyType;
                 }
 
                 let formData = new FormData();
+
+                @if($mode == 'create')
+                    const userPhone = $("#user-phone").val();
+                    if(userPhone !== undefined)
+                        formData.append("user_phone", userPhone);
+                @endif
+
 
                 for ( var key in data ) {
                    formData.append(key, data[key]);
@@ -712,9 +723,6 @@
                     formData.append("img_file", file);
                 }
 
-                const userPhone = $("#user-phone").val();
-                if(userPhone !== undefined)
-                    formData.append("user_phone", userPhone);
 
 
                 $.ajax({
@@ -770,13 +778,14 @@
                     $('#last').val(res.data.last_name);
                     $('.setName').val(res.data.first_name + ' ' + res.data.last_name)
                     $('#phone').val(res.data.phone);
+                    $('#aboutme').val(res.data.about);
                     $("#postalCode").val(res.data.postal_code);
+                    $("#companyName").val(res.data.company_name);
+                    
+
                     if(res.data.launcher_type == "hoghoghi") {
-                        $("#companyName").val(res.data.company_name);
                         $("#code").val(res.data.code);
                         $("#companyType").val(res.data.company_type).change();
-                    }else if(launcherType == "haghighi") {
-                        $("#companyName").val(res.data.company_name);
                     }
                     
                     if(res.data.back_img !== null && res.data.back_img !== undefined && res.data.back_img !== 'null' && res.data.back_img.length > 0)

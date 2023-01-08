@@ -20,7 +20,7 @@ class MyAuth
         $user = $request->user();
 
         if($user == null)
-            return Redirect::to('/login');
+            return Redirect::to('/login-register');
             
         return $next($request);
     }
