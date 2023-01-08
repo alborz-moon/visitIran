@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="{{URL::asset('theme-assets/bootstrap-datepicker.css?v=1')}}">
     <script src="{{URL::asset("theme-assets//bootstrap-datepicker.js")}}"></script>
 @stop
-<div class="w-100 backgroundWhite marginTopNegative5 {{isset($forList) && $forList ? '' : 'mb-5'}} ">
+<div class="w-100 backgroundWhite marginTopNegative5 {{isset($forMarginTop) && $forMarginTop ? '' : 'mb-5'}} ">
     <div class="container pb-1 pt-3">
         <span class="ui-box-title fontSize20 mb-3 {{isset($forList) && $forList ? 'd-none' : 'mb-5'}}">
             <img class="p-2" src="http://myshop.com/./theme-assets/images/svg/headlineTitle.svg" alt="">
@@ -34,14 +34,14 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-xs-12 col-md-2 marginBottom5">
-                <label class="tripCalenderSection">
+            <div class="col-xs-12 col-md-4 marginBottom5">
+                <label class="tripCalenderSection w-100">
                 <span class="calendarIcon"></span>
-                <input id="date_input_start" class="tripDateInput form-control customBackgroundWhite" placeholder="تاریخ برگزاری" required readonly type="text">
+                <input id="date_input_start" class="tripDateInput form-control customBackgroundWhite w-100" placeholder="تاریخ برگزاری" required readonly type="text">
                 </label>
             </div>
             <div class="col-xs-12 col-md-2 marginBottom5">
-                <button onclick="goToListPage()" class="btn btn-primary whiteSpaceNoWrap">جست و جو</button>
+                <button onclick="goToListPage()" class="btn btn-primary whiteSpaceNoWrap w-100">جست و جو</button>
             </div>
         </div>
     </div>

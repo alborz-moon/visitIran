@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Event;
 
 use App\Http\Resources\EventAdminDigest;
+use App\Http\Resources\EventGalleryResource;
 use App\Http\Resources\EventPhase1Resource;
 use App\Http\Resources\EventPhase2Resource;
 use App\Http\Resources\EventUserDigest;
 use App\Http\Resources\EventUserResource;
+use App\Http\Resources\GalleryResource;
 use App\Http\Resources\LauncherVeryDigest;
 use App\Models\Config;
 use App\Models\Event;
@@ -435,9 +437,10 @@ class EventController extends EventHelper
         $event->save();
 
         $user = $request->user();
-        
+
         if($user == null)
             return view('event.event', [
+                'galleries' => EventGalleryResource::collection($event->galleries()->orderBy('priority', 'asc')->get())->toArray($request),
                 'event' => array_merge(
                     EventUserResource::make($event)->toArray($request), [
                         'is_bookmark' => false,
@@ -452,6 +455,7 @@ class EventController extends EventHelper
         
         // dd(EventUserResource::make($event)->toArray($request));
         return view('event.event', [
+            'galleries' => EventGalleryResource::collection($event->galleries()->orderBy('priority', 'asc')->get())->toArray($request),
             'event' => array_merge(
                 EventUserResource::make($event)->toArray($request), 
                 [
