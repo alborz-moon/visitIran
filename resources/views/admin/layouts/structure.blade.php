@@ -140,10 +140,16 @@
 
                                 <li class="nav-item"><a data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i></i> <span class="mini-dn">کاربران</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                                     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                                        <a href="{{route('users.index', ['level' => 'admin'])}}" class="dropdown-item">ادمین ها</a>
+                                        <a href="{{route('users.index', ['level' => 'editor'])}}" class="dropdown-item">ویرایش کنندگان</a>
+                                        <a href="{{route('users.index', ['level' => 'report'])}}" class="dropdown-item">گزارش گیرندگان</a>
+                                        <a href="{{route('users.index', ['level' => 'finance'])}}" class="dropdown-item">گزارش گیرندگان مالی</a>
+                                        <a href="{{route('users.index', ['level' => 'news'])}}" class="dropdown-item">مدیریت بلاگها</a>
                                         <a href="{{route('seller.index')}}" class="dropdown-item">فروشندگان</a>
                                         <a href="{{route('mail.users')}}" class="dropdown-item">خبرنامه</a>
                                     </div>
                                 </li>
+                                
 
                                 <li class="nav-item"><a href="{{ route('off.index') }}" role="button" class="nav-link"><i></i> <span class="mini-dn">تخفیفات</span></a></li>
                                 <li class="nav-item"><a href="{{ route('product.index') }}" role="button" class="nav-link"><i></i> <span class="mini-dn">مدیریت محصولات</span></a></li>
@@ -172,6 +178,7 @@
                                         <a href="{{route('users.index', ['level' => 'finance'])}}" class="dropdown-item">گزارش گیرندگان مالی</a>
                                         <a href="{{route('users.index', ['level' => 'news'])}}" class="dropdown-item">مدیریت بلاگها</a>
                                         <a href="{{route('launcher.index')}}" class="dropdown-item">برگزار کنندگان</a>
+                                        <a href="{{route('mail.users')}}" class="dropdown-item">خبرنامه</a>
                                     </div>
                                 </li>
                                 

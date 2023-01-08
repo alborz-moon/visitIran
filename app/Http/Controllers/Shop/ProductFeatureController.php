@@ -106,7 +106,7 @@ class ProductFeatureController extends Controller
 
             if($label == null)
                 abort(401);
-
+            
             $request['value'] = implode('$$', $values) . '__' . $label;
         }
 

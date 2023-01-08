@@ -188,7 +188,7 @@
     
     <p>تعداد کل: {{ $total_count }}</p>
 
-    <table  id="table" data-toggle="table" data-search="true" data-show-columns="true"  data-key-events="true" data-show-toggle="true" data-resizable="true" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+    <table id="table" data-toggle="table" data-search="true" data-show-columns="true"  data-key-events="true" data-show-toggle="true" data-resizable="true" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
         <thead>
             <tr>
                 <th>ردیف</th>
@@ -275,64 +275,63 @@
 
     <script>
         
-        $(document).ready(function() {
-
-            $(".saveBtn").on('click', function() {
-                save($(this).attr('data-id'));
-            });
-
-            $('.changeVisibilityBtn').on('click', function() {
-                changeVisibility($(this).attr('data-id'), $(this).attr('data-value'));
-            });
-
-            function save(productId) {
-                $.ajax({
-                    type: 'post',
-                    url: '{{ route('product.updateAvailableCount') }}' + '/' + productId,
-                    data: {
-                        'available_count': $("#available_count_" + productId).val()
-                    },
-                    success: function(res) {
-
-                        if(res.status === "ok") {
-                            showSuccess("عملیات موردنظر با موفقیت انجام شد.");
-                        }
-                        else {
-                            showErr(res.msg);
-                        }
-                    }
-                });
-            }
-
-            function changeVisibility(productId, newStatus) {
-                $.ajax({
-                    type: 'post',
-                    url: '{{ route('product.changeVisibility') }}' + '/' + productId,
-                    data: {
-                        'visibility': newStatus
-                    },
-                    success: function(res) {
-
-                        if(res.status === "ok") {
-                            if(newStatus == 1) {
-                                $("#visibility_invisible_" + productId).removeClass('hidden');
-                                $("#visibility_visible_" + productId).addClass('hidden');
-                                $("#visibility_text_" + productId).text('نمایش');
-                            }
-                            else {
-                                $("#visibility_invisible_" + productId).addClass('hidden');
-                                $("#visibility_visible_" + productId).removeClass('hidden');
-                                $("#visibility_text_" + productId).text('عدم نمایش');
-                            }
-                            showSuccess("عملیات موردنظر با موفقیت انجام شد.");
-                        }
-                        else {
-                            showErr(res.msg);
-                        }
-                    }
-                });
-            }
+        $(document).on('click', ".saveBtn", function() {
+            save($(this).attr('data-id'));
         });
+
+
+        $(document).on('click', '.changeVisibilityBtn', function() {
+            changeVisibility($(this).attr('data-id'), $(this).attr('data-value'));
+        });
+
+
+        function save(productId) {
+            $.ajax({
+                type: 'post',
+                url: '{{ route('product.updateAvailableCount') }}' + '/' + productId,
+                data: {
+                    'available_count': $("#available_count_" + productId).val()
+                },
+                success: function(res) {
+
+                    if(res.status === "ok") {
+                        showSuccess("عملیات موردنظر با موفقیت انجام شد.");
+                    }
+                    else {
+                        showErr(res.msg);
+                    }
+                }
+            });
+        }
+
+        function changeVisibility(productId, newStatus) {
+            $.ajax({
+                type: 'post',
+                url: '{{ route('product.changeVisibility') }}' + '/' + productId,
+                data: {
+                    'visibility': newStatus
+                },
+                success: function(res) {
+
+                    if(res.status === "ok") {
+                        if(newStatus == 1) {
+                            $("#visibility_invisible_" + productId).removeClass('hidden');
+                            $("#visibility_visible_" + productId).addClass('hidden');
+                            $("#visibility_text_" + productId).text('نمایش');
+                        }
+                        else {
+                            $("#visibility_invisible_" + productId).addClass('hidden');
+                            $("#visibility_visible_" + productId).removeClass('hidden');
+                            $("#visibility_text_" + productId).text('عدم نمایش');
+                        }
+                        showSuccess("عملیات موردنظر با موفقیت انجام شد.");
+                    }
+                    else {
+                        showErr(res.msg);
+                    }
+                }
+            });
+        }
 
     </script>
 
