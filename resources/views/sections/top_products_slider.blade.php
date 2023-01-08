@@ -17,7 +17,7 @@
                     <!-- Slides -->
                     <div id="{{ $key }}sSample" class="hidden">
                         <div>
-                            @include('shop.productCard', ['key' => $key])
+                            @include('shop.productCard', ['key' => $key, 'autoHeight' => $title == 'محصولات مشابه'])
                         </div>
                     </div>
                 </div>

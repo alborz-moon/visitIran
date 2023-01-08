@@ -17,8 +17,8 @@ class ProductFeatureResource extends JsonResource
     {
         $tmp = explode('$$', $this->value);
         $value = count($tmp) == 2 ? $tmp[0] : $this->value;
-
         $value = $this->unit == null ? $value : $value . ' ' . $this->unit;
+        
         if($this->price !== null && !empty($this->price)) {
 
             $product = Product::find($this->product_id);

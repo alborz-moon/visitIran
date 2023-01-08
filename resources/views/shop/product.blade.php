@@ -266,6 +266,7 @@
         });
 
         let productId;
+        let maxCount = parseInt('{{ $product['available_count'] == -1 ? 100 : $product['available_count'] }}');
         
         try {
             productId = location.pathname.split('/product/')[1].split('/')[0];
@@ -305,11 +306,10 @@
                 let colors = '';
                 let property = '';
                 let params = '';
+
                 for (var i = 0; i < res.features.length; i++) {
 
                     if(res.features[i].name === 'multicolor') {
-                        
-                        console.log(res.features[i]);
 
                         $("#color-div").removeClass('hidden');
                         let val_label = res.features[i].value.split('__');
@@ -350,7 +350,7 @@
                                     else
                                         colors += 'data-count="" id="productColor0' + j + '" checked>';
 
-                                    finalAvailableCount = counts[j];
+                                    finalAvailableCount = Math.min(counts[j], maxCount);
                                     showAvailableCount(parseInt(finalAvailableCount));
                                 }
                                 
@@ -397,7 +397,7 @@
                             unit = unit[1];
                         else
                             unit = undefined;
-
+                            
                         let optionHtml = '<div class="product-variant-selected-container spaceBetween hidden" >' +
                             '<div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18">' + res.features[i].name + '</div>' +
                             '<div class="line mr-15 ml-15"></div>' +
@@ -443,7 +443,7 @@
                                         sizes += ' data-after-price="' + pA + '"';
 
                                     finalPrice = p;
-                                    
+
                                     $(".price").empty().append(pA !== '' ? pA : p);
                                     
                                     if(pA !== undefined)
@@ -451,7 +451,7 @@
                                 }
                                 else {
                                     sizes += 'data-count="' + counts[j] + '"';
-                                    finalAvailableCount = counts[j];
+                                    finalAvailableCount = Math.min(counts[j], maxCount);
                                     showAvailableCount(parseInt(finalAvailableCount));
                                 }
                             }
@@ -483,12 +483,28 @@
                         
                     }
 
-                    if(res.features[i].name !== 'multicolor') {
-                        params += '<li>';
+                    params += '<li>';
+
+                    if(res.features[i].name === 'multicolor')
+                        params += '<span class="param-title colorBlueWhite font600">رنگ</span>';
+                    else
                         params += '<span class="param-title colorBlueWhite font600">' + res.features[i].name + '</span>';
-                        params += '<span class="param-value fontSize16">' + res.features[i].value + '</span>';
-                        params += '</li>';
+                    
+                    if(
+                        res.features[i].name === 'multicolor' || 
+                        res.features[i].available_count !== null || 
+                        res.features[i].price !== null
+                    ) {
+                        console.log(res.features[i].value.split(' ')[0]);
+                        console.log(res.features[i].value.split(' ')[0].split("__"));
+                        let vals_tmp = res.features[i].value.split(' ')[0].split("__")[0].split('$$');
+                        params += '<span class="param-value fontSize16">' + vals_tmp.join('، ') + '</span>';
                     }
+                    else
+                        params += '<span class="param-value fontSize16">' + res.features[i].value + '</span>';
+
+                    params += '</li>';
+                    
                 }
 
                 $("#params-list-div").empty().append(params);
@@ -506,7 +522,7 @@
         let critical_point = parseInt('{{ $critical_point }}');
 
         function showAvailableCount(count) {
-
+            
             if(count > critical_point) {
                 $(".show_if_available").removeClass('hidden');
                 $(".availableCount").empty().append('<span></span>');
@@ -534,7 +550,7 @@
                     $(".PriceBeforeOff").empty().append(p);
             }
             else {
-                finalAvailableCount = $(this).attr('data-count');
+                finalAvailableCount = Math.min($(this).attr('data-count'), maxCount);
                 showAvailableCount(parseInt(finalAvailableCount));
             }
 
@@ -564,7 +580,7 @@
                     $(".PriceBeforeOff").empty().append(p);
             }
             else {
-                finalAvailableCount = selectedOption.attr('data-count');
+                finalAvailableCount = Math.min(selectedOption.attr('data-count'), maxCount);
                 showAvailableCount(parseInt(finalAvailableCount));
             }
             
