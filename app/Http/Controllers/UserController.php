@@ -106,7 +106,7 @@ class UserController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-dd($request->session()->getPreviousUrl());
+// dd($request->session()->getPreviousUrl());
 
         $validator = Validator::make($request->all(), $validator);
 
