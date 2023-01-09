@@ -106,7 +106,10 @@ class UserController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
+dd($request->session()->getPreviousUrl());
+
         $validator = Validator::make($request->all(), $validator);
+
         if ($validator->fails())
             return Redirect::back()->withErrors($validator)->withInput();
         
