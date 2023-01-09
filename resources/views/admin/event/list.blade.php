@@ -256,92 +256,82 @@
 
     <script>
         
-        $(document).ready(function() {
-
-            $(".saveBtn").on('click', function() {
-                save($(this).attr('data-id'));
-            });
-
-            $('.changeStatusBtn').on('click', function() {
-                changeStatus($(this).attr('data-id'), $(this).attr('data-value'));
-            });
-            
-            $(document).on('click', '.changeIsInTopListBtn', function() {
-                changeIsInTopList($(this).attr('data-id'), $(this).attr('data-value'));
-            });
-
-
-            function changeIsInTopList(eventId, newStatus) {
-                $.ajax({
-                    type: 'post',
-                    url: '{{ route('event.changeIsInTopList') }}',
-                    data: {
-                        'event_id': eventId
-                    },
-                    success: function(res) {
-
-                        if(res.status === "ok") {
-                            if(newStatus == 'add') {
-                                $("#is_in_top_list_remove_" + eventId).removeClass('hidden');
-                                $("#is_in_top_list_add_" + eventId).addClass('hidden');
-                                $("#is_in_top_list_text_" + eventId).text('بله');
-                            }
-                            else {
-                                $("#is_in_top_list_remove_" + eventId).addClass('hidden');
-                                $("#is_in_top_list_add_" + eventId).removeClass('hidden');
-                                $("#is_in_top_list_text_" + eventId).text('خیر');
-                            }
-                            showSuccess("عملیات موردنظر با موفقیت انجام شد.");
-                        }
-                        else {
-                            showErr(res.msg);
-                        }
-                    }
-                });
-            }
-            
-            function changeStatus(eventId, newStatus) {
-                $.ajax({
-                    type: 'post',
-                    url: '{{ route('event.changeStatus') }}',
-                    data: {
-                        'status': newStatus,
-                        'event_id': eventId
-                    },
-                    success: function(res) {
-
-                        if(res.status === "ok") {
-                            if(newStatus == 'pending') {
-                                $("#status_confirmed_" + eventId).removeClass('hidden');
-                                $("#status_rejected_" + eventId).removeClass('hidden');
-                                $("#status_pending_" + eventId).addClass('hidden');
-                                $("#status_text_" + eventId).text('در حال بررسی');
-                            }
-                            else if(newStatus == 'confirmed') {
-                                $("#status_confirmed_" + eventId).addClass('hidden');
-                                $("#status_rejected_" + eventId).removeClass('hidden');
-                                $("#status_pending_" + eventId).removeClass('hidden');
-                                $("#status_text_" + eventId).text('تایید شده');
-                            }
-                            else {
-                                $("#status_confirmed_" + eventId).removeClass('hidden');
-                                $("#status_pending_" + eventId).removeClass('hidden');
-                                $("#status_rejected_" + eventId).addClass('hidden');
-                                $("#status_text_" + eventId).text('رد شده');
-                            }
-                            showSuccess("عملیات موردنظر با موفقیت انجام شد.");
-                        }
-                        else {
-                            showErr(res.msg);
-                        }
-                    }
-                });
-            }
+        $(document).on('click', '.changeStatusBtn', function() {
+            changeStatus($(this).attr('data-id'), $(this).attr('data-value'));
         });
 
-    </script>
+            
+        $(document).on('click', '.changeIsInTopListBtn', function() {
+            changeIsInTopList($(this).attr('data-id'), $(this).attr('data-value'));
+        });
 
-    <script>
+        function changeIsInTopList(eventId, newStatus) {
+            $.ajax({
+                type: 'post',
+                url: '{{ route('event.changeIsInTopList') }}',
+                data: {
+                    'event_id': eventId
+                },
+                success: function(res) {
+
+                    if(res.status === "ok") {
+                        if(newStatus == 'add') {
+                            $("#is_in_top_list_remove_" + eventId).removeClass('hidden');
+                            $("#is_in_top_list_add_" + eventId).addClass('hidden');
+                            $("#is_in_top_list_text_" + eventId).text('بله');
+                        }
+                        else {
+                            $("#is_in_top_list_remove_" + eventId).addClass('hidden');
+                            $("#is_in_top_list_add_" + eventId).removeClass('hidden');
+                            $("#is_in_top_list_text_" + eventId).text('خیر');
+                        }
+                        showSuccess("عملیات موردنظر با موفقیت انجام شد.");
+                    }
+                    else {
+                        showErr(res.msg);
+                    }
+                }
+            });
+        }
+        
+        function changeStatus(eventId, newStatus) {
+            $.ajax({
+                type: 'post',
+                url: '{{ route('event.changeStatus') }}',
+                data: {
+                    'status': newStatus,
+                    'event_id': eventId
+                },
+                success: function(res) {
+
+                    if(res.status === "ok") {
+                        if(newStatus == 'pending') {
+                            $("#status_confirmed_" + eventId).removeClass('hidden');
+                            $("#status_rejected_" + eventId).removeClass('hidden');
+                            $("#status_pending_" + eventId).addClass('hidden');
+                            $("#status_text_" + eventId).text('در حال بررسی');
+                        }
+                        else if(newStatus == 'confirmed') {
+                            $("#status_confirmed_" + eventId).addClass('hidden');
+                            $("#status_rejected_" + eventId).removeClass('hidden');
+                            $("#status_pending_" + eventId).removeClass('hidden');
+                            $("#status_text_" + eventId).text('تایید شده');
+                        }
+                        else {
+                            $("#status_confirmed_" + eventId).removeClass('hidden');
+                            $("#status_pending_" + eventId).removeClass('hidden');
+                            $("#status_rejected_" + eventId).addClass('hidden');
+                            $("#status_text_" + eventId).text('رد شده');
+                        }
+                        showSuccess("عملیات موردنظر با موفقیت انجام شد.");
+                    }
+                    else {
+                        showErr(res.msg);
+                    }
+                }
+            });
+        }
+
         function buildQuery() {
             
             let query = new URLSearchParams();
