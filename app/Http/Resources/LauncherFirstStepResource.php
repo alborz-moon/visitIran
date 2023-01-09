@@ -22,6 +22,7 @@ class LauncherFirstStepResource extends JsonResource
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'phone' => $this->phone,
+            'about' => $this->about,
             'user_NID' => $this->user_NID,
             'user_email' => $this->user_email,
             'user_birth_day' => $this->user_birth_day,

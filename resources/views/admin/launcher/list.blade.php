@@ -184,59 +184,53 @@
 
     <script>
         
-        $(document).ready(function() {
-
-            $(".saveBtn").on('click', function() {
-                save($(this).attr('data-id'));
-            });
-
-            $('.changeStatusBtn').on('click', function() {
-                changeStatus($(this).attr('data-id'), $(this).attr('data-value'));
-            });
-
-
-            function changeStatus(launcherId, newStatus) {
-                $.ajax({
-                    type: 'post',
-                    url: '{{ route('launcher.changeStatus') }}',
-                    data: {
-                        'status': newStatus,
-                        'launcher_id': launcherId
-                    },
-                    success: function(res) {
-
-                        if(res.status === "ok") {
-                            if(newStatus == 'pending') {
-                                $("#status_confirmed_" + launcherId).removeClass('hidden');
-                                $("#status_rejected_" + launcherId).removeClass('hidden');
-                                $("#status_pending_" + launcherId).addClass('hidden');
-                                $("#status_text_" + launcherId).text('در حال بررسی');
-                            }
-                            else if(newStatus == 'confirmed') {
-                                $("#status_confirmed_" + launcherId).addClass('hidden');
-                                $("#status_rejected_" + launcherId).removeClass('hidden');
-                                $("#status_pending_" + launcherId).removeClass('hidden');
-                                $("#status_text_" + launcherId).text('تایید شده');
-                            }
-                            else {
-                                $("#status_confirmed_" + launcherId).removeClass('hidden');
-                                $("#status_pending_" + launcherId).removeClass('hidden');
-                                $("#status_rejected_" + launcherId).addClass('hidden');
-                                $("#status_text_" + launcherId).text('رد شده');
-                            }
-                            showSuccess("عملیات موردنظر با موفقیت انجام شد.");
-                        }
-                        else {
-                            showErr(res.msg);
-                        }
-                    }
-                });
-            }
+        $(document).on('click', ".saveBtn", function() {
+            save($(this).attr('data-id'));
         });
 
-    </script>
+        $(document).on('click', '.changeStatusBtn', function() {
+            changeStatus($(this).attr('data-id'), $(this).attr('data-value'));
+        });
 
-    <script>
+
+        function changeStatus(launcherId, newStatus) {
+            $.ajax({
+                type: 'post',
+                url: '{{ route('launcher.changeStatus') }}',
+                data: {
+                    'status': newStatus,
+                    'launcher_id': launcherId
+                },
+                success: function(res) {
+
+                    if(res.status === "ok") {
+                        if(newStatus == 'pending') {
+                            $("#status_confirmed_" + launcherId).removeClass('hidden');
+                            $("#status_rejected_" + launcherId).removeClass('hidden');
+                            $("#status_pending_" + launcherId).addClass('hidden');
+                            $("#status_text_" + launcherId).text('در حال بررسی');
+                        }
+                        else if(newStatus == 'confirmed') {
+                            $("#status_confirmed_" + launcherId).addClass('hidden');
+                            $("#status_rejected_" + launcherId).removeClass('hidden');
+                            $("#status_pending_" + launcherId).removeClass('hidden');
+                            $("#status_text_" + launcherId).text('تایید شده');
+                        }
+                        else {
+                            $("#status_confirmed_" + launcherId).removeClass('hidden');
+                            $("#status_pending_" + launcherId).removeClass('hidden');
+                            $("#status_rejected_" + launcherId).addClass('hidden');
+                            $("#status_text_" + launcherId).text('رد شده');
+                        }
+                        showSuccess("عملیات موردنظر با موفقیت انجام شد.");
+                    }
+                    else {
+                        showErr(res.msg);
+                    }
+                }
+            });
+        }
+
         function buildQuery() {
             
             let query = new URLSearchParams();

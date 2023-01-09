@@ -203,18 +203,15 @@ Route::domain(Controller::$EVENT_SITE)->group(function() {
         })->name('finance');
     
         Route::view('/show-events','event.event.show-events')->name('show-events');
-       
-    });
 
-
-    Route::middleware(['launcherLevel'])->prefix('admin')->group(function() {
-    
-        Route::domain(Controller::$EVENT_SITE)->group(base_path('routes/event_launcher_routes.php'));
         
-    });
-    
-    
+        Route::middleware(['launcherLevel'])->prefix('admin')->group(function() {
+        
+            Route::domain(Controller::$EVENT_SITE)->group(base_path('routes/event_launcher_routes.php'));
+            
+        });
 
+    });
 
 
 });

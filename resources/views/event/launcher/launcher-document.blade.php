@@ -78,7 +78,7 @@
                 </div>
             </div>
             <div class="spaceBetween mb-2">
-                <a href="{{ route('launcher') }}" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
+                <a href="{{ route('launcher-edit', ['formId' => $formId]) }}" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
                 <button data-remodal-target="modalAreYouSure"  class="btn btn-sm btn-primary px-5">ارسال برای بازبینی</button>
             </div>
             </div>

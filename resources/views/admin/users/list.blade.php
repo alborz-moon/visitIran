@@ -105,45 +105,43 @@
 <script src="{{ asset('admin-panel/js/pro_search.js') }}"></script>
 
     <script>
-        
-        $(document).ready(function() {
+    
 
-            $(document).on('click', '.changeStatusBtn', function() {
-                changeStatus($(this).attr('data-id'), $(this).attr('data-value'));
-            });
+        $(document).on('click', '.changeStatusBtn', function() {
+            changeStatus($(this).attr('data-id'), $(this).attr('data-value'));
+        });
 
 
-            function changeStatus(userId, newStatus) {
-                
-                $.ajax({
-                    type: 'post',
-                    url: '{{ route('users.change') }}',
-                    data: {
-                        'status': newStatus,
-                        'user_id': userId
-                    },
-                    success: function(res) {
+        function changeStatus(userId, newStatus) {
+            
+            $.ajax({
+                type: 'post',
+                url: '{{ route('users.change') }}',
+                data: {
+                    'status': newStatus,
+                    'user_id': userId
+                },
+                success: function(res) {
 
-                        if(res.status === "ok") {
-                            if(newStatus == 'active') {
-                                $("#status_active_" + userId).addClass('hidden');
-                                $("#status_init_" + userId).removeClass('hidden');
-                                $("#status_text_" + userId).text('فعال');
-                            }
-                            else {
-                                $("#status_active_" + userId).removeClass('hidden');
-                                $("#status_init_" + userId).addClass('hidden');
-                                $("#status_text_" + userId).text('غیرفعال');
-                            }
-                            showSuccess("عملیات موردنظر با موفقیت انجام شد.");
+                    if(res.status === "ok") {
+                        if(newStatus == 'active') {
+                            $("#status_active_" + userId).addClass('hidden');
+                            $("#status_init_" + userId).removeClass('hidden');
+                            $("#status_text_" + userId).text('فعال');
                         }
                         else {
-                            showErr(res.msg);
+                            $("#status_active_" + userId).removeClass('hidden');
+                            $("#status_init_" + userId).addClass('hidden');
+                            $("#status_text_" + userId).text('غیرفعال');
                         }
+                        showSuccess("عملیات موردنظر با موفقیت انجام شد.");
                     }
-                });
-            }
-        });
+                    else {
+                        showErr(res.msg);
+                    }
+                }
+            });
+        }   
 
         function buildQuery() {
             
