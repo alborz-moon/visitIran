@@ -120,7 +120,7 @@
     </div>
 
 
-    <table>
+    <table id="table" data-toggle="table" data-search="true" data-show-columns="true"  data-key-events="true" data-show-toggle="true" data-resizable="true" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
         <thead>
             <tr>
                 <th>ردیف</th>
@@ -157,28 +157,6 @@
 
 
 <script>
-
-    // $.ajax({
-    //     type: 'post',
-    //     url: '{{ route('event.event_comment.store', ['event' => 33]) }}',
-    //     data: {
-    //         msg: 'dqwdwqdwq',
-    //         rate: 2,
-    //         positive: [
-    //             "dqwdqw",
-    //             "wwwew",
-    //             "sasd"
-    //         ],
-    //         negative: [
-    //             "qqqqqq",
-    //             "eewwewe"
-    //         ]
-    //     },
-    //     success: function(res) {
-    //         alert(res);
-    //     }
-    // });
-
 
     function buildQuery() {
         
