@@ -9,6 +9,13 @@
 @stop
 
 @section('form')
+
+    <center id="errs">
+        @if($errors->any())
+            {!! implode('<br />', $errors->all(':message')) !!}
+        @endif
+    </center>
+    
     <form id="myForm" action="{{ isset($item) ? route('facilities.update', ['facility' => $item->id]) : route('facilities.store')}}" method="post">
         {{ csrf_field() }}
 
