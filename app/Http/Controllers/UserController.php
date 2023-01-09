@@ -106,6 +106,7 @@ class UserController extends Controller
             abort(401);
 
         $request->validate($validator);
+dd("Dwq");
 
         $user = User::where('nid', $request['nid'])->orWhere('mail', $request['mail'])
             ->orWhere('phone', $request['phone'])->first();
