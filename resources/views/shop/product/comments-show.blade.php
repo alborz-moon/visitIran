@@ -6,8 +6,8 @@
         <span class="product-users-rating">
             <span class="product-title fontSize15 marginLeft15 d-flex align-items-center">دیدگاه کاربران</span>
             <span class="rattingToStar"></span>
-            <span class="fw-bold me-1">{{$rate}}</span>
-            <span class="text-muted fs-7">(از <span>{{$rate_count}}</span> رای)</span>
+            <span class="fw-bold me-1 fontSize14">{{$rate}}</span>
+            <span class="text-muted fs-7 m-0">(از <span>{{$rate_count}}</span> رای)</span>
         </span>
         <span style="gap15">
             <i class="icon-visit-sort align-middle fontSize20 marginLeft15 colorYellow"></i>

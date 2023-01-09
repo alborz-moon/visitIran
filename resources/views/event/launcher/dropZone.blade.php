@@ -1,5 +1,5 @@
 <div id="drop_zone_parent_{{ $key }}" class="{{isset($col) && $col == 'col-12' ? 'col-lg-12' : 'col-lg-6'}} mb-3 zIndex0">
-    <div class="d-flex spaceBetween justifyContentCenter">
+    <div class="d-flex spaceBetween">
         <div class="uploadTitleText">{{$label}}</div>
         {{-- data-remodal-target="dropZoneModal" --}}
         {{-- onclick="cloneElemToModal('{{ $key }}')" --}}

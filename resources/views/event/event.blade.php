@@ -29,32 +29,33 @@
                                 <span class="colorYellow fontSize12">مهلت ثبت نام تا
                                     {{ $event['end_registry'] }} ساعت {{ $event['end_registry_time'] }}</span>
                             </span>
-                            @if ( $event['price'] != null)
-                            <div class="px-2">
-                                <span class="textColor fontSize18 bold">{{ $event['price'] }}</span>
-                                <span class="colorYellow fontSize22 bold">ت</span>
-                            </div>
-                            @endif
                         </div>
                         <div class="d-flex spaceBetween p-3">
                             <div>
                                 <div class="bold textColor">{{ $event['title'] }}</div>
                                 <div class="colorBlack">{{ $event['ticket_description'] }}</div>
                             </div>
-                            <div class="alignSelfEnd">
-                                <div class="product-seller-row product-remaining-in-stock spaceBetween">
-                                    <div class="bold textColor d-flex align-items-center ">
-                                        <div class="whiteSpaceNoWrap">تعداد شرکت کننده :</div>
-                                    </div>
-                                    <div class="num-block fa-num me-3">
-                                        <span class="num-in">
-                                            <span
-                                                class="icon-visit-Exclusion1 countPlus customColorBlack d-flex justify-content-center align-items-center"></span>
-                                            <input name="counter" type="text" value="1" readonly="">
-                                            <span
-                                                class="icon-visit-Exclusion2 countMinus customColorBlack d-flex justify-content-center align-items-center"></span>
-                                        </span>
-                                    </div>
+                        </div>
+                        <div class="spaceBetween p-3">
+                            @if ( $event['price'] != null)
+                                <div class="px-2">
+                                    <span id="price" class="textColor fontSize18 bold">{{ $event['price'] }}</span>
+                                    <span class="colorYellow fontSize22 bold">ت</span>
+                                </div>
+                            @endif
+                            <div class="product-seller-row product-remaining-in-stock spaceBetween">
+                                <div class="bold textColor d-flex align-items-center ">
+                                    <div class="whiteSpaceNoWrap">تعداد شرکت کننده :</div>
+                                </div>
+                                <div class="num-block fa-num me-3">
+                                    <span class="num-in b-0">
+                                        <span
+                                            class="icon-visit-Exclusion1 countPlus customColorBlack d-flex justify-content-center align-items-center"></span>
+                                        <input id="counter" name="counter" type="text" value="1" readonly="">
+                                        <span class="fontSize12 peopleCount">نفر</span>
+                                        <span
+                                            class="icon-visit-Exclusion2 countMinus customColorBlack d-flex justify-content-center align-items-center"></span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -62,9 +63,12 @@
                         <div class="d-flex flexWrap align-items-center spaceBetween p-3">
                             <div class="d-flex gap10 align-items-center">
                                 <input style="min-width: 200px" class="form-control" placeholder="کد تخفیف">
-                                <button class="btn btn-primary backgroundGray">ثبت</button>
+                                <button class="btn btn-primary backgroundGray h-50">ثبت</button>
                             </div>
-                            <button class="btn btn-primary">ثبت نام</button>
+                            <button style="min-width: 290px" class="fontSize18 bold btn btn-primary h-50 ">ثبت نام 
+                                <span id="allPrice" class="fontSize16 px-1"></span>
+                                <span class="fontSize16 px-1">تومان</span>
+                            </button>
                         </div>
                     </div>
                     <div id="customEventHandlerMobile">
@@ -110,8 +114,8 @@
                                         <span class="colorWhiteGray fontSize13 px-2 d-flex">مشاهده</span>
                                         <i class="icon-visit-eye colorWhiteGray d-flex px-2"></i>
                                     </button>
-                                    <button id="followToggle" data-select="{{ $event['launcher_is_following'] ? 'on' : 'off' }}" class=" d-flex alignItemsCenter whiteSpaceNoWrap buttonBasketEvent {{ $event['launcher_is_following'] ? 'backgroundYellow' : '' }}">
-                                        <span id="folllowText" class="colorWhiteGray fontSize13 px-2 d-flex">دنبال کردن</span>
+                                    <button data-select="{{ $event['launcher_is_following'] ? 'on' : 'off' }}" class=" d-flex alignItemsCenter whiteSpaceNoWrap buttonBasketEvent followToggle {{ $event['launcher_is_following'] ? 'backgroundYellow' : '' }}">
+                                        <span class="colorWhiteGray fontSize13 px-2 d-flex folllowText">دنبال کردن</span>
                                         <i class="icon-visit-person colorWhiteGray d-flex px-2"></i>
                                     </button>
                                 </div>
@@ -208,13 +212,11 @@
                                         </div>
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container">
-                                               
-                                                    @foreach ($event['facilities'] as $facility)
-                                                        <div class="colorBlack fontSize14 fontWight400">
-                                                            {{ $facility }}
-                                                        </div>
-                                                    @endforeach
-                                                
+                                                @foreach ($event['facilities'] as $facility)
+                                                    <div class="colorBlack fontSize14 fontWight400">
+                                                        {{ $facility }}
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                         <a href="#" class="seller-info-link"></a>
@@ -355,10 +357,12 @@
                     <!-- start of product-tabs -->
                     <div class="product-tabs overFlowHidden">
                         <ul class="nav nav-pills">
+                            @if ($event['description'] != null)
                             <li id="checkNavLink" class="nav-item">
                                 <a id="nav1" class="nav-link my-nav-link active" href="#scrollspyHeading1"
                                     data-scroll="scrollspyHeading1">توضیحات</a>
                             </li>
+                            @endif
                             @if ( $galleries != null)
                             <li id="propertyNavLink" class="nav-item">
                                 <a id="nav2" class="nav-link my-nav-link" href="#scrollspyHeading3"
@@ -374,18 +378,27 @@
                     <!-- end of product-tabs -->
                 </div>
                 <!-- start of product-content-expert-summary -->
-                <div class="details product-tab-content product-content-expert-summary tab-content pb-2 mb-4"
-                    id="scrollspyHeading1">
-                        <div
-                            class="expandable-text-expand-btn justify-content-start text-sm d-flex justify-content-end">
-                            <span class="show-more active">
-                                ادامه مطلب <i class="ri-arrow-down-s-line ms-2"></i>
-                            </span>
-                            <span class="show-less d-none">
-                                مشاهده کمتر <i class="ri-arrow-up-s-line ms-2"></i>
-                            </span>
+                @if ($event['description'] != null)
+                        <div class="details product-tab-content product-content-expert-summary tab-content  pb-2 mb-4"
+                            id="scrollspyHeading1">
+                            <div class="product-tab-title">
+                                <div class="fontSize18 bold ">توضیحات</div>
+                            </div>
+                            <div class="pt-1" id="intro-container-parent">
+                                <div id="intro-container" class="expandable-text_text">
+                                    {!! $event['description'] !!}
+                                </div>
+                                <div id="show-more-container-for-intro" class="expandable-text-expand-btn justify-content-start text-sm d-flex justify-content-end hidden">
+                                    <span class="show-more active">
+                                        ادامه مطلب <i class="ri-arrow-down-s-line ms-2"></i>
+                                    </span>
+                                    <span class="show-less d-none">
+                                        مشاهده کمتر <i class="ri-arrow-up-s-line ms-2"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                </div>
+                @endif
                 <!-- end of product-content-expert-summary -->
                 <!-- start of product-params -->
                 @if ( $galleries != null)
@@ -496,8 +509,8 @@
                                         <span class="colorWhiteGray fontSize13 px-2 d-flex">مشاهده</span>
                                         <i class="icon-visit-eye colorWhiteGray d-flex px-2"></i>
                                     </button>
-                                    <button id="followToggle" data-select="{{ $event['launcher_is_following'] ? 'on' : 'off' }}" class=" d-flex alignItemsCenter whiteSpaceNoWrap buttonBasketEvent {{ $event['launcher_is_following'] ? 'backgroundYellow' : '' }}">
-                                        <span id="folllowText" class="colorWhiteGray fontSize13 px-2 d-flex">دنبال کردن</span>
+                                    <button data-select="{{ $event['launcher_is_following'] ? 'on' : 'off' }}" class=" d-flex alignItemsCenter whiteSpaceNoWrap buttonBasketEvent followToggle {{ $event['launcher_is_following'] ? 'backgroundYellow' : '' }}">
+                                        <span class="colorWhiteGray fontSize13 px-2 d-flex folllowText">دنبال کردن</span>
                                         <i class="icon-visit-person colorWhiteGray d-flex px-2"></i>
                                     </button>
                                 </div>
@@ -842,16 +855,19 @@ $(document).ready(function() {
             });
         });
     }
-    $('#followToggle').on('click',function(){
+    $('.followToggle').on('click',function(){
         if($(this).attr('data-select') === 'off'){
             showSuccess("لانچر دنبال شد !");
-            $('#followToggle').css('backgroundColor','#c59358').attr('data-select', 'on');
-            $("#folllowText").text("دنبال شده");
+            $('.followToggle').css('backgroundColor','#c59358').attr('data-select', 'on');
+            $(".folllowText").text("دنبال شده");
         }else{
             showSuccess("لانچر دنبال نشد !");
-            $('#followToggle').css('backgroundColor','transparent').attr('data-select', 'off');
-            $("#folllowText").text("دنبال کردن");
+            $('.followToggle').css('backgroundColor','transparent').attr('data-select', 'off');
+            $(".folllowText").text("دنبال کردن");
         }
+        // $(this).toggle(function(){
+        //     $(this).css('backgroundColor','#c59358')
+        // });
     });
 
     let y = parseFloat('{{$event['y']}}');
@@ -883,18 +899,47 @@ $(document).ready(function() {
         // map.addControl(control);
     }
     }
+    var count = 1; 
+    price = $("#price").text();
+
+    $("#allPrice").text(count * price);
+
+    $(".countPlus").on('click', function() {
+        count++;
+        updateCount();
+    });
+
+    $(".countMinus").on('click', function() {
+        if(count === 1)
+        return;
+
+        count--;
+        updateCount();
+    });
+
+    function updateCount() { 
+        $("#allPrice").text(count * price);
+        $("#counter").val(count);
+    }
+    let introHeight = $('#intro-container').height();
+        
+        if (introHeight >= 400) {
+            $("#show-more-container-for-intro").removeClass('hidden');
+        }
+            
+        $("#show-more-container-for-intro .show-more").on('click', function() {
+            $('#intro-container-parent').addClass('max-height-auto');
+            $('#intro-container').addClass('max-height-auto');
+        });
+        
+        $("#show-more-container-for-intro .show-less").on('click', function() {
+            $('#intro-container-parent').removeClass('max-height-auto');
+            $('#intro-container').removeClass('max-height-auto');
+        });
+
 });
 
 
-$(document).on("click", ".countPlus", function () {    
-    let count = $('input[name=counter]').val();
-    count++;
-});
-
-$(document).on("click", ".countMinus", function () {
-    let count = $('input[name=counter]').val();
-    count--;
-});
 
 </script>
 @stop
