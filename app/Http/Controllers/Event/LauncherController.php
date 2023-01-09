@@ -14,6 +14,7 @@ use App\Rules\NID;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class LauncherController extends Controller
@@ -93,7 +94,7 @@ class LauncherController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
 
         if($request->has('user_phone')) {
             $user = User::where('phone', $request['user_phone'])->first();
@@ -459,7 +460,7 @@ class LauncherController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
 
         $launcher = Launcher::whereId($request['launcher_id'])->first();
         $launcher->status = $request['status'];

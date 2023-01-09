@@ -13,6 +13,7 @@ use App\Models\Off;
 use App\Models\Seller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class OffController extends Controller
@@ -148,7 +149,7 @@ class OffController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
 
         if($request['off_type'] == 'percent' && ($request['amount'] > 100  || $request['amount'] < 1))
             return $this->create($request, 'میزان تخفیف باید بین 1 تا 100 باشد.');

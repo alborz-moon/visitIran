@@ -475,8 +475,8 @@ ul {
 .width-200 {
     width: 200px !important;
 }
-.h100 {
-    width: 100% !important;
+.h-50 {
+    height: 50px !important;
 }
 .h-240 {
     height: 240px !important;
@@ -1130,6 +1130,9 @@ table thead {
     -moz-text-decoration-color: red;
     font-weight: bold;
     font-size: 18px !important;
+}
+.peopleCount {
+    margin-right: -15px;
 }
 .customArrowLeftIcon {
     bottom: 20px;

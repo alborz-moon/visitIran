@@ -64,6 +64,7 @@ class EventUserResource extends JsonResource
             'seo_tags' => $this->seo_tags,
             'x' => $this->x,
             'y' => $this->y,
+            'description' => $this->description
             // 'city' => $this->city->name
         ];
     }

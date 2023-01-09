@@ -17,6 +17,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
@@ -33,7 +34,10 @@ class CategoryController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
+
         $categories = Category::where('name', 'like', '%' . $request['key'] . '%')
             ->get();
         
@@ -344,7 +348,9 @@ class CategoryController extends Controller
         if(empty($request['parent_id']))
             unset($request['parent_id']);
         
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
 
         if($request->has('parent_id')) {
             $cat = Category::whereId($request['parent_id'])->first();

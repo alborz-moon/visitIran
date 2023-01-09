@@ -7,6 +7,8 @@ use App\Models\Launcher;
 use App\Models\LauncherCert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class LauncherCertificationsController extends Controller
 {
@@ -28,7 +30,7 @@ class LauncherCertificationsController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
 
         $filename = $request->img_file->store('public/launchers');
         $filename = str_replace('public/launchers/', '', $filename);

@@ -99,7 +99,7 @@ class EventController extends EventHelper
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
 
         $event = Event::whereId($request['event_id'])->first();
         $event->status = $request['status'];
@@ -118,7 +118,7 @@ class EventController extends EventHelper
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
 
         $event = Event::whereId($request['event_id'])->first();
         $event->is_in_top_list = !$event->is_in_top_list;
@@ -219,7 +219,8 @@ class EventController extends EventHelper
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
+
         $request['return_type'] = 'digest';
 
         $events = Event::like($request['key'], 
@@ -252,11 +253,7 @@ class EventController extends EventHelper
             // 'key' => 'nullable|persian_alpha|min:2|max:15'
         ];
 
-        $validator = Validator::make($request->query(), $validator);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
+        $request->validate($validator, self::$COMMON_ERRS);
 
         $limit = $request->query('limit', 30);
         $key = $request->query('key', null);
@@ -319,8 +316,7 @@ class EventController extends EventHelper
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
-
+        $request->validate($validator, self::$COMMON_ERRS);
 
         $phone_arr = [];
         if($request->has('phone_arr')) {
@@ -379,7 +375,7 @@ class EventController extends EventHelper
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
         $event->description = $request['description'];
         $event->save();
         
@@ -397,8 +393,7 @@ class EventController extends EventHelper
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
-        
+        $request->validate($validator, self::$COMMON_ERRS);
         
         $filename = $request->main_img->store('public/events');
         $filename = str_replace('public/events/', '', $filename);   
@@ -495,7 +490,7 @@ class EventController extends EventHelper
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
 
         if($request->has('link') && $request['type'] == 'offline')
             return abort(401);

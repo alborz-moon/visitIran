@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Feature;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class FeatureController extends Controller
@@ -67,7 +68,10 @@ class FeatureController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
 
         if($request['answer_type'] == 'multi_choice' && !$request->has('choices'))
             return $this->create($category, 'لطفا گزینه های پاسخ را مشخص نمایید.');
@@ -142,7 +146,10 @@ class FeatureController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
 
         if($request->has('answer_type') && $request['answer_type'] == 'multi_choice' && !$request->has('choices'))
             return $this->edit($feature, $request, 'لطفا گزینه های پاسخ را مشخص نمایید.');

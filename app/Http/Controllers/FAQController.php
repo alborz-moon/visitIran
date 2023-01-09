@@ -6,6 +6,7 @@ use App\Models\FAQ;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class FAQController extends Controller
 {
@@ -77,7 +78,10 @@ class FAQController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
 
         $request['site'] = $request->getHost() == self::$EVENT_SITE ? 'event' : 'shop';
         FAQ::create($request->toArray());
@@ -114,7 +118,10 @@ class FAQController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
 
         $faq->visibility = $request->has('visibility') ? $request['visibility'] : $faq->visibility;
         $faq->priority = $request->has('priority') ? $request['priority'] : $faq->priority;

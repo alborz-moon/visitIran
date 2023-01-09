@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Resources\UserMailResource;
 use App\Models\UserMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class MailController extends Controller
 {
@@ -18,7 +20,8 @@ class MailController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
+
         UserMail::create($request->toArray());
         return response()->json(['status' => 'ok']);
     }

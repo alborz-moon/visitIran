@@ -7,6 +7,7 @@ use App\Models\Banner;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class BannerController extends Controller
@@ -70,7 +71,9 @@ class BannerController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
 
         $request['img'] = $request->image_file->store('public/banner');
         $request['img'] = str_replace('public/banner/', '', $request['img']);
@@ -110,7 +113,9 @@ class BannerController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
 
         if($request->has('image_file')) {
             $filename = $request->image_file->store('public/banner');

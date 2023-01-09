@@ -8,6 +8,7 @@ use App\Rules\NID;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -105,9 +106,10 @@ class UserController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
-dd("Dwq");
-
+        $validator = Validator::make($request->all(), $validator);
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
+        
         $user = User::where('nid', $request['nid'])->orWhere('mail', $request['mail'])
             ->orWhere('phone', $request['phone'])->first();
 
@@ -171,7 +173,9 @@ dd("Dwq");
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
 
         if($request->has('nid') && $user->nid != $request['nid'] && 
             User::where('nid', $request['nid'])->first()
@@ -233,7 +237,10 @@ dd("Dwq");
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
+
         $user = User::whereId($request['user_id'])->first();
         foreach($request->keys() as $key) {
             

@@ -8,6 +8,8 @@ use App\Models\Event;
 use App\Models\EventSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class EventSessionController extends Controller
 {
@@ -43,7 +45,7 @@ class EventSessionController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
 
         $request["start"] = strtotime(self::ShamsiToMilady($request["start_date"]) . " " . $request["start_time"]);
         $request["end"] = strtotime(self::ShamsiToMilady($request["end_date"]) . " " . $request["end_time"]);

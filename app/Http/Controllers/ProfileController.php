@@ -6,6 +6,8 @@ use App\Models\State;
 use App\Models\User;
 use App\Rules\NID;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
@@ -22,7 +24,7 @@ class ProfileController extends Controller
             'payment_back' => ['nullable', Rule::in([User::$PAYMENT_BACK_WALLET, User::$PAYMENT_BACK_ONLINE])],
         ];
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
 
         $user = $request->user();
 

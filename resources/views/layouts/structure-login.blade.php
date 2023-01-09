@@ -46,6 +46,79 @@
     <script src="{{ asset('theme-assets/js/custom.js') }}"></script>
     @section('extraJS')
     @show
+    
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    
+                var errs = XMLHttpRequest.responseJSON.errors;
+
+                if(errs instanceof Object) {
+                    var errsText = '';
+
+                    Object.keys(errs).forEach(function(key) {
+                        errsText += errs[key] + "<br />";
+                    });
+
+                    showErr(errsText);    
+                }
+                else {
+                    var errsText = '';
+
+                    if(errs !== undefined && errs !== null) {
+                        for(let i = 0; i < errs.length; i++)
+                            errsText += errs[i].value;
+                    }
+                    
+                    showErr(errsText);
+                }
+            }
+        });
+
+         function showErr(msg) {
+            s = {
+                rtl: true,
+                class: "iziToast-" + "danger",
+                title: "ناموفق",
+                message: msg,
+                animateInside: !1,
+                position: "topRight",
+                progressBar: !1,
+                icon: 'ri-close-fill',
+                timeout: 3200,
+                transitionIn: "fadeInLeft",
+                transitionOut: "fadeOut",
+                transitionInMobile: "fadeIn",
+                transitionOutMobile: "fadeOut",
+                color: "red",
+                };
+            iziToast.show(s);
+        }
+
+        function showSuccess(msg) {
+            s = {
+                rtl: true,
+                class: "iziToast-" + "danger",
+                title: "موفق!",
+                message: msg,
+                animateInside: !1,
+                position: "topRight",
+                progressBar: !1,
+                icon: 'ri-check-fill',
+                timeout: 3200,
+                transitionIn: "fadeInLeft",
+                transitionOut: "fadeOut",
+                transitionInMobile: "fadeIn",
+                transitionOutMobile: "fadeOut",
+                color: "green",
+                type: 'success'
+                };
+            iziToast.show(s);
+        }
+    </script>
 </body>
 
 </html>

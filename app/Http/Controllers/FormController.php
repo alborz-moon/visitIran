@@ -55,12 +55,7 @@ class FormController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-
-        $validator = Validator::make($request->all(), $validator);
-
-        if ($validator->fails()) {
-                return response()->json($validator->errors(), 400);
-        }
+        $request->validate($validator, self::$COMMON_ERRS);
 
         $form = Form::create($request->toArray());
         return response()->json([
@@ -91,12 +86,7 @@ class FormController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-
-        $validator = Validator::make($request->all(), $validator);
-
-        if ($validator->fails()) {
-                return response()->json($validator->errors(), 400);
-        }
+        $request->validate($validator, self::$COMMON_ERRS);
 
         foreach($request->keys() as $key)
             $form[$key] = $request[$key];
