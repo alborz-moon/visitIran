@@ -105,7 +105,7 @@ class BlogController extends BlogHelper
             return abort(401);
 
 
-        $validator = Validator::make($request->all(), $validator);
+        $validator = Validator::make($request->all(), $validator, self::$COMMON_ERRS);
 
         if ($validator->fails())
 		return view('admin.blogs.create', ["errors" => $validator->errors()]);
@@ -166,10 +166,10 @@ class BlogController extends BlogHelper
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $validator = Validator::make($request->all(), $validator);
+        $validator = Validator::make($request->all(), $validator, self::$COMMON_ERRS);
 
         if ($validator->fails())
-            return Redirect::back()->withErrors($validator)->withInput();
+            return Redirect::to($request->session()->previousUrl())->with(["errors" => $validator->messages()])->withInput();
 
         if($request->has('slug') && $request['slug'] != $blog->slug && 
             Blog::where('slug', $request['slug'])->count() > 0)

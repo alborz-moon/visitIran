@@ -44,10 +44,10 @@ class ConfigController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $validator = Validator::make($request->all(), $validator);
+        $validator = Validator::make($request->all(), $validator, self::$COMMON_ERRS);
 
         if ($validator->fails())
-            return Redirect::back()->withErrors($validator)->withInput();
+            return Redirect::to($request->session()->previousUrl())->with(["errors" => $validator->messages()])->withInput();
 
         $config = Config::where('site', $request->getHost() === self::$EVENT_SITE ? 'event' : 'shop')->first();
         $config->can_pay_cash = $request->has('can_pay_cash') ? $request['can_pay_cash'] : $config->can_pay_cash;

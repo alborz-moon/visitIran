@@ -68,10 +68,10 @@ class FeatureController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $validator = Validator::make($request->all(), $validator);
+        $validator = Validator::make($request->all(), $validator, self::$COMMON_ERRS);
 
         if ($validator->fails())
-            return Redirect::back()->withErrors($validator)->withInput();
+            return Redirect::to($request->session()->previousUrl())->with(["errors" => $validator->messages()])->withInput();
 
         if($request['answer_type'] == 'multi_choice' && !$request->has('choices'))
             return $this->create($category, 'لطفا گزینه های پاسخ را مشخص نمایید.');
@@ -146,10 +146,10 @@ class FeatureController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $validator = Validator::make($request->all(), $validator);
+        $validator = Validator::make($request->all(), $validator, self::$COMMON_ERRS);
 
         if ($validator->fails())
-            return Redirect::back()->withErrors($validator)->withInput();
+            return Redirect::to($request->session()->previousUrl())->with(["errors" => $validator->messages()])->withInput();
 
         if($request->has('answer_type') && $request['answer_type'] == 'multi_choice' && !$request->has('choices'))
             return $this->edit($feature, $request, 'لطفا گزینه های پاسخ را مشخص نمایید.');

@@ -73,10 +73,10 @@ class FacilityController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
         
-        $validator = Validator::make($request->all(), $validator);
+        $validator = Validator::make($request->all(), $validator, self::$COMMON_ERRS);
 
         if ($validator->fails())
-            return Redirect::back()->withErrors($validator)->withInput();
+            return Redirect::to($request->session()->previousUrl())->with(["errors" => $validator->messages()])->withInput();
         
         Facility::create($request->toArray());
         return Redirect::route('facilities.index');
@@ -100,10 +100,10 @@ class FacilityController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
         
-        $validator = Validator::make($request->all(), $validator);
+        $validator = Validator::make($request->all(), $validator, self::$COMMON_ERRS);
 
         if ($validator->fails())
-            return Redirect::back()->withErrors($validator)->withInput();
+            return Redirect::to($request->session()->previousUrl())->with(["errors" => $validator->messages()])->withInput();
             
         $facility->label = $request['label'];
         $facility->visibility = $request->has('visibility') ? $request['visibility'] : $facility->visibility;

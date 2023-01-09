@@ -78,10 +78,10 @@ class FAQController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $validator = Validator::make($request->all(), $validator);
+        $validator = Validator::make($request->all(), $validator, self::$COMMON_ERRS);
 
         if ($validator->fails())
-            return Redirect::back()->withErrors($validator)->withInput();
+            return Redirect::to($request->session()->previousUrl())->with(["errors" => $validator->messages()])->withInput();
 
         $request['site'] = $request->getHost() == self::$EVENT_SITE ? 'event' : 'shop';
         FAQ::create($request->toArray());
@@ -118,10 +118,10 @@ class FAQController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $validator = Validator::make($request->all(), $validator);
+        $validator = Validator::make($request->all(), $validator, self::$COMMON_ERRS);
 
         if ($validator->fails())
-            return Redirect::back()->withErrors($validator)->withInput();
+            return Redirect::to($request->session()->previousUrl())->with(["errors" => $validator->messages()])->withInput();
 
         $faq->visibility = $request->has('visibility') ? $request['visibility'] : $faq->visibility;
         $faq->priority = $request->has('priority') ? $request['priority'] : $faq->priority;

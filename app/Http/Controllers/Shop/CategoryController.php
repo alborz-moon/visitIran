@@ -34,9 +34,9 @@ class CategoryController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $validator = Validator::make($request->all(), $validator);
+        $validator = Validator::make($request->all(), $validator, self::$COMMON_ERRS);
         if ($validator->fails())
-            return Redirect::back()->withErrors($validator)->withInput();
+            return Redirect::to($request->session()->previousUrl())->with(["errors" => $validator->messages()])->withInput();
 
         $categories = Category::where('name', 'like', '%' . $request['key'] . '%')
             ->get();
@@ -348,9 +348,9 @@ class CategoryController extends Controller
         if(empty($request['parent_id']))
             unset($request['parent_id']);
         
-        $validator = Validator::make($request->all(), $validator);
+        $validator = Validator::make($request->all(), $validator, self::$COMMON_ERRS);
         if ($validator->fails())
-            return Redirect::back()->withErrors($validator)->withInput();
+            return Redirect::to($request->session()->previousUrl())->with(["errors" => $validator->messages()])->withInput();
 
         if($request->has('parent_id')) {
             $cat = Category::whereId($request['parent_id'])->first();

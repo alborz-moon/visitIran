@@ -131,6 +131,7 @@ class Controller extends BaseController
 
     protected static $COMMON_ERRS = [
         'postal_code.required' => 'لطفا کدپستی موردنظر را وارد نمایید',
+        'nid.required' => 'لطفا کدملی موردنظر را وارد نمایید',
         'postal_code.regex' => 'کد پستی موردنظر نامعتبر است',
         'phone.required' => 'شماره همراه موردنظر را وارد نمایید',
         'phone.regex' => 'شماره همراه وارد شده نامعتبر است',
@@ -143,6 +144,8 @@ class Controller extends BaseController
         'launcher_y.regex' => 'مختصات وارد شده نامعتبر است',
         'x.regex' => 'مختصات وارد شده نامعتبر است',
         'y.regex' => 'مختصات وارد شده نامعتبر است',
+        'nid.regex' => 'کدملی وارد شده نامعتبر است',
+        '*.email' => 'ایمیل وارد شده نامعتبر است',
     ];
 
 }

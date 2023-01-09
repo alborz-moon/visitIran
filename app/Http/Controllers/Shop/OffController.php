@@ -149,7 +149,7 @@ class OffController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $validator = Validator::make($request->all(), $validator);
+        $validator = Validator::make($request->all(), $validator, self::$COMMON_ERRS);
 
         if($request['off_type'] == 'percent' && ($request['amount'] > 100  || $request['amount'] < 1))
             return $this->create($request, 'میزان تخفیف باید بین 1 تا 100 باشد.');

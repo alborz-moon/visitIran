@@ -92,9 +92,9 @@ class EventTagController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
         
-        $validator = Validator::make($request->all(), $validator);
+        $validator = Validator::make($request->all(), $validator, self::$COMMON_ERRS);
         if ($validator->fails())
-            return Redirect::back()->withErrors($validator)->withInput();
+            return Redirect::to($request->session()->previousUrl())->with(["errors" => $validator->messages()])->withInput();
 
         EventTag::create($request->toArray());
         return Redirect::route('eventTags.index');
@@ -128,9 +128,9 @@ class EventTagController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
         
-        $validator = Validator::make($request->all(), $validator);
+        $validator = Validator::make($request->all(), $validator, self::$COMMON_ERRS);
         if ($validator->fails())
-            return Redirect::back()->withErrors($validator)->withInput();
+            return Redirect::to($request->session()->previousUrl())->with(["errors" => $validator->messages()])->withInput();
 
         $eventTag->label = $request['label'];
         $eventTag->visibility = $request->has('visibility') ? $request['visibility'] : $eventTag->visibility;
