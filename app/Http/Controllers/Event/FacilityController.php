@@ -7,6 +7,7 @@ use App\Http\Resources\FacilityResource;
 use App\Models\Facility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class FacilityController extends Controller
 {
@@ -72,7 +73,10 @@ class FacilityController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
         
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
         
         Facility::create($request->toArray());
         return Redirect::route('facilities.index');
@@ -96,7 +100,11 @@ class FacilityController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
         
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
+            
         $facility->label = $request['label'];
         $facility->visibility = $request->has('visibility') ? $request['visibility'] : $facility->visibility;
         $facility->save();

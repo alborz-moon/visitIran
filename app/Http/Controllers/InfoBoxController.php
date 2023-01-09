@@ -6,6 +6,7 @@ use App\Http\Resources\InfoBoxResource;
 use App\Models\InfoBox;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class InfoBoxController extends Controller
@@ -89,7 +90,10 @@ class InfoBoxController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
 
         $request['img_large'] = $request->image_file_large->store('public/infobox');
         $request['img_large'] = str_replace('public/infobox/', '', $request['img_large']);
@@ -131,8 +135,11 @@ class InfoBoxController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
 
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
+            
         if($request->has('image_file_large')) {
             $filename = $request->image_file_large->store('public/infobox');
             $filename = str_replace('public/infobox/', '', $filename);

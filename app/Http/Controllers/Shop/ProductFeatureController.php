@@ -7,6 +7,8 @@ use App\Models\Feature;
 use App\Models\Product;
 use App\Models\ProductFeatures;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class ProductFeatureController extends Controller
 {
@@ -42,7 +44,7 @@ class ProductFeatureController extends Controller
             'count' => 'nullable'
         ];
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
 
         $categoryFeature = Feature::whereId($request['category_feature_id'])->first();
 
@@ -117,8 +119,8 @@ class ProductFeatureController extends Controller
             abort(401);
 
         if($validator != null)
-            $request->validate($validator);
-
+            $request->validate($validator, self::$COMMON_ERRS);
+        
         $pf = ProductFeatures::where('category_feature_id', $request['category_feature_id'])
             ->where('product_id', $product->id)->first();
         

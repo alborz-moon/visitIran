@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AddressResource;
 use App\Models\Address;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class AddressController extends Controller
 {
@@ -48,7 +50,7 @@ class AddressController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
 
         $request['user_id'] = $request->user()->id;
         Address::create($request->toArray());
@@ -84,7 +86,7 @@ class AddressController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
         
         foreach($request->keys() as $key) {
             

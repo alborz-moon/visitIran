@@ -9,6 +9,7 @@ use App\Models\EventTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class EventTagController extends Controller
 {
@@ -25,7 +26,8 @@ class EventTagController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
+
         $categories = EventTag::where('label', 'like', '%' . $request['key'] . '%')
             ->get();
         
@@ -90,7 +92,9 @@ class EventTagController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
         
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
 
         EventTag::create($request->toArray());
         return Redirect::route('eventTags.index');
@@ -124,7 +128,10 @@ class EventTagController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
         
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
+
         $eventTag->label = $request['label'];
         $eventTag->visibility = $request->has('visibility') ? $request['visibility'] : $eventTag->visibility;
         $eventTag->save();
