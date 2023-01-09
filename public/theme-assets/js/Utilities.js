@@ -128,6 +128,7 @@ $(document).ready(function () {
         if ($("#" + id).attr("data-editable") == "false") {
             $("#" + id).attr("data-editable", "true");
             $("#" + id).removeAttr("disabled");
+            $("#" + id).val("");
         } else {
             $("#" + id).attr("data-editable", "false");
             $("#" + id).attr("disabled", "disabled");

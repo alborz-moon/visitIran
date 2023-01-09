@@ -70,7 +70,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         <div class="d-flex justify-content-end">
                         {{-- onclick="window.location.href = '{{ route('finance') }}';" --}}
@@ -213,8 +212,6 @@
         </div>
     </div>
     <!-- end of personal-info-fullname-modal -->
-
-
 </main>
 
 

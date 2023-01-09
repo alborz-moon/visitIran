@@ -198,8 +198,10 @@
             $('.toggle-editable-btn').addClass('hidden');
             $(".toggle-editable-btn").on("click", function () {
                 if ($('textarea').attr("data-editable") == "false") {
+                    let id = $(this).attr("data-input-id");
                     $('textarea').attr("data-editable", "true");
                     $('textarea').removeAttr("disabled");
+                    $("#" + id).val("");
                 } else {
                     $('textarea').attr("data-editable", "false");
                     $('textarea').attr("disabled", "disabled");
