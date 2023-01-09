@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class ConfigController extends Controller
 {
@@ -43,7 +44,10 @@ class ConfigController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
 
         $config = Config::where('site', $request->getHost() === self::$EVENT_SITE ? 'event' : 'shop')->first();
         $config->can_pay_cash = $request->has('can_pay_cash') ? $request['can_pay_cash'] : $config->can_pay_cash;

@@ -117,7 +117,7 @@ class ProductController extends ProductHelper
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
 
         $products = Product::like($request['key'], 
             $request->has('category_id') ? $request['category_id'] : null,
@@ -297,7 +297,10 @@ class ProductController extends ProductHelper
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
 
         if($request->has('img_file')) {
             $filename = $request->img_file->store('public/products');
@@ -416,7 +419,10 @@ class ProductController extends ProductHelper
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
 
         if($request->has('slug') && $request['slug'] != $product->slug && 
             Product::where('slug', $request['slug'])->count() > 0)
@@ -550,7 +556,7 @@ class ProductController extends ProductHelper
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
         $product->visibility = $request['visibility'];
 
         $product->save();
@@ -576,7 +582,11 @@ class ProductController extends ProductHelper
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
+
         $product->available_count = $request['available_count'];
 
         $product->save();

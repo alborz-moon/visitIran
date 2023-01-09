@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class GalleryController extends Controller
 {
@@ -55,7 +56,10 @@ class GalleryController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
 
         $filename = $request->img_file->store('public/products');
         $filename = str_replace('public/products/', '', $filename);

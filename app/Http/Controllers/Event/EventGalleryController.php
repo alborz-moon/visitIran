@@ -8,6 +8,8 @@ use App\Models\Event;
 use App\Models\EventGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class EventGalleryController extends Controller
 {
@@ -42,7 +44,9 @@ class EventGalleryController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
 
         $filename = $request->img_file->store('public/events');
         $filename = str_replace('public/events/', '', $filename);

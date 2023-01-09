@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class ABS_Comment extends Controller
@@ -160,7 +161,7 @@ class ABS_Comment extends Controller
             return abort(401);
 
         $user = $request->user();
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
 
         $comment = $commentModel::userComment($model->id, $user->id);
         $needUpdateTable = false;
@@ -282,7 +283,9 @@ class ABS_Comment extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
         
         if($user->level != User::$ADMIN_LEVEL && 
             $user->level != User::$EDITOR_LEVEL && 

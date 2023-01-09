@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -23,8 +24,7 @@ class AuthController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
-
+        $request->validate($validator, self::$COMMON_ERRS);
         $activation = Activation::where('phone', $request["phone"])->first();
 
         if($activation != null) {
@@ -59,7 +59,7 @@ class AuthController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
 
         $activation = Activation::where('phone', $request["phone"])
             ->where('code', $request["code"])->first();

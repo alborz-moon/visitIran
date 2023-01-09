@@ -7,6 +7,7 @@ use App\Http\Resources\SellerResource;
 use App\Models\Seller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class SellerController extends Controller
 {
@@ -47,8 +48,11 @@ class SellerController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
 
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
+            
         if($request->has('image_file')) {
             $filename = $request->image_file->store('public/sellers');
             $request['logo'] = str_replace('public/sellers/', '', $filename);
@@ -88,7 +92,10 @@ class SellerController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-        $request->validate($validator);
+        $validator = Validator::make($request->all(), $validator);
+
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput();
     
         if($request->has('image_file')) {
            

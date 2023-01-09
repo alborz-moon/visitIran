@@ -8,6 +8,8 @@ use App\Models\Launcher;
 use App\Models\LauncherBank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class LauncherBankAccountsController extends Controller
 {
@@ -46,7 +48,8 @@ class LauncherBankAccountsController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
+
         $request['launcher_id'] = $launcher->id;
         $request['is_default'] = false;
 
@@ -86,7 +89,8 @@ class LauncherBankAccountsController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             return abort(401);
 
-        $request->validate($validator);
+        $request->validate($validator, self::$COMMON_ERRS);
+
         DB::connection('mysql2')->update('update launcher_bank_accounts set is_default = false where launcher_id = '. $launcher->id);
         $launcherBank->is_default = true;
         $launcherBank->save();
