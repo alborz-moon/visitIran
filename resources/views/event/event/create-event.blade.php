@@ -482,8 +482,13 @@ $(document).ready(function(){
     $('textarea').attr("data-editable", "true")
     $('.toggle-editable-btn').addClass('hidden');
     $('#onlineOrOffline').val(0).change();
+    $(".toggle-editable-btn").on("click", function () {
+        let id = $(this).attr("data-input-id");
+        if ($("#" + id).attr("data-editable") == "true") {
+            $("#" + id).val("");
+        }
+    });
 });
-
 function watchList(selectorId, arr, increamentor, elemId, resultPaneId) {
 
     $('#' + selectorId).on('change', function() {

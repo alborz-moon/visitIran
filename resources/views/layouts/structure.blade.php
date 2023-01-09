@@ -276,7 +276,7 @@
                             @if(Auth::check())
                                 <div class="navigation-body">
                                     <ul id="moblieMenu" class="menu">
-                                        {{-- @include('layouts.mobile-menu') --}}
+                                        @include('layouts.mobile-menu')
                                         {{-- @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
                                             @include('event.launcher.launcher-menu')
                                         @endif --}}
@@ -571,7 +571,10 @@
               });
               const popover = new bootstrap.Popover('.example-popover', {
                   container: 'body'
-              });            
+              });
+            $("input").on("click", function(){
+                $(this).removeAttr("placeholder");
+            });            
     </script>   
     @section('extraJS')
     @show

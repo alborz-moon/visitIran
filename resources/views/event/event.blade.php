@@ -97,8 +97,8 @@
                                     <div class="d-flex flexDirectionColumn marginTop8">
                                         <div class="fontSize15 bold colorBlack">{{ $event['launcher_title'] }}</div>
                                         <div class="d-flex mt-2 spaceBetween">
-                                            <div class="px-2 px-2 fontSize15 colorYellow"><i
-                                                    class=" fontSize15 icon-visit-star me-1 fontSize14 verticalAlign-2"></i>
+                                            <div class="px-2 px-2 fontSize15 colorYellow">
+                                                <i class=" fontSize15 icon-visit-star me-1 fontSize14 verticalAlign-2"></i>
                                                 {{ $event['launcher_rate'] }}<span class="textColor">(از {{ $event['launcher_rate_count'] }} رای)</span></div>
                                                 <div class="px-2 px-2 fontSize15 colorYellow"><i
                                                         class=" fontSize15 icon-visit-person me-1 fontSize14 verticalAlign-2"></i>
@@ -413,8 +413,8 @@
                                 <ul id="gallery" class="d-flex flexWrap gap10">
                                     @foreach ($galleries as $img)
                                         <div class="gallery-thumbs overFlowHidden">
-                                            <li class="square cursorPointer customBoxShadowGallery" data-fancybox="gallery-a" data-src="{{ $img['img']}}">
-                                                <img class="w-100 h-100 objectFitCover" src="{{ $img['img']}}" alt="">
+                                            <li class="square cursorPointer customBoxShadowGallery" style="width: 130px; height:130px" data-fancybox="gallery-a" data-src="{{ $img['img']}}">
+                                                <img class="w-100 h-100 objectFitCover m-0" src="{{ $img['img']}}" alt="">
                                             </li>
                                         </div>
                                     @endforeach
@@ -455,35 +455,12 @@
                             <!-- end of params-list -->
                         </div>
                     </div>
+                        @include('event.layouts.launcher', ['launcher' => null, 'launcherId' => $event['launcher_id']])
                 </div>
-                <!-- end of product-params -->
-                {{-- @include('shop.product.comments-show', [
-                    'type' => 'event', 
-                    'fetchUrl' => route('api.product.comment.list', ['product' => $product['id']]), 
-                    'itemtId' => $product['id'],
-                    'rate' => $product['rate'],
-                    'rate_count' => $product['all_rates_count']
-                ]) --}}
                 </div>
                 <div class="col-xl-3 col-lg-3 p-0 customEventHandler">
                     <div class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">
-                        {{-- <div class="d-flex justify-content-end">
-                            <span>
-                                <button
-                                    class="ri-bookmark-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
-                                <button
-                                    class="ri-bookmark-fill fontSize30 b-0 colorYellow btnHover backColorWhite"></button>
-                                <button data-remodal-target="share-modal"
-                                    class="ri-stackshare-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
-                            </span>
-                        </div> --}}
-                        {{-- @include('shop.product.write-comment', ['productId' => $product['id']]) --}}
-                        {{-- @include('event.event.bookmark', ['is_bookmark' => $event['is_bookmark']]) --}}
-                        <!-- start of product-seller-info -->
                         <div class="product-seller-info ui-box mb-3 backColorWhite">
-                            {{-- <div class="top30 position-absolute fontSize22 colorYellow">
-                                        <i class="icon-visit-organization"></i>
-                                    </div> --}}
                             <div class="seller-info-changeable">
                                 <div class="d-flex align-items-center">
                                     <div class="userCircleSize backgroundYellow mx-3 position-relative">
@@ -495,8 +472,8 @@
                                             <div class="px-2 px-2 fontSize15 colorYellow"><i
                                                     class=" fontSize15 icon-visit-star me-1 fontSize14 verticalAlign-2"></i>
                                                 {{ $event['launcher_rate'] }}<span class="textColor">(از {{ $event['launcher_rate_count'] }} رای)</span></div>
-                                                <div class="px-2 px-2 fontSize15 colorYellow"><i
-                                                        class=" fontSize15 icon-visit-person me-1 fontSize14 verticalAlign-2"></i>
+                                                <div class="px-2 px-2 fontSize15 colorYellow">
+                                                    <i class=" fontSize15 icon-visit-person me-1 fontSize14 verticalAlign-2"></i>
                                                     {{ $event['launcher_follower_count'] }}
                                                 </div>
                                         </div>
@@ -793,6 +770,15 @@ function sendimg(img){
     $("#mainGalleryModal").attr('src', img);
 }
 $(document).ready(function() {
+    let star="";
+        let roundRatting=Math.floor('{{ $event['launcher_rate'] }}');
+        for(var i = 5; i >= 1; i--) {
+            if(i <= roundRatting)
+                star += '<i class="icon-visit-star me-1 fontSize21"></i>';
+            else
+                star += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
+        }
+        $(".rattingToStar").empty().append(star);
     //getInnerHeight
     heightTag = $('#getInnerHeight').height();
     if (heightTag < 400) {

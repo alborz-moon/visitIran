@@ -271,7 +271,12 @@
             altField: $("#date_input_stop_formatted")
         };
         $(document).ready(function(){
-
+            $(".toggle-editable-btn").on("click", function () {
+                let id = $(this).attr("data-input-id");
+            if ($("#" + id).attr("data-editable") == "false") {
+                $("#" + id).val("");
+            }
+            });
             $('#time_start').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
             $('#time_stop').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
 

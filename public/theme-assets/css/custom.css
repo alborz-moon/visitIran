@@ -455,10 +455,10 @@ ul {
 }
 .square {
     position: relative;
-    object-fit: cover;
     width: 96px;
     height: 96px;
-    background-size: contain;
+    background-size: cover;
+    object-fit: cover;
     overflow: hidden;
     background-position: center;
 }
@@ -654,6 +654,18 @@ table thead {
 }
 .gap45 {
     gap: 45px;
+}
+input:focus {
+    background-color: #ffff !important;
+}
+textarea:focus {
+    background-color: #ffff !important;
+}
+input:hover:disabled {
+    background-color: #eaecef;
+}
+textarea:hover:disabled {
+    background-color: #eaecef;
 }
 .form-check-input:checked {
     background-color: #00b2bc;

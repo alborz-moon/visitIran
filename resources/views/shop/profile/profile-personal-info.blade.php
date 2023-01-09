@@ -1,5 +1,8 @@
 @extends('layouts.structure')
-
+@section('header')
+    @parent
+    <script src="{{asset('theme-assets/js/Utilities.js')}}"></script>
+@stop
 @section('content')
     <main class="page-content TopParentBannerMoveOnTop">
         <div class="container mt-4">
@@ -14,12 +17,11 @@
                                     <div class="py-1">
                                         <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
                                         <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between">
-                                            <input id="nameVal" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی" disabled>
-                                            <button id="editBtnName" class="btn btn-circle btn-outline-light hidden"
+                                            <input value="{{ $user->first_name != null ? $user->first_name . ' ' . $user->last_name  : '-'  }}" id="nameVal" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی" disabled>
+                                            <button data-input-id="nameVal" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"
                                                 data-remodal-target="personal-info-fullname-modal "><i class="ri-ball-pen-fill"></i>
                                             </button>
                                         </div>
-                                        {{-- {{ $user->nid != null ? $user->nid : '-' }} --}}
                                         <div class="fs-6 fw-bold text-muted"></div>
                                     </div>
                                 </div>
@@ -27,8 +29,8 @@
                                     <div class="py-1">
                                         <div  class="fs-7 text-dark">کد ملی</div>
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <input onkeypress="return isNumber(event)" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
-                                            <button class="btn btn-circle btn-outline-light hidden">
+                                            <input value="{{ $user->nid != null ? $user->nid : '-' }}" data-editable="true" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
+                                            <button data-input-id="nid" class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                                 <i class="ri-ball-pen-fill"></i>
                                             </button>
                                         </div>
@@ -40,8 +42,8 @@
                                     <div class="py-1">
                                         <div  class="fs-7 text-dark">شماره تلفن همراه</div>
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <input id="phone" type="tel" minlength="7"  maxlength="11" class="form-control " style="direction: rtl" placeholder="شماره تلفن همراه">
-                                            <button class="btn btn-circle btn-outline-light hidden">
+                                            <input value="{{$user->phone != null ? $user->phone : '-' }}" data-editable="true" onkeypress="return isNumber(event)" id="phone" type="tel" minlength="7"  maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
+                                            <button data-input-id="phone" class=" toggle-editable-btn btn btn-circle btn-outline-light">
                                                 <i class="ri-ball-pen-fill"></i>
                                             </button>
                                         </div>
@@ -52,13 +54,12 @@
                                 <div class="col-lg-6 mb-3">
                                     <div class="py-1">
                                         <div  class="fs-7 text-dark">پست الکترونیک</div>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <input  onkeypress="return isEmail(event) || isNumber(event)" id="userEmail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
-                                            <button class="btn btn-circle btn-outline-light hidden" >
+                                        <div class="d-flex align-items-center justify-content-between position-relative">
+                                            <input value="{{ $user->mail != null ? $user->mail : '-' }}" data-editable="true" onkeypress="return isEmail(event) || isNumber(event)" id="mail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
+                                            <button data-input-id="mail" class=" toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                                 <i class="ri-ball-pen-fill"></i>
                                             </button>
                                         </div>
-                                        {{-- {{ $user->mail != null ? $user->mail : '-' }} --}}
                                         <div class="fs-6 fw-bold text-muted"></div>
                                     </div>
                                 </div>
@@ -66,42 +67,18 @@
                                     <div class="py-1">
                                         <div  class="fs-7 text-dark">تاریخ تولد</div>
                                         <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between">
-                                            <input id="brithdayVal" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد" disabled>
-                                            <button id="editBtnBirdthday" class="btn btn-circle btn-outline-light hidden"
-                                                data-remodal-target="personal-info-birth-modal"><i
-                                                    class="ri-ball-pen-fill"></i></button>
+                                            <input value="{{ $user->birth_day != null ? $user->birth_day : '-' }}" id="brithdayVal" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد" disabled>
+                                            <button data-input-id="mainBrithday" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"
+                                                data-remodal-target="personal-info-birth-modal">
+                                                <i class="ri-ball-pen-fill"></i>
+                                            </button>
                                         </div>
-                                        {{-- {{ $birth_day == null ? '' : $user->birth_day }} --}}
                                         <div class="fs-6 fw-bold text-muted"></div>
-                                    </div>
-                                </div>
-                                {{-- <div class="col-lg-6 mb-3">
-                                    <div class="py-2">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <div class="fs-7 fw-bold text-dark">روش بازگرداندن وجه</div>
-                                            <button class="btn btn-circle btn-outline-light"
-                                                data-remodal-target="personal-info-returned-modal"><i
-                                                    class="ri-ball-pen-fill"></i></button>
                                         </div>
-                                        <div class="fs-6 fw-bold text-muted">-</div>
-                                    </div>
-                                </div> --}}
-                                {{-- <div class="col-lg-6 mb-3">
-                                    <div class="py-2">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <div class="fs-7 fw-bold text-dark">رمز عبور</div>
-                                            <button class="btn btn-circle btn-outline-light"
-                                                data-remodal-target="personal-info-change-password-modal"><i
-                                                    class="ri-ball-pen-fill"></i></button>
-                                        </div>
-                                        <div class="fs-6 fw-bold text-muted">-</div>
-                                    </div>
-                                </div> --}}
-                                
+                                </div>                                
                                 <div>
                                     <button onclick="submit()" class="btn btn-sm btn-primary px-3">ثبت</button>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -130,68 +107,6 @@
             </div>
         </div>
         <!-- end of personal-info-fullname-modal -->
-        <!-- start of personal-info-national-id-modal -->
-        <div class="remodal remodal-xs" data-remodal-id="personal-info-national-id-modal"
-            data-remodal-options="hashTracking: false">
-            <div class="remodal-header">
-                <div  class="remodal-title">کد ملی</div>
-                <button data-remodal-action="close" class="remodal-close"></button>
-            </div>
-            <div class="remodal-content">
-                <div class="form-element-row mb-3">
-                    <input id="personal_code" type="tel" maxlength="10" class="form-control" placeholder="">
-                </div>
-                <div class="form-element-row">
-                    <div class="form-check">
-                        <input id="personal_code_checkbox" class="form-check-input" type="checkbox" value="" id="foreigner">
-                        <label class="form-check-label fs-7 fw-bold" for="foreigner">
-                            تبعه غیر‌ایرانی فاقد کد ملی هستم.
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="remodal-footer">
-                <button onclick="setValPersonal_code()" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
-            </div>
-        </div>
-        <!-- end of personal-info-national-id-modal -->
-        <!-- start of personal-info-phone-number-modal -->
-        <div class="remodal remodal-xs" data-remodal-id="personal-info-phone-number-modal"
-            data-remodal-options="hashTracking: false">
-            <div class="remodal-header">
-                <div class="remodal-title">شماره موبایل</div>
-                <button data-remodal-action="close" class="remodal-close"></button>
-            </div>
-            <div class="remodal-content">
-                <div class="form-element-row mb-3">
-                    <input id="phone_info" type="tel" maxlength="11" class="form-control" placeholder="">
-                </div>
-            </div>
-            <div class="remodal-footer">
-                <button onclick="setValPhone()" class="btn btn-sm btn-primary px-3">تغییر شماره</button>
-            </div>
-        </div>
-        <!-- end of personal-info-phone-number-modal -->
-
-        <!-- start of personal-info-email-modal -->
-        <div class="remodal remodal-xs" data-remodal-id="personal-info-email-modal"
-            data-remodal-options="hashTracking: false">
-            <div class="remodal-header">
-                <div class="remodal-title">پست الکترونیک</div>
-                <button data-remodal-action="close" class="remodal-close"></button>
-            </div>
-            <div class="remodal-content">
-                <div class="form-element-row mb-3">
-                    <input onkeypress="return isEmail(event) || isNumber(event)" id="email_info" type="email" class="form-control" placeholder="">
-                </div>
-            </div>
-
-            <div class="remodal-footer">
-                <button onclick="setValEmail()" class="btn btn-sm btn-primary px-3">تایید</button>
-            </div>
-
-        </div>
-        <!-- end of personal-info-email-modal -->
 
         <!-- start of personal-info-birth-modal -->
         <div class="remodal remodal-xs" data-remodal-id="personal-info-birth-modal"
@@ -323,7 +238,7 @@
         function setValName() {
             var name = $('#first_name').val();
             var last = $('#last_name').val();
-            nameVal = $('#nameVal');
+            var nameVal = $('#nameVal');
             nameVal.val(name + ' ' + last);
             $('#editBtnName').removeClass('hidden');
             $(".remodal-close").click();
@@ -333,54 +248,50 @@
             var year = $('#Brithday_year').val();
             var month = $('#Brithday_month').val();
             var day =$('#Brithday_day').val();
-            $('#editBtnBirdthday').removeClass('hidden');
+            // $('#editBtnBirdthday').removeClass('hidden');
             $('#brithdayVal').val(year + '/' + month + '/' + day);
             $(".remodal-close").click();
         }
-
-        function setValPersonal_code() {
-            $('#nid').text($('#personal_code').val());
-            $(".remodal-close").click();
-        }
-
-        function setValEmail() {
-            $('#emailVal').text($('#email_info').val());
-            $(".remodal-close").click();
-        }
-
         function submit() {
 
-            let data = {};
+            // let data = {};
             
             let first_name = $("#first_name").val();
             let last_name = $('#last_name').val();
-            let nid = $('#personal_code').val();
-            let mail = $('#email_info').val();
-            let phone = $('#phone_info').val();
-            let birthday = $('#brithdayVal').text();
+            let nid = $('#nid').val();
+            let mail = $('#mail').val();
+            let phone = $('#phone').val();
+            let birthday = $('#brithdayVal').val();
             
-            if(birthday !== undefined && birthday !== '')
-                data.birth_day = birthday;
+            // if(birthday !== undefined && birthday !== '')
+            //     data.birth_day = birthday;
 
-            if(nid !== undefined && nid !== '')
-                data.nid = nid;
+            // if(nid !== undefined && nid !== '')
+            //     data.nid = nid;
 
-            if(mail !== undefined && mail !== '')
-                data.mail = mail;
+            // if(mail !== undefined && mail !== '')
+            //     data.mail = mail;
                 
-            if(phone !== undefined && phone !== '')
-                data.phone = phone;
+            // if(phone !== undefined && phone !== '')
+            //     data.phone = phone;
             
-            if(first_name !== undefined && first_name !== '')
-                data.first_name = first_name;
+            // if(first_name !== undefined && first_name !== '')
+            //     data.first_name = first_name;
                 
-            if(last_name !== undefined && last_name !== '')
-                data.last_name = last_name;
+            // if(last_name !== undefined && last_name !== '')
+            //     data.last_name = last_name;
 
             $.ajax({
                 type: 'post',
                 url: '{{ route('api.editInfo') }}',
-                data: data,
+                data: {
+                    birth_day: birthday,
+                    nid: nid,
+                    mail: mail,
+                    phone: phone,
+                    first_name: first_name,
+                    last_name: last_name, 
+                },
                 success: function(res) {
                     if(res.status === 'ok')
                         // $('#editBtnName').removeClass('hidden');

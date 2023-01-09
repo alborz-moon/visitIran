@@ -15,8 +15,8 @@
         </div>
     </div>
     <div class="d-flex align-items-center mb-4">
-        <div class="userCircleSize backgroundYellow mx-3">
-            <img id="imgLauncher" class="w-100 h-100">
+        <div class="userCircleSize backgroundYellow mx-3 position-relative">
+            <img id="imgLauncher" class="w-100 h-100 objectFitCover ovrtFlowHidden position-absolute borderRadius50 m-0">
         </div>
         <div class="d-flex flexDirectionColumn">
             <div class="d-flex mt-2">
