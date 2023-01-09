@@ -51,7 +51,7 @@ class EventUserDigest extends JsonResource
         
         return [
             'id' => $this->id,
-            'img' => $this->img == null ? asset('default.png') : asset('storage/products/' . $this->img),
+            'img' => $this->img == null ? asset('default.png') : asset('storage/events/' . $this->img),
             'alt' => $this->alt,
             'slug' => $slug,
             'rate' => $this->rate == null ? 4 : round($this->rate, 1),

@@ -106,12 +106,12 @@ class UserController extends Controller
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
             abort(401);
 
-dd($request->session()->getPreviousUrl());
 
         $validator = Validator::make($request->all(), $validator);
 
-        if ($validator->fails())
-            return Redirect::back()->withErrors($validator)->withInput();
+        if ($validator->fails()) {
+            return Redirect::to($request->session()->previousUrl())->with(["errors" => $validator->messages()])->withInput();
+	}
         
         $user = User::where('nid', $request['nid'])->orWhere('mail', $request['mail'])
             ->orWhere('phone', $request['phone'])->first();
