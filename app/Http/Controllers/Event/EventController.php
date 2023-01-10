@@ -431,11 +431,15 @@ class EventController extends EventHelper
         $event->seen = $event->seen + 1;
         $event->save();
 
+        $launcher = $event->launcher;
+        $launcherHref = route('show-launcher', ['launcher' => $launcher->id, 'slug' => $launcher->company_name]);
+
         $user = $request->user();
 
         if($user == null)
             return view('event.event', [
                 'galleries' => EventGalleryResource::collection($event->galleries()->orderBy('priority', 'asc')->get())->toArray($request),
+                'launcherHref' => $launcherHref,
                 'event' => array_merge(
                     EventUserResource::make($event)->toArray($request), [
                         'is_bookmark' => false,
@@ -451,6 +455,7 @@ class EventController extends EventHelper
         // dd(EventUserResource::make($event)->toArray($request));
         return view('event.event', [
             'galleries' => EventGalleryResource::collection($event->galleries()->orderBy('priority', 'asc')->get())->toArray($request),
+            'launcherHref' => $launcherHref,
             'event' => array_merge(
                 EventUserResource::make($event)->toArray($request), 
                 [
