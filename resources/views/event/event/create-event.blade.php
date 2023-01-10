@@ -649,9 +649,6 @@ $(".nextBtn").on('click', function() {
         title: eventName,
         facilities_arr: selectedFacility,
         tags_arr: topicList.map((elem, index) => {
-            console.log('====================================');
-            console.log(topicList);
-            console.log('====================================');
             return elem.value;
         }),
         language_arr: langList.map((elem, index) => {
@@ -699,13 +696,14 @@ $(".nextBtn").on('click', function() {
 @if(isset($id))
 
 function checkFetchData() {
+    
     if (tagsList === undefined || facilitiesList === undefined)
-        setTimeout(checkFetchData, [500]);
+        setTimeout(checkFetchData, 500);
     else
         getPhase1Info();
 }
 
-setTimeout(checkFetchData, [500]);
+setTimeout(checkFetchData, 500);
 
 
 function getPhase1Info() {
@@ -788,7 +786,7 @@ function getPhase1Info() {
                     watchList('topicEvent', topicList, idxTopic, 'topic', 'addTopic');
                     watchList('lang', langList, idx, 'lang', 'addLang');
 
-                    if (res.data.tags.length != 0) {
+                    if (res.data.facilities.length != 0) {
                         for (var i = 0; i < res.data.facilities.length; i++) {
 
                             let elem = facilitiesList.find(itr => itr.label == res.data.facilities[i]);
@@ -796,7 +794,7 @@ function getPhase1Info() {
 
                         }
                     }
-                    $("input").each(function() {
+                    $(":input:not(:checkbox):not(:button):not(:select)").each(function() {
                         if ($(this).attr('data-editable') != 'true' ){
                             $(this).attr('disabled', 'disabled');
                         }

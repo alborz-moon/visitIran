@@ -60,7 +60,6 @@ Route::middleware(['shareTopCategories'])->group(function() {
     
     Route::view('/blog-list',  'shop.blog-list')->name('blog-list');
     
-
 });
 
 
@@ -140,79 +139,83 @@ Route::middleware(['myAuth'])->group(function() {
 });
 
 
-Route::domain(Controller::$EVENT_SITE)->group(function() {
+Route::middleware(['shareEventTags'])->group(function() {
 
-    Route::get('/', function() {
-        
-        $tags = EventTag::visible()->get();
+    Route::domain(Controller::$EVENT_SITE)->group(function() {
 
-        $whereClause = "events.visibility = true and end_registry > " . time();
-
-        $cities = DB::connection('mysql2')->select('select cities.id, cities.name from events, cities where city_id is not null and city_id = cities.id and ' . $whereClause . ' group by(cities.id)');
-        $launchers = DB::connection('mysql2')->select('select distinct(launcher_id) as id, launchers.company_name from launchers, events where launcher_id = launchers.id and ' . $whereClause);
-
-        return view('event.welcome', compact('tags', 'launchers', 'cities'));
-    })->name('event.home');
-
-
-    Route::get('/event/{event}/{slug}', [EventController::class, 'show'])->name('event');
-
-    Route::get('/launcher/{launcher}/{slug}', [LauncherController::class, 'show_detail'])->name('launcher');
-
-
-    Route::get('/list/{tag}/{slug}', [EventTagController::class, 'list'])->name('event.single-category');
-        
-    Route::get('/list/{orderBy}', [EventTagController::class, 'allCategories'])->name('event.category.list');
-
-
-
-    Route::middleware(['myAuth'])->group(function() {
-
-        Route::get('/launcher-register', function() {
+        Route::get('/', function() {
             
-            $user = Auth::user();
-            $editor = $user->isEditor();
+            $tags = EventTag::visible()->get();
+
+            $whereClause = "events.visibility = true and end_registry > " . time();
+
+            $cities = DB::connection('mysql2')->select('select cities.id, cities.name from events, cities where city_id is not null and city_id = cities.id and ' . $whereClause . ' group by(cities.id)');
+            $launchers = DB::connection('mysql2')->select('select distinct(launcher_id) as id, launchers.company_name from launchers, events where launcher_id = launchers.id and ' . $whereClause);
+
+            return view('event.welcome', compact('tags', 'launchers', 'cities'));
+        })->name('event.home');
+
+
+        Route::get('/event/{event}/{slug}', [EventController::class, 'show'])->name('event');
+
+        Route::get('/launcher/{launcher}/{slug}', [LauncherController::class, 'show_detail'])->name('launcher');
+
+
+        Route::get('/list/{tag}/{slug}', [EventTagController::class, 'list'])->name('event.single-category');
             
-            if(!$editor) {
-                $tmp = Launcher::where('user_id', $user->id)->first();
-                if($tmp != null)
-                    return Redirect::route('launcher-edit', ['formId' => $tmp->id]);
-            }
+        Route::get('/list/{orderBy}', [EventTagController::class, 'allCategories'])->name('event.category.list');
 
-            $states = State::orderBy('name', 'asc')->get();
-            $mode = 'create';
-            return view('event.launcher.launcher-register', compact('states', 'mode'));
-        })->name('launcher');
 
-        
-        Route::get('/launcher-edit-register/{formId}', function ($formId) {
-            $states = State::orderBy('name', 'asc')->get();
-            return view('event.launcher.launcher-register', ['mode' => 'edit', 'states' => $states, 'formId' => $formId]);
-        })->name('launcher-edit');
 
-        Route::get('/launcher-document/{formId?}',function($formId=null) {
+        Route::middleware(['myAuth'])->group(function() {
+
+            Route::get('/launcher-register', function() {
+                
+                $user = Auth::user();
+                $editor = $user->isEditor();
+                
+                if(!$editor) {
+                    $tmp = Launcher::where('user_id', $user->id)->first();
+                    if($tmp != null)
+                        return Redirect::route('launcher-edit', ['formId' => $tmp->id]);
+                }
+
+                $states = State::orderBy('name', 'asc')->get();
+                $mode = 'create';
+                return view('event.launcher.launcher-register', compact('states', 'mode'));
+            })->name('launcher');
+
             
-            if($formId == null)
-                return view('errors.403');
+            Route::get('/launcher-edit-register/{formId}', function ($formId) {
+                $states = State::orderBy('name', 'asc')->get();
+                return view('event.launcher.launcher-register', ['mode' => 'edit', 'states' => $states, 'formId' => $formId]);
+            })->name('launcher-edit');
 
-            return view('event.launcher.launcher-document', compact('formId'));
-        })->name('launcher-document');
+            Route::get('/launcher-document/{formId?}',function($formId=null) {
+                
+                if($formId == null)
+                    return view('errors.403');
 
-        Route::get('/launcher-finance/{formId}', function($formId) {
-            return view('event.launcher.launcher-finance', compact('formId'));
-        })->name('finance');
-    
-        Route::view('/show-events','event.event.show-events')->name('show-events');
+                return view('event.launcher.launcher-document', compact('formId'));
+            })->name('launcher-document');
 
+            Route::get('/launcher-finance/{formId}', function($formId) {
+                return view('event.launcher.launcher-finance', compact('formId'));
+            })->name('finance');
         
-        Route::middleware(['launcherLevel'])->prefix('admin')->group(function() {
-        
-            Route::domain(Controller::$EVENT_SITE)->group(base_path('routes/event_launcher_routes.php'));
+            Route::view('/show-events','event.event.show-events')->name('show-events');
+
             
+            Route::middleware(['launcherLevel'])->prefix('admin')->group(function() {
+            
+                Route::domain(Controller::$EVENT_SITE)->group(base_path('routes/event_launcher_routes.php'));
+                
+            });
+
         });
 
-    });
 
+    });
 
 });
 

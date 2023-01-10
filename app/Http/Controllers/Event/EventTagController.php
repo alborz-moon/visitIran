@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventTagResource;
+use App\Http\Resources\EventTagShare;
 use App\Http\Resources\EventUserDigest;
 use App\Models\EventTag;
 use Illuminate\Http\Request;
@@ -33,7 +34,7 @@ class EventTagController extends Controller
         
         return response()->json([
             'status' => 'ok',
-            'data' => EventTagResource::collection($categories)->toArray($request)
+            'data' => EventTagShare::collection($categories)->toArray($request)
         ]);
     }
 

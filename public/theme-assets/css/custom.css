@@ -2003,6 +2003,11 @@ figure .ck-widget {
 .widthAuto {
     width: auto;
 }
+.haveNotCat {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+}
 .addBasket {
     width: 14px;
     height: 14px;
