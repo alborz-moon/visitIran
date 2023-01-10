@@ -158,7 +158,7 @@ Route::middleware(['shareEventTags'])->group(function() {
 
         Route::get('/event/{event}/{slug}', [EventController::class, 'show'])->name('event');
 
-        Route::get('/launcher/{launcher}/{slug}', [LauncherController::class, 'show_detail'])->name('launcher');
+        Route::get('/launcher/{launcher}/{slug}', [LauncherController::class, 'show_detail'])->name('show-launcher');
 
 
         Route::get('/list/{tag}/{slug}', [EventTagController::class, 'list'])->name('event.single-category');
@@ -258,8 +258,9 @@ Route::get('/contact-us', function () {
 Route::view('profile', 'profile')->name('profile');
 
 Route::get('/404', function ($request) {
+    dd("ASd");
     return view('404');
-})->name('404');
+})->middleware(['shareEventTags', 'shareTopCategories'])->name('404');
 
-Route::view('403', 'errors.403')->name('403');
+Route::view('403', 'errors.403')->middleware(['shareEventTags', 'shareTopCategories'])->name('403');
 

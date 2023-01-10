@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="d-flex spaceBetween mt-1 mb-2">
                                     <button class="whiteSpaceNoWrap buttonBasketEvent btnEventHover d-flex alignItemsCenter">
-                                        <span class="colorWhiteGray fontSize13 px-2 d-flex">مشاهده</span>
+                                        <a href="{{ $launcherHref }}" class="colorWhiteGray fontSize13 px-2 d-flex">مشاهده</a>
                                         <i class="icon-visit-eye colorWhiteGray d-flex px-2"></i>
                                     </button>
                                     <button data-select="{{ $event['launcher_is_following'] ? 'on' : 'off' }}" class=" d-flex alignItemsCenter whiteSpaceNoWrap buttonBasketEvent followToggle {{ $event['launcher_is_following'] ? 'backgroundYellow' : '' }}">
@@ -483,7 +483,7 @@
                                 </div>
                                 <div class="d-flex spaceBetween mt-1 mb-2">
                                     <button class="whiteSpaceNoWrap buttonBasketEvent btnEventHover d-flex alignItemsCenter">
-                                        <span class="colorWhiteGray fontSize13 px-2 d-flex">مشاهده</span>
+                                        <a href="{{ $launcherHref }}" class="colorWhiteGray fontSize13 px-2 d-flex">مشاهده</a>
                                         <i class="icon-visit-eye colorWhiteGray d-flex px-2"></i>
                                     </button>
                                     <button data-select="{{ $event['launcher_is_following'] ? 'on' : 'off' }}" class=" d-flex alignItemsCenter whiteSpaceNoWrap buttonBasketEvent followToggle {{ $event['launcher_is_following'] ? 'backgroundYellow' : '' }}">

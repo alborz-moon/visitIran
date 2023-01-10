@@ -1,5 +1,6 @@
 <?php $general_categories = request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE ? $top_categories : $eventTags ?>
 
+
 <div class="remodal remodal-xl" data-remodal-id="search-modal"
     data-remodal-options="hashTracking: false">
     <div class="remodal-content">
