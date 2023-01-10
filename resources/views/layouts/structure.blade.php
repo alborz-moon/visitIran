@@ -570,9 +570,9 @@
                   container: 'body'
               });
               
-            // $("input").on("click", function(){
-            //     $(this).removeAttr("placeholder");
-            // });
+            // // $("input").on("click", function(){
+            // //     $(this).removeAttr("placeholder");
+            // // });
     </script>   
     @section('extraJS')
     @show
