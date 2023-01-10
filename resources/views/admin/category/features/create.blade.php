@@ -6,17 +6,6 @@
 
 @section('form')
 
-    <center id="errs">
-        @if($errors->any())
-            {!! implode('<br />', $errors->all(':message')) !!}
-        @endif
-    </center>
-
-    @if(isset($err))
-        <center>
-            <p>{{ $err }}</p>
-        </center>
-    @endif
 
     <form id="myForm" action="{{ isset($item) ? route('feature.update', ['feature' => $item['id']]) : route('category.features.store', ['category' => $categoryId])}}" method="post">
         {{ csrf_field() }}

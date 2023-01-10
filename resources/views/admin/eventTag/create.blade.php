@@ -9,6 +9,7 @@
 @stop
 
 @section('form')
+
     <form id="myForm" action="{{ isset($item) ? route('eventTags.update', ['eventTag' => $item->id]) : route('eventTags.store')}}" method="post">
         {{ csrf_field() }}
 

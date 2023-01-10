@@ -15,18 +15,6 @@
 @stop
 
 @section('form')
-    
-    <center id="errs">
-        
-        @if(isset($err))
-            {{ $err }}
-        @endif
-
-        @if($errors->any())
-            {!! implode('<br />', $errors->all(':message')) !!}
-        @endif
-    </center>
-
 
     @if(isset($item))
         <div class="flex center">

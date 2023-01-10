@@ -21,18 +21,6 @@
         </div>
     @endif
 
-
-    <center id="errs">
-        
-        @if(isset($err))
-            {{ $err }}
-        @endif
-
-        @if($errors->any())
-            {!! implode('<br />', $errors->all(':message')) !!}
-        @endif
-    </center>
-
     <form id="myForm" action="{{ isset($item) ? route('blog.update', ['blog' => $item['id']]) : route('blog.store')}}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
 
@@ -45,12 +33,12 @@
             
             <div>
                 <label for="header">عنوان</label>
-                <input required value="{{ isset($item) ? $item['header'] : '' }}" type="text" name="header" id="header" />
+                <input required value="{{ isset($item) ? $item['header'] : old('header') }}" type="text" name="header" id="header" />
             </div>
             
             <div>
                 <label for="slug">نامک(اختیاری)</label>
-                <input value="{{ isset($item) ? $item['slug'] : '' }}" placeholder="این فیلد اختیاری است" type="text" name="slug" id="slug" />
+                <input value="{{ isset($item) ? $item['slug'] : old('slug') }}" placeholder="این فیلد اختیاری است" type="text" name="slug" id="slug" />
             </div>
 
             <div>

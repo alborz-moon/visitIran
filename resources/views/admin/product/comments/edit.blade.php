@@ -6,11 +6,6 @@
 
 @section('form')
 
-    <center id="errs">
-        @if($errors->any())
-            {!! implode('<br />', $errors->all(':message')) !!}
-        @endif
-    </center>
 
     <center>
         <p>کاربر مربوطه: {{ $item['user'] }}</p>
