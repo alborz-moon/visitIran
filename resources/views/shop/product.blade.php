@@ -309,6 +309,8 @@
 
                 for (var i = 0; i < res.features.length; i++) {
 
+                    let unit = undefined;
+
                     if(res.features[i].name === 'multicolor') {
 
                         $("#color-div").removeClass('hidden');
@@ -392,19 +394,14 @@
                         res.features[i].price !== null
                     ) {
                         
-                        let unit = res.features[i].value.split(' ');
+                        unit = res.features[i].value.split(' ');
                         if(unit.length > 1)
-                            unit = unit[1];
-                        else
-                            unit = undefined;
+                            unit = unit.length == 1 ? unit[1] : unit.slice(1).join(' ');
                             
                         let optionHtml = '<div class="product-variant-selected-container spaceBetween hidden" >' +
                             '<div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18">' + res.features[i].name + '</div>' +
                             '<div class="line mr-15 ml-15"></div>' +
                             '<div><span id="selected_option_for_feature_' + res.features[i].id + '"></span><span>&nbsp;</span>';
-
-                        if(unit !== undefined)
-                            optionHtml += '<span>' + unit + '</span>';
 
                         optionHtml += '</div>';
                         optionHtml += '</div>';
@@ -429,7 +426,11 @@
 
                             if(j == 0) {
 
-                                $('#selected_option_for_feature_' + res.features[i].id).empty().append(vals[0]);
+                                if(unit === undefined)
+                                    $('#selected_option_for_feature_' + res.features[i].id).empty().append(vals[0]);
+                                else
+                                    $('#selected_option_for_feature_' + res.features[i].id).empty().append(vals[0] + ' ' + unit);
+
                                 wantedFeature = vals[0];
 
                                 if(prices != null) {
@@ -470,7 +471,11 @@
                                     sizes += 'data-count="' + counts[j] + '"';
                             }
                             
-                            sizes += '>' + vals[j] + '</option>';
+                            if(unit === undefined)
+                                sizes += '>' + vals[j] + '</option>';
+                            else
+                                sizes += '>' + vals[j] + ' ' + unit + '</option>';
+                            
                         }
 
                         $("#dynamic_options_" + res.features[i].id).append(sizes);
@@ -490,19 +495,23 @@
                     else
                         params += '<span class="param-title colorBlueWhite font600">' + res.features[i].name + '</span>';
                     
+                    let featureValTmp;
+
                     if(
                         res.features[i].name === 'multicolor' || 
                         res.features[i].available_count !== null || 
                         res.features[i].price !== null
                     ) {
-                        console.log(res.features[i].value.split(' ')[0]);
-                        console.log(res.features[i].value.split(' ')[0].split("__"));
                         let vals_tmp = res.features[i].value.split(' ')[0].split("__")[0].split('$$');
-                        params += '<span class="param-value fontSize16">' + vals_tmp.join('، ') + '</span>';
+                        featureValTmp = vals_tmp.join('، ');
                     }
                     else
-                        params += '<span class="param-value fontSize16">' + res.features[i].value + '</span>';
+                        featureValTmp = res.features[i].value;
 
+                    if(unit !== undefined)
+                        featureValTmp += ' ' + unit;
+
+                    params += '<span class="param-value fontSize16">' + featureValTmp + '</span>';
                     params += '</li>';
                     
                 }
@@ -585,7 +594,6 @@
             }
             
             wantedFeature = selectedOption.text();
-            
             $('#selected_option_for_feature_' + $(this).attr('data-id')).empty().append(wantedFeature);
 
         });
