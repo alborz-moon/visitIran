@@ -68,13 +68,17 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center flex-grow-1 pe-3 zIndex3 position-relative">
                             
-                            <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop">
+                            
                                 @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+                                <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop padding3">
                                     <img src="{{ asset('theme-assets/images/menuImage2.svg') }}" width="90" alt="">
+                                </div>
                                 @else
+                                <div class="logo-container logo-box me-3 positionAbsolute logoImgFromTop">
                                     <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="110" alt="">
+                                </div>
                                 @endif
-                            </div>
+                            
                             @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                                 <div class="marginFromRightHeaderShop">
                                     <div class="notification-item--text colorYellow bold"> بازارگاه صنایع دستی </div>
@@ -100,16 +104,13 @@
                                         <div id="basketItems" class="addBasket hidden"></div>
                                     </a>
                                     <div class="mini-cart">
-                                        
-                                        <div class="mini-cart-header">
+                                        <div class="mini-cart-header b-0">
                                             <span id="basket-items-count" class="mini-cart-products-count fa-num"></span>
                                             <a href="{{route('cart')}}" class="btn btn-link px-0">مشاهده سبد خرید <i
                                                     class="ri-arrow-left-s-fill"></i></a>
                                         </div>
-
-                                        <div id="basket-items"></div>
-                                        
-                                        <div class="mini-cart-footer">
+                                        <div id="basket-items" style="max-height: 350px; overflow: auto"></div>
+                                        <div class="mini-cart-footer b-0">
                                             <div class="mini-cart-total">
                                                 <span class="mini-cart-total-label">مبلغ قابل پرداخت:</span>
                                                 <span id="mini-cart-total-value" class="mini-cart-total-value fa-num"><span

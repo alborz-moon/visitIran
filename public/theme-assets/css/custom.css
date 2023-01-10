@@ -126,6 +126,9 @@ ul {
 .padding2 {
     padding: 2px;
 }
+.padding3 {
+    padding: 3px !important;
+}
 .dark {
     position: fixed;
     left: 0;
@@ -654,6 +657,9 @@ table thead {
 }
 .gap45 {
     gap: 45px;
+}
+.backgroundEAEAEA {
+    background-color: #eaeaea !important;
 }
 input:focus {
     background-color: #ffff !important;
@@ -2019,7 +2025,7 @@ figure .ck-widget {
     -o-transform: rotate(30deg);
 }
 .logo-container.logo-box {
-    min-width: 110px !important;
+    min-width: 100px !important;
 }
 .customRemoveBtn {
     background-color: #fff !important;
