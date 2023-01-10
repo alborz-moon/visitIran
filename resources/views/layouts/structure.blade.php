@@ -272,21 +272,17 @@
                                     </a>
                                 </div>
                             </div>
-
-                            @if(Auth::check())
                                 <div class="navigation-body">
                                     <ul id="moblieMenu" class="menu">
-                                        @include('layouts.mobile-menu')
+                                        @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+                                            @include('layouts.mobile-menu')
+                                        @endif
                                         {{-- @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
                                             @include('event.launcher.launcher-menu')
                                         @endif --}}
                                     </ul>
-                    
                                     {{-- @include('shop.profile.layouts.profile_menu',['mobileMenu' => true]) --}}
-
                                 </div>
-                            @endif
-
                         </div>
 
                         <div class="navigation-overlay">
