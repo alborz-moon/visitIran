@@ -50,9 +50,9 @@
             
         </div>
         <textarea id="desc" class="hidden" name="description"></textarea>
-        <div class="flex center gap10">
+        <div class="flex center gap10 margin20">
             <span onclick="document.location.href = '{{ route('faq.index') }}'" class="btn btn-danger">بازگشت</span>
-            <span class="btn green" id="saveBtn">ذخیره</span>
+            <span class="btn btn-primary" id="saveBtn">ذخیره</span>
         </div>
 
     </form>

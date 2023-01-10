@@ -7,13 +7,6 @@
 @section('form')
 
 
-    <center id="errs">
-
-        @if($errors->any())
-            {!! implode('<br />', $errors->all(':message')) !!}
-        @endif
-    </center>
-
     @if(isset($item))
         <div style="display: flex; flex-direction: row; gap: 20px; margin-right: 40px; margin-left: 40px;">
             <div>

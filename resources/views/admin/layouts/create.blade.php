@@ -53,6 +53,18 @@
                                 </div>
                             @endif --}}
                             <div style="margin-top: 10px;">
+
+                                <center id="errs">
+
+                                    @if(isset($err))
+                                        {{ $err }}
+                                    @endif
+
+                                    @if($errors->any())
+                                        {!! implode('<br />', $errors->all(':message')) !!}
+                                    @endif
+                                </center>
+
                                 @yield('form')
                             </div>
                         </div>

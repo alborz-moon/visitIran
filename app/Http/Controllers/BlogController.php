@@ -108,7 +108,7 @@ class BlogController extends BlogHelper
         $validator = Validator::make($request->all(), $validator, self::$COMMON_ERRS);
 
         if ($validator->fails())
-		return view('admin.blogs.create', ["errors" => $validator->errors()]);
+            return Redirect::to($request->session()->previousUrl())->with(["errors" => $validator->messages()])->withInput();
 
         if($request->has('img_file')) {
             $filename = $request->img_file->store('public/blogs');

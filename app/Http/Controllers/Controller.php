@@ -14,11 +14,11 @@ class Controller extends BaseController
     //   public static $EVENT_SITE = 'bogenstudio.at';
     //  public static $SHOP_SITE = 'shop.bogenstudio.com';
     
-//   public static $EVENT_SITE = 'myevent.com';
-//   public static $SHOP_SITE = 'myshop.com';
+  public static $EVENT_SITE = 'myevent.com';
+  public static $SHOP_SITE = 'myshop.com';
 
-    public static $EVENT_SITE = 'events.visitiran.ir';
-    public static $SHOP_SITE = 'hcshop.taci.ir';
+    // public static $EVENT_SITE = 'events.visitiran.ir';
+    // public static $SHOP_SITE = 'hcshop.taci.ir';
     
     public static function hasAnyExcept($expected, $real) {
 
@@ -146,6 +146,11 @@ class Controller extends BaseController
         'y.regex' => 'مختصات وارد شده نامعتبر است',
         'nid.regex' => 'کدملی وارد شده نامعتبر است',
         '*.email' => 'ایمیل وارد شده نامعتبر است',
+        'label.required' => 'لطفا عنوان را وارد نمایید',
+        'title.required' => 'لطفا عنوان را وارد نمایید',
+        'header.required' => 'لطفا عنوان را وارد نمایید',
+        'digest.required' => 'لطفا متن خلاصه را وارد نمایید',
+        'priority.required' => 'لطفا اولویت را وارد نمایید',
     ];
 
 }
