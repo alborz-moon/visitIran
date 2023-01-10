@@ -160,7 +160,7 @@ class EventTagController extends Controller
 
 
     public function list(EventTag $tag) {
-        
+    
         if(!$tag->visibility)
             return Redirect::route('403');
 

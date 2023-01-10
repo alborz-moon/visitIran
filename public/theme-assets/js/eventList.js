@@ -233,6 +233,9 @@ $(document).ready(function () {
     $(document).on("change", "input[name='types']", function () {
         filter();
     });
+    $(document).on("change", "input[name='tags']", function () {
+        filter();
+    });
 });
 
 function clearAllFilters() {
