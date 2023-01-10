@@ -661,16 +661,20 @@ table thead {
 .backgroundEAEAEA {
     background-color: #eaeaea !important;
 }
-input:focus {
+/* input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="website"]:focus, { */
+/* :not(:checkbox) */
+input:not([type="checkbox"]):not([type="button"]):focus {
     background-color: #ffff !important;
 }
-textarea:focus {
+textarea:not([type="checkbox"]):not([type="button"]):focus {
     background-color: #ffff !important;
 }
-input:hover:disabled {
+input:not([type="checkbox"]):not([type="button"]):hover:disabled {
     background-color: #eaecef;
 }
-textarea:hover:disabled {
+textarea:not([type="checkbox"]):not([type="button"]):hover:disabled {
     background-color: #eaecef;
 }
 .form-check-input:checked {
