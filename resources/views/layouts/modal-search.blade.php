@@ -1,81 +1,90 @@
-<!-- start of personal-info-fullname-modal -->
-    <div class="remodal remodal-xl" data-remodal-id="search-modal"
-        data-remodal-options="hashTracking: false">
-        <div class="remodal-content">
-            <div class="search-container">
-              <form action="#" class="search-form">
-                <input min="3" id="searchInput" type="text" class="form-control search-field marginLeft48 searchInput" placeholder="جستجو کنید..">
-              </form>
-              
-            </div>
-            <button id="searchBtn" data-remodal-action="close" class="btn-search btn-action b-0 customSearch colorblue d-flex">
-              <i class="icon-visit-close customSearch"></i>
-            </button>
-            
-            @if(isset($top_categories))
-              <div class="d-flex flexWrap gap10 my-3">
-                  <div id="defaultCatgories">
-                    @foreach ($top_categories as $cat)
-                      <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal">
-                        {{ $cat['name'] }}
-                      </a>
-                    @endforeach
-                  </div>
-                  <div class="d-flex afterCatgories">
-                  </div>
-              </div>
-            @endif
-            <hr>
-            <div id="searchDetails" class="searchDetails">
-            </div>
-        </div>
-    </div>
-    <div id="parentSearchMobile" class="pt-4">
-        <button id="closeSearch" onclick='$("#mainPageContent").css("marginTop", "-25px")' type="button" class="btn-close customCloseIconBanner p-0 position-absolute l-0 hidden zIndex1"></button>
-        <div id="container-search" class="search-container p-2 hidden">
-        <form action="#" class="search-form">
-          <input min="3" id="searchInput" type="text" class="form-control search-field marginLeft48 searchInput" placeholder="جستجو کنید..">
-        </form>
-        @if(isset($top_categories))
-          <div id="hiddenCat" class="d-flex flexWrap gap10 my-3 hidden">
-            <div id="defaultCatgoriesMobile d-flex flexWrap gap10">
-              @foreach ($top_categories as $cat)
-                <div class="d-flex flexWrap gap10">
-                  <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal whiteSpaceNoWrap">
-                      {{ $cat['name'] }}
-                  </a>
-                </div>  
-              @endforeach
-            </div>
-            <div class="d-flex afterCatgories">
+<?php $general_categories = request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE ? $top_categories : $eventTags ?>
 
-            </div>
+<div class="remodal remodal-xl" data-remodal-id="search-modal"
+    data-remodal-options="hashTracking: false">
+    <div class="remodal-content">
+        <div class="search-container">
+          <form action="#" class="search-form">
+            <input min="3" id="searchInput" type="text" class="form-control search-field marginLeft48 searchInput" placeholder="جستجو کنید..">
+          </form>
+        </div>
+        <button id="searchBtn" data-remodal-action="close" class="btn-search btn-action b-0 customSearch colorblue d-flex">
+          <i class="icon-visit-close customSearch"></i>
+        </button>
+        @if(isset($general_categories))
+          <div class="my-3">
+              <div class="d-flex flexWrap gap10 defaultCatgories">
+                @foreach ($general_categories as $cat)
+                  @if(request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+                    <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal">
+                  @else
+                    <a href="{{ route('event.single-category', ['tag' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal">
+                  @endif
+                    {{ $cat['name'] }}
+                  </a>
+                @endforeach
+              </div>
+              <div class="afterCatgories d-flex flexWrap gap10">
+                
+              </div>
           </div>
         @endif
         <hr>
-        <div id="searchDetails" class="searchDetails">
+        <div class="searchDetails">
+          
         </div>
-        </div>
+        <div class="haveNotCat hidden">موردی یافت نشد!</div>
     </div>
-<!-- end of personal-info-fullname-modal -->
+</div>
+<div id="parentSearchMobile" class="pt-4">
+    <button id="closeSearch" onclick='$("#mainPageContent").css("marginTop", "-25px")' type="button" class="btn-close customCloseIconBanner p-0 position-absolute l-0 hidden zIndex1"></button>
+    <div id="container-search" class="search-container p-2 hidden">
+    <form action="#" class="search-form">
+      <input min="3" id="searchInput" type="text" class="form-control search-field marginLeft48 searchInput" placeholder="جستجو کنید..">
+    </form>
+    
+    @if(isset($general_categories))
+      <div id="hiddenCat" class="my-3 hidden">
+        <div class="d-flex flexWrap gap10 defaultCatgories">
+          @foreach ($general_categories as $cat)
+            @if(request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+              <a href="{{ route('single-category', ['category' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal">
+            @else
+              <a href="{{ route('event.single-category', ['tag' => $cat['id'], 'slug' => $cat['slug']]) }}" class="btn btn-search-modal">
+            @endif
+              {{ $cat['name'] }}
+            </a>
+          @endforeach
+        </div>
+        <div class="afterCatgories d-flex flexWrap gap10">
+            
+        </div>
+      </div>
+    @endif
+    <hr>
+    <div class="searchDetails">
+
+    </div>
+    <div class="haveNotCat hidden">موردی یافت نشد!</div>
+    </div>
+</div>
+
 <script>
     $('.searchInput').on('keyup',function(){
-      console.log('====================================');
-      console.log(this.value.length);
-      console.log('====================================');
-        if (this.value.length > 3){
+        if (this.value.length > 2){
           $.ajax({
-             type: 'post',
-             url:  '{{ $route }}' ,
-             data: {
-                key: this.value,
-                return_type: 'card' 
-             },
-             success: function(res) {
-                var html= "";
-                $('#defaultCatgories').addClass('hidden');
-                if(res.status === "ok") {
-                  if (res.data.length != 0){
+            type: 'post',
+            url:  '{{ $route }}' ,
+            data: {
+              key: this.value,
+              return_type: 'card' 
+            },
+            success: function(res) {
+              var html= "";
+              $('.defaultCatgories').addClass('hidden');
+              if(res.status === "ok") {
+                if (res.data.length != 0){
+                    $(".haveNotCat").addClass('hidden');
                     for (var i = 0; i < res.data.length; i++){
                       html += '<div class="d-flex my-2 padding15">';
                       html += '<div class="icon-visit-search fontSize15 padding5"></div>';
@@ -85,8 +94,11 @@
                       html += '</div>';
                       html += '</div>';
                     }
+                  }else{
+                    $(".haveNotCat").removeClass('hidden');
                   }
                   $(".searchDetails").empty().append(html);
+                  
                 }
              }
          });
@@ -109,7 +121,12 @@
             $(".afterCatgories").empty().append(html);
           }
         });
-        }
+      }else{
+        $(".afterCatgories").empty();
+        $(".searchDetails").empty()
+        $('.defaultCatgories').removeClass('hidden');
+        $(".haveNotCat").removeClass('hidden');
+      }
 
 
     });

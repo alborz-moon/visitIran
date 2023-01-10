@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="d-flex justify-content-end">
                                         <button data-remodal-target="addtoTable" class="btn btn-sm btn-primary px-3 confrimFormHaveData">افزودن</button>
-                                        <button id="addedItem" class="btn btn-sm btn-primary px-3 confrimFormEmpty addItem">افزودن</button>
+                                        <button class="btn btn-sm btn-primary px-3 confrimFormEmpty addedItem">افزودن</button>
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
             </div>
             <div class="remodal-footer">
                 <button data-remodal-action="close" class="btn btn-sm px-3">انصراف</button>
-                <button id="addedItem" data-remodal-action="close" class="btn btn-sm btn-primary px-3">بله</button>
+                <button data-remodal-action="close" class="btn btn-sm btn-primary px-3 addedItem">بله</button>
             </div>
         </div>
         <!-- start of personal-info-fullname-modal -->
@@ -265,7 +265,7 @@
         });
     });
 
-    $("#addedItem").on('click', function () {
+    $(".addedItem").on('click', function () {
         if (timeStart == '' || dateStart == '' || timeStop == '' || dateStop == '') {
             showErr('تاریخ و زمان شروع و پایان را اضافه کنید.');
             return;

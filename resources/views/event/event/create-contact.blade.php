@@ -146,7 +146,7 @@
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button> --}}
                                             </div>
-                                            <div id="addTell" class="d-flex gap15"></div>
+                                            <div id="addTell" class="d-flex gap15 mt-1"></div>
                                             <div class="fontSize14 colorBlack">در صورت وجود بیش از یک تلفن، آن ها را با فاصله از هم جدا نمایید.همچنین پیش شماره کشور و شهر نیز وارد شود. مانند +982111111111</div>
                                         </div>
                                     </div>

@@ -17,7 +17,7 @@
                                     <div class="py-1">
                                         <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
                                         <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between">
-                                            <input value="{{ $user->first_name != null ? $user->first_name . ' ' . $user->last_name  : '-'  }}" id="nameVal" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی" disabled>
+                                            <input value="{{ $user->first_name != null ? $user->first_name . ' ' . $user->last_name  : '' }}" id="nameVal" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی" disabled>
                                             <button data-input-id="nameVal" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"
                                                 data-remodal-target="personal-info-fullname-modal "><i class="ri-ball-pen-fill"></i>
                                             </button>
@@ -29,12 +29,12 @@
                                     <div class="py-1">
                                         <div  class="fs-7 text-dark">کد ملی</div>
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <input value="{{ $user->nid != null ? $user->nid : '-' }}" data-editable="true" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
+                                            <input value="{{ $user->nid != null ? $user->nid : ''}}" data-editable="true" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
                                             <button data-input-id="nid" class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                                 <i class="ri-ball-pen-fill"></i>
                                             </button>
                                         </div>
-                                        {{-- {{ $user->phone != null ? $user->phone : '-' }} --}}
+                                        {{-- {{ $user->phone != null ? $user->phone : ''}} --}}
                                         <div class="fs-6 fw-bold text-muted"></div>
                                     </div>
                                 </div>
@@ -42,12 +42,12 @@
                                     <div class="py-1">
                                         <div  class="fs-7 text-dark">شماره تلفن همراه</div>
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <input value="{{$user->phone != null ? $user->phone : '-' }}" data-editable="true" onkeypress="return isNumber(event)" id="phone" type="tel" minlength="7"  maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
+                                            <input value="{{$user->phone != null ? $user->phone : ''}}" data-editable="true" onkeypress="return isNumber(event)" id="phone" type="tel" minlength="7"  maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
                                             <button data-input-id="phone" class=" toggle-editable-btn btn btn-circle btn-outline-light">
                                                 <i class="ri-ball-pen-fill"></i>
                                             </button>
                                         </div>
-                                        {{-- {{ $user->nid != null ? $user->nid : '-' }} --}}
+                                        {{-- {{ $user->nid != null ? $user->nid : ''}} --}}
                                         <div class="fs-6 fw-bold text-muted"></div>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                                     <div class="py-1">
                                         <div  class="fs-7 text-dark">پست الکترونیک</div>
                                         <div class="d-flex align-items-center justify-content-between position-relative">
-                                            <input value="{{ $user->mail != null ? $user->mail : '-' }}" data-editable="true" onkeypress="return isEmail(event) || isNumber(event)" id="mail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
+                                            <input value="{{ $user->mail != null ? $user->mail : ''}}" data-editable="true" onkeypress="return isEmail(event) || isNumber(event)" id="mail" type="email" class="form-control" style="direction: rtl" placeholder="پست الکترونیک">
                                             <button data-input-id="mail" class=" toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                                 <i class="ri-ball-pen-fill"></i>
                                             </button>
@@ -67,7 +67,7 @@
                                     <div class="py-1">
                                         <div  class="fs-7 text-dark">تاریخ تولد</div>
                                         <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between">
-                                            <input value="{{ $user->birth_day != null ? $user->birth_day : '-' }}" id="brithdayVal" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد" disabled>
+                                            <input value="{{ $user->birth_day != null ? $user->birth_day : ''}}" id="brithdayVal" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد" disabled>
                                             <button data-input-id="mainBrithday" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"
                                                 data-remodal-target="personal-info-birth-modal">
                                                 <i class="ri-ball-pen-fill"></i>

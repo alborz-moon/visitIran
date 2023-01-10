@@ -79,5 +79,6 @@ class Kernel extends HttpKernel
         'myAuth' => \App\Http\Middleware\MyAuth::class,
         'completeInfo' => \App\Http\Middleware\CheckCompleteInfo::class,
         'shareTopCategories' => \App\Http\Middleware\ShareTopCategories::class,
+        'shareEventTags' => \App\Http\Middleware\ShareEventTags::class,
     ];
 }
