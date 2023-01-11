@@ -57,8 +57,7 @@
                                 ])
                                 <hr>
                                 <div class="col-lg-12 mb-3 zIndex0">
-                                    <div class="uploadTitleText">بارگذاری فایل مجوز ها</div>                                    
-                                    
+                                    <div class="uploadTitleText">بارگذاری فایل مجوز ها</div>                                     
                                     <div id="certifications" class="boxGallery">
                                     </div>
                                     <div class="uploadBody">
