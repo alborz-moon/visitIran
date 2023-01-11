@@ -39,8 +39,13 @@
                                 <!-- start of widget -->
                                 <div class="widget mb-3">
                                     <div class="spaceBetween">
-                                        <div class="widget-title m-0 b-0">فیلتر <span class="fontSize12 colorBlue">3 فیلتر</span></div>
-                                        <a href="#" class="colorRed fontSize12 align-self-center">حذف نتایج</a>
+                                        <div class="widget-title m-0 b-0">فیلتر 
+                                            <span id="total_filters" class="fontSize12 colorBlue hidden">
+                                                <span id="total_filters_count"></span>
+                                                <span>فیلتر</span>
+                                            </span>
+                                        </div>
+                                        <a id="remove_all_filters" onclick="clearAllFilters()" class="hidden colorRed cursorPointer fontSize12 align-self-center">حذف نتایج</a>
                                     </div>
                                     <div id="total_count" class="colorBlue fontSize12 align-self-center"></div>
                                     {{-- <div class="widget-content widget--category-results">
@@ -460,7 +465,7 @@
 
     {{-- <script src="{{ asset('theme-assets/js/lazyLoading.js') }}"></script> --}}
     <script src="{{ asset('theme-assets/js/home.js') }}"></script>
-    <script src="{{ asset('theme-assets/js/eventList.js') }}"></script>
+    <script src="{{ asset('theme-assets/js/eventList.js?v=1.2') }}"></script>
 
     <script>
 
