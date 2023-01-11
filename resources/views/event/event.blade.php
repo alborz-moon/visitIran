@@ -308,7 +308,7 @@
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container">
                                                 @foreach ($event['phone'] as $phone)
-                                                <span class="colorBlack fontSize14 fontWight400">{{ $phone }}</span><span class="mx-1">-</span>
+                                                    <a href="tel:{{$phone}}" class="colorBlack fontSize14 fontWight400">{{ $phone }}</a><span class="mx-1">-</span>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -324,8 +324,9 @@
                                     <div class="product-seller-row-detail">
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container ">
-                                                <div class="colorBlack fontSize14 fontWight400 px-2 d-flex justify-content-end">
-                                                    {{$event['email']}}</div>
+                                                <a href="mailto:{{$event['email']}}" class="colorBlack fontSize14 fontWight400 px-2 d-flex justify-content-end">
+                                                    {{$event['email']}}
+                                                </a>
                                             </div>
                                         </div>
                                         <a href="#" class="seller-info-link"></a>
@@ -341,8 +342,9 @@
                                     <div class="product-seller-row-detail">
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container ">
-                                                <div class="ltr colorBlack fontSize14 fontWight400 px-2 d-flex justify-content-end">
-                                                    {{$event['site']}}</div>
+                                                <a href="{{ $event['site'] }}" class="ltr colorBlack fontSize14 fontWight400 px-2 d-flex justify-content-end">
+                                                    {{$event['site']}}
+                                                </a>
                                             </div>
                                         </div>
                                         <a href="#" class="seller-info-link"></a>
@@ -682,7 +684,7 @@
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container">
                                                 @foreach ($event['phone'] as $phone)
-                                                <span class="colorBlack fontSize14 fontWight400">{{ $phone }}</span><span class="mx-1">-</span>
+                                                    <a href="tel:{{$phone}}" class="colorBlack fontSize14 fontWight400">{{ $phone }}</a><span class="mx-1">-</span>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -698,8 +700,9 @@
                                     <div class="product-seller-row-detail">
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container ">
-                                                <div class="colorBlack fontSize14 fontWight400 px-2 d-flex justify-content-end">
-                                                    {{$event['email']}}</div>
+                                                <a href="mailto:{{$event['email']}}" class="colorBlack fontSize14 fontWight400 px-2 d-flex justify-content-end">
+                                                    {{$event['email']}}
+                                                </a>
                                             </div>
                                         </div>
                                         <a href="#" class="seller-info-link"></a>
@@ -715,9 +718,9 @@
                                     <div class="product-seller-row-detail">
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container ">
-                                                <div class="ltr colorBlack fontSize14 fontWight400 px-2 d-flex justify-content-end">
+                                                <a href="{{ $event['site'] }}" class="ltr colorBlack fontSize14 fontWight400 px-2 d-flex justify-content-end">
                                                     {{$event['site']}}
-                                                </div>
+                                                </a>
                                             </div>
                                         </div>
                                         <a href="#" class="seller-info-link"></a>

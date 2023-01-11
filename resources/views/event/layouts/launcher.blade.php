@@ -1,7 +1,7 @@
 <div class="mb-5">
     <div class="d-flex spaceBetween align-items-center">
         <div class="fontSize18 bold mb-3">برگزار کننده</div>
-        <div>
+        <div class="{{ isset($showLauncher) && $showLauncher == true ? 'hidden' : '' }}">
             <div class="d-flex justify-content-end mt-1 mb-2">
                 <button class="buttonBasketEvent">
                     <span class="colorWhiteGray fontSize13 paddingRight5 px-2">مشاهده</span>
@@ -42,11 +42,11 @@
     </div>
     <div class="d-flex align-items-center">
         <i class="icon-visit-mail colorYellow fontSize35 marginTop10"></i>
-        <span id="launcherEmail" class="fontSize13 fontNormal colorBlack mx-3"></span>
+        <a id="launcherEmail" class="fontSize13 fontNormal colorBlack mx-3"></a>
     </div>
     <div class="d-flex align-items-center">
         <i class="icon-visit-website colorYellow fontSize35 marginTop10"></i>
-        <span id="launcherSite" class="fontSize13 fontNormal colorBlack mx-3"></span>
+        <a id="launcherSite" class="fontSize13 fontNormal colorBlack mx-3"></a>
     </div>
 </div>
 <!-- end of product-gallery -->
@@ -79,22 +79,22 @@
                     $('#launcherAddress').empty().append(res.data.launcher_address);         
                 }
                 if (res.data.launcher_email != null){
-                    $('#launcherEmail').empty().append(res.data.launcher_email);         
+                    $('#launcherEmail').empty().attr('href','mailto:' + res.data.launcher_email).text(res.data.launcher_email);         
                 }
                 if (res.data.launcher_site != null){
-                    $('#launcherSite').empty().append(res.data.launcher_site);         
+                    $('#launcherSite').empty().attr('href', res.data.launcher_site).text(res.data.launcher_site);         
                 }
                 if (res.data.rate != null){
                     $('#rate').empty().append(res.data.rate);         
                 }
-                if (res.data.launcher_phone != null){
-                    for(i = 0; i < res.data.launcher_phone.length; i++){
-                        html += '<span class="fontSize13 fontNormal colorBlack mx-3">' + res.data.launcher_phone[i] + '</span>'
-                    }
-                    $('#launcher_phone').empty().append(html);         
-                }
                 if (res.data.rate_count != null){
                     $('#rate_count').empty().append(res.data.rate_count);         
+                }
+                if (res.data.launcher_phone != null){
+                    for(i = 0; i < res.data.launcher_phone.length; i++){
+                        html += '<a href="tell:' + res.data.launcher_phone[i] + '" class="fontSize13 fontNormal colorBlack mx-3">' + res.data.launcher_phone[i] + '</a>'
+                    }
+                    $('#launcher_phone').empty().append(html);
                 }
             }
         }
