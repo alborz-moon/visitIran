@@ -39,7 +39,30 @@
                         </div> 
                         <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">پشتیبانی</a>
                     </div>
-
+                    <div id="shimmer"> 
+                        @for($i = 0; $i < 1; $i++)
+                        <a href="#" class="cursorPointer">
+                            <div class="ui-box bg-white mb-5 boxShadow SimmerParent">
+                                <div class="ui-box-title shimmerBG title-line m-3" style="width: 150px"></div>
+                                <div class="ui-box-content">
+                                    <div class="row">
+                                        <div class=" py-1">
+                                            <div class="fs-7 text-dark shimmerBG title-line m-3" style="width: 300px"></div>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="position-relative w-100">
+                                                    <div class="shimmerBG title-line p-5 m-3 w-100">
+                                                        {{-- <div class="shimmerBG title-line m-3" style="width: 50px"></div> --}}
+                                                    </div>
+                                                    <div class="shimmerBG title-line m-3" style="width: 200px;float: left"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        @endfor
+                    </div>
                     @if($isEditor && $mode !== 'edit')
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">کاربر مدنظر</div>
@@ -65,7 +88,7 @@
                             </div>
                         </div>
                     @endif
-
+                    <div id="hiddenHandler" class="hidden">
                     <div class="ui-box bg-white mb-5 boxShadow searchUserContentHidden">
                         <div class="ui-box-title">اطلاعات رابط</div>
                         <div class="ui-box-content">
@@ -379,6 +402,7 @@
                             <a href="{{ route('launcher-document', ['formId' => $formId]) }}" class="colorBlue fontSize14 ml-33">مشاهده مرحله بعد</a>
                         </div>
                     @endif
+                    </div>
                 </div>
         </div>
     </div>
@@ -482,7 +506,8 @@
         var map = undefined;
      
         $(document).ready(function(){
-
+            // $('#shimmer').addClass('hidden');
+            // $('#hiddenHandler').removeClass('hidden');
             $("#searchUser").on("click",function(){
                 $(".searchUserContentHidden").toggle();
             });
@@ -764,6 +789,8 @@
                 type: 'get',
                 url: '{{ route('launcher.show', ['launcher' => $formId]) }}',
                 success: function (res) {
+                    $('#shimmer').addClass('hidden');
+                    $('#hiddenHandler').removeClass('hidden');
                     $('input').attr("data-editable", "false");
                     $('textarea').attr("data-editable", "false");
                     $('.toggle-editable-btn').removeClass('hidden');

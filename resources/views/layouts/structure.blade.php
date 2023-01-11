@@ -277,12 +277,21 @@
                                     <ul id="moblieMenu" class="menu">
                                         @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
                                             @include('layouts.mobile-menu')
+                                        @else
+                                        <li>
+                                            <a href="{{ route('event.home') }}">صفحه اصلی</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('event.category.list',['createAt']) }}">رویداد ها</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('launcher') }}">برگزارکننده</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('create-event') }}">رویداد جدید</a>
+                                        </li>
                                         @endif
-                                        {{-- @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
-                                            @include('event.launcher.launcher-menu')
-                                        @endif --}}
                                     </ul>
-                                    {{-- @include('shop.profile.layouts.profile_menu',['mobileMenu' => true]) --}}
                                 </div>
                         </div>
 
