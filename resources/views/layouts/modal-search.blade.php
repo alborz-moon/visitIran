@@ -9,7 +9,7 @@ if($general_categories == null) {
   if(request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
     $general_categories = null;
   else
-    $general_categories = EventTagShare::collection(EventTag::visible()->get())->toArray(request());
+    $general_categories = App\Http\Resources\EventTagShare::collection(\App\Models\EventTag::visible()->get())->toArray(request());
 }
 
 ?>
