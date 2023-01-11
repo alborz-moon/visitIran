@@ -32,18 +32,18 @@ function buildQuery() {
 
     if (searchKey !== "") query.append("key", searchKey);
 
-    // let categories = [];
-    // $("input[name='categories']").each(function () {
-    //     if ($(this).prop("checked")) categories.push($(this).attr("value"));
-    // });
-    // if (categories.length > 0) {
-    //     $("#categories_filters_count_container").removeClass("hidden");
-    //     $("#categories_filters_count").empty().append(categories.length);
-    //     query.append("category", categories);
-    //     total_filters_count += categories.length;
-    // } else {
-    //     $("#categories_filters_count_container").addClass("hidden");
-    // }
+    let tags = [];
+    $("input[name='tags']").each(function () {
+        if ($(this).prop("checked")) tags.push($(this).attr("value"));
+    });
+    if (tags.length > 0) {
+        $("#tags_filters_count_container").removeClass("hidden");
+        $("#tags_filters_count").empty().append(tags.length);
+        query.append("tag", tags);
+        total_filters_count += tags.length;
+    } else {
+        $("#tags_filters_count_container").addClass("hidden");
+    }
 
     let levels = [];
     $("input[name='levels']").each(function () {
@@ -125,14 +125,14 @@ function buildQuery() {
         $("#cities_filters_count_container").addClass("hidden");
     }
 
-    // if (total_filters_count > 0) {
-    //     $("#total_filters").removeClass("hidden");
-    //     $("#remove_all_filters").removeClass("hidden");
-    //     $("#total_filters_count").empty().append(total_filters_count);
-    // } else {
-    //     $("#total_filters").addClass("hidden");
-    //     $("#remove_all_filters").addClass("hidden");
-    // }
+    if (total_filters_count > 0) {
+        $("#total_filters").removeClass("hidden");
+        $("#remove_all_filters").removeClass("hidden");
+        $("#total_filters_count").empty().append(total_filters_count);
+    } else {
+        $("#total_filters").addClass("hidden");
+        $("#remove_all_filters").addClass("hidden");
+    }
 
     return query;
 }
@@ -239,10 +239,13 @@ $(document).ready(function () {
 });
 
 function clearAllFilters() {
-    $("input[name='sellers']").prop("checked", false);
-    $("input[name='brands']").prop("checked", false);
-    $("input[name='categories']").prop("checked", false);
-    $("input[name='features']").prop("checked", false);
+    $("input[name='types']").prop("checked", false);
+    $("input[name='cities']").prop("checked", false);
+    $("input[name='tags']").prop("checked", false);
+    $("input[name='launchers']").prop("checked", false);
+    $("input[name='facilities']").prop("checked", false);
+    $("input[name='levels']").prop("checked", false);
+    $("input[name='langs']").prop("checked", false);
     $("#has_selling_stock").prop("checked", false);
     $("#has_selling_offs").prop("checked", false);
     $("#searchBoxInput").val("");

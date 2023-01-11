@@ -432,7 +432,7 @@ class EventController extends EventHelper
         $event->save();
 
         $launcher = $event->launcher;
-        $launcherHref = route('show-launcher', ['launcher' => $launcher->id, 'slug' => $launcher->company_name]);
+        $launcherHref = route('show-launcher', ['launcher' => $launcher->id, 'slug' => 'sample']); //$launcher->company_name
 
         $user = $request->user();
 

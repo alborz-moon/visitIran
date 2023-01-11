@@ -3,14 +3,16 @@
 $top_categories = isset($top_categories) ? $top_categories : null;
 $eventTags = isset($eventTags) ? $eventTags : null;
 
-$general_categories = request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE ? $top_categories : $eventTags ?>
+$general_categories = request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE ? $top_categories : $eventTags;
 
 if($general_categories == null) {
   if(request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
-  $general_categories = null;
+    $general_categories = null;
   else
-  $general_categories = EventTagShare::collection(EventTag::visible()->get())->toArray(request());
+    $general_categories = EventTagShare::collection(EventTag::visible()->get())->toArray(request());
 }
+
+?>
 
 <div class="remodal remodal-xl" data-remodal-id="search-modal"
     data-remodal-options="hashTracking: false">
