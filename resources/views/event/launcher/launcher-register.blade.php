@@ -506,8 +506,8 @@
         var map = undefined;
      
         $(document).ready(function(){
-            // $('#shimmer').addClass('hidden');
-            // $('#hiddenHandler').removeClass('hidden');
+            $('#shimmer').addClass('hidden');
+            $('#hiddenHandler').removeClass('hidden');
             $("#searchUser").on("click",function(){
                 $(".searchUserContentHidden").toggle();
             });
