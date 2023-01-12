@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{URL::asset('theme-assets/css/bootstrap-material-datetimepicker.css')}}">
     <script src="{{URL::asset("theme-assets/js/bootstrap-material-datetimepicker.js")}}"></script>
 
-
     <link rel="stylesheet" href="{{URL::asset('theme-assets/bootstrap-datepicker.css?v=1')}}">
     <script src="{{URL::asset("theme-assets//bootstrap-datepicker.js")}}"></script>
 @stop
@@ -21,6 +20,31 @@
                     @include('event.launcher.launcher-menu')
                 @endif
                 <div class="{{ $isEditor ? 'col-xl-12 col-lg-12 col-md-12' : 'col-xl-9 col-lg-8 col-md-7'}}">
+                    <div id="shimmer"> 
+                        @for($i = 0; $i < 1; $i++)
+                        <a href="#" class="cursorPointer">
+                            <div class="ui-box bg-white mb-5 boxShadow SimmerParent">
+                                <div class="ui-box-title shimmerBG title-line m-3" style="width: 150px"></div>
+                                <div class="ui-box-content">
+                                    <div class="row">
+                                        <div class=" py-1">
+                                            <div class="fs-7 text-dark shimmerBG title-line m-3" style="width: 300px"></div>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="position-relative w-100">
+                                                    <div class="shimmerBG title-line p-5 m-3 w-100">
+                                                        {{-- <div class="shimmerBG title-line m-3" style="width: 50px"></div> --}}
+                                                    </div>
+                                                    <div class="shimmerBG title-line m-3" style="width: 200px;float: left"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        @endfor
+                    </div>
+                    <div id="hiddenHandler" class="hidden">
                     <div class="d-flex spaceBetween align-items-center">
                         <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
@@ -142,9 +166,6 @@
                                             <div  class="fs-7 text-dark">تلفن</div>
                                             <div class="d-flex align-items-center justify-content-between position-relative">
                                                 <input onkeypress="return isNumber(event)" minlength="7" maxlength="11" id="launcherPhone" type="text" class="form-control setEnter" style="direction: rtl" placeholder="تلفن">
-                                                {{-- <button class="btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button> --}}
                                             </div>
                                             <div id="addTell" class="d-flex gap15 mt-1"></div>
                                             <div class="fontSize14 colorBlack">در صورت وجود بیش از یک تلفن، آن ها را با فاصله از هم جدا نمایید.همچنین پیش شماره کشور و شهر نیز وارد شود. مانند +982111111111</div>
@@ -167,6 +188,7 @@
                                 <a href="{{ route('addGalleryToEvent', ['event' => $id]) }}" class="colorBlue fontSize14 ml-33 confrimFormHaveData">مشاهده مرحله بعد</a>
                             </div>
                         @endif
+                    </div>
                     </div>
             </div>
         </div>
@@ -271,15 +293,16 @@
             altField: $("#date_input_stop_formatted")
         };
         $(document).ready(function(){
+            $('#shimmer').addClass('hidden');
+            $('#hiddenHandler').removeClass('hidden');
             $(".toggle-editable-btn").on("click", function () {
-                let id = $(this).attr("data-input-id");
+            let id = $(this).attr("data-input-id");
             if ($("#" + id).attr("data-editable") == "false") {
                 $("#" + id).val("");
             }
             });
             $('#time_start').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
             $('#time_stop').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
-
             $("#date_input_start").datepicker(datePickerOptions);
             $("#date_input_stop").datepicker(datePickerOptionsEnd);
 
@@ -352,9 +375,13 @@
                         if (res.data.mode == "edit"){
                             $(".confrimFormEmpty").addClass("hidden");
                             $(".confrimFormHaveData").removeClass("hidden");
+                            $('#shimmer').addClass('hidden');
+                            $('#hiddenHandler').removeClass('hidden');
                         }else {
                             $(".confrimFormEmpty").removeClass("hidden");
-                            $(".confrimFormHaveData").addClass("hidden");       
+                            $(".confrimFormHaveData").addClass("hidden");
+                            $('#shimmer').addClass('hidden');
+                            $('#hiddenHandler').removeClass('hidden');       
                         }
                         if (res.data.price != null){
                             $('input').attr("data-editable", "false");

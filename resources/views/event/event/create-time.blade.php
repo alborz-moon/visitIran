@@ -26,6 +26,31 @@
                     @include('event.launcher.launcher-menu')
                 @endif
                 <div class="{{ $isEditor ? 'col-xl-12 col-lg-12 col-md-12' : 'col-xl-9 col-lg-8 col-md-7'}}">
+                                        <div id="shimmer"> 
+                        @for($i = 0; $i < 1; $i++)
+                        <a href="#" class="cursorPointer">
+                            <div class="ui-box bg-white mb-5 boxShadow SimmerParent">
+                                <div class="ui-box-title shimmerBG title-line m-3" style="width: 150px"></div>
+                                <div class="ui-box-content">
+                                    <div class="row">
+                                        <div class=" py-1">
+                                            <div class="fs-7 text-dark shimmerBG title-line m-3" style="width: 300px"></div>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="position-relative w-100">
+                                                    <div class="shimmerBG title-line p-5 m-3 w-100">
+                                                        {{-- <div class="shimmerBG title-line m-3" style="width: 50px"></div> --}}
+                                                    </div>
+                                                    <div class="shimmerBG title-line m-3" style="width: 200px;float: left"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        @endfor
+                    </div>
+                    <div id="hiddenHandler" class="hidden">
                     <div class="d-flex spaceBetween align-items-center">
                         <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
@@ -109,6 +134,7 @@
                             </div>
                         @endif
                     </div>
+                </div>
             </div>
         </div>
         <div class="remodal remodal-xl" data-remodal-id="modalAreYouSure"
@@ -321,13 +347,16 @@
             'accept': 'application/json'
         },
         success: function(res) {
-        
             if (res.mode == "edit"){
                 $(".confrimFormEmpty").addClass("hidden");
                 $(".confrimFormHaveData").removeClass("hidden");
+                $('#shimmer').addClass('hidden');
+                $('#hiddenHandler').removeClass('hidden');
             }else {
                 $(".confrimFormEmpty").removeClass("hidden");
-                $(".confrimFormHaveData").addClass("hidden");       
+                $(".confrimFormHaveData").addClass("hidden");
+                $('#shimmer').addClass('hidden');
+                $('#hiddenHandler').removeClass('hidden');       
             }
             if(res.status === "ok") {
                 

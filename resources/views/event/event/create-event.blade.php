@@ -82,6 +82,31 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                 @include('event.launcher.launcher-menu')
             @endif
             <div class="{{ isset($launchers) ? 'col-xl-12 col-lg-12 col-md-12' : 'col-xl-9 col-lg-8 col-md-7'}}">
+                <div id="shimmer"> 
+                    @for($i = 0; $i < 1; $i++)
+                    <a href="#" class="cursorPointer">
+                        <div class="ui-box bg-white mb-5 boxShadow SimmerParent">
+                            <div class="ui-box-title shimmerBG title-line m-3" style="width: 150px"></div>
+                            <div class="ui-box-content">
+                                <div class="row">
+                                    <div class=" py-1">
+                                        <div class="fs-7 text-dark shimmerBG title-line m-3" style="width: 300px"></div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="position-relative w-100">
+                                                <div class="shimmerBG title-line p-5 m-3 w-100">
+                                                    {{-- <div class="shimmerBG title-line m-3" style="width: 50px"></div> --}}
+                                                </div>
+                                                <div class="shimmerBG title-line m-3" style="width: 200px;float: left"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    @endfor
+                </div>
+                <div id="hiddenHandler" class="hidden">
                 <div class="d-flex spaceBetween align-items-center">
                     <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
                     <ul class="checkout-steps mt-4 mb-3 w-100">
@@ -333,6 +358,7 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
                         <a href="{{route('addSessionsInfo', ['event' => $id])}}" class="colorBlue fontSize14 ml-33">مشاهده مرحله بعد</a>
                     </div>
                 @endif
+                </div>
             </div>
         </div>
     </div>
@@ -354,8 +380,7 @@ var GET_CITIES_URL = '{{ route('api.cities') }}';
     </div>
 </main>
 <!-- start of personal-info-fullname-modal -->
-<div class="remodal remodal-xs" data-remodal-id="personal-info-fullname-modal"
-    data-remodal-options="hashTracking: false">
+<div class="remodal remodal-xs" data-remodal-id="personal-info-fullname-modal" data-remodal-options="hashTracking: false">
     <div class="remodal-header">
         <div class="remodal-title">نام و نام خانوادگی</div>
         <button data-remodal-action="close" class="remodal-close"></button>
@@ -477,6 +502,8 @@ var tagsList = undefined;
 var selectedFacility = [];
 
 $(document).ready(function(){
+    $('#shimmer').addClass('hidden');
+    $('#hiddenHandler').removeClass('hidden');
     $('#launcherPhone').attr("data-editable", "true");
     $('input').attr("data-editable", "true");
     $('textarea').attr("data-editable", "true")
@@ -549,7 +576,6 @@ $('#onlineOrOffline').on('change', function() {
         $(".hidden_url_fields").removeClass('hidden');
         $(".hidden_online_fields").addClass('hidden');
         $(".hidden_map_fields").addClass('hidden');
-
     } else if (onlineOrOffline === 'offline') {
         $(".hidden_address_fields").removeClass('hidden');
         $(".hidden_all_fields").removeClass('hidden');
@@ -716,6 +742,8 @@ function getPhase1Info() {
         success: function(res) {
 
             if (res.status === "ok") {
+                $('#shimmer').addClass('hidden');
+                $('#hiddenHandler').removeClass('hidden');
                 if (res.data.length != 0) {
                     $('input').attr("data-editable", "false");
                     $('textarea').attr("data-editable", "false");

@@ -21,25 +21,7 @@
                     @include('event.launcher.launcher-menu')
                 @endif
                 <div class="{{ $isEditor ? 'col-xl-12 col-lg-12 col-md-12' : 'col-xl-9 col-lg-8 col-md-7'}}">
-                
-                    <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
-                        <div>
-                            در خواست ارتقا به برگزار کننده پس از ارسال توسط ادمین بازبینی و تایید خواهد شد  .
-                        </div>                       
-                    </div>
-                    <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
-                        <div>
-                            در حال حاضر حساب برگزار کننده شما غیر فعال است . پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
-                        </div> 
-                        <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">مشاهده سوابق</a> 
-                    </div>
-                    <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
-                        <div>
-                            تایید حساب برگزار کننده با مشکل مواجه شده است . برای جزئیات بیشتر به پشتیبانی مراجه کنید.
-                        </div> 
-                        <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">پشتیبانی</a>
-                    </div>
-                    <div id="shimmer"> 
+                                        <div id="shimmer"> 
                         @for($i = 0; $i < 1; $i++)
                         <a href="#" class="cursorPointer">
                             <div class="ui-box bg-white mb-5 boxShadow SimmerParent">
@@ -62,6 +44,24 @@
                             </div>
                         </a>
                         @endfor
+                    </div>
+                    <div id="hiddenHandler" class="hidden">
+                    <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
+                        <div>
+                            در خواست ارتقا به برگزار کننده پس از ارسال توسط ادمین بازبینی و تایید خواهد شد  .
+                        </div>                       
+                    </div>
+                    <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
+                        <div>
+                            در حال حاضر حساب برگزار کننده شما غیر فعال است . پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
+                        </div> 
+                        <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">مشاهده سوابق</a> 
+                    </div>
+                    <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
+                        <div>
+                            تایید حساب برگزار کننده با مشکل مواجه شده است . برای جزئیات بیشتر به پشتیبانی مراجه کنید.
+                        </div> 
+                        <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">پشتیبانی</a>
                     </div>
                     @if($isEditor && $mode !== 'edit')
                         <div class="ui-box bg-white mb-5 boxShadow">
@@ -88,7 +88,6 @@
                             </div>
                         </div>
                     @endif
-                    <div id="hiddenHandler" class="hidden">
                     <div class="ui-box bg-white mb-5 boxShadow searchUserContentHidden">
                         <div class="ui-box-title">اطلاعات رابط</div>
                         <div class="ui-box-content">
@@ -504,14 +503,14 @@
         let x;
         let y;
         var map = undefined;
-     
+
+        
         $(document).ready(function(){
-            $('#shimmer').addClass('hidden');
-            $('#hiddenHandler').removeClass('hidden');
+                $('#shimmer').addClass('hidden');
+                $('#hiddenHandler').removeClass('hidden');
             $("#searchUser").on("click",function(){
                 $(".searchUserContentHidden").toggle();
             });
-            
             $('#launcherPhone').attr("data-editable", "true");
             $('input').attr("data-editable", "true");
             $('textarea').attr("data-editable", "true");

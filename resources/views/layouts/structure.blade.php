@@ -576,10 +576,6 @@
             const popover = new bootstrap.Popover('.example-popover', {
                 container: 'body'
             });
-              
-            // $("input").on("click", function(){
-            //     $(this).removeAttr("placeholder");
-            // });
     </script>   
     @section('extraJS')
     @show

@@ -160,9 +160,10 @@ Route::middleware(['shareEventTags'])->group(function() {
 
         Route::get('/launcher/{launcher}/{slug}', [LauncherController::class, 'show_detail'])->name('show-launcher');
 
+        Route::view('/list-launcher','event.list-launcher')->name('list-launcher');
 
         Route::get('/list/{tag}/{slug}', [EventTagController::class, 'list'])->name('event.single-category');
-            
+    
         Route::get('/list/{orderBy}', [EventTagController::class, 'allCategories'])->name('event.category.list');
 
 
@@ -204,7 +205,6 @@ Route::middleware(['shareEventTags'])->group(function() {
             })->name('finance');
         
             Route::view('/show-events','event.event.show-events')->name('show-events');
-
             
             Route::middleware(['launcherLevel'])->prefix('admin')->group(function() {
             
@@ -224,8 +224,6 @@ Route::get('/cart-empty', function () {
     return view('cart-empty');
 })->name('cart-empty');
 
-
-Route::view('alaki', 'alaki');
 
 Route::get('/checkout-successful', function () {
     return view('checkout-successful');
