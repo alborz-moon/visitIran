@@ -22,7 +22,7 @@
                     @include('event.launcher.launcher-menu')
                 @endif
                 <div class="{{ $isEditor ? 'col-xl-12 col-lg-12 col-md-12' : 'col-xl-9 col-lg-8 col-md-7'}}">
-                                        <div id="shimmer"> 
+                    <div id="shimmer" class="hidden"> 
                         @for($i = 0; $i < 1; $i++)
                         <a href="#" class="cursorPointer">
                             <div class="ui-box bg-white mb-5 boxShadow SimmerParent">
@@ -46,7 +46,7 @@
                         </a>
                         @endfor
                     </div>
-                    <div id="hiddenHandler" class="hidden">
+                    <div id="hiddenHandler">
                     <div class="alert alert-warning alert-dismissible fade show mb-5 d-flex align-items-center spaceBetween" role="alert">
                         <div>
                             در حال حاضر حساب کاربری شما غیر فعال است. پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
@@ -255,8 +255,8 @@
         let total = 0;
 
         $(document).ready(function() {
-            $('#shimmer').addClass('hidden');
-            $('#hiddenHandler').removeClass('hidden');
+            $('#shimmer').removeClass('hidden');
+            $('#hiddenHandler').addClass('hidden');       
             $.ajax({
                 type: 'get',
                 url: '{{ route('launcher.files', ['launcher' => $formId]) }}',
@@ -264,11 +264,7 @@
                     'accept': 'application/json'
                 },
                 success: function(res) {
-                    
-
-                    if(res.status === "ok") {      
-                        $('#shimmer').addClass('hidden');
-                        $('#hiddenHandler').removeClass('hidden');
+                    if(res.status === "ok") {
                         var html = "";
                         var companyNewspaper = "";
                         var userNIDCard = "";
@@ -326,7 +322,8 @@
                         }else{
                             $('#certifications').addClass('hidden');
                         }
-                        
+                        $('#shimmer').addClass('hidden');
+                        $('#hiddenHandler').removeClass('hidden');
                     }
                 }
             });
@@ -424,5 +421,9 @@
         $("#submit").on("click" , function (){
             showSuccess("ارسال شد.");
         });
+        $(document).ready(function() {
+           $('#shimmer').addClass('hidden');
+           $('#hiddenHandler').removeClass('hidden');       
+        })
     </script>
 @stop

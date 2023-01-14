@@ -12,6 +12,9 @@
                     @endif
                 </div>
             </div>
+            @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
+                @include('event.launcher.launcher-menu',['desktopMenu' => true])
+            @else 
             <ul class="nav nav-items-with-icon flex-column">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('profile.my-orders') }}"><i class="nav-link-icon ri-file-list-3-line"></i>
@@ -43,6 +46,7 @@
                         خروج</a>
                 </li>
             </ul>
+            @endif
         </div>
     </div>
 </div>

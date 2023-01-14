@@ -220,8 +220,6 @@
             }
         }
         $(document).ready(function(){
-            $('#shimmer').addClass('hidden');
-            $('#hiddenHandler').removeClass('hidden');
             $('textarea').attr("data-editable", "true");
             $('.toggle-editable-btn').addClass('hidden');
             $(".toggle-editable-btn").on("click", function () {
@@ -239,6 +237,8 @@
         function sendimg(img){
             $("#mainGalleryModal").attr('src', img);
         }
+        $('#shimmer').removeClass('hidden');
+        $('#hiddenHandler').addClass('hidden');
         $.ajax({
             type: 'get',
             url: '{{route('event.galleries.index',['event' => $id])}}',
@@ -247,20 +247,20 @@
                 if(res.status === "ok") {
                     $('textarea').attr("data-editable", "false");
                     if(res.data.length != 0) {
-                        $('#shimmer').addClass('hidden');
-                        $('#hiddenHandler').removeClass('hidden');
                         total = res.data.length;
                         for(i = 0; i < res.data.length; i ++ ){
                             gallery += '<div onclick="sendimg(\'' + res.data[i].img + '\')" data-remodal-target="mainGallery" id="gallery_' + res.data[i].id + '" class="square cursorPointer">';
-                            gallery += '<img class="w-100 h-100 objectFitCover" src="' + res.data[i].img + '" alt="">';
-                            gallery += '<i data-id=' + res.data[i].id + ' class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
-                            gallery += '</div>';
+                                gallery += '<img class="w-100 h-100 objectFitCover" src="' + res.data[i].img + '" alt="">';
+                                gallery += '<i data-id=' + res.data[i].id + ' class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
+                                gallery += '</div>';
+                            }
+                            $("#certifications").empty().append(gallery);
                         }
-                        $("#certifications").empty().append(gallery);
-                    }
-                    else {
-                        $("#certifications").remove();
-                    }
+                        else {
+                            $("#certifications").remove();
+                        }
+                        $('#shimmer').addClass('hidden');
+                        $('#hiddenHandler').removeClass('hidden');
                 }
             }
         });
@@ -284,7 +284,7 @@
                 }
             }
         });
-
+        
         $(document).on('click', ".icon-visit-uploaded-delete", function() {
             
             let filename = $(this).siblings('.dz-filename').text();

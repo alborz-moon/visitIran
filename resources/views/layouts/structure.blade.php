@@ -213,7 +213,7 @@
                                     <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('event.category.list',['createAt']) }}">رویداد ها</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('launcher') }}">برگزارکننده</a>
+                                    <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('launcher-list') }}">برگزارکننده</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="custom-nav-link hoverBold1 colorWhite fontNormal" href="{{ route('create-event') }}">ایجاد رویداد</a>
@@ -285,7 +285,7 @@
                                             <a href="{{ route('event.category.list',['createAt']) }}">رویداد ها</a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('launcher') }}">برگزارکننده</a>
+                                            <a href="{{ route('launcher-list') }}">برگزارکننده</a>
                                         </li>
                                         <li>
                                             <a href="{{ route('create-event') }}">رویداد جدید</a>

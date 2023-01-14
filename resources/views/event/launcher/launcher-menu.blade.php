@@ -1,8 +1,8 @@
 <?php $isLauncher = Auth::check() && Auth::user()->isLauncher(); ?>
 
-<div class="col-xl-3 col-lg-4 col-md-5 mb-md-0 mb-3 zIndex0">
+<div class="{{ isset( $desktopMenu ) && $desktopMenu ? "col-12" : "col-xl-3 col-lg-4 col-md-5" }}  mb-md-0 mb-3 zIndex0">
     <div class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">
-        <div class="profile-user-info py-3 ui-box bg-white">
+        <div class="profile-user-info py-3 ui-box bg-white {{ isset($desktopMenu) && $desktopMenu == 'true' ? "p-0 boxShadowNone" : '' }} ">
             <div class="profile-detail">
                 <div class="d-flex align-items-center">
                     <div class="profile-avatar me-3"><img
@@ -29,49 +29,35 @@
                                 50000000 <span class="colorYellow">ت</span>
                             </div>
                         </li>
-                        {{-- <div class="d-flex justifyContentEnd my-3">
-                            <button id="launcherProducer" class="btn btn-primary whiteSpaceNoWrap">ارتقا به برگزار کننده</button>
-                            <button id="simpleProducer" class="btn backgroundYellow colorWhite  whiteSpaceNoWrap hidden">بازگشت به پروفایل عادی</button>                            
-                        </div> --}}
                     </ul>
                 </div>
             </div>
           
             <ul class="nav nav-items-with-icon flex-column" style="border-bottom: 1px solid #dedede;padding-bottom: 15px;">
                 @if($isLauncher)
-                <li id="simpleProducer" class="nav-item">
-                    <a  onclick="$('#simpleProfileHidden').removeClass('hidden');" role="button" class="nav-link whiteSpaceNoWrap textColor"><i class="nav-link-icon ri-user-line"></i>
+                <li class="nav-item simpleProducer">
+                    <a role="button" class="nav-link whiteSpaceNoWrap textColor"><i class="nav-link-icon ri-user-line"></i>
                     بازگشت به پروفایل عادی
                     </a>
                 </li>
                 @else
-                <li id="goLauncher" class="nav-item hidden">
+                <li class="nav-item hidden goLauncher">
                     <a role="button" class="nav-link whiteSpaceNoWrap textColor"><i class="nav-link-icon ri-user-line"></i>
                     ارتقا به برگزار کننده
                     </a>
                 </li>
                 
                 @endif
-                <li id="launcherProducer" class="nav-item hidden">
+                <li class="nav-item hidden launcherProducer">
                     <a role="button" class="nav-link whiteSpaceNoWrap textColor"><i class="nav-link-icon ri-user-line"></i>
                         رفتن به پروفایل برگزار کننده
                     </a>
                 </li>
-                {{-- <li id="launcherProducer" class="nav-item hidden">
-                    <a role="button" class="nav-link whiteSpaceNoWrap textColor"><i class="nav-link-icon ri-user-line"></i>
-                        رفتن به پروفایل برگزار کننده
-                    </a>
-                </li> --}}
-                {{-- <li id="simpleProducer" class="nav-item hidden">
-                    <a role="button" class="nav-link whiteSpaceNoWrap textColor"><i class="nav-link-icon ri-user-line"></i>
-                    بازگشت به پروفایل عادی
-                    </a>
-                </li> --}}
             </ul>
             @if($isLauncher)
-                <ul id="launcherProfileHidden" class="nav nav-items-with-icon flex-column">
+                <ul class="nav nav-items-with-icon flex-column launcherProfileHidden">
                     <li class="nav-item">
-                        <a class="nav-link" href=""><i class="nav-link-icon ri-file-list-3-line"></i>
+                        <a class="nav-link" href="{{route('create-event')}}"><i class="nav-link-icon ri-file-list-3-line"></i>
                             ایجاد رویداد
                         </a>
                     </li>
@@ -80,30 +66,27 @@
                             رویداد های من
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href=""><i class="nav-link-icon ri-chat-1-line"></i>
-                        اطلاعات مالی
-                        </a>
-                    </li>
+                    {{-- ri-chat-1-line --}}
                     <li class="nav-item">
                         <a class="nav-link" href=""><i class="nav-link-icon ri-notification-line"></i>
                             گزارشات مالی
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href=""><i class="nav-link-icon ri-user-line"></i>
+                        <a class="nav-link" href="{{ route('launcher-list') }}"><i class="nav-link-icon ri-user-line"></i>
                         اطلاعات برگزار کننده
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href=""><i class="nav-link-icon ri-logout-box-r-line"></i>
-                            خروج</a>
+                            خروج
+                        </a>
                     </li>
                 </ul>
             @endif
 
 
-            <ul id="simpleProfileHidden" class="nav nav-items-with-icon flex-column {{ $isLauncher ? 'hidden' : '' }}">
+            <ul class="nav nav-items-with-icon flex-column {{ $isLauncher ? 'hidden' : '' }} simpleProfileHidden">
                 <li class="nav-item">
                     <a class="nav-link" href=""><i class="nav-link-icon ri-file-list-3-line"></i>
                         بلیط های من    
@@ -140,17 +123,17 @@
             window.location.href = "{{route('launcher') }}";
         });
         
-        $('#launcherProducer').on('click',function(){
-            $('#simpleProfileHidden').addClass('hidden');
-            $('#launcherProfileHidden').removeClass('hidden');
-            $('#simpleProducer').removeClass('hidden');
-            $('#launcherProducer').addClass('hidden');
+        $('.launcherProducer').on('click',function(){
+            $('.simpleProfileHidden').addClass('hidden');
+            $('.launcherProfileHidden').removeClass('hidden');
+            $('.simpleProducer').removeClass('hidden');
+            $('.launcherProducer').addClass('hidden');
         });
-        $('#simpleProducer').on('click',function(){
-            $('#launcherProducer').removeClass('hidden');
-            $('#simpleProducer').addClass('hidden');
-            $('#simpleProfileHidden').removeClass('hidden');
-            $('#launcherProfileHidden').addClass('hidden');
+        $('.simpleProducer').on('click',function(){
+            $('.launcherProducer').removeClass('hidden');
+            $('.simpleProducer').addClass('hidden');
+            $('.simpleProfileHidden').removeClass('hidden');
+            $('.launcherProfileHidden').addClass('hidden');
         });
      });
 </script>

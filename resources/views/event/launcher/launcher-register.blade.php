@@ -21,7 +21,7 @@
                     @include('event.launcher.launcher-menu')
                 @endif
                 <div class="{{ $isEditor ? 'col-xl-12 col-lg-12 col-md-12' : 'col-xl-9 col-lg-8 col-md-7'}}">
-                                        <div id="shimmer"> 
+                    <div id="shimmer" class="hidden"> 
                         @for($i = 0; $i < 1; $i++)
                         <a href="#" class="cursorPointer">
                             <div class="ui-box bg-white mb-5 boxShadow SimmerParent">
@@ -45,7 +45,7 @@
                         </a>
                         @endfor
                     </div>
-                    <div id="hiddenHandler" class="hidden">
+                    <div id="hiddenHandler">
                     <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
                         <div>
                             در خواست ارتقا به برگزار کننده پس از ارسال توسط ادمین بازبینی و تایید خواهد شد  .
@@ -506,12 +506,11 @@
 
         
         $(document).ready(function(){
-                $('#shimmer').addClass('hidden');
-                $('#hiddenHandler').removeClass('hidden');
             $("#searchUser").on("click",function(){
                 $(".searchUserContentHidden").toggle();
             });
             $('#launcherPhone').attr("data-editable", "true");
+            $('input').attr("data-editable", "true");
             $('input').attr("data-editable", "true");
             $('textarea').attr("data-editable", "true");
             $('.toggle-editable-btn').addClass('hidden');
@@ -781,17 +780,18 @@
 
 @section('extraJS')
     @parent
-
+    
     @if($mode == 'edit')
         <script>
+            $('#shimmer').removeClass('hidden');
+            $('#hiddenHandler').addClass('hidden');
             $.ajax({
                 type: 'get',
                 url: '{{ route('launcher.show', ['launcher' => $formId]) }}',
                 success: function (res) {
-                    $('#shimmer').addClass('hidden');
-                    $('#hiddenHandler').removeClass('hidden');
                     $('input').attr("data-editable", "false");
                     $('textarea').attr("data-editable", "false");
+                    $('input[type=file]').attr("data-editable", "true");
                     $('.toggle-editable-btn').removeClass('hidden');
                     $('#name').attr("data-editable", "true");
                     $('#last').attr("data-editable", "true");
@@ -860,9 +860,29 @@
                             $(this).attr('disabled', 'disabled');
                         }
                     });
+                    $('#shimmer').addClass('hidden');
+                    $('#hiddenHandler').removeClass('hidden');
+
+                    let should_hide_locks_inputs = [];
+
+                    $("input").each(function() {
+                        let val = $(this).val();
+                        if(val === undefined || val === null || val.length == 0) {
+                            $(this).removeAttr("disabled","disabled");
+                            should_hide_locks_inputs.push($(this).attr("id"));
+                        }
+                    });
+
+                    if(should_hide_locks_inputs.length > 0) {
+                        $('.toggle-editable-btn').each(function () { 
+                            if(should_hide_locks_inputs.indexOf($(this).attr("data-input-id")) !== -1)
+                                $(this).addClass('hidden');
+                         });
+                    }
                 }
             })
         </script>
     @endif
+    
 
 @stop

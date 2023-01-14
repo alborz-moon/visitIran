@@ -244,7 +244,8 @@
                                                         @endfor
                                                     </div>
 
-                                                    <div id="events_div" class="hidden p-0" style="display: flex; flex-wrap: wrap; gap: 5px;">
+                                                    <div id="launcher_list_div" class="hidden p-0" style="display: flex; flex-wrap: wrap; gap: 5px;">
+                                                        
                                                     </div>
 
                                                 </div>

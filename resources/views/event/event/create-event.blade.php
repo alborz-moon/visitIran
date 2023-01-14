@@ -502,8 +502,6 @@ var tagsList = undefined;
 var selectedFacility = [];
 
 $(document).ready(function(){
-    $('#shimmer').addClass('hidden');
-    $('#hiddenHandler').removeClass('hidden');
     $('#launcherPhone').attr("data-editable", "true");
     $('input').attr("data-editable", "true");
     $('textarea').attr("data-editable", "true")
@@ -742,8 +740,6 @@ function getPhase1Info() {
         success: function(res) {
 
             if (res.status === "ok") {
-                $('#shimmer').addClass('hidden');
-                $('#hiddenHandler').removeClass('hidden');
                 if (res.data.length != 0) {
                     $('input').attr("data-editable", "false");
                     $('textarea').attr("data-editable", "false");
@@ -822,20 +818,42 @@ function getPhase1Info() {
 
                         }
                     }
+                    $('#shimmer').addClass('hidden');
+                    $('#hiddenHandler').removeClass('hidden');
+                    let should_hide_locks_inputs = [];
+
+                    $("input").each(function() {
+                        let val = $(this).val();
+                        if(val === undefined || val === null || val.length == 0) {
+                            $(this).removeAttr("disabled","disabled");
+                            should_hide_locks_inputs.push($(this).attr("id"));
+                        }
+                    });
+
+                    if(should_hide_locks_inputs.length > 0) {
+                        $('.toggle-editable-btn').each(function () { 
+                            if(should_hide_locks_inputs.indexOf($(this).attr("data-input-id")) !== -1)
+                                $(this).addClass('hidden');
+                        });
+                    }
                     $(":input:not(:checkbox):not(:button):not(:select)").each(function() {
                         if ($(this).attr('data-editable') != 'true' ){
                             $(this).attr('disabled', 'disabled');
                         }
                     });
                     $("textarea").attr('disabled', 'disabled');
-
+                    
                 }
             }
         }
     });
 }
 @else
-createMap();
+    createMap();
+    $(document).ready(function(){
+        $('#shimmer').addClass('hidden');
+        $('#hiddenHandler').removeClass('hidden');
+    });
 @endif
 
 

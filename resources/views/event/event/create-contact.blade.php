@@ -293,8 +293,6 @@
             altField: $("#date_input_stop_formatted")
         };
         $(document).ready(function(){
-            $('#shimmer').addClass('hidden');
-            $('#hiddenHandler').removeClass('hidden');
             $(".toggle-editable-btn").on("click", function () {
             let id = $(this).attr("data-input-id");
             if ($("#" + id).attr("data-editable") == "false") {
@@ -364,7 +362,10 @@
                     $(".remodal-close").click();               
                 }            
             });
-            
+
+            $('#shimmer').removeClass('hidden');
+            $('#hiddenHandler').addClass('hidden');
+
             $.ajax({
                 type: 'get',
                 url: '{{ route('event.getPhase2Info',['event' => $id]) }}',
@@ -375,13 +376,9 @@
                         if (res.data.mode == "edit"){
                             $(".confrimFormEmpty").addClass("hidden");
                             $(".confrimFormHaveData").removeClass("hidden");
-                            $('#shimmer').addClass('hidden');
-                            $('#hiddenHandler').removeClass('hidden');
                         }else {
                             $(".confrimFormEmpty").removeClass("hidden");
-                            $(".confrimFormHaveData").addClass("hidden");
-                            $('#shimmer').addClass('hidden');
-                            $('#hiddenHandler').removeClass('hidden');       
+                            $(".confrimFormHaveData").addClass("hidden");     
                         }
                         if (res.data.price != null){
                             $('input').attr("data-editable", "false");
@@ -460,7 +457,27 @@
                         $("#date_input_start").attr("data-editable", "true").removeAttr("disabled");
                         $("#time_start").attr("data-editable", "true").removeAttr("disabled");
                         $("#date_input_stop").attr("data-editable", "true").removeAttr("disabled");
-                        $("#time_stop").attr("data-editable", "true").removeAttr("disabled");                   
+                        $("#time_stop").attr("data-editable", "true").removeAttr("disabled");
+
+                        $('#shimmer').addClass('hidden');
+                        $('#hiddenHandler').removeClass('hidden');
+                        
+                        let should_hide_locks_inputs = [];
+
+                        $("input").each(function() {
+                            let val = $(this).val();
+                            if(val === undefined || val === null || val.length == 0) {
+                                $(this).removeAttr("disabled","disabled");
+                                should_hide_locks_inputs.push($(this).attr("id"));
+                            }
+                        });
+                    
+                        if(should_hide_locks_inputs.length > 0) {
+                            $('.toggle-editable-btn').each(function () { 
+                                if(should_hide_locks_inputs.indexOf($(this).attr("data-input-id")) !== -1)
+                                    $(this).addClass('hidden');
+                            });
+                        }
                         // $("textarea").attr('disabled', 'disabled');
                 }
             });
@@ -526,6 +543,7 @@
                     }
                 }
             });
-        });      
+        });
+             
     </script>
 @stop

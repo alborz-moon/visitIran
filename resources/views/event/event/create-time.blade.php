@@ -26,7 +26,7 @@
                     @include('event.launcher.launcher-menu')
                 @endif
                 <div class="{{ $isEditor ? 'col-xl-12 col-lg-12 col-md-12' : 'col-xl-9 col-lg-8 col-md-7'}}">
-                                        <div id="shimmer"> 
+                    <div id="shimmer"> 
                         @for($i = 0; $i < 1; $i++)
                         <a href="#" class="cursorPointer">
                             <div class="ui-box bg-white mb-5 boxShadow SimmerParent">
@@ -339,7 +339,6 @@
             }
         });
     });
-
     $.ajax({
         type: 'get',
         url: '{{ route('event.sessions.index', ['event' => $id]) }}',
@@ -350,13 +349,9 @@
             if (res.mode == "edit"){
                 $(".confrimFormEmpty").addClass("hidden");
                 $(".confrimFormHaveData").removeClass("hidden");
-                $('#shimmer').addClass('hidden');
-                $('#hiddenHandler').removeClass('hidden');
             }else {
                 $(".confrimFormEmpty").removeClass("hidden");
                 $(".confrimFormHaveData").addClass("hidden");
-                $('#shimmer').addClass('hidden');
-                $('#hiddenHandler').removeClass('hidden');       
             }
             if(res.status === "ok") {
                 
@@ -377,6 +372,8 @@
                         $("#addedRowTable").append(addedRowTable);
                         idx ++;
                     }
+                    $('#shimmer').addClass('hidden');
+                    $('#hiddenHandler').removeClass('hidden');   
                 }
             }
         }
@@ -425,6 +422,9 @@
         }
         
     });
-    
+    $(document).ready(function () { 
+        $('#shimmer').addClass('hidden');
+        $('#hiddenHandler').removeClass('hidden');   
+    });
     </script>
 @stop
