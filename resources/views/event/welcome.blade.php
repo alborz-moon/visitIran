@@ -27,7 +27,10 @@
     @include('sections.top_events_slider', ['id' => 'latest_events_when_filled', 'searchKey' => 'createdAt',
         'key' => 'latestEvent', 'title' => 'درزمینه', 'not_fill_id' => 'latest_events_when_not_filled','fill_input' => 'eventType'])
 
-    @include('sections.top_events_slider', ['id' => 'most_like_launchers_when_filled', 'api' => route('api.launcher.list'), 
+    {{-- @include('sections.top_events_slider', ['id' => 'most_like_launchers_when_filled', 'api' => route('api.launcher.list'), 
+        'key' => 'mostLikeLauncher', 'title' => 'بهترین برگزار کننده', 'not_fill_id' => 'most_like_launchers_when_not_filled']) --}}
+        
+    @include('sections.top_events_slider', ['id' => 'most_like_launchers_when_filled', 'searchKey' => 'rate', 
         'key' => 'mostLikeLauncher', 'title' => 'بهترین برگزار کننده', 'not_fill_id' => 'most_like_launchers_when_not_filled'])
     
     @include('layouts.news')
