@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Event;
 
 use App\Http\Resources\EventAdminDigest;
 use App\Http\Resources\EventGalleryResource;
+use App\Http\Resources\EventLauncherDigest;
 use App\Http\Resources\EventPhase1Resource;
 use App\Http\Resources\EventPhase2Resource;
 use App\Http\Resources\EventUserDigest;
 use App\Http\Resources\EventUserResource;
-use App\Http\Resources\GalleryResource;
 use App\Http\Resources\LauncherVeryDigest;
 use App\Models\Config;
 use App\Models\Event;
@@ -16,12 +16,12 @@ use App\Models\EventComment;
 use App\Models\EventTag;
 use App\Models\Facility;
 use App\Models\Launcher;
+use App\Models\LauncherFollowers;
 use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class EventController extends EventHelper
@@ -40,7 +40,6 @@ class EventController extends EventHelper
         if($request->user()->isEditor()) {
             
             $launchers = LauncherVeryDigest::collection(Launcher::all())->toArray($request);
-            // dd($launchers);
             return view('event.event.create-event', compact('states', 'mode', 'launchers'));
         }
 
@@ -69,7 +68,11 @@ class EventController extends EventHelper
         if($event == null || !Gate::allows('update', $event))
             return Redirect::route('create-event');
 
-        return view('event.event.create-info', ['id' => $event->id]);
+        return view('event.event.create-info', [
+            'id' => $event->id, 
+            'desc' => $event->description, 
+            'mode' => $event->status == 'init' ? 'create' : 'edit'
+        ]);
 
     }
 
@@ -206,6 +209,34 @@ class EventController extends EventHelper
         ]);
     }
 
+    public function sendForReview(Event $event, Request $request) {
+
+        Gate::authorize('update', $event);
+
+        $errs = [];
+
+        if($event->price == null)
+            array_push($errs, 'ثبت نام و تماس');
+        
+        if($event->img == null || $event->description == null)
+            array_push($errs, 'اطلاعات تکمیلی');
+
+        if($event->sessions()->count() == 0)
+            array_push($errs, 'زمان برگزاری');
+
+        if(count($errs) == 0) {
+
+            if($request->user()->isEditor() && $event->status != Event::$INIT_STATUS)
+                return response()->json(['status' => 'ok']);
+
+            $event->status = Event::$PENDING_STATUS;
+            $event->save();
+            return response()->json(['status' => 'ok']);
+        }
+        
+        return response()->json(['status' => 'nok', 'data' => 'لطفا اطلاعات ضروری در بخش های زیر را پرنمایید.<br/>' . implode('<br/>', $errs)]);
+    }
+
     
     public function search(Request $request) {
 
@@ -317,14 +348,12 @@ class EventController extends EventHelper
             return abort(401);
 
         $request->validate($validator, self::$COMMON_ERRS);
-
         $phone_arr = [];
         if($request->has('phone_arr')) {
             
             foreach($request['phone_arr'] as $p) {
                 array_push($phone_arr, $p);
             }
-            
 
             $request['phone'] = implode('_', $phone_arr);
         }
@@ -359,6 +388,10 @@ class EventController extends EventHelper
 
             $event[$key] = $request[$key];
         }
+        
+        $isEditor = $request->user()->isEditor();
+        if(!$isEditor && $event->status != Event::$INIT_STATUS)
+            $event->status = Event::$PENDING_STATUS;
 
         $event->save();
         return response()->json(['status' => 'ok']);
@@ -377,6 +410,11 @@ class EventController extends EventHelper
 
         $request->validate($validator, self::$COMMON_ERRS);
         $event->description = $request['description'];
+        
+        $isEditor = $request->user()->isEditor();
+        if(!$isEditor && $event->status != Event::$INIT_STATUS)
+            $event->status = Event::$PENDING_STATUS;
+
         $event->save();
         
         return response()->json(['status' => 'ok']);
@@ -403,8 +441,12 @@ class EventController extends EventHelper
             unlink(__DIR__ . '/../../../../public/storage/events/' . $event->img);
 
         $event->img = $filename;
-        $event->save();
         
+        $isEditor = $request->user()->isEditor();
+        if(!$isEditor && $event->status != Event::$INIT_STATUS)
+            $event->status = Event::$PENDING_STATUS;
+
+        $event->save();
         return response()->json(['status' => 'ok']);
     }
 
@@ -443,6 +485,7 @@ class EventController extends EventHelper
                 'event' => array_merge(
                     EventUserResource::make($event)->toArray($request), [
                         'is_bookmark' => false,
+                        'launcher_is_following' => false,
                         'user_rate' => null,
                         'has_comment' => false,
                     ]), 
@@ -462,6 +505,7 @@ class EventController extends EventHelper
                     'is_bookmark' => $comment != null && $comment->is_bookmark != null ? $comment->is_bookmark : false,
                     'user_rate' => $comment != null ? $comment->rate : null,
                     'has_comment' => $comment != null && $comment->msg != null,
+                    'launcher_is_following' => LauncherFollowers::where('user_id', $user->id)->where('launcher_id', $launcher->id)->count() > 0,
                 ]), 
                 'is_login' => true,
                 'critical_point' => Config::where('site', 'event')->first()->critical_point,
@@ -533,7 +577,7 @@ class EventController extends EventHelper
         $isEditor = $request->user()->isEditor();
         if(
             (!$isEditor && $request->has('launcher_id')) ||
-            ($isEditor && !$request->has('launcher_id'))
+            ($event == null && $isEditor && !$request->has('launcher_id'))
         )
             return abort(401);
             
@@ -563,7 +607,7 @@ class EventController extends EventHelper
             $event[$key] = $request[$key];
         }
 
-        if(!$isEditor)
+        if(!$isEditor && $event->status != Event::$INIT_STATUS)
             $event->status = 'pending';
 
         $event->save();
@@ -600,5 +644,17 @@ class EventController extends EventHelper
 
         $event->delete();
         return response()->json(['status' => 'ok']);
+    }
+
+    public function myEvents(Request $request) {
+
+        $launcher = $request->user()->launcher;
+        if($launcher == null)
+            abort(401);
+
+        return response()->json([
+            'status' => 'ok',
+            'data' => EventLauncherDigest::collection($launcher->events)->toArray($request)
+        ]);
     }
 }

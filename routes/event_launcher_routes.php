@@ -3,8 +3,10 @@
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\EventGalleryController;
 use App\Http\Controllers\Event\EventSessionController;
+use App\Http\Controllers\Event\LauncherController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('getPlaceInfo/{launcher?}', [LauncherController::class, 'getPlaceInfo'])->name('getPlaceInfo');
 
 Route::get('/create-event', [EventController::class, 'create'])->name('create-event');
         
@@ -19,7 +21,12 @@ Route::get('/addGalleryToEvent/{event?}', [EventController::class, 'addGalleryTo
 Route::resource('event', EventController::class)->except('update', 'destroy');
 
 
+Route::resource('launcher.follow', LauncherFollowersController::class)->only('index')->shallow();
+
+
 Route::prefix('event/{event}')->group(function() {
+
+    Route::post('send_for_review', [EventController::class, 'sendForReview'])->name('event.sendForReview');
 
     Route::get('getPhase1Info', [EventController::class, 'getPhase1Info'])->name('event.getPhase1Info');
 

@@ -3,7 +3,14 @@
     @parent
     <script src="{{asset('theme-assets/dropzone/dropzone.js?v=1.2')}}"></script>
     <link rel="stylesheet" href="{{asset("theme-assets/dropzone/dropzone.css")}}">
-    {{-- <script src="{{asset('theme-assets/js/Utilities.js')}}"></script> --}}
+    <script src="{{asset('theme-assets/js/Utilities.js')}}"></script>
+    <script>
+        var UploadURL = '{{ route('uploadImg') }}';
+    </script>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/10.0.1/decoupled-document/ckeditor.js"></script>
+    <script src="{{asset('admin-panel/js/ckeditor.js?v=2.2')}}"></script>
+
 @stop
 
 @section('content')
@@ -11,29 +18,37 @@
         <div class="dark hidden"></div>
         <div class="container">
             <div class="row mb-5">
+                
                 <?php $isEditor = Auth::user()->isEditor(); ?>
                 @if(!$isEditor)
                     @include('event.launcher.launcher-menu')
                 @endif
+
                 <div class="{{ $isEditor ? 'col-xl-12 col-lg-12 col-md-12' : 'col-xl-9 col-lg-8 col-md-7'}}">
-                    <div class="d-flex spaceBetween align-items-center">
-                        <span class="colorBlack  fontSize15 bold d-none d-md-block fontSize16 bold">ایجاد رویداد</span>
-                        <ul class="checkout-steps mt-4 mb-3 w-100">
-                            <li class="checkout-step-active">
-                                <a href="{{ route('update-event', ['event' => $id]) }}"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
-                            </li>
-                            <li class="checkout-step-active">
-                                <a href="{{ route('addSessionsInfo', ['event' => $id]) }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
-                            </li>
-                            <li class="checkout-step-active">
-                                <a href="{{ route('addPhase2Info', ['event' => $id]) }}"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
-                            </li>
-                            <li class="checkout-step-active">
-                                <a><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
-                            </li>
-                        </ul>
-                        <a href="{{ route('addPhase2Info', ['event' => $id]) }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
-                    </div>
+
+                    @include('event.layouts.shimmer')
+
+                    <div id="hiddenHandler" class="hidden">
+
+                        <div class="d-flex spaceBetween align-items-center">
+                            <span class="colorBlack  fontSize15 bold d-none d-md-block fontSize16 bold">ایجاد رویداد</span>
+                            <ul class="checkout-steps mt-4 mb-3 w-100">
+                                <li class="checkout-step-active">
+                                    <a href="{{ route('update-event', ['event' => $id]) }}"><span class="checkout-step-title" data-title="اطلاعات کلی"></span></a>
+                                </li>
+                                <li class="checkout-step-active">
+                                    <a href="{{ route('addSessionsInfo', ['event' => $id]) }}"><span class="checkout-step-title" data-title="زمان برگزاری"></span></a>
+                                </li>
+                                <li class="checkout-step-active">
+                                    <a href="{{ route('addPhase2Info', ['event' => $id]) }}"><span class="checkout-step-title" data-title="ثبت نام و تماس"></span></a>
+                                </li>
+                                <li class="checkout-step-active">
+                                    <a><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
+                                </li>
+                            </ul>
+                            <a href="{{ route('addPhase2Info', ['event' => $id]) }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
+                        </div>
+
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title"> عکس اصلی رویداد</div>
                             <div class="ui-box-content">
@@ -51,6 +66,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">گالری عکس</div>
                                 <div class="col-lg-12 mb-3 zIndex0">
@@ -73,40 +89,51 @@
                                         </div>
                                     </div>
                                 </div>
-                        </div>
-                        <div class="ui-box bg-white mb-5 boxShadow">
-                            <div class="ui-box-title">توضیحات</div>
-                            <div class="ui-box-content">
-                                <div class="row">
-                                    <div class="col-lg-12 mb-3">
-                                        <div class="py-2">
-                                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <textarea data-editable="true" id="description" type="text" class="form-control" style="direction: rtl" placeholder="توضیحات"></textarea>
-                                                <button data-input-id="description" class="toggle-editable-btn btn btn-circle btn-outline-light">
-                                                    <i class="ri-ball-pen-fill"></i>
-                                                </button>
+                            </div>
+
+                            <div class="ui-box bg-white mb-5 boxShadow">
+                                <div class="ui-box-title">توضیحات</div>
+                                <div class="ui-box-content">
+                                    <div class="row">
+                                        <div class="col-lg-12 mb-3">
+                                            <div class="py-2">
+                                                
+                                                @if(isset($desc) && $desc != null)
+                                                    <div id="showDescContainer" class="d-flex align-items-center justify-content-between position-relative">
+                                                        <div id="showDesc" class="form-control" style="direction: rtl; background-color: #e9ecef;">{!! $desc !!}</div>
+                                                        @include('event.layouts.lock', ['id' => 'showDesc'])
+                                                    </div>
+                                                @endif
+                                                
+                                                <div id="ck" class="{{ isset($desc) && $desc != null ? 'hidden' : '' }}">
+                                                    <div id="toolbar-container"></div>
+                                                    @if(isset($desc) && $desc != null)
+                                                        <div id="description">{!! $desc !!}</div>
+                                                    @else
+                                                        <div id="description">توضیحات</div>
+                                                    @endif
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="spaceBetween mb-2">
-                            <a href="" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</a>
-                            @if(isset($id))
-                                <button data-remodal-target="modalAreYouSure" class="btn btn-sm btn-primary px-5">ارسال برای بازبینی</button>
-                            @else
-                                <button class="btn btn-sm btn-primary px-5 nextBtn">ارسال برای بازبینی</button>
-                            @endif
-                        </div>
-                        {{-- @if(isset($id))
-                            <div class="d-flex justify-content-end">
-                                <a href="{{ route('show-events') }}" class="colorBlue fontSize14 ml-33">مشاهده مرحله بعد</a>
+
+                            <div class="spaceBetween mb-2">
+                                <a href="" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</a>
+                                @if($mode == 'edit')
+                                    <button data-remodal-target="modalAreYouSure" class="btn btn-sm btn-primary px-5">ارسال برای بازبینی</button>
+                                @else
+                                    <button class="btn btn-sm btn-primary px-5 nextBtn">ارسال برای بازبینی</button>
+                                @endif
                             </div>
-                        @endif --}}
+                        </div>
                     </div>
+                </div>
             </div>
         </div>
+
         <div class="remodal remodal-xl" data-remodal-id="mainImgShow"
             data-remodal-options="hashTracking: false">
             <div class="remodal-header">
@@ -123,6 +150,7 @@
                 <button data-remodal-action="close" class="btn btn-sm btn-primary px-3">بستن</button>
             </div>
         </div>
+
         <div class="remodal remodal-xl" data-remodal-id="mainGallery"
             data-remodal-options="hashTracking: false">
             <div class="remodal-header">
@@ -140,35 +168,26 @@
                 <button data-remodal-action="close" class="btn btn-sm btn-primary px-3">بستن</button>
             </div>
         </div>
-        <div class="remodal remodal-xl" data-remodal-id="modalAreYouSure"
-            data-remodal-options="hashTracking: false">
-            <div class="remodal-header">
-                <div class="remodal-title">آیا مطمئن هستید؟</div>
-                <button data-remodal-action="close" class="remodal-close"></button>
-            </div>
-            <div class="remodal-content">
-                <div class="form-element-row mb-3 fontSize14">
-                    با ثبت تغییرات اطلاعات شما دوباره برای بازبینی ارسال می گردد و رویداد تا زمان اعمال تغییرات نمایش داده نمی شود. آیا مطمئن هستید؟
-                </div>
-            </div>
-            <div class="remodal-footer">
-                <button data-remodal-action="close" class="btn btn-sm px-3">انصراف</button>
-                <button class="btn btn-sm btn-primary px-3 nextBtn">بله</button>
-            </div>
-        </div>
-    </main>
-@stop
 
-@section('footer')
-    @parent
+        @include('event.layouts.areYouSureChange')
+
+    </main>
 @stop
 
 @section('extraJS')
     @parent
+    
+    <script src="{{asset('admin-panel/js/initCKs.js?v=2.3')}}"></script>
+    
     <script>
         
         let uploadedFiles = [];
         let total = 0;
+        @if(isset($desc) && $desc != null)
+            let changeDesc = false;
+        @else
+            let changeDesc = true;
+        @endif
 
         Dropzone.options.galleryForm = {
             paramName: "img_file", // The name that will be used to transfer the file
@@ -193,24 +212,31 @@
                 });
             }
         }
-        $(document).ready(function(){
-            $('textarea').attr("data-editable", "true");
-            $('.toggle-editable-btn').addClass('hidden');
-            $(".toggle-editable-btn").on("click", function () {
-                if ($('textarea').attr("data-editable") == "false") {
-                    let id = $(this).attr("data-input-id");
-                    $('textarea').attr("data-editable", "true");
-                    $('textarea').removeAttr("disabled");
-                    $("#" + id).val("");
-                } else {
-                    $('textarea').attr("data-editable", "false");
-                    $('textarea').attr("disabled", "disabled");
-                }
+
+        $(document).ready(function () {
+            
+            initCK('{{ csrf_token() }}');
+            
+            $("#saveBtn").on('click', function() {
+                $("#desc").val($("#description").html());
+                $("#myForm").submit();
             });
+
+            $(".toggle-editable-btn").on("click", function () {
+                changeDesc = true;
+                $("#showDescContainer").remove();
+                $("#ck").removeClass('hidden');
+            });
+
         });
+        
         function sendimg(img){
             $("#mainGalleryModal").attr('src', img);
         }
+
+        $('#shimmer').removeClass('hidden');
+        $('#hiddenHandler').addClass('hidden');
+
         $.ajax({
             type: 'get',
             url: '{{route('event.galleries.index',['event' => $id])}}',
@@ -220,7 +246,7 @@
                     $('textarea').attr("data-editable", "false");
                     if(res.data.length != 0) {
                         total = res.data.length;
-                        for(i = 0; i < res.data.length; i ++ ){
+                        for(i = 0; i < res.data.length; i ++ ) {
                             gallery += '<div onclick="sendimg(\'' + res.data[i].img + '\')" data-remodal-target="mainGallery" id="gallery_' + res.data[i].id + '" class="square cursorPointer">';
                             gallery += '<img class="w-100 h-100 objectFitCover" src="' + res.data[i].img + '" alt="">';
                             gallery += '<i data-id=' + res.data[i].id + ' class="icon-visit-delete position-absolute colorRed fontSize21 topLeft10"></i>';
@@ -228,12 +254,14 @@
                         }
                         $("#certifications").empty().append(gallery);
                     }
-                    else {
+                    else
                         $("#certifications").remove();
-                    }
+                    
+                    removeShimmer();
                 }
             }
         });
+
         $.ajax({
             type: 'get',
             url: '{{route('event.get_main_img' ,['event' => $id])}}',
@@ -254,7 +282,7 @@
                 }
             }
         });
-
+        
         $(document).on('click', ".icon-visit-uploaded-delete", function() {
             
             let filename = $(this).siblings('.dz-filename').text();
@@ -305,72 +333,46 @@
             });
         });
 
-    $(".nextBtn").on('click', function () {
-        function checkInputs(required_list) {
-            let isValid = true;
+        $(".nextBtn").on('click', function () {
+            
+            if(changeDesc) {
+                var description = $('#description').html();
 
-            required_list.forEach((elem) => {
-                let tmpVal = $("#" + elem).val();
-                if (tmpVal.length == 0) {
-                    $("#" + elem)
-                        .addClass("errEmpty")
-                        .removeClass("haveValue");
-                    isValid = false;
-                } else if (tmpVal.length > 0) {
-                    $("#" + elem)
-                        .addClass("haveValue")
-                        .removeClass("errEmpty");
+                if (description.length == 0) {
+                    showErr("فیلد توضیحات را پر کنید");
+                    return;
+                }
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{route('event.store_desc',['event' => $id])}}',
+                    data: {
+                        'description': description,
+                    },
+                    success: function(res) {
+                        if(res.status === "ok")
+                            sendForReview();
+                    }
+                });
+            }
+            else
+                sendForReview();
+        });
+        
+        function sendForReview() {
+            
+            $.ajax({
+                type: 'post',
+                url: '{{route('event.sendForReview',['event' => $id])}}',
+                success: function(res) {
+                    if(res.status === "ok")
+                        window.location.href = '{{ $isEditor ? route('event.index') :  route('show-events', ['event' => $id])}}';
+                    else
+                        showErr(res.data)
                 }
             });
-            return isValid;
-        }
-        var description = $('#description').val();
-        if (description.length == 0){
-            var required_list = ['description'];
-            var inputList = checkInputs(required_list);
-            if( !inputList ) {
-                showErr("فیلد توضیحات را پر کنید.");
-               return
-            }
-            showErr("فیلد توضیحات را پر کنید.");
-            return;
+        
         }
 
-        $.ajax({
-            type: 'post',
-            url: '{{route('event.store_desc',['event' => $id])}}',
-            data: {
-                'description': description,
-            },
-            success: function(res) {
-                if(res.status === "ok") {
-                    window.location.href = "{{isset($id) ? route('show-events', ['event' => $id]) : route('show-events') }}";
-                }
-            }
-        });
-    });
-    $.ajax({
-        type: 'get',
-        url: '{{route('event.get_desc',['event' => $id])}}',
-        success: function(res) {
-            if(res.status === "ok") {
-                if (res.data.length != 0){
-                    $("textarea").each(function() {
-                        if ($(this).attr('data-editable') != 'true' ){
-                            $(this).attr('disabled', 'disabled');
-                            $(this).attr('data-editable', 'false');
-                            $('.toggle-editable-btn').removeClass('hidden');
-                        }
-                    });
-                }else{
-                    if ($(this).attr('data-editable') != 'false' ){
-                            $(this).removeAttr('disabled', 'disabled');
-                            $(this).attr('data-editable', 'true');
-                        }
-                }
-                $('#description').val(res.data);    
-            }
-        }
-    });
     </script>
 @stop

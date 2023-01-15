@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Event;
 use App\Models\Launcher;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -33,8 +34,14 @@ class LauncherPolicy
     }
 
     public function update(User $user, Launcher $launcher) {
-        return true;
-        // return $launcher->user_id == $user->id;
+        return $launcher->user_id == $user->id || 
+            $user->level == User::$ADMIN_LEVEL || 
+            $user->level == User::$EDITOR_LEVEL
+        ;
+    }
+    
+    public function show(User $user, Launcher $launcher) {
+        return $launcher->status == Event::$CONFIRMED_STATUS;
     }
 
     //todo : complete section

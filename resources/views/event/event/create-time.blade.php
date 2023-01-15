@@ -1,4 +1,3 @@
-
 @extends('layouts.structure')
 @section('header')
 
@@ -12,10 +11,7 @@
 
     <link rel="stylesheet" href="{{URL::asset('theme-assets/bootstrap-datepicker.css?v=1')}}">
     <script src="{{URL::asset("theme-assets/bootstrap-datepicker.js")}}"></script>
-    {{-- <script>
-        moment.locale("fa"); 
-        moment().format('LLLL');
-    </script> --}}
+    
 @stop
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
@@ -26,6 +22,10 @@
                     @include('event.launcher.launcher-menu')
                 @endif
                 <div class="{{ $isEditor ? 'col-xl-12 col-lg-12 col-md-12' : 'col-xl-9 col-lg-8 col-md-7'}}">
+                    
+                    @include('event.layouts.shimmer')
+
+                    <div id="hiddenHandler" class="hidden">
                     <div class="d-flex spaceBetween align-items-center">
                         <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
                         <ul class="checkout-steps mt-4 mb-3 w-100">
@@ -42,7 +42,7 @@
                                 <a href="{{ route('addGalleryToEvent', ['event' => $id]) }}"><span class="checkout-step-title" data-title="اطلاعات تکمیلی"></span></a>
                             </li>
                         </ul>
-                        <a href="{{ route('create-event') }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
+                        <a href="{{ route('update-event', ['event' => $id]) }}" class="px-3 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
                     </div>
                         <div class="ui-box bg-white mb-5 boxShadow">
                             <div class="ui-box-title">جلسات برگزاری</div>
@@ -109,24 +109,12 @@
                             </div>
                         @endif
                     </div>
-            </div>
-        </div>
-        <div class="remodal remodal-xl" data-remodal-id="modalAreYouSure"
-            data-remodal-options="hashTracking: false">
-            <div class="remodal-header">
-                <div class="remodal-title">آیا مطمئن هستید؟</div>
-                <button data-remodal-action="close" class="remodal-close"></button>
-            </div>
-            <div class="remodal-content">
-                <div class="form-element-row mb-3 fontSize14">
-                    با ثبت تغییرات اطلاعات شما دوباره برای بازبینی ارسال می گردد و رویداد تا زمان اعمال تغییرات نمایش داده نمی شود. آیا مطمئن هستید؟
                 </div>
             </div>
-            <div class="remodal-footer">
-                <button data-remodal-action="close" class="btn btn-sm px-3">انصراف</button>
-                <a target="_blank" class="btn btn-sm btn-primary px-3 nextBtn">بله</a>
-            </div>
         </div>
+        
+        @include('event.layouts.areYouSureChange')
+
         <div class="remodal remodal-xl" data-remodal-id="addtoTable"
             data-remodal-options="hashTracking: false">
             <div class="remodal-header">
@@ -313,7 +301,6 @@
             }
         });
     });
-
     $.ajax({
         type: 'get',
         url: '{{ route('event.sessions.index', ['event' => $id]) }}',
@@ -321,13 +308,12 @@
             'accept': 'application/json'
         },
         success: function(res) {
-        
             if (res.mode == "edit"){
                 $(".confrimFormEmpty").addClass("hidden");
                 $(".confrimFormHaveData").removeClass("hidden");
             }else {
                 $(".confrimFormEmpty").removeClass("hidden");
-                $(".confrimFormHaveData").addClass("hidden");       
+                $(".confrimFormHaveData").addClass("hidden");
             }
             if(res.status === "ok") {
                 
@@ -348,6 +334,8 @@
                         $("#addedRowTable").append(addedRowTable);
                         idx ++;
                     }
+                    $('#shimmer').addClass('hidden');
+                    $('#hiddenHandler').removeClass('hidden');   
                 }
             }
         }
@@ -396,6 +384,9 @@
         }
         
     });
-    
+    $(document).ready(function () { 
+        $('#shimmer').addClass('hidden');
+        $('#hiddenHandler').removeClass('hidden');   
+    });
     </script>
 @stop

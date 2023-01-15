@@ -190,11 +190,15 @@
                                     <div class="product-seller-row-detail">
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container">
+                                                <?php $i = 0 ?>
                                                 @foreach ($event['language'] as $lang)
                                                     <span class="fontSize14 fontWight400 colorBlack">
                                                         @lang($lang)
-                                                        <span class="mx-1">-</span>
+                                                        @if($i < count($event['language']) - 1)
+                                                            <span class="mx-1">-</span>
+                                                        @endif
                                                     </span>
+                                                    <?php $i++; ?>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -564,11 +568,15 @@
                                     <div class="product-seller-row-detail">
                                         <div class="seller-final-score-container p-2">
                                             <div class="seller-rate-container">
+                                                <?php $i = 0 ?>
                                                 @foreach ($event['language'] as $lang)
                                                     <span class="fontSize14 fontWight400 colorBlack">
                                                         @lang($lang)
-                                                        <span class="mx-1">-</span>
+                                                        @if($i < count($event['language']) - 1)
+                                                            <span class="mx-1">-</span>
+                                                        @endif
                                                     </span>
+                                                    <?php $i++; ?>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -844,19 +852,39 @@ $(document).ready(function() {
             });
         });
     }
-    $('.followToggle').on('click',function(){
-        if($(this).attr('data-select') === 'off'){
-            showSuccess("لانچر دنبال شد !");
-            $('.followToggle').css('backgroundColor','#c59358').attr('data-select', 'on');
-            $(".folllowText").text("دنبال شده");
-        }else{
-            showSuccess("لانچر دنبال نشد !");
-            $('.followToggle').css('backgroundColor','transparent').attr('data-select', 'off');
-            $(".folllowText").text("دنبال کردن");
-        }
-        // $(this).toggle(function(){
-        //     $(this).css('backgroundColor','#c59358')
-        // });
+    $('.followToggle').on('click',function() {
+        
+        @if(!$is_login)
+            showErr('لطفا ابتدا ورود کنید');
+            return;
+        @endif
+
+        let follow = $(this).attr('data-select') === 'off';
+        $.ajax({
+            type: 'post',
+            url: '{{ route('launcher.follow.store', ['launcher' => $event['launcher_id']]) }}',
+            data: {
+                follow: follow ? 1 : 0
+            },
+            success: function(res) {
+
+                if(res.status === 'ok') {
+
+                    if(follow) {
+                        showSuccess("برگزارکننده دنبال شد !");
+                        $('.followToggle').css('backgroundColor','#c59358').attr('data-select', 'on');
+                        $(".folllowText").text("دنبال شده");
+                    } else{
+                        showSuccess("برگزارکننده دنبال نشد !");
+                        $('.followToggle').css('backgroundColor','transparent').attr('data-select', 'off');
+                        $(".folllowText").text("دنبال کردن");
+                    }
+
+                }
+                
+            }
+        });
+
     });
 
     let y = parseFloat('{{$event['y']}}');
@@ -884,14 +912,11 @@ $(document).ready(function() {
             marker = new mapboxgl.Marker();
             marker.setLngLat({lng: y, lat: x}).addTo(map);
         }
-        // const control = new ParsimapGeocoder();
-        // map.addControl(control);
     }
     }
     var count = 1; 
-    price = $("#price").text();
-
-    $("#allPrice").text(count * price);
+    price = parseInt($("#price").text().replaceAll(',', ''));
+    updateCount();
 
     $(".countPlus").on('click', function() {
         count++;
@@ -907,7 +932,7 @@ $(document).ready(function() {
     });
 
     function updateCount() { 
-        $("#allPrice").text(count * price);
+        $("#allPrice").text((count * price).formatPrice(0, ",", "."));
         $("#counter").val(count);
     }
     let introHeight = $('#intro-container').height();

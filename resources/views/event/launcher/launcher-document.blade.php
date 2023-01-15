@@ -12,6 +12,7 @@
 
 @section('content')
     <main class="page-content TopParentBannerMoveOnTop">
+
         <div class="dark hidden"></div>
         
         <div class="container">
@@ -21,6 +22,31 @@
                     @include('event.launcher.launcher-menu')
                 @endif
                 <div class="{{ $isEditor ? 'col-xl-12 col-lg-12 col-md-12' : 'col-xl-9 col-lg-8 col-md-7'}}">
+                    <div id="shimmer" class="hidden"> 
+                        @for($i = 0; $i < 1; $i++)
+                        <a href="#" class="cursorPointer">
+                            <div class="ui-box bg-white mb-5 boxShadow SimmerParent">
+                                <div class="ui-box-title shimmerBG title-line m-3" style="width: 150px"></div>
+                                <div class="ui-box-content">
+                                    <div class="row">
+                                        <div class=" py-1">
+                                            <div class="fs-7 text-dark shimmerBG title-line m-3" style="width: 300px"></div>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="position-relative w-100">
+                                                    <div class="shimmerBG title-line p-5 m-3 w-100">
+                                                        {{-- <div class="shimmerBG title-line m-3" style="width: 50px"></div> --}}
+                                                    </div>
+                                                    <div class="shimmerBG title-line m-3" style="width: 200px;float: left"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        @endfor
+                    </div>
+                    <div id="hiddenHandler">
                     <div class="alert alert-warning alert-dismissible fade show mb-5 d-flex align-items-center spaceBetween" role="alert">
                         <div>
                             در حال حاضر حساب کاربری شما غیر فعال است. پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
@@ -55,9 +81,11 @@
                                     'maxFiles' => 1,
                                     'route' => route('launcher.update',['launcher' => $formId]),
                                 ])
-                                <hr>
+                                
+                                <hr class="mb-3">
+
                                 <div class="col-lg-12 mb-3 zIndex0">
-                                    <div class="uploadTitleText">بارگذاری فایل مجوز ها</div>                                     
+                                    <div class="mb-3 uploadTitleText">بارگذاری فایل مجوز ها</div>                                     
                                     <div id="certifications" class="boxGallery">
                                     </div>
                                     <div class="uploadBody">
@@ -79,6 +107,7 @@
             <div class="spaceBetween mb-2">
                 <a href="{{ route('launcher-edit', ['formId' => $formId]) }}" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
                 <button data-remodal-target="modalAreYouSure"  class="btn btn-sm btn-primary px-5">ارسال برای بازبینی</button>
+            </div>
             </div>
             </div>
         </div>
@@ -161,23 +190,8 @@
         </div>
     </div>
     
-<!-- end of personal-info-fullname-modal -->
-<div class="remodal remodal-xl" data-remodal-id="modalAreYouSure"
-            data-remodal-options="hashTracking: false">
-            <div class="remodal-header">
-                <div class="remodal-title">آیا مطمئن هستید؟</div>
-                <button data-remodal-action="close" class="remodal-close"></button>
-            </div>
-            <div class="remodal-content">
-                <div class="form-element-row mb-3 fontSize14">
-                    با ثبت تغییرات اطلاعات شما دوباره برای بازبینی ارسال می گردد و رویداد تا زمان اعمال تغییرات نمایش داده نمی شود. آیا مطمئن هستید؟
-                </div>
-            </div>
-            <div class="remodal-footer">
-                <button data-remodal-action="close" class="btn btn-sm px-3">انصراف</button>
-                <a id="submit" target="_blank" class="btn btn-sm btn-primary px-3">بله</a>
-            </div>
-        </div>
+    @include('event.layouts.areYouSureChange')
+
     <div class="remodal remodal-xl" data-remodal-id="mainGalleryModal"
         data-remodal-options="hashTracking: false">
         <div class="remodal-header">
@@ -228,6 +242,8 @@
         let total = 0;
 
         $(document).ready(function() {
+            $('#shimmer').removeClass('hidden');
+            $('#hiddenHandler').addClass('hidden');       
             $.ajax({
                 type: 'get',
                 url: '{{ route('launcher.files', ['launcher' => $formId]) }}',
@@ -235,10 +251,7 @@
                     'accept': 'application/json'
                 },
                 success: function(res) {
-                    
-
-                    if(res.status === "ok") {      
-
+                    if(res.status === "ok") {
                         var html = "";
                         var companyNewspaper = "";
                         var userNIDCard = "";
@@ -296,7 +309,8 @@
                         }else{
                             $('#certifications').addClass('hidden');
                         }
-                        
+                        $('#shimmer').addClass('hidden');
+                        $('#hiddenHandler').removeClass('hidden');
                     }
                 }
             });
@@ -394,5 +408,9 @@
         $("#submit").on("click" , function (){
             showSuccess("ارسال شد.");
         });
+        $(document).ready(function() {
+           $('#shimmer').addClass('hidden');
+           $('#hiddenHandler').removeClass('hidden');       
+        })
     </script>
 @stop

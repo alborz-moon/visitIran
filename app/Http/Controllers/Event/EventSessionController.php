@@ -8,8 +8,6 @@ use App\Models\Event;
 use App\Models\EventSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
 
 class EventSessionController extends Controller
 {
@@ -22,7 +20,7 @@ class EventSessionController extends Controller
     {
         return response()->json([
             'status' => 'ok',
-            'mode' => $event->price == null ? 'create' : 'edit',
+            'mode' => $event->status == 'init' ? 'create' : 'edit',
             'data' => EventSessionResource::collection($event->sessions)->toArray($request)
         ]);
     }
@@ -58,6 +56,12 @@ class EventSessionController extends Controller
 
         $session = EventSession::create($request->toArray());
 
+        $isEditor = $request->user()->isEditor();
+        if(!$isEditor && $event->status != Event::$INIT_STATUS) {
+            $event->status = Event::$PENDING_STATUS;
+            $event->save();
+        }
+
         return response()->json([
             'status' => 'ok',
             'id' => $session->id
@@ -81,10 +85,19 @@ class EventSessionController extends Controller
      * @param  \App\Models\EventSession  $eventSession
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EventSession $eventSession)
+    public function destroy(Request $request, EventSession $eventSession)
     {
         Gate::authorize('destroy', $eventSession->event);
         $eventSession->delete();
+
+        $isEditor = $request->user()->isEditor();
+        $event = $eventSession->event;
+
+        if(!$isEditor && $event->status != Event::$INIT_STATUS) {
+            $event->status = Event::$PENDING_STATUS;
+            $event->save();
+        }
+
         return response()->json(['status' => 'ok']);
     }
 }

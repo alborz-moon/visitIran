@@ -36,7 +36,6 @@ class EventUserResource extends JsonResource
             'launcher_rate' => $launcher->rate == null ? 4 : $launcher->rate,
             'launcher_rate_count' => $launcher->rate_count,
             'launcher_follower_count' => $launcher->follower_count,
-            'launcher_is_following' => true,
             'start' => $s,
             'end' => $e,
             'start_registry' => $sr,
@@ -57,15 +56,15 @@ class EventUserResource extends JsonResource
             'site' => $this->site,
             'email' => $this->email,
             'phone' => $this->phone == null || empty($this->phone) ? null : explode('_', $this->phone),
-            'price' => $this->price,
+            'price' => number_format($this->price, 0),
             'slug' => $this->slug == null ? $this->title : $this->slug,
             'digest' => $this->digest,
             'keywords' => $this->keywords,
             'seo_tags' => $this->seo_tags,
             'x' => $this->x,
             'y' => $this->y,
-            'description' => $this->description
-            // 'city' => $this->city->name
+            'description' => $this->description,
+            'city' => $this->city_id == null ? '' : $this->city->name
         ];
     }
 }

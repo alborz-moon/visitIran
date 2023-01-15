@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LauncherResourceAdmin extends JsonResource
+class EventLauncherDigest extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,23 +15,26 @@ class LauncherResourceAdmin extends JsonResource
      */
     public function toArray($request)
     {
+        $start_registry = date("Y/m/d H:i", $this->start_registry);
+        $end_registry = date("Y/m/d H:i", $this->end_registry);
+
+        $sr = Controller::MiladyToShamsi($start_registry, '/');
+        $er = Controller::MiladyToShamsi($end_registry, '/');
+
         return [
             'id' => $this->id,
             'created_at' => Controller::getPersianDate($this->created_at),
-            'user' => [
-                'name' => $this->first_name . ' ' . $this->last_name,
-                'phone' => $this->phone,
-            ],
-            'company_name' => $this->company_name,
-            'type' => $this->launcher_type,
-            'status' => $this->status,
-            'followers_count' => $this->followers_count,
             'seen' => $this->seen,
+            'buyers' => $this->buyers()->count(),
             'comment_count' => $this->comment_count,
             'new_comment_count' => $this->new_comment_count,
-            'follower_count' => $this->follower_count,
             'rate' => $this->rate,
             'rate_count' => $this->rate_count,
+            'status' => $this->status,
+            'registry' => $sr . ' تا ' . $er,
+            'slug' => $this->slug,
+            'visibility' => $this->visibility,
+            'title' => $this->title
         ];
     }
 }

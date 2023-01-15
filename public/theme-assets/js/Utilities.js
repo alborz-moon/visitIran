@@ -44,7 +44,6 @@ function checkInputs(required_list) {
     required_list.forEach((elem) => {
         let tmpVal = $("#" + elem).val();
         if (tmpVal.length == 0) {
-            // showErr("همه فیلد ها را پر کنید.");
             $("#" + elem)
                 .addClass("errEmpty")
                 .removeClass("haveValue");
@@ -100,6 +99,7 @@ function checkArr(required_Arr, Arr) {
 
     return isValid;
 }
+
 $(document).ready(function () {
     $("input").on("keypress", function () {
         if (
@@ -116,32 +116,17 @@ $(document).ready(function () {
             return false;
         }
     });
-    // function getMethodHaveDisabledInput() {
-    //     let id = $(this).attr("data-input-id");
-    //     if ($("#" + id).attr("data-editable") == "true") {
-    //         $("#" + id).attr("data-editable", "false");
-    //         $("#" + id).attr("disabled","disabled");
-    //     }
-    // }
     $(".toggle-editable-btn").on("click", function () {
         let id = $(this).attr("data-input-id");
         if ($("#" + id).attr("data-editable") == "false") {
             $("#" + id).attr("data-editable", "true");
             $("#" + id).removeAttr("disabled");
-            $("#" + id).val("");
+            // $("#" + id).val("");
         } else {
             $("#" + id).attr("data-editable", "false");
             $("#" + id).attr("disabled", "disabled");
         }
     });
-    function disabledInputForGet() {
-        $("input").each(function () {
-            if ($(this).attr("data-editable") != "true") {
-                $(this).attr("disabled", "disabled");
-            }
-        });
-        $("textarea").attr("disabled", "disabled");
-    }
 });
 
 function getFormattedTime(time) {
@@ -154,4 +139,127 @@ function getFormattedTime(time) {
     }).format(time);
 
     return day + weekday;
+}
+
+function removeShimmer() {
+    $("#shimmer").addClass("hidden");
+    $("#hiddenHandler").removeClass("hidden");
+    removeUnNecessaryLocks();
+}
+function removeUnNecessaryLocks() {
+    let should_hide_locks_inputs = [];
+
+    $("input,textarea").each(function () {
+        if ($(this).attr("type") === "checkbox") {
+            $(this)
+                .removeAttr("disabled", "disabled")
+                .attr("data-editable", true);
+            should_hide_locks_inputs.push($(this).attr("id"));
+            return;
+        }
+
+        let val = $(this).val();
+        if (val === undefined || val === null || val.length == 0) {
+            val = $(this).attr("data-val");
+            if (val === undefined || val === null || val.length == 0) {
+                $(this)
+                    .removeAttr("disabled", "disabled")
+                    .attr("data-editable", true);
+                should_hide_locks_inputs.push($(this).attr("id"));
+            } else
+                $(this)
+                    .attr("disabled", "disabled")
+                    .attr("data-editable", false);
+        } else $(this).attr("disabled", "disabled").attr("data-editable", false);
+    });
+
+    if (should_hide_locks_inputs.length > 0) {
+        $(".toggle-editable-btn").each(function () {
+            if (
+                should_hide_locks_inputs.indexOf(
+                    $(this).attr("data-input-id")
+                ) !== -1
+            )
+                $(this).addClass("hidden");
+        });
+    }
+}
+
+function createMap(containerId, x, y) {
+    mapboxgl.setRTLTextPlugin(
+        "https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js",
+        null
+    );
+    let map = new mapboxgl.Map({
+        container: containerId,
+        style: "https://api.parsimap.ir/styles/parsimap-streets-v11?key=p1c7661f1a3a684079872cbca20c1fb8477a83a92f",
+        center: x !== undefined && y !== undefined ? [y, x] : [51.4, 35.7],
+        zoom: 13,
+    });
+    var marker = undefined;
+
+    if (x !== undefined && y !== undefined) {
+        marker = new mapboxgl.Marker();
+        marker
+            .setLngLat({
+                lng: y,
+                lat: x,
+            })
+            .addTo(map);
+    }
+
+    function addMarker(e) {
+        if (marker !== undefined) marker.remove();
+        //add marker
+        marker = new mapboxgl.Marker();
+        marker.setLngLat(e.lngLat).addTo(map);
+        x = e.lngLat.lat;
+        y = e.lngLat.lng;
+    }
+    map.on("click", addMarker);
+    const control = new ParsimapGeocoder();
+    map.addControl(control);
+    return map;
+}
+
+function watchEnterInTellInput(telsObj) {
+    $(document).on("click", ".remove-tel-btn", function () {
+        let id = $(this).attr("data-id");
+        telsObj.tels = telsObj.tels.filter((elem, index) => {
+            return elem.id != id;
+        });
+        $("#tel-modal-" + id).remove();
+    });
+
+    $(".setEnter").keyup(function (e) {
+        var html = "";
+        if ($(".setEnter").is(":focus") && e.keyCode == 13) {
+            var launchPhone = $(".setEnter").val();
+            if (launchPhone.length < 7 || launchPhone.length > 11) {
+                showErr("شماره موردنظر معتبر نمی باشد.");
+                return;
+            }
+            telsObj.tels.push({
+                id: telsObj.idx,
+                val: launchPhone,
+            });
+            html +=
+                '<div id="tel-modal-' +
+                telsObj.idx +
+                '" class="item-button spaceBetween colorBlack">' +
+                launchPhone +
+                "";
+            html +=
+                '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
+            html +=
+                '<i data-id="' +
+                telsObj.idx +
+                '" class="remove-tel-btn ri-close-line"></i>';
+            html += "</button>";
+            html += "</div>";
+            $("#addTell").append(html);
+            $(".setEnter").val("");
+            telsObj.idx++;
+        }
+    });
 }

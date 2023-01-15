@@ -30,6 +30,7 @@ class EventPolicy
     }
 
     public function update(User $user, Event $event) {
+        
         $launcher = $user->launcher;
         if($launcher == null)
             return false;

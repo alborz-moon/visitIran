@@ -59,6 +59,11 @@ class Launcher extends Model
         return $this->hasMany(LauncherBank::class);
     }
     
+    public function events() {
+        return $this->hasMany(Event::class);
+    }
+    
+
     public function comments() {
         return $this->hasMany(LauncherComment::class);
     }
