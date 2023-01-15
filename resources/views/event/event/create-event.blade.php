@@ -344,7 +344,6 @@
     var idx = 1;
     var facilitiesList = undefined;
     var tagsList = undefined;
-    var selectedFacility = [];
     
     $("#launcher").on('change', function() {
 
@@ -527,6 +526,8 @@ $(".nextBtn").on('click', function() {
     if($('#launcher').length)
         launcher = $('#launcher').val();
 
+    var selectedFacility = [];
+    
     $('input[name=facility]').each(function() {
         if ($(this).is(":checked")) {
             selectedFacility.push($(this).attr('id'));

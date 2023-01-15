@@ -154,7 +154,7 @@
                     
                     <td>{{ $item['comment_count'] == 0 ? 'کامنتی ثبت نشده است' : 'تعداد کل: ' . $item['comment_count'] . ' تعداد تایید نشده:' . $item['new_comment_count'] }}</td>
                     
-                    <td>{{ $item['followers_count'] == 0 ? 'خریدی ثبت نشده است' : $item['seller_count'] }}</td>
+                    <td>{{ $item['follower_count'] }}</td>
                     <td>
                         <p id="status_text_{{ $item['id'] }}">{{ $item['status'] == 'pending' ? "در حال بررسی" : ($item['status'] == 'confirmed' ? "تایید شده" : "رد شده")}}</p>
                         @if($item['status'] == 'pending')

@@ -310,7 +310,7 @@ class EventHelper extends Controller {
         if($date != null) {
             
             $d = self::ShamsiToMilady($date, '-');
-            $d= DateTime::createFromFormat('Y-m-d', $d);
+            $d = DateTime::createFromFormat('Y-m-d', $d);
             
             if ($d === false) {
                 $timestamp = null;
@@ -331,6 +331,8 @@ class EventHelper extends Controller {
                 $orderBy = 'created_at';
             $filters->orderBy($orderBy, $orderByType == null ? 'desc' : $orderByType);
         }
+        else
+            $filters->orderBy('created_at', 'desc');
 
         return $filters;
     }

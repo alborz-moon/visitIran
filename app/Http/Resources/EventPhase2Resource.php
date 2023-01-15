@@ -35,6 +35,19 @@ class EventPhase2Resource extends JsonResource
             $e = null;
         }
 
+        $launcher = $this->launcher;
+
+        $useFromLauncher = false;
+
+        if($this->site == null && $this->email == null && $this->phone == null)
+            $useFromLauncher = true;
+
+        $site = $useFromLauncher ? $launcher->site : $this->site;
+        $mail = $useFromLauncher ? $launcher->launcher_email : $this->email;
+        $phone = $useFromLauncher ? $launcher->launcher_phone : $this->phone;
+
+        $phone = $useFromLauncher ? explode('__', $phone) : explode('_', $phone);
+
         return [
             'id' => $this->id,
             'start_registry_date' => $s == null ? '' : $s,
@@ -44,9 +57,9 @@ class EventPhase2Resource extends JsonResource
             'ticket_description' => $this->ticket_description,
             'price' => $this->price,
             'capacity' => $this->capacity,
-            'site' => $this->site,
-            'email' => $this->email,
-            'phone' => $this->phone == null || empty($this->phone) ? null : explode('_', $this->phone),
+            'site' => $site,
+            'email' => $mail,
+            'phone' => $phone == null || empty($phone) ? null : $phone,
             'mode' => $this->status == 'init' ? 'create' : 'edit'
         ];
     }

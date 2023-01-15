@@ -440,7 +440,7 @@
                         showSuccess('با موفقیت ثبت شد .');
                         window.location.href = '{{route('addGalleryToEvent', ['event' => $id]) }}';
                     }else{
-                        showErr('همه فیلد ها را پر کنید.')
+                        showErr(res.msg);
                     }
                 }
             });

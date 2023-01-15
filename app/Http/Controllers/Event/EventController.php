@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Event;
 
 use App\Http\Resources\EventAdminDigest;
 use App\Http\Resources\EventGalleryResource;
+use App\Http\Resources\EventLauncherDigest;
 use App\Http\Resources\EventPhase1Resource;
 use App\Http\Resources\EventPhase2Resource;
 use App\Http\Resources\EventUserDigest;
@@ -68,7 +69,9 @@ class EventController extends EventHelper
             return Redirect::route('create-event');
 
         return view('event.event.create-info', [
-            'id' => $event->id, 'desc' => $event->description
+            'id' => $event->id, 
+            'desc' => $event->description, 
+            'mode' => $event->status == 'init' ? 'create' : 'edit'
         ]);
 
     }
@@ -206,7 +209,7 @@ class EventController extends EventHelper
         ]);
     }
 
-    public function sendForReview(Event $event) {
+    public function sendForReview(Event $event, Request $request) {
 
         Gate::authorize('update', $event);
 
@@ -222,7 +225,12 @@ class EventController extends EventHelper
             array_push($errs, 'زمان برگزاری');
 
         if(count($errs) == 0) {
+
+            if($request->user()->isEditor() && $event->status != Event::$INIT_STATUS)
+                return response()->json(['status' => 'ok']);
+
             $event->status = Event::$PENDING_STATUS;
+            $event->save();
             return response()->json(['status' => 'ok']);
         }
         
@@ -569,7 +577,7 @@ class EventController extends EventHelper
         $isEditor = $request->user()->isEditor();
         if(
             (!$isEditor && $request->has('launcher_id')) ||
-            ($isEditor && !$request->has('launcher_id'))
+            ($event == null && $isEditor && !$request->has('launcher_id'))
         )
             return abort(401);
             
@@ -636,5 +644,17 @@ class EventController extends EventHelper
 
         $event->delete();
         return response()->json(['status' => 'ok']);
+    }
+
+    public function myEvents(Request $request) {
+
+        $launcher = $request->user()->launcher;
+        if($launcher == null)
+            abort(401);
+
+        return response()->json([
+            'status' => 'ok',
+            'data' => EventLauncherDigest::collection($launcher->events)->toArray($request)
+        ]);
     }
 }

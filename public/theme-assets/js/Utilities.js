@@ -150,6 +150,14 @@ function removeUnNecessaryLocks() {
     let should_hide_locks_inputs = [];
 
     $("input,textarea").each(function () {
+        if ($(this).attr("type") === "checkbox") {
+            $(this)
+                .removeAttr("disabled", "disabled")
+                .attr("data-editable", true);
+            should_hide_locks_inputs.push($(this).attr("id"));
+            return;
+        }
+
         let val = $(this).val();
         if (val === undefined || val === null || val.length == 0) {
             val = $(this).attr("data-val");

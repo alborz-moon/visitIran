@@ -122,7 +122,7 @@
 
                             <div class="spaceBetween mb-2">
                                 <a href="" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</a>
-                                @if(isset($id))
+                                @if($mode == 'edit')
                                     <button data-remodal-target="modalAreYouSure" class="btn btn-sm btn-primary px-5">ارسال برای بازبینی</button>
                                 @else
                                     <button class="btn btn-sm btn-primary px-5 nextBtn">ارسال برای بازبینی</button>
@@ -183,7 +183,11 @@
         
         let uploadedFiles = [];
         let total = 0;
-        let changeDesc = false;
+        @if(isset($desc) && $desc != null)
+            let changeDesc = false;
+        @else
+            let changeDesc = true;
+        @endif
 
         Dropzone.options.galleryForm = {
             paramName: "img_file", // The name that will be used to transfer the file
@@ -329,51 +333,46 @@
             });
         });
 
-    $(".nextBtn").on('click', function () {
-        
-        if(changeDesc) {
-            var description = $('#description').html();
+        $(".nextBtn").on('click', function () {
+            
+            if(changeDesc) {
+                var description = $('#description').html();
 
-            if (description.length == 0) {
-                showErr("فیلد توضیحات را پر کنید.");
-                return;
-            }
-
-            $.ajax({
-                type: 'post',
-                url: '{{route('event.store_desc',['event' => $id])}}',
-                data: {
-                    'description': description,
-                },
-                success: function(res) {
-                    if(res.status === "ok")
-                        sendForReview();
+                if (description.length == 0) {
+                    showErr("فیلد توضیحات را پر کنید");
+                    return;
                 }
-            });
-        }
-        else
-            sendForReview();
-    });
-    
-    function sendForReview() {
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{route('event.store_desc',['event' => $id])}}',
+                    data: {
+                        'description': description,
+                    },
+                    success: function(res) {
+                        if(res.status === "ok")
+                            sendForReview();
+                    }
+                });
+            }
+            else
+                sendForReview();
+        });
         
-        @if($isEditor)
-            window.location.href = '{{ route('event.index') }}';
-        @else
+        function sendForReview() {
+            
             $.ajax({
                 type: 'post',
                 url: '{{route('event.sendForReview',['event' => $id])}}',
                 success: function(res) {
                     if(res.status === "ok")
-                        window.location.href = "{{isset($id) ? route('show-events', ['event' => $id]) : route('show-events') }}";
+                        window.location.href = '{{ $isEditor ? route('event.index') :  route('show-events', ['event' => $id])}}';
                     else
                         showErr(res.data)
                 }
             });
-
-        @endif
         
-    }
+        }
 
     </script>
 @stop
