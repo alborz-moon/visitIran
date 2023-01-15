@@ -266,4 +266,35 @@ class UserController extends Controller
         $user->delete();
         return response()->json(['status' => 'ok']);
     }
+
+    public function searchUsersForLauncherCandidate(Request $request) {
+
+        $validator = [
+            'phone' => 'required|regex:/(09)[0-9]{9}/|exists:users,phone',
+        ];
+
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            abort(401);
+
+        $request->validate($validator, self::$COMMON_ERRS);
+        $user = User::where('phone', $request['phone'])->first();
+        if($user->level != User::$USER_LEVEL)
+            return response()->json([
+                'status' => 'nok',
+                'msg' => 'کاربر مدنظر عادی نمی باشد'
+            ]);
+
+        return response()->json([
+            'status' => 'ok',
+            'data' => [
+                'name' => $user->first_name != null && $user->last_name ? 
+                    $user->first_name . ' ' . $user->last_name : null,
+                'phone' => $user->phone,
+                'mail' => $user->mail,
+                'birth_day' => $user->birth_day,
+                'nid' => $user->nid
+            ]
+        ]);
+    }
+    
 }

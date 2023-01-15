@@ -47,7 +47,7 @@ class EventPhase2Resource extends JsonResource
             'site' => $this->site,
             'email' => $this->email,
             'phone' => $this->phone == null || empty($this->phone) ? null : explode('_', $this->phone),
-            'mode' => $this->price == null ? 'create' : 'edit'
+            'mode' => $this->status == 'init' ? 'create' : 'edit'
         ];
     }
 }

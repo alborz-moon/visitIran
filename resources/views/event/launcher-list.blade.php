@@ -35,23 +35,7 @@
                                         <a id="remove_all_filters" onclick="clearAllFilters()" class="hidden colorRed cursorPointer fontSize12 align-self-center">حذف نتایج</a>
                                     </div>
                                     <div id="total_count" class="colorBlue fontSize12 align-self-center"></div>
-                                    {{-- <div class="widget-content widget--category-results">
-                                        <ul>
-                                            <li class="category--arrow-left">
-                                                <a href="#">دسته بندی کالا ها</a>
-                                                <ul>
-                                                    <li class="category--arrow-down">
-                                                        @if($parent != null)
-                                                            <a href="{{ $parent['href'] }}">{{ $parent['label'] }}</a>
-                                                        @endif
-                                                        <ul>
-                                                            <li class="current">{{ $name }}</li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div> --}}
+                                    
                                 </div>
                                 <!-- start of widget -->
                                 <div class="widget widget-collapse mb-3">

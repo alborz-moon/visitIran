@@ -1,4 +1,3 @@
-
 @extends('layouts.structure')
 @section('header')
 
@@ -10,6 +9,9 @@
 
     <link rel="stylesheet" href="{{URL::asset('theme-assets/bootstrap-datepicker.css?v=1')}}">
     <script src="{{URL::asset("theme-assets//bootstrap-datepicker.js")}}"></script>
+    
+    <script src="{{asset('theme-assets/js/Utilities.js')}}"></script>
+    
 @stop
 @section('content')
         <main class="page-content TopParentBannerMoveOnTop">
@@ -141,7 +143,7 @@
                                         <div class="py-1">
                                             <div  class="fs-7 text-dark">وب سایت</div>
                                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="true" id="site"  type="url" class="form-control" style="direction: rtl" placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
+                                                <input data-editable="true" id="site" type="url" class="form-control" style="direction: rtl" placeholder=" به عنوان مثال: http://www.site.ir حتما http را وارد کنید">
                                                 <button data-input-id="site" class="toggle-editable-btn btn btn-circle btn-outline-light">
                                                     <i class="ri-ball-pen-fill"></i>
                                                 </button>
@@ -166,6 +168,7 @@
                                             <div  class="fs-7 text-dark">تلفن</div>
                                             <div class="d-flex align-items-center justify-content-between position-relative">
                                                 <input onkeypress="return isNumber(event)" minlength="7" maxlength="11" id="launcherPhone" type="text" class="form-control setEnter" style="direction: rtl" placeholder="تلفن">
+                                                @include('event.layouts.lock', ['id' => 'launcherPhone'])
                                             </div>
                                             <div id="addTell" class="d-flex gap15 mt-1"></div>
                                             <div class="fontSize14 colorBlack">در صورت وجود بیش از یک تلفن، آن ها را با فاصله از هم جدا نمایید.همچنین پیش شماره کشور و شهر نیز وارد شود. مانند +982111111111</div>
@@ -192,22 +195,7 @@
                     </div>
             </div>
         </div>
-        <div class="remodal remodal-xl" data-remodal-id="modalAreYouSure"
-            data-remodal-options="hashTracking: false">
-            <div class="remodal-header">
-                <div class="remodal-title">آیا مطمئن هستید؟</div>
-                <button data-remodal-action="close" class="remodal-close"></button>
-            </div>
-            <div class="remodal-content">
-                <div class="form-element-row mb-3 fontSize14">
-                    با ثبت تغییرات اطلاعات شما دوباره برای بازبینی ارسال می گردد و رویداد تا زمان اعمال تغییرات نمایش داده نمی شود. آیا مطمئن هستید؟
-                </div>
-            </div>
-            <div class="remodal-footer">
-                <button data-remodal-action="close" class="btn btn-sm px-3">انصراف</button>
-                <a target="_blank" class="btn btn-sm btn-primary px-3 nextBtn">بله</a>
-            </div>
-        </div>
+        @include('event.layouts.areYouSureChange')
     </main>
         <!-- start of personal-info-fullname-modal -->
             <div class="remodal remodal-xs" data-remodal-id="time-and-date-start-modal"
@@ -264,10 +252,6 @@
 
 @stop
 
-@section('footer')
-    @parent
-@stop
-
 @section('extraJS')
     @parent
     <script> 
@@ -275,7 +259,10 @@
         var dateStart = '';
         var timeStop = '';
         var dateStop = '';
-        var tels = [];
+        var telsObj = {
+            tels: [],
+            idx: 1
+        };
 
         var datePickerOptions = {
             numberOfMonths: 1,
@@ -293,50 +280,13 @@
             altField: $("#date_input_stop_formatted")
         };
         $(document).ready(function(){
-            $(".toggle-editable-btn").on("click", function () {
-            let id = $(this).attr("data-input-id");
-            if ($("#" + id).attr("data-editable") == "false") {
-                $("#" + id).val("");
-            }
-            });
+            
             $('#time_start').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
             $('#time_stop').bootstrapMaterialDatePicker({ date: false, time: true, format: 'HH:mm' });
             $("#date_input_start").datepicker(datePickerOptions);
             $("#date_input_stop").datepicker(datePickerOptionsEnd);
-
-            $('.toggle-editable-btn').addClass('hidden');
-            var idx = 1;
-            $(document).on('click', '.remove-tel-btn', function () { 
-                let id = $(this).attr('data-id');
-                tels = tels.filter((elem, index) => {
-                    return elem.id != id;
-                });
-                $("#tel-modal-" + id).remove();
-             });
-
-            $(".setEnter").keyup(function (e) {
-                var html= '';
-                if ($(".setEnter").is(":focus") && (e.keyCode == 13)) {
-                    var launchPhone = $(".setEnter").val();
-                    if(launchPhone.length < 7 || launchPhone.length > 11) {
-                        showErr('شماره موردنظر معتبر نمی باشد.');
-                        return;
-                    }
-                    idx ++;
-                    tels.push({
-                        id: idx,
-                        val: launchPhone
-                    });
-                    html += '<div id="tel-modal-' + idx + '" class="item-button spaceBetween colorBlack">' + launchPhone + '';
-                    html += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
-                    html += '<i data-id="' + idx + '" class="remove-tel-btn ri-close-line"></i>';
-                    html += '</button>';
-                    html += '</div>';
-                    $("#addTell").append(html);
-                    $('.setEnter').val('');
-                }
-            });
-
+            
+            watchEnterInTellInput(telsObj);
 
             $(document).on('click', "#startSessionBtn", function () {
                 timeStart =$('#time_start').val();
@@ -373,150 +323,101 @@
                  'accept': 'application/json'
                 },
                 success: function(res) {
-                        if (res.data.mode == "edit"){
-                            $(".confrimFormEmpty").addClass("hidden");
-                            $(".confrimFormHaveData").removeClass("hidden");
-                        }else {
-                            $(".confrimFormEmpty").removeClass("hidden");
-                            $(".confrimFormHaveData").addClass("hidden");     
-                        }
-                        if (res.data.price != null){
-                            $('input').attr("data-editable", "false");
-                            $('.toggle-editable-btn').removeClass('hidden');
-                            // $(".confrimFormEmpty").addClass("hidden");
-                            // $(".confrimFormHaveData").removeClass("hidden");
-                        }else{
-                            $('input').attr("data-editable", "true");
-                            // $(".confrimFormEmpty").removeClass("hidden");
-                            // $(".confrimFormHaveData").addClass("hidden");
-                        }
-                        if(res.data.start_registry_time.length > 0)
-                            $('#time_start').val(res.data.start_registry_time);
-                           
-                        if(res.data.start_registry_date.length > 0)
-                            $('#date_input_start').val(res.data.start_registry_date);
-                            $('#date_input_start_formatted').val(res.data.start_registry_date);
-                        
-                        if(res.data.start_registry_time.length > 0)
-                            $('#time_stop').val(res.data.end_registry_time);
-                           
-                        if(res.data.start_registry_date.length > 0)
-                            $('#date_input_stop').val(res.data.end_registry_date);
-                            $('#date_input_stop_formatted').val(res.data.end_registry_date);
 
-                        if (res.start_registry_time != undefined && res.data.start_registry_date != undefined || res.data.end_registry_time != undefined && res.data.end_registry_date != undefined ){
-                            
-                            if(res.data.start_registry_date.length > 0 && res.data.start_registry_date.length > 0){
-                                $('#setDateStart').val(res.data.start_registry_time + ' ' +  res.data.start_registry_date);
-                            }
-                            if(res.data.end_registry_date.length > 0 && res.data.end_registry_time.length > 0){
-                                $('#setDateStop').val(res.data.end_registry_time + ' ' +  res.data.end_registry_date);
-                            }
-                        }
-
-                        $('#desc').val(res.data.ticket_description);
-                        $('#price').val(res.data.price);
-                        $('#capacity').val(res.data.capacity);
-                        $('#site').val(res.data.site);
-                        $('#email').val(res.data.email);
-                        if (res.data.phone != undefined){
-                            var html ='';
-                            for(i = 0; i < res.data.phone.length; i++ ){
-                                idx ++;
-                                tels.push({
-                                    id: idx,
-                                    val: res.data.phone[i]
-                                });
-                                html += '<div id="tel-modal-' + idx + '" class="item-button spaceBetween colorBlack">' + res.data.phone[i] + '';
-                                html += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
-                                html += '<i data-id="' + idx + '" class="remove-tel-btn ri-close-line"></i>';
-                                html += '</button>';
-                                html += '</div>';
-                            }
-                            $("#addTell").append(html);
-                        }
-                        $("input").each(function() {
-                            if ($(this).attr('data-editable') != 'true' ){
-                                $(this).attr('disabled', 'disabled');
-                            }
-                        });
-                        $("textarea").attr('disabled', 'disabled');
-                        $(".toggle-editable-btn").on("click", function () {
-                            let id = $(this).attr("data-input-id");
-                            if ($("#" + id).attr("data-editable") == "false") {
-                                $("#" + id).attr("data-editable", "true");
-                                $("#" + id).removeAttr("disabled");
-                            } else {
-                                $("#" + id).attr("data-editable", "false");
-                                $("#" + id).attr("disabled", "disabled");
-                            }
-                        });
-                        $("#launcherPhone").attr("data-editable", "true").removeAttr("disabled");
-                        $("#setDateStart").attr("data-editable", "true").removeAttr("disabled");
-                        $("#setDateStop").attr("data-editable", "true").removeAttr("disabled");
-                        $("#date_input_start").attr("data-editable", "true").removeAttr("disabled");
-                        $("#time_start").attr("data-editable", "true").removeAttr("disabled");
-                        $("#date_input_stop").attr("data-editable", "true").removeAttr("disabled");
-                        $("#time_stop").attr("data-editable", "true").removeAttr("disabled");
-
-                        $('#shimmer').addClass('hidden');
-                        $('#hiddenHandler').removeClass('hidden');
-                        
-                        let should_hide_locks_inputs = [];
-
-                        $("input").each(function() {
-                            let val = $(this).val();
-                            if(val === undefined || val === null || val.length == 0) {
-                                $(this).removeAttr("disabled","disabled");
-                                should_hide_locks_inputs.push($(this).attr("id"));
-                            }
-                        });
+                    if (res.data.mode == "edit"){
+                        $(".confrimFormEmpty").addClass("hidden");
+                        $(".confrimFormHaveData").removeClass("hidden");
+                    }else {
+                        $(".confrimFormEmpty").removeClass("hidden");
+                        $(".confrimFormHaveData").addClass("hidden");     
+                    }
                     
-                        if(should_hide_locks_inputs.length > 0) {
-                            $('.toggle-editable-btn').each(function () { 
-                                if(should_hide_locks_inputs.indexOf($(this).attr("data-input-id")) !== -1)
-                                    $(this).addClass('hidden');
-                            });
+                    if(res.data.start_registry_time.length > 0)
+                        $('#time_start').val(res.data.start_registry_time);
+                        
+                    if(res.data.start_registry_date.length > 0)
+                        $('#date_input_start').val(res.data.start_registry_date);
+                        $('#date_input_start_formatted').val(res.data.start_registry_date);
+                    
+                    if(res.data.start_registry_time.length > 0)
+                        $('#time_stop').val(res.data.end_registry_time);
+                        
+                    if(res.data.start_registry_date.length > 0)
+                        $('#date_input_stop').val(res.data.end_registry_date);
+                        $('#date_input_stop_formatted').val(res.data.end_registry_date);
+
+                    if (res.start_registry_time != undefined && res.data.start_registry_date != undefined || res.data.end_registry_time != undefined && res.data.end_registry_date != undefined ){
+                        
+                        if(res.data.start_registry_date.length > 0 && res.data.start_registry_date.length > 0){
+                            $('#setDateStart').val(res.data.start_registry_time + ' ' +  res.data.start_registry_date);
                         }
-                        // $("textarea").attr('disabled', 'disabled');
+                        if(res.data.end_registry_date.length > 0 && res.data.end_registry_time.length > 0){
+                            $('#setDateStop').val(res.data.end_registry_time + ' ' +  res.data.end_registry_date);
+                        }
+                    }
+
+                    $('#desc').val(res.data.ticket_description);
+                    $('#price').val(res.data.price);
+                    $('#capacity').val(res.data.capacity);
+                    $('#site').val(res.data.site);
+                    $('#email').val(res.data.email);
+                    if (res.data.phone != undefined){
+                        
+                        var html = '';
+                        let tels = [];
+                        let idx = 1;
+
+                        for(i = 0; i < res.data.phone.length; i++ ){
+                            tels.push({
+                                id: idx,
+                                val: res.data.phone[i]
+                            });
+                            html += '<div id="tel-modal-' + idx + '" class="item-button spaceBetween colorBlack">' + res.data.phone[i] + '';
+                            html += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
+                            html += '<i data-id="' + idx + '" class="remove-tel-btn ri-close-line"></i>';
+                            html += '</button>';
+                            html += '</div>';
+                            idx++;
+                        }
+
+                        $("#launcherPhone").attr('data-val', tels.map(elem => {return elem.val}).join('-'));
+                        $("#addTell").append(html);
+                        telsObj.tels = tels;
+                        telsObj.idx = idx;
+                    }
+                    
+                    $("#setDateStart").attr("data-editable", "true").removeAttr("disabled");
+                    $("#setDateStop").attr("data-editable", "true").removeAttr("disabled");
+                    $("#date_input_start").attr("data-editable", "true").removeAttr("disabled");
+                    $("#time_start").attr("data-editable", "true").removeAttr("disabled");
+                    $("#date_input_stop").attr("data-editable", "true").removeAttr("disabled");
+                    $("#time_stop").attr("data-editable", "true").removeAttr("disabled");
+
+                    removeShimmer();
                 }
             });
         });
         
         $('.nextBtn').on('click',function() {
-            function checkInputs(required_list) {
-                let isValid = true;
 
-                required_list.forEach((elem) => {
-                    let tmpVal = $("#" + elem).val();
-                    if (tmpVal.length == 0) {
-                        $("#" + elem)
-                            .addClass("errEmpty")
-                            .removeClass("haveValue");
-                        isValid = false;
-                    } else if (tmpVal.length > 0) {
-                        $("#" + elem)
-                            .addClass("haveValue")
-                            .removeClass("errEmpty");
-                    }
-                });
-                return isValid;
-            }
             var desc = $('#desc').val();
-            var price =$('#price').val();
+            var price = $('#price').val();
             var capacity = $('#capacity').val();
-            var site =$('#site').val();
-            var email =$('#email').val();
+            var site = $('#site').val();
+            var email = $('#email').val();
             var date_input_start = $('#date_input_start_formatted').val();
             var time_start = $('#time_start').val();
             var date_input_stop = $('#date_input_stop_formatted').val();
-            var time_stop =$('#time_stop').val();
+            var time_stop = $('#time_stop').val();
+
             var required_list = ['price','setDateStart','setDateStop'];
             var inputList = checkInputs(required_list);
+
             if( !inputList ) {
                 showErr("همه فیلد ها را پر کنید.");
                 return
             }
+
             $.ajax({
                 type: 'post',
                 url: '{{ route('event.store_phase2',['event' => $id]) }}',
@@ -530,7 +431,7 @@
                     'capacity': capacity,
                     'site': site,
                     'email': email,
-                    'phone_arr': tels.map((elem, index) => {
+                    'phone_arr': telsObj.tels.map((elem, index) => {
                         return elem.val;
                     }),
                 },

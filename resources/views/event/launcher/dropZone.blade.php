@@ -1,6 +1,6 @@
 <div id="drop_zone_parent_{{ $key }}" class="{{isset($col) && $col == 'col-12' ? 'col-lg-12' : 'col-lg-6'}} mb-3 zIndex0">
     <div class="d-flex spaceBetween">
-        <div class="uploadTitleText">{{$label}}</div>
+        <div class="mb-3 uploadTitleText">{{$label}}</div>
         {{-- data-remodal-target="dropZoneModal" --}}
         {{-- onclick="cloneElemToModal('{{ $key }}')" --}}
         <button onclick="show_modal('{{ $key }}')" id="edit_btn_{{ $key }}" class="hidden colorBlue b-0 backgroundColorTransparent">ویرایش</button>

@@ -135,6 +135,7 @@ class Controller extends BaseController
         'postal_code.regex' => 'کد پستی موردنظر نامعتبر است',
         'phone.required' => 'شماره همراه موردنظر را وارد نمایید',
         'phone.regex' => 'شماره همراه وارد شده نامعتبر است',
+        'phone.exists' => 'شماره همراه وارد شده در سامانه موجود نمی باشد',
         'user_NID.regex' => 'کدملی وارد شده نامعتبر است',
         'launcher_type.in' => 'نوع شخصیت اشتباه است',
         'launcher_phone.*.*' => 'تلفن وارد شده نامعتبر است',

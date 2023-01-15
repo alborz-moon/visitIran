@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Event;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\LauncherDigest;
 use App\Http\Resources\LauncherFilesResource;
 use App\Http\Resources\LauncherFirstStepResource;
@@ -14,15 +13,10 @@ use App\Rules\NID;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class LauncherController extends Controller
+class LauncherController extends LauncherHelper
 {
-
-    private function build_query($request) {
-
-    }
 
     /**
      * Display a listing of the resource.
@@ -31,8 +25,25 @@ class LauncherController extends Controller
      */
     public function index(Request $request)
     {
+        
+        $launchers = self::build_filters($request, false, false)->get();
+
         return view('admin.launcher.list', [
-            'items' => LauncherResourceAdmin::collection(Launcher::all())->toArray($request)
+            'items' => LauncherResourceAdmin::collection($launchers)->toArray($request)
+        ]);
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list(Request $request)
+    {
+        return response()->json([
+            'status' => 'ok',
+            'data' => LauncherDigest::collection(Launcher::all())->toArray($request)
         ]);
     }
 
@@ -210,6 +221,27 @@ class LauncherController extends Controller
         return response()->json([
             'status' => 'ok',
             'data' => LauncherFirstStepResource::make($launcher)->toArray($request)
+        ]);
+    }
+
+    public function getPlaceInfo(Launcher $launcher=null) {
+        
+        if($launcher == null)
+            abort(401);
+        
+        Gate::authorize('update', $launcher);
+        $city = $launcher->city;
+
+        return response()->json([
+            'status' => 'ok',
+            'data' => [
+                'state_id' => $city->state_id,
+                'city_id' => $city->id,
+                'postal_code' => $launcher->postal_code,
+                'address' => $launcher->launcher_address,
+                'y' => $launcher->launcher_y,
+                'x' => $launcher->launcher_x
+            ],
         ]);
     }
 
@@ -463,6 +495,18 @@ class LauncherController extends Controller
         $request->validate($validator, self::$COMMON_ERRS);
 
         $launcher = Launcher::whereId($request['launcher_id'])->first();
+
+        $user = User::find($launcher->user_id);
+
+        if($user != null) {
+            if($request['status'] === 'confirmed')
+                $user->level = User::$LAUNCHER_LEVEL;
+            else
+                $user->level = User::$USER_LEVEL;
+
+            $user->save();
+        }
+
         $launcher->status = $request['status'];
         $launcher->save();
 

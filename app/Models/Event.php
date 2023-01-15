@@ -11,6 +11,10 @@ class Event extends Model
 {
     use HasFactory;
     protected $connection = 'mysql2';
+
+    public static $INIT_STATUS = "init";
+    public static $PENDING_STATUS = "pending";
+    public static $CONFIRMED_STATUS = "confirmed";
     
     protected $fillable = [
         'title',

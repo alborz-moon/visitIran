@@ -15,7 +15,7 @@ class EventHelper extends Controller {
         if($justVisibles)
             $filters = Event::where('visibility', true)->where('status', 'confirmed')->where('end_registry', '>', time());
         else
-            $filters = Event::where('id', '>', 0);
+            $filters = Event::where('status', '!=', 'init');
 
         $launchers = $request->query('launchers', null);
         $maxPrice = $request->query('maxPrice', null);
