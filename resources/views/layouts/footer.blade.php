@@ -31,7 +31,7 @@
                     @endif
                     <div class="widget-content widget-newsletter">
                         <div class="form-element-row with-btn align-Items-end">
-                            <input onkeypress="return isEmail(event) || isNumber(event)" id="mail" type="text" class="form-control"
+                            <input onkeypress="return isEmail(event) || isNumber(event)" id="footer_mail" type="text" class="form-control"
                                 placeholder="آدرس پست الکترونیک خود را وارد کنید">
                             <button id="submitMailBtn" class="btn btn-primary backgroundGray alignSelfEnd customBtnAddress">ثبت</button>
                         </div>
@@ -122,7 +122,7 @@
                 type: 'post',
                 url: '{{ route('api.submitMail') }}',
                 data: {
-                    'mail': $("#mail").val()
+                    'mail': $("#footer_mail").val()
                 },
                 headers: {
                     'accept': 'application/json'

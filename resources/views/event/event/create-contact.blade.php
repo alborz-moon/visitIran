@@ -18,34 +18,15 @@
         <div class="container">
             <div class="row mb-5">
                 <?php $isEditor = Auth::user()->isEditor(); ?>
+                
                 @if(!$isEditor)
                     @include('event.launcher.launcher-menu')
                 @endif
+
                 <div class="{{ $isEditor ? 'col-xl-12 col-lg-12 col-md-12' : 'col-xl-9 col-lg-8 col-md-7'}}">
-                    <div id="shimmer"> 
-                        @for($i = 0; $i < 1; $i++)
-                        <a href="#" class="cursorPointer">
-                            <div class="ui-box bg-white mb-5 boxShadow SimmerParent">
-                                <div class="ui-box-title shimmerBG title-line m-3" style="width: 150px"></div>
-                                <div class="ui-box-content">
-                                    <div class="row">
-                                        <div class=" py-1">
-                                            <div class="fs-7 text-dark shimmerBG title-line m-3" style="width: 300px"></div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <div class="position-relative w-100">
-                                                    <div class="shimmerBG title-line p-5 m-3 w-100">
-                                                        {{-- <div class="shimmerBG title-line m-3" style="width: 50px"></div> --}}
-                                                    </div>
-                                                    <div class="shimmerBG title-line m-3" style="width: 200px;float: left"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        @endfor
-                    </div>
+                    
+                    @include('event.layouts.shimmer')
+                    
                     <div id="hiddenHandler" class="hidden">
                     <div class="d-flex spaceBetween align-items-center">
                         <span class="colorBlack  fontSize15 bold d-none d-md-block">ایجاد رویداد </span>
@@ -178,7 +159,7 @@
                             </div>
                         </div>
                         <div class="spaceBetween mb-2">
-                            <a href="" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</a>
+                            <a href="{{ route('show-events') }}" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</a>
                             @if(isset($id))
                                 <button data-remodal-target="modalAreYouSure" class="btn btn-sm btn-primary px-5 confrimFormHaveData">اعمال تغییرات</button>
                                 <button class="btn btn-sm btn-primary px-5 confrimFormEmpty nextBtn">ثبت اطلاعات</button>
@@ -349,10 +330,10 @@
                     if (res.start_registry_time != undefined && res.data.start_registry_date != undefined || res.data.end_registry_time != undefined && res.data.end_registry_date != undefined ){
                         
                         if(res.data.start_registry_date.length > 0 && res.data.start_registry_date.length > 0){
-                            $('#setDateStart').val(res.data.start_registry_time + ' ' +  res.data.start_registry_date);
+                            $('#setDateStart').val(res.data.start_registry);
                         }
                         if(res.data.end_registry_date.length > 0 && res.data.end_registry_time.length > 0){
-                            $('#setDateStop').val(res.data.end_registry_time + ' ' +  res.data.end_registry_date);
+                            $('#setDateStop').val(res.data.end_registry);
                         }
                     }
 

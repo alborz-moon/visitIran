@@ -3,6 +3,7 @@
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\EventGalleryController;
 use App\Http\Controllers\Event\EventSessionController;
+use App\Http\Controllers\Event\FacilityController;
 use App\Http\Controllers\Event\LauncherController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,8 +19,17 @@ Route::get('/addPhase2Info/{event?}', [EventController::class, 'addPhase2Info'])
 
 Route::get('/addGalleryToEvent/{event?}', [EventController::class, 'addGalleryToEvent'])->name('addGalleryToEvent');
 
+Route::get('/myevents', [EventController::class, 'myEvents'])->name('myevents');
+
 Route::resource('event', EventController::class)->except('update', 'destroy');
 
+Route::prefix('facilities')->group(function() {
+
+    Route::get('/list', [FacilityController::class, 'show'])->name('facilities.show');
+
+});
+
+Route::view('/show-events','event.event.show-events')->name('show-events');
 
 Route::resource('launcher.follow', LauncherFollowersController::class)->only('index')->shallow();
 

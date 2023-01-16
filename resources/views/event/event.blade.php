@@ -298,7 +298,7 @@
                                         <i class="icon-visit-eye colorWhiteGray verticalAlign-2 px-1"></i>
                                     </button>
                                     <button class="buttonBasketEvent whiteSpaceNoWrap btnEventHover">
-                                        <span class="colorWhiteGray fontSize14 fontWight400 px-1">مسیر یابی</span>
+                                        <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination={{ $event['launcher_x'] . ',' . $event['launcher_y'] }}" class="colorWhiteGray fontSize14 fontWight400 px-1">مسیر یابی</a>
                                         <i class="icon-visit-location colorWhiteGray verticalAlign-2 px-1"></i>
                                     </button>
                                 </div>
@@ -678,7 +678,7 @@
                                         <i class="icon-visit-eye colorWhiteGray verticalAlign-2 px-1"></i>
                                     </button>
                                     <button class="buttonBasketEvent whiteSpaceNoWrap btnEventHover">
-                                        <span class="colorWhiteGray fontSize14 fontWight400 px-1">مسیر یابی</span>
+                                        <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination={{ $event['launcher_x'] . ',' . $event['launcher_y'] }}" class="colorWhiteGray fontSize14 fontWight400 px-1">مسیر یابی</a>
                                         <i class="icon-visit-location colorWhiteGray verticalAlign-2 px-1"></i>
                                     </button>
                                 </div>

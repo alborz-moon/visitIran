@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EventSessionLauncherResource;
 use App\Http\Resources\EventSessionResource;
 use App\Models\Event;
 use App\Models\EventSession;
@@ -21,7 +22,7 @@ class EventSessionController extends Controller
         return response()->json([
             'status' => 'ok',
             'mode' => $event->status == 'init' ? 'create' : 'edit',
-            'data' => EventSessionResource::collection($event->sessions)->toArray($request)
+            'data' => EventSessionLauncherResource::collection($event->sessions)->toArray($request)
         ]);
     }
 
@@ -64,7 +65,8 @@ class EventSessionController extends Controller
 
         return response()->json([
             'status' => 'ok',
-            'id' => $session->id
+            'id' => $session->id,
+            'data' => EventSessionLauncherResource::make($session)->toArray($request)
         ]);
     }
 

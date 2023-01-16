@@ -8,7 +8,7 @@
         <h2 class="product-title">
             <a id="{{ $key }}Header" class="textColor fontSize14 bold"></a>
         </h2>
-        <h2 class="product-title">
+        <h2 id="{{ $key }}StartContainer" class="product-title hidden">
             <span class="fontSize14">شروع</span>
             <a id="{{ $key }}Header2" class="textColor fontSize14"></a>
         </h2>

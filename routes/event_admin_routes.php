@@ -19,13 +19,11 @@ Route::prefix('launcher')->group(function() {
 
 });
 
-Route::resource('facilities', FacilityController::class)->except('update');
+Route::resource('facilities', FacilityController::class)->except('update', 'show');
 
 Route::prefix('facilities')->group(function() {
 
     Route::post('/{facility}', [FacilityController::class, 'update'])->name('facilities.update');
-    
-    Route::get('/list', [FacilityController::class, 'show'])->name('facilities.show');
 
 });
 

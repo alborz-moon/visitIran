@@ -40,14 +40,10 @@ class EventUserDigest extends JsonResource
 
         $slug = $this->slug == null ? $this->title : $this->slug;
 
-        if($first_session != null) {
-            $start = date("Y/m/d H:i", $first_session->start);
-            $s = Controller::MiladyToShamsi($start, '/');
-        }
-        else {
-            $start = '';
+        if($first_session != null)
+            $s = Controller::MiladyToShamsi2($first_session->start);
+        else
             $s = '';
-        }
         
         return [
             'id' => $this->id,

@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EventLauncherDigest extends JsonResource
@@ -21,9 +22,31 @@ class EventLauncherDigest extends JsonResource
         $sr = Controller::MiladyToShamsi($start_registry, '/');
         $er = Controller::MiladyToShamsi($end_registry, '/');
 
+        $stepsStatus = null;
+        if($this->status === Event::$INIT_STATUS) {
+
+            $stepsStatus = [
+                "first" => "done",
+                "second" => "done",
+                "third" => "done",
+                "forth" => "done"
+            ];
+
+            if($this->sessions()->count() == 0)
+                $stepsStatus['second'] = 'undone';
+
+            if($this->price == null)
+                $stepsStatus['third'] = 'undone';
+
+            if($this->img == null || $this->description == null)
+                $stepsStatus['forth'] = 'undone';
+
+        }
+
         return [
             'id' => $this->id,
-            'created_at' => Controller::getPersianDate($this->created_at),
+            'created_at' => Controller::MiladyToShamsi3($this->created_at->timestamp),
+            'updated_at' => Controller::MiladyToShamsi3($this->updated_at->timestamp),
             'seen' => $this->seen,
             'buyers' => $this->buyers()->count(),
             'comment_count' => $this->comment_count,
@@ -34,7 +57,8 @@ class EventLauncherDigest extends JsonResource
             'registry' => $sr . ' تا ' . $er,
             'slug' => $this->slug,
             'visibility' => $this->visibility,
-            'title' => $this->title
+            'title' => $this->title,
+            'stepsStatus' => $stepsStatus
         ];
     }
 }

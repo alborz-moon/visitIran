@@ -43,7 +43,7 @@ class FacilityController extends Controller
     {
         return response()->json([
             'status' => 'ok',
-            'data' => FacilityResource::collection(Facility::all())->toArray($request)
+            'data' => FacilityResource::collection(Facility::visible()->get())->toArray($request)
         ]);
     }
 

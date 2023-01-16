@@ -17,6 +17,9 @@ class EventPhase2Resource extends JsonResource
     public function toArray($request)
     {
 
+        $sr = Controller::MiladyToShamsi2($this->start_registry);
+        $er = Controller::MiladyToShamsi2($this->end_registry);
+
         if($this->start_registry != null) {
             $start_registry = date("Y/m/d H:i", $this->start_registry);
             $s = Controller::MiladyToShamsi($start_registry, '/');
@@ -50,6 +53,8 @@ class EventPhase2Resource extends JsonResource
 
         return [
             'id' => $this->id,
+            'start_registry' => $sr,
+            'end_registry' => $er,
             'start_registry_date' => $s == null ? '' : $s,
             'start_registry_time' => $start_registry == null ? '' : explode(' ', $start_registry)[1],
             'end_registry_date' => $e == null ? '' : $e,

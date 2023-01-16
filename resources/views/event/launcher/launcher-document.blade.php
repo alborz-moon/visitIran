@@ -22,30 +22,9 @@
                     @include('event.launcher.launcher-menu')
                 @endif
                 <div class="{{ $isEditor ? 'col-xl-12 col-lg-12 col-md-12' : 'col-xl-9 col-lg-8 col-md-7'}}">
-                    <div id="shimmer" class="hidden"> 
-                        @for($i = 0; $i < 1; $i++)
-                        <a href="#" class="cursorPointer">
-                            <div class="ui-box bg-white mb-5 boxShadow SimmerParent">
-                                <div class="ui-box-title shimmerBG title-line m-3" style="width: 150px"></div>
-                                <div class="ui-box-content">
-                                    <div class="row">
-                                        <div class=" py-1">
-                                            <div class="fs-7 text-dark shimmerBG title-line m-3" style="width: 300px"></div>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <div class="position-relative w-100">
-                                                    <div class="shimmerBG title-line p-5 m-3 w-100">
-                                                        {{-- <div class="shimmerBG title-line m-3" style="width: 50px"></div> --}}
-                                                    </div>
-                                                    <div class="shimmerBG title-line m-3" style="width: 200px;float: left"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        @endfor
-                    </div>
+                    
+                    @include('event.layouts.shimmer')
+                    
                     <div id="hiddenHandler">
                     <div class="alert alert-warning alert-dismissible fade show mb-5 d-flex align-items-center spaceBetween" role="alert">
                         <div>
@@ -58,21 +37,23 @@
                         <div class="ui-box-content">
                             <div class="row">
 
-                                @include('event.launcher.dropZone', [
-                                    'label' => 'بارگذاری فایل روزنامه تاسیس',
-                                    'key' => 'company_newspaper_file',
-                                    'camelKey' => 'companyNewspaperFile',
-                                    'maxFiles' => 1,
-                                    'route' => route('launcher.update',['launcher' => $formId]),
-                                ])
-                                
-                                @include('event.launcher.dropZone', [
-                                    'label' => 'بارگذاری فایل آخرین تغییرات',
-                                    'key' => 'company_last_changes_file',
-                                    'camelKey' => 'companyLastChangesFile',
-                                    'maxFiles' => 1,
-                                    'route' => route('launcher.update',['launcher' => $formId]),
-                                ])
+                                @if($type == 'hoghoghi')
+                                    @include('event.launcher.dropZone', [
+                                        'label' => 'بارگذاری فایل روزنامه تاسیس',
+                                        'key' => 'company_newspaper_file',
+                                        'camelKey' => 'companyNewspaperFile',
+                                        'maxFiles' => 1,
+                                        'route' => route('launcher.update',['launcher' => $formId]),
+                                    ])
+                                    
+                                    @include('event.launcher.dropZone', [
+                                        'label' => 'بارگذاری فایل آخرین تغییرات',
+                                        'key' => 'company_last_changes_file',
+                                        'camelKey' => 'companyLastChangesFile',
+                                        'maxFiles' => 1,
+                                        'route' => route('launcher.update',['launcher' => $formId]),
+                                    ])
+                                @endif
 
                                 @include('event.launcher.dropZone', [
                                     'label' => 'بارگذاری فایل کارت ملی رابط',
@@ -106,7 +87,11 @@
             </div>
             <div class="spaceBetween mb-2">
                 <a href="{{ route('launcher-edit', ['formId' => $formId]) }}" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
-                <button data-remodal-target="modalAreYouSure"  class="btn btn-sm btn-primary px-5">ارسال برای بازبینی</button>
+                @if($mode == 'edit')
+                    <button data-remodal-target="modalAreYouSure"  class="btn btn-sm btn-primary px-5">ارسال برای بازبینی</button>
+                @else
+                    <button class="btn btn-sm btn-primary px-5 nextBtn">ارسال برای بازبینی</button>
+                @endif
             </div>
             </div>
             </div>
@@ -190,7 +175,9 @@
         </div>
     </div>
     
-    @include('event.layouts.areYouSureChange')
+    @if($mode == 'edit')
+        @include('event.layouts.areYouSureChange')
+    @endif
 
     <div class="remodal remodal-xl" data-remodal-id="mainGalleryModal"
         data-remodal-options="hashTracking: false">
@@ -229,10 +216,6 @@
 </main>
 
 
-@stop
-
-@section('footer')
-    @parent
 @stop
 
 @section('extraJS')
@@ -405,12 +388,25 @@
             });
         });
 
+        $(document).on('click', '.nextBtn', function() {
+
+            $.ajax({
+                type: 'post',
+                url: '{{route('launcher.send_for_review',['launcher' => $formId])}}',
+                success: function(res) {
+                    if(res.status === "ok")
+                        window.location.href = '{{ $isEditor ? route('launcher.index') :  route('show-events', ['event' => $id])}}';
+                    else
+                        showErr(res.data)
+                }
+            });
+
+        });
+
+
         $("#submit").on("click" , function (){
             showSuccess("ارسال شد.");
         });
-        $(document).ready(function() {
-           $('#shimmer').addClass('hidden');
-           $('#hiddenHandler').removeClass('hidden');       
-        })
+        
     </script>
 @stop

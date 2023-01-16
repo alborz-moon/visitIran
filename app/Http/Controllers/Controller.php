@@ -58,6 +58,16 @@ class Controller extends BaseController
         return $e;
     }
 
+    public static function MiladyToShamsi3($ts){
+        include_once 'jdate.php';
+        return jdate('l d F سال Y - H:m', "", $ts);
+    }
+
+    public static function MiladyToShamsi2($ts){
+        include_once 'jdate.php';
+        return jdate('l d F سال Y', "", $ts);
+    }
+
     public static function MiladyToShamsi($date, $explode='-'){
         include_once 'jdate.php';
         $date = explode(' ', $date);
@@ -152,6 +162,8 @@ class Controller extends BaseController
         'header.required' => 'لطفا عنوان را وارد نمایید',
         'digest.required' => 'لطفا متن خلاصه را وارد نمایید',
         'priority.required' => 'لطفا اولویت را وارد نمایید',
+        'img_file.required' => 'لطفا تصویر موردنظر خود را بارگذاری نمایید',
+        '*.url' => 'لینک وارد شده معتبر نمی باشد'
     ];
 
 }

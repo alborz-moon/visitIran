@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class EventSessionResource extends JsonResource
+class EventSessionLauncherResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +15,8 @@ class EventSessionResource extends JsonResource
      */
     public function toArray($request)
     {
-
-        $s = Controller::MiladyToShamsi2($this->start);
-        $e = Controller::MiladyToShamsi2($this->end);
+        $s = Controller::MiladyToShamsi3($this->start);
+        $e = Controller::MiladyToShamsi3($this->end);
 
         return [
             'id' => $this->id,
