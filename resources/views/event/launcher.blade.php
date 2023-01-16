@@ -79,7 +79,7 @@
                                                 <i class="icon-visit-eye colorWhiteGray verticalAlign-2 px-2"></i>
                                             </button>
                                             <button class="buttonBasketEvent whiteSpaceNoWrap">
-                                                <span class="colorWhiteGray fontSize13 paddingRight5 px-2">مسیر یابی</span>
+                                                <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination={{ $launcher['x'] . ',' . $launcher['y'] }}" class="colorWhiteGray fontSize13 paddingRight5 px-2">مسیر یابی</a>
                                                 <i class="icon-visit-location colorWhiteGray verticalAlign-2 px-2"></i>
                                             </button>
                                         </div>

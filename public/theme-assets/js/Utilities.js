@@ -158,7 +158,10 @@ function removeUnNecessaryLocks() {
             return;
         }
 
+        if ($(this).attr("id") === undefined) return;
+
         let val = $(this).val();
+
         if (val === undefined || val === null || val.length == 0) {
             val = $(this).attr("data-val");
             if (val === undefined || val === null || val.length == 0) {
@@ -173,6 +176,8 @@ function removeUnNecessaryLocks() {
         } else $(this).attr("disabled", "disabled").attr("data-editable", false);
     });
 
+    console.log(should_hide_locks_inputs);
+
     if (should_hide_locks_inputs.length > 0) {
         $(".toggle-editable-btn").each(function () {
             if (
@@ -185,7 +190,7 @@ function removeUnNecessaryLocks() {
     }
 }
 
-function createMap(containerId, x, y) {
+function createMap(containerId, loc) {
     mapboxgl.setRTLTextPlugin(
         "https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js",
         null
@@ -193,17 +198,20 @@ function createMap(containerId, x, y) {
     let map = new mapboxgl.Map({
         container: containerId,
         style: "https://api.parsimap.ir/styles/parsimap-streets-v11?key=p1c7661f1a3a684079872cbca20c1fb8477a83a92f",
-        center: x !== undefined && y !== undefined ? [y, x] : [51.4, 35.7],
+        center:
+            loc.x !== undefined && loc.y !== undefined
+                ? [loc.y, loc.x]
+                : [51.4, 35.7],
         zoom: 13,
     });
     var marker = undefined;
 
-    if (x !== undefined && y !== undefined) {
+    if (loc.x !== undefined && loc.y !== undefined) {
         marker = new mapboxgl.Marker();
         marker
             .setLngLat({
-                lng: y,
-                lat: x,
+                lng: loc.y,
+                lat: loc.x,
             })
             .addTo(map);
     }
@@ -213,8 +221,8 @@ function createMap(containerId, x, y) {
         //add marker
         marker = new mapboxgl.Marker();
         marker.setLngLat(e.lngLat).addTo(map);
-        x = e.lngLat.lat;
-        y = e.lngLat.lng;
+        loc.x = e.lngLat.lat;
+        loc.y = e.lngLat.lng;
     }
     map.on("click", addMarker);
     const control = new ParsimapGeocoder();

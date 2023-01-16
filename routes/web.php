@@ -192,19 +192,13 @@ Route::middleware(['shareEventTags'])->group(function() {
                 return view('event.launcher.launcher-register', ['mode' => 'edit', 'states' => $states, 'formId' => $formId]);
             })->name('launcher-edit');
 
-            Route::get('/launcher-document/{formId?}',function($formId=null) {
-                
-                if($formId == null)
-                    return view('errors.403');
+            Route::get('/launcher-document/{formId?}', [LauncherController::class, 'documents'])->name('launcher-document');
 
-                return view('event.launcher.launcher-document', compact('formId'));
-            })->name('launcher-document');
+            Route::post('/launcher_send_for_review/{launcher}', [LauncherController::class, 'sendForReview'])->name('launcher.send_for_review');
 
             Route::get('/launcher-finance/{formId}', function($formId) {
                 return view('event.launcher.launcher-finance', compact('formId'));
             })->name('finance');
-        
-            Route::view('/show-events','event.event.show-events')->name('show-events');
             
             Route::middleware(['launcherLevel'])->prefix('admin')->group(function() {
             

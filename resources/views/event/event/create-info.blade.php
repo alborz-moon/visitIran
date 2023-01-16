@@ -121,7 +121,7 @@
                             </div>
 
                             <div class="spaceBetween mb-2">
-                                <a href="" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</a>
+                                <a href="{{ route('show-events') }}" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</a>
                                 @if($mode == 'edit')
                                     <button data-remodal-target="modalAreYouSure" class="btn btn-sm btn-primary px-5">ارسال برای بازبینی</button>
                                 @else
@@ -366,7 +366,7 @@
                 url: '{{route('event.sendForReview',['event' => $id])}}',
                 success: function(res) {
                     if(res.status === "ok")
-                        window.location.href = '{{ $isEditor ? route('event.index') :  route('show-events', ['event' => $id])}}';
+                        window.location.href = '{{ $isEditor ? route('event.index') :  route('show-events')}}';
                     else
                         showErr(res.data)
                 }

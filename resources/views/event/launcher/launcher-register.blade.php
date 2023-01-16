@@ -83,7 +83,7 @@
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">نام و نام خانوادگی</div>
                                             <div data-remodal-target="personal-info-fullname-modal" class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="true" id="nameLast" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی" disabled>
+                                                <input data-val='test' data-editable="true" id="nameLast" type="text" class="form-control setName" style="direction: rtl" placeholder="نام و نام خانوادگی" disabled>
                                                 <button data-input-id="nameLast" class="toggle-editable-btn btn btn-circle btn-outline-light"
                                                     data-remodal-target="personal-info-fullname-modal">
                                                     <i class="ri-ball-pen-fill"></i>
@@ -120,7 +120,7 @@
                                         <div class=" py-1">
                                             <div  class="fs-7 text-dark">تاریخ تولد</div>
                                             <div data-remodal-target="personal-info-birth-modal" class="d-flex align-items-center justify-content-between position-relative">
-                                                <input data-editable="true" id="mainBrithday" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد" disabled>
+                                                <input data-val="test" data-editable="true" id="mainBrithday" type="text" class="form-control userBirthDay" style="direction: rtl" placeholder="تاریخ تولد" disabled>
                                                 <button data-input-id="mainBrithday" class="toggle-editable-btn btn btn-circle btn-outline-light"
                                                     data-remodal-target="personal-info-birth-modal"><i
                                                         class="ri-ball-pen-fill"></i></button>
@@ -417,10 +417,28 @@
             tels: [],
             idx: 1
         };
-        let x;
-        let y;
+        
+        let loc = {
+            x: undefined,
+            y: undefined
+        }
+
         var map = undefined;
 
+        function setValBrithday() {
+            var year = $('#Brithday_year').val();
+            var month = $('#Brithday_month').val();
+            var day =$('#Brithday_day').val();
+
+            if (year.length == 0 || month.length == 0 || month == 0 || day.length == 0) {
+                showErr("لطفا تاریخ تولد را وارد کنید.");
+                return
+            }
+            else{
+                $('.userBirthDay').val(year + '/' + month + '/' + day);
+                $(".remodal-close").click();
+            }
+        }
         
         $(document).ready(function(){
             
@@ -487,19 +505,7 @@
                     $(".showPenEdit").removeClass('hidden');
                 }
             });
-            $('#setUserBirthDay').on('click',function(){
-                var year = $('#Brithday_year').val();
-                var month = $('#Brithday_month').val();
-                var day =$('#Brithday_day').val();
 
-                if (year.length == 0 || month.length == 0 || month == 0 || day.length == 0) {
-                    showErr("لطفا تاریخ تولد را وارد کنید.");
-                    return
-                }else{
-                    $('.userBirthDay').val(year + '/' + month + '/' + day);
-                    $(".remodal-close").click();
-                }
-            })
 
             $('#launcherType').on('change',function(){
                 var launcherType = $('#launcherType').val();
@@ -521,7 +527,7 @@
                 }
 
                 if(map === undefined)
-                    map = createMap('launchermap', x, y);
+                    map = createMap('launchermap', loc);
 
             });
 
@@ -583,7 +589,7 @@
                         val: launcherPhone
                     });
                 
-                if(x === undefined || y === undefined) {
+                if(loc.x === undefined || loc.y === undefined) {
                     showErr("لطفا مکان موردنظر خود را از روی نقضه انتخاب کنید");
                     return;
                 }
@@ -592,8 +598,8 @@
                     first_name: name,
                     last_name: last,
                     phone: phone,
-                    launcher_x: x,
-                    launcher_y: y,
+                    launcher_x: loc.x,
+                    launcher_y: loc.y,
                     user_email: userEmail,
                     user_birth_day: userBirthDay,
                     user_NID: nid,
@@ -684,8 +690,8 @@
                         $('input[type=file]').attr("data-editable", "true");
                         $('.toggle-editable-btn').removeClass('hidden');
 
-                        x = res.data.launcher_x;
-                        y = res.data.launcher_y;
+                        loc.x = res.data.launcher_x;
+                        loc.y = res.data.launcher_y;
                         $('#name').val(res.data.first_name);
                         $('#last').val(res.data.last_name);
                         $('.setName').val(res.data.first_name + ' ' + res.data.last_name)

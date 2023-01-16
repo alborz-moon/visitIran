@@ -37,21 +37,23 @@
                         <div class="ui-box-content">
                             <div class="row">
 
-                                @include('event.launcher.dropZone', [
-                                    'label' => 'بارگذاری فایل روزنامه تاسیس',
-                                    'key' => 'company_newspaper_file',
-                                    'camelKey' => 'companyNewspaperFile',
-                                    'maxFiles' => 1,
-                                    'route' => route('launcher.update',['launcher' => $formId]),
-                                ])
-                                
-                                @include('event.launcher.dropZone', [
-                                    'label' => 'بارگذاری فایل آخرین تغییرات',
-                                    'key' => 'company_last_changes_file',
-                                    'camelKey' => 'companyLastChangesFile',
-                                    'maxFiles' => 1,
-                                    'route' => route('launcher.update',['launcher' => $formId]),
-                                ])
+                                @if($type == 'hoghoghi')
+                                    @include('event.launcher.dropZone', [
+                                        'label' => 'بارگذاری فایل روزنامه تاسیس',
+                                        'key' => 'company_newspaper_file',
+                                        'camelKey' => 'companyNewspaperFile',
+                                        'maxFiles' => 1,
+                                        'route' => route('launcher.update',['launcher' => $formId]),
+                                    ])
+                                    
+                                    @include('event.launcher.dropZone', [
+                                        'label' => 'بارگذاری فایل آخرین تغییرات',
+                                        'key' => 'company_last_changes_file',
+                                        'camelKey' => 'companyLastChangesFile',
+                                        'maxFiles' => 1,
+                                        'route' => route('launcher.update',['launcher' => $formId]),
+                                    ])
+                                @endif
 
                                 @include('event.launcher.dropZone', [
                                     'label' => 'بارگذاری فایل کارت ملی رابط',
@@ -85,7 +87,11 @@
             </div>
             <div class="spaceBetween mb-2">
                 <a href="{{ route('launcher-edit', ['formId' => $formId]) }}" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">بازگشت</a>
-                <button data-remodal-target="modalAreYouSure"  class="btn btn-sm btn-primary px-5">ارسال برای بازبینی</button>
+                @if($mode == 'edit')
+                    <button data-remodal-target="modalAreYouSure"  class="btn btn-sm btn-primary px-5">ارسال برای بازبینی</button>
+                @else
+                    <button class="btn btn-sm btn-primary px-5 nextBtn">ارسال برای بازبینی</button>
+                @endif
             </div>
             </div>
             </div>
@@ -169,7 +175,9 @@
         </div>
     </div>
     
-    @include('event.layouts.areYouSureChange')
+    @if($mode == 'edit')
+        @include('event.layouts.areYouSureChange')
+    @endif
 
     <div class="remodal remodal-xl" data-remodal-id="mainGalleryModal"
         data-remodal-options="hashTracking: false">
@@ -208,10 +216,6 @@
 </main>
 
 
-@stop
-
-@section('footer')
-    @parent
 @stop
 
 @section('extraJS')
@@ -384,12 +388,25 @@
             });
         });
 
+        $(document).on('click', '.nextBtn', function() {
+
+            $.ajax({
+                type: 'post',
+                url: '{{route('launcher.send_for_review',['launcher' => $formId])}}',
+                success: function(res) {
+                    if(res.status === "ok")
+                        window.location.href = '{{ $isEditor ? route('launcher.index') :  route('show-events', ['event' => $id])}}';
+                    else
+                        showErr(res.data)
+                }
+            });
+
+        });
+
+
         $("#submit").on("click" , function (){
             showSuccess("ارسال شد.");
         });
-        $(document).ready(function() {
-           $('#shimmer').addClass('hidden');
-           $('#hiddenHandler').removeClass('hidden');       
-        })
+        
     </script>
 @stop

@@ -19,8 +19,7 @@ class LauncherPolicy
      */
     public function before(User $user, $ability)
     {
-        return true;
-        // return $user->level === User::$ADMIN_LEVEL;
+        return $user->level === User::$ADMIN_LEVEL || $user->level === User::$EDITOR_LEVEL;
     }
 
     /**

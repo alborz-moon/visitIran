@@ -590,7 +590,10 @@ class EventController extends EventHelper
         unset($request['language_arr']);
 
         if($event == null) {
+            
             $request['launcher_id'] = $isEditor ? $request['launcher_id'] : $request->user()->launcher->id;
+            $request['status'] = 'init';
+
             $event = Event::create($request->toArray());
 
             return response()->json([

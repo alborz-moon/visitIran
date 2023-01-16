@@ -159,7 +159,7 @@
                             </div>
                         </div>
                         <div class="spaceBetween mb-2">
-                            <a href="" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</a>
+                            <a href="{{ route('show-events') }}" class="px-5 b-0 btnHover backColorWhite colorBlack fontSize18">انصراف</a>
                             @if(isset($id))
                                 <button data-remodal-target="modalAreYouSure" class="btn btn-sm btn-primary px-5 confrimFormHaveData">اعمال تغییرات</button>
                                 <button class="btn btn-sm btn-primary px-5 confrimFormEmpty nextBtn">ثبت اطلاعات</button>
@@ -330,10 +330,10 @@
                     if (res.start_registry_time != undefined && res.data.start_registry_date != undefined || res.data.end_registry_time != undefined && res.data.end_registry_date != undefined ){
                         
                         if(res.data.start_registry_date.length > 0 && res.data.start_registry_date.length > 0){
-                            $('#setDateStart').val(res.data.start_registry_time + ' ' +  res.data.start_registry_date);
+                            $('#setDateStart').val(res.data.start_registry);
                         }
                         if(res.data.end_registry_date.length > 0 && res.data.end_registry_time.length > 0){
-                            $('#setDateStop').val(res.data.end_registry_time + ' ' +  res.data.end_registry_date);
+                            $('#setDateStop').val(res.data.end_registry);
                         }
                     }
 

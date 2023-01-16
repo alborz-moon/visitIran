@@ -228,22 +228,22 @@
 
                     if(res.status === "ok") {
                         if(newStatus == 'pending') {
-                            $("#status_confirmed_" + launcherId).removeClass('hidden');
-                            $("#status_rejected_" + launcherId).removeClass('hidden');
-                            $("#status_pending_" + launcherId).addClass('hidden');
-                            $("#status_text_" + launcherId).text('در حال بررسی');
+                            $("#launcher_status_confirmed_" + launcherId).removeClass('hidden');
+                            $("#launcher_status_rejected_" + launcherId).removeClass('hidden');
+                            $("#launcher_status_pending_" + launcherId).addClass('hidden');
+                            $("#launcher_status_text_" + launcherId).text('در حال بررسی');
                         }
                         else if(newStatus == 'confirmed') {
-                            $("#status_confirmed_" + launcherId).addClass('hidden');
-                            $("#status_rejected_" + launcherId).removeClass('hidden');
-                            $("#status_pending_" + launcherId).removeClass('hidden');
-                            $("#status_text_" + launcherId).text('تایید شده');
+                            $("#launcher_status_confirmed_" + launcherId).addClass('hidden');
+                            $("#launcher_status_rejected_" + launcherId).removeClass('hidden');
+                            $("#launcher_status_pending_" + launcherId).removeClass('hidden');
+                            $("#launcher_status_text_" + launcherId).text('تایید شده');
                         }
                         else {
-                            $("#status_confirmed_" + launcherId).removeClass('hidden');
-                            $("#status_pending_" + launcherId).removeClass('hidden');
-                            $("#status_rejected_" + launcherId).addClass('hidden');
-                            $("#status_text_" + launcherId).text('رد شده');
+                            $("#launcher_status_confirmed_" + launcherId).removeClass('hidden');
+                            $("#launcher_status_pending_" + launcherId).removeClass('hidden');
+                            $("#launcher_status_rejected_" + launcherId).addClass('hidden');
+                            $("#launcher_status_text_" + launcherId).text('رد شده');
                         }
                         showSuccess("عملیات موردنظر با موفقیت انجام شد.");
                     }

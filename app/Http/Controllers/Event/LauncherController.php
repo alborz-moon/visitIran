@@ -6,6 +6,7 @@ use App\Http\Resources\LauncherDigest;
 use App\Http\Resources\LauncherFilesResource;
 use App\Http\Resources\LauncherFirstStepResource;
 use App\Http\Resources\LauncherResourceAdmin;
+use App\Models\Event;
 use App\Models\Launcher;
 use App\Models\LauncherComment;
 use App\Models\User;
@@ -405,7 +406,11 @@ class LauncherController extends LauncherHelper
                 $launcher[$key] = $request[$key];
             }
 
-            $launcher->status = 'pending';
+            $isEditor = $request->user()->isEditor();
+
+            if(!$isEditor && $launcher->status != Event::$INIT_STATUS)
+                $launcher->status = 'pending';
+
             $launcher->save();
 
             return response()->json([
@@ -530,4 +535,57 @@ class LauncherController extends LauncherHelper
         $launcher->delete();
         return response()->json(['status' => 'ok']);
     }
+
+    public function documents(Request $request, $formId=null) {
+
+        if($formId == null)
+            return view('errors.403');
+
+        $launcher = Launcher::find($formId);
+        if($launcher == null)
+            return view('errors.403');
+    
+        Gate::authorize('update', $launcher);
+        $type = $launcher->launcher_type;
+        $mode = $launcher->status == 'init' ? 'create' : 'edit';
+
+        return view('event.launcher.launcher-document', compact('formId', 'type', 'mode'));
+    }
+
+
+
+    public function sendForReview(Launcher $launcher, Request $request) {
+
+        Gate::authorize('update', $launcher);
+
+        $errs = [];
+        
+        if($launcher->launcher_type == 'hoghoghi' && (
+            $launcher->company_newspaper == null || 
+            empty($launcher->company_newspaper) ||
+            $launcher->company_last_changes == null || 
+            empty($launcher->company_last_changes)
+        ))
+            array_push($errs, 'مدارک');
+
+        if(count($errs) == 0 && (
+            $launcher->user_NID_card == null || 
+            empty($launcher->user_NID_card)
+        ))
+            array_push($errs, 'مدارک');
+
+        if(count($errs) == 0) {
+
+            if($request->user()->isEditor() && $launcher->status != Event::$INIT_STATUS)
+                return response()->json(['status' => 'ok']);
+
+            $launcher->status = Event::$PENDING_STATUS;
+            $launcher->save();
+            return response()->json(['status' => 'ok']);
+        }
+        
+        return response()->json(['status' => 'nok', 'data' => 'لطفا اطلاعات ضروری در بخش های زیر را پرنمایید.<br/>' . implode('<br/>', $errs)]);
+    }
+
+
 }

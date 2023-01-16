@@ -36,6 +36,8 @@ class EventUserResource extends JsonResource
             'launcher_rate' => $launcher->rate == null ? 4 : $launcher->rate,
             'launcher_rate_count' => $launcher->rate_count,
             'launcher_follower_count' => $launcher->follower_count,
+            'launcher_x' => $launcher->launcher_x,
+            'launcher_y' => $launcher->launcher_y,
             'start' => $s,
             'end' => $e,
             'start_registry' => $sr,
