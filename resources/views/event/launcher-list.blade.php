@@ -227,11 +227,53 @@
                                                             </a>
                                                         @endfor
                                                     </div>
-
-                                                    <div id="launcher_list_div" class="hidden p-0" style="display: flex; flex-wrap: wrap; gap: 5px;">
-                                                        
+                                                    <!-- از اینجا -->
+                                                    <div id="launcher_list_div" class="p-0" style="display: flex; flex-wrap: wrap; gap: 5px;">
+                                                        <div onclick="" class="cursorPointer handleInMedia">
+                                                        <!-- start of launcher-card -->
+                                                            <div class="product-card customBorderBoxShadow minWidth200">
+                                                                <div class="product-thumbnail">
+                                                                    <a>
+                                                                        <img id="sampleImg_17" src="https://hcshop.taci.ir/storage/products//Io711aN5wcgXw2kDJeXF2SXYDOQbqea8qI45MCbZ.jpg">
+                                                                    </a>
+                                                                </div>
+                                                                <div class="product-card-body">
+                                                                    <h2 class="product-title">
+                                                                        <a id="sampleHeader_17" class="textColor fontSize12">روتختي قلمكار عطريان طرح خشتي مدل G278</a>
+                                                                    </h2>
+                                                                    <div class="product-variant">
+                                                                        <span id="sampleTag_17" class="colorWhite customBoxLabel fontSize11">پارچه قلمکار</span>
+                                                                    </div>
+                                                                    <div id="sampleMultiColor_17" class="colorCircle hidden"></div>
+                                                                    <div class="spaceBetween mt-3 mb-3">
+                                                                        <span id="sampleCritical_17" class="fontSize11 colorRed whiteSpaceNoWrap">
+                                                                            <!-- <span id="sampleAvailableJust" class="">
+                                                                                <span>موجودی تنها</span>
+                                                                                <span>&nbsp;</span>
+                                                                                <span id="sampleCriticalCount_17">3</span>
+                                                                                <span>&nbsp;</span>
+                                                                                <span>عدد</span>
+                                                                            </span> -->
+                                                                            <span id="sampleFinishAvailable" class="hidden">اتمام موجودی</span>
+                                                                        </span>
+                                                                        <span id="sampleRate_17"><i class="icon-visit-staroutline fontSize20"></i><i class="icon-visit-star fontSize25"></i><i class="icon-visit-star fontSize25"></i><i class="icon-visit-star fontSize25"></i><i class="icon-visit-star fontSize25"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="product-card-footer mb-2">
+                                                                    <div id="mostSeenEventLauncherParent" class="textColor">
+                                                                        <span class="bold">مکان </span>
+                                                                        <span id="mostSeenEventLauncher">تهران -منطقه 1</span>
+                                                                    </div>
+                                                                    <div id="mostSeenEventLauncherParent2" class="textColor">
+                                                                        <span class="bold">برگزار کننده</span>
+                                                                        <span id="mostSeenEventLauncher2">آکادمی صدای اصفهان</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- end of launcher-card -->                                                    
+                                                        </div>
                                                     </div>
-
+                                                    <!-- تا اینجا -->
                                                 </div>
                                             </div>
                                         </div>
