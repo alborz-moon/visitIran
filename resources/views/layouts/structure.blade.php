@@ -348,7 +348,7 @@
                             <div class="menuCircle">
                                 <div class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
                                     <i class="icon-visit-search colorBlack fontSize30"></i>
-                                    <div class="fontSize14 colorBlack whiteSpaceNoWrap">جستوجو</div>
+                                    <div class="fontSize14 colorBlack whiteSpaceNoWrap">جست و جو</div>
                                 </div>
                             </div>
                         </button>
@@ -390,7 +390,11 @@
         ['route'=> request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE ?  route('product-search')  : route('event-search')],
         ['routeCat'=> request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE ?  route('category-search')  : route('search-event-tag')]
         )
-        @include('layouts.modal-user-mobile')
+        
+        @if(Auth::check())
+            @include('layouts.modal-user-mobile')
+        @endif
+
         <div class="hidden" id="sample-mini-cart-products">
             @include('shop.product.mini_card')
         </div>

@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -38,8 +37,12 @@ class AuthController extends Controller
             }
         }
 
-        $rand = random_int(111111, 999999);
-        self::sendSMS($request['phone'], 'کد فعالسازی شما :' . $rand . ' می باشد.');
+        if(self::$EVENT_SITE === "myevent.com")
+            $rand = 111111;
+        else {
+            $rand = random_int(111111, 999999);
+            self::sendSMS($request['phone'], 'کد فعالسازی شما :' . $rand . ' می باشد.');
+        }
         
         $request['code'] = $rand;
         $request['vc_expired_at'] = Carbon::now()->addMinutes(2)->timestamp;

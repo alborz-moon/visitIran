@@ -9,10 +9,8 @@
                             src="./theme-assets/images/avatar/default.png" alt="avatar">
                     </div>
                     <div class="profile-info">
-                        <a href="#" class="text-decoration-none text-dark fw-bold mb-2">جلال
-                            بهرامی
-                            راد</a>
-                        <div class="text-muted fs-7 fw-bold">۰۹xxxxxxxxx</div>
+                        <a class="text-decoration-none text-dark fw-bold mb-2">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</a>
+                        <div class="text-muted fw-bold bold">{{ Auth::user()->phone}}</div>
                     </div>
                 </div>
                 <div class="user-options">
@@ -20,7 +18,7 @@
                         <li class="d-block">
                             <div class="label fontSize14 colorBlack whiteSpaceNoWrap">تعداد رویدادها</div>
                             <div class="colorBlue text-align-end mr-90">
-                                3 رویداد
+                                {{ request()->user()->events()->count() }} رویداد
                             </div>
                         </li>
                          <li class="d-block">

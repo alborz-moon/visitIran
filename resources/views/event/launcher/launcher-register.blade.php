@@ -405,12 +405,18 @@
   href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/parsimap-geocoder/v1.0.0/parsimap-geocoder.css"
   rel="stylesheet"
 />
-    <script>
+@stop
 
-        var telsObj = [
+
+@section('extraJS')
+    @parent
+
+    <script>
+        
+        let telsObj = {
             tels: [],
             idx: 1
-        ];
+        };
         let x;
         let y;
         var map = undefined;
@@ -661,105 +667,102 @@
                 });
             })
         })
-    </script>
-@stop
-
-@section('footer')
-    @parent
-@stop
-
-@section('extraJS')
-    @parent
-    
-    @if($mode == 'edit')
-        <script>
-            $('#shimmer').removeClass('hidden');
-            $('#hiddenHandler').addClass('hidden');
-            $.ajax({
-                type: 'get',
-                url: '{{ route('launcher.show', ['launcher' => $formId]) }}',
-                success: function (res) {
-                    $('input').attr("data-editable", "false");
-                    $('textarea').attr("data-editable", "false");
-                    $('input[type=file]').attr("data-editable", "true");
-                    $('.toggle-editable-btn').removeClass('hidden');
-
-                    x = res.data.launcher_x;
-                    y = res.data.launcher_y;
-                    $('#name').val(res.data.first_name);
-                    $('#last').val(res.data.last_name);
-                    $('.setName').val(res.data.first_name + ' ' + res.data.last_name)
-                    $('#phone').val(res.data.phone);
-                    $('#aboutme').val(res.data.about);
-                    $("#postalCode").val(res.data.postal_code);
-                    $("#companyName").val(res.data.company_name);
-                    
-
-                    if(res.data.launcher_type == "hoghoghi") {
-                        $("#code").val(res.data.code);
-                        $("#companyType").val(res.data.company_type).change();
-                    }
-                    
-                    if(res.data.back_img !== null && res.data.back_img !== undefined && res.data.back_img !== 'null' && res.data.back_img.length > 0)
-                        $("#file-ip-1-preview").attr('src', res.data.back_img);
-
-                    if(res.data.img !== null && res.data.img !== undefined && res.data.img !== 'null' && res.data.img.length > 0)
-                        $("#file-ip-2-preview").attr('src', res.data.img);
-
-                    $("#launcherAddress").val(res.data.launcher_address);
-                    $(".launcherCityID").val(res.data.launcher_city_id);
-                    $("#launcherEmail").val(res.data.launcher_email);
         
-                    if (res.data.user_phone){
-                        $("#user-phone").val(res.data.user_phone);
-                    }
-                    var showPhone = '';
-                    let tels = [];
-                    let idx = 1;
+        @if($mode == 'edit')
+        
+            $(document).ready(function() {
 
-                    for(i = 0 ; i < res.data.launcher_phone.length; i++){
+                $('#shimmer').removeClass('hidden');
+                $('#hiddenHandler').addClass('hidden');
 
-                        showPhone += '<div id="tel-modal-' + idx + '" class="item-button spaceBetween colorBlack">' + res.data.launcher_phone[i] + '';
-                        showPhone += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
-                        showPhone += '<i data-id="' + idx + '" class="remove-tel-btn ri-close-line"></i>';
-                        showPhone += '</button>';
-                        showPhone += '</div>';
+                $.ajax({
+                    type: 'get',
+                    url: '{{ route('launcher.show', ['launcher' => $formId]) }}',
+                    success: function (res) {
+                        $('input').attr("data-editable", "false");
+                        $('textarea').attr("data-editable", "false");
+                        $('input[type=file]').attr("data-editable", "true");
+                        $('.toggle-editable-btn').removeClass('hidden');
+
+                        x = res.data.launcher_x;
+                        y = res.data.launcher_y;
+                        $('#name').val(res.data.first_name);
+                        $('#last').val(res.data.last_name);
+                        $('.setName').val(res.data.first_name + ' ' + res.data.last_name)
+                        $('#phone').val(res.data.phone);
+                        $('#aboutme').val(res.data.about);
+                        $("#postalCode").val(res.data.postal_code);
+                        $("#companyName").val(res.data.company_name);
                         
-                        tels.push({
-                            id: idx,
-                            val: res.data.launcher_phone[i]
+
+                        if(res.data.launcher_type == "hoghoghi") {
+                            $("#code").val(res.data.code);
+                            $("#companyType").val(res.data.company_type).change();
+                        }
+                        
+                        if(res.data.back_img !== null && res.data.back_img !== undefined && res.data.back_img !== 'null' && res.data.back_img.length > 0)
+                            $("#file-ip-1-preview").attr('src', res.data.back_img);
+
+                        if(res.data.img !== null && res.data.img !== undefined && res.data.img !== 'null' && res.data.img.length > 0)
+                            $("#file-ip-2-preview").attr('src', res.data.img);
+
+                        $("#launcherAddress").val(res.data.launcher_address);
+                        $(".launcherCityID").val(res.data.launcher_city_id);
+                        $("#launcherEmail").val(res.data.launcher_email);
+            
+                        if (res.data.user_phone){
+                            $("#user-phone").val(res.data.user_phone);
+                        }
+                        var showPhone = '';
+                        let tels = [];
+                        let idx = 1;
+
+                        for(i = 0 ; i < res.data.launcher_phone.length; i++){
+
+                            showPhone += '<div id="tel-modal-' + idx + '" class="item-button spaceBetween colorBlack">' + res.data.launcher_phone[i] + '';
+                            showPhone += '<button class="btn btn-outline-light borderRadius50 marginLeft3">';
+                            showPhone += '<i data-id="' + idx + '" class="remove-tel-btn ri-close-line"></i>';
+                            showPhone += '</button>';
+                            showPhone += '</div>';
+                            
+                            tels.push({
+                                id: idx,
+                                val: res.data.launcher_phone[i]
+                            });
+                            idx++;
+                        };
+
+                        telsObj.tels = tels;
+                        telsObj.idx = idx;
+
+                        $("#addTell").append(showPhone);
+                        $("#launcherPhone").attr('data-val', tels.map(elem => {return elem.val;}).join('-'))
+                        $("#launcherSite").val(res.data.launcher_site);
+                        $("#launcherType").val(res.data.launcher_type).change();
+                        $("#nid").val(res.data.user_NID);
+                        $("#userEmail").val(res.data.user_email);
+                        $("#companyType").val(res.data.company_type);
+                        $(".userBirthDay").val(res.data.user_birth_day);
+                        $("#state02").val(res.data.launcher_state_id).change();
+                        getCities(res.data.launcher_state_id, res.data.launcher_city_id);
+                        $("input").each(function() {
+                            if ($(this).attr('data-editable') != 'true' ){
+                                $(this).attr('disabled', 'disabled');
+                            }
                         });
-                        idx++;
-                    };
+                        $("textarea").each(function() {
+                            if ($(this).attr('data-editable') != 'true' ){
+                                $(this).attr('disabled', 'disabled');
+                            }
+                        });
+                        removeShimmer();
+                    }
+                });
 
-                    telsObj.tels = tels;
-                    telsObj.idx = idx;
+            });
+            
+        @endif
 
-                    $("#addTell").append(showPhone);
-                    $("#launcherPhone").attr('data-val', tels.map(elem => {return elem.val;}).join('-'))
-                    $("#launcherSite").val(res.data.launcher_site);
-                    $("#launcherType").val(res.data.launcher_type).change();
-                    $("#nid").val(res.data.user_NID);
-                    $("#userEmail").val(res.data.user_email);
-                    $("#companyType").val(res.data.company_type);
-                    $(".userBirthDay").val(res.data.user_birth_day);
-                    $("#state02").val(res.data.launcher_state_id).change();
-                    getCities(res.data.launcher_state_id, res.data.launcher_city_id);
-                    $("input").each(function() {
-                        if ($(this).attr('data-editable') != 'true' ){
-                            $(this).attr('disabled', 'disabled');
-                        }
-                    });
-                    $("textarea").each(function() {
-                        if ($(this).attr('data-editable') != 'true' ){
-                            $(this).attr('disabled', 'disabled');
-                        }
-                    });
-                    removeShimmer();
-                }
-            })
-        </script>
-    @endif
-    
+    </script>
 
 @stop

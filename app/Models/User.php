@@ -111,4 +111,8 @@ class User extends Authenticatable
     public function launcher() {
         return $this->hasOne(Launcher::class);
     }
+
+    public function events() {
+        return $this->hasManyThrough(Event::class, Launcher::class);
+    }
 }

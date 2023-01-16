@@ -85,77 +85,10 @@
                 </div>
             </div>
         </div>
-        <!-- start of personal-info-fullname-modal -->
-        <div class="remodal remodal-xs" data-remodal-id="personal-info-fullname-modal"
-            data-remodal-options="hashTracking: false">
-            <div class="remodal-header">
-                <div class="remodal-title">نام و نام خانوادگی</div>
-                <button data-remodal-action="close" class="remodal-close"></button>
-            </div>
-            <div class="remodal-content">
-                <div class="form-element-row mb-3">
-                    <label class="label fs-7">نام</label>
-                    <input  id="first_name" value="{{ $user->first_name }}" type="text" class="form-control" placeholder="نام">
-                </div>
-                <div class="form-element-row">
-                    <label class="label fs-7">نام خانوادگی</label>
-                    <input id="last_name" value="{{ $user->last_name }}" type="text" class="form-control" placeholder="نام خانوادگی">
-                </div>
-            </div>
-            <div class="remodal-footer">
-                <button onclick="setValName()" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
-            </div>
-        </div>
-        <!-- end of personal-info-fullname-modal -->
+        
+        @include('event.layouts.personalInfoFullName')
+        @include('event.layouts.personalInfoBirthDay')
 
-        <!-- start of personal-info-birth-modal -->
-        <div class="remodal remodal-xs" data-remodal-id="personal-info-birth-modal"
-            data-remodal-options="hashTracking: false">
-            <div class="remodal-header">
-                <div class="remodal-title">تولد</div>
-                <button data-remodal-action="close" class="remodal-close"></button>
-            </div>
-            <div class="remodal-content">
-                <div class="row">
-                    <div class="col-4">
-                        <div class="form-element-row">
-                            <label class="label fs-7">سال</label>
-                            <input onkeypress="return isNumber(event)" minlength="4" maxlength="4" value="{{ $birth_day != null ? $birth_day[0] : '' }}" id="Brithday_year" type="text" class="form-control" placeholder="">
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-element-row">
-                            <label class="label fs-7">ماه</label>
-                            <select class="select2" name="month" id="Brithday_month">
-                                <option value="0">ماه</option>
-                                <option {{ ($birth_day != null && $birth_day[1] == 1) ? 'selected' : '' }} value="1">فروردین</option>
-                                <option {{ ($birth_day != null && $birth_day[1] == 2) ? 'selected' : '' }} value="2">اردیبهشت</option>
-                                <option {{ ($birth_day != null && $birth_day[1] == 3) ? 'selected' : '' }} value="3">خرداد</option>
-                                <option {{ ($birth_day != null && $birth_day[1] == 4) ? 'selected' : '' }} value="4">تیر</option>
-                                <option {{ ($birth_day != null && $birth_day[1] == 5) ? 'selected' : '' }} value="5">مرداد</option>
-                                <option {{ ($birth_day != null && $birth_day[1] == 6) ? 'selected' : '' }} value="6">شهریور</option>
-                                <option {{ ($birth_day != null && $birth_day[1] == 7) ? 'selected' : '' }} value="7">مهر</option>
-                                <option {{ ($birth_day != null && $birth_day[1] == 8) ? 'selected' : '' }} value="8">آبان</option>
-                                <option {{ ($birth_day != null && $birth_day[1] == 9) ? 'selected' : '' }} value="9">آ‌ذر</option>
-                                <option {{ ($birth_day != null && $birth_day[1] == 10) ? 'selected' : '' }} value="10">دی</option>
-                                <option {{ ($birth_day != null && $birth_day[1] == 11) ? 'selected' : '' }} value="11">بهمن</option>
-                                <option {{ ($birth_day != null && $birth_day[1] == 12) ? 'selected' : '' }} value="12">اسفند</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-element-row">
-                            <label class="label fs-7">روز</label>
-                            <input id="Brithday_day" onkeypress="return isNumber(event)" minlength="2" maxlength="2" value="{{ $birth_day != null ? $birth_day[2] : '' }}" type="text" class="form-control" placeholder="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="remodal-footer">
-                <button onclick="setValBrithday()" class="btn btn-sm btn-primary px-3">ثبت تاریخ تولد</button>
-            </div>
-        </div>
-        <!-- end of personal-info-birth-modal -->
         <!-- start of personal-info-returned-modal -->
         {{-- <div class="remodal remodal-xs" data-remodal-id="personal-info-returned-modal"
             data-remodal-options="hashTracking: false">

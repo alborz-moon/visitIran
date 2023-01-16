@@ -81,11 +81,17 @@ class Event extends Model
     public function scopeActiveForRegistry($query) {
         $now = (int)Controller::getToday()['date'];
         return $query->where('visibility', true)
-            ->where('status', true)
+            ->where('status', 'confirmed')
             ->where('start_registry', '<=', $now)
             ->where('end_registry', '>=', $now);
     }
     
+
+    public function scopeConfirmed($query) {
+        return $query->where('status', 'confirmed');
+    }
+    
+
     public function scopeTop($query) {
         return $query->where('is_in_top_list', true);
     }
