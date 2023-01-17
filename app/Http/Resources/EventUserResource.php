@@ -17,6 +17,12 @@ class EventUserResource extends JsonResource
     public function toArray($request)
     {
 
+        $start_registry_formatted = Controller::MiladyToShamsi3($this->start_registry);
+        $end_registry_formatted = Controller::MiladyToShamsi3($this->end_registry);
+
+        $start_formatted = Controller::MiladyToShamsi2($this->start);
+        $end_formatted = Controller::MiladyToShamsi2($this->end);
+
         $start_registry = date("Y/m/d H:i", $this->start_registry);
         $end_registry = date("Y/m/d H:i", $this->end_registry);
         $start = date("Y/m/d H:i", $this->start);
@@ -40,6 +46,13 @@ class EventUserResource extends JsonResource
             'launcher_y' => $launcher->launcher_y,
             'start' => $s,
             'end' => $e,
+
+            'sr' => $start_registry_formatted,
+            'er' => $start_registry_formatted,
+            
+            's' => $start_formatted,
+            'e' => $end_formatted,
+
             'start_registry' => $sr,
             'end_registry' => $er,
             'start_registry_time' => explode(' ', $start_registry)[1],

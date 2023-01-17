@@ -68,6 +68,29 @@ function setProductVals(prefix, elem) {
         $("#" + prefix + "PriceParent").removeClass("hidden");
 }
 
+function setLauncherVals(prefix, elem) {
+    $("#" + prefix + "Img")
+        .attr("src", elem.img)
+        .attr("alt", elem.alt);
+
+    $("#" + prefix + "Header").text(elem.title);
+    $("#" + prefix + "ActiveEvents").text(elem.active_events);
+    $("#" + prefix + "AllEvents").text(elem.all_events);
+    $("#" + prefix + "Followers").text(elem.follower_count);
+
+    let starHtml = "";
+
+    for (let i = 0; i < 5 - elem.rate; i++)
+        starHtml += '<i class="icon-visit-staroutline fontSize18"></i>';
+
+    for (let i = 0; i < elem.rate; i++)
+        starHtml += '<i class="icon-visit-star fontSize25"></i>';
+
+    $("#" + prefix + "Rate")
+        .empty()
+        .append(starHtml);
+}
+
 function setEventVals(prefix, elem) {
     $("#" + prefix + "Img")
         .attr("src", elem.img)
@@ -143,6 +166,37 @@ function renderProductSlider(data, prefix) {
             .replace(prefix + "CriticalCount", prefix + "CriticalCount_" + id)
             .replace(prefix + "Rate", prefix + "Rate_" + id)
             .replace(prefix + "MultiColor", prefix + "MultiColor_" + id);
+
+        html +=
+            "<div onclick=\"redirect('" +
+            id +
+            "', '" +
+            elem.slug +
+            '\')" class="cursorPointer swiper-slide customBox customWidthBox">' +
+            newElem +
+            "</div>";
+    });
+
+    return html;
+}
+
+function renderLauncherSlider(data, prefix) {
+    let html = "";
+    if (data === undefined) return "";
+
+    data.forEach((elem) => {
+        setLauncherVals(prefix, elem);
+
+        let id = elem.id;
+        var newElem = $("#" + prefix + "sSample").html();
+
+        newElem = newElem
+            .replace(prefix + "Img", prefix + "Img_" + id)
+            .replace(prefix + "ActiveEvents", prefix + "ActiveEvents_" + id)
+            .replace(prefix + "AllEvents", prefix + "AllEvents_" + id)
+            .replace(prefix + "Followers", prefix + "Followers_" + id)
+            .replace(prefix + "Header", prefix + "Header_" + id)
+            .replace(prefix + "Rate", prefix + "Rate_" + id);
 
         html +=
             "<div onclick=\"redirect('" +

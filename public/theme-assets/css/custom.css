@@ -84,6 +84,9 @@ hr {
 .fontSize22 {
     font-size: 22px !important;
 }
+.fontSize25 {
+    font-size: 25px !important;
+}
 .fontSize28 {
     font-size: 28px !important;
 }
@@ -1075,9 +1078,16 @@ textarea:not([type="checkbox"]):not([type="button"]):hover:disabled {
 .ltr {
     direction: ltr;
 }
+.h-20 {
+    height: 20px;
+}
 .product-card .product-price {
     height: 50px;
 }
+/* .mapboxgl-canvas {
+    height: 100% !important;
+    width: 100% !important;
+} */
 .btnRemoveDropzone::before :hover {
     cursor: pointer;
 }
@@ -2156,32 +2166,32 @@ figure .ck-widget {
 }
 @media (min-width: 1201px) {
     .handleInMedia {
-        flex-basis: calc(25% - 15px);
+        flex-basis: calc(25% - 7px);
     }
 }
 @media only screen and (min-width: 991px) and (max-width: 1200px) {
     .handleInMedia {
-        flex-basis: calc(33.3333333333% - 15px);
+        flex-basis: calc(33.3333333333% - 7px);
     }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .handleInMedia {
-        flex-basis: calc(50% - 15px);
+        flex-basis: calc(50% - 7px);
     }
 }
 @media only screen and (min-width: 680px) and (max-width: 767px) {
     .handleInMedia {
-        flex-basis: calc(33.3333333333333% - 15px);
+        flex-basis: calc(33.3333333333333% - 7px);
     }
 }
 @media only screen and (min-width: 447px) and (max-width: 679px) {
     .handleInMedia {
-        flex-basis: calc(50% - 15px);
+        flex-basis: calc(50% - 7px);
     }
 }
 @media only screen and (min-width: 300px) and (max-width: 447px) {
     .handleInMedia {
-        flex-basis: calc(100% - 15px);
+        flex-basis: calc(100% - 7px);
     }
 }
 @media (min-width: 1042px) {
