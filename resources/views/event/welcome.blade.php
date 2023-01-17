@@ -11,6 +11,7 @@
 
     <script>
         var eventPrefixRoute = '{{ route('event.home') }}' + "/event";
+        var launcherPrefixRoute = '{{ route('event.home') }}' + "/launcher";
     </script>
 
     @include('event.layouts.slider')

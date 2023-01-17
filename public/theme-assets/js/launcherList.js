@@ -189,7 +189,7 @@ function renderLauncher(data, prefix) {
             .replace(prefix + "Rate", prefix + "Rate_" + id);
 
         html +=
-            "<div onclick=\"event_redirect('" +
+            "<div onclick=\"launcher_redirect('" +
             id +
             "', '" +
             elem.slug +

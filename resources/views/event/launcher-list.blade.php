@@ -6,7 +6,7 @@
     <script>
         let LIST_API = '{{ route('api.launcher.list') }}';
         let HOME_API = '{{ route('event.home') }}';
-        let eventPrefixRoute = HOME_API + "/event";
+        let launcherPrefixRoute = HOME_API + "/launcher";
 
         let cat = '{{ isset($name) ? $name : -1 }}';
     </script>
