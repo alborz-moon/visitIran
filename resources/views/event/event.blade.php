@@ -115,7 +115,9 @@
                                         <i class="icon-visit-eye colorWhiteGray d-flex px-2"></i>
                                     </button>
                                     <button data-select="{{ $event['launcher_is_following'] ? 'on' : 'off' }}" class=" d-flex alignItemsCenter whiteSpaceNoWrap buttonBasketEvent followToggle {{ $event['launcher_is_following'] ? 'backgroundYellow' : '' }}">
-                                        <span class="colorWhiteGray fontSize13 px-2 d-flex folllowText">دنبال کردن</span>
+                                            <span class="colorWhiteGray fontSize13 px-2 d-flex folllowText">
+                                                {{$event['launcher_is_following'] ? 'دنبال شده' : 'دنبال کردن' }}
+                                            </span>
                                         <i class="icon-visit-person colorWhiteGray d-flex px-2"></i>
                                     </button>
                                 </div>
@@ -344,9 +346,9 @@
                                         <i class="icon-visit-website colorYellow"></i>
                                     </div>
                                     <div class="product-seller-row-detail">
-                                        <div class="seller-final-score-container p-2">
+                                        <div class="seller-final-score-container">
                                             <div class="seller-rate-container ">
-                                                <a href="{{ $event['site'] }}" class="ltr colorBlack fontSize14 fontWight400 px-2 d-flex justify-content-end">
+                                                <a href="{{ $event['site'] }}" class="ltr overFlowHidden h-20 colorBlack fontSize14 fontWight400 px-2 d-flex justify-content-end">
                                                     {{$event['site']}}
                                                 </a>
                                             </div>
@@ -493,7 +495,9 @@
                                         <i class="icon-visit-eye colorWhiteGray d-flex px-2"></i>
                                     </button>
                                     <button data-select="{{ $event['launcher_is_following'] ? 'on' : 'off' }}" class=" d-flex alignItemsCenter whiteSpaceNoWrap buttonBasketEvent followToggle {{ $event['launcher_is_following'] ? 'backgroundYellow' : '' }}">
-                                        <span class="colorWhiteGray fontSize13 px-2 d-flex folllowText">دنبال کردن</span>
+                                        <span class="colorWhiteGray fontSize13 px-2 d-flex folllowText"> 
+                                            {{$event['launcher_is_following']  ? 'دنبال شده' : 'دنبال کردن' }}
+                                        </span>
                                         <i class="icon-visit-person colorWhiteGray d-flex px-2"></i>
                                     </button>
                                 </div>
@@ -650,115 +654,13 @@
                             </div>
                         </div>
                         <!-- end of product-seller-info -->
-                        <!-- start of product-seller-info -->
-                       
-                        <div class="product-seller-info ui-box p-0">
-                            <div class="seller-info-changeable">
-                                @if( $event['address'] != null)
-                                <div class="product-seller-row p-0">
-                                    <div class="product-seller-row-icon marginTop9">
-                                        <!-- <i class="ri-store-3-fill"></i> -->
-                                        <i class="icon-visit-location colorYellow"></i>
-                                    </div>
-                                    <div class="product-seller-row-detail">
-                                        <div class="seller-final-score-container p-2">
-                                            <div class="seller-rate-container">
-                                                <span class="fontSize14 fontWight400 colorBlack">
-                                                    {{ $event['address'] }}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="seller-info-link"></a>
-                                    </div>
-                                </div>
-                                @endif
-                                <div class="d-flex alignItemsCenter spaceBetween gap10 p-1">
-                                    <button data-remodal-target="modal-map" class="buttonBasketEvent whiteSpaceNoWrap btnEventHover mapModalBtn">
-                                        <span class="colorWhiteGray fontSize14 fontWight400 px-1">مشاهده رو نقشه</span>
-                                        <i class="icon-visit-eye colorWhiteGray verticalAlign-2 px-1"></i>
-                                    </button>
-                                    <button class="buttonBasketEvent whiteSpaceNoWrap btnEventHover">
-                                        <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination={{ $event['launcher_x'] . ',' . $event['launcher_y'] }}" class="colorWhiteGray fontSize14 fontWight400 px-1">مسیر یابی</a>
-                                        <i class="icon-visit-location colorWhiteGray verticalAlign-2 px-1"></i>
-                                    </button>
-                                </div>
-                                <hr>
-                                @if($event['phone'] != null)
-                                <div class="product-seller-row p-0">
-                                    <div class="product-seller-row-icon marginTop9">
-                                        <i class="icon-visit-phone colorYellow"></i>
-                                    </div>
-                                    <div class="product-seller-row-detail">
-                                        <div class="seller-final-score-container p-2">
-                                            <div class="seller-rate-container">
-                                                @foreach ($event['phone'] as $phone)
-                                                    <a href="tel:{{$phone}}" class="colorBlack fontSize14 fontWight400">{{ $phone }}</a><span class="mx-1">-</span>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                @endif
-                                 @if( $event['email'] != null)
-                                <div class="product-seller-row p-0">
-                                    <div class="product-seller-row-icon marginTop9">
-                                        <i class="icon-visit-mail colorYellow"></i>
-                                    </div>
-                                    <div class="product-seller-row-detail">
-                                        <div class="seller-final-score-container p-2">
-                                            <div class="seller-rate-container ">
-                                                <a href="mailto:{{$event['email']}}" class="colorBlack fontSize14 fontWight400 px-2 d-flex justify-content-end">
-                                                    {{$event['email']}}
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="seller-info-link"></a>
-                                    </div>
-                                </div>
-                                @endif
-                                @if ( $event['site'] != null)
-                                <hr>
-                                <div class="product-seller-row p-0">
-                                    <div class="product-seller-row-icon marginTop9">
-                                        <i class="icon-visit-website colorYellow"></i>
-                                    </div>
-                                    <div class="product-seller-row-detail">
-                                        <div class="seller-final-score-container p-2">
-                                            <div class="seller-rate-container ">
-                                                <a href="{{ $event['site'] }}" class="ltr colorBlack fontSize14 fontWight400 px-2 d-flex justify-content-end">
-                                                    {{$event['site']}}
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="seller-info-link"></a>
-                                    </div>
-                                </div>
-                                @endif
-                            </div>
-                        </div>
-                        <!-- end of product-seller-info -->
+                        @include('event.layouts.infoBoxEvent',['event' => $event])
                     </div>
                 </div>
             </div>
         </div>
         <!-- end of product-detail-container -->
-        <div class="remodal remodal-xl" data-remodal-id="modal-map" data-remodal-options="hashTracking: false">
-            <div class="remodal-header">
-                <div class="remodal-title">مشاهده نقشه</div>
-                <button data-remodal-action="close" class="remodal-close"></button>
-            </div>
-            <div class="remodal-content">
-                <div class="form-element-row mb-3">
-                    <div id="launchermap" style="height: 75vh">
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="remodal-footer">
-                <button data-remodal-action="close" class="btn btn-sm btn-primary px-3">بستن</button>
-            </div>
-        </div>
+
 </main>
 
 <script src="https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/parsimap-geocoder/v1.0.0/parsimap-geocoder.js"></script>
@@ -769,9 +671,6 @@
 
 @stop
 
-@section('footer')
-@parent
-@stop
 
 @section('extraJS')
 @parent
@@ -886,7 +785,7 @@ $(document).ready(function() {
         });
 
     });
-
+    
     let y = parseFloat('{{$event['y']}}');
     let x = parseFloat('{{$event['x']}}');
 
@@ -896,23 +795,23 @@ $(document).ready(function() {
 
     function mapMaker(){
         if(map === undefined) {
-        mapboxgl.setRTLTextPlugin(
-            'https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
-            null,
-        );
-        map = new mapboxgl.Map({
-            container: 'launchermap',
-            style: 'https://api.parsimap.ir/styles/parsimap-streets-v11?key=p1c7661f1a3a684079872cbca20c1fb8477a83a92f',
-            center: x !== undefined && y !== undefined ? [y, x] : [51.4, 35.7],
-            zoom: 13,
-        });
-        var marker = undefined;
+            mapboxgl.setRTLTextPlugin(
+                'https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+                null,
+            );
+            map = new mapboxgl.Map({
+                container: 'launchermap',
+                style: 'https://api.parsimap.ir/styles/parsimap-streets-v11?key=p1c7661f1a3a684079872cbca20c1fb8477a83a92f',
+                center: x !== undefined && y !== undefined ? [y, x] : [51.4, 35.7],
+                zoom: 13,
+            });
+            var marker = undefined;
 
-        if(x !== undefined && y !== undefined) {
-            marker = new mapboxgl.Marker();
-            marker.setLngLat({lng: y, lat: x}).addTo(map);
+            if(x !== undefined && y !== undefined) {
+                marker = new mapboxgl.Marker();
+                marker.setLngLat({lng: y, lat: x}).addTo(map);
+            }
         }
-    }
     }
     var count = 1; 
     price = parseInt($("#price").text().replaceAll(',', ''));

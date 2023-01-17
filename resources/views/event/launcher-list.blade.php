@@ -246,26 +246,26 @@
                                                                     </div>
                                                                     <div id="sampleMultiColor_17" class="colorCircle hidden"></div>
                                                                     <div class="spaceBetween mt-3 mb-3">
-                                                                        <span id="sampleCritical_17" class="fontSize11 colorRed whiteSpaceNoWrap">
-                                                                            <!-- <span id="sampleAvailableJust" class="">
-                                                                                <span>موجودی تنها</span>
-                                                                                <span>&nbsp;</span>
+                                                                        <span id="sampleCritical_17" class="fontSize11 colorRed whiteSpaceNoWrap d-flex alignSelfCenter">
+                                                                            <span id="sampleAvailableJust" class="">
+                                                                                <span class="d-flex alignSelfCenter alignItemsCenter">تعداد فالورها<span class="px-1">عدد</span></span>
+                                                                                {{-- <span>&nbsp;</span>
                                                                                 <span id="sampleCriticalCount_17">3</span>
-                                                                                <span>&nbsp;</span>
-                                                                                <span>عدد</span>
-                                                                            </span> -->
+                                                                                <span>&nbsp;</span> --}}
+                                                                                
+                                                                            </span>
                                                                             <span id="sampleFinishAvailable" class="hidden">اتمام موجودی</span>
                                                                         </span>
-                                                                        <span id="sampleRate_17"><i class="icon-visit-staroutline fontSize20"></i><i class="icon-visit-star fontSize25"></i><i class="icon-visit-star fontSize25"></i><i class="icon-visit-star fontSize25"></i><i class="icon-visit-star fontSize25"></i></span>
+                                                                        <span id="sampleRate_17"><i class="icon-visit-staroutline fontSize18"></i><i class="icon-visit-star fontSize25"></i><i class="icon-visit-star fontSize25"></i><i class="icon-visit-star fontSize25"></i><i class="icon-visit-star fontSize25"></i></span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="product-card-footer mb-2">
                                                                     <div id="mostSeenEventLauncherParent" class="textColor">
-                                                                        <span class="bold">مکان </span>
+                                                                        <span class="bold">تعداد رویداد های فعال </span>
                                                                         <span id="mostSeenEventLauncher">تهران -منطقه 1</span>
                                                                     </div>
                                                                     <div id="mostSeenEventLauncherParent2" class="textColor">
-                                                                        <span class="bold">برگزار کننده</span>
+                                                                        <span class="bold">کل رویداد ها</span>
                                                                         <span id="mostSeenEventLauncher2">آکادمی صدای اصفهان</span>
                                                                     </div>
                                                                 </div>
@@ -298,6 +298,7 @@
                     </div>
                 </div>
             </div>
+            
         </main>
 @stop
 

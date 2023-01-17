@@ -9,6 +9,7 @@ use App\Http\Resources\LauncherResourceAdmin;
 use App\Models\Event;
 use App\Models\Launcher;
 use App\Models\LauncherComment;
+use App\Models\LauncherFollowers;
 use App\Models\User;
 use App\Rules\NID;
 use Illuminate\Http\Request;
@@ -190,6 +191,7 @@ class LauncherController extends LauncherHelper
                             'is_bookmark' => false,
                             'user_rate' => null,
                             'has_comment' => false,
+                            'launcher_is_following' => false        
                         ]), 
                     'is_login' => false,
                 ]);
@@ -205,6 +207,7 @@ class LauncherController extends LauncherHelper
                     'is_bookmark' => $comment != null && $comment->is_bookmark != null ? $comment->is_bookmark : false,
                     'user_rate' => $comment != null ? $comment->rate : null,
                     'has_comment' => $comment != null && $comment->msg != null,
+                    'launcher_is_following' => LauncherFollowers::where('user_id', $user->id)->where('launcher_id', $launcher->id)->count() > 0,
                 ]), 
                 'is_login' => true
         ]);

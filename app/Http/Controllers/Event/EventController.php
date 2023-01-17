@@ -494,7 +494,7 @@ class EventController extends EventHelper
             ]);
 
         $comment = EventComment::userComment($event->id, $user->id);
-        
+
         // dd(EventUserResource::make($event)->toArray($request));
         return view('event.event', [
             'galleries' => EventGalleryResource::collection($event->galleries()->orderBy('priority', 'asc')->get())->toArray($request),

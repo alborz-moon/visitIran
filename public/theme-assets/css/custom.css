@@ -84,6 +84,9 @@ hr {
 .fontSize22 {
     font-size: 22px !important;
 }
+.fontSize25 {
+    font-size: 25px !important;
+}
 .fontSize28 {
     font-size: 28px !important;
 }
@@ -1075,9 +1078,16 @@ textarea:not([type="checkbox"]):not([type="button"]):hover:disabled {
 .ltr {
     direction: ltr;
 }
+.h-20 {
+    height: 20px;
+}
 .product-card .product-price {
     height: 50px;
 }
+/* .mapboxgl-canvas {
+    height: 100% !important;
+    width: 100% !important;
+} */
 .btnRemoveDropzone::before :hover {
     cursor: pointer;
 }
