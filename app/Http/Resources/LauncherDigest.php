@@ -31,8 +31,17 @@ class LauncherDigest extends JsonResource
             'launcher_email' => $this->launcher_email,
             'launcher_site' => $this->launcher_site,
             'launcher_phone' => $this->launcher_phone != null ? explode('__', $this->launcher_phone) : [],
+            
+            'address' => $this->launcher_address,
+            'email' => $this->launcher_email,
+            'site' => $this->launcher_site,
+            'phone' => $this->launcher_phone != null ? explode('__', $this->launcher_phone) : [],
+
             'x' => $this->launcher_x,
             'y' => $this->launcher_y,
+            
+            'launcher_x' => $this->launcher_x,
+            'launcher_y' => $this->launcher_y,
         ];
     }
 }

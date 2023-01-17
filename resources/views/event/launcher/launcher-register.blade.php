@@ -30,12 +30,13 @@
                     @include('event.layouts.shimmer')
 
                     <div id="hiddenHandler">
-
+                        @if ($mode == 'create')
                         <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
                             <div>
                                 در خواست ارتقا به برگزار کننده پس از ارسال توسط ادمین بازبینی و تایید خواهد شد  .
                             </div>                       
                         </div>
+                        @elseif ($mode !== 'edit')
                         <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center spaceBetween" role="alert">
                             <div>
                                 در حال حاضر حساب برگزار کننده شما غیر فعال است . پس از بررسی مدارک و تایید از سوی ادمین حساب شما فعال خواهد شد.
@@ -48,6 +49,7 @@
                             </div> 
                             <a href="#" class="btn btn-sm btn-primary mx-3 WhiteSpaceNoWrap">پشتیبانی</a>
                         </div>
+                        @endif
 
                         @if($isEditor && $mode !== 'edit')
                             <div class="ui-box bg-white mb-5 boxShadow">
