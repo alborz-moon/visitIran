@@ -199,7 +199,7 @@ function renderLauncherSlider(data, prefix) {
             .replace(prefix + "Rate", prefix + "Rate_" + id);
 
         html +=
-            "<div onclick=\"redirect('" +
+            "<div onclick=\"launcher_redirect('" +
             id +
             "', '" +
             elem.slug +
@@ -249,4 +249,8 @@ function redirect(id, name) {
 
 function event_redirect(id, name) {
     window.open(eventPrefixRoute + "/" + id + "/" + name, "_blank");
+}
+
+function launcher_redirect(id, name) {
+    window.open(launcherPrefixRoute + "/" + id + "/" + name, "_blank");
 }

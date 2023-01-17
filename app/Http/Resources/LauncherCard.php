@@ -36,6 +36,7 @@ class LauncherCard extends JsonResource
             'img' => $this->img == null ? asset('storage/launchers/default.png') : asset('storage/launchers/' . $this->img),
             'rate' => $this->rate == null ? 4 : $this->rate,
             'follower_count' => $this->follower_count,
+            'slug' => $this->company_name,
             'title' => $this->company_name,
             'active_events' => $activeEvents,
             'all_events' => count($events),
