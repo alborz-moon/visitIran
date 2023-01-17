@@ -16,13 +16,16 @@ class EventLauncherDigest extends JsonResource
      */
     public function toArray($request)
     {
-        $start_registry = date("Y/m/d H:i", $this->start_registry);
-        $end_registry = date("Y/m/d H:i", $this->end_registry);
-
-        $sr = Controller::MiladyToShamsi($start_registry, '/');
-        $er = Controller::MiladyToShamsi($end_registry, '/');
+        $start_registry = Controller::MiladyToShamsi3($this->start_registry);
+        $end_registry = Controller::MiladyToShamsi3($this->end_registry);
+        $start = null;
+        $end = null;
 
         $stepsStatus = null;
+        $runStatus = null;
+        $buyersCount = 0;
+        $totalPaid = 0;
+
         if($this->status === Event::$INIT_STATUS) {
 
             $stepsStatus = [
@@ -42,6 +45,41 @@ class EventLauncherDigest extends JsonResource
                 $stepsStatus['forth'] = 'undone';
 
         }
+        
+        if($this->status === Event::$CONFIRMED_STATUS) {
+            
+            $now = time();
+
+            if($this->start_registry <= $now && $this->end_registry >= $now)
+                $runStatus = 'registry';
+            else {
+                
+                $endSession = $this->sessions()->orderBy('end', 'desc')->first();
+                $startSession = $this->sessions()->orderBy('end', 'asc')->first();
+
+                $buyers = $this->buyers()->get();
+                $buyersCount = count($buyers);
+
+                foreach($buyers as $buyer)
+                    $totalPaid += $buyer->paid;
+                
+                if($endSession != null && $endSession->end <= $now)
+                    $runStatus = 'finish';
+                else
+                    $runStatus = 'run';
+
+                if($endSession == null)
+                    $end = '';
+                else
+                    $end = Controller::MiladyToShamsi2($endSession->end);
+                    
+
+                if($startSession == null)
+                    $start = '';
+                else
+                    $start = Controller::MiladyToShamsi2($startSession->start);
+            }
+        }
 
         return [
             'id' => $this->id,
@@ -54,11 +92,19 @@ class EventLauncherDigest extends JsonResource
             'rate' => $this->rate,
             'rate_count' => $this->rate_count,
             'status' => $this->status,
-            'registry' => $sr . ' تا ' . $er,
+            'start_registry' => $start_registry,
+            'end_registry' => $end_registry,
+            'start' => $start,
+            'end' => $end,
             'slug' => $this->slug,
             'visibility' => $this->visibility,
             'title' => $this->title,
-            'stepsStatus' => $stepsStatus
+            'stepsStatus' => $stepsStatus,
+            'runStatus' => $runStatus,
+            'price' => $this->price,
+            'capacity' => $this->capacity,
+            'totalPaid' => $totalPaid,
+            'buyersCount' => $buyersCount
         ];
     }
 }

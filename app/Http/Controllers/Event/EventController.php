@@ -324,6 +324,71 @@ class EventController extends EventHelper
         return $this->addOrUpdate($request);
     }
 
+    public function launcherUpdate(Event $event, Request $request)
+    {
+        
+        Gate::authorize('update', $event);
+
+        $validator = [
+            'start_registry_date' => ['nullable', 'regex:/^[1-4]\d{3}\/((((0[1-6])|([1-6]))\/((3[0-1])|([1-2][0-9])|((0[1-9])|([1-9]))))|((1[0-2]|(((0[7-9])|[7-9])))\/(30|([1-2][0-9])|(((0[1-9])|([1-9]))))))$/'],
+            'start_registry_time' => 'nullable|date_format:H:i',
+            'end_registry_date' => ['nullable', 'regex:/^[1-4]\d{3}\/((((0[1-6])|([1-6]))\/((3[0-1])|([1-2][0-9])|((0[1-9])|([1-9]))))|((1[0-2]|(((0[7-9])|[7-9])))\/(30|([1-2][0-9])|(((0[1-9])|([1-9]))))))$/'],
+            'end_registry_time' => 'nullable|date_format:H:i',
+            'price' => 'nullable|integer|min:0',
+            'capacity' => 'nullable|integer|min:0',
+            'visibility' => 'nullable|boolean'
+        ];
+        
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator, self::$COMMON_ERRS);
+        
+        if($request->has('start_registry_date') != $request->has('start_registry_time'))
+            return abort(401);
+
+        if($request->has('end_registry_date') != $request->has('end_registry_time'))
+            return abort(401);
+
+            
+        $start_registry = $event->start_registry;
+        $end_registry = $event->end_registry;
+
+        if($request->has('start_registry_date')) {
+            $request["start_registry"] = strtotime(self::ShamsiToMilady($request["start_registry_date"]) . " " . $request["start_registry_time"]);
+            $start_registry = $request["start_registry"];
+        }
+
+        if($request->has('end_registry_date')) {
+            $request["end_registry"] = strtotime(self::ShamsiToMilady($request["end_registry_date"]) . " " . $request["end_registry_time"]);
+            $end_registry = $request["end_registry"];
+        }
+
+
+        if($start_registry >= $end_registry)
+            return response()->json([
+                'status' => 'nok',
+                'msg' => 'زمان آغاز باید کوچک تر از زمان پایان باشد'
+            ]);
+
+        unset($request['start_registry_date']);
+        unset($request['start_registry_time']);
+        unset($request['end_registry_date']);
+        unset($request['end_registry_time']);
+
+        foreach($request->keys() as $key) {
+            
+            if($key == '_token')
+                continue;
+
+            $event[$key] = $request[$key];
+        }
+
+        $event->save();
+        return response()->json(['status' => 'ok']);
+
+    }
+
 
     public function store_phase2(Event $event, Request $request)
     {

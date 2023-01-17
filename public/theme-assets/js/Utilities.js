@@ -148,6 +148,14 @@ function removeShimmer() {
 }
 function removeUnNecessaryLocks() {
     let should_hide_locks_inputs = [];
+    let permitted_inputs = [
+        "date_input_start",
+        "time_start",
+        "date_input_stop",
+        "date_input_end",
+        "time_stop",
+        "time_end",
+    ];
 
     $("input,textarea").each(function () {
         if ($(this).attr("type") === "checkbox") {
@@ -158,7 +166,16 @@ function removeUnNecessaryLocks() {
             return;
         }
 
-        if ($(this).attr("id") === undefined) return;
+        let id = $(this).attr("id");
+
+        if (id === undefined) return;
+        if (permitted_inputs.indexOf(id) !== -1) {
+            $(this)
+                .removeAttr("disabled", "disabled")
+                .attr("data-editable", true);
+            should_hide_locks_inputs.push($(this).attr("id"));
+            return;
+        }
 
         let val = $(this).val();
 
@@ -175,8 +192,6 @@ function removeUnNecessaryLocks() {
                     .attr("data-editable", false);
         } else $(this).attr("disabled", "disabled").attr("data-editable", false);
     });
-
-    console.log(should_hide_locks_inputs);
 
     if (should_hide_locks_inputs.length > 0) {
         $(".toggle-editable-btn").each(function () {

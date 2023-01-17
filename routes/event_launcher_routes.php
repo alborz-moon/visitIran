@@ -44,6 +44,9 @@ Route::prefix('event/{event}')->group(function() {
 
     Route::post('store_phase2', [EventController::class, 'store_phase2'])->name('event.store_phase2');
     
+    Route::put('launcher-update', [EventController::class, 'launcherUpdate'])->name('event.launcher-update');
+
+
     Route::get('get_desc', [EventController::class, 'getDesc'])->name('event.get_desc');
 
     Route::post('store_desc', [EventController::class, 'store_desc'])->name('event.store_desc');
