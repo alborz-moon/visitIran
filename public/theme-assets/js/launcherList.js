@@ -20,85 +20,18 @@ function buildQuery() {
 
     if (searchKey !== "") query.append("key", searchKey);
 
-    let tags = [];
-    $("input[name='tags']").each(function () {
-        if ($(this).prop("checked")) tags.push($(this).attr("value"));
-    });
-    if (tags.length > 0) {
-        $("#tags_filters_count_container").removeClass("hidden");
-        $("#tags_filters_count").empty().append(tags.length);
-        query.append("tag", tags);
-        total_filters_count += tags.length;
-    } else {
-        $("#tags_filters_count_container").addClass("hidden");
+    let minRate = $("input[name='minRate']:checked").val();
+    if (minRate !== undefined) {
     }
 
-    let levels = [];
-    $("input[name='levels']").each(function () {
-        if ($(this).prop("checked")) levels.push($(this).attr("value"));
-    });
-
-    if (levels.length > 0) {
-        $("#levels_filters_count_container").removeClass("hidden");
-        $("#levels_filters_count").empty().append(levels.length);
-        query.append("levels", levels);
-        total_filters_count += levels.length;
-    } else {
-        $("#levels_filters_count_container").addClass("hidden");
-    }
-
-    let types = [];
-    $("input[name='types']").each(function () {
-        if ($(this).prop("checked")) types.push($(this).attr("value"));
-    });
-
-    if (types.length > 0) {
-        $("#types_filters_count_container").removeClass("hidden");
-        $("#types_filters_count").empty().append(types.length);
-        query.append("types", types);
-        total_filters_count += types.length;
-    } else {
-        $("#types_filters_count_container").addClass("hidden");
-    }
-
-    let facilities = [];
-    $("input[name='facilities']").each(function () {
-        if ($(this).prop("checked")) facilities.push($(this).attr("value"));
-    });
-    if (facilities.length > 0) {
-        $("#facilities_filters_count_container").removeClass("hidden");
-        $("#facilities_filters_count").empty().append(facilities.length);
-        query.append("facilities", facilities);
-        total_filters_count += facilities.length;
-    } else {
-        $("#facilities_filters_count_container").addClass("hidden");
-    }
-
-    let langs = [];
-    $("input[name='langs']").each(function () {
-        if ($(this).prop("checked")) langs.push($(this).attr("value"));
-    });
-    if (langs.length > 0) {
-        $("#langs_filters_count_container").removeClass("hidden");
-        $("#langs_filters_count").empty().append(langs.length);
-        query.append("languages", langs);
-        total_filters_count += langs.length;
-    } else {
-        $("#langs_filters_count_container").addClass("hidden");
-    }
-
-    let launchers = [];
-    $("input[name='launchers']").each(function () {
-        if ($(this).prop("checked")) launchers.push($(this).attr("value"));
-    });
-    if (launchers.length > 0) {
-        $("#launchers_filters_count_container").removeClass("hidden");
-        $("#launchers_filters_count").empty().append(launchers.length);
-        query.append("launchers", launchers);
-        total_filters_count += launchers.length;
-    } else {
-        $("#launchers_filters_count_container").addClass("hidden");
-    }
+    // if (levels.length > 0) {
+    //     $("#levels_filters_count_container").removeClass("hidden");
+    //     $("#levels_filters_count").empty().append(levels.length);
+    //     query.append("levels", levels);
+    //     total_filters_count += levels.length;
+    // } else {
+    //     $("#levels_filters_count_container").addClass("hidden");
+    // }
 
     let cities = [];
     $("input[name='cities']").each(function () {
@@ -205,22 +138,11 @@ $(document).ready(function () {
     $(document).on("change", "input[name='langs']", function () {
         filter();
     });
-    $(document).on("change", "input[name='levels']", function () {
+    $(document).on("change", "input[name='minRate']", function () {
         filter();
     });
-    $(document).on("change", "input[name='facilities']", function () {
-        filter();
-    });
-    $(document).on("change", "input[name='launchers']", function () {
-        filter();
-    });
+
     $(document).on("change", "input[name='cities']", function () {
-        filter();
-    });
-    $(document).on("change", "input[name='types']", function () {
-        filter();
-    });
-    $(document).on("change", "input[name='tags']", function () {
         filter();
     });
 });
@@ -228,13 +150,8 @@ $(document).ready(function () {
 function clearAllFilters() {
     $("input[name='types']").prop("checked", false);
     $("input[name='cities']").prop("checked", false);
-    $("input[name='tags']").prop("checked", false);
-    $("input[name='launchers']").prop("checked", false);
-    $("input[name='facilities']").prop("checked", false);
-    $("input[name='levels']").prop("checked", false);
+    $("input[name='minRate']").prop("checked", false);
     $("input[name='langs']").prop("checked", false);
-    $("#has_selling_stock").prop("checked", false);
-    $("#has_selling_offs").prop("checked", false);
     $("#searchBoxInput").val("");
     filter();
 }

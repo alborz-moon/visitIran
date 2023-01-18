@@ -48,8 +48,8 @@
 
     @include('sections.top_launchers_slider', [
         'id' => 'most_like_launchers_when_filled',
-        'href' => route('launcher-list'),
-        'api' => route('api.launcher.list'),
+        'href' => route('launcher-list', ['orderBy' => 'rate']),
+        'api' => route('api.launcher.top'),
         'key' => 'mostLikeLauncher',
         'title' => 'بهترین برگزار کننده',
         'not_fill_id' => 'most_like_launchers_when_not_filled',

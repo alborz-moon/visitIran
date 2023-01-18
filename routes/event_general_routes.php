@@ -22,6 +22,8 @@ Route::post('search-event-tag', [EventTagController::class, 'search'])->name('se
 
 Route::get('launchers', [LauncherController::class, 'list'])->name('api.launcher.list');
 
+Route::get('top-launchers', [LauncherController::class, 'top'])->name('api.launcher.top');
+
 
 Route::resource('launcher.launcher_comment', LauncherCommentController::class)->except('show', 'update')->shallow();
 

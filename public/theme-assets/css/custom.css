@@ -668,16 +668,20 @@ table thead {
 input[type="number"]:focus,
 input[type="website"]:focus, { */
 /* :not(:checkbox) */
-input:not([type="checkbox"]):not([type="button"]):focus {
+input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):focus {
     background-color: #ffff !important;
 }
-textarea:not([type="checkbox"]):not([type="button"]):focus {
+textarea:not([type="checkbox"]):not([type="radio"]):not([type="button"]):focus {
     background-color: #ffff !important;
 }
-input:not([type="checkbox"]):not([type="button"]):hover:disabled {
+input:not([type="checkbox"]):not([type="radio"]):not(
+        [type="button"]
+    ):hover:disabled {
     background-color: #eaecef;
 }
-textarea:not([type="checkbox"]):not([type="button"]):hover:disabled {
+textarea:not([type="checkbox"]):not([type="radio"]):not(
+        [type="button"]
+    ):hover:disabled {
     background-color: #eaecef;
 }
 .form-check-input:checked {
