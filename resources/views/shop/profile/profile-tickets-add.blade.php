@@ -46,19 +46,18 @@
                                         <label class="label">بخش</label>
                                         <select class="select2" name="department" id="department">
                                             <option value="0">-</option>
-                                            <option value="0">پیشنهاد</option>
-                                            <option value="0">انتقاد یا شکایت</option>
-                                            <option value="0">پیگیری سفارش</option>
-                                            <option value="0">خدمات پس از فروش</option>
-                                            <option value="0">استعلام گارانتی</option>
-                                            <option value="0">مدیریت</option>
-                                            <option value="0">حسابداری و امور مالی</option>
-                                            <option value="0">سایر موضوعات</option>
+                                            <option value="1">پیشنهاد</option>
+                                            <option value="2">انتقاد یا شکایت</option>
+                                            <option value="3">پیگیری سفارش</option>
+                                            <option value="4">خدمات پس از فروش</option>
+                                            <option value="5">مرجوع شدن کالا</option>
+                                            <option value="6">حسابداری و امور مالی</option>
+                                            <option value="7">سایر موضوعات</option>
                                         </select>
                                     </div>
                                     <!-- end of form-element -->
                                 </div>
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <!-- start of form-element -->
                                     <div class="form-element-row mb-5">
                                         <label class="label">اولویت</label>
@@ -70,7 +69,7 @@
                                         </select>
                                     </div>
                                     <!-- end of form-element -->
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="row">
                                 <div class="col-12">
@@ -83,7 +82,7 @@
                                 </div>
                                 <div class="col-12 zIndex0">
 
-                                    <div class="uploadBody">
+                                    {{-- <div class="uploadBody">
                                         <div class="uploadBorder">
                                             <div class="uploadBodyBox">
                                                 <div class="uploadTitleText">بارگذاری فایل محتواasdasd</div>
@@ -97,7 +96,15 @@
                                                 <div class="uploadّFileAllowed">حداکثر فایل مجاز: 100 مگابایت</div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
+                                    {{--                                     
+                                    @include('event.launcher.dropZone', [
+                                        'label' => 'بارگذاری فایل محتوا',
+                                        'key' => 'tickets_file',
+                                        'camelKey' => 'ticketsFile',
+                                        'maxFiles' => 1,
+                                        'route' => route('launcher.update', ['launcher' => $formId]),
+                                    ]) --}}
 
                                 </div>
                                 <div class="col-12 text-end">
