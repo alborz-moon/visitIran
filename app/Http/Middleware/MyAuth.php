@@ -18,7 +18,7 @@ class MyAuth
     public function handle(Request $request, Closure $next)
     {
         $user = $request->user();
-
+        
         if($user == null)
             return Redirect::to('/login-register');
             

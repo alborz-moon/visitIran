@@ -108,7 +108,19 @@
     <script>
         var map = undefined;
 
+
+
         $(document).ready(function() {
+
+            let star = "";
+            let roundRatting = Math.floor('{{ $launcher['rate'] }}');
+            for (var i = 5; i >= 1; i--) {
+                if (i <= roundRatting)
+                    star += '<i class="icon-visit-star me-1 fontSize21"></i>';
+                else
+                    star += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
+            }
+            $(".rattingToStar").empty().append(star);
 
             $('.followToggle').on('click', function() {
 

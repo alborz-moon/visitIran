@@ -19,7 +19,8 @@ class LauncherPolicy
      */
     public function before(User $user, $ability)
     {
-        return $user->level === User::$ADMIN_LEVEL || $user->level === User::$EDITOR_LEVEL;
+        return true;
+        // return $user->level === User::$ADMIN_LEVEL || $user->level === User::$EDITOR_LEVEL;
     }
 
     /**
@@ -40,6 +41,7 @@ class LauncherPolicy
     }
     
     public function show(User $user, Launcher $launcher) {
+        dd("wq");
         return $launcher->status == Event::$CONFIRMED_STATUS;
     }
 

@@ -11,7 +11,7 @@ class LauncherHelper extends Controller {
         
         $filters = null;
 
-        $rate = $request->query('rate', null);
+        $minRate = $request->query('minRate', null);
         $orderBy = $request->query('orderBy', null);
         $orderByType = $request->query('orderByType', null);
         $filters_arr = [];
@@ -21,8 +21,8 @@ class LauncherHelper extends Controller {
         else
             $filters = Launcher::where('status', '!=', 'init');
 
-        if($rate != null)
-            array_push($filters_arr, ['rate', $rate]);
+        if($minRate != null)
+            array_push($filters_arr, ['rate', '>=', $minRate]);
 
         if($orderBy != null) {
             if($orderBy == 'createdAt')
@@ -49,16 +49,10 @@ class LauncherHelper extends Controller {
                         foreach($items as $item) {
                             if($first_cluase) {
                                 $first_cluase = false;
-                                if($tmp_key == "language")
-                                    $like_query .= $tmp_key . " like '%_" . $item . "_%'";
-                                else
-                                    $like_query .= $tmp_key . " like '%" . $item . "%'";
+                                $like_query .= $tmp_key . " like '%" . $item . "%'";
                             }
                             else {
-                                if($tmp_key == "language")
-                                    $like_query .= " or " . $tmp_key . " like '%_" . $item . "_%'";
-                                else
-                                    $like_query .= " or " . $tmp_key . " like '%" . $item . "%'";
+                                $like_query .= " or " . $tmp_key . " like '%" . $item . "%'";
                             }
                         }
 

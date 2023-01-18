@@ -47,7 +47,7 @@ class LauncherController extends LauncherHelper
     {
         return response()->json([
             'status' => 'ok',
-            'data' => LauncherCard::collection(Launcher::active()->orderBy('rate', 'desc')->take(8)->get())->toArray($request)
+            'data' => LauncherCard::collection(Launcher::active()->whereNotNull('rate')->orderBy('rate', 'desc')->take(8)->get())->toArray($request)
         ]);
     }
 

@@ -35,13 +35,22 @@ class CommentDigest extends JsonResource
             $destroyUrl = route('comment.destroy', ['comment' => $this->id]);
         }
 
+        $name = "";
+        if($user->first_name != null && $user->last_name != null)
+            $name = $user->first_name . ' ' . $user->last_name;
+
+        if(empty($name))
+            $name = 'بدون نام';
+
+
         return [
             'id' => $this->id,
             'rate' => $this->rate,
             'status' => $this->status,
-            'user' => $user->first_name . ' ' . $user->last_name,
+            'user' => $name,
+            'phone' => $user->phone,
             'msg' => $this->msg,
-            'created_at' => Controller::MiladyToShamsi($this->created_at),
+            'created_at' => Controller::MiladyToShamsi3($this->created_at->timestamp),
             'editUrl' => $editUrl,
             'destroyUrl' => $destroyUrl
         ];

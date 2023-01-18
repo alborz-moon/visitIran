@@ -22,6 +22,12 @@ function buildQuery() {
 
     let minRate = $("input[name='minRate']:checked").val();
     if (minRate !== undefined) {
+        $("#star_filters_count_container").removeClass("hidden");
+        $("#star_filters_count").empty().append(1);
+        query.append("minRate", minRate);
+        total_filters_count += 1;
+    } else {
+        $("#star_filters_count_container").addClass("hidden");
     }
 
     // if (levels.length > 0) {
