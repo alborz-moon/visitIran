@@ -150,7 +150,7 @@
                                             <div class="tab p-0">
                                                 <div class="ui-box bg-white mb-5 p-0">
 
-                                                    <div class="table-responsive">
+                                                    <div class="table-responsive dropdown">
                                                         <table class="table mb-0">
                                                             <thead>
                                                                 <tr>
@@ -164,18 +164,38 @@
                                                                     <th>عملیات</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody id="registries"></tbody>
+                                                            <tbody id="registries">
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>رویداد تست</td>
+                                                                    <td>250000</td>
+                                                                    <td>10</td>
+                                                                    <td>1401/01/15</td>
+                                                                    <td>1401/02/01</td>
+                                                                    <td>نمایش</td>
+                                                                    <td>
+                                                                        <button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                            <i class="icon-visit-menu"></i>
+                                                                        </button>
+                                                                        <ul class="dropdown-menu">
+                                                                            <li><a class="dropdown-item fontSize12 btnHover" href="#">نمایش / عدم نمایش</a></li>
+                                                                            <li><a class="dropdown-item fontSize12 btnHover" href="#">لیست ثبت نام</a></li>
+                                                                            <li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده و ویرایش</a></li>
+                                                                            <li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری مالی</a></li>
+                                                                            <li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده روزهای برگزاری</a></li>
+                                                                        </ul>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                             <input type="radio" name="tabs" id="tabfive">
                                             <label for="tabfive">جاری</label>
                                             <div class="tab p-0">
                                                 <div class="ui-box bg-white mb-5 p-0">
-                                                    <div class="table-responsive">
+                                                    <div class="table-responsive dropdown">
                                                         <table class="table mb-0">
                                                             <thead>
                                                                 <tr>
@@ -188,18 +208,18 @@
                                                                     <th>عملیات</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody id="runs"></tbody>
+                                                            <tbody id="runs">
+                                                            </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
                                             </div>
 
-
                                             <input type="radio" name="tabs" id="tabsix">
                                             <label for="tabsix">آرشیو</label>
                                             <div class="tab p-0">
                                                 <div class="ui-box bg-white mb-5 p-0">
-                                                    <div class="table-responsive">
+                                                    <div class="table-responsive dropdown">
                                                         <table class="table mb-0">
                                                             <thead>
                                                                 <tr>
@@ -217,8 +237,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -649,9 +667,17 @@
                 html += '<td>غیرفعال</td>';
 
             html += '<td>';
-            html += '<button data-id="' + data.id + '" class="btn btn-circle borderCircle my-1">';
+
+            html += '<button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-id="' + data.id + '">';
             html += '<i class="icon-visit-menu"></i>';
             html += '</button>';
+            html += '<ul class="dropdown-menu">';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">نمایش / عدم نمایش</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">لیست ثبت نام</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده و ویرایش</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری مالی</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده روزهای برگزاری</a></li>';
+            html += '</ul>';
             html += '</td>';
 
             html += '</tr>';
@@ -677,9 +703,17 @@
 
 
             html += '<td>';
-            html += '<button data-id="' + data.id + '" class="btn btn-circle borderCircle my-1">';
+            html += '<button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-id="' + data.id + '">';
             html += '<i class="icon-visit-menu"></i>';
             html += '</button>';
+            html += '<ul class="dropdown-menu">';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">منوی عملیات شامل</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری کاربران</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">روزهای برگزاری</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">لیست ثبت نام</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری مالی</a></li>';
+            html += '</ul>';
             html += '</td>';
 
             html += '</tr>';
@@ -705,9 +739,18 @@
 
 
             html += '<td>';
-            html += '<button data-id="' + data.id + '" class="btn btn-circle borderCircle my-1">';
+            html += '<button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-id="' + data.id + '">';
             html += '<i class="icon-visit-menu"></i>';
             html += '</button>';
+            html += '<ul class="dropdown-menu">';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">منوی عملیات شامل</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری کاربران</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">روزهای برگزاری</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">لیست ثبت نام</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری مالی</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">وضعیت تسویه حساب</a></li>';
+            html += '</ul>';
             html += '</td>';
 
             html += '</tr>';
