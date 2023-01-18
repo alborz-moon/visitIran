@@ -9,7 +9,7 @@
                         <div class="ui-box-title align-items-center justify-content-between">
                             تیکتهای شما
                             <a href="{{ route('profile.my-tickets') }}"
-                                class="btn btn-outline-light borderRadius50 marginLeft3">تیکت جدید <i
+                                class="btn btn-outline-light marginLeft3">تیکت جدید <i
                                     class="ri-add-line ms-2"></i></a>
                         </div>
                         <!-- <div class="ui-box-empty-content">
@@ -19,7 +19,7 @@
                                     <div class="ui-box-empty-content-message">تیکتی تا به الان ایجاد نکرده اید.
                                     </div>
                                 </div> -->
-                        <div class="ui-box-content">
+                        {{-- <div class="ui-box-content">
                             <div class="table-responsive">
                                 <table class="table mb-0">
                                     <thead>
@@ -54,6 +54,40 @@
                                                 <button class="btn btn-circle borderCircle my-1">
                                                     <i class="icon-visit-delete marginTop7"></i>
                                                 </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> --}}
+                        <div class="py-2">
+                            <div class="table-responsive dropdown">
+                                <table class="table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>زمان ایجاد</th>
+                                            <th>بخش</th>
+                                            <th>موضوع</th>
+                                            <th>وضعیت</th>
+                                            <th>آخرین بروزرسانی</th>
+                                            <th>عملیات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="myTickets">
+                                        <tr>
+                                            <td>رویداد من</td>
+                                            <td>اصغر فرهادی</td>
+                                            <td>1401</td>
+                                            <td>1402</td>
+                                            <td>10</td>
+                                            <td>
+                                                <button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="icon-visit-menu"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده</a></li>
+                                                    <li><a class="dropdown-item fontSize12 btnHover" href="#">حذف</a></li>
+                                                </ul>
                                             </td>
                                         </tr>
                                     </tbody>
