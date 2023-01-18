@@ -162,6 +162,8 @@ Route::middleware(['shareEventTags'])->group(function() {
 
         Route::view('/launcher-list','event.launcher-list')->name('launcher-list');
 
+        Route::view('/my-tickets','event.launcher.my-tickets')->name('my-tickets');
+
         Route::get('/list/{tag}/{slug}', [EventTagController::class, 'list'])->name('event.single-category');
     
         Route::get('/list/{orderBy}', [EventTagController::class, 'allCategories'])->name('event.category.list');

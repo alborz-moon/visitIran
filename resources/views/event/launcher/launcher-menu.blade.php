@@ -70,7 +70,6 @@
                             رویدادهای من
                         </a>
                     </li>
-                    {{-- ri-chat-1-line --}}
                     <li class="nav-item">
                         <a class="nav-link" href=""><i class="nav-link-icon ri-notification-line"></i>
                             گزارشات مالی
