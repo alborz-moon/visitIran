@@ -14,22 +14,26 @@
                         <div class="text-muted fw-bold bold">{{ Auth::user()->phone }}</div>
                     </div>
                 </div>
-                <div class="user-options">
-                    <ul>
-                        <li class="d-block">
-                            <div class="label fontSize14 colorBlack whiteSpaceNoWrap">تعداد رویدادها</div>
-                            <div class="colorBlue text-align-end mr-90">
-                                {{ request()->user()->events()->count() }} رویداد
-                            </div>
-                        </li>
-                        <li class="d-block">
-                            <div class="label fontSize14 colorBlack whiteSpaceNoWrap">مبلغ تسویه نشده</div>
-                            <div class="colorBlue text-align-end mr-90">
-                                50000000 <span class="colorYellow">ت</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+
+                @if ($isLauncher)
+                    <div class="user-options">
+                        <ul>
+                            <li class="d-block">
+                                <div class="label fontSize14 colorBlack whiteSpaceNoWrap">تعداد رویدادها</div>
+                                <div class="colorBlue text-align-end mr-90">
+                                    {{ request()->user()->events()->count() }} رویداد
+                                </div>
+                            </li>
+                            <li class="d-block">
+                                <div class="label fontSize14 colorBlack whiteSpaceNoWrap">مبلغ تسویه نشده</div>
+                                <div class="colorBlue text-align-end mr-90">
+                                    50000000 <span class="colorYellow">ت</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                @endif
+
             </div>
 
             <ul class="nav nav-items-with-icon flex-column"
@@ -93,7 +97,8 @@
 
             <ul class="nav nav-items-with-icon flex-column {{ $isLauncher ? 'hidden' : '' }} simpleProfileHidden">
                 <li class="nav-item">
-                    <a class="nav-link" href=""><i class="nav-link-icon ri-file-list-3-line"></i>
+                    <a class="nav-link" href="{{ route('my-events') }}"><i
+                            class="nav-link-icon ri-file-list-3-line"></i>
                         بلیط های من
                     </a>
                 </li>
@@ -107,7 +112,8 @@
                         نظرات</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href=""><i class="nav-link-icon ri-notification-line"></i>
+                    <a class="nav-link" href="{{ route('profile.my-tickets') }}"><i
+                            class="nav-link-icon ri-notification-line"></i>
                         پشتیبانی</a>
                 </li>
                 <li class="nav-item">

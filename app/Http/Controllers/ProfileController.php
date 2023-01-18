@@ -102,7 +102,7 @@ class ProfileController extends Controller
         return view('shop.profile.profile-tickets-detail');
     }
     
-    public function tickets() {
+    public function myTickets() {
         return view('shop.profile.profile-tickets');
     }
 

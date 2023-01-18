@@ -130,7 +130,7 @@ Route::middleware(['myAuth'])->group(function() {
         
         Route::get('/tickets-detail', [ProfileController::class, 'ticketsDetail'])->name('profile.tickets-detail');
         
-        Route::get('/tickets', [ProfileController::class, 'tickets'])->name('profile.tickets');
+        Route::get('/my-tickets', [ProfileController::class, 'myTickets'])->name('profile.my-tickets');
         
         Route::get('/history', [ProfileController::class, 'history'])->name('profile.history');
 
@@ -162,8 +162,6 @@ Route::middleware(['shareEventTags'])->group(function() {
 
         Route::view('/launcher-list','event.launcher-list')->name('launcher-list');
 
-        Route::view('/my-tickets','event.launcher.my-tickets')->name('my-tickets');
-
         Route::get('/list/{tag}/{slug}', [EventTagController::class, 'list'])->name('event.single-category');
     
         Route::get('/list/{orderBy}', [EventTagController::class, 'allCategories'])->name('event.category.list');
@@ -172,6 +170,8 @@ Route::middleware(['shareEventTags'])->group(function() {
 
         Route::middleware(['myAuth'])->group(function() {
 
+            Route::view('/my-events','event.my-events')->name('my-events');
+            
             Route::get('/launcher-register', [LauncherController::class, 'registry'])->name('launcher');
 
             Route::get('/launcher-edit-register/{launcher}', [LauncherController::class, 'editRegistry'])->name('launcher-edit');
