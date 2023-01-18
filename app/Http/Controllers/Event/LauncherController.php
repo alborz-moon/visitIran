@@ -11,9 +11,11 @@ use App\Models\Event;
 use App\Models\Launcher;
 use App\Models\LauncherComment;
 use App\Models\LauncherFollowers;
+use App\Models\State;
 use App\Models\User;
 use App\Rules\NID;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
@@ -36,6 +38,19 @@ class LauncherController extends LauncherHelper
         ]);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function top(Request $request)
+    {
+        return response()->json([
+            'status' => 'ok',
+            'data' => LauncherCard::collection(Launcher::active()->whereNotNull('rate')->orderBy('rate', 'desc')->take(8)->get())->toArray($request)
+        ]);
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -44,9 +59,34 @@ class LauncherController extends LauncherHelper
      */
     public function list(Request $request)
     {
+        
+        $validator = [
+            'key' => 'nullable|persian_alpha|min:2|max:15'
+        ];
+
+        $request->validate($validator, self::$COMMON_ERRS);
+
+        $limit = 30;
+        $key = $request->query('key', null);
+        $page = $request->query('page', 1);
+
+
+        if($key != null && $page > 1)
+            return abort(401);
+
+        $filters = self::build_filters($request, true, $key != null);
+
+        if($key == null) {
+            $events = $filters->skip(($page - 1) * $limit)->take($limit)->get();
+        }
+        // else {
+        //     $events = Event::like($key, null, 'digest', $filters);
+        // }
+
+
         return response()->json([
             'status' => 'ok',
-            'data' => LauncherCard::collection(Launcher::active()->get())->toArray($request)
+            'data' => LauncherCard::collection(Launcher::active()->orderBy('rate', 'desc')->take(8)->get())->toArray($request)
         ]);
     }
 
@@ -554,6 +594,37 @@ class LauncherController extends LauncherHelper
         $mode = $launcher->status == 'init' ? 'create' : 'edit';
 
         return view('event.launcher.launcher-document', compact('formId', 'type', 'mode'));
+    }
+
+    public function registry(Request $request) {
+
+        $user = Auth::user();
+        $editor = $user->isEditor();
+        
+        if(!$editor) {
+            $tmp = Launcher::where('user_id', $user->id)->first();
+            if($tmp != null)
+                return Redirect::route('launcher-edit', ['launcher' => $tmp->id]);
+        }
+
+        $states = State::orderBy('name', 'asc')->get();
+        $mode = 'create';
+        return view('event.launcher.launcher-register', compact('states', 'mode'));
+
+    }
+
+    public function editRegistry(Launcher $launcher) {
+
+        Gate::authorize('update', $launcher);
+
+        $states = State::orderBy('name', 'asc')->get();
+        return view('event.launcher.launcher-register', [
+            'mode' => 'edit', 
+            'states' => $states, 
+            'formId' => $launcher->id,
+            'status' => $launcher->status
+        ]);
+
     }
 
 

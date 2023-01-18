@@ -37,7 +37,7 @@
                             ها</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('profile.tickets') }}"><i
+                        <a class="nav-link" href="{{ route('profile.my-tickets') }}"><i
                                 class="nav-link-icon ri-notification-line"></i>
                             پشتیبانی</a>
                     </li>

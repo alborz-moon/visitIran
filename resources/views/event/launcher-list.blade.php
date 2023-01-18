@@ -18,18 +18,10 @@
     <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
             <div class="row">
-                {{-- @include('event.layouts.searchbar', ['forMarginTop' => true]) --}}
+
                 <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar">
-                    {{-- @include('sections.top_categories_products') --}}
-                    <!-- start of breadcrumb -->
-                    <ol class="breadcrumb mt-1">
-                        {{-- @foreach ($path as $itr) --}}
-                        <li class="breadcrumb-item">
-                            <a href=""></a>
-                        </li>
-                        {{-- @endforeach --}}
-                    </ol>
-                    <!-- end of breadcrumb -->
+
+
                     <div class="ui-sticky ui-sticky-top">
                         <div class="ui-box sidebar-widgets customFilter ">
                             <!-- start of widget -->
@@ -64,21 +56,25 @@
                                 <div class="widget-content widget--search collapse" id="collapseGroupingStar">
 
                                     <div class="filter-options do-simplebar pt-2 mt-2">
-                                        <div id="levels">
+                                        <div>
                                             <li class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" />
+                                                <input id="minRate" name="minRate" class="form-check-input" type="radio"
+                                                    value="4" />
                                                 بیشتر از 4 ستاره
                                             </li>
                                             <li class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" />
+                                                <input id="minRate" name="minRate" class="form-check-input" type="radio"
+                                                    value="3" />
                                                 بیشتر از 3 ستاره
                                             </li>
                                             <li class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" />
+                                                <input id="minRate" name="minRate" class="form-check-input" type="radio"
+                                                    value="2" />
                                                 بیشتر از 2 ستاره
                                             </li>
                                             <li class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" />
+                                                <input id="minRate" name="minRate" class="form-check-input" type="radio"
+                                                    value="1" />
                                                 بیشتر از 1 ستاره
                                             </li>
                                         </div>
@@ -219,29 +215,8 @@
                                                     ])
                                                 </div>
 
-                                                <div id="shimmer" class="hidden"
-                                                    style="display: flex; flex-wrap: wrap; gap: 10px;">
-                                                    @for ($i = 0; $i < 4; $i++)
-                                                        <!-- Slides -->
-                                                        <a href="#" class="cursorPointer">
-                                                            <div class="swiper-slide customEventWidthBox ml-0">
-                                                                <!-- start of product-card -->
-                                                                <div class="product-card customEventBorderBox">
-                                                                    <div class="SimmerParent">
-                                                                        <div class="shimmerBG media pt-1">
-                                                                        </div>
-                                                                        <div class="p-32 mt-4">
-                                                                            <div class="shimmerBG title-line mt-3"></div>
-                                                                            <div class="shimmerBG content-line mt-3"></div>
-                                                                            <div class="shimmerBG title-line mt-3"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- end of product-card -->
-                                                            </div>
-                                                        </a>
-                                                    @endfor
-                                                </div>
+
+                                                @include('event.layouts.list-shimmer')
 
                                                 <div id="launchers_div" class="hidden p-0"
                                                     style="display: flex; flex-wrap: wrap; gap: 5px;">
@@ -287,8 +262,6 @@
 
     <script>
         $(document).ready(function() {
-            $(".customEventBorderBox").addClass("minWidth250");
-
 
 
             $("#orderBy").on('change', function() {

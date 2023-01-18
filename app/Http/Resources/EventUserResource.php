@@ -52,6 +52,9 @@ class EventUserResource extends JsonResource
             
             's' => $start_formatted,
             'e' => $end_formatted,
+            
+            'rate' => $this->rate == null ? 4 : $this->rate,
+            'rate_count' => $this->rate_count,
 
             'start_registry' => $sr,
             'end_registry' => $er,

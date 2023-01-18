@@ -5,6 +5,7 @@
     <link href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.css" rel="stylesheet" />
 @stop
 @section('content')
+
     <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
             <!-- start of product-detail-container -->
@@ -469,8 +470,8 @@
                                     'type' => 'event',
                                     'fetchUrl' => route('event.event_comment.list', ['event' => $event['id']]),
                                     'itemtId' => $event['id'],
-                                    'rate' => $event['launcher_rate'],
-                                    'rate_count' => $event['launcher_rate_count'],
+                                    'rate' => $event['rate'],
+                                    'rate_count' => $event['rate_count'],
                                 ])
                             </div>
                             <div class="expandable-text pt-1" style="height: auto">
@@ -485,6 +486,8 @@
                             @include('event.layouts.launcher', [
                                 'launcher' => null,
                                 'launcherId' => $event['launcher_id'],
+                                'launcherHref' => $launcherHref,
+                                'launcher_is_following' => $event['launcher_is_following'],
                             ])
                         </div>
                     </div>

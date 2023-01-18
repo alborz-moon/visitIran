@@ -14,8 +14,8 @@
 
     <style>
         /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     * Tabs
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         * Tabs
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         */
         .tabs {
             display: flex;
             flex-wrap: wrap;
@@ -150,7 +150,7 @@
                                             <div class="tab p-0">
                                                 <div class="ui-box bg-white mb-5 p-0">
 
-                                                    <div class="table-responsive">
+                                                    <div class="table-responsive dropdown">
                                                         <table class="table mb-0">
                                                             <thead>
                                                                 <tr>
@@ -169,13 +169,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                             <input type="radio" name="tabs" id="tabfive">
                                             <label for="tabfive">جاری</label>
                                             <div class="tab p-0">
                                                 <div class="ui-box bg-white mb-5 p-0">
-                                                    <div class="table-responsive">
+                                                    <div class="table-responsive dropdown">
                                                         <table class="table mb-0">
                                                             <thead>
                                                                 <tr>
@@ -188,18 +186,18 @@
                                                                     <th>عملیات</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody id="runs"></tbody>
+                                                            <tbody id="runs">
+                                                            </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
                                             </div>
 
-
                                             <input type="radio" name="tabs" id="tabsix">
                                             <label for="tabsix">آرشیو</label>
                                             <div class="tab p-0">
                                                 <div class="ui-box bg-white mb-5 p-0">
-                                                    <div class="table-responsive">
+                                                    <div class="table-responsive dropdown">
                                                         <table class="table mb-0">
                                                             <thead>
                                                                 <tr>
@@ -217,8 +215,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -530,12 +526,14 @@
         let archieveIdx = 1;
 
         let steps = ['first', 'second', 'third', 'forth'];
+        let updateEvent = '{{ route('event.home') }}' + "/admin/update-event/";
         let links = [
-            '{{ route('event.home') }}' + "/admin/update-event/",
+            updateEvent,
             '{{ route('event.home') }}' + "/admin/addSessionsInfo/",
             '{{ route('event.home') }}' + "/admin/addPhase2Info/",
             '{{ route('event.home') }}' + "/admin/addGalleryToEvent/",
         ];
+
 
 
         function addToDrafts(data) {
@@ -649,9 +647,20 @@
                 html += '<td>غیرفعال</td>';
 
             html += '<td>';
-            html += '<button data-id="' + data.id + '" class="btn btn-circle borderCircle my-1">';
+
+            html +=
+                '<button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-id="' +
+                data.id + '">';
             html += '<i class="icon-visit-menu"></i>';
             html += '</button>';
+            html += '<ul class="dropdown-menu">';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">نمایش / عدم نمایش</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">لیست ثبت نام</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" target="_blank" href="' + updateEvent + data.id +
+                '">مشاهده و ویرایش</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری مالی</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده روزهای برگزاری</a></li>';
+            html += '</ul>';
             html += '</td>';
 
             html += '</tr>';
@@ -677,9 +686,19 @@
 
 
             html += '<td>';
-            html += '<button data-id="' + data.id + '" class="btn btn-circle borderCircle my-1">';
+            html +=
+                '<button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-id="' +
+                data.id + '">';
             html += '<i class="icon-visit-menu"></i>';
             html += '</button>';
+            html += '<ul class="dropdown-menu">';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">منوی عملیات شامل</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری کاربران</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">روزهای برگزاری</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">لیست ثبت نام</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری مالی</a></li>';
+            html += '</ul>';
             html += '</td>';
 
             html += '</tr>';
@@ -705,9 +724,20 @@
 
 
             html += '<td>';
-            html += '<button data-id="' + data.id + '" class="btn btn-circle borderCircle my-1">';
+            html +=
+                '<button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-id="' +
+                data.id + '">';
             html += '<i class="icon-visit-menu"></i>';
             html += '</button>';
+            html += '<ul class="dropdown-menu">';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">منوی عملیات شامل</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری کاربران</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">روزهای برگزاری</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">لیست ثبت نام</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری مالی</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">وضعیت تسویه حساب</a></li>';
+            html += '</ul>';
             html += '</td>';
 
             html += '</tr>';

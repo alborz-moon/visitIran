@@ -9,7 +9,6 @@ use App\Http\Resources\CommentUserResource;
 use App\Models\Comment;
 use App\Models\EventComment;
 use App\Models\LauncherComment;
-use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;

@@ -281,7 +281,7 @@ class EventController extends EventHelper
     {
 
         $validator = [
-            // 'key' => 'nullable|persian_alpha|min:2|max:15'
+            'key' => 'nullable|persian_alpha|min:2|max:15'
         ];
 
         $request->validate($validator, self::$COMMON_ERRS);

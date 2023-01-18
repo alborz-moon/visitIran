@@ -130,7 +130,7 @@ Route::middleware(['myAuth'])->group(function() {
         
         Route::get('/tickets-detail', [ProfileController::class, 'ticketsDetail'])->name('profile.tickets-detail');
         
-        Route::get('/tickets', [ProfileController::class, 'tickets'])->name('profile.tickets');
+        Route::get('/my-tickets', [ProfileController::class, 'myTickets'])->name('profile.my-tickets');
         
         Route::get('/history', [ProfileController::class, 'history'])->name('profile.history');
 
@@ -170,27 +170,11 @@ Route::middleware(['shareEventTags'])->group(function() {
 
         Route::middleware(['myAuth'])->group(function() {
 
-            Route::get('/launcher-register', function() {
-                
-                $user = Auth::user();
-                $editor = $user->isEditor();
-                
-                if(!$editor) {
-                    $tmp = Launcher::where('user_id', $user->id)->first();
-                    if($tmp != null)
-                        return Redirect::route('launcher-edit', ['formId' => $tmp->id]);
-                }
-
-                $states = State::orderBy('name', 'asc')->get();
-                $mode = 'create';
-                return view('event.launcher.launcher-register', compact('states', 'mode'));
-            })->name('launcher');
-
+            Route::view('/my-events','event.my-events')->name('my-events');
             
-            Route::get('/launcher-edit-register/{formId}', function ($formId) {
-                $states = State::orderBy('name', 'asc')->get();
-                return view('event.launcher.launcher-register', ['mode' => 'edit', 'states' => $states, 'formId' => $formId]);
-            })->name('launcher-edit');
+            Route::get('/launcher-register', [LauncherController::class, 'registry'])->name('launcher');
+
+            Route::get('/launcher-edit-register/{launcher}', [LauncherController::class, 'editRegistry'])->name('launcher-edit');
 
             Route::get('/launcher-document/{formId?}', [LauncherController::class, 'documents'])->name('launcher-document');
 

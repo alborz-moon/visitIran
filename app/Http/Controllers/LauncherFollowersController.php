@@ -26,7 +26,7 @@ class LauncherFollowersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Launcher $launcher) {
-        
+
         Gate::authorize('show', $launcher);
 
         $validator = [

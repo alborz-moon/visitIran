@@ -24,14 +24,23 @@ class CommentUserResource extends JsonResource
             $positive = [];
 
         $user = $this->user;
+
+        $name = "";
+        if($user->first_name != null && $user->last_name != null)
+            $name = $user->first_name . ' ' . $user->last_name;
+
+        if(empty($name))
+            $name = 'بدون نام';
+
+
         return [
             'id' => $this->id,
             'msg' => $this->msg,
             'rate' => $this->rate,
             'negative' => $negative,
             'positive' => $positive,
-            'user' => $user->first_name . ' ' . $user->last_name,
-            'created_at' => Controller::MiladyToShamsi($this->created_at)
+            'user' => $name,
+            'created_at' => Controller::MiladyToShamsi2($this->created_at->timestamp)
         ];
     }
 }
