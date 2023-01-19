@@ -6,7 +6,7 @@
                 <div class="row mb-5">
                         @include('shop.profile.layouts.profile_menu')     
                     <div class="col-xl-9 col-lg-9 col-md-8 px-0">
-                        <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar">فیلتر پیشرفته
+                        <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar mt-3">فیلتر پیشرفته
                             <i class="ri-equalizer-fill ms-1"></i></button>
                         <div class="listing-products">
                             <div class="listing-products-content">

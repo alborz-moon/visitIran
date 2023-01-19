@@ -2089,6 +2089,9 @@ figure .ck-widget {
     color: #fff;
     font-size: 12px;
 }
+.goUp {
+    top: 90px;
+}
 .customBasket:hover {
     transform: rotate(30deg);
     -webkit-transform: rotate(30deg);
