@@ -59,7 +59,7 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="d-flex flexWrap align-items-center spaceBetween p-3">
+                            <div class="d-flex flexWrap align-items-center spaceBetween p-3 gap15">
                                 <div class="d-flex gap10 align-items-center">
                                     <input style="min-width: 200px" class="form-control" placeholder="کد تخفیف">
                                     <button class="btn btn-primary backgroundGray h-50">ثبت</button>
@@ -90,9 +90,9 @@
                                     </div> --}}
                                 <div class="seller-info-changeable">
                                     <div class="d-flex align-items-center">
-                                        <div class="userCircleSize backgroundYellow mx-3 position-relative">
+                                        <div class="userCircleSize backgroundYellow mx-3 position-relative flexCenter">
                                             <i
-                                                class="icon-visit-organization fontSize28 colorWhite position-absolute padding10 "></i>
+                                                class="icon-visit-organization fontSize28 colorWhite position-absolute"></i>
                                         </div>
                                         <div class="d-flex flexDirectionColumn marginTop8">
                                             <div class="fontSize15 bold colorBlack">{{ $event['launcher_title'] }}</div>
@@ -359,7 +359,7 @@
                                         <hr>
                                         <div class="product-seller-row p-0">
                                             <div class="product-seller-row-icon marginTop9">
-                                                <i class="icon-visit-website colorYellow"></i>
+                                                <i class="icon-visit-website colorYellow marginRight10"></i>
                                             </div>
                                             <div class="product-seller-row-detail">
                                                 <div class="seller-final-score-container">
@@ -496,9 +496,9 @@
                             <div class="product-seller-info ui-box mb-3 backColorWhite">
                                 <div class="seller-info-changeable">
                                     <div class="d-flex align-items-center">
-                                        <div class="userCircleSize backgroundYellow mx-3 position-relative">
+                                        <div class="userCircleSize backgroundYellow mx-3 position-relative flexCenter">
                                             <i
-                                                class="icon-visit-organization fontSize28 colorWhite position-absolute padding10 "></i>
+                                                class="icon-visit-organization fontSize28 colorWhite position-absolute"></i>
                                         </div>
                                         <div class="d-flex flexDirectionColumn marginTop8">
                                             <div class="fontSize15 bold colorBlack">{{ $event['launcher_title'] }}</div>
