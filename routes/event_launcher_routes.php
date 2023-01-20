@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Event\EventBuyerController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\EventGalleryController;
 use App\Http\Controllers\Event\EventSessionController;
@@ -32,6 +33,9 @@ Route::prefix('facilities')->group(function() {
 Route::view('/show-events','event.event.show-events')->name('show-events');
 
 Route::resource('launcher.follow', LauncherFollowersController::class)->only('index')->shallow();
+
+
+Route::resource('event.buyers', EventBuyerController::class)->only('index', 'store')->shallow();
 
 
 Route::prefix('event/{event}')->group(function() {

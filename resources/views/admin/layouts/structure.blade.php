@@ -63,7 +63,7 @@
         <!-- responsive CSS
             ============================================ -->
         <link rel="stylesheet" href="{{asset('admin-panel/css/responsive.css')}}">
-        <link rel="stylesheet" href="{{asset('admin-panel/css/common.css')}}">
+        <link rel="stylesheet" href="{{asset('admin-panel/css/common.css?v=1.2')}}">
         <link rel="stylesheet" href="{{asset('admin-panel/css/commonCSS.css')}}">
         <link rel="stylesheet" href="{{asset('theme-assets/css/fontface.css')}}">
 

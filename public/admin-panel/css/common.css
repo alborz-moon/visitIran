@@ -305,9 +305,9 @@ table {
     height: 28px;
 }
 
-.fixed-table-body {
+/* .fixed-table-body {
     direction: ltr !important;
-}
+} */
 
 .col-md-7,
 .col-md-5,
@@ -329,13 +329,13 @@ center {
     direction: rtl;
 }
 
-.mCSB_container {
+/* .mCSB_container {
     overflow: scroll !important;
     transform: rotateX(180deg) !important;
 }
 #mainContainer {
     transform: rotateX(180deg) !important;
-}
+} */
 #errs {
     color: white !important;
 }

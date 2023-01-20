@@ -90,13 +90,24 @@ Route::middleware(['myAuth', 'editorLevel'])->prefix('admin')->group(function() 
     
 });
 
+Route::middleware(['notAuth'])->group(function() {
 
+    Route::post('login', [AuthController::class, 'login'])->name('login');
 
-Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::view('login', 'admin.login')->name('loginPage');
 
-Route::view('login', 'admin.login')->name('loginPage');
+    Route::view('verification', 'verification')->name('verification');
 
-Route::view('verification', 'verification')->name('verification');
+    Route::get('/login-register', function () {
+        return view('login-register');
+    })->name('login-register');
+
+    Route::get('/verification', function () {
+        return view('verification');
+    })->name('verification');
+
+});
+
 
 
 Route::get('blogs', [BlogController::class, 'list'])->name('api.blog.list');
@@ -210,14 +221,6 @@ Route::get('/checkout-successful', function () {
 Route::get('/checkout-unsuccessful', function () {
     return view('checkout-unsuccessful');
 })->name('checkout-unsuccessful');
-
-Route::get('/login-register', function () {
-    return view('login-register');
-})->name('login-register');
-
-Route::get('/verification', function () {
-    return view('verification');
-})->name('verification');
 
 Route::get('/come', function (Request $request) {
     return view('come', ['is_in_event' => $request->getHost() == Controller::$EVENT_SITE]);
