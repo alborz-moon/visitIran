@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar">
+                <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar px-0">
 
 
                     <div class="ui-sticky ui-sticky-top">
