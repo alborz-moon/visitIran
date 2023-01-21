@@ -67,8 +67,6 @@ Route::middleware(['myAuth'])->group(function() {
 
     Route::get('recp/{eventBuyer}', [EventBuyerController::class, 'show']);
 
-    Route::post('my-events/{eventBuyer}', [EventBuyerController::class, 'list'])->name('event.my-events');
-
 });
 
 Route::middleware(['myAuth', 'launcherLevel'])->prefix('admin')

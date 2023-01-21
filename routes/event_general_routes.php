@@ -37,6 +37,8 @@ Route::post('event_comment/{event_comment}', [EventCommentController::class, 'up
 
 Route::middleware(['myAuth'])->group(function() {
 
+    Route::get('my-events/{eventBuyer}', [EventBuyerController::class, 'list'])->name('api.my-events');
+
     Route::prefix('eventTags')->group(function() {
     
         Route::get('/list', [EventTagController::class, 'show'])->name('eventTags.show');
