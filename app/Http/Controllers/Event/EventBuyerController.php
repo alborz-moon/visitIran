@@ -108,7 +108,6 @@ class EventBuyerController extends Controller
      */
     public function list(Request $request)
     {
-        dd(MyEventsDigest::collection(EventBuyer::where('user_id', $request->user()->id)->get())->toArray($request));
         return response()->json([
             'status' => 'ok',
             'data' => MyEventsDigest::collection(EventBuyer::where('user_id', $request->user()->id)->get())->toArray($request)
