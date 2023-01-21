@@ -3,16 +3,19 @@
     @parent
     <script src="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.js"></script>
     <link href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.css" rel="stylesheet" />
-    {{-- <script src="{{ asset('theme-assets/js/Utilities.js') }}"></script> --}}
+    <style>
+        .hidden {
+            display: none !important;
+        }
+    </style>
 @stop
 @section('content')
-<?php $iCount = 1; ?>
+    <?php $iCount = 1; ?>
     <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
             <!-- start of product-detail-container -->
             <div class="product-detail-container mb-5">
                 <div class="row">
-                    {{-- @include('shop.product.bookmark') --}}
                     <div class="col-lg-9 col-md-12 mb-md-0 mb-4">
                         <!-- start of product-gallery -->
                         <div class="bold colorBlack fontSize20">{{ $event['title'] }}</div>
@@ -60,12 +63,13 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="d-flex flexWrap align-items-center justify-content-end p-3 gap15" >
+                            <div class="d-flex flexWrap align-items-center justify-content-end p-3 gap15">
                                 {{-- <div class="d-flex gap10 align-items-center">
                                     <input style="min-width: 200px" class="form-control" placeholder="کد تخفیف">
                                     <button class="btn btn-primary backgroundGray h-50">ثبت</button>
                                 </div> --}}
-                                <button data-remodal-target="buy-event-modal" style="min-width: 290px" class="fontSize18 bold btn btn-primary h-50 ">ثبت نام
+                                <button data-remodal-target="buy-event-modal" style="min-width: 290px"
+                                    class="fontSize18 bold btn btn-primary h-50 ">ثبت نام
                                     <span class="fontSize16 px-1 allPrice"></span>
                                     <span class="fontSize16 px-1">تومان</span>
                                 </button>
@@ -82,8 +86,7 @@
                                     class="ri-stackshare-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
                             </span>
                         </div> --}}
-                            {{-- @include('shop.product.write-comment', ['productId' => $product['id']]) --}}
-                            {{-- @include('event.event.bookmark', ['is_bookmark' => $event['is_bookmark']]) --}}
+
                             <!-- start of product-seller-info -->
                             <div class="product-seller-info ui-box mb-3 backColorWhite">
                                 {{-- <div class="top30 position-absolute fontSize22 colorYellow">
@@ -92,8 +95,7 @@
                                 <div class="seller-info-changeable">
                                     <div class="d-flex align-items-center">
                                         <div class="userCircleSize backgroundYellow mx-3 position-relative flexCenter">
-                                            <i
-                                                class="icon-visit-organization fontSize28 colorWhite position-absolute"></i>
+                                            <i class="icon-visit-organization fontSize28 colorWhite position-absolute"></i>
                                         </div>
                                         <div class="d-flex flexDirectionColumn marginTop8">
                                             <div class="fontSize15 bold colorBlack">{{ $event['launcher_title'] }}</div>
@@ -498,8 +500,7 @@
                                 <div class="seller-info-changeable">
                                     <div class="d-flex align-items-center">
                                         <div class="userCircleSize backgroundYellow mx-3 position-relative flexCenter">
-                                            <i
-                                                class="icon-visit-organization fontSize28 colorWhite position-absolute"></i>
+                                            <i class="icon-visit-organization fontSize28 colorWhite position-absolute"></i>
                                         </div>
                                         <div class="d-flex flexDirectionColumn marginTop8">
                                             <div class="fontSize15 bold colorBlack">{{ $event['launcher_title'] }}</div>
@@ -703,7 +704,7 @@
                 </div>
             </div>
             <!-- end of product-detail-container -->
-            
+
             <!-- start of buy-event-modal -->
             <div class="remodal remodal-xl" data-remodal-id="buy-event-modal" data-remodal-options="hashTracking: false">
                 <div class="remodal-header">
@@ -736,91 +737,108 @@
                         </div>
                     </div>
                 </div>
-                    <hr class="mt-3">
-                    <div class="container mt-3 ">اطلاعات شرکت کننده
-                        <div class="row boxShadow py-3">
-                            <div class="py-1 col-xs-12 col-md-6">
-                                <div class="fs-7 text-dark">نام</div>
-                                <div class="d-flex align-items-center justify-content-between position-relative">
-                                    <input data-editable="true" id="name" type="text" class="form-control" style="direction: rtl" placeholder="نام">
-                                    <button data-input-id="name" class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
-                                        <i class="ri-ball-pen-fill"></i>
-                                    </button>
-                                </div>
-                                <div class="fs-6 fw-bold text-muted"></div>
+                <hr class="mt-3">
+                <div class="container mt-3 ">اطلاعات شرکت کننده
+                    <div class="row boxShadow py-3">
+                        <div class="py-1 col-xs-12 col-md-6">
+                            <div class="fs-7 text-dark">نام</div>
+                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                <input data-editable="true" value="{{ Auth::user()->first_name }}" id="name"
+                                    type="text" class="form-control" style="direction: rtl" placeholder="نام">
+                                <button data-input-id="name"
+                                    class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
+                                    <i class="ri-ball-pen-fill"></i>
+                                </button>
                             </div>
-                            <div class="py-1 col-xs-12 col-md-6">
-                                <div class="fs-7 text-dark">نام خانوادگی</div>
-                                <div class="d-flex align-items-center justify-content-between position-relative">
-                                    <input data-editable="true" id="last" type="text" class="form-control" style="direction: rtl" placeholder="نام خانوادگی">
-                                    <button data-input-id="last" class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
-                                        <i class="ri-ball-pen-fill"></i>
-                                    </button>
-                                </div>
-                                <div class="fs-6 fw-bold text-muted"></div>
-                            </div>
-                            <div class=" py-1 col-xs-12 col-md-6">
-                                <div class="fs-7 text-dark">کد ملی</div>
-                                <div class="d-flex align-items-center justify-content-between position-relative">
-                                    <input data-editable="true" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
-                                    <button data-input-id="nid" class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
-                                        <i class="ri-ball-pen-fill"></i>
-                                    </button>
-                                </div>
-                                <div class="fs-6 fw-bold text-muted"></div>
-                            </div>
-                            <div class=" py-1 col-xs-12 col-md-6">
-                                <div class="fs-7 text-dark">شماره تلفن همراه</div>
-                                <div class="d-flex align-items-center justify-content-between position-relative">
-                                    <input data-editable="true" onkeypress="return isNumber(event) " id="phone" type="tel" minlength="7" maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
-                                    <button data-input-id="phone" class=" toggle-editable-btn btn btn-circle btn-outline-light hidden">
-                                        <i class="ri-ball-pen-fill"></i>
-                                    </button>
-                                </div>
-                                <div class="fs-6 fw-bold text-muted"></div>
-                            </div>
-                            <hr class="my-3">
-                            <div class="d-flex spaceBetween alignItemsCenter">
-                                <div>آیا برای اطلاعات سایر شرکت کننده ها از اطلاعات شما استفاده گردد.</div>
-                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                    <input type="radio" class="btn-check" name="selfDetective" id="mySelf" autocomplete="off" checked>
-                                    <label class="btn btn-outline-primary" for="mySelf">بلی</label>
-                                    
-                                    <input type="radio" class="btn-check" name="selfDetective" id="ourSelf" autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="ourSelf">خیر</label>
-                                
-                                </div>
-                            </div>
+                            <div class="fs-6 fw-bold text-muted"></div>
                         </div>
-                        <div class="hiddenSelf hidden">
-                        </div>
-                        <div class="row boxShadow py-3">
-                            <div class="fontSize14">
-                                در صورت داشتن کد تخفیف آن را وارد کنید
+                        <div class="py-1 col-xs-12 col-md-6">
+                            <div class="fs-7 text-dark">نام خانوادگی</div>
+                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                <input data-editable="true" id="last" type="text" class="form-control"
+                                    style="direction: rtl" value="{{ Auth::user()->last_name }}"
+                                    placeholder="نام خانوادگی">
+                                <button data-input-id="last"
+                                    class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
+                                    <i class="ri-ball-pen-fill"></i>
+                                </button>
                             </div>
-                            <div class="d-flex spaceBetween">
-                                <div>
-                                    <div class="colorRed fontSize14">کد تخفیف معتبر نمی باشد</div>
-                                    <div class="colorGreen fontSize14">کد تخفیف اعمال گردید</div>
-                                </div>
-                                <div>
-                                <div class="d-flex gap10 align-items-center">
-                                        <input style="min-width: 200px" class="form-control" placeholder="کد تخفیف">
-                                        <button class="btn btn-primary backgroundGray h-50">ثبت</button>
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="fs-6 fw-bold text-muted"></div>
                         </div>
-                        <div class="row boxShadow py-3">
-                            <div>قانون استرداد</div>
-                            <p class="fontSize14 mt-2">استرداد بلیت تنها تا ۷۲ ساعت قبل از شروع رویداد امکان پذیر میباشد. در صورت درخواست شرکت‌کننده بعد از بازه تعیین شده، برگزارکننده درخواست را به صورت موردی بررسی خواهد کرد و نتیجه را تا ۳ روز کاری اعلام میکند.
-                            در صورتی که رویداد کنسل شود، برگزار کننده موظف است که مبلغ کامل را به شرکت کنندگان عودت دهد.                     
-                            </p>
+                        <div class=" py-1 col-xs-12 col-md-6">
+                            <div class="fs-7 text-dark">کد ملی</div>
+                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                <input data-editable="true" onkeypress="return isNumber(event)" minlength="10"
+                                    maxlength="10" value="{{ Auth::user()->nid }}" id="nid" type="text"
+                                    class="form-control" style="direction: rtl" placeholder="کد ملی">
+                                <button data-input-id="nid"
+                                    class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
+                                    <i class="ri-ball-pen-fill"></i>
+                                </button>
+                            </div>
+                            <div class="fs-6 fw-bold text-muted"></div>
+                        </div>
+                        <div class=" py-1 col-xs-12 col-md-6">
+                            <div class="fs-7 text-dark">شماره تلفن همراه</div>
+                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                <input data-editable="true" onkeypress="return isNumber(event) " id="phone"
+                                    type="tel" value="{{ Auth::user()->phone }}" minlength="7" maxlength="11"
+                                    class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
+                                <button data-input-id="phone"
+                                    class=" toggle-editable-btn btn btn-circle btn-outline-light hidden">
+                                    <i class="ri-ball-pen-fill"></i>
+                                </button>
+                            </div>
+                            <div class="fs-6 fw-bold text-muted"></div>
+                        </div>
+                        <hr class="my-3">
+
+                        <div id="meOrOthers" class="d-flex spaceBetween alignItemsCenter">
+                            <div>آیا برای اطلاعات سایر شرکت کننده ها از اطلاعات شما استفاده گردد.</div>
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" name="selfDetective" id="mySelf"
+                                    autocomplete="off" checked>
+                                <label class="btn btn-outline-primary" for="mySelf">بلی</label>
+
+                                <input type="radio" class="btn-check" name="selfDetective" id="ourSelf"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary" for="ourSelf">خیر</label>
+
+                            </div>
                         </div>
                     </div>
+                    <div id="others-info" class="hidden">
+                    </div>
+                    <div class="row boxShadow py-3">
+                        <div class="fontSize14">
+                            در صورت داشتن کد تخفیف آن را وارد کنید
+                        </div>
+                        <div class="d-flex spaceBetween">
+                            <div>
+                                <div id="off_result" class="fontSize14"></div>
+                            </div>
+                            <div>
+                                <div class="d-flex gap10 align-items-center">
+                                    <input id="off" style="min-width: 200px" class="form-control"
+                                        placeholder="کد تخفیف">
+                                    <button id="checkOff()" class="btn btn-primary backgroundGray h-50">ثبت</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row boxShadow py-3">
+                        <div>قانون استرداد</div>
+                        <p class="fontSize14 mt-2">استرداد بلیت تنها تا ۷۲ ساعت قبل از شروع رویداد امکان پذیر میباشد. در
+                            صورت درخواست شرکت‌کننده بعد از بازه تعیین شده، برگزارکننده درخواست را به صورت موردی بررسی خواهد
+                            کرد و نتیجه را تا ۳ روز کاری اعلام میکند.
+                            در صورتی که رویداد کنسل شود، برگزار کننده موظف است که مبلغ کامل را به شرکت کنندگان عودت دهد.
+                        </p>
+                    </div>
+                </div>
                 <div class="remodal-footer">
-                    <div class="d-flex flexWrap align-items-center spaceBetween p-3 gap15" >
-                        <button data-remodal-target="buy-event-modal" style="min-width: 290px" class="fontSize18 bold btn btn-primary h-50 ">ثبت نام
+                    <div class="d-flex flexWrap align-items-center spaceBetween p-3 gap15">
+                        <button data-remodal-target="buy-event-modal" style="min-width: 290px"
+                            class="fontSize18 bold btn btn-primary h-50 ">ثبت نام
                             <span class="fontSize16 px-1 allPrice"></span>
                             <span class="fontSize16 px-1">تومان</span>
                         </button>
@@ -918,6 +936,29 @@
                     });
                 });
             }
+
+
+            function checkOff() {
+
+                let code = $("#off").val();
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{ route('checkoff') }}',
+                    data: {
+                        code: code
+                    },
+                    success: function(res) {
+
+                        let resultClass = res.status === 'ok' ? 'colorGreen' : 'colorRed';
+
+                        $("#off_result").empty().append(res.msg);
+
+                    }
+                });
+
+            }
+
             $('.followToggle').on('click', function() {
 
                 @if (!$is_login)
@@ -1002,53 +1043,69 @@
                 updateCount();
             });
 
-            
+
             function updateCount() {
+
                 $(".allPrice").text((count * price).formatPrice(0, ",", "."));
                 $(".counter").val(count);
                 $("#allCounterModal").text(count);
                 $("#allPriceModal").text(price);
 
-                if( count > 1){
-                    $(".hiddenSelf").removeClass("hidden");
+                if (count > 1) {
                     var inputs = "";
-                    for(var i=1; i < count; i++){
-                        inputs += '<hr><div class="container">اطلاعات شرکت کننده' + (i + 1) + '<div class="row boxShadow py-3">';
+                    for (var i = 1; i < count; i++) {
+                        inputs += '<hr><div class="container">اطلاعات شرکت کننده' + (i + 1) +
+                            '<div class="row boxShadow py-3">';
                         inputs += '<div class="py-1 col-xs-12 col-md-6">';
                         inputs += '<div class="fs-7 text-dark">نام</div>';
-                        inputs += '<div class="d-flex align-items-center justify-content-between position-relative">';
-                        inputs += '<input data-editable="true" id="nameLast" type="text" class="form-control" style="direction: rtl" placeholder="نام">';
-                        inputs += '<button data-input-id="userEmail" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';                inputs += '';
+                        inputs +=
+                            '<div class="d-flex align-items-center justify-content-between position-relative">';
+                        inputs +=
+                            '<input data-editable="true" id="nameLast" type="text" class="form-control" style="direction: rtl" placeholder="نام">';
+                        inputs +=
+                            '<button data-input-id="userEmail" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
+                        inputs += '';
                         inputs += '</div>';
                         inputs += '<div class="fs-6 fw-bold text-muted"></div>';
                         inputs += '</div>';
                         inputs += '<div class="py-1 col-xs-12 col-md-6">';
                         inputs += '<div class="fs-7 text-dark">نام خانوادگی</div>';
-                        inputs += '<div class="d-flex align-items-center justify-content-between position-relative">';
-                        inputs += '<input data-editable="true" id="nameLast" type="text" class="form-control" style="direction: rtl" placeholder="نام خانوادگی">';
-                        inputs += '<button data-input-id="userEmail" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';                inputs += '';
+                        inputs +=
+                            '<div class="d-flex align-items-center justify-content-between position-relative">';
+                        inputs +=
+                            '<input data-editable="true" id="nameLast" type="text" class="form-control" style="direction: rtl" placeholder="نام خانوادگی">';
+                        inputs +=
+                            '<button data-input-id="userEmail" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
+                        inputs += '';
                         inputs += '</div>';
                         inputs += '<div class="fs-6 fw-bold text-muted"></div>';
                         inputs += '</div>';
                         inputs += '<div class=" py-1 col-xs-12 col-md-6">';
                         inputs += '<div class="fs-7 text-dark">کد ملی</div>';
-                        inputs += '<div class="d-flex align-items-center justify-content-between position-relative">';
-                        inputs += '<input data-editable="true" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">';
-                        inputs += '<button data-input-id="nid" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
+                        inputs +=
+                            '<div class="d-flex align-items-center justify-content-between position-relative">';
+                        inputs +=
+                            '<input data-editable="true" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">';
+                        inputs +=
+                            '<button data-input-id="nid" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
                         inputs += '</div>';
                         inputs += '<div class="fs-6 fw-bold text-muted"></div>';
                         inputs += '</div>';
                         inputs += '<div class=" py-1 col-xs-12 col-md-6">';
                         inputs += '<div class="fs-7 text-dark">شماره تلفن همراه</div>';
-                        inputs += '<div class="d-flex align-items-center justify-content-between position-relative">';
-                        inputs += '<input data-editable="true" onkeypress="return isNumber(event) " id="phone" type="tel" minlength="7" maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">';
-                        inputs += '<button data-input-id="phone" class=" toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
+                        inputs +=
+                            '<div class="d-flex align-items-center justify-content-between position-relative">';
+                        inputs +=
+                            '<input data-editable="true" onkeypress="return isNumber(event) " id="phone" type="tel" minlength="7" maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">';
+                        inputs +=
+                            '<button data-input-id="phone" class=" toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
                         inputs += '</div>';
                         inputs += '<div class="fs-6 fw-bold text-muted"></div>';
                         inputs += '</div></div></div>';
                     }
                     $(".hiddenSelf").empty().append(inputs);
-                }
+                } else
+                    $("#meOrOthers").addClass('hidden');
             }
 
             let introHeight = $('#intro-container').height();
@@ -1067,15 +1124,14 @@
                 $('#intro-container').removeClass('max-height-auto');
             });
 
-            $("#mySelf").on("click", function(){
+            $("#mySelf").on("click", function() {
                 $(".hiddenSelf").addClass("hidden");
             });
             // $("#ourSelf").on("click", function(){
             //     $(".hiddenSelf").removeClass("hidden");
             // });
-            
-            
-        });
 
+
+        });
     </script>
 @stop

@@ -206,4 +206,32 @@ class OffController extends Controller
         $off->delete();
         return response()->json(['status' => 'ok']);
     }
+
+
+    public function check(Request $request) {
+
+        $validator = [
+            'code' => 'required|string|min:2'
+        ];
+
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator, self::$COMMON_ERRS);
+        $site = $request->getHost() == Controller::$EVENT_SITE ? 'event' : 'shop';
+
+        $off = Off::where('user_id', $request->user()->id)
+            ->where('site', $site)->where('code', $request->code)->first();
+
+        if($off == null)
+            return response()->json(['status' => 'nok', 'msg' => 'کد وارد شده نامعتیر است']);
+
+        if($off->off_expiration < time())
+            return response()->json(['status' => 'nok', 'msg' => 'کد موردنظر منقضی شده است']);
+
+        return response()->json([
+            'status' => 'ok',
+            'msg' => $off->off_type == 'percent' ? $off->amount . '٪' : number_format($off->amount, 0) . ' تومان',
+        ]);
+    }
 }

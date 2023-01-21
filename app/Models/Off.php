@@ -19,7 +19,8 @@ class Off extends Model
         'seller_id',
         'off_expiration',
         'off_type',
-        'amount'
+        'amount',
+        'site'
     ];
 
     public function scopeGeneral($query) {

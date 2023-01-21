@@ -77,6 +77,8 @@ Route::middleware(['myAuth', 'launcherLevel'])->prefix('admin')
     });
 
 
+Route::middleware(['myAuth'])->group(base_path('routes/common_routes.php'));
+
 Route::middleware(['myAuth', 'editorLevelWithoutDomainCheck'])->prefix('admin')
     ->group(base_path('routes/common_admin_routes.php'));
 
