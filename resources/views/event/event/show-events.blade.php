@@ -915,8 +915,13 @@
             html += '</button>';
             html += '<ul class="dropdown-menu">';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری کاربران</a></li>';
-            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">روزهای برگزاری</a></li>';
-            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">لیست ثبت نام</a></li>';
+            html += '<li><button data-id="' + data.id +
+                '" class="sessionsListBtn dropdown-item fontSize12 btnHover">مشاهده روزهای برگزاری</button></li>';
+
+            html += '<li><button data-id="' + data.id +
+                '" class="buyersListBtn dropdown-item fontSize12 btnHover">لیست ثبت نام</button></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" target="_blank" href="' + updateEvent + data.id +
+                '">مشاهده و ویرایش</a></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده</a></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری مالی</a></li>';
             html += '</ul>';
@@ -955,10 +960,12 @@
             html += '</button>';
             html += '<ul class="dropdown-menu">';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری کاربران</a></li>';
-            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">روزهای برگزاری</a></li>';
+            html += '<li><button data-id="' + data.id +
+                '" class="sessionsListBtn dropdown-item fontSize12 btnHover">مشاهده روزهای برگزاری</button></li>';
             html += '<li><button data-id="' + data.id +
                 '" class="buyersListBtn dropdown-item fontSize12 btnHover">لیست ثبت نام</button></li>';
-            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده</a></li>';
+            html += '<li><a class="dropdown-item fontSize12 btnHover" target="_blank" href="' + updateEvent + data.id +
+                '">مشاهده</a></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری مالی</a></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">وضعیت تسویه حساب</a></li>';
             html += '</ul>';
