@@ -7,15 +7,13 @@ use App\Http\Controllers\Event\EventTagController;
 use App\Http\Controllers\Event\LauncherController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\Event\EventBuyerController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Models\EventTag;
-use App\Models\Launcher;
 use App\Models\State;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,6 +64,10 @@ Route::middleware(['shareTopCategories'])->group(function() {
 Route::middleware(['myAuth'])->group(function() {
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('recp/{eventBuyer}', [EventBuyerController::class, 'show']);
+
+    Route::post('my-events/{eventBuyer}', [EventBuyerController::class, 'list'])->name('event.my-events');
 
 });
 
@@ -181,7 +183,7 @@ Route::middleware(['shareEventTags'])->group(function() {
 
         Route::middleware(['myAuth'])->group(function() {
 
-            Route::view('/my-events','event.my-events')->name('my-events');
+            Route::view('/my-events', 'event.my-events')->name('my-events');
             
             Route::get('/launcher-register', [LauncherController::class, 'registry'])->name('launcher');
 

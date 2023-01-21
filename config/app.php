@@ -178,7 +178,7 @@ return [
         Asvae\ApiTester\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         // Anetwork\Validation\PersianValidationServiceProvider::class
-        Barryvdh\DomPDF\ServiceProvider::class,
+        niklasravnsborg\LaravelPdf\PdfServiceProvider::class
     ],
 
     /*
@@ -234,7 +234,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class
     ],
 
 ];

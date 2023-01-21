@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Event;
 use App\Events\EventRegistry;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventBuyerResource;
+use App\Http\Resources\MyEventsDigest;
 use App\Models\Event;
 use App\Models\EventBuyer;
 use App\Models\User;
 use App\Rules\NID;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
+use niklasravnsborg\LaravelPdf\Facades\Pdf;
+
 
 class EventBuyerController extends Controller
 {
@@ -80,18 +84,35 @@ class EventBuyerController extends Controller
      */
     public function show(EventBuyer $eventBuyer)
     {
-        //
+        $event = $eventBuyer->event;
+        $data = [
+            'title' => $event->title,
+            'name' => $eventBuyer->first_name . ' ' . $eventBuyer->last_name,
+            'phone' => $eventBuyer->phone,
+            'nid' => $eventBuyer->nid,
+            'created_at' => self::MiladyToShamsi3($eventBuyer->created_at->timestamp),
+            'paid' => $eventBuyer->paid
+        ];
+        view()->share('data', $data);
+
+        $pdf = Pdf::loadView('event.event.receipt', $data, [],  'UTF-8');
+        return $pdf->download('pdf_file.pdf');
+        // return view('event.event.receipt', compact('data'));
+
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display a listing of the resource.
      *
-     * @param  \App\Models\EventBuyer  $eventBuyer
      * @return \Illuminate\Http\Response
      */
-    public function edit(EventBuyer $eventBuyer)
+    public function list(Request $request)
     {
-        //
+        dd(MyEventsDigest::collection(EventBuyer::where('user_id', $request->user()->id)->get())->toArray($request));
+        return response()->json([
+            'status' => 'ok',
+            'data' => MyEventsDigest::collection(EventBuyer::where('user_id', $request->user()->id)->get())->toArray($request)
+        ]);
     }
 
     /**

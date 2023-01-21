@@ -22,8 +22,6 @@
         <div class="container">
             <div class="row">
 
-                @include('event.layouts.searchbar', ['forMarginTop' => true])
-
                 <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar p-0">
 
                     <div id="goUp" class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">

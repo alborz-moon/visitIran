@@ -165,11 +165,18 @@
                                             </div>
                                             <ul class="nav nav-items-with-icon flex-column">
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="{{ route('cart') }}"><i
-                                                            class="nav-link-icon ri-file-list-3-line"></i>
-                                                        سفارش
-                                                        های من
-                                                    </a>
+                                                    @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
+                                                        <a class="nav-link" href="{{ route('my-events') }}"><i
+                                                                class="nav-link-icon ri-file-list-3-line"></i>
+                                                            بلیط های من
+                                                        </a>
+                                                    @else
+                                                        <a class="nav-link" href="{{ route('cart') }}"><i
+                                                                class="nav-link-icon ri-file-list-3-line"></i>
+                                                            سفارش
+                                                            های من
+                                                        </a>
+                                                    @endif
                                                 </li>
                                                 @if (Auth::check() && Auth::user()->isEditor())
                                                     <li class="nav-item">

@@ -259,26 +259,26 @@
     <!-- end of days-list-modal -->
 
 
-    
+
     <!-- start of force-registry-modal -->
     <div class="remodal remodal-xs" data-remodal-id="addPersonModal" data-remodal-options="hashTracking: false">
         <div class="remodal-header">
             <div class="remodal-title">ثبت نام نفر جدید</div>
-            <button id="close-add-person-btn" onclick="$('#show-buyers-list').click()" data-remodal-action="close" class="remodal-close"></button>
+            <button id="close-add-person-btn" onclick="$('#show-buyers-list').click()" data-remodal-action="close"
+                class="remodal-close"></button>
         </div>
         <div class="remodal-content">
             <div class="form-element-row">
 
                 <div class="col-xs-12 marginTop10">
                     <label class="label fs-7">نام</label>
-                    <input id="first_name" type="text" class="form-control"
-                        placeholder="نام" value="">
+                    <input id="first_name" type="text" class="form-control" placeholder="نام" value="">
                 </div>
-                
+
                 <div class="col-xs-12 marginTop10">
                     <label class="label fs-7">نام خانوادگی</label>
-                    <input id="last_name" type="text" class="form-control"
-                        placeholder="نام خانوادگی" value="">
+                    <input id="last_name" type="text" class="form-control" placeholder="نام خانوادگی"
+                        value="">
                 </div>
 
                 <div class="col-xs-12 marginTop10">
@@ -292,13 +292,13 @@
                     <input id="nid" type="text" class="form-control" onkeypress="return isNumber(event)"
                         placeholder="کد ملی" value="">
                 </div>
-                    
+
                 <div class="col-xs-12 marginTop10">
                     <label class="label fs-7">شماره همراه</label>
                     <input id="phone" type="text" class="form-control" onkeypress="return isNumber(event)"
                         placeholder="شماره همراه" value="">
                 </div>
-                
+
                 <div class="col-xs-12 marginTop10">
                     <label class="label fs-7">تعداد</label>
                     <input id="count" type="text" class="form-control" onkeypress="return isNumber(event)"
@@ -377,12 +377,11 @@
     @parent
 
     <script>
-        
         var timeStart = '';
         var dateStart = '';
         var timeStop = '';
         var dateStop = '';
-        
+
         let fetched_event_buyers = [];
         let fetched_sessions_buyers = [];
 
@@ -411,7 +410,7 @@
             let count = $("#count").val();
             let paid = $("#paid").val();
 
-            if(
+            if (
                 first_name.length === 0 || last_name.length === 0 ||
                 nid.length === 0 || phone.length === 0 ||
                 count.length === 0 || paid.length === 0
@@ -421,21 +420,21 @@
             }
 
             let data = {
-                    first_name: first_name,
-                    last_name: last_name,
-                    nid: nid,
-                    phone: phone,
-                    count: count,
-                    paid: paid
-                };
+                first_name: first_name,
+                last_name: last_name,
+                nid: nid,
+                phone: phone,
+                count: count,
+                paid: paid
+            };
 
             $.ajax({
                 type: 'post',
                 url: '{{ route('event.home') }}' + "/admin/event/" + selectedId + "/buyers",
                 data: data,
                 success: function(res) {
-                    if(res.status === 'ok') {
-                        
+                    if (res.status === 'ok') {
+
                         showSuccess('عملیات موردنظر با موفقیت انجام شد');
                         data.id = res.id;
                         data.created_at = res.created_at;
@@ -485,7 +484,7 @@
             $("#date_input_stop").val($(this).attr('data-val'));
             selectedId = $(this).attr('data-id');
         });
-        
+
         $(document).on('click', '.buyersListBtn', function() {
             selectedId = $(this).attr('data-id');
             buyersList();
@@ -523,10 +522,10 @@
             });
 
         }
-        
+
 
         function add_person_to_table(data) {
-            
+
             var elem = '<tr>';
             elem += '<td>' + personsIdx + '</td>';
             elem += '<td>' + data.first_name + ' ' + data.last_name + '</td>';
@@ -535,18 +534,28 @@
             elem += '<td>' + data.count + '</td>';
             elem += '<td>' + data.paid + '</td>';
             elem += '<td>' + data.created_at + '</td>';
+
+
+            elem += '<td>';
+            elem += '<a href="' + '{{ route('event.home') }}' + '/recp/' + data
+                .id + '" download class="btn btn-circle changeEndRegistryBtn borderCircle my-1">';
+            elem += '<i class="icon-visit-open"></i>';
+            elem += '</a>';
+            elem += '</td>';
+
+
             elem += '</tr>';
             return elem;
         }
 
         function add_buyers_to_table(data) {
-            
+
             personsIdx = 1;
             let html = '';
 
-            for(let i = 0; i < data.length; i++)
+            for (let i = 0; i < data.length; i++)
                 html += add_person_to_table(data[i]);
-            
+
             $('#registryListContent').empty().append(html);
             $("#show-buyers-list").click();
 
@@ -555,7 +564,7 @@
         function buyersList() {
 
             let buyers = fetched_event_buyers.find(elem => elem.id === selectedId);
-            if(buyers !== undefined) {
+            if (buyers !== undefined) {
                 add_buyers_to_table(buyers.data);
                 return;
             }
@@ -566,7 +575,10 @@
                 success: function(res) {
 
                     if (res.status === 'ok') {
-                        fetched_event_buyers.push({id: selectedId, data: res.data});
+                        fetched_event_buyers.push({
+                            id: selectedId,
+                            data: res.data
+                        });
                         add_buyers_to_table(res.data);
                     }
 
@@ -576,11 +588,11 @@
         }
 
         function add_sessions_to_table(data) {
-            
+
             sessionsIdx = 1;
             let html = '';
 
-            for(let i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 html += '<tr>';
                 html += '<td>' + sessionsIdx + '</td>';
                 html += '<td>' + data[i].start + '</td>';
@@ -588,16 +600,16 @@
                 html += '</tr>';
                 sessionsIdx++;
             }
-            
+
             $('#daysListContent').empty().append(html);
             $("#show-days-list").click();
         }
 
-        
+
         function daysList() {
 
             let days = fetched_sessions_buyers.find(elem => elem.id === selectedId);
-            if(days !== undefined) {
+            if (days !== undefined) {
                 add_sessions_to_table(days);
                 return;
             }
@@ -608,7 +620,10 @@
                 success: function(res) {
 
                     if (res.status === 'ok') {
-                        fetched_sessions_buyers.push({id: selectedId, data: res.data});
+                        fetched_sessions_buyers.push({
+                            id: selectedId,
+                            data: res.data
+                        });
                         add_sessions_to_table(res.data);
                     }
 
@@ -617,7 +632,7 @@
 
         }
 
-        
+
         function changeVisibility(newStatus) {
 
             $.ajax({
@@ -854,15 +869,19 @@
             html += '<ul class="dropdown-menu">';
 
             if (data.visibility == 1)
-                html += '<li><button data-id="' + data.id + '" data-val="0" class="changeVisibility_' + data.id + ' changeVisibility dropdown-item fontSize12 btnHover">عدم نمایش</button></li>';
+                html += '<li><button data-id="' + data.id + '" data-val="0" class="changeVisibility_' + data.id +
+                ' changeVisibility dropdown-item fontSize12 btnHover">عدم نمایش</button></li>';
             else
-                html += '<li><button data-id="' + data.id + '" data-val="1" class="changeVisibility_' + data.id + ' changeVisibility dropdown-item fontSize12 btnHover">نمایش</button></li>';
+                html += '<li><button data-id="' + data.id + '" data-val="1" class="changeVisibility_' + data.id +
+                ' changeVisibility dropdown-item fontSize12 btnHover">نمایش</button></li>';
 
-            html += '<li><button data-id="' + data.id + '" class="buyersListBtn dropdown-item fontSize12 btnHover">لیست ثبت نام</button></li>';
+            html += '<li><button data-id="' + data.id +
+                '" class="buyersListBtn dropdown-item fontSize12 btnHover">لیست ثبت نام</button></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" target="_blank" href="' + updateEvent + data.id +
                 '">مشاهده و ویرایش</a></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری مالی</a></li>';
-            html += '<li><button data-id="' + data.id + '" class="sessionsListBtn dropdown-item fontSize12 btnHover">مشاهده روزهای برگزاری</button></li>';
+            html += '<li><button data-id="' + data.id +
+                '" class="sessionsListBtn dropdown-item fontSize12 btnHover">مشاهده روزهای برگزاری</button></li>';
             html += '</ul>';
             html += '</td>';
 
@@ -929,12 +948,16 @@
             html +=
                 '<button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-id="' +
                 data.id + '">';
+
+
+
             html += '<i class="icon-visit-menu"></i>';
             html += '</button>';
             html += '<ul class="dropdown-menu">';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری کاربران</a></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">روزهای برگزاری</a></li>';
-            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">لیست ثبت نام</a></li>';
+            html += '<li><button data-id="' + data.id +
+                '" class="buyersListBtn dropdown-item fontSize12 btnHover">لیست ثبت نام</button></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده</a></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری مالی</a></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">وضعیت تسویه حساب</a></li>';
@@ -992,6 +1015,5 @@
 
             }
         });
-
     </script>
 @stop
