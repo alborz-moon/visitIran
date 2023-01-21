@@ -1,5 +1,5 @@
 
-<button id="closeUser" type="button" class="btn-close customCloseIconBanner hidden p-0 position-absolute l-0 zIndex5"></button>
+<button id="closeUser" type="button" class="btn-close customCloseIconBanner hidden p-0 position-fixed l-0 zIndex5"></button>
 <div class="overlayToggle cursorPointer hidden">
 </div>
 <div id="parentUserMobile" class="pt-4">
@@ -25,6 +25,7 @@
         $(this).addClass("hidden");
         $('#parentUserMobile').addClass('user-wrapper-mobile').css('right','-100%');
         $('#closeUser').addClass('hidden');
+        $('body').css('overflow','auto');
     });
     $('#closeUser').on('click',function(){
         $('#closeUser').addClass('hidden');

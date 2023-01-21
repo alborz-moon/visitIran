@@ -59,7 +59,7 @@
                         @include('layouts.tiles', ['category' => $id, 'mode' => 'list'])
                     @endif
 
-                    <div id="shopContainerFilter" class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar">
+                    <div id="shopContainerFilter" class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar p-0">
                         <div class="ui-sticky ui-sticky-top">
                             <div class="ui-box sidebar-widgets customFilter">
                                 <!-- start of widget -->
@@ -310,7 +310,7 @@
                         </div>
                     </div>
                     <div class="col-xl-9 col-lg-9 col-md-8 px-0">
-                        <button id="advancedFilterShopBtn" class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar">فیلتر پیشرفته
+                        <button id="advancedFilterShopBtn" class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar mt-3">فیلتر پیشرفته
                             <i class="ri-equalizer-fill ms-1"></i>
                         </button>
                             

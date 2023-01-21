@@ -12,74 +12,8 @@
     <link rel="stylesheet" href="{{ URL::asset('theme-assets/bootstrap-datepicker.css?v=1') }}">
     <script src="{{ URL::asset('theme-assets//bootstrap-datepicker.js') }}"></script>
 
-    <style>
-        /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         * Tabs
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         */
-        .tabs {
-            display: flex;
-            flex-wrap: wrap;
-        }
+    <link rel="stylesheet" href="{{ URL::asset('theme-assets/css/show-event.css') }}">
 
-        .tabs label {
-            order: 1;
-            padding: 10px 15px;
-            cursor: pointer;
-            border: 1px solid #dfdfdf;
-            font-weight: bold;
-            margin-left: 10px;
-            transition: background ease 0.2s;
-            display: -webkit-inline-box;
-            display: -ms-inline-flexbox;
-            display: inline-flex;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            justify-content: center;
-            min-height: 40px;
-            border-radius: 10px;
-            -webkit-box-shadow: unset !important;
-            box-shadow: unset !important;
-        }
-
-        .tabs .tab {
-            order: 99;
-            flex-grow: 1;
-            width: 100%;
-            display: none;
-            padding: 1rem;
-            background: #fff;
-        }
-
-        .tabs input[type="radio"] {
-            display: none;
-        }
-
-        .tabs input[type="radio"]:checked+label {
-            background-color: #00b2bc;
-            color: #fff;
-        }
-
-        .tabs input[type="radio"]:checked+label+.tab {
-            display: block;
-        }
-
-        @media (max-width: 45em) {
-
-            .tabs .tab,
-            .tabs label {
-                order: initial;
-            }
-
-            .tabs label {
-                width: 100%;
-                margin-right: 0;
-                margin-top: 0.2rem;
-            }
-        }
-    </style>
 @stop
 
 @section('content')
@@ -104,7 +38,7 @@
                                                 <div class="ui-box bg-white mb-5 p-0">
 
                                                     <div class="table-responsive">
-                                                        <table class="table mb-0">
+                                                        <table class="table mb-0 marginTop10">
                                                             <thead>
                                                                 <tr>
                                                                     <th>شماره</th>
@@ -128,7 +62,7 @@
                                                 <div class="ui-box bg-white mb-5 p-0">
 
                                                     <div class="table-responsive">
-                                                        <table class="table mb-0">
+                                                        <table class="table mb-0 marginTop10">
                                                             <thead>
                                                                 <tr>
                                                                     <th>شماره</th>
@@ -151,7 +85,7 @@
                                                 <div class="ui-box bg-white mb-5 p-0">
 
                                                     <div class="table-responsive dropdown">
-                                                        <table class="table mb-0">
+                                                        <table class="table mb-0 marginTop10">
                                                             <thead>
                                                                 <tr>
                                                                     <th>شماره</th>
@@ -174,7 +108,7 @@
                                             <div class="tab p-0">
                                                 <div class="ui-box bg-white mb-5 p-0">
                                                     <div class="table-responsive dropdown">
-                                                        <table class="table mb-0">
+                                                        <table class="table mb-0 marginTop10">
                                                             <thead>
                                                                 <tr>
                                                                     <th>شماره</th>
@@ -198,7 +132,7 @@
                                             <div class="tab p-0">
                                                 <div class="ui-box bg-white mb-5 p-0">
                                                     <div class="table-responsive dropdown">
-                                                        <table class="table mb-0">
+                                                        <table class="table mb-0 marginTop10">
                                                             <thead>
                                                                 <tr>
                                                                     <th>شماره</th>
@@ -265,6 +199,120 @@
     </div>
     <!-- end of personal-info-fullname-modal -->
 
+    <button id="show-buyers-list" data-remodal-target="registryList" class="hidden"></button>
+    <button id="show-days-list" data-remodal-target="daysList" class="hidden"></button>
+
+    <!-- start of registry-list-modal -->
+    <div class="remodal remodal-lg" data-remodal-id="registryList" data-remodal-options="hashTracking: false">
+        <div class="remodal-header">
+            <div class="remodal-title">لیست ثبت نام رویداد <span id="registryListEventName"></span></div>
+            <button data-remodal-action="close" class="remodal-close"></button>
+        </div>
+        <div class="remodal-content">
+
+            <button data-remodal-target="addPersonModal" class="btn btn-circle borderCircle my-1">
+                <i class="icon-visit-Exclusion1"></i>
+            </button>
+
+            <table class="table mb-0 marginTop10">
+                <thead>
+                    <tr>
+                        <th>شماره</th>
+                        <th>نام</th>
+                        <th>کد ملی</th>
+                        <th>شماره همراه </th>
+                        <th>تعداد</th>
+                        <th>مبلغ پرداختی</th>
+                        <th>زمان ثبت نام</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody id="registryListContent"></tbody>
+            </table>
+
+        </div>
+    </div>
+    <!-- end of registry-list-modal -->
+
+
+    <!-- start of days-list-modal -->
+    <div class="remodal remodal-lg" data-remodal-id="daysList" data-remodal-options="hashTracking: false">
+        <div class="remodal-header">
+            <div class="remodal-title">لیست روزهای برگزاری رویداد <span id="daysList"></span></div>
+            <button data-remodal-action="close" class="remodal-close"></button>
+        </div>
+        <div class="remodal-content">
+
+            <table class="table mb-0 marginTop10">
+                <thead>
+                    <tr>
+                        <th>شماره</th>
+                        <th>ساعت شروع</th>
+                        <th>ساعت اتمام</th>
+                    </tr>
+                </thead>
+                <tbody id="daysListContent"></tbody>
+            </table>
+
+        </div>
+    </div>
+    <!-- end of days-list-modal -->
+
+
+    
+    <!-- start of force-registry-modal -->
+    <div class="remodal remodal-xs" data-remodal-id="addPersonModal" data-remodal-options="hashTracking: false">
+        <div class="remodal-header">
+            <div class="remodal-title">ثبت نام نفر جدید</div>
+            <button id="close-add-person-btn" onclick="$('#show-buyers-list').click()" data-remodal-action="close" class="remodal-close"></button>
+        </div>
+        <div class="remodal-content">
+            <div class="form-element-row">
+
+                <div class="col-xs-12 marginTop10">
+                    <label class="label fs-7">نام</label>
+                    <input id="first_name" type="text" class="form-control"
+                        placeholder="نام" value="">
+                </div>
+                
+                <div class="col-xs-12 marginTop10">
+                    <label class="label fs-7">نام خانوادگی</label>
+                    <input id="last_name" type="text" class="form-control"
+                        placeholder="نام خانوادگی" value="">
+                </div>
+
+                <div class="col-xs-12 marginTop10">
+                    <label class="label fs-7">هزینه پرداختی</label>
+                    <input id="paid" type="text" class="form-control" onkeypress="return isNumber(event)"
+                        placeholder="هزینه پرداختی" value="">
+                </div>
+
+                <div class="col-xs-12 marginTop10">
+                    <label class="label fs-7">کد ملی</label>
+                    <input id="nid" type="text" class="form-control" onkeypress="return isNumber(event)"
+                        placeholder="کد ملی" value="">
+                </div>
+                    
+                <div class="col-xs-12 marginTop10">
+                    <label class="label fs-7">شماره همراه</label>
+                    <input id="phone" type="text" class="form-control" onkeypress="return isNumber(event)"
+                        placeholder="شماره همراه" value="">
+                </div>
+                
+                <div class="col-xs-12 marginTop10">
+                    <label class="label fs-7">تعداد</label>
+                    <input id="count" type="text" class="form-control" onkeypress="return isNumber(event)"
+                        placeholder="تعداد" value="">
+                </div>
+
+            </div>
+        </div>
+        <div class="remodal-footer">
+            <button id="addPersonBtn" class="btn btn-sm btn-primary px-3">ثبت اطلاعات</button>
+        </div>
+    </div>
+    <!-- end of force-registry-modal -->
+
     <!-- start of personal-info-fullname-modal -->
     <div class="remodal remodal-xs" data-remodal-id="time-and-date-start-modal"
         data-remodal-options="hashTracking: false">
@@ -329,14 +377,14 @@
     @parent
 
     <script>
+        
         var timeStart = '';
         var dateStart = '';
         var timeStop = '';
         var dateStop = '';
-        var telsObj = {
-            tels: [],
-            idx: 1
-        };
+        
+        let fetched_event_buyers = [];
+        let fetched_sessions_buyers = [];
 
         var datePickerOptions = {
             numberOfMonths: 1,
@@ -353,6 +401,53 @@
             altFormat: "yy/mm/dd",
             altField: $("#date_input_stop_formatted")
         };
+
+        $("#addPersonBtn").on('click', function() {
+
+            let first_name = $("#first_name").val();
+            let last_name = $("#last_name").val();
+            let nid = $("#nid").val();
+            let phone = $("#phone").val();
+            let count = $("#count").val();
+            let paid = $("#paid").val();
+
+            if(
+                first_name.length === 0 || last_name.length === 0 ||
+                nid.length === 0 || phone.length === 0 ||
+                count.length === 0 || paid.length === 0
+            ) {
+                showErr('لطفا تمام اطلاعات لازم را پرنمایید');
+                return;
+            }
+
+            let data = {
+                    first_name: first_name,
+                    last_name: last_name,
+                    nid: nid,
+                    phone: phone,
+                    count: count,
+                    paid: paid
+                };
+
+            $.ajax({
+                type: 'post',
+                url: '{{ route('event.home') }}' + "/admin/event/" + selectedId + "/buyers",
+                data: data,
+                success: function(res) {
+                    if(res.status === 'ok') {
+                        
+                        showSuccess('عملیات موردنظر با موفقیت انجام شد');
+                        data.id = res.id;
+                        data.created_at = res.created_at;
+
+                        $('#registryListContent').append(add_person_to_table(data));
+                        $("#close-add-person-btn").click();
+                        $("#show-buyers-list").click();
+                    }
+                }
+            });
+
+        });
 
         $(document).ready(function() {
             $('#time_start').bootstrapMaterialDatePicker({
@@ -390,7 +485,21 @@
             $("#date_input_stop").val($(this).attr('data-val'));
             selectedId = $(this).attr('data-id');
         });
+        
+        $(document).on('click', '.buyersListBtn', function() {
+            selectedId = $(this).attr('data-id');
+            buyersList();
+        });
 
+        $(document).on('click', '.sessionsListBtn', function() {
+            selectedId = $(this).attr('data-id');
+            daysList();
+        });
+
+        $(document).on('click', '.changeVisibility', function() {
+            selectedId = $(this).attr('data-id');
+            changeVisibility($(this).attr('data-val'));
+        });
 
         function update(key) {
 
@@ -408,6 +517,124 @@
                         $("#" + key + "_" + selectedId).empty().append(val);
                         $("#" + key + "_" + selectedId + "_btn").attr('data-val', val);
                         $(".remodal-close").click();
+                    }
+
+                }
+            });
+
+        }
+        
+
+        function add_person_to_table(data) {
+            
+            var elem = '<tr>';
+            elem += '<td>' + personsIdx + '</td>';
+            elem += '<td>' + data.first_name + ' ' + data.last_name + '</td>';
+            elem += '<td>' + data.nid + '</td>';
+            elem += '<td>' + data.phone + '</td>';
+            elem += '<td>' + data.count + '</td>';
+            elem += '<td>' + data.paid + '</td>';
+            elem += '<td>' + data.created_at + '</td>';
+            elem += '</tr>';
+            return elem;
+        }
+
+        function add_buyers_to_table(data) {
+            
+            personsIdx = 1;
+            let html = '';
+
+            for(let i = 0; i < data.length; i++)
+                html += add_person_to_table(data[i]);
+            
+            $('#registryListContent').empty().append(html);
+            $("#show-buyers-list").click();
+
+        }
+
+        function buyersList() {
+
+            let buyers = fetched_event_buyers.find(elem => elem.id === selectedId);
+            if(buyers !== undefined) {
+                add_buyers_to_table(buyers.data);
+                return;
+            }
+
+            $.ajax({
+                type: 'get',
+                url: '{{ route('event.home') }}' + "/admin/event/" + selectedId + "/buyers",
+                success: function(res) {
+
+                    if (res.status === 'ok') {
+                        fetched_event_buyers.push({id: selectedId, data: res.data});
+                        add_buyers_to_table(res.data);
+                    }
+
+                }
+            });
+
+        }
+
+        function add_sessions_to_table(data) {
+            
+            sessionsIdx = 1;
+            let html = '';
+
+            for(let i = 0; i < data.length; i++) {
+                html += '<tr>';
+                html += '<td>' + sessionsIdx + '</td>';
+                html += '<td>' + data[i].start + '</td>';
+                html += '<td>' + data[i].end + '</td>';
+                html += '</tr>';
+                sessionsIdx++;
+            }
+            
+            $('#daysListContent').empty().append(html);
+            $("#show-days-list").click();
+        }
+
+        
+        function daysList() {
+
+            let days = fetched_sessions_buyers.find(elem => elem.id === selectedId);
+            if(days !== undefined) {
+                add_sessions_to_table(days);
+                return;
+            }
+
+            $.ajax({
+                type: 'get',
+                url: '{{ route('event.home') }}' + "/admin/event/" + selectedId + "/sessions",
+                success: function(res) {
+
+                    if (res.status === 'ok') {
+                        fetched_sessions_buyers.push({id: selectedId, data: res.data});
+                        add_sessions_to_table(res.data);
+                    }
+
+                }
+            });
+
+        }
+
+        
+        function changeVisibility(newStatus) {
+
+            $.ajax({
+                type: 'put',
+                url: '{{ route('event.home') }}' + "/admin/event/" + selectedId + "/launcher-update",
+                data: {
+                    visibility: newStatus
+                },
+                success: function(res) {
+
+                    if (res.status === 'ok') {
+                        showSuccess('عملیات موردنظر با موفقیت انجام شد');
+                        $(".changeVisibility_" + selectedId)
+                            .empty().append(newStatus == '1' ? 'عدم نمایش' : 'نمایش')
+                            .attr('data-val', newStatus == '1' ? '0' : '1');
+                        $(".visibility_" + selectedId)
+                            .empty().append(newStatus == '1' ? 'نمایش' : 'عدم نمایش');
                     }
 
                 }
@@ -489,41 +716,13 @@
             }
         });
 
-        function removeItem1() {
-            $('#removeItem1').remove();
-        }
-
-        function removeItem2() {
-            $('#removeItem2').remove();
-        }
-
-        function removeItem3() {
-            $('#removeItem3').remove();
-        }
-
-        function removeItem4() {
-            $('#removeItem4').remove();
-        }
-
-        function removeItem5() {
-            $('#removeItem5').remove();
-        }
-        $('#onlineOrOffline').on('change', function() {
-            onlineOrOffline = $('#onlineOrOffline').val();
-            if (onlineOrOffline === 'online') {
-                // show or hide class for online
-            } else if (onlineOrOffline === 'offline') {
-                // show or hide class for offline
-            } else {
-                // hide All
-            }
-        });
-
         let draftsIdx = 1;
         let pendingsIdx = 1;
         let registryIdx = 1;
         let runIdx = 1;
         let archieveIdx = 1;
+        let personsIdx = 1;
+        let sessionsIdx = 1;
 
         let steps = ['first', 'second', 'third', 'forth'];
         let updateEvent = '{{ route('event.home') }}' + "/admin/update-event/";
@@ -601,7 +800,6 @@
             $("#pendings").append(html);
         }
 
-
         function addToRegistry(data) {
 
             let html = '<tr>';
@@ -642,9 +840,9 @@
             html += '</td>';
 
             if (data.visibility == 1)
-                html += '<td>فعال</td>';
+                html += '<td class="visibility_' + data.id + '">نمایش</td>';
             else
-                html += '<td>غیرفعال</td>';
+                html += '<td class="visibility_' + data.id + '">عدم نمایش</td>';
 
             html += '<td>';
 
@@ -654,12 +852,17 @@
             html += '<i class="icon-visit-menu"></i>';
             html += '</button>';
             html += '<ul class="dropdown-menu">';
-            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">نمایش / عدم نمایش</a></li>';
-            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">لیست ثبت نام</a></li>';
+
+            if (data.visibility == 1)
+                html += '<li><button data-id="' + data.id + '" data-val="0" class="changeVisibility_' + data.id + ' changeVisibility dropdown-item fontSize12 btnHover">عدم نمایش</button></li>';
+            else
+                html += '<li><button data-id="' + data.id + '" data-val="1" class="changeVisibility_' + data.id + ' changeVisibility dropdown-item fontSize12 btnHover">نمایش</button></li>';
+
+            html += '<li><button data-id="' + data.id + '" class="buyersListBtn dropdown-item fontSize12 btnHover">لیست ثبت نام</button></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" target="_blank" href="' + updateEvent + data.id +
                 '">مشاهده و ویرایش</a></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری مالی</a></li>';
-            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده روزهای برگزاری</a></li>';
+            html += '<li><button data-id="' + data.id + '" class="sessionsListBtn dropdown-item fontSize12 btnHover">مشاهده روزهای برگزاری</button></li>';
             html += '</ul>';
             html += '</td>';
 
@@ -692,7 +895,6 @@
             html += '<i class="icon-visit-menu"></i>';
             html += '</button>';
             html += '<ul class="dropdown-menu">';
-            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">منوی عملیات شامل</a></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری کاربران</a></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">روزهای برگزاری</a></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">لیست ثبت نام</a></li>';
@@ -730,7 +932,6 @@
             html += '<i class="icon-visit-menu"></i>';
             html += '</button>';
             html += '<ul class="dropdown-menu">';
-            html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">منوی عملیات شامل</a></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">گزارش گیری کاربران</a></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">روزهای برگزاری</a></li>';
             html += '<li><a class="dropdown-item fontSize12 btnHover" href="#">لیست ثبت نام</a></li>';
@@ -745,6 +946,7 @@
 
             $("#archieves").append(html);
         }
+
 
         $(document).on('click', ".removeEventBtn", function() {
 
@@ -790,5 +992,6 @@
 
             }
         });
+
     </script>
 @stop

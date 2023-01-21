@@ -316,16 +316,18 @@
                     if(res.data.start_registry_time.length > 0)
                         $('#time_start').val(res.data.start_registry_time);
                         
-                    if(res.data.start_registry_date.length > 0)
-                        $('#date_input_start').val(res.data.start_registry_date);
+                    if(res.data.start_registry_date.length > 0) {
+                        $('#date_input_start').val(res.data.start_registry_date_formatted);
                         $('#date_input_start_formatted').val(res.data.start_registry_date);
+                    }
                     
                     if(res.data.start_registry_time.length > 0)
                         $('#time_stop').val(res.data.end_registry_time);
                         
-                    if(res.data.start_registry_date.length > 0)
-                        $('#date_input_stop').val(res.data.end_registry_date);
+                    if(res.data.start_registry_date.length > 0) {
+                        $('#date_input_stop').val(res.data.end_registry_date_formatted);
                         $('#date_input_stop_formatted').val(res.data.end_registry_date);
+                    }
 
                     if (res.start_registry_time != undefined && res.data.start_registry_date != undefined || res.data.end_registry_time != undefined && res.data.end_registry_date != undefined ){
                         

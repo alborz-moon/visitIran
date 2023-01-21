@@ -18,12 +18,15 @@
 
 @section('content')
     <main class="page-content TopParentBannerMoveOnTop">
+        @include('event.layouts.searchbar', ['forMarginTop' => true])
         <div class="container">
             <div class="row">
-                @include('event.layouts.searchbar', ['forMarginTop' => true])
-                <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar  px-0">
 
-                    <div class="ui-sticky ui-sticky-top">
+                @include('event.layouts.searchbar', ['forMarginTop' => true])
+
+                <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar p-0">
+
+                    <div id="goUp" class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">
                         <div class="ui-box sidebar-widgets customFilter ">
                             <!-- start of widget -->
                             <div class="widget mb-3">
@@ -373,7 +376,7 @@
                     </div>
                 </div>
                 <div class="col-xl-9 col-lg-9 col-md-8 px-0">
-                    <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar">فیلتر پیشرفته
+                    <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar mt-3">فیلتر پیشرفته
                         <i class="ri-equalizer-fill ms-1"></i>
                     </button>
 
