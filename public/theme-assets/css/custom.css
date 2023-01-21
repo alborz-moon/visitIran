@@ -405,6 +405,9 @@ ul {
 .colorWhiteGray {
     color: #dedede !important;
 }
+.colorGreen {
+    color: #479800 !important;
+}
 .colorBlack {
     color: #555a5d !important;
 }
@@ -2091,6 +2094,15 @@ figure .ck-widget {
 }
 .goUp {
     top: 90px;
+}
+.btn-check:active + .btn-outline-primary,
+.btn-check:checked + .btn-outline-primary,
+.btn-outline-primary.active,
+.btn-outline-primary.dropdown-toggle.show,
+.btn-outline-primary:active {
+    color: #fff;
+    background-color: #00b2bc !important;
+    border-color: #00b2bc !important;
 }
 .customBasket:hover {
     transform: rotate(30deg);
