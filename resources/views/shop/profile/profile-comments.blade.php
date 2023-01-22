@@ -5,7 +5,7 @@
             <div class="container">
                 <div class="row mb-5">
                         @include('shop.profile.layouts.profile_menu')     
-                    <div class="col-xl-9 col-lg-8 col-md-7">
+                    <div class="col-xl-9 col-lg-9 col-md-8">
                         <div class="ui-box bg-white mb-5">
                             <div class="ui-box-title">نظرات</div>
                             <div class="ui-box-content comments">
@@ -28,11 +28,14 @@
     <script>
      $.ajax({
         type: 'get',
-        url: '{{ route('api.comment.my') }}',
+            url: '{{ request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE ? route('api.comment.myevent') : route('api.comment.my') }}',
         headers: {
             'accept': 'application/json'
         },
         success: function(res) {
+            console.log('====================================');
+            console.log(res);
+            console.log('====================================');
             var html= "";
             if(res.status === "ok") {
                 for(var i = 0; i < res.data.length; i++) {
@@ -41,7 +44,11 @@
                     html +='<div class="spaceBetween"';
                     html +='<div><a href="' + res.data[i].href + '" class="d-flex align-items-center colorBlack bold pb-3">';
                     html +='<img src="' + res.data[i].img + '" width="30" height="30" alt="">';
-                    html +='<span class="fs-7 fw-bold px-3">' + res.data[i].product + '</span>';
+                    if (res.data[i].product != undefined && res.data[i].product.length != 0 ){
+                        html +='<span class="fs-7 fw-bold px-3">' +  res.data[i].product + '</span>';
+                    }else{
+                        html +='<span class="fs-7 fw-bold px-3">' +  res.data[i].event + '</span>';
+                    }
                     html +='</a>';
                     html += '<div class="d-flex align-items-center justify-content-center">';
                     if(res.data[i].rate != null) {

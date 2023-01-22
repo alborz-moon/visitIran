@@ -184,6 +184,8 @@ Route::middleware(['shareEventTags'])->group(function() {
         Route::middleware(['myAuth'])->group(function() {
 
             Route::view('/my-events', 'event.my-events')->name('my-events');
+
+            Route::view('/profile-favorites-event', 'shop.profile.profile-favorites-event')->name('profile-favorites-event');
             
             Route::get('/launcher-register', [LauncherController::class, 'registry'])->name('launcher');
 

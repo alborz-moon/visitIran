@@ -2299,3 +2299,28 @@ figure .ck-widget {
         display: none;
     }
 }
+@media only screen and (min-width: 1200px) {
+    .eventHandleInMediaFavorites {
+        flex-basis: calc(33.33333% - 5px);
+    }
+}
+@media only screen and (min-width: 940px) and (max-width: 1199px) {
+    .eventHandleInMediaFavorites {
+        flex-basis: calc(50% - 5px);
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 939px) {
+    .eventHandleInMediaFavorites {
+        flex-basis: calc(100% - 5px);
+    }
+}
+@media only screen and (min-width: 550px) and (max-width: 767px) {
+    .eventHandleInMediaFavorites {
+        flex-basis: calc(50% - 5px);
+    }
+}
+@media only screen and (max-width: 549px) {
+    .eventHandleInMediaFavorites {
+        flex-basis: calc(100% - 5px);
+    }
+}
