@@ -9,7 +9,8 @@
                     $('#close').on('click', function() {
                         $('#SliderParent').addClass('marginTopMediaQuaryForSlider');
                         $('.TopParentBannerMoveOnTop').addClass('marginTopMediaQuaryForSlider');
-                        $('.StickyMenuMoveOnTop').addClass('stickyTop')
+                        $('.StickyMenuMoveOnTop').addClass('stickyTop');
+                        // ('#goUp').addClass("goUp");
                     })
                 });
             </script>

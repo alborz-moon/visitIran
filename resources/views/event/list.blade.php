@@ -18,12 +18,13 @@
 
 @section('content')
     <main class="page-content TopParentBannerMoveOnTop">
+        @include('event.layouts.searchbar', ['forMarginTop' => true])
         <div class="container">
             <div class="row">
-                @include('event.layouts.searchbar', ['forMarginTop' => true])
-                <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar">
 
-                    <div class="ui-sticky ui-sticky-top">
+                <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar mt-4">
+
+                    <div id="goUp" class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">
                         <div class="ui-box sidebar-widgets customFilter ">
                             <!-- start of widget -->
                             <div class="widget mb-3">
@@ -372,8 +373,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-9 col-lg-9 col-md-8 px-0">
-                    <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar">فیلتر پیشرفته
+                <div class="col-xl-9 col-lg-9 col-md-8">
+                    <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar mt-3">فیلتر پیشرفته
                         <i class="ri-equalizer-fill ms-1"></i>
                     </button>
 
@@ -382,7 +383,7 @@
                             <!-- start of tab-content -->
                             <div class="tab-content marginTopNegative5" id="sort-tabContent">
                                 <!-- start of tab-pane -->
-                                <div class="tab-pane fade show active" id="most-visited" role="tabpanel"
+                                <div class="tab-pane fade show active mt-4" id="most-visited" role="tabpanel"
                                     aria-labelledby="most-visited-tab">
                                     <div class="ui-box p-1 mb-4">
                                         <div class="ui-box-content p-0">

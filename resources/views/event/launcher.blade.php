@@ -60,6 +60,14 @@
                                 'showLauncher' => true,
                             ])
                         </div>
+                        {{-- @include('sections.top_events_slider', [
+                            'id' => 'latest_events_when_filled',
+                            'searchKey' => 'createdAt',
+                            'key' => 'latestEvent',
+                            'title' => 'درزمینه',
+                            'not_fill_id' => 'latest_events_when_not_filled',
+                            'fill_input' => 'eventType',
+                        ]) --}}
                         <!-- end of product-gallery -->
                         <!-- start of product-comments -->
                         <div class="fontSize18 bold mb-5">دیدگاه ها </div>

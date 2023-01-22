@@ -132,7 +132,7 @@ function renderLauncher(data, prefix) {
             id +
             "', '" +
             elem.slug +
-            '\')" class="cursorPointer eventHandleInMedia">' +
+            '\')" class="cursorPointer handleInMedia">' +
             newElem +
             "</div>";
     });

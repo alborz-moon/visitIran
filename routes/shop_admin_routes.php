@@ -40,13 +40,6 @@ Route::resource('category.features', FeatureController::class)->except('show', '
 Route::post('feature/{feature}', [FeatureController::class, 'update'])->name('feature.update');
 
 
-
-Route::resource('off', OffController::class)->except(['show', 'update']);
-
-Route::post('off/{off}', [OffController::class, 'update'])->name('off.update');
-
-
-
 Route::resource('product', ProductController::class)->except(['show', 'update']);
 
 Route::prefix('product')->group(function () {

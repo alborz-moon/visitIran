@@ -3,15 +3,19 @@
     @parent
     <script src="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.js"></script>
     <link href="https://cdn.parsimap.ir/third-party/mapbox-gl-js/v1.13.0/mapbox-gl.css" rel="stylesheet" />
+    <style>
+        .hidden {
+            display: none !important;
+        }
+    </style>
 @stop
 @section('content')
-
     <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
             <!-- start of product-detail-container -->
             <div class="product-detail-container mb-5">
                 <div class="row">
-                    {{-- @include('shop.product.bookmark') --}}
+                    @include('event.event.bookmark', ['is_bookmark' => $event['is_bookmark']])
                     <div class="col-lg-9 col-md-12 mb-md-0 mb-4">
                         <!-- start of product-gallery -->
                         <div class="bold colorBlack fontSize20">{{ $event['title'] }}</div>
@@ -49,7 +53,7 @@
                                         <span class="num-in b-0">
                                             <span
                                                 class="icon-visit-Exclusion1 countPlus customColorBlack d-flex justify-content-center align-items-center"></span>
-                                            <input id="counter" name="counter" type="text" value="1"
+                                            <input name="counter" class="counter" type="text" value="1"
                                                 readonly="">
                                             <span class="fontSize12 peopleCount">نفر</span>
                                             <span
@@ -59,13 +63,14 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="d-flex flexWrap align-items-center spaceBetween p-3">
-                                <div class="d-flex gap10 align-items-center">
+                            <div class="d-flex flexWrap align-items-center justify-content-end p-3 gap15">
+                                {{-- <div class="d-flex gap10 align-items-center">
                                     <input style="min-width: 200px" class="form-control" placeholder="کد تخفیف">
                                     <button class="btn btn-primary backgroundGray h-50">ثبت</button>
-                                </div>
-                                <button style="min-width: 290px" class="fontSize18 bold btn btn-primary h-50 ">ثبت نام
-                                    <span id="allPrice" class="fontSize16 px-1"></span>
+                                </div> --}}
+                                <button data-remodal-target="buy-event-modal" style="min-width: 290px"
+                                    class="fontSize18 bold btn btn-primary h-50 ">ثبت نام
+                                    <span class="fontSize16 px-1 allPrice"></span>
                                     <span class="fontSize16 px-1">تومان</span>
                                 </button>
                             </div>
@@ -90,9 +95,8 @@
                                     </div> --}}
                                 <div class="seller-info-changeable">
                                     <div class="d-flex align-items-center">
-                                        <div class="userCircleSize backgroundYellow mx-3 position-relative">
-                                            <i
-                                                class="icon-visit-organization fontSize28 colorWhite position-absolute padding10 "></i>
+                                        <div class="userCircleSize backgroundYellow mx-3 position-relative flexCenter">
+                                            <i class="icon-visit-organization fontSize28 colorWhite position-absolute"></i>
                                         </div>
                                         <div class="d-flex flexDirectionColumn marginTop8">
                                             <div class="fontSize15 bold colorBlack">{{ $event['launcher_title'] }}</div>
@@ -359,7 +363,7 @@
                                         <hr>
                                         <div class="product-seller-row p-0">
                                             <div class="product-seller-row-icon marginTop9">
-                                                <i class="icon-visit-website colorYellow"></i>
+                                                <i class="icon-visit-website colorYellow marginRight10"></i>
                                             </div>
                                             <div class="product-seller-row-detail">
                                                 <div class="seller-final-score-container">
@@ -496,9 +500,8 @@
                             <div class="product-seller-info ui-box mb-3 backColorWhite">
                                 <div class="seller-info-changeable">
                                     <div class="d-flex align-items-center">
-                                        <div class="userCircleSize backgroundYellow mx-3 position-relative">
-                                            <i
-                                                class="icon-visit-organization fontSize28 colorWhite position-absolute padding10 "></i>
+                                        <div class="userCircleSize backgroundYellow mx-3 position-relative flexCenter">
+                                            <i class="icon-visit-organization fontSize28 colorWhite position-absolute"></i>
                                         </div>
                                         <div class="d-flex flexDirectionColumn marginTop8">
                                             <div class="fontSize15 bold colorBlack">{{ $event['launcher_title'] }}</div>
@@ -703,6 +706,144 @@
             </div>
             <!-- end of product-detail-container -->
 
+            <!-- start of buy-event-modal -->
+            <div class="remodal remodal-xl" data-remodal-id="buy-event-modal" data-remodal-options="hashTracking: false">
+                <div class="remodal-header">
+                    <div class="remodal-title">خرید بلیت نام رویداد</div>
+                    <button data-remodal-action="close" class="remodal-close"></button>
+                </div>
+                <div class="boxShadow">
+                    <div class="ui-box bg-white mb-5 p-0">
+                        <div class="table-responsive">
+                            <table class="table mb-0 marginTop10">
+                                <thead>
+                                    <tr>
+                                        <th>ردیف</th>
+                                        <th>عنوان بلیط</th>
+                                        <th>تعداد</th>
+                                        <th>توضیحات</th>
+                                        <th>قیمت</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="buyTicket"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="d-flex spaceBetween p-3">
+                        <div class="fontSize16">
+                            تعداد کل: <span id="allCounterModal" class="px-1"></span> بلیط
+                        </div>
+                        <div class="fontSize16">
+                            قیمت کل: <span id="allPriceModal" class="px-1"></span>تومان
+                        </div>
+                    </div>
+                </div>
+                <hr class="mt-3">
+                <div class="container mt-3 ">اطلاعات شرکت کننده
+                    <div class="row boxShadow py-3">
+                        <div class="py-1 col-xs-12 col-md-6">
+                            <div class="fs-7 text-dark">نام</div>
+                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                <input data-editable="true" id="name" type="text" class="form-control"
+                                    style="direction: rtl" placeholder="نام">
+                                <button data-input-id="name"
+                                    class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
+                                    <i class="ri-ball-pen-fill"></i>
+                                </button>
+                            </div>
+                            <div class="fs-6 fw-bold text-muted"></div>
+                        </div>
+                        <div class="py-1 col-xs-12 col-md-6">
+                            <div class="fs-7 text-dark">نام خانوادگی</div>
+                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                <input data-editable="true" id="last" type="text" class="form-control"
+                                    style="direction: rtl" placeholder="نام خانوادگی">
+                                <button data-input-id="last"
+                                    class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
+                                    <i class="ri-ball-pen-fill"></i>
+                                </button>
+                            </div>
+                            <div class="fs-6 fw-bold text-muted"></div>
+                        </div>
+                        <div class=" py-1 col-xs-12 col-md-6">
+                            <div class="fs-7 text-dark">کد ملی</div>
+                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                <input data-editable="true" onkeypress="return isNumber(event)" minlength="10"
+                                    maxlength="10" id="nid" type="text" class="form-control"
+                                    style="direction: rtl" placeholder="کد ملی">
+                                <button data-input-id="nid"
+                                    class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
+                                    <i class="ri-ball-pen-fill"></i>
+                                </button>
+                            </div>
+                            <div class="fs-6 fw-bold text-muted"></div>
+                        </div>
+                        <div class=" py-1 col-xs-12 col-md-6">
+                            <div class="fs-7 text-dark">شماره تلفن همراه</div>
+                            <div class="d-flex align-items-center justify-content-between position-relative">
+                                <input data-editable="true" onkeypress="return isNumber(event) " id="phone"
+                                    type="tel" minlength="7" maxlength="11" class="form-control"
+                                    style="direction: rtl" placeholder="شماره تلفن همراه">
+                                <button data-input-id="phone"
+                                    class=" toggle-editable-btn btn btn-circle btn-outline-light hidden">
+                                    <i class="ri-ball-pen-fill"></i>
+                                </button>
+                            </div>
+                            <div class="fs-6 fw-bold text-muted"></div>
+                        </div>
+                        <div class="fs-6 fw-bold text-muted"></div>
+                    </div>
+                    <hr class="my-3">
+
+                    <div id="meOrOthers" class="d-flex spaceBetween alignItemsCenter">
+                        <div>آیا برای اطلاعات سایر شرکت کننده ها از اطلاعات شما استفاده گردد.</div>
+                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" value="my" class="btn-check" name="selfDetective" id="mySelf"
+                                autocomplete="off" checked>
+                            <label class="btn btn-outline-primary" for="mySelf">بلی</label>
+
+                            <input type="radio" value="other" class="btn-check" name="selfDetective" id="ourSelf"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="ourSelf">خیر</label>
+
+                        </div>
+                    </div>
+                    <div id="others-info" class="hidden">
+                    </div>
+                    <div class="row boxShadow py-3">
+                        <div class="fontSize14">
+                            در صورت داشتن کد تخفیف آن را وارد کنید
+                        </div>
+                        <div class="d-flex spaceBetween">
+                            <div id="off_result"></div>
+                            <div>
+                                <div class="d-flex gap10 align-items-center">
+                                    <input id="off" style="min-width: 200px" class="form-control"
+                                        placeholder="کد تخفیف">
+                                    <button class="checkOffBtn btn btn-primary backgroundGray h-50">ثبت</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row boxShadow py-3">
+                            <div>قانون استرداد</div>
+                            <p class="fontSize14 mt-2">استرداد بلیت تنها تا ۷۲ ساعت قبل از شروع رویداد امکان پذیر میباشد.
+                                در صورت درخواست شرکت‌کننده بعد از بازه تعیین شده، برگزارکننده درخواست را به صورت موردی بررسی
+                                خواهد کرد و نتیجه را تا ۳ روز کاری اعلام میکند.
+                                در صورتی که رویداد کنسل شود، برگزار کننده موظف است که مبلغ کامل را به شرکت کنندگان عودت دهد.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="remodal-footer">
+                        <div class="d-flex flexWrap align-items-center spaceBetween p-3 gap15">
+                            <button data-remodal-target="buy-event-modal" style="min-width: 290px"
+                                class="fontSize18 bold btn btn-primary h-50 ">ثبت نام
+                                <span id="after-check-price" class="fontSize16 px-1 allPrice"></span>
+                                <span class="fontSize16 px-1">تومان</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- end of buy-event-modal -->
     </main>
 
     <script src="https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/parsimap-geocoder/v1.0.0/parsimap-geocoder.js">
@@ -793,6 +934,38 @@
                     });
                 });
             }
+
+            $(document).on('click', '.checkOffBtn', function() {
+                checkOff();
+            });
+
+            function checkOff() {
+
+                let code = $("#off").val();
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{ route('checkoff') }}',
+                    data: {
+                        code: code,
+                        amount: count * price
+                    },
+                    success: function(res) {
+
+                        let resultClass = res.status === 'ok' ? 'colorGreen' : 'colorRed';
+                        $("#off_result").empty().append(res.msg)
+                            .removeClass('colorGreen').removeClass('colorRed')
+                            .addClass(resultClass);
+
+                        if (res.status === 'ok') {
+                            $("#after-check-price").empty().append(res.new_amount);
+                        }
+
+                    }
+                });
+
+            }
+
             $('.followToggle').on('click', function() {
 
                 @if (!$is_login)
@@ -877,10 +1050,72 @@
                 updateCount();
             });
 
+
             function updateCount() {
-                $("#allPrice").text((count * price).formatPrice(0, ",", "."));
-                $("#counter").val(count);
+                $(".allPrice").text((count * price).formatPrice(0, ",", "."));
+                $(".counter").val(count);
+                $("#allCounterModal").text(count);
+                $("#allPriceModal").text(price);
+
+                if (count > 1) {
+                    $(".hiddenSelf").removeClass("hidden");
+                    var inputs = "";
+                    for (var i = 1; i < count; i++) {
+                        inputs += '<hr><div class="container">اطلاعات شرکت کننده' + (i + 1) +
+                            '<div class="row boxShadow py-3">';
+                        inputs += '<div class="py-1 col-xs-12 col-md-6">';
+                        inputs += '<div class="fs-7 text-dark">نام</div>';
+                        inputs +=
+                            '<div class="d-flex align-items-center justify-content-between position-relative">';
+                        inputs +=
+                            '<input data-editable="true" id="nameLast" type="text" class="form-control" style="direction: rtl" placeholder="نام">';
+                        inputs +=
+                            '<button data-input-id="userEmail" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
+                        inputs += '';
+                        inputs += '</div>';
+                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
+                        inputs += '</div>';
+                        inputs += '<div class="py-1 col-xs-12 col-md-6">';
+                        inputs += '<div class="fs-7 text-dark">نام خانوادگی</div>';
+                        inputs +=
+                            '<div class="d-flex align-items-center justify-content-between position-relative">';
+                        inputs +=
+                            '<input data-editable="true" id="nameLast" type="text" class="form-control" style="direction: rtl" placeholder="نام خانوادگی">';
+                        inputs +=
+                            '<button data-input-id="userEmail" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
+                        inputs += '';
+                        inputs += '</div>';
+                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
+                        inputs += '</div>';
+                        inputs += '<div class=" py-1 col-xs-12 col-md-6">';
+                        inputs += '<div class="fs-7 text-dark">کد ملی</div>';
+                        inputs +=
+                            '<div class="d-flex align-items-center justify-content-between position-relative">';
+                        inputs +=
+                            '<input data-editable="true" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">';
+                        inputs +=
+                            '<button data-input-id="nid" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
+                        inputs += '</div>';
+                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
+                        inputs += '</div>';
+                        inputs += '<div class=" py-1 col-xs-12 col-md-6">';
+                        inputs += '<div class="fs-7 text-dark">شماره تلفن همراه</div>';
+                        inputs +=
+                            '<div class="d-flex align-items-center justify-content-between position-relative">';
+                        inputs +=
+                            '<input data-editable="true" onkeypress="return isNumber(event) " id="phone" type="tel" minlength="7" maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">';
+                        inputs +=
+                            '<button data-input-id="phone" class=" toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
+                        inputs += '</div>';
+                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
+                        inputs += '</div></div></div>';
+                    }
+                    $("#meOrOthers").removeClass('hidden');
+                    $("#others-info").empty().append(inputs);
+                } else
+                    $("#meOrOthers").addClass('hidden');
             }
+
             let introHeight = $('#intro-container').height();
 
             if (introHeight >= 400) {
@@ -896,6 +1131,15 @@
                 $('#intro-container-parent').removeClass('max-height-auto');
                 $('#intro-container').removeClass('max-height-auto');
             });
+
+            $(document).on("change", "input[name='selfDetective']", function() {
+                if ($(this).val() == 'other')
+                    $("#others-info").removeClass('hidden');
+                else
+                    $("#others-info").addClass('hidden');
+
+            });
+
 
         });
     </script>

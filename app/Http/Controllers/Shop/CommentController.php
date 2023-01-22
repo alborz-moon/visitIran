@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\ABS_Comment;
-use App\Http\Resources\CommentResource;
 use App\Http\Resources\commentResourceWithProduct;
 use App\Models\Comment;
 use App\Models\Product;

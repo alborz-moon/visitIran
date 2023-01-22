@@ -8,7 +8,7 @@
                     <div class="ui-box bg-white mb-5 p-0">
                         <div class="ui-box-title align-items-center justify-content-between">
                             تیکتهای شما
-                            <a href="{{ route('profile.my-tickets') }}"
+                            <a href="{{ route('profile.tickets-add') }}"
                                 class="btn btn-outline-light marginLeft3">تیکت جدید <i
                                     class="ri-add-line ms-2"></i></a>
                         </div>

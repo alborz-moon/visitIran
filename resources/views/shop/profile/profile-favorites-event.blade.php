@@ -4,8 +4,10 @@
         <main class="page-content TopParentBannerMoveOnTop">
             <div class="container">
                 <div class="row mb-5">
-                        @include('shop.profile.layouts.profile_menu')
-                    <div class="col-xl-9 col-lg-9 col-md-8 px-0">
+                        @include('shop.profile.layouts.profile_menu')     
+                    <div class="col-lg-9 col-md-8 p-0">
+                        {{-- <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar mt-3">فیلتر پیشرفته
+                            <i class="ri-equalizer-fill ms-1"></i></button> --}}
                         <div class="listing-products">
                             <div class="listing-products-content">
                                 <!-- start of tab-content -->
@@ -18,8 +20,8 @@
                                                 <div class="ui-box-title">کالاهای مورد علاقه</div>
                                                 <div class="row mx-0">
                                                     <div id="nothingToShow" class="hidden">محصولی برای نمایش موجود نیست</div>
-                                                    <div id="sample_product_div" class="hidden">
-                                                        @include('shop.productCard', ['key' => 'sample'])
+                                                    <div id="sample_event_div" class="hidden">
+                                                        @include('event.event.event_card', ['key' => 'sample'])
                                                     </div>
 
                                                     <div id="shimmer" style="display: flex; flex-wrap: wrap; gap: 0px;">
@@ -47,100 +49,13 @@
                                                         @endfor
                                                     </div>
 
-                                                    <div id="products_div" class="hidden p-0" style="display: flex; flex-wrap: wrap; gap: 5px;">
+                                                    <div id="event-favorites_div" class="hidden p-0" style="display: flex; flex-wrap: wrap; gap: 5px;">
                                                     </div>
 
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- end of tab-pane -->
-                                    <!-- start of tab-pane -->
-                                    {{-- <div class="tab-pane fade" id="best-selling" role="tabpanel"
-                                        aria-labelledby="best-selling-tab">
-                                        <div class="ui-box pt-3 pb-0 px-0 mb-4">
-                                            <div class="ui-box-content">
-                                                <div class="row mx-0">
-                                                        
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    <!-- end of tab-pane -->
-                                    {{-- <!-- start of tab-pane -->
-                                    <div class="tab-pane fade" id="most-popular" role="tabpanel"
-                                        aria-labelledby="most-popular-tab">
-                                        <div class="ui-box pt-3 pb-0 px-0 mb-4">
-                                            <div class="ui-box-content">
-                                                <div class="row mx-0">
-                                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
-                                                        <!-- start of product-card -->
-                                                        <div class="product-card">
-                                                            <div class="product-thumbnail">
-                                                                <a href="#">
-                                                                    <img src=""
-                                                                        alt="product title">
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-card-body">
-                                                                <h2 class="product-title">
-                                                                    <a href="#">گوشی موبایل اپل مدل iPhone 12 Pro Max
-                                                                        A2412 دو
-                                                                        سیم‌
-                                                                        کارت
-                                                                        ظرفیت
-                                                                        256 گیگابایت
-                                                                    </a>
-                                                                </h2>
-                                                                <div class="product-variant">
-                                                                    
-                                                                </div>
-                                                                <div class="product-price fa-num">
-                                                                    <span class="price-now">36,300,000 <span
-                                                                            class="currency">تومان</span></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-card-footer">
-                                                                <div
-                                                                    class="d-flex align-items-center justify-content-between border-top mt-2 py-2">
-                                                                    <div class="product-actions">
-                                                                        <ul>
-                                                                            <li><a href="#" data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="top" title=""
-                                                                                    data-bs-original-title="افزودن به سبد خرید"
-                                                                                    aria-label="افزودن به سبد خرید"><i
-                                                                                        class="ri-shopping-cart-line"></i></a>
-                                                                            </li>
-                                                                            <li><a href="#" data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="top" title=""
-                                                                                    data-bs-original-title="مشاهده سریع"
-                                                                                    aria-label="مشاهده سریع"
-                                                                                    data-remodal-target="quick-view-modal"><i
-                                                                                        class="ri-search-line"></i></a>
-                                                                            </li>
-                                                                            <li><a href="#" data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="top" title=""
-                                                                                    data-bs-original-title="افزودن به علاقمندی"
-                                                                                    aria-label="افزودن به علاقمندی"><i
-                                                                                        class="ri-heart-3-line"></i></a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="product-rating fa-num">
-                                                                        <i class="ri-star-fill star"></i>
-                                                                        <strong>۴.۴</strong>
-                                                                        <span>(۴۳۶)</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end of product-card -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end of tab-pane --> --}}
                                 </div>
                             </div>
                         </div>
@@ -176,18 +91,20 @@
     @parent
     <script>
         $(document).ready(function(){
-
-            $("#products_div").addClass('hidden');
+            $(".customEventBorderBox").addClass("minWidth250");
+            $("#event-favorites_div").addClass('hidden');
             $("#shimmer").removeClass('hidden');
 
             $.ajax({
                 type: 'get',
-                url: '{{ route('api.product.my') }}',
+                url: '{{ route('api.events.my') }}',
                 success: function(res) {
                     
                     if(res.status !== "ok")
                         return;
-                    
+                    console.log('====================================');
+                    console.log(res.data);
+                    console.log('====================================');
                     var length = res.data.length
                     if (length == 0){
                         $("#shimmer").addClass('hidden');
@@ -195,7 +112,7 @@
                         return
                     }
                     let html = renderProducts(res.data, 'sample');
-                    $("#products_div").empty().append(html).removeClass('hidden');
+                    $("#event-favorites_div").empty().append(html).removeClass('hidden');
                     $("#shimmer").addClass('hidden');  
                 }
             })
@@ -257,7 +174,7 @@
                     $("#" + prefix + "PriceParent").removeClass("hidden");
 
                 let id = elem.id;
-                var newElem = $("#sample_product_div").html();
+                var newElem = $("#sample_event_div").html();
 
                 newElem = newElem
                     .replace(prefix + "Img", prefix + "Img_" + id)
@@ -266,14 +183,13 @@
                     .replace(prefix + "Critical", prefix + "Critical_" + id)
                     .replace(prefix + "CriticalCount", prefix + "CriticalCount_" + id)
                     .replace(prefix + "Rate", prefix + "Rate_" + id)
-                    .replace(prefix + "MultiColor", prefix + "MultiColor_" + id);
 
                 html +=
                     "<div onclick=\"redirect('" +
                     id +
                     "', '" +
                     elem.slug +
-                    '\')" class="cursorPointer handleInMedia">' +
+                    '\')" class="cursorPointer eventHandleInMediaFavorites">' +
                     newElem +
                     "</div>";
             });

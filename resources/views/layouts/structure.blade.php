@@ -165,11 +165,18 @@
                                             </div>
                                             <ul class="nav nav-items-with-icon flex-column">
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="{{ route('cart') }}"><i
-                                                            class="nav-link-icon ri-file-list-3-line"></i>
-                                                        سفارش
-                                                        های من
-                                                    </a>
+                                                    @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
+                                                        <a class="nav-link" href="{{ route('my-events') }}"><i
+                                                                class="nav-link-icon ri-file-list-3-line"></i>
+                                                            بلیط های من
+                                                        </a>
+                                                    @else
+                                                        <a class="nav-link" href="{{ route('cart') }}"><i
+                                                                class="nav-link-icon ri-file-list-3-line"></i>
+                                                            سفارش
+                                                            های من
+                                                        </a>
+                                                    @endif
                                                 </li>
                                                 @if (Auth::check() && Auth::user()->isEditor())
                                                     <li class="nav-item">
@@ -396,7 +403,7 @@
                         <button class="d-flex b-0 m-0 p-0 toggle-navigation">
                             <div class="menuCircle">
                                 <div
-                                    class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
+                                    class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop8">
                                     <i class="icon-visit-menu fontSize30 colorBlack"></i>
                                     <div class="fontSize14 colorBlack whiteSpaceNoWrap">منو</div>
                                 </div>
@@ -405,7 +412,7 @@
                         <button id="searchMobile" class="d-flex b-0 m-0 p-0">
                             <div class="menuCircle">
                                 <div
-                                    class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
+                                    class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop8">
                                     <i class="icon-visit-search colorBlack fontSize30"></i>
                                     <div class="fontSize14 colorBlack whiteSpaceNoWrap">جست و جو</div>
                                 </div>
@@ -415,7 +422,7 @@
                             <a href="" class="d-flex b-0 m-0 p-0">
                                 <div class="menuCircle">
                                     <div
-                                        class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
+                                        class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop8">
                                         <i class="icon-visit-basket fontSize30 colorYellow"></i>
                                         <div class="fontSize14 colorBlack whiteSpaceNoWrap">سبد خرید</div>
                                     </div>
@@ -426,7 +433,7 @@
                             <a href="{{ route('login-register') }}" class="d-flex b-0 m-0 p-0 setLinkUrl">
                                 <div class="menuCircle">
                                     <div
-                                        class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
+                                        class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop8">
                                         <i class="icon-visit-person fontSize30 colorBlack"></i>
                                         <div class="fontSize14 colorBlack whiteSpaceNoWrap">ورود/ثبت نام</div>
                                     </div>
@@ -436,7 +443,7 @@
                             <button id="userToggleMobile" class="d-flex b-0 m-0 p-0">
                                 <div class="menuCircle">
                                     <div
-                                        class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop15">
+                                        class="d-flex flexDirectionColumn justify-content-center align-items-center paddingTop8">
                                         <i class="icon-visit-person fontSize30 colorBlack"></i>
                                         <div class="fontSize14 colorBlack whiteSpaceNoWrap">صفحه شخصی</div>
                                     </div>

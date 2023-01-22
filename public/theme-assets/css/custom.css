@@ -120,8 +120,28 @@ ul {
 .floatLeft {
     float: left;
 }
-.product-detail-container .product-params ul li::before {
+.evoloation::before {
     display: none;
+}
+.marginRight10 {
+    margin-right: 10;
+}
+.flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.product-detail-container .product-params ul li::before {
+    content: "";
+    display: inline-block;
+    height: unset;
+    width: unset;
+    background-color: unset;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
 }
 .padding0 {
     padding: 0;
@@ -384,6 +404,9 @@ ul {
 }
 .colorWhiteGray {
     color: #dedede !important;
+}
+.colorGreen {
+    color: #479800 !important;
 }
 .colorBlack {
     color: #555a5d !important;
@@ -721,7 +744,7 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
     left: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.8);
-    z-index: 2;
+    z-index: 3;
 }
 .customBorderLeft1 {
     border-left: 1px solid #9c9c9c;
@@ -729,6 +752,9 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
 }
 .customPaddingTopBottom10 {
     padding: 10px 0;
+}
+.paddingTop8 {
+    padding-top: 8px;
 }
 .paddingTop15 {
     padding-top: 15px;
@@ -2066,6 +2092,18 @@ figure .ck-widget {
     color: #fff;
     font-size: 12px;
 }
+.goUp {
+    top: 90px;
+}
+.btn-check:active + .btn-outline-primary,
+.btn-check:checked + .btn-outline-primary,
+.btn-outline-primary.active,
+.btn-outline-primary.dropdown-toggle.show,
+.btn-outline-primary:active {
+    color: #fff;
+    background-color: #00b2bc !important;
+    border-color: #00b2bc !important;
+}
 .customBasket:hover {
     transform: rotate(30deg);
     -webkit-transform: rotate(30deg);
@@ -2259,5 +2297,30 @@ figure .ck-widget {
     }
     #customEventHandlerMobile {
         display: none;
+    }
+}
+@media only screen and (min-width: 1200px) {
+    .eventHandleInMediaFavorites {
+        flex-basis: calc(33.33333% - 5px);
+    }
+}
+@media only screen and (min-width: 940px) and (max-width: 1199px) {
+    .eventHandleInMediaFavorites {
+        flex-basis: calc(50% - 5px);
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 939px) {
+    .eventHandleInMediaFavorites {
+        flex-basis: calc(100% - 5px);
+    }
+}
+@media only screen and (min-width: 550px) and (max-width: 767px) {
+    .eventHandleInMediaFavorites {
+        flex-basis: calc(50% - 5px);
+    }
+}
+@media only screen and (max-width: 549px) {
+    .eventHandleInMediaFavorites {
+        flex-basis: calc(100% - 5px);
     }
 }

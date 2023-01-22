@@ -7,15 +7,13 @@ use App\Http\Controllers\Event\EventTagController;
 use App\Http\Controllers\Event\LauncherController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\Event\EventBuyerController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Models\EventTag;
-use App\Models\Launcher;
 use App\Models\State;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,6 +65,8 @@ Route::middleware(['myAuth'])->group(function() {
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::get('recp/{eventBuyer}', [EventBuyerController::class, 'show'])->name('recp');
+
 });
 
 Route::middleware(['myAuth', 'launcherLevel'])->prefix('admin')
@@ -76,6 +76,8 @@ Route::middleware(['myAuth', 'launcherLevel'])->prefix('admin')
 
     });
 
+
+Route::middleware(['myAuth'])->group(base_path('routes/common_routes.php'));
 
 Route::middleware(['myAuth', 'editorLevelWithoutDomainCheck'])->prefix('admin')
     ->group(base_path('routes/common_admin_routes.php'));
@@ -90,13 +92,24 @@ Route::middleware(['myAuth', 'editorLevel'])->prefix('admin')->group(function() 
     
 });
 
+Route::middleware(['notAuth'])->group(function() {
 
+    Route::post('login', [AuthController::class, 'login'])->name('login');
 
-Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::view('login', 'admin.login')->name('loginPage');
 
-Route::view('login', 'admin.login')->name('loginPage');
+    Route::view('verification', 'verification')->name('verification');
 
-Route::view('verification', 'verification')->name('verification');
+    Route::get('/login-register', function () {
+        return view('login-register');
+    })->name('login-register');
+
+    Route::get('/verification', function () {
+        return view('verification');
+    })->name('verification');
+
+});
+
 
 
 Route::get('blogs', [BlogController::class, 'list'])->name('api.blog.list');
@@ -170,7 +183,9 @@ Route::middleware(['shareEventTags'])->group(function() {
 
         Route::middleware(['myAuth'])->group(function() {
 
-            Route::view('/my-events','event.my-events')->name('my-events');
+            Route::view('/my-events', 'event.my-events')->name('my-events');
+
+            Route::view('/profile-favorites-event', 'shop.profile.profile-favorites-event')->name('profile-favorites-event');
             
             Route::get('/launcher-register', [LauncherController::class, 'registry'])->name('launcher');
 
@@ -210,14 +225,6 @@ Route::get('/checkout-successful', function () {
 Route::get('/checkout-unsuccessful', function () {
     return view('checkout-unsuccessful');
 })->name('checkout-unsuccessful');
-
-Route::get('/login-register', function () {
-    return view('login-register');
-})->name('login-register');
-
-Route::get('/verification', function () {
-    return view('verification');
-})->name('verification');
 
 Route::get('/come', function (Request $request) {
     return view('come', ['is_in_event' => $request->getHost() == Controller::$EVENT_SITE]);

@@ -725,4 +725,22 @@ class EventController extends EventHelper
             'data' => EventLauncherDigest::collection($launcher->events)->toArray($request)
         ]);
     }
+
+    public function getMyBookmarks(Request $request) {
+
+        $events = EventUserDigest::collection
+        (
+            Event::whereIn('id', 
+                EventComment::where('user_id', $request->user()->id)->where('is_bookmark', true)->pluck('event_id')->toArray()
+            )->get()
+        )->toArray($request);
+
+        return response()->json(
+            [
+                'status' => 'ok',
+                'data' => $events
+            ]
+        );
+    }
+
 }

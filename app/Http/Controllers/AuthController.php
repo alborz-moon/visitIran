@@ -112,7 +112,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        if($user->level != User::$USER_LEVEL) {
+        if($user->level != User::$USER_LEVEL && $user->level != User::$LAUNCHER_LEVEL) {
             
             if($request->getHost() == self::$EVENT_SITE)
                 return Redirect::route('event.panel');
@@ -120,6 +120,9 @@ class AuthController extends Controller
             return Redirect::route('shop.panel');
         }
 
+        if($request->getHost() == self::$EVENT_SITE)
+            return Redirect::route('event.home');
+            
         return Redirect::route('home');
     }
 

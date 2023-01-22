@@ -1,9 +1,8 @@
-<div onclick="" class="cursorPointer handleInMedia">
     <!-- start of launcher-card -->
     <div class="product-card customBorderBoxShadow minWidth200">
         <div class="product-thumbnail mx-n15">
             <a>
-                <img class="objectFitCover imgCardEvent" id="{{ $key }}Img">
+                <img class="objectFitCover" id="{{ $key }}Img">
             </a>
         </div>
         <div class="product-card-body">
@@ -37,4 +36,3 @@
         </div>
     </div>
     <!-- end of launcher-card -->
-</div>

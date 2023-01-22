@@ -1,6 +1,6 @@
 <?php $isLauncher = Auth::check() && Auth::user()->isLauncher(); ?>
 
-<div class="{{ isset($desktopMenu) && $desktopMenu ? 'col-12' : 'col-xl-3 col-lg-4 col-md-5' }}  mb-md-0 mb-3 zIndex0">
+<div class="{{ isset($desktopMenu) && $desktopMenu ? 'col-12' : 'col-xl-3 col-lg-3 col-md-4' }}  mb-md-0 mb-3 zIndex0">
     <div class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">
         <div
             class="profile-user-info py-3 ui-box bg-white {{ isset($desktopMenu) && $desktopMenu == 'true' ? 'p-0 boxShadowNone' : '' }} ">
@@ -35,7 +35,6 @@
                 @endif
 
             </div>
-
             <ul class="nav nav-items-with-icon flex-column"
                 style="border-bottom: 1px solid #dedede;padding-bottom: 15px;">
                 @if ($isLauncher)
@@ -86,43 +85,45 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}"><i
-                                class="nav-link-icon ri-logout-box-r-line"></i>
+                        <a class="nav-link" href="{{ route('logout') }}">
+                            <i class="nav-link-icon ri-logout-box-r-line"></i>
                             خروج
                         </a>
                     </li>
                 </ul>
             @endif
-
-
             <ul class="nav nav-items-with-icon flex-column {{ $isLauncher ? 'hidden' : '' }} simpleProfileHidden">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('my-events') }}"><i
-                            class="nav-link-icon ri-file-list-3-line"></i>
+                    <a class="nav-link" href="{{ route('my-events') }}">
+                        <i class="nav-link-icon ri-file-list-3-line"></i>
                         بلیط های من
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href=""><i class="nav-link-icon ri-heart-3-line"></i>
+                    <a class="nav-link" href="{{ route('profile-favorites-event') }}"><i class="nav-link-icon ri-heart-3-line"></i>
                         علاقه مندی ها
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href=""><i class="nav-link-icon ri-chat-1-line"></i>
-                        نظرات</a>
+                    <a class="nav-link" href="{{ route('profile.comments') }}"><i class="nav-link-icon ri-chat-1-line"></i>
+                        نظرات
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('profile.my-tickets') }}"><i
                             class="nav-link-icon ri-notification-line"></i>
-                        پشتیبانی</a>
+                        پشتیبانی
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href=""><i class="nav-link-icon ri-user-line"></i> اطلاعات
-                        حساب</a>
+                        حساب
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"><i class="nav-link-icon ri-logout-box-r-line"></i>
-                        خروج</a>
+                        خروج
+                    </a>
                 </li>
             </ul>
         </div>
@@ -140,11 +141,13 @@
             $('.simpleProducer').removeClass('hidden');
             $('.launcherProducer').addClass('hidden');
         });
+
         $('.simpleProducer').on('click', function() {
             $('.launcherProducer').removeClass('hidden');
             $('.simpleProducer').addClass('hidden');
             $('.simpleProfileHidden').removeClass('hidden');
             $('.launcherProfileHidden').addClass('hidden');
         });
+
     });
 </script>
