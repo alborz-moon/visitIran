@@ -43,7 +43,7 @@ Route::middleware(['myAuth'])->group(function() {
 
     Route::get('my-events', [EventBuyerController::class, 'list'])->name('api.my-events');
 
-    Route::get('/getMyComments', [EventCommentController::class, 'getMyComments'])->name('api.comment.my');
+    Route::get('/getMyComments', [EventCommentController::class, 'getMyComments'])->name('api.comment.myevent');
     
     Route::get('/getMyBookmarks', [EventController::class, 'getMyBookmarks'])->name('api.events.my');
 

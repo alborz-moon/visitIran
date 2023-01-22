@@ -8,7 +8,7 @@
 
             @include('event.launcher.launcher-menu')
 
-            <div class="col-xl-9 col-lg-8 col-md-7">
+            <div class="col-xl-9 col-lg-9 col-md-8">
                 <div class="ui-box bg-white mb-5 boxShadow p-0">
                     <div class="ui-box-title">رویداد ها</div>
                     <div class="ui-box-content">
