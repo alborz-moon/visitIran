@@ -60,6 +60,33 @@ Route::middleware(['shareTopCategories'])->group(function() {
     
 });
 
+Route::get('bank', function() {
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, "https://sep.shaparak.ir/onlinepg/onlinepg");
+    curl_setopt($ch, CURLOPT_POST, 1);
+
+    $payload = json_encode([
+        "action" => "token",
+        "TerminalId" => "13158674",
+        "Amount" => 100000,
+        "ResNum" => time(),
+        "RedirectUrl" => route('shop.callback'),
+        "CellNumber" => '09214915905'
+    ]);
+
+    curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
+    curl_setopt( $ch, CURLOPT_HTTPHEADER, [
+        'Content-Type:application/json',
+        'Accept:application/json',
+    ]);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $server_output = curl_exec($ch);
+    curl_close($ch);
+
+    dd($server_output);
+});
 
 Route::middleware(['myAuth'])->group(function() {
 
