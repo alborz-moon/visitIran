@@ -40,6 +40,11 @@ Route::middleware(['myAuth'])->group(function() {
 
     Route::get('my-events', [EventBuyerController::class, 'list'])->name('api.my-events');
 
+    Route::get('/getMyComments', [EventCommentController::class, 'getMyComments'])->name('api.comment.my');
+    
+    Route::get('/getMyBookmarks', [EventController::class, 'getMyBookmarks'])->name('api.events.my');
+    
+
     Route::prefix('eventTags')->group(function() {
     
         Route::get('/list', [EventTagController::class, 'show'])->name('eventTags.show');

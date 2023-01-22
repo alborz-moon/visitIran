@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\ABS_Comment;
+use App\Http\Resources\CommentResourceWithEvent;
 use App\Models\EventComment;
 use App\Models\Event;
 use Illuminate\Http\Request;
@@ -20,6 +21,19 @@ class EventCommentController extends ABS_Comment
             route('event.event_comment.index', ['event' => $event->id]),
             route('event.index')
         );
+    }
+
+    public function getMyComments(Request $request) {
+        
+        $comments = CommentResourceWithEvent::collection
+        (
+            EventComment::where('user_id', $request->user()->id)->whereNotNull('msg')->get()
+        )->toArray($request);
+
+        return response()->json([
+            'status' => 'ok',
+            'data' => $comments
+        ]);
     }
 
 
