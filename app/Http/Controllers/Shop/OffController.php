@@ -11,6 +11,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Off;
 use App\Models\Seller;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -109,10 +110,15 @@ class OffController extends Controller
      */
     public function create(Request $request, $err=null)
     {
+        if($request->getHost() == self::$SHOP_SITE)
+            return view('admin.off.create', [
+                'categories' => CategoryDigest::collection(Category::all())->toArray($request),
+                'brands' => Brand::all(),
+                'sellers' => Seller::all(),
+                'err' => $err
+            ]);
+        
         return view('admin.off.create', [
-            'categories' => CategoryDigest::collection(Category::all())->toArray($request),
-            'brands' => Brand::all(),
-            'sellers' => Seller::all(),
             'err' => $err
         ]);
     }
@@ -161,6 +167,9 @@ class OffController extends Controller
             return $this->create($request, 'زمان انقضا باید از امروز بزرگ تر باشد');
 
         $request['off_expiration'] = $expiration;
+        $site = $request->getHost() == Controller::$EVENT_SITE ? 'event' : 'shop';
+
+        $request['site'] = $site;
 
         Off::create($request->toArray());
         return Redirect::route('off.index');
@@ -211,7 +220,8 @@ class OffController extends Controller
     public function check(Request $request) {
 
         $validator = [
-            'code' => 'required|string|min:2'
+            'code' => 'required|string|min:2',
+            'amount' => 'required|integer'
         ];
 
         if(self::hasAnyExcept(array_keys($validator), $request->keys()))
@@ -219,19 +229,35 @@ class OffController extends Controller
 
         $request->validate($validator, self::$COMMON_ERRS);
         $site = $request->getHost() == Controller::$EVENT_SITE ? 'event' : 'shop';
+        $userId = $request->user()->id;
 
-        $off = Off::where('user_id', $request->user()->id)
+        $off = Off::where(function($query) use ($userId) {
+            return $query->where('user_id', $userId)->orWhereNull('user_id');
+        })
             ->where('site', $site)->where('code', $request->code)->first();
 
         if($off == null)
-            return response()->json(['status' => 'nok', 'msg' => 'کد وارد شده نامعتیر است']);
+            return response()->json(['status' => 'nok', 'msg' => 'کد وارد شده نامعتبر است']);
 
-        if($off->off_expiration < time())
+        if($off->off_expiration * 1000 < time())
             return response()->json(['status' => 'nok', 'msg' => 'کد موردنظر منقضی شده است']);
+
+        if($off->user_id == null && 
+            Transaction::where('user_id', $userId)
+                ->where('status', Transaction::$COMPLETED_STATUS)
+                ->where('off_id', $off->id)->count() > 0
+        )
+            return response()->json(['status' => 'nok', 'msg' => 'این کد قبلا استفاده شده است']);
+
+        $newAmount = $off->off_type == 'percent' ? number_format((100 - $off->amount) * $request['amount'] / 100, 0) : 
+            number_format(max(0, $request['amount'] - $off->amount), 0);
+
+        $msg = $off->off_type == 'percent' ? $off->amount . '٪' : number_format(min($off->amount, $request['amount']), 0) . ' تومان';
 
         return response()->json([
             'status' => 'ok',
-            'msg' => $off->off_type == 'percent' ? $off->amount . '٪' : number_format($off->amount, 0) . ' تومان',
+            'msg' => $msg . ' کد تخفیف اعمال شد',
+            'new_amount' => $newAmount
         ]);
     }
 }

@@ -796,12 +796,12 @@
                         <div id="meOrOthers" class="d-flex spaceBetween alignItemsCenter">
                             <div>آیا برای اطلاعات سایر شرکت کننده ها از اطلاعات شما استفاده گردد.</div>
                             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" class="btn-check" name="selfDetective" id="mySelf"
-                                    autocomplete="off" checked>
+                                <input type="radio" value="my" class="btn-check" name="selfDetective"
+                                    id="mySelf" autocomplete="off" checked>
                                 <label class="btn btn-outline-primary" for="mySelf">بلی</label>
 
-                                <input type="radio" class="btn-check" name="selfDetective" id="ourSelf"
-                                    autocomplete="off">
+                                <input type="radio" value="other" class="btn-check" name="selfDetective"
+                                    id="ourSelf" autocomplete="off">
                                 <label class="btn btn-outline-primary" for="ourSelf">خیر</label>
 
                             </div>
@@ -821,7 +821,7 @@
                                 <div class="d-flex gap10 align-items-center">
                                     <input id="off" style="min-width: 200px" class="form-control"
                                         placeholder="کد تخفیف">
-                                    <button id="checkOff()" class="btn btn-primary backgroundGray h-50">ثبت</button>
+                                    <button class="checkOffBtn btn btn-primary backgroundGray h-50">ثبت</button>
                                 </div>
                             </div>
                         </div>
@@ -839,7 +839,7 @@
                     <div class="d-flex flexWrap align-items-center spaceBetween p-3 gap15">
                         <button data-remodal-target="buy-event-modal" style="min-width: 290px"
                             class="fontSize18 bold btn btn-primary h-50 ">ثبت نام
-                            <span class="fontSize16 px-1 allPrice"></span>
+                            <span id="after-check-price" class="fontSize16 px-1 allPrice"></span>
                             <span class="fontSize16 px-1">تومان</span>
                         </button>
                     </div>
@@ -937,6 +937,9 @@
                 });
             }
 
+            $(document).on('click', '.checkOffBtn', function() {
+                checkOff();
+            });
 
             function checkOff() {
 
@@ -946,13 +949,19 @@
                     type: 'post',
                     url: '{{ route('checkoff') }}',
                     data: {
-                        code: code
+                        code: code,
+                        amount: count * price
                     },
                     success: function(res) {
 
                         let resultClass = res.status === 'ok' ? 'colorGreen' : 'colorRed';
+                        $("#off_result").empty().append(res.msg)
+                            .removeClass('colorGreen').removeClass('colorRed')
+                            .addClass(resultClass);
 
-                        $("#off_result").empty().append(res.msg);
+                        if (res.status === 'ok') {
+                            $("#after-check-price").empty().append(res.new_amount);
+                        }
 
                     }
                 });
@@ -1103,7 +1112,8 @@
                         inputs += '<div class="fs-6 fw-bold text-muted"></div>';
                         inputs += '</div></div></div>';
                     }
-                    $(".hiddenSelf").empty().append(inputs);
+                    $("#meOrOthers").removeClass('hidden');
+                    $("#others-info").empty().append(inputs);
                 } else
                     $("#meOrOthers").addClass('hidden');
             }
@@ -1124,12 +1134,13 @@
                 $('#intro-container').removeClass('max-height-auto');
             });
 
-            $("#mySelf").on("click", function() {
-                $(".hiddenSelf").addClass("hidden");
+            $(document).on("change", "input[name='selfDetective']", function() {
+                if ($(this).val() == 'other')
+                    $("#others-info").removeClass('hidden');
+                else
+                    $("#others-info").addClass('hidden');
+
             });
-            // $("#ourSelf").on("click", function(){
-            //     $(".hiddenSelf").removeClass("hidden");
-            // });
 
 
         });

@@ -8,8 +8,16 @@ use App\Http\Controllers\FAQController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\InfoBoxController;
+use App\Http\Controllers\Shop\OffController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
+
+
+Route::resource('off', OffController::class)->except(['show', 'update']);
+
+Route::post('off/{off}', [OffController::class, 'update'])->name('off.update');
+
 
 
 Route::resource('infobox', InfoBoxController::class)->except(['show', 'update']);
