@@ -66,6 +66,10 @@
             margin-top: 5px;
             margin-bottom: 5px;
         }
+
+        .silver {
+            color: #555;
+        }
     </style>
 
 </head>
@@ -82,8 +86,8 @@
 
     </div>
 
-    <div class="float-r border halfW"
-        style="padding-left: 40px; padding-right: 5px; padding-top: 10px; padding-bottom: 10px">
+    <div class="float-r border"
+        style="padding-left: 40px; width: 260; padding-right: 5px; padding-top: 10px; padding-bottom: 10px; height: 270px; min-height: 270px; max-height: 270px; overflow: hidden">
         <p class="margin0 padding0">
             <span class="bold fontSize12">نام رویداد: </span>
             <span class="fontSize10">{{ $title }}</span>
@@ -111,8 +115,61 @@
         </p>
     </div>
 
-    <div class="float-r border padding5 halfW" style="margin-right: 10px">
-        <img width="80px" src="{{ $qr }}" />
+    <div class="float-r border padding5"
+        style="margin-right: 10px; width: 380px; padding-left: 30px; height: 280px; min-height: 280px; max-height: 280px; overflow: hidden">
+        <div class="float-r" style="width: 240px">
+            <p class="margin0 padding0">
+                <span class="bold fontSize12">نام و نام خانوادگی: </span><span
+                    class="fontSize10">{{ $name }}</span>
+            </p>
+            <p class="margin0 padding0">
+                <span class="bold fontSize12">شماره تلفن: </span><span class="fontSize10">{{ $phone }}</span>
+            </p>
+        </div>
+        <div class="float-r">
+            <p class="margin0 padding0">
+                <span class="bold fontSize12">کد ملی: </span><span class="fontSize10">{{ $nid }}</span>
+            </p>
+            <p class="margin0 padding0">
+                <span class="bold fontSize12">تعداد بلیت: </span><span class="fontSize10">{{ $count }}
+                    بلیت</span>
+            </p>
+        </div>
+
+        <div style="clear: both"></div>
+
+        <div class="hr"></div>
+
+        <p class="margin0 padding0">
+            <span class="bold fontSize12">توضیحات بلیت: </span><span class="fontSize10">{{ $ticket_desc }}</span>
+        </p>
+
+        <div class="hr"></div>
+
+        <div>
+            <div class="float-r margin0 padding5" style="width: 270px">
+                <p class="fontSize12 bold margin0 padding0">روزهای برگزاری:</p>
+
+
+                @foreach ($days as $day)
+                    <div class="margin0 padding0" style="border-bottom: 1px solid #aaa">
+                        <p style="text-align: center; width: 15px"
+                            class="margin0 padding0 bold fontSize12 silver float-r">تا</p>
+                        <p style="width: 120px" class="margin0 padding0 fontSize10 float-r">{{ $day['start'] }}</p>
+                        <p style="text-align: right; width: 15px"
+                            class="margin0 padding0 bold fontSize12 silver float-r">از</p>
+                        <p style="width: 120px" class="margin0 padding0 fontSize10 float-r">{{ $day['end'] }}</p>
+                    </div>
+                @endforeach
+
+            </div>
+            <div class="float-r" style="border-right: 1px solid #aaa; padding-right: 10px; height: 150px">
+
+                <img style="margin-top: 25px" width="95px" src="{{ $qr }}" />
+
+            </div>
+        </div>
+
     </div>
 
     <div style="clear: both"></div>
