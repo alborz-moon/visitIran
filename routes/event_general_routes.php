@@ -36,10 +36,10 @@ Route::resource('event.event_comment', EventCommentController::class)->except('s
 Route::post('event_comment/{event_comment}', [EventCommentController::class, 'update'])->name('event_comment.update');
 
 
+Route::get('event_callback', [EventController::class, 'callback'])->name('event.callback');
+
 Route::middleware(['myAuth'])->group(function() {
 
-
-    Route::get('event_callback', [EventController::class, 'callback'])->name('event.callback');
 
     Route::get('my-events', [EventBuyerController::class, 'list'])->name('api.my-events');
 
