@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Event;
 
 use App\Events\EventRegistry;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Shop\OffController;
 use App\Http\Resources\EventBuyerResource;
 use App\Http\Resources\EventSessionResource;
 use App\Http\Resources\MyEventsDigest;
@@ -188,6 +189,82 @@ class EventBuyerController extends Controller
     //     // return view('event.event.receipt', compact('data'));
 
     // }
+
+
+    public function register(Event $event, Request $request)
+    {
+        
+        if(!Event::isActiveForRegistry($event))
+            return abort(401);
+
+        $validator = [
+            'code' => 'nullable|string|min:2',
+            'users' => 'required|array',
+            'users.first_name' => 'required|string|min:2',
+            'users.last_name' => 'required|string|min:2',
+            'users.phone' => 'required|regex:/(09)[0-9]{9}/',
+            'users.nid' => ['required', 'regex:/[0-9]{10}/', new NID],
+            'count' => 'required|integer|min:1|max:100',
+        ];
+
+        if(self::hasAnyExcept(array_keys($validator), $request->keys()))
+            return abort(401);
+
+        $request->validate($validator, self::$COMMON_ERRS);
+
+        if($request['count'] != count($request['users']))
+            return abort(401);
+
+        $price = $event->price * $request['count'];
+        // todo: check off
+        
+        if($request->has('code')) {
+
+            $userId = $request->user()->id;
+
+            try {
+                $off = OffController::check_code('event', $userId, $request->code);
+
+                $price = $off->off_type == 'percent' ? number_format((100 - $off->amount) * $price / 100, 0) : 
+                    number_format(max(0, $price - $off->amount), 0);
+        
+            }
+            catch(\Exception $x) {
+                
+                if($x->getMessage() == 'null')
+                    return response()->json(['status' => 'nok', 'msg' => 'کد وارد شده نامعتبر است']);
+
+                if($x->getMessage() == 'expired')
+                    return response()->json(['status' => 'nok', 'msg' => 'کد موردنظر منقضی شده است']);
+
+                if($x->getMessage() == 'double_spend')
+                    return response()->json(['status' => 'nok', 'msg' => 'این کد قبلا استفاده شده است']);    
+
+            }
+
+            $user = $request->user();
+
+            if($price < 1000) {
+                
+                unset($request['code']);
+
+
+
+                $tmp = EventBuyer::create($request->toArray());
+                $createdAt = self::MiladyToShamsi3($tmp->created_at->timestamp);
+                    
+                event(new EventRegistry(
+                    $request['phone'], $user != null && $user->mail != null ? $user->mail : null,
+                    $event->title, 0, $createdAt
+                ));
+
+                return response()->json(['status' => 'ok', 'action' => 'registered']);
+            }
+
+        }
+
+    }
+
 
     /**
      * Display a listing of the resource.

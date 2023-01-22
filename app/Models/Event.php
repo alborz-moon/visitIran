@@ -86,6 +86,16 @@ class Event extends Model
             ->where('end_registry', '>=', $now);
     }
     
+    public static function isActiveForRegistry($event) {
+        
+        if(!$event->visibility || $event->status != 'confirmed') return false;
+    
+        $now = (int)Controller::getToday()['date'];
+        if($event->start_registry <= $now && $event->end_registry >= $now) return true;
+
+        return false;
+    }
+
 
     public function scopeConfirmed($query) {
         return $query->where('status', 'confirmed');

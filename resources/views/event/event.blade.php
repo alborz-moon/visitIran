@@ -718,20 +718,27 @@
                             <table class="table mb-0 marginTop10">
                                 <thead>
                                     <tr>
-                                        <th>ردیف</th>
-                                        <th>عنوان بلیط</th>
+                                        <th>عنوان بلیت</th>
                                         <th>تعداد</th>
                                         <th>توضیحات</th>
                                         <th>قیمت</th>
                                     </tr>
                                 </thead>
-                                <tbody id="buyTicket"></tbody>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ $event['title'] }}</td>
+                                        <td id="count_td"></td>
+                                        <td style="max-width: 150px; white-space: break-spaces;">
+                                            {{ $event['ticket_description'] }}</td>
+                                        <td>{{ $event['price'] }}</td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="d-flex spaceBetween p-3">
                         <div class="fontSize16">
-                            تعداد کل: <span id="allCounterModal" class="px-1"></span> بلیط
+                            تعداد کل: <span id="allCounterModal" class="px-1"></span> بلیت
                         </div>
                         <div class="fontSize16">
                             قیمت کل: <span id="allPriceModal" class="px-1"></span>تومان
@@ -744,8 +751,8 @@
                         <div class="py-1 col-xs-12 col-md-6">
                             <div class="fs-7 text-dark">نام</div>
                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                <input data-editable="true" id="name" type="text" class="form-control"
-                                    style="direction: rtl" placeholder="نام">
+                                <input value="{{ Auth::user()->first_name }}" data-editable="true" id="name"
+                                    type="text" class="form-control" style="direction: rtl" placeholder="نام">
                                 <button data-input-id="name"
                                     class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                     <i class="ri-ball-pen-fill"></i>
@@ -756,8 +763,9 @@
                         <div class="py-1 col-xs-12 col-md-6">
                             <div class="fs-7 text-dark">نام خانوادگی</div>
                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                <input data-editable="true" id="last" type="text" class="form-control"
-                                    style="direction: rtl" placeholder="نام خانوادگی">
+                                <input value="{{ Auth::user()->last_name }}" data-editable="true" id="last"
+                                    type="text" class="form-control" style="direction: rtl"
+                                    placeholder="نام خانوادگی">
                                 <button data-input-id="last"
                                     class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                     <i class="ri-ball-pen-fill"></i>
@@ -768,9 +776,9 @@
                         <div class=" py-1 col-xs-12 col-md-6">
                             <div class="fs-7 text-dark">کد ملی</div>
                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                <input data-editable="true" onkeypress="return isNumber(event)" minlength="10"
-                                    maxlength="10" id="nid" type="text" class="form-control"
-                                    style="direction: rtl" placeholder="کد ملی">
+                                <input value="{{ Auth::user()->nid }}" data-editable="true"
+                                    onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid"
+                                    type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
                                 <button data-input-id="nid"
                                     class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                     <i class="ri-ball-pen-fill"></i>
@@ -781,9 +789,10 @@
                         <div class=" py-1 col-xs-12 col-md-6">
                             <div class="fs-7 text-dark">شماره تلفن همراه</div>
                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                <input data-editable="true" onkeypress="return isNumber(event) " id="phone"
-                                    type="tel" minlength="7" maxlength="11" class="form-control"
-                                    style="direction: rtl" placeholder="شماره تلفن همراه">
+                                <input value="{{ Auth::user()->phone }}" data-editable="true"
+                                    onkeypress="return isNumber(event) " id="phone" type="tel" minlength="7"
+                                    maxlength="11" class="form-control" style="direction: rtl"
+                                    placeholder="شماره تلفن همراه">
                                 <button data-input-id="phone"
                                     class=" toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                     <i class="ri-ball-pen-fill"></i>
@@ -835,8 +844,8 @@
                     </div>
                     <div class="remodal-footer">
                         <div class="d-flex flexWrap align-items-center spaceBetween p-3 gap15">
-                            <button data-remodal-target="buy-event-modal" style="min-width: 290px"
-                                class="fontSize18 bold btn btn-primary h-50 ">ثبت نام
+                            <button style="min-width: 290px" class="registerBtn fontSize18 bold btn btn-primary h-50 ">ثبت
+                                نام
                                 <span id="after-check-price" class="fontSize16 px-1 allPrice"></span>
                                 <span class="fontSize16 px-1">تومان</span>
                             </button>
@@ -862,6 +871,19 @@
         function sendimg(img) {
             $("#mainGalleryModal").attr('src', img);
         }
+
+        $(document).on('click', '.registerBtn', function() {
+
+            $.ajax({
+                type: 'post',
+                url: '{{ route('api.event.register', ['event' => $event['id']]) }}',
+                data: {
+
+                }
+            });
+
+        });
+
         $(document).ready(function() {
             let star = "";
             let roundRatting = Math.floor('{{ $event['launcher_rate'] }}');
@@ -1055,7 +1077,8 @@
                 $(".allPrice").text((count * price).formatPrice(0, ",", "."));
                 $(".counter").val(count);
                 $("#allCounterModal").text(count);
-                $("#allPriceModal").text(price);
+                $("#allPriceModal").text((count * price).formatPrice(0, ",", "."));
+                $("#count_td").text(count);
 
                 if (count > 1) {
                     $(".hiddenSelf").removeClass("hidden");
