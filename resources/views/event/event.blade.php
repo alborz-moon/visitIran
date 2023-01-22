@@ -709,7 +709,7 @@
             <!-- start of buy-event-modal -->
             <div class="remodal remodal-xl" data-remodal-id="buy-event-modal" data-remodal-options="hashTracking: false">
                 <div class="remodal-header">
-                    <div class="remodal-title">خرید بلیت نام رویداد</div>
+                    <div class="remodal-title">خرید بلیط نام رویداد</div>
                     <button data-remodal-action="close" class="remodal-close"></button>
                 </div>
                 <div class="boxShadow">
@@ -826,7 +826,7 @@
                         </div>
                         <div class="row boxShadow py-3">
                             <div>قانون استرداد</div>
-                            <p class="fontSize14 mt-2">استرداد بلیت تنها تا ۷۲ ساعت قبل از شروع رویداد امکان پذیر میباشد.
+                            <p class="fontSize14 mt-2">استرداد بلیط تنها تا ۷۲ ساعت قبل از شروع رویداد امکان پذیر میباشد.
                                 در صورت درخواست شرکت‌کننده بعد از بازه تعیین شده، برگزارکننده درخواست را به صورت موردی بررسی
                                 خواهد کرد و نتیجه را تا ۳ روز کاری اعلام میکند.
                                 در صورتی که رویداد کنسل شود، برگزار کننده موظف است که مبلغ کامل را به شرکت کنندگان عودت دهد.
