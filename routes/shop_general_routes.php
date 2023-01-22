@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Shop\AddressController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\CategoryController;
@@ -23,6 +24,8 @@ Route::get('top-categories/{category?}', [CategoryController::class, 'top'])->na
 
 Route::get('get_top_categories_products', [CategoryController::class, 'get_top_categories_products'])->name('api.get_top_categories_products');
 
+
+Route::get('shop_callback', [EventController::class, 'callback'])->name('shop.callback');
 
 Route::middleware(['myAuth'])->group(function() {
 
