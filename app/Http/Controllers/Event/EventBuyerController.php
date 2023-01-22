@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
 use niklasravnsborg\LaravelPdf\Facades\Pdf;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class EventBuyerController extends Controller
 {
@@ -85,21 +85,71 @@ class EventBuyerController extends Controller
     public function show(EventBuyer $eventBuyer)
     {
         $event = $eventBuyer->event;
+
+        $validationUrl = 'https://techvblogs.com/blog/generate-qr-code-laravel-8';
+
+        $filename = 'tmp/' . time() . '.png';
+        QrCode::size(80)->generate($validationUrl, storage_path($filename));
+
         $data = [
             'title' => $event->title,
+            'launcher' => $event->launcher->company_name,
+            'type' => $event->city_id == null ? 'مجازی' : 'حضوری',
+            'address' => $event->city_id == null ? $event->link : $event->address,
             'name' => $eventBuyer->first_name . ' ' . $eventBuyer->last_name,
             'phone' => $eventBuyer->phone,
+            'tel' => $eventBuyer->tel,
+            'email' => $eventBuyer->email,
+            'site' => $eventBuyer->site,
             'nid' => $eventBuyer->nid,
             'created_at' => self::MiladyToShamsi3($eventBuyer->created_at->timestamp),
-            'paid' => $eventBuyer->paid
+            'paid' => $eventBuyer->paid,
+            'qr' => storage_path($filename)
         ];
+
         view()->share('data', $data);
 
-        $pdf = Pdf::loadView('event.event.receipt', $data, [],  'UTF-8');
+        $pdf = Pdf::loadView('event.event.ticket', $data, [], 
+            [
+                'format' => 'A5-L',
+                'display_mode' => 'fullpage'
+            ]
+        );
         return $pdf->download('pdf_file.pdf');
-        // return view('event.event.receipt', compact('data'));
+        // return view('event.event.ticket', compact('data'));
 
     }
+
+
+    // /**
+    //  * Display the specified resource.
+    //  *
+    //  * @param  \App\Models\EventBuyer  $eventBuyer
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function show(EventBuyer $eventBuyer)
+    // {
+    //     $event = $eventBuyer->event;
+    //     $data = [
+    //         'title' => $event->title,
+    //         'name' => $eventBuyer->first_name . ' ' . $eventBuyer->last_name,
+    //         'phone' => $eventBuyer->phone,
+    //         'nid' => $eventBuyer->nid,
+    //         'created_at' => self::MiladyToShamsi3($eventBuyer->created_at->timestamp),
+    //         'paid' => $eventBuyer->paid
+    //     ];
+    //     view()->share('data', $data);
+
+    //     $pdf = Pdf::loadView('event.event.ticket', $data, [], 
+    //         [
+    //             'format' => 'A5-L',
+    //             'display_mode' => 'fullpage'
+    //         ]
+    //     );
+    //     return $pdf->download('pdf_file.pdf');
+    //     // return view('event.event.receipt', compact('data'));
+
+    // }
 
     /**
      * Display a listing of the resource.
@@ -108,7 +158,6 @@ class EventBuyerController extends Controller
      */
     public function list(Request $request)
     {
-        dd(MyEventsDigest::collection(EventBuyer::where('user_id', $request->user()->id)->get())->toArray($request));
         return response()->json([
             'status' => 'ok',
             'data' => MyEventsDigest::collection(EventBuyer::where('user_id', $request->user()->id)->get())->toArray($request)

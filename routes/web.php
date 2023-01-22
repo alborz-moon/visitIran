@@ -65,7 +65,7 @@ Route::middleware(['myAuth'])->group(function() {
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get('recp/{eventBuyer}', [EventBuyerController::class, 'show']);
+    Route::get('recp/{eventBuyer}', [EventBuyerController::class, 'show'])->name('recp');
 
 });
 

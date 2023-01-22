@@ -10,12 +10,12 @@
     </style>
 @stop
 @section('content')
-    <?php $iCount = 1; ?>
     <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
             <!-- start of product-detail-container -->
             <div class="product-detail-container mb-5">
                 <div class="row">
+                    @include('event.event.bookmark', ['is_bookmark' => $event['is_bookmark']])
                     <div class="col-lg-9 col-md-12 mb-md-0 mb-4">
                         <!-- start of product-gallery -->
                         <div class="bold colorBlack fontSize20">{{ $event['title'] }}</div>
@@ -86,7 +86,8 @@
                                     class="ri-stackshare-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
                             </span>
                         </div> --}}
-
+                            {{-- @include('shop.product.write-comment', ['productId' => $product['id']]) --}}
+                            {{-- @include('event.event.bookmark', ['is_bookmark' => $event['is_bookmark']]) --}}
                             <!-- start of product-seller-info -->
                             <div class="product-seller-info ui-box mb-3 backColorWhite">
                                 {{-- <div class="top30 position-absolute fontSize22 colorYellow">
@@ -743,8 +744,8 @@
                         <div class="py-1 col-xs-12 col-md-6">
                             <div class="fs-7 text-dark">نام</div>
                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                <input data-editable="true" value="{{ Auth::user()->first_name }}" id="name"
-                                    type="text" class="form-control" style="direction: rtl" placeholder="نام">
+                                <input data-editable="true" id="name" type="text" class="form-control"
+                                    style="direction: rtl" placeholder="نام">
                                 <button data-input-id="name"
                                     class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                     <i class="ri-ball-pen-fill"></i>
@@ -756,8 +757,7 @@
                             <div class="fs-7 text-dark">نام خانوادگی</div>
                             <div class="d-flex align-items-center justify-content-between position-relative">
                                 <input data-editable="true" id="last" type="text" class="form-control"
-                                    style="direction: rtl" value="{{ Auth::user()->last_name }}"
-                                    placeholder="نام خانوادگی">
+                                    style="direction: rtl" placeholder="نام خانوادگی">
                                 <button data-input-id="last"
                                     class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                     <i class="ri-ball-pen-fill"></i>
@@ -769,8 +769,8 @@
                             <div class="fs-7 text-dark">کد ملی</div>
                             <div class="d-flex align-items-center justify-content-between position-relative">
                                 <input data-editable="true" onkeypress="return isNumber(event)" minlength="10"
-                                    maxlength="10" value="{{ Auth::user()->nid }}" id="nid" type="text"
-                                    class="form-control" style="direction: rtl" placeholder="کد ملی">
+                                    maxlength="10" id="nid" type="text" class="form-control"
+                                    style="direction: rtl" placeholder="کد ملی">
                                 <button data-input-id="nid"
                                     class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                     <i class="ri-ball-pen-fill"></i>
@@ -782,8 +782,8 @@
                             <div class="fs-7 text-dark">شماره تلفن همراه</div>
                             <div class="d-flex align-items-center justify-content-between position-relative">
                                 <input data-editable="true" onkeypress="return isNumber(event) " id="phone"
-                                    type="tel" value="{{ Auth::user()->phone }}" minlength="7" maxlength="11"
-                                    class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">
+                                    type="tel" minlength="7" maxlength="11" class="form-control"
+                                    style="direction: rtl" placeholder="شماره تلفن همراه">
                                 <button data-input-id="phone"
                                     class=" toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                     <i class="ri-ball-pen-fill"></i>
@@ -791,20 +791,21 @@
                             </div>
                             <div class="fs-6 fw-bold text-muted"></div>
                         </div>
-                        <hr class="my-3">
+                        <div class="fs-6 fw-bold text-muted"></div>
+                    </div>
+                    <hr class="my-3">
 
-                        <div id="meOrOthers" class="d-flex spaceBetween alignItemsCenter">
-                            <div>آیا برای اطلاعات سایر شرکت کننده ها از اطلاعات شما استفاده گردد.</div>
-                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" value="my" class="btn-check" name="selfDetective"
-                                    id="mySelf" autocomplete="off" checked>
-                                <label class="btn btn-outline-primary" for="mySelf">بلی</label>
+                    <div id="meOrOthers" class="d-flex spaceBetween alignItemsCenter">
+                        <div>آیا برای اطلاعات سایر شرکت کننده ها از اطلاعات شما استفاده گردد.</div>
+                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" value="my" class="btn-check" name="selfDetective" id="mySelf"
+                                autocomplete="off" checked>
+                            <label class="btn btn-outline-primary" for="mySelf">بلی</label>
 
-                                <input type="radio" value="other" class="btn-check" name="selfDetective"
-                                    id="ourSelf" autocomplete="off">
-                                <label class="btn btn-outline-primary" for="ourSelf">خیر</label>
+                            <input type="radio" value="other" class="btn-check" name="selfDetective" id="ourSelf"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="ourSelf">خیر</label>
 
-                            </div>
                         </div>
                     </div>
                     <div id="others-info" class="hidden">
@@ -814,9 +815,7 @@
                             در صورت داشتن کد تخفیف آن را وارد کنید
                         </div>
                         <div class="d-flex spaceBetween">
-                            <div>
-                                <div id="off_result" class="fontSize14"></div>
-                            </div>
+                            <div id="off_result"></div>
                             <div>
                                 <div class="d-flex gap10 align-items-center">
                                     <input id="off" style="min-width: 200px" class="form-control"
@@ -825,27 +824,26 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row boxShadow py-3">
+                            <div>قانون استرداد</div>
+                            <p class="fontSize14 mt-2">استرداد بلیت تنها تا ۷۲ ساعت قبل از شروع رویداد امکان پذیر میباشد.
+                                در صورت درخواست شرکت‌کننده بعد از بازه تعیین شده، برگزارکننده درخواست را به صورت موردی بررسی
+                                خواهد کرد و نتیجه را تا ۳ روز کاری اعلام میکند.
+                                در صورتی که رویداد کنسل شود، برگزار کننده موظف است که مبلغ کامل را به شرکت کنندگان عودت دهد.
+                            </p>
+                        </div>
                     </div>
-                    <div class="row boxShadow py-3">
-                        <div>قانون استرداد</div>
-                        <p class="fontSize14 mt-2">استرداد بلیت تنها تا ۷۲ ساعت قبل از شروع رویداد امکان پذیر میباشد. در
-                            صورت درخواست شرکت‌کننده بعد از بازه تعیین شده، برگزارکننده درخواست را به صورت موردی بررسی خواهد
-                            کرد و نتیجه را تا ۳ روز کاری اعلام میکند.
-                            در صورتی که رویداد کنسل شود، برگزار کننده موظف است که مبلغ کامل را به شرکت کنندگان عودت دهد.
-                        </p>
+                    <div class="remodal-footer">
+                        <div class="d-flex flexWrap align-items-center spaceBetween p-3 gap15">
+                            <button data-remodal-target="buy-event-modal" style="min-width: 290px"
+                                class="fontSize18 bold btn btn-primary h-50 ">ثبت نام
+                                <span id="after-check-price" class="fontSize16 px-1 allPrice"></span>
+                                <span class="fontSize16 px-1">تومان</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="remodal-footer">
-                    <div class="d-flex flexWrap align-items-center spaceBetween p-3 gap15">
-                        <button data-remodal-target="buy-event-modal" style="min-width: 290px"
-                            class="fontSize18 bold btn btn-primary h-50 ">ثبت نام
-                            <span id="after-check-price" class="fontSize16 px-1 allPrice"></span>
-                            <span class="fontSize16 px-1">تومان</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- end of buy-event-modal -->
+                <!-- end of buy-event-modal -->
     </main>
 
     <script src="https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/parsimap-geocoder/v1.0.0/parsimap-geocoder.js">
@@ -1054,13 +1052,13 @@
 
 
             function updateCount() {
-
                 $(".allPrice").text((count * price).formatPrice(0, ",", "."));
                 $(".counter").val(count);
                 $("#allCounterModal").text(count);
                 $("#allPriceModal").text(price);
 
                 if (count > 1) {
+                    $(".hiddenSelf").removeClass("hidden");
                     var inputs = "";
                     for (var i = 1; i < count; i++) {
                         inputs += '<hr><div class="container">اطلاعات شرکت کننده' + (i + 1) +

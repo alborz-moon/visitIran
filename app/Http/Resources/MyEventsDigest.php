@@ -39,9 +39,11 @@ class MyEventsDigest extends JsonResource
             'launcher' => $event->launcher->company_name,
             'start' => $start,
             'end' => $end,
-            'href' => route('event', ['id' => $event->id, 'slug' => $event->slug]),
-            'ticket_href' => route('recv', ['eventBuyer' => $this->id]),
-            'title' => $this->title,
+            'href' => route('event', ['event' => $event->id, 'slug' => $event->title]),
+            'ticket_href' => route('recp', ['eventBuyer' => $this->id]),
+            'title' => $event->title,
+            'created_at' => Controller::MiladyToShamsi2($this->created_at->timestamp),
+            'count' => $this->count
         ];
     }
 }

@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar p-0" style="margin-top: -5px">
+                <div class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar mt-4" style="margin-top: -5px">
 
                     <div class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">
                         <div class="ui-box sidebar-widgets customFilter ">
@@ -201,7 +201,7 @@
                             <!-- start of tab-content -->
                             <div class="tab-content marginTopNegative5" id="sort-tabContent">
                                 <!-- start of tab-pane -->
-                                <div class="tab-pane fade show active" id="most-visited" role="tabpanel"
+                                <div class="tab-pane fade show active mt-4" id="most-visited" role="tabpanel"
                                     aria-labelledby="most-visited-tab">
                                     <div class="ui-box p-1 mb-4">
                                         <div class="ui-box-content p-0">

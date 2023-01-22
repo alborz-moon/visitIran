@@ -20,6 +20,7 @@
                                             <table class="table mb-0">
                                                 <thead>
                                                     <tr>
+                                                        <th>ردیف</th>
                                                         <th>نام رویداد</th>
                                                         <th>نام برگزار کننده</th>
                                                         <th>تاریخ شروع</th>
@@ -29,7 +30,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="myTickets">
-                                                    <tr>
+                                                    {{-- <tr>
                                                         <td>رویداد من</td>
                                                         <td>اصغر فرهادی</td>
                                                         <td>1401</td>
@@ -45,7 +46,7 @@
                                                                 <li><a class="dropdown-item fontSize12 btnHover" href="#">پشتیبانی</a></li>
                                                             </ul>
                                                         </td>
-                                                    </tr>
+                                                    </tr> --}}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -64,4 +65,41 @@
 
 @section('extraJS')
     @parent
+    <script>
+        $.ajax({
+            type: 'get',
+            url: '{{ route('api.my-events') }}',
+            headers: {
+                'accept': 'application/json'
+            },
+            success: function(res) {
+                if(res.status === "ok") {
+                    var myTickets= "";
+                    if(res.data.length != 0){
+                        for(var i = 0; i < res.data.length; i++){
+                            myTickets += '<tr>';
+                            myTickets += '<td>' + (i + 1) + '</td>';
+                            myTickets += '<td>' + res.data[i].title + '</td>';
+                            myTickets += '<td>' + res.data[i].launcher + '</td>';
+                            myTickets += '<td>' + res.data[i].created_at + '</td>';
+                            myTickets += '<td>' + res.data[i].start + '</td>';
+                            myTickets += '<td>' + res.data[i].count + '</td>';
+                            myTickets += '<td>';
+                            myTickets += '<button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">';
+                            myTickets += '<i class="icon-visit-menu"></i>';
+                            myTickets += '</button>';
+                            myTickets += '<ul class="dropdown-menu">';
+                            myTickets += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i].href + '">مشاهده</a></li>';
+                            myTickets += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i].ticket_href + '">بلیط</a></li>';
+                            myTickets += '<li><a class="dropdown-item fontSize12 btnHover" href="{{ route('profile.my-tickets') }}">پشتیبانی</a></li>';
+                            myTickets += '</ul>'
+                            myTickets += '</td>';
+                            myTickets += '</tr>';
+                        }
+                        $("#myTickets").empty().append(myTickets);
+                    }
+                }
+            }
+         });
+    </script>
 @stop
