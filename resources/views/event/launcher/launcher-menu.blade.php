@@ -74,7 +74,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href=""><i class="nav-link-icon ri-notification-line"></i>
+                        <a class="nav-link" href="{{ route('report') }}"><i class="nav-link-icon ri-notification-line"></i>
                             گزارشات مالی
                         </a>
                     </li>
