@@ -15,6 +15,7 @@ use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use niklasravnsborg\LaravelPdf\Facades\Pdf;
 
 /*
 |--------------------------------------------------------------------------
@@ -119,6 +120,35 @@ Route::get('blog/{blog?}', [BlogController::class, 'show'])->name('api.blog.show
 Route::get('blogs/getDistinctTags', [BlogController::class, 'distinctTags'])->name('api.blog.getDistinctTags');
 
 
+Route::get('/alaki2', function() {
+    
+        $data = [
+            // 'title' => $event->title,
+            // 'launcher' => $event->launcher->company_name,
+            // 'type' => $event->city_id == null ? 'مجازی' : 'حضوری',
+            // 'address' => $event->city_id == null ? $event->link : $event->address,
+            // 'name' => $eventBuyer->first_name . ' ' . $eventBuyer->last_name,
+            // 'phone' => $eventBuyer->phone,
+            // 'tel' => $eventBuyer->tel,
+            // 'email' => $eventBuyer->email,
+            // 'site' => $eventBuyer->site,
+            // 'nid' => $eventBuyer->nid,
+            // 'created_at' => self::MiladyToShamsi3($eventBuyer->created_at->timestamp),
+            // 'paid' => $eventBuyer->paid,
+            // 'qr' => storage_path($filename)
+        ];
+
+        view()->share('data', $data);
+
+        $pdf = Pdf::loadView('event.event.receipt', $data, [], 
+            [
+                'format' => 'A4-L',
+                'display_mode' => 'fullpage'
+            ]
+        );
+        return $pdf->download('pdf_file.pdf');
+});
+
 Route::middleware(['myAuth'])->group(function() {
 
     Route::prefix('profile')->group(function() {
@@ -144,6 +174,8 @@ Route::middleware(['myAuth'])->group(function() {
         Route::get('/tickets-detail', [ProfileController::class, 'ticketsDetail'])->name('profile.tickets-detail');
         
         Route::get('/my-tickets', [ProfileController::class, 'myTickets'])->name('profile.my-tickets');
+
+        Route::get('/report', [ProfileController::class, 'report'])->name('report');
         
         Route::get('/history', [ProfileController::class, 'history'])->name('profile.history');
 

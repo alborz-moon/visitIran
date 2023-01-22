@@ -106,6 +106,10 @@ class ProfileController extends Controller
         return view('shop.profile.profile-tickets');
     }
 
+    public function report() {
+        return view('shop.profile.profile-report');
+    }
+
     public function history() {
         return view('shop.profile.profile-history');
     }

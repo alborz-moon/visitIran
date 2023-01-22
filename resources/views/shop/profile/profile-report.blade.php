@@ -7,26 +7,24 @@
                 <div class="col-xl-9 col-lg-8 col-md-7">
                     <div class="ui-box bg-white mb-5 p-0">
                         <div class="ui-box-title align-items-center justify-content-between">
-                            تیکتهای شما
-                            <a href="{{ route('profile.tickets-add') }}"
-                                class="btn btn-outline-light marginLeft3">تیکت جدید <i
-                                    class="ri-add-line ms-2"></i></a>
+                            گزارشات مالی
                         </div>
                         <div class="py-2">
                             <div class="table-responsive dropdown">
                                 <table class="table mb-0">
                                     <thead>
                                         <tr>
-                                            <th>زمان ایجاد</th>
-                                            <th>بخش</th>
-                                            <th>موضوع</th>
-                                            <th>وضعیت</th>
-                                            <th>آخرین بروزرسانی</th>
-                                            <th>عملیات</th>
+                                            <th>نام رویداد</th>
+                                            <th>تعداد بلیت</th>
+                                            <th>مبلغ</th>
+                                            <th>تاریخ</th>
+                                            <th>شماره تراکنش</th>
+                                            <th>مشاهده فاکتور</th>
+                                            <th>نمایش حالت بدون تراکنش</th>
                                         </tr>
                                     </thead>
                                     <tbody id="myTickets">
-                                        {{-- <tr>
+                                        <tr>
                                             <td>رویداد من</td>
                                             <td>اصغر فرهادی</td>
                                             <td>1401</td>
@@ -37,11 +35,10 @@
                                                     <i class="icon-visit-menu"></i>
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده</a></li>
-                                                    <li><a class="dropdown-item fontSize12 btnHover" href="#">حذف</a></li>
+                                                    <li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده فاکتور</a></li>
                                                 </ul>
                                             </td>
-                                        </tr> --}}
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
