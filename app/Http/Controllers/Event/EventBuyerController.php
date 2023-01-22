@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Event;
 use App\Events\EventRegistry;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventBuyerResource;
+use App\Http\Resources\EventSessionResource;
 use App\Http\Resources\MyEventsDigest;
 use App\Models\Event;
 use App\Models\EventBuyer;
@@ -76,47 +77,84 @@ class EventBuyerController extends Controller
         ]);
     }
 
+
+    public function callback(Request $request) {
+
+
+    }
+
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\EventBuyer  $eventBuyer
      * @return \Illuminate\Http\Response
      */
-    public function show(EventBuyer $eventBuyer)
+    public function show(EventBuyer $eventBuyer, Request $request)
     {
-        $event = $eventBuyer->event;
 
-        $validationUrl = 'https://techvblogs.com/blog/generate-qr-code-laravel-8';
+        $ch = curl_init();
 
-        $filename = 'tmp/' . time() . '.png';
-        QrCode::size(80)->generate($validationUrl, storage_path($filename));
+        curl_setopt($ch, CURLOPT_URL, "https://sep.shaparak.ir/onlinepg/onlinepg");
+        curl_setopt($ch, CURLOPT_POST, 1);
 
-        $data = [
-            'title' => $event->title,
-            'launcher' => $event->launcher->company_name,
-            'type' => $event->city_id == null ? 'مجازی' : 'حضوری',
-            'address' => $event->city_id == null ? $event->link : $event->address,
-            'name' => $eventBuyer->first_name . ' ' . $eventBuyer->last_name,
-            'phone' => $eventBuyer->phone,
-            'tel' => $eventBuyer->tel,
-            'email' => $eventBuyer->email,
-            'site' => $eventBuyer->site,
-            'nid' => $eventBuyer->nid,
-            'created_at' => self::MiladyToShamsi3($eventBuyer->created_at->timestamp),
-            'paid' => $eventBuyer->paid,
-            'qr' => storage_path($filename)
-        ];
+        $payload = json_encode([
+            "action" => "token",
+            "TerminalId" => "13158674",
+            "Amount" => 100000,
+            "ResNum" => time(),
+            "RedirectUrl" => route('event.callback'),
+            "CellNumber" => $request->user()->phone
+        ]);
 
-        view()->share('data', $data);
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, [
+            'Content-Type:application/json',
+            'Accept:application/json',
+        ]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        $pdf = Pdf::loadView('event.event.ticket', $data, [], 
-            [
-                'format' => 'A5-L',
-                'display_mode' => 'fullpage'
-            ]
-        );
-        return $pdf->download('pdf_file.pdf');
-        // return view('event.event.ticket', compact('data'));
+        $server_output = curl_exec($ch);
+        curl_close($ch);
+
+        dd($server_output);
+
+
+        // $event = $eventBuyer->event;
+
+        // $validationUrl = 'https://techvblogs.com/blog/generate-qr-code-laravel-8';
+
+        // $filename = 'tmp/' . time() . '.png';
+        // QrCode::size(100)->generate($validationUrl, storage_path($filename));
+
+        // $data = [
+        //     'title' => $event->title,
+        //     'launcher' => $event->launcher->company_name,
+        //     'type' => $event->city_id == null ? 'مجازی' : 'حضوری',
+        //     'address' => $event->city_id == null ? $event->link : $event->address,
+        //     'name' => $eventBuyer->first_name . ' ' . $eventBuyer->last_name,
+        //     'phone' => $eventBuyer->phone,
+        //     'tel' => $eventBuyer->tel,
+        //     'email' => $eventBuyer->email,
+        //     'site' => $eventBuyer->site,
+        //     'count' => $eventBuyer->count,
+        //     'ticket_desc' => $event->ticket_description,
+        //     'nid' => $eventBuyer->nid,
+        //     'created_at' => self::MiladyToShamsi3($eventBuyer->created_at->timestamp),
+        //     'paid' => $eventBuyer->paid,
+        //     'qr' => storage_path($filename),
+        //     'days' => EventSessionResource::collection($event->sessions)->toArray($request)
+        // ];
+
+        // view()->share('data', $data);
+
+        // $pdf = Pdf::loadView('event.event.ticket', $data, [], 
+        //     [
+        //         'format' => 'A5-L',
+        //         'display_mode' => 'fullpage'
+        //     ]
+        // );
+        // return $pdf->download('pdf_file.pdf');
+        // // return view('event.event.ticket', compact('data'));
 
     }
 

@@ -38,12 +38,15 @@ Route::post('event_comment/{event_comment}', [EventCommentController::class, 'up
 
 Route::middleware(['myAuth'])->group(function() {
 
+
+    Route::get('event_callback', [EventController::class, 'callback'])->name('event.callback');
+
     Route::get('my-events', [EventBuyerController::class, 'list'])->name('api.my-events');
 
     Route::get('/getMyComments', [EventCommentController::class, 'getMyComments'])->name('api.comment.my');
     
     Route::get('/getMyBookmarks', [EventController::class, 'getMyBookmarks'])->name('api.events.my');
-    
+
 
     Route::prefix('eventTags')->group(function() {
     
