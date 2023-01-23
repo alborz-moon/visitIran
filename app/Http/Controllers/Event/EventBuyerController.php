@@ -126,9 +126,7 @@ class EventBuyerController extends Controller
         $validationUrl = 'https://techvblogs.com/blog/generate-qr-code-laravel-8';
 
         $filename = 'tmp/' . time() . '.png';
-        QrCode::size(100)->generate($validationUrl, storage_path($filename));
-
-        dd($eventBuyer->first_name . ' ' . $eventBuyer->last_name);
+        QrCode::size(100)->generate($validationUrl, storage_path($filename)); 
 
         $data = [
             'title' => $event->title,
@@ -142,6 +140,7 @@ class EventBuyerController extends Controller
             'site' => $eventBuyer->site,
             'count' => $eventBuyer->count,
             'ticket_desc' => $event->ticket_description,
+            'tracking_code' => $eventBuyer->tracking_code,
             'nid' => $eventBuyer->nid,
             'created_at' => self::MiladyToShamsi3($eventBuyer->created_at->timestamp),
             'paid' => $eventBuyer->paid,
@@ -265,12 +264,10 @@ class EventBuyerController extends Controller
                     'site' => 'event',
                     'status' => Transaction::$COMPLETED_STATUS,
                     'additional' => $request['count'],
-                    'off_id' => $off == null ? $off->id : null,
+                    'off_id' => $off != null ? $off->id : null,
                     'off_amount' => $off_amount,
                     'tracking_code' => $tracking_code
                 ]);
-
-                $send_notifs = [];
 
                 $find_diff = false;
 
@@ -296,6 +293,7 @@ class EventBuyerController extends Controller
                 }
                 
                 if($find_diff) {
+                
                     foreach($request['users'] as $u) {
 
                         $tmp = EventBuyer::create([
@@ -303,24 +301,33 @@ class EventBuyerController extends Controller
                             'last_name' => $u['last_name'],
                             'nid' => $u['nid'],
                             'phone' => $u['phone'],
-                            
+                            'user_id' => $user->id,
+                            'event_id' => $event->id,
+                            'count' => 1,
+                            'tracking_code' => random_int(10000000, 99999999)
                         ]);
-
-                        if(array_search($u['phone'], $send_notifs) === false) {
-
-                            array_push($send_notifs, $u['phone']);
-                            $createdAt = self::MiladyToShamsi3($tmp->created_at->timestamp);
-                                
-                            // $u != null && $u->mail != null ? $user->mail : null
-                            event(new EventRegistry(
-                                $u['phone'], null, $event->title, 0, $createdAt
-                            ));
-                        }
-
                     }
+
+                    $u = $request['users'][0];
+                    EventBuyerController::createEventListener($event, $tmp, $request, $user->mail);
+
                 }
                 else {
 
+                    $u = $request['users'][0];
+
+                    $tmp = EventBuyer::create([
+                        'first_name' => $u['first_name'],
+                        'last_name' => $u['last_name'],
+                        'nid' => $u['nid'],
+                        'phone' => $u['phone'],
+                        'user_id' => $user->id,
+                        'event_id' => $event->id,
+                        'count' => $request['count'],
+                        'tracking_code' => random_int(10000000, 99999999)
+                    ]);
+
+                    EventBuyerController::createEventListener($event, $tmp, $request, $user->mail);
                 }
 
                 return response()->json(['status' => 'ok', 'action' => 'registered']);
@@ -330,6 +337,39 @@ class EventBuyerController extends Controller
 
     }
 
+
+    public static function createEventListener(Event $event, EventBuyer $eventBuyer, Request $request, $mail) {
+
+        $validationUrl = 'https://techvblogs.com/blog/generate-qr-code-laravel-8';
+
+        $filename = 'tmp/' . time() . '.png';
+        QrCode::size(100)->generate($validationUrl, storage_path($filename)); 
+
+        $data = [
+            'title' => $event->title,
+            'launcher' => $event->launcher->company_name,
+            'type' => $event->city_id == null ? 'مجازی' : 'حضوری',
+            'address' => $event->city_id == null ? $event->link : $event->address,
+            'name' => $eventBuyer->first_name . ' ' . $eventBuyer->last_name,
+            'phone' => $eventBuyer->phone,
+            'tel' => $eventBuyer->tel,
+            'email' => $eventBuyer->email,
+            'site' => $eventBuyer->site,
+            'count' => $eventBuyer->count,
+            'ticket_desc' => $event->ticket_description,
+            'tracking_code' => $eventBuyer->tracking_code,
+            'nid' => $eventBuyer->nid,
+            'created_at' => Controller::MiladyToShamsi3($eventBuyer->created_at->timestamp),
+            'paid' => $eventBuyer->paid,
+            'qr' => storage_path($filename),
+            'days' => EventSessionResource::collection($event->sessions)->toArray($request)
+        ];
+
+        event(new EventRegistry(
+            $eventBuyer->phone, $mail, $data
+        ));
+
+    }
 
     /**
      * Display a listing of the resource.

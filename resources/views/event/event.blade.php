@@ -939,7 +939,8 @@
                             }, 1000);
                         }
 
-                    }
+                    } else
+                        showErr(res.msg);
 
                 }
             });

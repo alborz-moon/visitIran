@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\Off;
 use App\Models\Seller;
 use App\Models\Transaction;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -268,17 +269,17 @@ class OffController extends Controller
             ->where('site', $site)->where('code', $code)->first();
 
         if($off == null)
-            throw 'null';
+            throw new Exception('null');
 
         if($off->off_expiration * 1000 < time())
-            throw 'expired';
+            throw new Exception('expired');
 
         if($off->user_id == null && 
             Transaction::where('user_id', $userId)
                 ->where('status', Transaction::$COMPLETED_STATUS)
                 ->where('off_id', $off->id)->count() > 0
         )
-            throw 'double_spend';
+            throw new Exception('double_spend');
 
         return $off;
     }
