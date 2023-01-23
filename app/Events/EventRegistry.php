@@ -16,22 +16,18 @@ class EventRegistry
 
     public $phone;
     public $mail;
-    public $eventName;
-    public $paid;
-    public $createdAt;
+    public $data;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($phone, $mail, $eventName, $paid, $createdAt)
+    public function __construct($phone, $mail, $data)
     {
         $this->phone = $phone;
         $this->mail = $mail;
-        $this->eventName = $eventName;
-        $this->paid = $paid;
-        $this->createdAt = $createdAt;
+        $this->data = $data;
     }
 
     /**

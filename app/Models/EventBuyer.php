@@ -18,7 +18,8 @@ class EventBuyer extends Model
         'paid',
         'count',
         'user_id',
-        'event_id'
+        'event_id',
+        'tracking_code'
     ];
 
     public function event() {

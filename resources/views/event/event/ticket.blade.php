@@ -167,6 +167,10 @@
 
                 <img style="margin-top: 25px" width="95px" src="{{ $qr }}" />
 
+                <p class="margin0 padding0" style="text-align: center">
+                    <span class="bold fontSize12">کد: </span><span class="fontSize10">{{ $tracking_code }}</span>
+                </p>
+
             </div>
         </div>
 
