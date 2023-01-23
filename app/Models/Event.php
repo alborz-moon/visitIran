@@ -79,19 +79,17 @@ class Event extends Model
     }
 
     public function scopeActiveForRegistry($query) {
-        $now = (int)Controller::getToday()['date'];
         return $query->where('visibility', true)
             ->where('status', 'confirmed')
-            ->where('start_registry', '<=', $now)
-            ->where('end_registry', '>=', $now);
+            ->where('start_registry', '<=', time())
+            ->where('end_registry', '>=', time());
     }
     
     public static function isActiveForRegistry($event) {
         
         if(!$event->visibility || $event->status != 'confirmed') return false;
-    
-        $now = (int)Controller::getToday()['date'];
-        if($event->start_registry <= $now && $event->end_registry >= $now) return true;
+        
+        if($event->start_registry <= time() && $event->end_registry >= time()) return true;
 
         return false;
     }

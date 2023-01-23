@@ -709,7 +709,7 @@
             <!-- start of buy-event-modal -->
             <div class="remodal remodal-xl" data-remodal-id="buy-event-modal" data-remodal-options="hashTracking: false">
                 <div class="remodal-header">
-                    <div class="remodal-title">خرید بلیط نام رویداد</div>
+                    <div class="remodal-title">خرید بلیت نام رویداد</div>
                     <button data-remodal-action="close" class="remodal-close"></button>
                 </div>
                 <div class="boxShadow">
@@ -751,9 +751,9 @@
                         <div class="py-1 col-xs-12 col-md-6">
                             <div class="fs-7 text-dark">نام</div>
                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                <input value="{{ Auth::user()->first_name }}" data-editable="true" id="name"
+                                <input value="{{ Auth::user()->first_name }}" data-editable="true" id="first_name"
                                     type="text" class="form-control" style="direction: rtl" placeholder="نام">
-                                <button data-input-id="name"
+                                <button data-input-id="first_name"
                                     class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                     <i class="ri-ball-pen-fill"></i>
                                 </button>
@@ -763,10 +763,10 @@
                         <div class="py-1 col-xs-12 col-md-6">
                             <div class="fs-7 text-dark">نام خانوادگی</div>
                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                <input value="{{ Auth::user()->last_name }}" data-editable="true" id="last"
+                                <input value="{{ Auth::user()->last_name }}" data-editable="true" id="last_name"
                                     type="text" class="form-control" style="direction: rtl"
                                     placeholder="نام خانوادگی">
-                                <button data-input-id="last"
+                                <button data-input-id="first_name"
                                     class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                     <i class="ri-ball-pen-fill"></i>
                                 </button>
@@ -835,7 +835,7 @@
                         </div>
                         <div class="row boxShadow py-3">
                             <div>قانون استرداد</div>
-                            <p class="fontSize14 mt-2">استرداد بلیط تنها تا ۷۲ ساعت قبل از شروع رویداد امکان پذیر میباشد.
+                            <p class="fontSize14 mt-2">استرداد بلیت تنها تا ۷۲ ساعت قبل از شروع رویداد امکان پذیر میباشد.
                                 در صورت درخواست شرکت‌کننده بعد از بازه تعیین شده، برگزارکننده درخواست را به صورت موردی بررسی
                                 خواهد کرد و نتیجه را تا ۳ روز کاری اعلام میکند.
                                 در صورتی که رویداد کنسل شود، برگزار کننده موظف است که مبلغ کامل را به شرکت کنندگان عودت دهد.
@@ -867,6 +867,7 @@
     @parent
     <script>
         var map = undefined;
+        let count = 1;
 
         function sendimg(img) {
             $("#mainGalleryModal").attr('src', img);
@@ -874,10 +875,71 @@
 
         $(document).on('click', '.registerBtn', function() {
 
+            let users = [];
+            let meOrOthers = $("input[name='selfDetective']").val();
+            let first_name = $("#first_name").val();
+            let last_name = $("#last_name").val();
+            let nid = $("#nid").val();
+            let phone = $("#phone").val();
+
+            if (
+                first_name.length === 0 || last_name.length === 0 ||
+                nid.length === 0 || phone.length === 0
+            ) {
+                showErr("لطفا تمامی اطلاعات لازم را پر نمایید");
+                return;
+            }
+
+            users.push({
+                first_name: first_name,
+                last_name: last_name,
+                nid: nid,
+                phone: phone
+            });
+
+            if (meOrOthers === "my") {
+                for (let i = 1; i < count; i++) {
+                    users.push({
+                        first_name: first_name,
+                        last_name: last_name,
+                        nid: nid,
+                        phone: phone
+                    });
+
+                }
+            } else {
+                //     et first_name = $("#first_name").val();
+                // let last_name = $("#last_name").val();
+                // let nid = $("#nid").val();
+                // let phone = $("#phone").val();
+
+            }
+
+            let data = {
+                count: count,
+                users: users
+            };
+
+            let code = $("#off").val();
+            if (code !== undefined && code.length > 0)
+                data['code'] = code;
+
             $.ajax({
                 type: 'post',
                 url: '{{ route('api.event.register', ['event' => $event['id']]) }}',
-                data: {
+                data: data,
+                success: function(res) {
+
+                    if (res.status === 'ok') {
+
+                        if (res.action === 'registered') {
+                            showSuccess("ثبت نام شما با موفقیت انجام شد")
+                            setTimeout(() => {
+                                document.location.href = '{{ route('my-events') }}';
+                            }, 1000);
+                        }
+
+                    }
 
                 }
             });
@@ -894,7 +956,7 @@
                     star += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
             }
             $(".rattingToStar").empty().append(star);
-            //getInnerHeight
+
             heightTag = $('#getInnerHeight').height();
             if (heightTag < 400) {
                 $('#checkHeight').addClass('hidden').css('height', 'auto');
@@ -1055,7 +1117,7 @@
                     }
                 }
             }
-            var count = 1;
+
             price = parseInt($("#price").text().replaceAll(',', ''));
             updateCount();
 
@@ -1080,62 +1142,9 @@
                 $("#allPriceModal").text((count * price).formatPrice(0, ",", "."));
                 $("#count_td").text(count);
 
-                if (count > 1) {
-                    $(".hiddenSelf").removeClass("hidden");
-                    var inputs = "";
-                    for (var i = 1; i < count; i++) {
-                        inputs += '<hr><div class="container">اطلاعات شرکت کننده' + (i + 1) +
-                            '<div class="row boxShadow py-3">';
-                        inputs += '<div class="py-1 col-xs-12 col-md-6">';
-                        inputs += '<div class="fs-7 text-dark">نام</div>';
-                        inputs +=
-                            '<div class="d-flex align-items-center justify-content-between position-relative">';
-                        inputs +=
-                            '<input data-editable="true" id="nameLast" type="text" class="form-control" style="direction: rtl" placeholder="نام">';
-                        inputs +=
-                            '<button data-input-id="userEmail" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
-                        inputs += '';
-                        inputs += '</div>';
-                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
-                        inputs += '</div>';
-                        inputs += '<div class="py-1 col-xs-12 col-md-6">';
-                        inputs += '<div class="fs-7 text-dark">نام خانوادگی</div>';
-                        inputs +=
-                            '<div class="d-flex align-items-center justify-content-between position-relative">';
-                        inputs +=
-                            '<input data-editable="true" id="nameLast" type="text" class="form-control" style="direction: rtl" placeholder="نام خانوادگی">';
-                        inputs +=
-                            '<button data-input-id="userEmail" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
-                        inputs += '';
-                        inputs += '</div>';
-                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
-                        inputs += '</div>';
-                        inputs += '<div class=" py-1 col-xs-12 col-md-6">';
-                        inputs += '<div class="fs-7 text-dark">کد ملی</div>';
-                        inputs +=
-                            '<div class="d-flex align-items-center justify-content-between position-relative">';
-                        inputs +=
-                            '<input data-editable="true" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">';
-                        inputs +=
-                            '<button data-input-id="nid" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
-                        inputs += '</div>';
-                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
-                        inputs += '</div>';
-                        inputs += '<div class=" py-1 col-xs-12 col-md-6">';
-                        inputs += '<div class="fs-7 text-dark">شماره تلفن همراه</div>';
-                        inputs +=
-                            '<div class="d-flex align-items-center justify-content-between position-relative">';
-                        inputs +=
-                            '<input data-editable="true" onkeypress="return isNumber(event) " id="phone" type="tel" minlength="7" maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">';
-                        inputs +=
-                            '<button data-input-id="phone" class=" toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
-                        inputs += '</div>';
-                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
-                        inputs += '</div></div></div>';
-                    }
+                if (count > 1)
                     $("#meOrOthers").removeClass('hidden');
-                    $("#others-info").empty().append(inputs);
-                } else
+                else
                     $("#meOrOthers").addClass('hidden');
             }
 
@@ -1156,9 +1165,64 @@
             });
 
             $(document).on("change", "input[name='selfDetective']", function() {
-                if ($(this).val() == 'other')
-                    $("#others-info").removeClass('hidden');
-                else
+                if ($(this).val() == 'other') {
+
+                    var inputs = "";
+                    for (var i = 1; i < count; i++) {
+                        inputs += '<hr><div class="container">اطلاعات شرکت کننده' + (i + 1) +
+                            '<div class="row boxShadow py-3">';
+                        inputs += '<div class="py-1 col-xs-12 col-md-6">';
+                        inputs += '<div class="fs-7 text-dark">نام</div>';
+                        inputs +=
+                            '<div class="d-flex align-items-center justify-content-between position-relative">';
+
+                        inputs +=
+                            '<input data-editable="true" id="first_name_' + (i + 1) +
+                            '" type="text" class="form-control" style="direction: rtl" placeholder="نام">';
+
+                        inputs += '';
+                        inputs += '</div>';
+                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
+                        inputs += '</div>';
+                        inputs += '<div class="py-1 col-xs-12 col-md-6">';
+                        inputs += '<div class="fs-7 text-dark">نام خانوادگی</div>';
+                        inputs +=
+                            '<div class="d-flex align-items-center justify-content-between position-relative">';
+                        inputs +=
+                            '<input data-editable="true" id="last_name_' + (i + 1) +
+                            '" type="text" class="form-control" style="direction: rtl" placeholder="نام خانوادگی">';
+
+                        inputs += '</div>';
+                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
+                        inputs += '</div>';
+                        inputs += '<div class=" py-1 col-xs-12 col-md-6">';
+                        inputs += '<div class="fs-7 text-dark">کد ملی</div>';
+                        inputs +=
+                            '<div class="d-flex align-items-center justify-content-between position-relative">';
+                        inputs +=
+                            '<input data-editable="true" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid_' +
+                            (i + 1) +
+                            '" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">';
+
+                        inputs += '</div>';
+                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
+                        inputs += '</div>';
+                        inputs += '<div class=" py-1 col-xs-12 col-md-6">';
+                        inputs += '<div class="fs-7 text-dark">شماره تلفن همراه</div>';
+                        inputs +=
+                            '<div class="d-flex align-items-center justify-content-between position-relative">';
+                        inputs +=
+                            '<input data-editable="true" onkeypress="return isNumber(event) " id="phone_' +
+                            (i +
+                                1) +
+                            '" type="tel" minlength="7" maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">';
+
+                        inputs += '</div>';
+                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
+                        inputs += '</div></div></div>';
+                    }
+                    $("#others-info").empty().append(inputs).removeClass('hidden');
+                } else
                     $("#others-info").addClass('hidden');
 
             });
