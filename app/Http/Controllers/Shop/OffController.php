@@ -231,33 +231,55 @@ class OffController extends Controller
         $site = $request->getHost() == Controller::$EVENT_SITE ? 'event' : 'shop';
         $userId = $request->user()->id;
 
+        try {
+            $off = $this::check_code($site, $userId, $request->code);
+
+            $newAmount = $off->off_type == 'percent' ? number_format((100 - $off->amount) * $request['amount'] / 100, 0) : 
+                number_format(max(0, $request['amount'] - $off->amount), 0);
+    
+            $msg = $off->off_type == 'percent' ? $off->amount . '٪' : number_format(min($off->amount, $request['amount']), 0) . ' تومان';
+    
+            return response()->json([
+                'status' => 'ok',
+                'msg' => $msg . ' کد تخفیف اعمال شد',
+                'new_amount' => $newAmount
+            ]);
+        }
+        catch(\Exception $x) {
+            
+            if($x->getMessage() == 'null')
+                return response()->json(['status' => 'nok', 'msg' => 'کد وارد شده نامعتبر است']);
+
+            if($x->getMessage() == 'expired')
+                return response()->json(['status' => 'nok', 'msg' => 'کد موردنظر منقضی شده است']);
+
+            if($x->getMessage() == 'double_spend')
+                return response()->json(['status' => 'nok', 'msg' => 'این کد قبلا استفاده شده است']);    
+
+        }
+        
+    }
+
+    public static function check_code($site, $userId, $code) {
+
         $off = Off::where(function($query) use ($userId) {
             return $query->where('user_id', $userId)->orWhereNull('user_id');
         })
-            ->where('site', $site)->where('code', $request->code)->first();
+            ->where('site', $site)->where('code', $code)->first();
 
         if($off == null)
-            return response()->json(['status' => 'nok', 'msg' => 'کد وارد شده نامعتبر است']);
+            throw 'null';
 
         if($off->off_expiration * 1000 < time())
-            return response()->json(['status' => 'nok', 'msg' => 'کد موردنظر منقضی شده است']);
+            throw 'expired';
 
         if($off->user_id == null && 
             Transaction::where('user_id', $userId)
                 ->where('status', Transaction::$COMPLETED_STATUS)
                 ->where('off_id', $off->id)->count() > 0
         )
-            return response()->json(['status' => 'nok', 'msg' => 'این کد قبلا استفاده شده است']);
+            throw 'double_spend';
 
-        $newAmount = $off->off_type == 'percent' ? number_format((100 - $off->amount) * $request['amount'] / 100, 0) : 
-            number_format(max(0, $request['amount'] - $off->amount), 0);
-
-        $msg = $off->off_type == 'percent' ? $off->amount . '٪' : number_format(min($off->amount, $request['amount']), 0) . ' تومان';
-
-        return response()->json([
-            'status' => 'ok',
-            'msg' => $msg . ' کد تخفیف اعمال شد',
-            'new_amount' => $newAmount
-        ]);
+        return $off;
     }
 }

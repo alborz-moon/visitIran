@@ -24,7 +24,7 @@ class Controller extends BaseController
 
         foreach ($real as $itr) {
             if($itr !== '_token' && !in_array($itr, $expected)) {
-                dd($itr);
+                // dd($itr);
                 return true;
             }
         }
