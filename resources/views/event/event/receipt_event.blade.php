@@ -146,7 +146,7 @@
     
         <div class="absolute">
             <div class="yellow font14 bold">ویزیت ایران</div>
-            <div class="font14 bold">سامانه فروش صنایع دستی و هنر های دستی</div>
+            <div class="font14 bold">دبیرخانه رویدادها</div>
             <div class="font16 bold">صورت حساب الکترونیک</div>
             <div class="font14">شماره سفارش :</div>
         </div>
@@ -247,29 +247,20 @@
             </tr>
         </thead>
         <tbody>
-                @foreach ($products as $product)
-                    <tr>
-                        <td>{{$product['id']}}</td>
-                        <td>{{$product['title']}}</td>
-                        <td>{{$product['desc']}}</td>
-                        <td>{{$product['count']}}</td>
-                        <td>{{$product['price']}}</td>
-                        <td>{{$product['total']}}</td>
-                        <td>{{$product['off']}}</td>
-                        <td>{{$product['total_after_off']}}</td>
-                        <td>{{$product['total_after_off_tax']}}</td>
-                        <td>{{$product['all']}}</td>
-                    </tr>
-                @endforeach
+            @foreach ($products as $product)
                 <tr>
-                    <td colspan="4">حمل و نقل</td>
-                    <td>{{$transfers['price']}}</td>
-                    <td>{{$transfers['total']}}</td>
-                    <td>{{$transfers['off']}}</td>
-                    <td>{{$transfers['total_after_off']}}</td>
-                    <td>{{$transfers['total_after_off_tax']}}</td>
-                    <td>{{$transfers['all']}}</td>
-                </tr>             
+                    <td>{{$product['id']}}</td>
+                    <td>{{$product['title']}}</td>
+                    <td>{{$product['desc']}}</td>
+                    <td>{{$product['count']}}</td>
+                    <td>{{$product['price']}}</td>
+                    <td>{{$product['total']}}</td>
+                    <td>{{$product['off']}}</td>
+                    <td>{{$product['total_after_off']}}</td>
+                    <td>{{$product['total_after_off_tax']}}</td>
+                    <td>{{$product['all']}}</td>
+                </tr>
+            @endforeach  
             <tr>
                 <td colspan="5">جمع کل</td>
                 <td>{{$total['total']}}</td>
