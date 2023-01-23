@@ -730,7 +730,7 @@
                                         <tr>
                                             <td>{{ $event['title'] }}</td>
                                             <td id="count_td"></td>
-                                            <td style="max-width: 150px; white-space: break-spaces;">
+                                            <td style="max-width: 150px; white-space: inherit;">
                                                 {{ $event['ticket_description'] }}</td>
                                             <td>{{ $event['price'] }}</td>
                                         </tr>

@@ -276,6 +276,8 @@ Route::middleware(['myAuth'])->group(function() {
         
         Route::get('/my-tickets', [ProfileController::class, 'myTickets'])->name('profile.my-tickets');
 
+        Route::get('/profile-offcode', [ProfileController::class, 'profileOffCode'])->name('profile.offcode');
+
         Route::get('/report', [ProfileController::class, 'report'])->name('report');
         
         Route::get('/history', [ProfileController::class, 'history'])->name('profile.history');

@@ -15,7 +15,7 @@
         <div class="text-muted fs-7 fw-bold mb-3">
             با استفاده از روش‌های زیر می‌توانید این صفحه را با دوستان خود به اشتراک بگذارید.
         </div>
-        <div class="d-flex align-items-center border-top  py-3 mb-3">
+        <div id="showModal" class="d-flex align-items-center border-top  py-3 mb-3">
             <div class="widget flex-grow-1 border-0 p-0 me-2">
                 <div class="widget-content widget-socials">
                     <ul  class="align-items-center">
