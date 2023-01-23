@@ -131,8 +131,8 @@
                 <span class="bold fontSize12">کد ملی: </span><span class="fontSize10">{{ $nid }}</span>
             </p>
             <p class="margin0 padding0">
-                <span class="bold fontSize12">تعداد بلیت: </span><span class="fontSize10">{{ $count }}
-                    بلیت</span>
+                <span class="bold fontSize12">تعداد بلیط: </span><span class="fontSize10">{{ $count }}
+                    بلیط</span>
             </p>
         </div>
 
@@ -141,7 +141,7 @@
         <div class="hr"></div>
 
         <p class="margin0 padding0">
-            <span class="bold fontSize12">توضیحات بلیت: </span><span class="fontSize10">{{ $ticket_desc }}</span>
+            <span class="bold fontSize12">توضیحات بلیط: </span><span class="fontSize10">{{ $ticket_desc }}</span>
         </p>
 
         <div class="hr"></div>
@@ -176,7 +176,7 @@
     <h3>قانون استرداد</h3>
     <diV class="border padding5">
         <p class="fontSize12">
-            استرداد بلیت تنها تا ۷۲ ساعت قبل از شروع رویداد امکان پذیر میباشد.
+            استرداد بلیط تنها تا ۷۲ ساعت قبل از شروع رویداد امکان پذیر میباشد.
             در صورت درخواست شرکت‌کننده بعد از بازه تعیین شده، برگزارکننده درخواست را به صورت موردی بررسی
             خواهد کرد و نتیجه را تا ۳ روز کاری اعلام میکند.
             در صورتی که رویداد کنسل شود، برگزار کننده موظف است که مبلغ کامل را به شرکت کنندگان عودت دهد.

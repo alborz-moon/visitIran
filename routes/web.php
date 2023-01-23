@@ -61,6 +61,33 @@ Route::middleware(['shareTopCategories'])->group(function() {
     
 });
 
+Route::get('bank', function() {
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, "https://sep.shaparak.ir/onlinepg/onlinepg");
+    curl_setopt($ch, CURLOPT_POST, 1);
+
+    $payload = json_encode([
+        "action" => "token",
+        "TerminalId" => "13158674",
+        "Amount" => 100000,
+        "ResNum" => time(),
+        "RedirectUrl" => route('shop.callback'),
+        "CellNumber" => '09214915905'
+    ]);
+
+    curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
+    curl_setopt( $ch, CURLOPT_HTTPHEADER, [
+        'Content-Type:application/json',
+        'Accept:application/json',
+    ]);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $server_output = curl_exec($ch);
+    curl_close($ch);
+
+    dd($server_output);
+});
 
 Route::middleware(['myAuth'])->group(function() {
 
@@ -123,19 +150,93 @@ Route::get('blogs/getDistinctTags', [BlogController::class, 'distinctTags'])->na
 Route::get('/alaki2', function() {
     
         $data = [
-            // 'title' => $event->title,
-            // 'launcher' => $event->launcher->company_name,
-            // 'type' => $event->city_id == null ? 'مجازی' : 'حضوری',
-            // 'address' => $event->city_id == null ? $event->link : $event->address,
-            // 'name' => $eventBuyer->first_name . ' ' . $eventBuyer->last_name,
-            // 'phone' => $eventBuyer->phone,
-            // 'tel' => $eventBuyer->tel,
-            // 'email' => $eventBuyer->email,
-            // 'site' => $eventBuyer->site,
-            // 'nid' => $eventBuyer->nid,
-            // 'created_at' => self::MiladyToShamsi3($eventBuyer->created_at->timestamp),
-            // 'paid' => $eventBuyer->paid,
-            // 'qr' => storage_path($filename)
+            'email' => 'alborzmoon@gmail.com',
+            'tel' => '092247869125',
+            'nid' => '0018374921',
+            'address' => 'تهرانپارس سه راه داریوش',
+            'name' => 'البرز منشی زاده',
+            'selname' => 'محمد قانع',
+            'selnid' => '0011111111',
+            'postalcode' => '41137511731',
+            'seltel' => '41137511731',
+            'seladdress' => 'توضیحات1',
+            'products' => [
+                [
+                    'id' => '1',
+                    'title' => 'ذدلاال',
+                    'desc' => 'توضیحات1',
+                    'count' => 2,
+                    'price' => 200000,
+                    'total' => 5000000,
+                    'off' => 2000,
+                    'total_after_off' => 3000000,
+                    'total_after_off_tax' => 3200000,
+                    'all' => 3200000
+                ],
+                [
+                    'id' => '2',
+                    'title' => 'سشیصض',
+                    'desc' => 'توضیحات1',
+                    'count' => 2,
+                    'price' => 200000,
+                    'total' => 5000000,
+                    'off' => 2000,
+                    'total_after_off' => 3000000,
+                    'total_after_off_tax' => 3200000,
+                    'all' => 3200000
+                ],
+                [
+                    'id' => '2',
+                    'title' => 'سشیصض',
+                    'desc' => 'توضیحات1',
+                    'count' => 2,
+                    'price' => 200000,
+                    'total' => 5000000,
+                    'off' => 2000,
+                    'total_after_off' => 3000000,
+                    'total_after_off_tax' => 3200000,
+                    'all' => 3200000
+                ],
+                [
+                    'id' => '2',
+                    'title' => 'سشیصض',
+                    'desc' => 'توضیحات1',
+                    'count' => 2,
+                    'price' => 200000,
+                    'total' => 5000000,
+                    'off' => 2000,
+                    'total_after_off' => 3000000,
+                    'total_after_off_tax' => 3200000,
+                    'all' => 3200000
+                ],
+                [
+                    'id' => '2',
+                    'title' => 'سشیصض',
+                    'desc' => 'توضیحات1',
+                    'count' => 2,
+                    'price' => 200000,
+                    'total' => 5000000,
+                    'off' => 2000,
+                    'total_after_off' => 3000000,
+                    'total_after_off_tax' => 3200000,
+                    'all' => 3200000
+                ]
+            ],
+            'transfers' => [
+                'price' => 200000,
+                'total' => 6000000,
+                'off' => 3000,
+                'total_after_off' => 4000000,
+                'total_after_off_tax' => 4200000,
+                'all' => 4200000
+            ],
+            'total' => [
+                'total' => 6000000,
+                'off' => 3000,
+                'total_after_off' => 4000000,
+                'total_after_off_tax' => 4200000,
+                'all' => 4200000
+            ]
         ];
 
         view()->share('data', $data);
