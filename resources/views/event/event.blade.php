@@ -718,20 +718,27 @@
                             <table class="table mb-0 marginTop10">
                                 <thead>
                                     <tr>
-                                        <th>ردیف</th>
-                                        <th>عنوان بلیط</th>
+                                        <th>عنوان بلیت</th>
                                         <th>تعداد</th>
                                         <th>توضیحات</th>
                                         <th>قیمت</th>
                                     </tr>
                                 </thead>
-                                <tbody id="buyTicket"></tbody>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ $event['title'] }}</td>
+                                        <td id="count_td"></td>
+                                        <td style="max-width: 150px; white-space: break-spaces;">
+                                            {{ $event['ticket_description'] }}</td>
+                                        <td>{{ $event['price'] }}</td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="d-flex spaceBetween p-3">
                         <div class="fontSize16">
-                            تعداد کل: <span id="allCounterModal" class="px-1"></span> بلیط
+                            تعداد کل: <span id="allCounterModal" class="px-1"></span> بلیت
                         </div>
                         <div class="fontSize16">
                             قیمت کل: <span id="allPriceModal" class="px-1"></span>تومان
@@ -744,9 +751,9 @@
                         <div class="py-1 col-xs-12 col-md-6">
                             <div class="fs-7 text-dark">نام</div>
                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                <input data-editable="true" id="name" type="text" class="form-control"
-                                    style="direction: rtl" placeholder="نام">
-                                <button data-input-id="name"
+                                <input value="{{ Auth::user()->first_name }}" data-editable="true" id="first_name"
+                                    type="text" class="form-control" style="direction: rtl" placeholder="نام">
+                                <button data-input-id="first_name"
                                     class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                     <i class="ri-ball-pen-fill"></i>
                                 </button>
@@ -756,9 +763,10 @@
                         <div class="py-1 col-xs-12 col-md-6">
                             <div class="fs-7 text-dark">نام خانوادگی</div>
                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                <input data-editable="true" id="last" type="text" class="form-control"
-                                    style="direction: rtl" placeholder="نام خانوادگی">
-                                <button data-input-id="last"
+                                <input value="{{ Auth::user()->last_name }}" data-editable="true" id="last_name"
+                                    type="text" class="form-control" style="direction: rtl"
+                                    placeholder="نام خانوادگی">
+                                <button data-input-id="first_name"
                                     class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                     <i class="ri-ball-pen-fill"></i>
                                 </button>
@@ -768,9 +776,9 @@
                         <div class=" py-1 col-xs-12 col-md-6">
                             <div class="fs-7 text-dark">کد ملی</div>
                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                <input data-editable="true" onkeypress="return isNumber(event)" minlength="10"
-                                    maxlength="10" id="nid" type="text" class="form-control"
-                                    style="direction: rtl" placeholder="کد ملی">
+                                <input value="{{ Auth::user()->nid }}" data-editable="true"
+                                    onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid"
+                                    type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
                                 <button data-input-id="nid"
                                     class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                     <i class="ri-ball-pen-fill"></i>
@@ -781,9 +789,10 @@
                         <div class=" py-1 col-xs-12 col-md-6">
                             <div class="fs-7 text-dark">شماره تلفن همراه</div>
                             <div class="d-flex align-items-center justify-content-between position-relative">
-                                <input data-editable="true" onkeypress="return isNumber(event) " id="phone"
-                                    type="tel" minlength="7" maxlength="11" class="form-control"
-                                    style="direction: rtl" placeholder="شماره تلفن همراه">
+                                <input value="{{ Auth::user()->phone }}" data-editable="true"
+                                    onkeypress="return isNumber(event) " id="phone" type="tel" minlength="7"
+                                    maxlength="11" class="form-control" style="direction: rtl"
+                                    placeholder="شماره تلفن همراه">
                                 <button data-input-id="phone"
                                     class=" toggle-editable-btn btn btn-circle btn-outline-light hidden">
                                     <i class="ri-ball-pen-fill"></i>
@@ -835,8 +844,8 @@
                     </div>
                     <div class="remodal-footer">
                         <div class="d-flex flexWrap align-items-center spaceBetween p-3 gap15">
-                            <button data-remodal-target="buy-event-modal" style="min-width: 290px"
-                                class="fontSize18 bold btn btn-primary h-50 ">ثبت نام
+                            <button style="min-width: 290px" class="registerBtn fontSize18 bold btn btn-primary h-50 ">ثبت
+                                نام
                                 <span id="after-check-price" class="fontSize16 px-1 allPrice"></span>
                                 <span class="fontSize16 px-1">تومان</span>
                             </button>
@@ -858,10 +867,85 @@
     @parent
     <script>
         var map = undefined;
+        let count = 1;
 
         function sendimg(img) {
             $("#mainGalleryModal").attr('src', img);
         }
+
+        $(document).on('click', '.registerBtn', function() {
+
+            let users = [];
+            let meOrOthers = $("input[name='selfDetective']").val();
+            let first_name = $("#first_name").val();
+            let last_name = $("#last_name").val();
+            let nid = $("#nid").val();
+            let phone = $("#phone").val();
+
+            if (
+                first_name.length === 0 || last_name.length === 0 ||
+                nid.length === 0 || phone.length === 0
+            ) {
+                showErr("لطفا تمامی اطلاعات لازم را پر نمایید");
+                return;
+            }
+
+            users.push({
+                first_name: first_name,
+                last_name: last_name,
+                nid: nid,
+                phone: phone
+            });
+
+            if (meOrOthers === "my") {
+                for (let i = 1; i < count; i++) {
+                    users.push({
+                        first_name: first_name,
+                        last_name: last_name,
+                        nid: nid,
+                        phone: phone
+                    });
+
+                }
+            } else {
+                //     et first_name = $("#first_name").val();
+                // let last_name = $("#last_name").val();
+                // let nid = $("#nid").val();
+                // let phone = $("#phone").val();
+
+            }
+
+            let data = {
+                count: count,
+                users: users
+            };
+
+            let code = $("#off").val();
+            if (code !== undefined && code.length > 0)
+                data['code'] = code;
+
+            $.ajax({
+                type: 'post',
+                url: '{{ route('api.event.register', ['event' => $event['id']]) }}',
+                data: data,
+                success: function(res) {
+
+                    if (res.status === 'ok') {
+
+                        if (res.action === 'registered') {
+                            showSuccess("ثبت نام شما با موفقیت انجام شد")
+                            setTimeout(() => {
+                                document.location.href = '{{ route('my-events') }}';
+                            }, 1000);
+                        }
+
+                    }
+
+                }
+            });
+
+        });
+
         $(document).ready(function() {
             let star = "";
             let roundRatting = Math.floor('{{ $event['launcher_rate'] }}');
@@ -872,7 +956,7 @@
                     star += '<i class="icon-visit-staroutline me-1 fontSize14"></i>';
             }
             $(".rattingToStar").empty().append(star);
-            //getInnerHeight
+
             heightTag = $('#getInnerHeight').height();
             if (heightTag < 400) {
                 $('#checkHeight').addClass('hidden').css('height', 'auto');
@@ -1033,7 +1117,7 @@
                     }
                 }
             }
-            var count = 1;
+
             price = parseInt($("#price").text().replaceAll(',', ''));
             updateCount();
 
@@ -1055,64 +1139,12 @@
                 $(".allPrice").text((count * price).formatPrice(0, ",", "."));
                 $(".counter").val(count);
                 $("#allCounterModal").text(count);
-                $("#allPriceModal").text(price);
+                $("#allPriceModal").text((count * price).formatPrice(0, ",", "."));
+                $("#count_td").text(count);
 
-                if (count > 1) {
-                    $(".hiddenSelf").removeClass("hidden");
-                    var inputs = "";
-                    for (var i = 1; i < count; i++) {
-                        inputs += '<hr><div class="container">اطلاعات شرکت کننده' + (i + 1) +
-                            '<div class="row boxShadow py-3">';
-                        inputs += '<div class="py-1 col-xs-12 col-md-6">';
-                        inputs += '<div class="fs-7 text-dark">نام</div>';
-                        inputs +=
-                            '<div class="d-flex align-items-center justify-content-between position-relative">';
-                        inputs +=
-                            '<input data-editable="true" id="nameLast" type="text" class="form-control" style="direction: rtl" placeholder="نام">';
-                        inputs +=
-                            '<button data-input-id="userEmail" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
-                        inputs += '';
-                        inputs += '</div>';
-                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
-                        inputs += '</div>';
-                        inputs += '<div class="py-1 col-xs-12 col-md-6">';
-                        inputs += '<div class="fs-7 text-dark">نام خانوادگی</div>';
-                        inputs +=
-                            '<div class="d-flex align-items-center justify-content-between position-relative">';
-                        inputs +=
-                            '<input data-editable="true" id="nameLast" type="text" class="form-control" style="direction: rtl" placeholder="نام خانوادگی">';
-                        inputs +=
-                            '<button data-input-id="userEmail" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
-                        inputs += '';
-                        inputs += '</div>';
-                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
-                        inputs += '</div>';
-                        inputs += '<div class=" py-1 col-xs-12 col-md-6">';
-                        inputs += '<div class="fs-7 text-dark">کد ملی</div>';
-                        inputs +=
-                            '<div class="d-flex align-items-center justify-content-between position-relative">';
-                        inputs +=
-                            '<input data-editable="true" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">';
-                        inputs +=
-                            '<button data-input-id="nid" class="toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
-                        inputs += '</div>';
-                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
-                        inputs += '</div>';
-                        inputs += '<div class=" py-1 col-xs-12 col-md-6">';
-                        inputs += '<div class="fs-7 text-dark">شماره تلفن همراه</div>';
-                        inputs +=
-                            '<div class="d-flex align-items-center justify-content-between position-relative">';
-                        inputs +=
-                            '<input data-editable="true" onkeypress="return isNumber(event) " id="phone" type="tel" minlength="7" maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">';
-                        inputs +=
-                            '<button data-input-id="phone" class=" toggle-editable-btn btn btn-circle btn-outline-light hidden"><i class="ri-ball-pen-fill"></i></button>';
-                        inputs += '</div>';
-                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
-                        inputs += '</div></div></div>';
-                    }
+                if (count > 1)
                     $("#meOrOthers").removeClass('hidden');
-                    $("#others-info").empty().append(inputs);
-                } else
+                else
                     $("#meOrOthers").addClass('hidden');
             }
 
@@ -1133,9 +1165,64 @@
             });
 
             $(document).on("change", "input[name='selfDetective']", function() {
-                if ($(this).val() == 'other')
-                    $("#others-info").removeClass('hidden');
-                else
+                if ($(this).val() == 'other') {
+
+                    var inputs = "";
+                    for (var i = 1; i < count; i++) {
+                        inputs += '<hr><div class="container">اطلاعات شرکت کننده' + (i + 1) +
+                            '<div class="row boxShadow py-3">';
+                        inputs += '<div class="py-1 col-xs-12 col-md-6">';
+                        inputs += '<div class="fs-7 text-dark">نام</div>';
+                        inputs +=
+                            '<div class="d-flex align-items-center justify-content-between position-relative">';
+
+                        inputs +=
+                            '<input data-editable="true" id="first_name_' + (i + 1) +
+                            '" type="text" class="form-control" style="direction: rtl" placeholder="نام">';
+
+                        inputs += '';
+                        inputs += '</div>';
+                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
+                        inputs += '</div>';
+                        inputs += '<div class="py-1 col-xs-12 col-md-6">';
+                        inputs += '<div class="fs-7 text-dark">نام خانوادگی</div>';
+                        inputs +=
+                            '<div class="d-flex align-items-center justify-content-between position-relative">';
+                        inputs +=
+                            '<input data-editable="true" id="last_name_' + (i + 1) +
+                            '" type="text" class="form-control" style="direction: rtl" placeholder="نام خانوادگی">';
+
+                        inputs += '</div>';
+                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
+                        inputs += '</div>';
+                        inputs += '<div class=" py-1 col-xs-12 col-md-6">';
+                        inputs += '<div class="fs-7 text-dark">کد ملی</div>';
+                        inputs +=
+                            '<div class="d-flex align-items-center justify-content-between position-relative">';
+                        inputs +=
+                            '<input data-editable="true" onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid_' +
+                            (i + 1) +
+                            '" type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">';
+
+                        inputs += '</div>';
+                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
+                        inputs += '</div>';
+                        inputs += '<div class=" py-1 col-xs-12 col-md-6">';
+                        inputs += '<div class="fs-7 text-dark">شماره تلفن همراه</div>';
+                        inputs +=
+                            '<div class="d-flex align-items-center justify-content-between position-relative">';
+                        inputs +=
+                            '<input data-editable="true" onkeypress="return isNumber(event) " id="phone_' +
+                            (i +
+                                1) +
+                            '" type="tel" minlength="7" maxlength="11" class="form-control" style="direction: rtl" placeholder="شماره تلفن همراه">';
+
+                        inputs += '</div>';
+                        inputs += '<div class="fs-6 fw-bold text-muted"></div>';
+                        inputs += '</div></div></div>';
+                    }
+                    $("#others-info").empty().append(inputs).removeClass('hidden');
+                } else
                     $("#others-info").addClass('hidden');
 
             });

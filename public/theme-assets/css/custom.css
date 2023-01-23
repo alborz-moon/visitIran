@@ -130,6 +130,7 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 .product-detail-container .product-params ul li::before {
     content: "";
@@ -381,6 +382,9 @@ ul {
 .l-0 {
     left: 0;
 }
+.r-4{
+    right: 4px;
+}
 .marginFromRightHeader {
     margin-right: 120px;
 }
@@ -549,6 +553,10 @@ ul {
     -moz-border-radius: 20px !important;
     -ms-border-radius: 20px !important;
     -o-border-radius: 20px !important;
+}
+.borderRadius10 {
+    border-radius: 10px !important;
+    
 }
 .borderWhite {
     border: 0px solid #fff !important;
@@ -979,6 +987,9 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
 .minWidth250 {
     min-width: 250px !important;
 }
+.width250{
+    width: 250px;
+}
 .customBorderBoxShadow {
     border: 1px solid #dedede;
     border-radius: 15px;
@@ -1337,6 +1348,9 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
 .hoverBoxShadow:hover {
     box-shadow: 0px 3px 6px 0px #00000029;
 }
+.top17{
+top: -17px;
+}
 .borderRadius50 {
     border-radius: 50% !important;
     -webkit-border-radius: 50% !important;
@@ -1345,11 +1359,7 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
     -o-border-radius: 50% !important;
 }
 .borderRadius15 {
-    border-radius: 15px‌ !important;
-    -webkit-border-radius: 15px‌ !important;
-    -moz-border-radius: 15px‌ !important;
-    -ms-border-radius: 15px‌ !important;
-    -o-border-radius: 15px‌ !important;
+    border-radius: 15px !important;
 }
 .checkout-steps {
     max-width: 500px;
@@ -1456,6 +1466,28 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
 .product-tabs ul.nav .active {
     color: #c59358;
 }
+.dot {
+    height: 12px;
+    width: 12px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: -3px;
+  }
+/* .eventCircle{
+    padding: 4px;
+} */
+/* .eventCircle::before {
+    content:"sina";
+    color: red;
+    font-size: 5px;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+
+} */
+
 .product-tabs ul.nav .active::after {
     background-color: #c59358;
 }
@@ -2072,6 +2104,9 @@ figure .ck-widget {
 }
 .widthAuto {
     width: auto;
+}
+.text-align-center{
+    text-align: center;
 }
 .haveNotCat {
     text-align: center;

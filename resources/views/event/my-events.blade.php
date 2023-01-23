@@ -1,36 +1,35 @@
-
 @extends('layouts.structure')
+
 @section('content')
+    <main class="page-content TopParentBannerMoveOnTop">
+        <div class="container">
+            <div class="row mb-5">
 
-<main class="page-content TopParentBannerMoveOnTop">
-    <div class="container">
-        <div class="row mb-5">
+                @include('event.launcher.launcher-menu')
 
-            @include('event.launcher.launcher-menu')
-
-            <div class="col-xl-9 col-lg-9 col-md-8">
-                <div class="ui-box bg-white mb-5 boxShadow p-0">
-                    <div class="ui-box-title">رویداد ها</div>
-                    <div class="ui-box-content">
-                        <div class="row">
-                            <div class="col-lg-12 mb-3">
-                                <div class="py-2">
-                                    <div class="ui-box bg-white mb-5 p-0"> 
-                                        <div class="table-responsive dropdown">
-                                            <table class="table mb-0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ردیف</th>
-                                                        <th>نام رویداد</th>
-                                                        <th>نام برگزار کننده</th>
-                                                        <th>تاریخ شروع</th>
-                                                        <th>تاریخ ثبت نام</th>
-                                                        <th>تعداد بلیت</th>
-                                                        <th>عملیات</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="myTickets">
-                                                    {{-- <tr>
+                <div class="col-xl-9 col-lg-9 col-md-8">
+                    <div class="ui-box bg-white mb-5 boxShadow p-0">
+                        <div class="ui-box-title">رویداد ها</div>
+                        <div class="ui-box-content">
+                            <div class="row">
+                                <div class="col-lg-12 mb-3">
+                                    <div class="py-2">
+                                        <div class="ui-box bg-white mb-5 p-0">
+                                            <div class="table-responsive dropdown">
+                                                <table class="table mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ردیف</th>
+                                                            <th>نام رویداد</th>
+                                                            <th>نام برگزار کننده</th>
+                                                            <th>تاریخ شروع</th>
+                                                            <th>تاریخ ثبت نام</th>
+                                                            <th>تعداد بلیط</th>
+                                                            <th>عملیات</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="myTickets">
+                                                        {{-- <tr>
                                                         <td>رویداد من</td>
                                                         <td>اصغر فرهادی</td>
                                                         <td>1401</td>
@@ -47,8 +46,9 @@
                                                             </ul>
                                                         </td>
                                                     </tr> --}}
-                                                </tbody>
-                                            </table>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -58,8 +58,7 @@
                 </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
 @stop
 
 
@@ -73,10 +72,10 @@
                 'accept': 'application/json'
             },
             success: function(res) {
-                if(res.status === "ok") {
-                    var myTickets= "";
-                    if(res.data.length != 0){
-                        for(var i = 0; i < res.data.length; i++){
+                if (res.status === "ok") {
+                    var myTickets = "";
+                    if (res.data.length != 0) {
+                        for (var i = 0; i < res.data.length; i++) {
                             myTickets += '<tr>';
                             myTickets += '<td>' + (i + 1) + '</td>';
                             myTickets += '<td>' + res.data[i].title + '</td>';
@@ -85,13 +84,17 @@
                             myTickets += '<td>' + res.data[i].start + '</td>';
                             myTickets += '<td>' + res.data[i].count + '</td>';
                             myTickets += '<td>';
-                            myTickets += '<button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">';
+                            myTickets +=
+                                '<button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">';
                             myTickets += '<i class="icon-visit-menu"></i>';
                             myTickets += '</button>';
                             myTickets += '<ul class="dropdown-menu">';
-                            myTickets += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i].href + '">مشاهده</a></li>';
-                            myTickets += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i].ticket_href + '">بلیط</a></li>';
-                            myTickets += '<li><a class="dropdown-item fontSize12 btnHover" href="{{ route('profile.my-tickets') }}">پشتیبانی</a></li>';
+                            myTickets += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i]
+                                .href + '">مشاهده</a></li>';
+                            myTickets += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i]
+                                .ticket_href + '">بلیط</a></li>';
+                            myTickets +=
+                                '<li><a class="dropdown-item fontSize12 btnHover" href="{{ route('profile.my-tickets') }}">پشتیبانی</a></li>';
                             myTickets += '</ul>'
                             myTickets += '</td>';
                             myTickets += '</tr>';
@@ -100,6 +103,6 @@
                     }
                 }
             }
-         });
+        });
     </script>
 @stop
