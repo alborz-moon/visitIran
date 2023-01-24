@@ -96,7 +96,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('my-events') }}">
                         <i class="nav-link-icon ri-file-list-3-line"></i>
-                        بلیط های من
+                        بلیت های من
                     </a>
                 </li>
                 <li class="nav-item">

@@ -168,7 +168,7 @@
                                                     @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
                                                         <a class="nav-link" href="{{ route('my-events') }}"><i
                                                                 class="nav-link-icon ri-file-list-3-line"></i>
-                                                            بلیط های من
+                                                            بلیت های من
                                                         </a>
                                                     @else
                                                         <a class="nav-link" href="{{ route('cart') }}"><i

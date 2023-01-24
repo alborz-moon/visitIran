@@ -30,7 +30,7 @@
                                                 id="canceled-tab" data-bs-toggle="tab" data-bs-target="#canceled"
                                                 type="button" role="tab" aria-controls="canceled"
                                                 aria-selected="true">لغو
-                                                شده <span class="badge rounded-pill bg-danger ms-1">15</span></button>
+                                                شده <span class="badge rounded-pill bg-danger ms-1">0</span></button>
                                         </li>
                                     </ul>
                                 </div>
@@ -38,7 +38,7 @@
                                 <!-- start of tab-content -->
                                 <div class="tab-content" id="myTabContent">
                                     <!-- start of tab-pane -->
-                                    <div class="tab-pane fade" id="paid-in-progress" role="tabpanel"
+                                    {{-- <div class="tab-pane fade" id="paid-in-progress" role="tabpanel"
                                         aria-labelledby="paid-in-progress-tab">
                                         <div class="user-order-items">
                                             <div class="user-order-item">
@@ -83,10 +83,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <!-- end of tab-pane -->
                                     <!-- start of tab-pane -->
-                                    <div class="tab-pane fade" id="delivered" role="tabpanel"
+                                    {{-- <div class="tab-pane fade" id="delivered" role="tabpanel"
                                         aria-labelledby="delivered-tab">
                                         <div class="user-order-items">
                                             <div class="user-order-item">
@@ -131,10 +131,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <!-- end of tab-pane -->
                                     <!-- start of tab-pane -->
-                                    <div class="tab-pane fade show active" id="canceled" role="tabpanel"
+                                    {{-- <div class="tab-pane fade show active" id="canceled" role="tabpanel"
                                         aria-labelledby="canceled-tab">
                                         <div class="user-order-items">
                                             <div class="user-order-item">
@@ -179,7 +179,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <!-- end of tab-pane -->
                                 </div>
                                 <!-- end of tab-content -->

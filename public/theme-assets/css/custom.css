@@ -13,6 +13,7 @@ h2,
 h3 {
     font-weight: 600;
 }
+
 h1 {
     font-size: 1.8rem;
 }
@@ -130,7 +131,6 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 .product-detail-container .product-params ul li::before {
     content: "";
@@ -161,6 +161,9 @@ ul {
     height: 100%;
     z-index: 10;
     background-color: #cccccc67;
+}
+.height190{
+    height: 190px;
 }
 .myModal {
     position: fixed;
@@ -221,6 +224,9 @@ ul {
 }
 .positionRelative {
     position: relative !important;
+}
+.positionFixed{
+    position: fixed;
 }
 .fs-7 {
     font-weight: 600;
@@ -315,6 +321,9 @@ ul {
 .bold {
     font-weight: 700;
 }
+.centerBtn{
+    left: calc(50% - 74px);
+}
 .customCloseIconBanner {
     width: 31px;
     height: 31px;
@@ -382,7 +391,7 @@ ul {
 .l-0 {
     left: 0;
 }
-.r-4{
+.r-4 {
     right: 4px;
 }
 .marginFromRightHeader {
@@ -556,7 +565,6 @@ ul {
 }
 .borderRadius10 {
     border-radius: 10px !important;
-    
 }
 .borderWhite {
     border: 0px solid #fff !important;
@@ -987,7 +995,7 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
 .minWidth250 {
     min-width: 250px !important;
 }
-.width250{
+.width250 {
     width: 250px;
 }
 .customBorderBoxShadow {
@@ -1080,6 +1088,9 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
 }
 .customBackgroundWhite {
     background-color: #fff !important;
+}
+.colorEAEAEA {
+    color: #eaeaea;
 }
 .customBold {
     font-weight: 800;
@@ -1348,8 +1359,8 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
 .hoverBoxShadow:hover {
     box-shadow: 0px 3px 6px 0px #00000029;
 }
-.top17{
-top: -17px;
+.top17 {
+    top: -17px;
 }
 .borderRadius50 {
     border-radius: 50% !important;
@@ -1473,7 +1484,7 @@ top: -17px;
     border-radius: 50%;
     display: inline-block;
     vertical-align: -3px;
-  }
+}
 /* .eventCircle{
     padding: 4px;
 } */
@@ -2105,7 +2116,7 @@ figure .ck-widget {
 .widthAuto {
     width: auto;
 }
-.text-align-center{
+.text-align-center {
     text-align: center;
 }
 .haveNotCat {
@@ -2175,6 +2186,7 @@ figure .ck-widget {
 }
 .link:hover {
     color: #0089b7 !important;
+    border: none;
 }
 /* .checkout-bill .checkout-bill-row .checkout-bill-row-label {
     color: #555a5d !important;
@@ -2358,4 +2370,14 @@ figure .ck-widget {
     .eventHandleInMediaFavorites {
         flex-basis: calc(100% - 5px);
     }
+}
+
+.max-height-auto {
+    max-height: unset !important;
+    overflow: auto !important;
+}
+
+.show-more,
+.show-less {
+    cursor: pointer !important;
 }

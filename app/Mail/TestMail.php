@@ -31,6 +31,6 @@ class TestMail extends Mailable
     public function build()
     {
         return $this->subject('Mail from Bogen studio')
-                ->view('emails.verification');
+                ->view('emails.verification', $this->details);
     }
 }
