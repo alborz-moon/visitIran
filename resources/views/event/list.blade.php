@@ -46,7 +46,7 @@
                                 <div class="widget-title b-0"> نحوه نمایش :</div>
                                 <form action="#">
                                     <div class="form-element-row">
-                                        <select id="orderBy" class="form-select b-0 p-2"
+                                        <select id="orderBy" class="form-select b-0 p-2 select2"
                                             aria-label="Default select example">
                                             <option selected value="price_desc">گران ترین</option>
                                             <option value="price_asc">ارزان ترین</option>

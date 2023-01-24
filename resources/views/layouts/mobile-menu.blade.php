@@ -9,6 +9,7 @@
             success: function(res) {
                 var htmlMobile= "";
                 if(res.status == "ok") {
+                    htmlMobile += '<li><a href="{{ route('home') }}" class="toggle-submenu afterContentNone">صفحه اصلی</a></li>';
                     for(var i = 0; i < res.data.length; i++) {
                         htmlMobile +='<li>';
                         if (res.data[i].subs.length != 0){
@@ -42,6 +43,7 @@
                         }
                         htmlMobile +='</li>';
                     }
+                    htmlMobile += '<li><a href="{{ route('category.list', ['orderBy' => 'createdAt']) }}" class="toggle-submenu afterContentNone">پیشنهاد های ویژه</a></li>';
                     $("#moblieMenu").append(htmlMobile);
                 }
             }
