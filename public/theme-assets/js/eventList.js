@@ -129,10 +129,12 @@ function buildQuery() {
         $("#total_filters").removeClass("hidden");
         $("#remove_all_filters").removeClass("hidden");
         $("#total_filters_count").empty().append(total_filters_count);
+        $(".remove_all_filters").removeClass("hidden");
         $("#total_filters_count_mobile").empty().append(total_filters_count);
     } else {
         $("#total_filters").addClass("hidden");
         $("#remove_all_filters").addClass("hidden");
+        $(".remove_all_filters").addClass("hidden");
     }
 
     return query;

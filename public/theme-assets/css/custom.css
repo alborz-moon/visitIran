@@ -162,7 +162,7 @@ ul {
     z-index: 10;
     background-color: #cccccc67;
 }
-.height190{
+.height190 {
     height: 190px;
 }
 .myModal {
@@ -225,7 +225,7 @@ ul {
 .positionRelative {
     position: relative !important;
 }
-.positionFixed{
+.positionFixed {
     position: fixed;
 }
 .fs-7 {
@@ -321,7 +321,7 @@ ul {
 .bold {
     font-weight: 700;
 }
-.centerBtn{
+.centerBtn {
     left: calc(50% - 74px);
 }
 .customCloseIconBanner {
@@ -1182,6 +1182,9 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
     display: flex !important;
     justify-content: space-between !important;
 }
+.justifyContentSpaceBetween {
+    justify-content: space-between;
+}
 .justifyContentEnd {
     justify-content: end !important;
 }
@@ -1933,7 +1936,7 @@ figure .ck-widget {
         margin-top: 15px;
     }
     .mt-md-110 {
-        margin-top: -48px;
+        margin-top: -24px;
     }
     .TopParentBannerMoveOnTop {
         margin-top: 0;
@@ -2239,6 +2242,9 @@ figure .ck-widget {
     }
 }
 @media (max-width: 768px) {
+    .maxWidth768 {
+        display: none;
+    }
     .logoImgFromTop {
         top: -20px;
     }

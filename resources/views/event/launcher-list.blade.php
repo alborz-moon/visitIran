@@ -47,7 +47,7 @@
                                     <div id="star_filters_count_container" class="hidden">
                                         <i class="circle colorBlue align-self-center"></i>
                                         <span class="colorBlue fontSize12">
-                                            <span id="star_filters_count"></span><span> فیلتر</span><span id="total_filters_count_mobile"></span>
+                                            <span id="star_filters_count"></span><span> فیلتر</span>
                                         </span>
                                     </div>
 
@@ -192,10 +192,19 @@
                     </div>
                 </div>
                 <div class="col-xl-9 col-lg-9 col-md-8 px-0">
-                    <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar mt-3">فیلتر پیشرفته
-                        <i class="ri-equalizer-fill ms-1"></i>
-                    </button>
-                    <span id="total_filters_count_mobile"></span>
+                    <div class="d-md-none">
+                    <div class="d-flex justifyContentSpaceBetween alignItemsCenter p-2">
+                        <div>
+                            <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar mt-3">فیلتر پیشرفته
+                                <i class="ri-equalizer-fill ms-1"></i>
+                            </button>
+                            <span id="total_filters_count_mobile" class="remove_all_filters me-1 colorBlue fontSize12"></span><span class="remove_all_filters colorBlue fontSize12">فیلتر</span>
+                        </div>
+                        <div>
+                            <a onclick="clearAllFilters()" class="colorRed cursorPointer fontSize12 align-self-center remove_all_filters hidden">حذف نتایج</a>
+                        </div>
+                    </div>
+                    </div>
                     <div class="listing-products">
                         <div class="listing-products-content">
                             <!-- start of tab-content -->
