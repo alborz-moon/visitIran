@@ -786,8 +786,6 @@ class EventController extends EventHelper
                 if($find_diff)
                     break;
             }
-
-            dd($find_diff);
     
             $userId = $t->user_id;
             $user = User::find($userId);
