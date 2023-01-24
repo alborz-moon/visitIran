@@ -816,7 +816,7 @@ class EventController extends EventHelper
                 $u = $users[0];
     
                 $tmp = EventBuyer::create([
-                    'first_name' => $u['first_name'],
+                    'first_name' => $u->first_name,
                     'last_name' => $u['last_name'],
                     'nid' => $u['nid'],
                     'phone' => $u['phone'],
