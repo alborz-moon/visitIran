@@ -13,15 +13,17 @@ class EventRegistryMail extends Mailable
     use Queueable, SerializesModels;
 
     public $eventRegistry;
+    public $filename;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(EventRegistry $eventRegistry)
+    public function __construct(EventRegistry $eventRegistry, $filename)
     {
         $this->eventRegistry = $eventRegistry;
+        $this->filename = $filename;
     }
 
     /**
@@ -31,11 +33,14 @@ class EventRegistryMail extends Mailable
      */
     public function build()
     {
-        return 
+        return
             $this->subject('Mail from Bogen studio')
                 ->view('emails.event_registry', [
                     'title' => $this->eventRegistry->data['title'],
                     'body' => 'test'
+                ])->attach($this->filename, [
+                         'as' => 'ticket.pdf',
+                         'mime' => 'application/pdf',
                 ]);
     }
 }

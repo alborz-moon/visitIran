@@ -38,7 +38,7 @@ class SendEventRegistryNotification
                     'display_mode' => 'fullpage'
                 ]
             );
-            
+
             $filename = storage_path('tmp/' . time() . '.pdf');
             $filename_recp = storage_path('tmp/recp_' . time() . '.pdf');
 
