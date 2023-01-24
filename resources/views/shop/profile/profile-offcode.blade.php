@@ -7,26 +7,22 @@
                 <div class="col-xl-9 col-lg-8 col-md-7">
                     <div class="ui-box bg-white mb-5 p-0">
                         <div class="ui-box-title align-items-center justify-content-between">
-                            تیکتهای شما
-                            <a href="{{ route('profile.tickets-add') }}"
-                                class="btn btn-outline-light marginLeft3">تیکت جدید 
-                                <i class="ri-add-line ms-2"></i>
-                            </a>
+                            تخفیف های فعال      
                         </div>
                         <div class="py-2">
                             <div class="table-responsive dropdown">
                                 <table class="table mb-0">
                                     <thead>
                                         <tr>
-                                            <th>زمان ایجاد</th>
-                                            <th>بخش</th>
-                                            <th>موضوع</th>
-                                            <th>وضعیت</th>
-                                            <th>آخرین بروزرسانی</th>
-                                            <th>عملیات</th>
+                                            <th>مقدار تخفیف</th>
+                                            <th>سقف</th>
+                                            <th>تاریخ اعتبار</th>
+                                            <th>دسته</th>
+                                            <th>کد</th>
+                                            {{-- با کلیک کپی شود --}}
                                         </tr>
                                     </thead>
-                                    <tbody id="myTickets">
+                                    <tbody id="offCode">
                                         {{-- <tr>
                                             <td>رویداد من</td>
                                             <td>اصغر فرهادی</td>
