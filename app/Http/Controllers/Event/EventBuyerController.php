@@ -350,7 +350,11 @@ class EventBuyerController extends Controller
                 return response()->json(['status' => 'ok', 'action' => 'pay', 'token' => $token]);
             }
 
-            return response()->json(['status' => 'nok', 'msg' => 'خطایی در برقراری اتصال به درگاه پرداخت به وجود آمده است']);
+            return response()->json([
+                'status' => 'nok', 
+                'msg' => 'خطایی در برقراری اتصال به درگاه پرداخت به وجود آمده است', 
+                'msg2' => $res
+            ]);
         }
 
     }
