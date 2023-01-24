@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EventUserResource extends JsonResource
@@ -44,6 +45,9 @@ class EventUserResource extends JsonResource
             'launcher_follower_count' => $launcher->follower_count,
             'launcher_x' => $launcher->launcher_x,
             'launcher_y' => $launcher->launcher_y,
+
+            'isActiveForRegistry' => Event::isActiveForRegistry($this), 
+
             'start' => $s,
             'end' => $e,
 

@@ -28,25 +28,7 @@
                                                             <th>عملیات</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody id="myTickets">
-                                                        {{-- <tr>
-                                                        <td>رویداد من</td>
-                                                        <td>اصغر فرهادی</td>
-                                                        <td>1401</td>
-                                                        <td>1402</td>
-                                                        <td>10</td>
-                                                        <td>
-                                                            <button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="icon-visit-menu"></i>
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده</a></li>
-                                                                <li><a class="dropdown-item fontSize12 btnHover" href="#">بلیت</a></li>
-                                                                <li><a class="dropdown-item fontSize12 btnHover" href="#">پشتیبانی</a></li>
-                                                            </ul>
-                                                        </td>
-                                                    </tr> --}}
-                                                    </tbody>
+                                                    <tbody id="myTickets"></tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -93,6 +75,8 @@
                                 .href + '">مشاهده</a></li>';
                             myTickets += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i]
                                 .ticket_href + '">بلیت</a></li>';
+                            myTickets += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i]
+                                .recp_href + '">فاکتور</a></li>';
                             myTickets +=
                                 '<li><a class="dropdown-item fontSize12 btnHover" href="{{ route('profile.my-tickets') }}">پشتیبانی</a></li>';
                             myTickets += '</ul>'

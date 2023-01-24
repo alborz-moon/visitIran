@@ -91,7 +91,7 @@ class EventBuyerController extends Controller
      * @param  \App\Models\EventBuyer  $eventBuyer
      * @return \Illuminate\Http\Response
      */
-    public function show(EventBuyer $eventBuyer, Request $request)
+    public function generateTicketPDF(EventBuyer $eventBuyer, Request $request)
     {
 
         $event = $eventBuyer->event;
@@ -132,6 +132,50 @@ class EventBuyerController extends Controller
         return $pdf->download('pdf_file.pdf');
 
     }
+
+
+        /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\EventBuyer  $eventBuyer
+     * @return \Illuminate\Http\Response
+     */
+    public function generateRecpPDF(EventBuyer $eventBuyer, Request $request)
+    {
+
+        $event = $eventBuyer->event;
+        $data = [
+            'title' => $event->title,
+            'launcher' => $event->launcher->company_name,
+            'type' => $event->city_id == null ? 'مجازی' : 'حضوری',
+            'address' => $event->city_id == null ? $event->link : $event->address,
+            'name' => $eventBuyer->first_name . ' ' . $eventBuyer->last_name,
+            'phone' => $eventBuyer->phone,
+            'tel' => $eventBuyer->tel,
+            'email' => $eventBuyer->email,
+            'site' => $eventBuyer->site,
+            'count' => $eventBuyer->count,
+            'ticket_desc' => $event->ticket_description,
+            'tracking_code' => $eventBuyer->tracking_code,
+            'nid' => $eventBuyer->nid,
+            'created_at' => self::MiladyToShamsi3($eventBuyer->created_at->timestamp),
+            'paid' => $eventBuyer->paid,
+            'qr' => storage_path($filename),
+            'days' => EventSessionResource::collection($event->sessions)->toArray($request)
+        ];
+
+        view()->share('data', $data);
+
+        $pdf = Pdf::loadView('event.event.ticket', $data, [], 
+            [
+                'format' => 'A5-L',
+                'display_mode' => 'fullpage'
+            ]
+        );
+        return $pdf->download('pdf_file.pdf');
+
+    }
+
 
 
     // /**
@@ -200,9 +244,8 @@ class EventBuyerController extends Controller
 
             try {
                 $off = OffController::check_code('event', $userId, $request->code);
-
-                $price_after_off = $off->off_type == 'percent' ? number_format((100 - $off->amount) * $price / 100, 0) : 
-                    number_format(max(0, $price - $off->amount), 0);
+                $price_after_off = $off->off_type == 'percent' ? (100 - $off->amount) * $price / 100 : 
+                    max(0, $price - $off->amount);
 
                 $off_amount = $price - $price_after_off;
                 $price = $price_after_off;
@@ -221,7 +264,6 @@ class EventBuyerController extends Controller
 
             }
         }
-
 
         $find_diff = false;
 
