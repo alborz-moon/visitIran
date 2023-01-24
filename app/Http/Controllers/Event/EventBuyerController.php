@@ -313,7 +313,7 @@ class EventBuyerController extends Controller
                     'user_id' => $user->id,
                     'ref_id' => $event->id,
                     'site' => 'event',
-                    'status' => Transaction::$COMPLETED_STATUS,
+                    'status' => Transaction::$INIT_STATUS,
                     'additional' => $request['count'],
                     'off_id' => $off != null ? $off->id : null,
                     'off_amount' => $off_amount
