@@ -162,7 +162,7 @@
                                     <div class="widget-title b-0" > نحوه نمایش :</div>
                                         <form action="#">
                                             <div class="form-element-row">
-                                                <select id="orderBy" class="form-select b-0 p-2" aria-label="Default select example">
+                                                <select id="orderBy" class="form-select b-0 p-2 select2" aria-label="Default select example">
                                                   <option {{isset($orderBy) && $orderBy === 'price' ? 'selected' : ''}} value="price_desc">گران ترین</option>
                                                   <option {{isset($orderBy) && $orderBy === 'price' ? 'selected' : ''}} value="price_asc">ارزان ترین</option>
                                                   <option {{isset($orderBy) && $orderBy === 'createdAt' ? 'selected' : ''}} value="createdAt_desc">جدید ترین</option>
@@ -228,7 +228,7 @@
                                             <div id="features_filters_count_container" class="hidden">
                                                 <i class="circle colorBlue align-self-center"></i>
                                                 <span class="colorBlue fontSize12">
-                                                    <span id="features_filters_count" ></span><span> فیلتر</span>
+                                                    <span id="features_filters_count"></span><span> فیلتر</span>
                                                 </span>
                                             </div>
 
@@ -236,7 +236,7 @@
                                         <div class="widget-content widget--search collapse" id="collapseGrouping">
                                             <div class="filter-options do-simplebar pt-2 mt-2">
                                                 @foreach ($features as $feature)
-                                                    <select name="feature_filter" data-id="{{ $feature['id'] }}" onchange="filter()" id="feature_{{ $feature['id'] }}">
+                                                    <select class="select2" name="feature_filter" data-id="{{ $feature['id'] }}" onchange="filter()" id="feature_{{ $feature['id'] }}">
                                                         <option value="all">{{ $feature['name'] }}</option>
                                                         @foreach ($feature['choices'] as $choice)
                                                             <option value="{{ $choice['key'] }}">{{ $choice['key'] }}</option>

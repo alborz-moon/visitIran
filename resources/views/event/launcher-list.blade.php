@@ -87,7 +87,7 @@
                                 <div class="widget-title b-0"> نحوه نمایش :</div>
                                 <form action="#">
                                     <div class="form-element-row">
-                                        <select id="orderBy" class="form-select b-0 p-2"
+                                        <select id="orderBy" class="form-select b-0 p-2 select2"
                                             aria-label="Default select example">
                                             <option value="createdAt_desc">جدید ترین</option>
                                             <option value="rate_desc">محبوب ترین</option>
