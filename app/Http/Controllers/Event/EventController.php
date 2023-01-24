@@ -796,10 +796,10 @@ class EventController extends EventHelper
                 foreach($users as $u) {
     
                     $tmp = EventBuyer::create([
-                        'first_name' => $u['first_name'],
-                        'last_name' => $u['last_name'],
-                        'nid' => $u['nid'],
-                        'phone' => $u['phone'],
+                        'first_name' => $u->first_name,
+                        'last_name' => $u->last_name,
+                        'nid' => $u->nid,
+                        'phone' => $u->phone,
                         'user_id' => $userId,
                         'event_id' => $event->id,
                         'count' => 1,
@@ -817,12 +817,12 @@ class EventController extends EventHelper
     
                 $tmp = EventBuyer::create([
                     'first_name' => $u->first_name,
-                    'last_name' => $u['last_name'],
-                    'nid' => $u['nid'],
-                    'phone' => $u['phone'],
+                    'last_name' => $u->last_name,
+                    'nid' => $u->nid,
+                    'phone' => $u->phone,
                     'user_id' => $user->id,
                     'event_id' => $event->id,
-                    'count' => $u['count'],
+                    'count' => $u->count,
                     'tracking_code' => random_int(10000000, 99999999)
                 ]);
     
