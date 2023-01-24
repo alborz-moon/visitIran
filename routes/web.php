@@ -351,6 +351,9 @@ Route::get('/cart-empty', function () {
     return view('cart-empty');
 })->name('cart-empty');
 
+Route::get('/alaki', function () {
+    return view('alaki');
+})->name('alaki');
 
 Route::get('/checkout-successful', function () {
     return view('checkout-successful');
