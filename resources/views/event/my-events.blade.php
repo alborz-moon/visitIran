@@ -24,7 +24,7 @@
                                                             <th>نام برگزار کننده</th>
                                                             <th>تاریخ شروع</th>
                                                             <th>تاریخ ثبت نام</th>
-                                                            <th>تعداد بلیط</th>
+                                                            <th>تعداد بلیت</th>
                                                             <th>عملیات</th>
                                                         </tr>
                                                     </thead>
@@ -41,7 +41,7 @@
                                                             </button>
                                                             <ul class="dropdown-menu">
                                                                 <li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده</a></li>
-                                                                <li><a class="dropdown-item fontSize12 btnHover" href="#">بلیط</a></li>
+                                                                <li><a class="dropdown-item fontSize12 btnHover" href="#">بلیت</a></li>
                                                                 <li><a class="dropdown-item fontSize12 btnHover" href="#">پشتیبانی</a></li>
                                                             </ul>
                                                         </td>
@@ -92,7 +92,7 @@
                             myTickets += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i]
                                 .href + '">مشاهده</a></li>';
                             myTickets += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i]
-                                .ticket_href + '">بلیط</a></li>';
+                                .ticket_href + '">بلیت</a></li>';
                             myTickets +=
                                 '<li><a class="dropdown-item fontSize12 btnHover" href="{{ route('profile.my-tickets') }}">پشتیبانی</a></li>';
                             myTickets += '</ul>'

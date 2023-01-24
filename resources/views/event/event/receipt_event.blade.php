@@ -133,10 +133,9 @@
 </head>
 
 <body>
-    <div class="absolute" style="width: 260px;top:25px;left:0">
+    <div class="absolute" style="width: 270px;top:25px;left:0">
         <p class="margin0 padding0">
-            <div class="fontSize12">تاریخ:</div>
-            <div class="fontSize12">شماره:</div>
+            <div class="fontSize12">تاریخ: <span>1402/01/01</span></div>
         </p>
     </div>
     <div class="relative">
@@ -148,12 +147,12 @@
             <div class="yellow font14 bold">ویزیت ایران</div>
             <div class="font14 bold">دبیرخانه رویدادها</div>
             <div class="font16 bold">صورت حساب الکترونیک</div>
-            <div class="font14">شماره سفارش :</div>
+            <div class="font14">شماره سفارش :<span>1654786415348647</span></div>
         </div>
     </div>
     <div class="fontSize16 bold">مشخصات خریدار</div>
     <div style="margin-top: 10px">
-        <div class="float-r" style="width: 260px">
+        <div class="float-r" style="width: 270px">
             <p class="margin0 padding0">
                 <span class="bold fontSize14">نام و نام خانوادگی: </span>
                 <span class="fontSize12">{{$name}}</span>
@@ -161,42 +160,33 @@
         </div>
 
 
-        <div class="float-r" style="width: 260px">
+        <div class="float-r" style="width: 270px">
             <p class="margin0 padding0">
                 <span class="bold fontSize14">شماره ملی: </span>
                 <span class="fontSize12">{{$nid}}</span>
             </p>
         </div>
 
-        <div class="float-r" style="width: 260px">
+        <div class="float-r" style="width: 270px">
             <p class="margin0 padding0">
                 <span class="bold fontSize14">تلفن:</span>
                 <span class="fontSize12">{{$tel}}</span>
             </p>
         </div>
 
-        <div class="float-r" style="width: 260px">
+        <div class="float-r" style="width: 270px">
             <p class="margin0 padding0">
                 <span class="bold fontSize14">ایمیل:</span>
                 <span class="fontSize12">{{$email}}</span>
             </p>
         </div>
     </div>
-
-    <div style="margin-top: 10px">
-        <div class="float-r" style="width: 260px">
-            <p class="margin0 padding0">
-                <span class="bold fontSize14">آدرس تحویل:</span>
-                <span class="fontSize12">{{$address}}</span>
-            </p>
-        </div>
-    </div>
-    <div style="margin-top: 20px" class="fontSize16 bold">مشخصات فروشنده</div>
+    <div style="margin-top: 20px;margin-bottom: 10px" class="fontSize16 bold">مشخصات فروشنده</div>
     <div class="p-0 m-0">
-        <div class="float-r" style="width: 260px">
+        <div class="float-r" style="width: 280px">
             <p class="margin0 padding0">
                 <span class="bold fontSize14">نام:</span>
-                <span class="fontSize12">{{$selname}}</span>
+                <span class="fontSize12">کانون جهانگردی و اتومبیلرانی جمهوری اسلامی ایران</span>
             </p>
         </div>
 
@@ -204,29 +194,29 @@
         <div class="float-r" style="width: 260px">
             <p class="margin0 padding0">
                 <span class="bold fontSize14">شناسه ملی:</span>
-                <span class="fontSize12">{{$selnid}}</span>
+                <span class="fontSize12">10100001064</span>
             </p>
         </div>
 
-        <div class="float-r" style="width: 260px">
+        <div class="float-r" style="width: 270px">
             <p class="margin0 padding0">
                 <span class="bold fontSize14">شماره اقتصادی:</span>
-                <span class="fontSize12">{{$postalcode}}</span>
+                <span class="fontSize12">411137511731</span>
             </p>
         </div>
 
-        <div class="float-r" style="width: 260px">
+        <div class="float-r" style="width: 270px">
             <p class="margin0 padding0">
                 <span class="bold fontSize14">شماره تلفن:</span>
-                <span class="fontSize12">{{$selname}}</span>
+                <span class="fontSize12">411137511731</span>
             </p>
         </div>
     </div>
     <div style="margin-top: 10px">
-        <div class="float-r" style="width: 260px">
+        <div class="float-r" style="width: 100٪">
             <p class="margin0 padding0">
                 <span class="bold fontSize14">آدرس :</span>
-                <span class="fontSize12">{{$seladdress}}</span>
+                <span class="fontSize12">تهران، خیابان آزادی، بین خوش و بهبودی، نبش خیابان شهید قانعی، پلاک 231 کد پستی : 1457994785</span>
             </p>
         </div>
     </div>
@@ -235,8 +225,8 @@
         <thead> 
             <tr style="background-color: rgb(189, 189, 189)">
                 <th>ردیف</th>
-                <th>نام محصول</th>
-                <th>توضیحات محصول</th>
+                <th>نام رویداد</th>
+                <th>توضیحات بلیت</th>
                 <th>تعداد</th>
                 <th>قیمت واحد (ریال)</th>
                 <th>مبلغ کل (ریال)</th>

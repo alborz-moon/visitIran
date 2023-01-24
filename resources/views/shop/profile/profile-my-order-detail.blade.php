@@ -15,7 +15,7 @@
                                 <i class="ri-record-circle-fill fs-7 text-muted mx-2"></i>
                                 <span class="font-en">شماره سفارش</span>
                             </div>
-                            <div class="ui-box-content">
+                            {{-- <div class="ui-box-content">
                                 <!-- start of user-order-items -->
                                 <div class="user-order-items">
                                     <!-- start of user-order-item -->
@@ -49,8 +49,8 @@
                                                 <span class="text-dark fa-num">مرسوله 1 از 1</span>
                                             </div>
                                             <div class="cart-items">
-                                                {{-- اینجا باید متصل بشه به Api --}}
-                                                {{-- <div class="cart-item">
+                                                اینجا باید متصل بشه به Api
+                                                <div class="cart-item">
                                                     <div class="cart-item--thumbnail">
                                                         <a href="#">
                                                             <img src="./theme-assets/images/carts/01.jpg" alt="">
@@ -103,14 +103,14 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div> --}}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- end of user-order-item -->
                                 </div>
                                 <!-- end of user-order-items -->
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
