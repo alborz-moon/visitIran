@@ -764,8 +764,6 @@ class EventController extends EventHelper
             $t->save();
 
             $users = json_decode($t->additional);
-            dd($users);
-    
             $find_diff = false;
     
             for($i = 0; $i < count($users); $i++) {
