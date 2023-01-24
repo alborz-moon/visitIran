@@ -706,153 +706,162 @@
             </div>
             <!-- end of product-detail-container -->
 
-            <!-- start of buy-event-modal -->
-            <div class="remodal remodal-xl" data-remodal-id="buy-event-modal" data-remodal-options="hashTracking: false">
-                <div class="remodal-header">
-                    <div class="remodal-title">خرید بلیت نام رویداد</div>
-                    <button data-remodal-action="close" class="remodal-close"></button>
-                </div>
-                <div class="boxShadow">
-                    <div class="ui-box bg-white mb-5 p-0">
-                        <div class="table-responsive">
-                            <table class="table mb-0 marginTop10">
-                                <thead>
-                                    <tr>
-                                        <th>عنوان بلیت</th>
-                                        <th>تعداد</th>
-                                        <th>توضیحات</th>
-                                        <th>قیمت</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{{ $event['title'] }}</td>
-                                        <td id="count_td"></td>
-                                        <td style="max-width: 150px; white-space: break-spaces;">
-                                            {{ $event['ticket_description'] }}</td>
-                                        <td>{{ $event['price'] }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+            @if (Auth::check())
+                <!-- start of buy-event-modal -->
+                <div class="remodal remodal-xl" data-remodal-id="buy-event-modal"
+                    data-remodal-options="hashTracking: false">
+                    <div class="remodal-header">
+                        <div class="remodal-title">خرید بلیت نام رویداد</div>
+                        <button data-remodal-action="close" class="remodal-close"></button>
                     </div>
-                    <div class="d-flex spaceBetween p-3">
-                        <div class="fontSize16">
-                            تعداد کل: <span id="allCounterModal" class="px-1"></span> بلیت
-                        </div>
-                        <div class="fontSize16">
-                            قیمت کل: <span id="allPriceModal" class="px-1"></span>تومان
-                        </div>
-                    </div>
-                </div>
-                <hr class="mt-3">
-                <div class="container mt-3 ">اطلاعات شرکت کننده
-                    <div class="row boxShadow py-3">
-                        <div class="py-1 col-xs-12 col-md-6">
-                            <div class="fs-7 text-dark">نام</div>
-                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                <input value="{{ Auth::user()->first_name }}" data-editable="true" id="first_name"
-                                    type="text" class="form-control" style="direction: rtl" placeholder="نام">
-                                <button data-input-id="first_name"
-                                    class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
-                                    <i class="ri-ball-pen-fill"></i>
-                                </button>
+                    <div class="boxShadow">
+                        <div class="ui-box bg-white mb-5 p-0">
+                            <div class="table-responsive">
+                                <table class="table mb-0 marginTop10">
+                                    <thead>
+                                        <tr>
+                                            <th>عنوان بلیت</th>
+                                            <th>تعداد</th>
+                                            <th>توضیحات</th>
+                                            <th>قیمت</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ $event['title'] }}</td>
+                                            <td id="count_td"></td>
+                                            <td style="max-width: 150px; white-space: inherit;">
+                                                {{ $event['ticket_description'] }}</td>
+                                            <td>{{ $event['price'] }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="fs-6 fw-bold text-muted"></div>
                         </div>
-                        <div class="py-1 col-xs-12 col-md-6">
-                            <div class="fs-7 text-dark">نام خانوادگی</div>
-                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                <input value="{{ Auth::user()->last_name }}" data-editable="true" id="last_name"
-                                    type="text" class="form-control" style="direction: rtl"
-                                    placeholder="نام خانوادگی">
-                                <button data-input-id="first_name"
-                                    class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
-                                    <i class="ri-ball-pen-fill"></i>
-                                </button>
+                        <div class="d-flex spaceBetween p-3">
+                            <div class="fontSize16">
+                                تعداد کل: <span id="allCounterModal" class="px-1"></span> بلیت
                             </div>
-                            <div class="fs-6 fw-bold text-muted"></div>
-                        </div>
-                        <div class=" py-1 col-xs-12 col-md-6">
-                            <div class="fs-7 text-dark">کد ملی</div>
-                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                <input value="{{ Auth::user()->nid }}" data-editable="true"
-                                    onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid"
-                                    type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
-                                <button data-input-id="nid"
-                                    class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
-                                    <i class="ri-ball-pen-fill"></i>
-                                </button>
+                            <div class="fontSize16">
+                                قیمت کل: <span id="allPriceModal" class="px-1"></span>تومان
                             </div>
-                            <div class="fs-6 fw-bold text-muted"></div>
-                        </div>
-                        <div class=" py-1 col-xs-12 col-md-6">
-                            <div class="fs-7 text-dark">شماره تلفن همراه</div>
-                            <div class="d-flex align-items-center justify-content-between position-relative">
-                                <input value="{{ Auth::user()->phone }}" data-editable="true"
-                                    onkeypress="return isNumber(event) " id="phone" type="tel" minlength="7"
-                                    maxlength="11" class="form-control" style="direction: rtl"
-                                    placeholder="شماره تلفن همراه">
-                                <button data-input-id="phone"
-                                    class=" toggle-editable-btn btn btn-circle btn-outline-light hidden">
-                                    <i class="ri-ball-pen-fill"></i>
-                                </button>
-                            </div>
-                            <div class="fs-6 fw-bold text-muted"></div>
-                        </div>
-                        <div class="fs-6 fw-bold text-muted"></div>
-                    </div>
-                    <hr class="my-3">
-
-                    <div id="meOrOthers" class="d-flex spaceBetween alignItemsCenter">
-                        <div>آیا برای اطلاعات سایر شرکت کننده ها از اطلاعات شما استفاده گردد.</div>
-                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" value="my" class="btn-check" name="selfDetective" id="mySelf"
-                                autocomplete="off" checked>
-                            <label class="btn btn-outline-primary" for="mySelf">بلی</label>
-
-                            <input type="radio" value="other" class="btn-check" name="selfDetective" id="ourSelf"
-                                autocomplete="off">
-                            <label class="btn btn-outline-primary" for="ourSelf">خیر</label>
-
                         </div>
                     </div>
-                    <div id="others-info" class="hidden">
-                    </div>
-                    <div class="row boxShadow py-3">
-                        <div class="fontSize14">
-                            در صورت داشتن کد تخفیف آن را وارد کنید
-                        </div>
-                        <div class="d-flex spaceBetween">
-                            <div id="off_result"></div>
-                            <div>
-                                <div class="d-flex gap10 align-items-center">
-                                    <input id="off" style="min-width: 200px" class="form-control"
-                                        placeholder="کد تخفیف">
-                                    <button class="checkOffBtn btn btn-primary backgroundGray h-50">ثبت</button>
+                    <hr class="mt-3">
+                    <div class="container mt-3 ">اطلاعات شرکت کننده
+                        <div class="row boxShadow py-3">
+                            <div class="py-1 col-xs-12 col-md-6">
+                                <div class="fs-7 text-dark">نام</div>
+                                <div class="d-flex align-items-center justify-content-between position-relative">
+                                    <input value="{{ Auth::user()->first_name }}" data-editable="true" id="first_name"
+                                        type="text" class="form-control" style="direction: rtl" placeholder="نام">
+                                    <button data-input-id="first_name"
+                                        class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
+                                        <i class="ri-ball-pen-fill"></i>
+                                    </button>
                                 </div>
+                                <div class="fs-6 fw-bold text-muted"></div>
                             </div>
+                            <div class="py-1 col-xs-12 col-md-6">
+                                <div class="fs-7 text-dark">نام خانوادگی</div>
+                                <div class="d-flex align-items-center justify-content-between position-relative">
+                                    <input value="{{ Auth::user()->last_name }}" data-editable="true" id="last_name"
+                                        type="text" class="form-control" style="direction: rtl"
+                                        placeholder="نام خانوادگی">
+                                    <button data-input-id="first_name"
+                                        class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
+                                        <i class="ri-ball-pen-fill"></i>
+                                    </button>
+                                </div>
+                                <div class="fs-6 fw-bold text-muted"></div>
+                            </div>
+                            <div class=" py-1 col-xs-12 col-md-6">
+                                <div class="fs-7 text-dark">کد ملی</div>
+                                <div class="d-flex align-items-center justify-content-between position-relative">
+                                    <input value="{{ Auth::user()->nid }}" data-editable="true"
+                                        onkeypress="return isNumber(event)" minlength="10" maxlength="10" id="nid"
+                                        type="text" class="form-control" style="direction: rtl" placeholder="کد ملی">
+                                    <button data-input-id="nid"
+                                        class="toggle-editable-btn btn btn-circle btn-outline-light hidden">
+                                        <i class="ri-ball-pen-fill"></i>
+                                    </button>
+                                </div>
+                                <div class="fs-6 fw-bold text-muted"></div>
+                            </div>
+                            <div class=" py-1 col-xs-12 col-md-6">
+                                <div class="fs-7 text-dark">شماره تلفن همراه</div>
+                                <div class="d-flex align-items-center justify-content-between position-relative">
+                                    <input value="{{ Auth::user()->phone }}" data-editable="true"
+                                        onkeypress="return isNumber(event) " id="phone" type="tel"
+                                        minlength="7" maxlength="11" class="form-control" style="direction: rtl"
+                                        placeholder="شماره تلفن همراه">
+                                    <button data-input-id="phone"
+                                        class=" toggle-editable-btn btn btn-circle btn-outline-light hidden">
+                                        <i class="ri-ball-pen-fill"></i>
+                                    </button>
+                                </div>
+                                <div class="fs-6 fw-bold text-muted"></div>
+                            </div>
+                            <div class="fs-6 fw-bold text-muted"></div>
+                        </div>
+                        <hr class="my-3">
+
+                        <div id="meOrOthers" class="d-flex spaceBetween alignItemsCenter">
+                            <div>آیا برای اطلاعات سایر شرکت کننده ها از اطلاعات شما استفاده گردد.</div>
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" value="my" class="btn-check" name="selfDetective"
+                                    id="mySelf" autocomplete="off" checked>
+                                <label class="btn btn-outline-primary" for="mySelf">بلی</label>
+
+                                <input type="radio" value="other" class="btn-check" name="selfDetective"
+                                    id="ourSelf" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="ourSelf">خیر</label>
+
+                            </div>
+                        </div>
+                        <div id="others-info" class="hidden">
                         </div>
                         <div class="row boxShadow py-3">
-                            <div>قانون استرداد</div>
-                            <p class="fontSize14 mt-2">استرداد بلیت تنها تا ۷۲ ساعت قبل از شروع رویداد امکان پذیر میباشد.
-                                در صورت درخواست شرکت‌کننده بعد از بازه تعیین شده، برگزارکننده درخواست را به صورت موردی بررسی
-                                خواهد کرد و نتیجه را تا ۳ روز کاری اعلام میکند.
-                                در صورتی که رویداد کنسل شود، برگزار کننده موظف است که مبلغ کامل را به شرکت کنندگان عودت دهد.
-                            </p>
+                            <div class="fontSize14">
+                                در صورت داشتن کد تخفیف آن را وارد کنید
+                            </div>
+                            <div class="d-flex spaceBetween">
+                                <div id="off_result"></div>
+                                <div>
+                                    <div class="d-flex gap10 align-items-center">
+                                        <input id="off" style="min-width: 200px" class="form-control"
+                                            placeholder="کد تخفیف">
+                                        <button class="checkOffBtn btn btn-primary backgroundGray h-50">ثبت</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-3">
+                                <div>قانون استرداد</div>
+                                <p class="fontSize14 mt-2">استرداد بلیت تنها تا ۷۲ ساعت قبل از شروع رویداد امکان پذیر
+                                    میباشد.
+                                    در صورت درخواست شرکت‌کننده بعد از بازه تعیین شده، برگزارکننده درخواست را به صورت موردی
+                                    بررسی
+                                    خواهد کرد و نتیجه را تا ۳ روز کاری اعلام میکند.
+                                    در صورتی که رویداد کنسل شود، برگزار کننده موظف است که مبلغ کامل را به شرکت کنندگان عودت
+                                    دهد.
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="remodal-footer">
-                        <div class="d-flex flexWrap align-items-center spaceBetween p-3 gap15">
-                            <button style="min-width: 290px" class="registerBtn fontSize18 bold btn btn-primary h-50 ">ثبت
-                                نام
-                                <span id="after-check-price" class="fontSize16 px-1 allPrice"></span>
-                                <span class="fontSize16 px-1">تومان</span>
-                            </button>
+                        <div class="remodal-footer">
+                            <div class="d-flex flexWrap align-items-center spaceBetween p-3 gap15">
+                                <button style="min-width: 290px"
+                                    class="registerBtn fontSize18 bold btn btn-primary h-50 ">ثبت
+                                    نام
+                                    <span id="after-check-price" class="fontSize16 px-1 allPrice"></span>
+                                    <span class="fontSize16 px-1">تومان</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- end of buy-event-modal -->
+            @endif
+        </div>
     </main>
 
     <script src="https://cdn.parsimap.ir/third-party/mapbox-gl-js/plugins/parsimap-geocoder/v1.0.0/parsimap-geocoder.js">
@@ -939,7 +948,8 @@
                             }, 1000);
                         }
 
-                    }
+                    } else
+                        showErr(res.msg);
 
                 }
             });
@@ -1169,7 +1179,7 @@
 
                     var inputs = "";
                     for (var i = 1; i < count; i++) {
-                        inputs += '<hr><div class="container">اطلاعات شرکت کننده' + (i + 1) +
+                        inputs += '<hr class="mt-3"><div class="container mt-3">اطلاعات شرکت کننده' + (i + 1) +
                             '<div class="row boxShadow py-3">';
                         inputs += '<div class="py-1 col-xs-12 col-md-6">';
                         inputs += '<div class="fs-7 text-dark">نام</div>';

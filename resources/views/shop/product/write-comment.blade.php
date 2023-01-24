@@ -100,11 +100,9 @@
                 با “ثبت نظر” موافقت خود را با <a href="#" class="link">قوانین انتشار نظرات</a>
                 در سایت اعلام می‌کنم.
               </div>
-              <div>
-                  <a href="#" class="link">انصراف و بازگشت</a>
-              </div>
           </div>
           <div class="text-end">
+                <a href="#" class="textColor" data-bs-dismiss="modal">انصراف و بازگشت</a>
               <button  id="submitComment" class="btn btn-primary msgComment">ثبت نظر</button>
           </div>
           </div>

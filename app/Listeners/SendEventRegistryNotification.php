@@ -3,9 +3,9 @@
 namespace App\Listeners;
 
 use App\Events\EventRegistry;
-use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Mail\EventRegistryMail;
+use Illuminate\Support\Facades\Mail;
+use niklasravnsborg\LaravelPdf\Facades\Pdf;
 
 class SendEventRegistryNotification
 {
@@ -27,6 +27,30 @@ class SendEventRegistryNotification
      */
     public function handle(EventRegistry $event)
     {
-        Controller::sendSMS($event->phone, $event->eventName);
+
+        if($event->mail != null) {
+
+            view()->share('data', $event->data);
+
+            $pdf = Pdf::loadView('event.event.ticket', $event->data, [], 
+                [
+                    'format' => 'A5-L',
+                    'display_mode' => 'fullpage'
+                ]
+            );
+            
+            $filename = storage_path('tmp/' . time() . '.pdf');
+
+            $pdf->save($filename);
+
+            sleep(30);
+            
+            Mail::to('mghaneh1375@yahoo.com')->send(new EventRegistryMail($event), function ($message) use ($filename) {
+                $message->attach($filename);
+            });
+
+        }
+
+        // Controller::sendSMS($event->phone, $event->eventName);
     }
 }

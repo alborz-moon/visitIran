@@ -114,4 +114,8 @@ class ProfileController extends Controller
         return view('shop.profile.profile-history');
     }
 
+    public function profileOffCode() {
+        return view('shop.profile.profile-offcode');
+    }
+
 }
