@@ -43,8 +43,6 @@ class SendEventRegistryNotification
 
             $pdf->save($filename);
 
-            sleep(30);
-            
             Mail::to('mghaneh1375@yahoo.com')->send(new EventRegistryMail($event), function ($message) use ($filename) {
                 $message->attach($filename);
             });
