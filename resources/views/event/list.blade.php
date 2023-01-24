@@ -374,10 +374,17 @@
                     </div>
                 </div>
                 <div class="col-xl-9 col-lg-9 col-md-8">
-                    <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar mt-3">فیلتر پیشرفته
-                        <i class="ri-equalizer-fill ms-1"></i>
-                    </button>
-                    <span id="total_filters_count_mobile"></span>
+                    <div class="d-flex spaceBetween">
+                        <div>
+                            <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar mt-3">فیلتر پیشرفته
+                                <i class="ri-equalizer-fill ms-1"></i>
+                            </button>
+                            <span id="total_filters_count_mobile" class="remove_all_filters"></span>
+                        </div>
+                        <div class="remove_all_filters">
+                            حذف فیلتر
+                        </div>
+                    </div>
                     <div class="listing-products">
                         <div class="listing-products-content">
                             <!-- start of tab-content -->
