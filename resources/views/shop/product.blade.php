@@ -152,7 +152,7 @@
                         <div class="details product-tab-content product-content-expert-summary tab-content  pb-2 mb-4"
                             id="scrollspyHeading1">
                             <div class="product-tab-title">
-                                <div class="fontSize18 bold ">بررسی {{ $product['name'] }}</div>
+                                <div class="fontSize18 bold ">نقد و بررسی {{ $product['name'] }}</div>
                             </div>
                             <div class="pt-1" id="intro-container-parent">
 
@@ -401,7 +401,7 @@
                         let optionHtml = '<div class="product-variant-selected-container spaceBetween hidden" >' +
                             '<div class="product-variant-selected-label bold mb-3 seller d-flex justify-content-center align-items-center pl-2 fontSize18">' + res.features[i].name + '</div>' +
                             '<div class="line mr-15 ml-15"></div>' +
-                            '<div><span id="selected_option_for_feature_' + res.features[i].id + '"></span><span>&nbsp;</span>';
+                            '<div class="whiteSpaceNoWrap"><span id="selected_option_for_feature_' + res.features[i].id + '"></span><span>&nbsp;</span>';
 
                         optionHtml += '</div>';
                         optionHtml += '</div>';

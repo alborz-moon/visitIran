@@ -1,4 +1,4 @@
-<div id="customCardNewsSample" class="hidden">
+<div id="customCardNewsSample" class="hidden cursorPointer newsHref">
     <!-- Slides -->
     <div class="swiper-slide customCardNews mb-5">
         <!-- start of product-card -->
@@ -10,7 +10,7 @@
             </div>
             <div class="product-card-body">
                 <h2 class="product-title mt-3">
-                    <a id="newsHeader" class="textColor fontSize18 bold" href="#"></a>
+                    <a id="newsHeader" class="textColor fontSize18 bold newsHref" href="#"></a>
                 </h2>
                 <div class="product-variant">
                     <span id="newsTag" class="colorWhite customBoxLabel"></span>

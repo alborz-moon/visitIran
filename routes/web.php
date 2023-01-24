@@ -283,7 +283,6 @@ Route::middleware(['myAuth'])->group(function() {
         Route::get('/history', [ProfileController::class, 'history'])->name('profile.history');
 
     });
-    
 });
 
 

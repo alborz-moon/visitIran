@@ -835,7 +835,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row boxShadow py-3">
+                            <div class="row py-3">
                                 <div>قانون استرداد</div>
                                 <p class="fontSize14 mt-2">استرداد بلیت تنها تا ۷۲ ساعت قبل از شروع رویداد امکان پذیر
                                     میباشد.
@@ -1179,7 +1179,7 @@
 
                     var inputs = "";
                     for (var i = 1; i < count; i++) {
-                        inputs += '<hr><div class="container">اطلاعات شرکت کننده' + (i + 1) +
+                        inputs += '<hr class="mt-3"><div class="container mt-3">اطلاعات شرکت کننده' + (i + 1) +
                             '<div class="row boxShadow py-3">';
                         inputs += '<div class="py-1 col-xs-12 col-md-6">';
                         inputs += '<div class="fs-7 text-dark">نام</div>';
