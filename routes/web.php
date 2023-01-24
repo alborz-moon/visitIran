@@ -241,7 +241,7 @@ Route::get('/alaki2', function() {
 
         view()->share('data', $data);
 
-        $pdf = Pdf::loadView('shop.receipt_shop', $data, [], 
+        $pdf = Pdf::loadView('event.event.receipt_event', $data, [], 
             [
                 'format' => 'A4-L',
                 'display_mode' => 'fullpage'
