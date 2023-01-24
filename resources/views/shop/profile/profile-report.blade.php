@@ -78,7 +78,7 @@
                                 <div class="col-xl-3 col-lg-12 ">
                                 <div class=" spaceBetween positionRelative flexDirectionColumn boxShadow p-3 height190">
                                 <div class="positionAbsolute backgroundYellow colorWhite border fontSize12 borderRadius10 p-2 top17 r-4 mb-1">آمار کل </div>
-                                    <div class="spaceBetween gap15 fontNormal mb-1"> 
+                                    <div class="spaceBetween gap15 fontNormal mb-1 pt-4"> 
                                         <div class="fontSize16">کل رویدادها</div>
                                         <div class="fontSize14 colorYellow">رویداد 3</div>
                                     </div>
@@ -125,22 +125,21 @@
                                 <table class="table mb-0">
                                     <thead>
                                         <tr>
+                                            <th>ردیف</th>
                                             <th>نام رویداد</th>
-                                            <th>تعداد بلیط</th>
-                                            <th>مبلغ</th>
                                             <th>تاریخ</th>
-                                            <th>شماره تراکنش</th>
-                                            <th>مشاهده فاکتور</th>
-                                            <th>نمایش حالت بدون تراکنش</th>
+                                            <th>نام خریداد</th>
+                                            <th>مبلغ </th>
+                                            <th>وضعیت   </th>
                                         </tr>
                                     </thead>
                                     <tbody id="myTickets">
                                         <tr>
+                                            <td>1</td>
                                             <td>رویداد من</td>
+                                            <td>1401 </td>
                                             <td>اصغر فرهادی</td>
-                                            <td>1401</td>
-                                            <td>1402</td>
-                                            <td>10</td>
+                                            <td>100/000</td>
                                             <td>
                                                 <button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="icon-visit-menu"></i>
@@ -221,6 +220,7 @@
                 fontSize: 10,
                 boxWidth: 20,
                 fontColor: '#111',
+                padding: 15,
              
             }
             }
@@ -261,6 +261,7 @@
     },
 
     title: {
+        fontFamily: "IRANSans",
       display: true,
       text: 'نمودار تراکنش ها از تاریخ تا تاریخ'
     }
