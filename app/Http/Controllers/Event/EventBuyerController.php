@@ -345,7 +345,7 @@ class EventBuyerController extends Controller
             curl_close($ch);
 
             $res = json_decode($server_output, true);
-            if(isset($res['status']) && $res['status'] == 'ok' && isset($res['token'])) {
+            if(isset($res['status']) && $res['status'] == '1' && isset($res['token'])) {
                 $token = $res['token'];
                 return response()->json(['status' => 'ok', 'action' => 'pay', 'token' => $token]);
             }
