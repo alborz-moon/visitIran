@@ -743,4 +743,18 @@ class EventController extends EventHelper
         );
     }
 
+    public function callback(Request $request) {
+
+        $request->validate([
+            'Status' => 'required|integer'
+        ]);
+
+        dd($request);
+        
+        if($request['status'] == 2) {
+
+        }
+
+    }
+
 }

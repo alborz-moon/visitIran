@@ -94,33 +94,6 @@ class EventBuyerController extends Controller
     public function show(EventBuyer $eventBuyer, Request $request)
     {
 
-        // $ch = curl_init();
-
-        // curl_setopt($ch, CURLOPT_URL, "https://sep.shaparak.ir/onlinepg/onlinepg");
-        // curl_setopt($ch, CURLOPT_POST, 1);
-
-        // $payload = json_encode([
-        //     "action" => "token",
-        //     "TerminalId" => "13158674",
-        //     "Amount" => 100000,
-        //     "ResNum" => time(),
-        //     "RedirectUrl" => route('event.callback'),
-        //     "CellNumber" => $request->user()->phone
-        // ]);
-
-        // curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
-        // curl_setopt( $ch, CURLOPT_HTTPHEADER, [
-        //     'Content-Type:application/json',
-        //     'Accept:application/json',
-        // ]);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        // $server_output = curl_exec($ch);
-        // curl_close($ch);
-
-        // dd($server_output);
-
-
         $event = $eventBuyer->event;
 
         $validationUrl = 'https://techvblogs.com/blog/generate-qr-code-laravel-8';
@@ -333,6 +306,51 @@ class EventBuyerController extends Controller
                 return response()->json(['status' => 'ok', 'action' => 'registered']);
             }
 
+            else {
+
+                $t = Transaction::create([
+                    'amount' => $price,
+                    'user_id' => $user->id,
+                    'ref_id' => $event->id,
+                    'site' => 'event',
+                    'status' => Transaction::$COMPLETED_STATUS,
+                    'additional' => $request['count'],
+                    'off_id' => $off != null ? $off->id : null,
+                    'off_amount' => $off_amount
+                ]);
+
+                $ch = curl_init();
+
+                curl_setopt($ch, CURLOPT_URL, "https://sep.shaparak.ir/onlinepg/onlinepg");
+                curl_setopt($ch, CURLOPT_POST, 1);
+
+                $payload = json_encode([
+                    "action" => "token",
+                    "TerminalId" => "13158674",
+                    "Amount" => $price,
+                    "ResNum" => $t->id,
+                    "RedirectUrl" => route('event.callback'),
+                    "CellNumber" => $request->user()->phone
+                ]);
+
+                curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
+                curl_setopt( $ch, CURLOPT_HTTPHEADER, [
+                    'Content-Type:application/json',
+                    'Accept:application/json',
+                ]);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+                $server_output = curl_exec($ch);
+                curl_close($ch);
+
+                $res = json_decode($server_output, true);
+                if(isset($res['status']) && $res['status'] == 'ok' && isset($res['token'])) {
+                    $token = $res['token'];
+                    return response()->json(['status' => 'ok', 'action' => 'pay', 'token' => $token]);
+                }
+
+                return response()->json(['status' => 'nok', 'msg' => 'خطایی در برقراری اتصال به درگاه پرداخت به وجود آمده است']);
+            }
         }
 
     }
