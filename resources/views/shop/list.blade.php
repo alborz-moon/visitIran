@@ -46,7 +46,7 @@
             <div class="container mt-4">
                 <div class="row">
                         <!-- start of breadcrumb -->
-                            <ol class="breadcrumb mt-1">
+                            <ol class="breadcrumb mt-1 mx-4">
                                 @foreach ($path as $itr)
                                     <li class="breadcrumb-item">
                                         <a href="{{ $itr['href'] }}">{{ $itr['label'] }}</a>
@@ -59,7 +59,7 @@
                         @include('layouts.tiles', ['category' => $id, 'mode' => 'list'])
                     @endif
 
-                    <div id="shopContainerFilter" class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar mt-4">
+                    <div id="shopContainerFilter" class="col-xl-3 col-lg-3 col-md-4 responsive-sidebar mt-md-4 mt-sm-0">
                         <div class="ui-sticky ui-sticky-top">
                             <div class="ui-box sidebar-widgets customFilter">
                                 <!-- start of widget -->
@@ -313,7 +313,7 @@
                         <button id="advancedFilterShopBtn" class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar mt-3">فیلتر پیشرفته
                             <i class="ri-equalizer-fill ms-1"></i>
                         </button>
-                            
+                        <span id="total_filters_count_mobile"></span>
                         <div class="listing-products">
                             <div class="listing-products-content">
                                 <!-- start of tab-content -->

@@ -4,28 +4,28 @@
             <main class="page-content page-auth">
             <!-- start of auth-container -->
             <div class="auth-container">
-                <div class="d-flex">
-                    <div class="logo-container logo-box me-3 logoImgFromTop">
-                        @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
-                            <img src="{{ asset('theme-assets/images/menuImage2.svg') }}" width="120" alt="">
-                        @else
-                            <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="120" alt="">
-                        @endif
-                    </div>
-                    <div>
-                        @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
-                            <div class="notification-item--text colorYellow bold"> بازارگاه صنایع دستی </div>
-                            <div class="notification-item--text fontSize12"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
-                        @else
-                            <div class="notification-item--text colorYellow bold">ویزیت ایران</div>
-                            <div class="notification-item--text fontSize12">دبیرخانه رویدادها</div>
-                        @endif
-                        <div class="notification-item--text fontSize18 bold mt-3 mb-3">ورود / ثبت نام</div>
-                    </div>
-                </div>
                 {{-- <div class="mt-3 mb-3">رمز یکبار مصرف به شماره تلفن 09121111111 ارسال شد. </div> --}}
                 <!-- start of auth-box -->
-                <div class="auth-box ui-box">
+                <div class="auth-box ui-box pt-0">
+                    <div class="d-flex">
+                        <div class="logo-container logo-box me-3 logoImgFromTop">
+                            @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+                                <img src="{{ asset('theme-assets/images/menuImage2.svg') }}" width="120" alt="">
+                            @else
+                                <img src="{{ asset('theme-assets/images/menuImage.png') }}" width="120" alt="">
+                            @endif
+                        </div>
+                        <div>
+                            @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
+                                <div class="notification-item--text colorYellow bold"> بازارگاه صنایع دستی </div>
+                                <div class="notification-item--text fontSize12"> سامانه فروش صنایع دستی و هنرهای تزئینی </div>
+                            @else
+                                <div class="notification-item--text colorYellow bold">ویزیت ایران</div>
+                                <div class="notification-item--text fontSize12">دبیرخانه رویدادها</div>
+                            @endif
+                            <div class="notification-item--text fontSize18 bold mt-3 mb-3">ورود / ثبت نام</div>
+                        </div>
+                    </div>
                     <!-- start of form-element -->
                     <div class="form-element-row mb-3">
                         <p>
