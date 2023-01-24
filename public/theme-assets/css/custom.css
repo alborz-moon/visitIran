@@ -2371,3 +2371,13 @@ figure .ck-widget {
         flex-basis: calc(100% - 5px);
     }
 }
+
+.max-height-auto {
+    max-height: unset !important;
+    overflow: auto !important;
+}
+
+.show-more,
+.show-less {
+    cursor: pointer !important;
+}

@@ -11,54 +11,69 @@
             padding: 0 !important;
             direction: rtl;
         }
-        .d-flex{
+
+        .d-flex {
             display: flex;
         }
-        .spaceBetween{
+
+        .spaceBetween {
             justify-content: space-between;
         }
+
         .bold {
             font-family: 'iran';
             direction: rtl;
             font-weight: bold;
         }
-        .normal{
+
+        .normal {
             font-weight: 600 !important;
         }
-        .responsive{
+
+        .responsive {
             width: 100%;
         }
-        .logo{
+
+        .logo {
             width: 150px;
             float: right;
             position: relative;
             display: inline-block;
         }
-        .floatRight{
+
+        .floatRight {
             float: right;
         }
-        .relative{
+
+        .relative {
             position: relative;
         }
-        .absolute{
+
+        .absolute {
             position: absolute;
         }
-        .yellow{
+
+        .yellow {
             color: #c59358;
         }
-        .font14{
+
+        .font14 {
             font-size: 14px
         }
-        .font16{
+
+        .font16 {
             font-size: 16px
         }
-        .font18{
+
+        .font18 {
             font-size: 18px
         }
-        .ml-50{
+
+        .ml-50 {
             margin-right: 50px;
             gap: 50px;
         }
+
         .bold {
             font-weight: bold;
         }
@@ -66,6 +81,7 @@
         .float-r {
             float: right !important;
         }
+
         .float-l {
             float: left !important;
         }
@@ -102,11 +118,13 @@
             padding: 5px;
         }
 
-        .padding0, .p-9 {
+        .padding0,
+        .p-9 {
             padding: 0 !important;
         }
 
-        .margin0, .m-0 {
+        .margin0,
+        .m-0 {
             margin: 0 !important;
         }
 
@@ -119,11 +137,14 @@
         .silver {
             color: #555;
         }
-        th{
+
+        th {
             font-size: 14px
         }
-        th, td{
-            margin:0;
+
+        th,
+        td {
+            margin: 0;
             padding: 8px 10px;
             border-left: 1px solid rgb(185, 185, 185);
             border-bottom: 1px solid rgb(185, 185, 185);
@@ -135,14 +156,14 @@
 <body>
     <div class="absolute" style="width: 270px;top:25px;left:0">
         <p class="margin0 padding0">
-            <div class="fontSize12">تاریخ: <span>1402/01/01</span></div>
+        <div class="fontSize12">تاریخ: <span>1402/01/01</span></div>
         </p>
     </div>
     <div class="relative">
         <div class="logo">
-            <img class="responsive" src="{{asset('theme-assets/images/menuImage.png')}}" alt="">
+            <img class="responsive" src="{{ asset('theme-assets/images/menuImage.png') }}" alt="">
         </div>
-    
+
         <div class="absolute">
             <div class="yellow font14 bold">ویزیت ایران</div>
             <div class="font14 bold">دبیرخانه رویدادها</div>
@@ -155,7 +176,7 @@
         <div class="float-r" style="width: 270px">
             <p class="margin0 padding0">
                 <span class="bold fontSize14">نام و نام خانوادگی: </span>
-                <span class="fontSize12">{{$name}}</span>
+                <span class="fontSize12">{{ $name }}</span>
             </p>
         </div>
 
@@ -163,21 +184,21 @@
         <div class="float-r" style="width: 270px">
             <p class="margin0 padding0">
                 <span class="bold fontSize14">شماره ملی: </span>
-                <span class="fontSize12">{{$nid}}</span>
+                <span class="fontSize12">{{ $nid }}</span>
             </p>
         </div>
 
         <div class="float-r" style="width: 270px">
             <p class="margin0 padding0">
                 <span class="bold fontSize14">تلفن:</span>
-                <span class="fontSize12">{{$tel}}</span>
+                <span class="fontSize12">{{ $tel }}</span>
             </p>
         </div>
 
         <div class="float-r" style="width: 270px">
             <p class="margin0 padding0">
                 <span class="bold fontSize14">ایمیل:</span>
-                <span class="fontSize12">{{$email}}</span>
+                <span class="fontSize12">{{ $email }}</span>
             </p>
         </div>
     </div>
@@ -216,13 +237,14 @@
         <div class="float-r" style="width: 100٪">
             <p class="margin0 padding0">
                 <span class="bold fontSize14">آدرس :</span>
-                <span class="fontSize12">تهران، خیابان آزادی، بین خوش و بهبودی، نبش خیابان شهید قانعی، پلاک 231 کد پستی : 1457994785</span>
+                <span class="fontSize12">تهران، خیابان آزادی، بین خوش و بهبودی، نبش خیابان شهید قانعی، پلاک 231 کد پستی
+                    : 1457994785</span>
             </p>
         </div>
     </div>
     <p style="margin-top: 20px" class="fontSize16 bold">مشخصات سفارش</p>
     <table>
-        <thead> 
+        <thead>
             <tr style="background-color: rgb(189, 189, 189)">
                 <th>ردیف</th>
                 <th>نام رویداد</th>
@@ -239,25 +261,25 @@
         <tbody>
             @foreach ($products as $product)
                 <tr>
-                    <td>{{$product['id']}}</td>
-                    <td>{{$product['title']}}</td>
-                    <td>{{$product['desc']}}</td>
-                    <td>{{$product['count']}}</td>
-                    <td>{{$product['price']}}</td>
-                    <td>{{$product['total']}}</td>
-                    <td>{{$product['off']}}</td>
-                    <td>{{$product['total_after_off']}}</td>
-                    <td>{{$product['total_after_off_tax']}}</td>
-                    <td>{{$product['all']}}</td>
+                    <td>{{ $product['id'] }}</td>
+                    <td>{{ $product['title'] }}</td>
+                    <td>{{ $product['desc'] }}</td>
+                    <td>{{ $product['count'] }}</td>
+                    <td>{{ $product['price'] }}</td>
+                    <td>{{ $product['total'] }}</td>
+                    <td>{{ $product['off'] }}</td>
+                    <td>{{ $product['total_after_off'] }}</td>
+                    <td>{{ $product['total_after_off_tax'] }}</td>
+                    <td>{{ $product['all'] }}</td>
                 </tr>
-            @endforeach  
+            @endforeach
             <tr>
                 <td colspan="5">جمع کل</td>
-                <td>{{$total['total']}}</td>
-                <td>{{$total['off']}}</td>
-                <td>{{$total['total_after_off']}}</td>
-                <td>{{$total['total_after_off_tax']}}</td>
-                <td>{{$total['all']}}</td>   
+                <td>{{ $total['total'] }}</td>
+                <td>{{ $total['off'] }}</td>
+                <td>{{ $total['total_after_off'] }}</td>
+                <td>{{ $total['total_after_off_tax'] }}</td>
+                <td>{{ $total['all'] }}</td>
             </tr>
         </tbody>
     </table>
@@ -276,4 +298,5 @@
         </div>
     </div>
 </body>
+
 </html>

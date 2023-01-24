@@ -94,33 +94,6 @@ class EventBuyerController extends Controller
     public function show(EventBuyer $eventBuyer, Request $request)
     {
 
-        // $ch = curl_init();
-
-        // curl_setopt($ch, CURLOPT_URL, "https://sep.shaparak.ir/onlinepg/onlinepg");
-        // curl_setopt($ch, CURLOPT_POST, 1);
-
-        // $payload = json_encode([
-        //     "action" => "token",
-        //     "TerminalId" => "13158674",
-        //     "Amount" => 100000,
-        //     "ResNum" => time(),
-        //     "RedirectUrl" => route('event.callback'),
-        //     "CellNumber" => $request->user()->phone
-        // ]);
-
-        // curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
-        // curl_setopt( $ch, CURLOPT_HTTPHEADER, [
-        //     'Content-Type:application/json',
-        //     'Accept:application/json',
-        // ]);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        // $server_output = curl_exec($ch);
-        // curl_close($ch);
-
-        // dd($server_output);
-
-
         $event = $eventBuyer->event;
 
         $validationUrl = 'https://techvblogs.com/blog/generate-qr-code-laravel-8';
@@ -247,74 +220,57 @@ class EventBuyerController extends Controller
                     return response()->json(['status' => 'nok', 'msg' => 'این کد قبلا استفاده شده است']);    
 
             }
+        }
 
-            $user = $request->user();
 
-            if($price < 1000) {
-                
-                unset($request['code']);
-                $request['event_id'] = $event->id;
-                $request['user_id'] = $user->id;
-                $tracking_code = random_int(100000, 999999);
+        $find_diff = false;
 
-                Transaction::create([
-                    'amount' => 0,
-                    'user_id' => $request['user_id'],
-                    'ref_id' => $event->id,
-                    'site' => 'event',
-                    'status' => Transaction::$COMPLETED_STATUS,
-                    'additional' => $request['count'],
-                    'off_id' => $off != null ? $off->id : null,
-                    'off_amount' => $off_amount,
-                    'tracking_code' => $tracking_code
-                ]);
+        for($i = 0; $i < count($request['users']); $i++) {
 
-                $find_diff = false;
+            for($j = $i + 1; $j < count($request['users']); $j++) {
 
-                for($i = 0; $i < count($request['users']); $i++) {
+                foreach($request['users'][$i] as $key => $val) {
 
-                    for($j = $i + 1; $j < count($request['users']); $j++) {
-
-                        foreach($request['users'][$i] as $key => $val) {
-
-                            if($request['users'][$j][$key] != $val) {
-                                $find_diff = true;
-                                break;
-                            }
-
-                        }
-
-                        if($find_diff)
-                            break;
-                    }
-
-                    if($find_diff)
+                    if($request['users'][$j][$key] != $val) {
+                        $find_diff = true;
                         break;
-                }
-                
-                if($find_diff) {
-                
-                    foreach($request['users'] as $u) {
-
-                        $tmp = EventBuyer::create([
-                            'first_name' => $u['first_name'],
-                            'last_name' => $u['last_name'],
-                            'nid' => $u['nid'],
-                            'phone' => $u['phone'],
-                            'user_id' => $user->id,
-                            'event_id' => $event->id,
-                            'count' => 1,
-                            'tracking_code' => random_int(10000000, 99999999)
-                        ]);
                     }
 
-                    $u = $request['users'][0];
-                    EventBuyerController::createEventListener($event, $tmp, $request, $user->mail);
-
                 }
-                else {
 
-                    $u = $request['users'][0];
+                if($find_diff)
+                    break;
+            }
+
+            if($find_diff)
+                break;
+        }
+
+        $user = $request->user();
+
+        if($price < 1000) {
+            
+            unset($request['code']);
+            $request['event_id'] = $event->id;
+            $request['user_id'] = $user->id;
+            $tracking_code = random_int(100000, 999999);
+
+            Transaction::create([
+                'amount' => 0,
+                'user_id' => $request['user_id'],
+                'ref_id' => $event->id,
+                'site' => 'event',
+                'status' => Transaction::$COMPLETED_STATUS,
+                'additional' => $request['count'],
+                'off_id' => $off != null ? $off->id : null,
+                'off_amount' => $off_amount,
+                'tracking_code' => $tracking_code
+            ]);
+
+            
+            if($find_diff) {
+            
+                foreach($request['users'] as $u) {
 
                     $tmp = EventBuyer::create([
                         'first_name' => $u['first_name'],
@@ -323,16 +279,119 @@ class EventBuyerController extends Controller
                         'phone' => $u['phone'],
                         'user_id' => $user->id,
                         'event_id' => $event->id,
-                        'count' => $request['count'],
+                        'count' => 1,
                         'tracking_code' => random_int(10000000, 99999999)
                     ]);
-
-                    EventBuyerController::createEventListener($event, $tmp, $request, $user->mail);
                 }
 
-                return response()->json(['status' => 'ok', 'action' => 'registered']);
+                $u = $request['users'][0];
+                EventBuyerController::createEventListener($event, $tmp, $request, $user->mail);
+
+            }
+            else {
+
+                $u = $request['users'][0];
+
+                $tmp = EventBuyer::create([
+                    'first_name' => $u['first_name'],
+                    'last_name' => $u['last_name'],
+                    'nid' => $u['nid'],
+                    'phone' => $u['phone'],
+                    'user_id' => $user->id,
+                    'event_id' => $event->id,
+                    'count' => $request['count'],
+                    'tracking_code' => random_int(10000000, 99999999)
+                ]);
+
+                EventBuyerController::createEventListener($event, $tmp, $request, $user->mail);
             }
 
+            return response()->json(['status' => 'ok', 'action' => 'registered']);
+        }
+
+        else {
+
+            $all_users = [];
+
+            if($find_diff) {
+            
+                foreach($request['users'] as $u) {
+
+                    array_push($all_users,
+                    [
+                        'first_name' => $u['first_name'],
+                        'last_name' => $u['last_name'],
+                        'nid' => $u['nid'],
+                        'phone' => $u['phone'],
+                        'user_id' => $user->id,
+                        'event_id' => $event->id,
+                        'count' => 1,
+                    ]);
+                }
+
+            }
+            else {
+
+                $u = $request['users'][0];
+
+                array_push($all_users,
+                [
+                    'first_name' => $u['first_name'],
+                    'last_name' => $u['last_name'],
+                    'nid' => $u['nid'],
+                    'phone' => $u['phone'],
+                    'user_id' => $user->id,
+                    'event_id' => $event->id,
+                    'count' => $request['count'],
+                ]);
+            }
+
+            $t = Transaction::create([
+                'amount' => $price,
+                'user_id' => $user->id,
+                'ref_id' => $event->id,
+                'site' => 'event',
+                'status' => Transaction::$INIT_STATUS,
+                'additional' => json_encode($all_users),
+                'off_id' => $off != null ? $off->id : null,
+                'off_amount' => $off_amount
+            ]);
+
+            $ch = curl_init();
+
+            curl_setopt($ch, CURLOPT_URL, "https://sep.shaparak.ir/onlinepg/onlinepg");
+            curl_setopt($ch, CURLOPT_POST, 1);
+
+            $payload = json_encode([
+                "action" => "token",
+                "TerminalId" => "13158674",
+                "Amount" => $price,
+                "ResNum" => $t->id,
+                "RedirectUrl" => route('event.callback'),
+                "CellNumber" => $request->user()->phone
+            ]);
+
+            curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
+            curl_setopt( $ch, CURLOPT_HTTPHEADER, [
+                'Content-Type:application/json',
+                'Accept:application/json',
+            ]);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+            $server_output = curl_exec($ch);
+            curl_close($ch);
+
+            $res = json_decode($server_output, true);
+            if(isset($res['status']) && $res['status'] == '1' && isset($res['token'])) {
+                $token = $res['token'];
+                return response()->json(['status' => 'ok', 'action' => 'pay', 'token' => $token]);
+            }
+
+            return response()->json([
+                'status' => 'nok', 
+                'msg' => 'خطایی در برقراری اتصال به درگاه پرداخت به وجود آمده است', 
+                'msg2' => $res
+            ]);
         }
 
     }

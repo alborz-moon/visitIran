@@ -41,8 +41,9 @@ class TestMail extends Command
     {
         
         Mail::to('mghaneh1375@yahoo.com')->send(new MailTestMail([
-            'title' => "test",
-            "body" => "sample"
+            'name' => "محمد قانع",
+            "invoice_no" => "TB21321321",
+            'event' => 'رویداد سمپل'
         ]));
     }
 }
