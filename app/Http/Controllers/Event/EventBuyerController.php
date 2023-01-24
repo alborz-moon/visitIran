@@ -222,6 +222,30 @@ class EventBuyerController extends Controller
             }
         }
 
+
+        $find_diff = false;
+
+        for($i = 0; $i < count($request['users']); $i++) {
+
+            for($j = $i + 1; $j < count($request['users']); $j++) {
+
+                foreach($request['users'][$i] as $key => $val) {
+
+                    if($request['users'][$j][$key] != $val) {
+                        $find_diff = true;
+                        break;
+                    }
+
+                }
+
+                if($find_diff)
+                    break;
+            }
+
+            if($find_diff)
+                break;
+        }
+
         $user = $request->user();
 
         if($price < 1000) {
@@ -243,28 +267,6 @@ class EventBuyerController extends Controller
                 'tracking_code' => $tracking_code
             ]);
 
-            $find_diff = false;
-
-            for($i = 0; $i < count($request['users']); $i++) {
-
-                for($j = $i + 1; $j < count($request['users']); $j++) {
-
-                    foreach($request['users'][$i] as $key => $val) {
-
-                        if($request['users'][$j][$key] != $val) {
-                            $find_diff = true;
-                            break;
-                        }
-
-                    }
-
-                    if($find_diff)
-                        break;
-                }
-
-                if($find_diff)
-                    break;
-            }
             
             if($find_diff) {
             
@@ -309,13 +311,48 @@ class EventBuyerController extends Controller
 
         else {
 
+            $all_users = [];
+
+            if($find_diff) {
+            
+                foreach($request['users'] as $u) {
+
+                    array_push($all_users,
+                    [
+                        'first_name' => $u['first_name'],
+                        'last_name' => $u['last_name'],
+                        'nid' => $u['nid'],
+                        'phone' => $u['phone'],
+                        'user_id' => $user->id,
+                        'event_id' => $event->id,
+                        'count' => 1,
+                    ]);
+                }
+
+            }
+            else {
+
+                $u = $request['users'][0];
+
+                array_push($all_users,
+                [
+                    'first_name' => $u['first_name'],
+                    'last_name' => $u['last_name'],
+                    'nid' => $u['nid'],
+                    'phone' => $u['phone'],
+                    'user_id' => $user->id,
+                    'event_id' => $event->id,
+                    'count' => $request['count'],
+                ]);
+            }
+
             $t = Transaction::create([
                 'amount' => $price,
                 'user_id' => $user->id,
                 'ref_id' => $event->id,
                 'site' => 'event',
                 'status' => Transaction::$INIT_STATUS,
-                'additional' => $request['count'],
+                'additional' => json_encode($all_users),
                 'off_id' => $off != null ? $off->id : null,
                 'off_amount' => $off_amount
             ]);

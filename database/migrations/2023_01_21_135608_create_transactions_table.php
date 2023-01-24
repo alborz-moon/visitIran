@@ -24,7 +24,7 @@ class CreateTransactionsTable extends Migration
             $table->unsignedInteger('ref_id');
             $table->unsignedInteger('off_id')->nullable();
             $table->unsignedInteger('off_amount')->nullable();
-            $table->string('additional')->nullable();
+            $table->longText('additional')->nullable();
             $table->index('user_id');
             $table->index('ref_id');
             $table->index('off_id');
