@@ -48,7 +48,7 @@
                                     <div class="text-muted mb-2">شماره پیگیری</div>
                                     <div class="text-dark">{{ $tracking_code }}</div>
                                 </div>
-                                <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                                     <div class="text-muted mb-2">زمان</div>
                                     <div class="text-dark">{{ $created_at }}</div>
                                 </div>
