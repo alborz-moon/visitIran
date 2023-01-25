@@ -315,7 +315,7 @@ Route::middleware(['shareEventTags'])->group(function() {
     
         Route::get('/list/{orderBy}', [EventTagController::class, 'allCategories'])->name('event.category.list');
 
-
+        Route::view('/cal-visit', 'event.cal-visit')->name('cal-visit');
 
         Route::middleware(['myAuth'])->group(function() {
 

@@ -111,9 +111,15 @@
 
                                 <div class="seller-info-changeable">
                                     <div class="d-flex align-items-center">
-                                        <div class="userCircleSize backgroundYellow mx-3 position-relative flexCenter">
-                                            <i class="icon-visit-organization fontSize28 colorWhite position-absolute"></i>
-                                        </div>
+                                        @if ($event['img'] != null)
+                                            <div class="userCircleSize borderRadius50 backgroundYellow mx-3 position-relative flexCenter">
+                                                <img src="{{$event['launcher_img']}}" class="w-100 h-100 objectFitCover borderRadius50" alt="">
+                                            </div>
+                                        @else
+                                            <div class="userCircleSize backgroundYellow mx-3 position-relative flexCenter">
+                                                <i class="icon-visit-organization fontSize28 colorWhite position-absolute"></i>
+                                            </div>
+                                        @endif
                                         <div class="d-flex flexDirectionColumn marginTop8">
                                             <div class="fontSize15 bold colorBlack">{{ $event['launcher_title'] }}</div>
                                             <div class="d-flex mt-2 spaceBetween">
@@ -516,9 +522,15 @@
                             <div class="product-seller-info ui-box mb-3 backColorWhite">
                                 <div class="seller-info-changeable">
                                     <div class="d-flex align-items-center">
-                                        <div class="userCircleSize backgroundYellow mx-3 position-relative flexCenter">
-                                            <i class="icon-visit-organization fontSize28 colorWhite position-absolute"></i>
-                                        </div>
+                                        @if ($event['img'] != null)
+                                            <div class="userCircleSize backgroundYellow mx-3 position-relative flexCenter">
+                                                <img src="{{$event['launcher_img']}}" class="w-100 h-100 objectFitCover borderRadius50" alt="">
+                                            </div>
+                                        @else
+                                            <div class="userCircleSize backgroundYellow mx-3 position-relative flexCenter">
+                                                <i class="icon-visit-organization fontSize28 colorWhite position-absolute"></i>
+                                            </div>
+                                        @endif
                                         <div class="d-flex flexDirectionColumn marginTop8">
                                             <div class="fontSize15 bold colorBlack">{{ $event['launcher_title'] }}</div>
                                             <div class="d-flex mt-2 spaceBetween">
