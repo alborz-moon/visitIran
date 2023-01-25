@@ -509,8 +509,8 @@ class EventBuyerController extends Controller
             }
 
             EventBuyerController::createEventListener(
-                $event, $eventBuyer[0]->phone, $user->mail, 
-                $eventBuyer->first_name . ' ' . $eventBuyer->last_name
+                $event, $eventBuyers[0]->phone, $user->mail, 
+                $eventBuyers[0]->first_name . ' ' . $eventBuyers[0]->last_name
             );
 
         }
