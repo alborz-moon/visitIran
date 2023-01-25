@@ -152,7 +152,7 @@ class EventBuyerController extends Controller
             $total = 0;
             $totalOff = 0;
             $totalAll = 0;
-            
+
             $eventBuyers = EventBuyer::where('transaction_id', $transaction->id)
                 ->paid()->get();
 
@@ -250,6 +250,9 @@ class EventBuyerController extends Controller
         if($request['count'] != count($request['users']))
             return abort(401);
 
+        $reminder = $event->capacity - $event->buyers()->sum('count');
+        if($reminder <= 0)
+        return response()->json(['status' => 'nok', 'msg' => 'ظرفیت رویداد موردنظر به اتمام رسیده است']);
 
         // todo: check off
         $unit_price = $event->price;

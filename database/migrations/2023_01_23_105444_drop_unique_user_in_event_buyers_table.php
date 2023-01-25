@@ -17,6 +17,7 @@ class DropUniqueUserInEventBuyersTable extends Migration
             $table->dropUnique(['event_id', 'user_id']);
             $table->dropColumn('paid');
             $table->integer('unit_price');
+            $table->bigInteger('created_ts');
             $table->enum('status', ['paid', 'pending']);
             $table->unsignedInteger('transaction_id');
             $table->index('transaction_id');
@@ -37,6 +38,7 @@ class DropUniqueUserInEventBuyersTable extends Migration
             $table->integer('paid');
             $table->dropColumn('unit_price');
             $table->dropColumn('status');
+            $table->dropColumn('created_ts');
             $table->dropForeign(['transaction_id']);
             $table->dropColumn('transaction_id');
         });
