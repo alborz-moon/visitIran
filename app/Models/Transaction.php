@@ -32,6 +32,14 @@ class Transaction extends Model
         return $query->where('status', 'completed');
     }
     
+    public function scopeEvent($query) {
+        return $query->where('site', 'event');
+    }
+    
+    public function scopeShop($query) {
+        return $query->where('site', 'shop');
+    }
+
     public function user() {
         return $this->belongsTo(User::class);
     }

@@ -910,7 +910,7 @@
         $(document).on('click', '.registerBtn', function() {
 
             let users = [];
-            let meOrOthers = $("input[name='selfDetective']").val();
+            let meOrOthers = $("input[name='selfDetective']:checked").val();
             let first_name = $("#first_name").val();
             let last_name = $("#last_name").val();
             let nid = $("#nid").val();
@@ -931,6 +931,7 @@
                 phone: phone
             });
 
+
             if (meOrOthers === "my") {
                 for (let i = 1; i < count; i++) {
                     users.push({
@@ -939,13 +940,25 @@
                         nid: nid,
                         phone: phone
                     });
-
                 }
+
             } else {
-                //     et first_name = $("#first_name").val();
-                // let last_name = $("#last_name").val();
-                // let nid = $("#nid").val();
-                // let phone = $("#phone").val();
+
+                for (let i = 2; i <= count; i++) {
+
+                    let first_name = $("#first_name_" + i).val();
+                    let last_name = $("#last_name_" + i).val();
+                    let nid = $("#nid_" + i).val();
+                    let phone = $("#phone_" + i).val();
+
+                    users.push({
+                        first_name: first_name,
+                        last_name: last_name,
+                        nid: nid,
+                        phone: phone
+                    });
+                }
+
 
             }
 
