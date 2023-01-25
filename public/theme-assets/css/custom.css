@@ -1381,10 +1381,6 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
 .checkout-steps li {
     flex: 0 0 24%;
 }
-.checkout-steps li.checkout-step-active::before {
-    background-color: #a499ff !important;
-    z-index: 1 !important;
-}
 .customUiBox {
     border-radius: 15px;
     -webkit-border-radius: 15px;
@@ -1926,9 +1922,19 @@ figure .ck-widget {
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
 }
+.checkout-steps li.checkout-step-active a {
+    color: #00b2bc;
+}
+.checkout-steps li.checkout-step-active::before {
+    background-color: #00b2bc !important;
+    z-index: 1 !important;
+}
+.checkout-steps li.checkout-step-active a span {
+    background-color: #00b2bc;
+}
 @media (min-width: 768px) {
     .mt-md-110 {
-        margin-top: 62px;
+        margin-top: 86px;
     }
 }
 @media (max-width: 768px) {
@@ -2242,9 +2248,6 @@ figure .ck-widget {
     }
 }
 @media (max-width: 768px) {
-    .maxWidth768 {
-        display: none;
-    }
     .logoImgFromTop {
         top: -20px;
     }
