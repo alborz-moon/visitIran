@@ -36,7 +36,7 @@ Route::resource('event.event_comment', EventCommentController::class)->except('s
 Route::post('event_comment/{event_comment}', [EventCommentController::class, 'update'])->name('event_comment.update');
 
 
-Route::post('event_callback', [EventController::class, 'callback'])->name('event.callback');
+Route::post('event_callback', [EventBuyerController::class, 'callback'])->name('event.callback');
 
 
 Route::middleware(['myAuth'])->group(function() {

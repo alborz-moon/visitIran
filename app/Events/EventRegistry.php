@@ -2,11 +2,8 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
@@ -14,20 +11,22 @@ class EventRegistry
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $name;
     public $phone;
     public $mail;
-    public $data;
+    public $event;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($phone, $mail, $data)
+    public function __construct($name, $phone, $mail, $event)
     {
+        $this->name = $name;
         $this->phone = $phone;
         $this->mail = $mail;
-        $this->data = $data;
+        $this->event = $event;
     }
 
     /**

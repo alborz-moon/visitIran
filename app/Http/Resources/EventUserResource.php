@@ -53,7 +53,7 @@ class EventUserResource extends JsonResource
             'end' => $e,
 
             'sr' => $start_registry_formatted,
-            'er' => $start_registry_formatted,
+            'er' => $end_registry_formatted,
             
             's' => $start_formatted,
             'e' => $end_formatted,
