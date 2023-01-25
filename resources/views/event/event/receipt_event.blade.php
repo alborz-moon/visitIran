@@ -158,6 +158,7 @@
 </head>
 
 <body>
+    <?php $i = 0; ?>
     @foreach ($data as $d)
         <div class="absolute" style="width: 270px;top:25px;left:0">
             <p class="margin0 padding0">
@@ -301,7 +302,10 @@
                 </p>
             </div>
         </div>
-        <pagebreak>
+        <?php $i++; ?>
+        @if ($i < count($data))
+            <pagebreak>
+        @endif
     @endforeach
 
 </body>

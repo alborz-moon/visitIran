@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Rules\NID;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use niklasravnsborg\LaravelPdf\Facades\Pdf;
@@ -513,6 +514,8 @@ class EventBuyerController extends Controller
                 $event, $eventBuyers[0]->phone, $user->mail, 
                 $eventBuyers[0]->first_name . ' ' . $eventBuyers[0]->last_name
             );
+
+            Auth::login($user);
         }
 
         return Redirect::route('checkout-successful', ['transaction' => $t->id]);
