@@ -339,6 +339,10 @@ class EventBuyerController extends Controller
             $transaction_status = Transaction::$COMPLETED_STATUS;
         }
 
+        $amount *= 10;
+        $unit_price *= 10;
+        if($off_amount != null)
+            $off_amount *= 10;
 
         $t = Transaction::create([
             'amount' => $amount,
@@ -356,7 +360,7 @@ class EventBuyerController extends Controller
         
             foreach($request['users'] as $u) {
 
-                $tmp = EventBuyer::create([
+                EventBuyer::create([
                     'first_name' => $u['first_name'],
                     'last_name' => $u['last_name'],
                     'nid' => $u['nid'],
@@ -370,17 +374,12 @@ class EventBuyerController extends Controller
                 ]);
             }
 
-            // if($paid_status == EventBuyer::$PAID) {
-            //     $u = $request['users'][0];
-            //     EventBuyerController::createEventListener($event, $tmp, $request, $user->mail);
-            // }
-
+            if($paid_status == EventBuyer::$PAID)
+                $u = $request['users'][0];
         }
         else {
-
             $u = $request['users'][0];
-
-            $tmp = EventBuyer::create([
+            EventBuyer::create([
                 'first_name' => $u['first_name'],
                 'last_name' => $u['last_name'],
                 'nid' => $u['nid'],
@@ -392,15 +391,15 @@ class EventBuyerController extends Controller
                 'unit_price' => $unit_price,
                 'status' => $paid_status
             ]);
-
-
-            // if($paid_status == EventBuyer::$PAID)
-            //     EventBuyerController::createEventListener($event, $tmp, $request, $user->mail);
-
         }
 
-        if($paid_status == EventBuyer::$PAID)
+        if($paid_status == EventBuyer::$PAID) {
+            EventBuyerController::createEventListener(
+                $event, $u['phone'], $user->mail,
+                $u['first_name'] . ' ' . $u['last_name']
+            );
             return response()->json(['status' => 'ok', 'action' => 'registered']);
+        }
 
 
         $ch = curl_init();
