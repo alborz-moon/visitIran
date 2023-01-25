@@ -12,6 +12,7 @@ use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Models\EventTag;
 use App\Models\State;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -329,8 +330,13 @@ Route::get('/alaki', function () {
     return view('alaki');
 })->name('alaki');
 
-Route::get('/checkout-successful', function () {
-    return view('checkout-successful');
+Route::get('/checkout-successful/{transaction}', function (Transaction $transaction) {
+    
+    $id = $transaction->id;
+    $created_at = Controller::MiladyToShamsi3($transaction->created_at);
+    $tracking_code = $transaction->tracking_code;
+
+    return view('checkout-successful', compact('id', 'tracking_code', 'created_at'));
 })->name('checkout-successful');
 
 Route::get('/checkout-unsuccessful', function () {

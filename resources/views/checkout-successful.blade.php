@@ -14,7 +14,7 @@
                                     </div>
                                     <div class="d-flex align-items-center flex-wrap mb-3">
                                         <div class="text-secondary me-3">شماره سفارش:</div>
-                                        <div class="font-en">DKC-244424454</div>
+                                        <div class="font-en">{{ $tracking_code }}</div>
                                     </div>
                                     <div class="text-success mb-3">پرداخت با موفقیت انجام شد. سفارش شما با موفقیت
                                         ثبت
@@ -25,8 +25,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 order-md-2 order-1 mb-md-0 mb-4 text-center">
-                                    <img src="./theme-assets/images/theme/checkout-successful.png" class="img-fluid"
-                                        alt="">
+                                    <img src="{{ asset('theme-assets/images/theme/checkout-successful.png') }}"
+                                        class="img-fluid" alt="">
                                 </div>
                             </div>
                         </div>
@@ -42,19 +42,15 @@
                                 </div>
                                 <div class="col-lg-2 col-md-3 col-sm-4 col-6">
                                     <div class="text-muted mb-2">درگاه پرداخت</div>
-                                    <div class="text-dark">درگاه ملت</div>
+                                    <div class="text-dark">درگاه سامان</div>
                                 </div>
                                 <div class="col-lg-2 col-md-3 col-sm-4 col-6">
                                     <div class="text-muted mb-2">شماره پیگیری</div>
-                                    <div class="text-dark">۱۷۶۹۳۴۱۱۶</div>
+                                    <div class="text-dark">{{ $tracking_code }}</div>
                                 </div>
                                 <div class="col-lg-2 col-md-3 col-sm-4 col-6">
                                     <div class="text-muted mb-2">زمان</div>
-                                    <div class="text-dark">۱۲:۲۴:۱۳</div>
-                                </div>
-                                <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-                                    <div class="text-muted mb-2">تاریخ</div>
-                                    <div class="text-dark">تاریخ</div>
+                                    <div class="text-dark">{{ $created_at }}</div>
                                 </div>
                             </div>
                         </div>

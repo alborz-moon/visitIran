@@ -16,6 +16,7 @@ use App\Rules\NID;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redirect;
 use niklasravnsborg\LaravelPdf\Facades\Pdf;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -508,13 +509,13 @@ class EventBuyerController extends Controller
                 $eventBuyer->save();
             }
 
-            EventBuyerController::createEventListener(
+            self::createEventListener(
                 $event, $eventBuyers[0]->phone, $user->mail, 
                 $eventBuyers[0]->first_name . ' ' . $eventBuyers[0]->last_name
             );
-
         }
 
+        return Redirect::route('checkout-successful', ['transaction' => $t->id]);
     }
 
 }
