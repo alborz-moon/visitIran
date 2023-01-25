@@ -13,6 +13,7 @@ use App\Models\EventBuyer;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Rules\NID;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -65,6 +66,8 @@ class EventBuyerController extends Controller
 
         if($user != null)
             $request['user_id'] = $user->id;
+
+        $reminder['created_ts'] = Carbon::now()->timestamp;
         
         $tmp = EventBuyer::create($request->toArray());
         $createdAt = self::MiladyToShamsi3($tmp->created_at->timestamp);
@@ -331,6 +334,7 @@ class EventBuyerController extends Controller
             $user->save();
         }
 
+        $now = Carbon::now()->timestamp;
         $paid_status = EventBuyer::$PENDING;
         $amount = $price;
         $tracking_code = random_int(100000, 999999);
@@ -373,7 +377,8 @@ class EventBuyerController extends Controller
                     'transaction_id' => $t->id,
                     'unit_price' => $unit_price,
                     'status' => $paid_status,
-                    'count' => 1
+                    'count' => 1,
+                    'created_ts' => $now,
                 ]);
             }
 
@@ -392,7 +397,8 @@ class EventBuyerController extends Controller
                 'count' => $request['count'],
                 'transaction_id' => $t->id,
                 'unit_price' => $unit_price,
-                'status' => $paid_status
+                'status' => $paid_status,
+                'created_ts' => $now,
             ]);
         }
 
