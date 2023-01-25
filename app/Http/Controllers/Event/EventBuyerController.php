@@ -147,12 +147,12 @@ class EventBuyerController extends Controller
         $transactions = Transaction::where('ref_id', $eventId)->event()->complete()->get();
         $all_data = [];
 
-        $total = 0;
-        $totalOff = 0;
-        $totalAll = 0;
-
         foreach($transactions as $transaction) {
 
+            $total = 0;
+            $totalOff = 0;
+            $totalAll = 0;
+            
             $eventBuyers = EventBuyer::where('transaction_id', $transaction->id)
                 ->paid()->get();
 
@@ -410,7 +410,7 @@ class EventBuyerController extends Controller
         $payload = json_encode([
             "action" => "token",
             "TerminalId" => "13158674",
-            "Amount" => $price,
+            "Amount" => $amount,
             "ResNum" => $t->id,
             "RedirectUrl" => route('event.callback'),
             "CellNumber" => $request->user()->phone
