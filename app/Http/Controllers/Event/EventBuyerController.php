@@ -140,40 +140,51 @@ class EventBuyerController extends Controller
      * @param  \App\Models\EventBuyer  $eventBuyer
      * @return \Illuminate\Http\Response
      */
-    public function generateRecpPDF(EventBuyer $eventBuyer, Request $request)
+    public function generateRecpPDF(Event $event, Request $request)
     {
 
+        EventBuyer::where('user_id', $request->user()->id)->where('event_id', $event->id)->first();
         $event = $eventBuyer->event;
+        $t = Transaction::where();
+
         $data = [
-            'title' => $event->title,
-            'launcher' => $event->launcher->company_name,
-            'type' => $event->city_id == null ? 'مجازی' : 'حضوری',
-            'address' => $event->city_id == null ? $event->link : $event->address,
-            'name' => $eventBuyer->first_name . ' ' . $eventBuyer->last_name,
-            'phone' => $eventBuyer->phone,
-            'tel' => $eventBuyer->tel,
-            'email' => $eventBuyer->email,
-            'site' => $eventBuyer->site,
-            'count' => $eventBuyer->count,
-            'ticket_desc' => $event->ticket_description,
-            'tracking_code' => $eventBuyer->tracking_code,
+            'email' => 'alborzmoon@gmail.com',
+            'tel' => $eventBuyer->phone,
             'nid' => $eventBuyer->nid,
-            'created_at' => self::MiladyToShamsi3($eventBuyer->created_at->timestamp),
-            'paid' => $eventBuyer->paid,
-            'qr' => storage_path($filename),
-            'days' => EventSessionResource::collection($event->sessions)->toArray($request)
+            'name' => $eventBuyer->first_name . ' ' . $eventBuyer->last_name,
+            'products' => [
+                [
+                    'id' => '1',
+                    'title' => $event->title,
+                    'desc' => $event->ticket_description,
+                    'count' => $eventBuyer->count,
+                    'price' => $eventBuyer->unit_price,
+                    'total' => $eventBuyer->unit_price * $eventBuyer->count,
+                    'off' => 2000,
+                    'total_after_off' => 3000000,
+                    'total_after_off_tax' => 3200000,
+                    'all' => 3200000
+                ],
+            ],
+            'total' => [
+                'total' => 6000000,
+                'off' => 3000,
+                'total_after_off' => 4000000,
+                'total_after_off_tax' => 4200000,
+                'all' => 4200000
+            ]
         ];
 
         view()->share('data', $data);
 
-        $pdf = Pdf::loadView('event.event.ticket', $data, [], 
+        $pdf = Pdf::loadView('event.event.receipt_event', $data, [], 
             [
-                'format' => 'A5-L',
+                'format' => 'A4-L',
                 'display_mode' => 'fullpage'
             ]
         );
+        
         return $pdf->download('pdf_file.pdf');
-
     }
 
 
