@@ -91,7 +91,7 @@ class EventBuyerController extends Controller
      * @param  \App\Models\EventBuyer  $eventBuyer
      * @return \Illuminate\Http\Response
      */
-    public function show(EventBuyer $eventBuyer, Request $request)
+    public function generateTicketPDF(EventBuyer $eventBuyer, Request $request)
     {
 
         $event = $eventBuyer->event;
@@ -132,6 +132,61 @@ class EventBuyerController extends Controller
         return $pdf->download('pdf_file.pdf');
 
     }
+
+
+        /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\EventBuyer  $eventBuyer
+     * @return \Illuminate\Http\Response
+     */
+    public function generateRecpPDF(Event $event, Request $request)
+    {
+
+        EventBuyer::where('user_id', $request->user()->id)->where('event_id', $event->id)->first();
+        $event = $eventBuyer->event;
+        $t = Transaction::where();
+
+        $data = [
+            'email' => 'alborzmoon@gmail.com',
+            'tel' => $eventBuyer->phone,
+            'nid' => $eventBuyer->nid,
+            'name' => $eventBuyer->first_name . ' ' . $eventBuyer->last_name,
+            'products' => [
+                [
+                    'id' => '1',
+                    'title' => $event->title,
+                    'desc' => $event->ticket_description,
+                    'count' => $eventBuyer->count,
+                    'price' => $eventBuyer->unit_price,
+                    'total' => $eventBuyer->unit_price * $eventBuyer->count,
+                    'off' => 2000,
+                    'total_after_off' => 3000000,
+                    'total_after_off_tax' => 3200000,
+                    'all' => 3200000
+                ],
+            ],
+            'total' => [
+                'total' => 6000000,
+                'off' => 3000,
+                'total_after_off' => 4000000,
+                'total_after_off_tax' => 4200000,
+                'all' => 4200000
+            ]
+        ];
+
+        view()->share('data', $data);
+
+        $pdf = Pdf::loadView('event.event.receipt_event', $data, [], 
+            [
+                'format' => 'A4-L',
+                'display_mode' => 'fullpage'
+            ]
+        );
+        
+        return $pdf->download('pdf_file.pdf');
+    }
+
 
 
     // /**
@@ -200,9 +255,8 @@ class EventBuyerController extends Controller
 
             try {
                 $off = OffController::check_code('event', $userId, $request->code);
-
-                $price_after_off = $off->off_type == 'percent' ? number_format((100 - $off->amount) * $price / 100, 0) : 
-                    number_format(max(0, $price - $off->amount), 0);
+                $price_after_off = $off->off_type == 'percent' ? (100 - $off->amount) * $price / 100 : 
+                    max(0, $price - $off->amount);
 
                 $off_amount = $price - $price_after_off;
                 $price = $price_after_off;
@@ -221,7 +275,6 @@ class EventBuyerController extends Controller
 
             }
         }
-
 
         $find_diff = false;
 

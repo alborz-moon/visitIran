@@ -14,16 +14,18 @@ class EventRegistryMail extends Mailable
 
     public $eventRegistry;
     public $filename;
+    public $filename_recp;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(EventRegistry $eventRegistry, $filename)
+    public function __construct(EventRegistry $eventRegistry, $filename, $filename_recp)
     {
         $this->eventRegistry = $eventRegistry;
         $this->filename = $filename;
+        $this->filename_recp = $filename_recp;
     }
 
     /**
@@ -34,13 +36,17 @@ class EventRegistryMail extends Mailable
     public function build()
     {
         return
-            $this->subject('Mail from Bogen studio')
+            $this->subject('جزییات سفارش')
                 ->view('emails.event_registry', [
-                    'title' => $this->eventRegistry->data['title'],
-                    'body' => 'test'
+                    'name' => $this->eventRegistry->data['name'],
+                    "invoice_no" => $this->eventRegistry->data['tracking_code'],
+                    'event' => $this->eventRegistry->data['title']
                 ])->attach($this->filename, [
                          'as' => 'ticket.pdf',
                          'mime' => 'application/pdf',
-                ]);
+                ])->attach($this->filename_recp, [
+                    'as' => 'recp.pdf',
+                    'mime' => 'application/pdf',
+           ]);
     }
 }

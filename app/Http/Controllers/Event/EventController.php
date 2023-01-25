@@ -826,7 +826,7 @@ class EventController extends EventHelper
                     'tracking_code' => random_int(10000000, 99999999)
                 ]);
     
-                // EventBuyerController::createEventListener($event, $tmp, $request, $user->mail);
+                EventBuyerController::createEventListener($event, $tmp, $request, $user->mail);
             }
         }
 

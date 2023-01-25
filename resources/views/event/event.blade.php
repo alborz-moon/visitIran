@@ -39,60 +39,76 @@
                                 </div>
                             </div>
                             <div class="spaceBetween p-3">
-                                @if ($event['price'] != null)
-                                    <div class="px-2">
-                                        <span id="price" class="textColor fontSize18 bold">{{ $event['price'] }}</span>
-                                        <span class="colorYellow fontSize22 bold">ت</span>
+
+
+                                @if ($event['isActiveForRegistry'])
+                                    @if ($event['price'] != null)
+                                        <div class="px-2">
+                                            <span id="price"
+                                                class="textColor fontSize18 bold">{{ $event['price'] }}</span>
+                                            <span class="colorYellow fontSize22 bold">ت</span>
+                                        </div>
+                                    @endif
+
+                                    <div class="product-seller-row product-remaining-in-stock spaceBetween">
+                                        <div class="bold textColor d-flex align-items-center ">
+                                            <div class="whiteSpaceNoWrap">تعداد شرکت کننده :</div>
+                                        </div>
+                                        <div class="num-block fa-num me-3">
+                                            <span class="num-in b-0">
+                                                <span
+                                                    class="icon-visit-Exclusion1 countPlus customColorBlack d-flex justify-content-center align-items-center"></span>
+                                                <input name="counter" class="counter" type="text" value="1"
+                                                    readonly="">
+                                                <span class="fontSize12 peopleCount">نفر</span>
+                                                <span
+                                                    class="icon-visit-Exclusion2 countMinus customColorBlack d-flex justify-content-center align-items-center"></span>
+                                            </span>
+                                        </div>
                                     </div>
                                 @endif
-                                <div class="product-seller-row product-remaining-in-stock spaceBetween">
-                                    <div class="bold textColor d-flex align-items-center ">
-                                        <div class="whiteSpaceNoWrap">تعداد شرکت کننده :</div>
-                                    </div>
-                                    <div class="num-block fa-num me-3">
-                                        <span class="num-in b-0">
-                                            <span
-                                                class="icon-visit-Exclusion1 countPlus customColorBlack d-flex justify-content-center align-items-center"></span>
-                                            <input name="counter" class="counter" type="text" value="1"
-                                                readonly="">
-                                            <span class="fontSize12 peopleCount">نفر</span>
-                                            <span
-                                                class="icon-visit-Exclusion2 countMinus customColorBlack d-flex justify-content-center align-items-center"></span>
-                                        </span>
-                                    </div>
-                                </div>
+
                             </div>
                             <hr>
-                            <div class="d-flex flexWrap align-items-center justify-content-end p-3 gap15">
-                                {{-- <div class="d-flex gap10 align-items-center">
-                                    <input style="min-width: 200px" class="form-control" placeholder="کد تخفیف">
-                                    <button class="btn btn-primary backgroundGray h-50">ثبت</button>
-                                </div> --}}
-                                <button data-remodal-target="buy-event-modal" style="min-width: 290px"
-                                    class="fontSize18 bold btn btn-primary h-50 ">ثبت نام
-                                    <span class="fontSize16 px-1 allPrice"></span>
-                                    <span class="fontSize16 px-1">تومان</span>
-                                </button>
-                            </div>
+
+                            @if ($event['isActiveForRegistry'])
+                                <div class="d-flex flexWrap align-items-center justify-content-end p-3 gap15">
+                                    @if (Auth::check())
+                                        <button data-remodal-target="buy-event-modal" style="min-width: 290px"
+                                            class="fontSize18 bold btn btn-primary h-50 ">ثبت نام
+                                            <span class="fontSize16 px-1 allPrice"></span>
+                                            <span class="fontSize16 px-1">تومان</span>
+                                        </button>
+                                    @else
+                                        <button onclick="redirectToLoginPage()" style="min-width: 290px"
+                                            class="fontSize18 bold btn btn-primary h-50 ">ثبت
+                                            نام
+                                            <span class="fontSize16 px-1 allPrice"></span>
+                                            <span class="fontSize16 px-1">تومان</span>
+                                        </button>
+                                    @endif
+                                </div>
+                            @endif
+
+
                         </div>
+
                         <div id="customEventHandlerMobile">
+
                             {{-- <div class="d-flex justify-content-end">
-                            <span>
-                                <button
-                                    class="ri-bookmark-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
-                                <button
-                                    class="ri-bookmark-fill fontSize30 b-0 colorYellow btnHover backColorWhite"></button>
-                                <button data-remodal-target="share-modal"
-                                    class="ri-stackshare-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
-                            </span>
-                        </div> --}}
-                            {{-- @include('shop.product.write-comment', ['productId' => $product['id']]) --}}
-                            {{-- @include('event.event.bookmark', ['is_bookmark' => $event['is_bookmark']]) --}}
+                                    <span>
+                                        <button
+                                            class="ri-bookmark-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
+                                        <button
+                                            class="ri-bookmark-fill fontSize30 b-0 colorYellow btnHover backColorWhite"></button>
+                                        <button data-remodal-target="share-modal"
+                                            class="ri-stackshare-line fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
+                                    </span>
+                                </div> --}}
+
                             <!-- start of product-seller-info -->
                             <div class="product-seller-info ui-box mb-3 backColorWhite">
-                                {{-- <div class="top30 position-absolute fontSize22 colorYellow">
-                                        <i class="icon-visit-organization"></i>
-                                    </div> --}}
+
                                 <div class="seller-info-changeable">
                                     <div class="d-flex align-items-center">
                                         <div class="userCircleSize backgroundYellow mx-3 position-relative flexCenter">
@@ -884,6 +900,11 @@
 
         function sendimg(img) {
             $("#mainGalleryModal").attr('src', img);
+        }
+
+        function redirectToLoginPage() {
+            localStorage.setItem("url", '{{ URL::current() }}');
+            document.location.href = '{{ route('login-register') }}';
         }
 
         $(document).on('click', '.registerBtn', function() {

@@ -93,7 +93,9 @@ Route::middleware(['myAuth'])->group(function() {
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get('recp/{eventBuyer}', [EventBuyerController::class, 'show'])->name('recp');
+    Route::get('recp/{eventBuyer}', [EventBuyerController::class, 'generateRecpPDF'])->name('recp');
+
+    Route::get('ticket/{eventBuyer}', [EventBuyerController::class, 'generateTicketPDF'])->name('ticket');
 
 });
 

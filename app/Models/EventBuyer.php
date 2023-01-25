@@ -16,6 +16,7 @@ class EventBuyer extends Model
         'nid',
         'phone',
         'paid',
+        'unit_price',
         'count',
         'user_id',
         'event_id',

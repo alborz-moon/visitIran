@@ -83,10 +83,7 @@ class SendEventRegistryNotification
 
             $pdf->save($filename_recp);
 
-            Mail::to('mghaneh1375@yahoo.com')->send(new EventRegistryMail($event), function ($message) use ($filename, $filename_recp) {
-                $message->attach($filename);
-                $message->attach($filename_recp);
-            });
+            Mail::to('mghaneh1375@yahoo.com')->send(new EventRegistryMail($event, $filename, $filename_recp));
 
         }
 
