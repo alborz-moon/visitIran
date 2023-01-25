@@ -333,7 +333,7 @@ Route::get('/alaki', function () {
 Route::get('/checkout-successful/{transaction}', function (Transaction $transaction) {
     
     $id = $transaction->id;
-    $created_at = Controller::MiladyToShamsi3($transaction->created_at);
+    $created_at = Controller::MiladyToShamsi3($transaction->created_at->timestamp);
     $tracking_code = $transaction->tracking_code;
 
     return view('checkout-successful', compact('id', 'tracking_code', 'created_at'));
