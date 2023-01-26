@@ -101,11 +101,13 @@ function buildQuery() {
     if (total_filters_count > 0) {
         $("#total_filters").removeClass("hidden");
         $("#remove_all_filters").removeClass("hidden");
+        $(".remove_all_filters").removeClass("hidden");
         $("#total_filters_count").empty().append(total_filters_count);
         $("#total_filters_count_mobile").empty().append(total_filters_count);
     } else {
         $("#total_filters").addClass("hidden");
         $("#remove_all_filters").addClass("hidden");
+        $(".remove_all_filters").addClass("hidden");
     }
 
     return query;

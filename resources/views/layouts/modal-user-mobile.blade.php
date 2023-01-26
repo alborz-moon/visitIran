@@ -2,7 +2,7 @@
 <button id="closeUser" type="button" class="btn-close customCloseIconBanner hidden p-0 position-fixed l-0 zIndex5"></button>
 <div class="overlayToggle cursorPointer hidden">
 </div>
-<div id="parentUserMobile" class="pt-4">
+<div id="parentUserMobile">
     <div id="container-user" class="hidden">
         @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
             @include('event.launcher.launcher-menu')

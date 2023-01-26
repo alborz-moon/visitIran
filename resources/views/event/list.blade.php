@@ -374,16 +374,18 @@
                     </div>
                 </div>
                 <div class="col-xl-9 col-lg-9 col-md-8">
-                    <div class="d-flex spaceBetween">
+                    <div class="d-md-none">
+                    <div class="d-flex justifyContentSpaceBetween alignItemsCenter p-2">
                         <div>
                             <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar mt-3">فیلتر پیشرفته
                                 <i class="ri-equalizer-fill ms-1"></i>
                             </button>
-                            <span id="total_filters_count_mobile" class="remove_all_filters"></span>
+                            <span id="total_filters_count_mobile" class="remove_all_filters me-1 colorBlue fontSize12"></span><span class="remove_all_filters colorBlue fontSize12">فیلتر</span>
                         </div>
-                        <div class="remove_all_filters">
-                            حذف فیلتر
+                        <div>
+                            <a onclick="clearAllFilters()" class="colorRed cursorPointer fontSize12 align-self-center remove_all_filters hidden">حذف نتایج</a>
                         </div>
+                    </div>
                     </div>
                     <div class="listing-products">
                         <div class="listing-products-content">

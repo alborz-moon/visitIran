@@ -162,7 +162,7 @@ ul {
     z-index: 10;
     background-color: #cccccc67;
 }
-.height190{
+.height190 {
     height: 190px;
 }
 .myModal {
@@ -225,7 +225,7 @@ ul {
 .positionRelative {
     position: relative !important;
 }
-.positionFixed{
+.positionFixed {
     position: fixed;
 }
 .fs-7 {
@@ -321,7 +321,7 @@ ul {
 .bold {
     font-weight: 700;
 }
-.centerBtn{
+.centerBtn {
     left: calc(50% - 74px);
 }
 .customCloseIconBanner {
@@ -1182,6 +1182,9 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
     display: flex !important;
     justify-content: space-between !important;
 }
+.justifyContentSpaceBetween {
+    justify-content: space-between;
+}
 .justifyContentEnd {
     justify-content: end !important;
 }
@@ -1377,10 +1380,6 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
 }
 .checkout-steps li {
     flex: 0 0 24%;
-}
-.checkout-steps li.checkout-step-active::before {
-    background-color: #a499ff !important;
-    z-index: 1 !important;
 }
 .customUiBox {
     border-radius: 15px;
@@ -1923,9 +1922,19 @@ figure .ck-widget {
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
 }
+.checkout-steps li.checkout-step-active a {
+    color: #00b2bc;
+}
+.checkout-steps li.checkout-step-active::before {
+    background-color: #00b2bc !important;
+    z-index: 1 !important;
+}
+.checkout-steps li.checkout-step-active a span {
+    background-color: #00b2bc;
+}
 @media (min-width: 768px) {
     .mt-md-110 {
-        margin-top: 62px;
+        margin-top: 86px;
     }
 }
 @media (max-width: 768px) {
@@ -1933,7 +1942,7 @@ figure .ck-widget {
         margin-top: 15px;
     }
     .mt-md-110 {
-        margin-top: -48px;
+        margin-top: -24px;
     }
     .TopParentBannerMoveOnTop {
         margin-top: 0;
@@ -2183,6 +2192,10 @@ figure .ck-widget {
 .link {
     color: #00b2bc;
     border-bottom: 0;
+}
+.moreChart{
+    left: 12px;
+    bottom: -17px;
 }
 .link:hover {
     color: #0089b7 !important;

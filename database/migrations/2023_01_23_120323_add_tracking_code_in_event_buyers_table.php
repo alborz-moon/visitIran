@@ -15,6 +15,7 @@ class AddTrackingCodeInEventBuyersTable extends Migration
     {
         Schema::connection('mysql2')->table('event_buyers', function (Blueprint $table) {
             $table->string('tracking_code', 30);
+            $table->integer('unit_price');
         });
     }
 
@@ -27,6 +28,7 @@ class AddTrackingCodeInEventBuyersTable extends Migration
     {
         Schema::connection('mysql2')->table('event_buyers', function (Blueprint $table) {
             $table->dropColumn('tracking_code');
+            $table->dropColumn('unit_price');
         });
     }
 }
