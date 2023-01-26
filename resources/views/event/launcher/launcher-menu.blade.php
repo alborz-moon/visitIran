@@ -1,5 +1,4 @@
 <?php $isLauncher = Auth::check() && Auth::user()->isLauncher(); ?>
-
 <div class="{{ isset($desktopMenu) && $desktopMenu ? 'col-12' : 'col-xl-3 col-lg-3 col-md-4' }}  mb-md-0 mb-3 zIndex0">
     <div class="ui-sticky ui-sticky-top StickyMenuMoveOnTop">
         <div
@@ -14,7 +13,6 @@
                         <div class="text-muted fw-bold bold">{{ Auth::user()->phone }}</div>
                     </div>
                 </div>
-
                 @if ($isLauncher)
                     <div class="user-options">
                         <ul>
@@ -97,6 +95,12 @@
                     <a class="nav-link" href="{{ route('my-events') }}">
                         <i class="nav-link-icon ri-file-list-3-line"></i>
                         بلیت های من
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href=""><i
+                            class="nav-link-icon ri-notification-line"></i>
+                        تراکنش های من
                     </a>
                 </li>
                 <li class="nav-item">

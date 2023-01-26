@@ -28,9 +28,10 @@
                                 class="nav-link-icon ri-briefcase-5-line"></i>تخفیف ها</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('profile.favorites') }}"><i
-                                class="nav-link-icon ri-heart-3-line"></i> لیست
-                            ها</a>
+                        <a class="nav-link" href="{{ route('profile.favorites') }}">
+                            <i class="nav-link-icon ri-heart-3-line"></i>
+                            علاقه مندی ها    
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('profile.comments') }}"><i
