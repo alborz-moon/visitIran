@@ -21,8 +21,8 @@ class DropUniqueUserInEventBuyersTable extends Migration
             $table->enum('status', ['paid', 'pending']);
             $table->unsignedInteger('transaction_id');
             $table->index('transaction_id');
-            $table->foreign('transaction_id')->on('miras2.transactions')->references('id')->onDelete('cascade')
-                ->onUpdate('cascade');
+            // $table->foreign('transaction_id')->on('miras.transactions')->references('id')->onDelete('cascade')
+            //     ->onUpdate('cascade');
         });
     }
 
@@ -41,6 +41,7 @@ class DropUniqueUserInEventBuyersTable extends Migration
             $table->dropColumn('created_ts');
             $table->dropForeign(['transaction_id']);
             $table->dropColumn('transaction_id');
+            // $table->dropForeign(['user_id']);
         });
     }
 }

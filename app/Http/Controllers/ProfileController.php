@@ -107,7 +107,7 @@ class ProfileController extends Controller
     }
 
     public function report() {
-        return view('shop.profile.profile-report');
+        return view('event.profile-report');
     }
 
     public function history() {
