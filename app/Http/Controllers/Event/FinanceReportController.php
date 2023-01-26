@@ -28,26 +28,26 @@ class FinanceReportController extends Controller {
         $events_data = [];
         $stats = [];
 
-        for($i = 1; $i < 10; $i++) {
-            array_push($stats, [
-                'date' => (int)('1401010' . $i),
-                'count' => 3
-            ]);
-        }
+        // for($i = 1; $i < 10; $i++) {
+        //     array_push($stats, [
+        //         'date' => (int)('1401010' . $i),
+        //         'count' => 3
+        //     ]);
+        // }
         
-        for($i = 1; $i < 10; $i++) {
-            array_push($stats, [
-                'date' => (int)('1401020' . $i),
-                'count' => 3
-            ]);
-        }
+        // for($i = 1; $i < 10; $i++) {
+        //     array_push($stats, [
+        //         'date' => (int)('1401020' . $i),
+        //         'count' => 3
+        //     ]);
+        // }
         
-        for($i = 1; $i < 10; $i++) {
-            array_push($stats, [
-                'date' => (int)('1401030' . $i),
-                'count' => 3
-            ]);
-        }
+        // for($i = 1; $i < 10; $i++) {
+        //     array_push($stats, [
+        //         'date' => (int)('1401030' . $i),
+        //         'count' => 3
+        //     ]);
+        // }
 
         foreach($events as $event) {
             

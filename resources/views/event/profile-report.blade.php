@@ -353,6 +353,9 @@
                 $("#can_back").append(res.can_back);
     
                 all_events = res.events;
+                if(all_events.length <= 5)
+                    $("#prepareBigPieChartBtn").remove();
+
                 drawLineChart(res.stats);
 
                 let colors = [];
@@ -437,7 +440,7 @@
             type: 'line',
             data: {
                 labels: stats.map(elem => { 
-                    
+
                     if(typeof elem.date === 'number')
                         return (elem.date + "").substr(0, 4) + "/" + (elem.date + "").substr(4, 2) + "/" + (elem.date + "").substr(6, 2);
 
