@@ -40,8 +40,8 @@ class MyEventsDigest extends JsonResource
             'start' => $start,
             'end' => $end,
             'href' => route('event', ['event' => $event->id, 'slug' => $event->title]),
-            'ticket_href' => route('ticket', ['eventBuyer' => $this->id]),
-            'recp_href' => route('recp', ['eventBuyer' => $this->id]),
+            'ticket_href' => route('ticket', ['event' => $event->id]),
+            'recp_href' => route('recp', ['event' => $event->id]),
             'title' => $event->title,
             'created_at' => Controller::MiladyToShamsi2($this->created_at->timestamp),
             'count' => $this->count

@@ -27,7 +27,8 @@ class OffController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = Off::where('id', '>=', 1);
+        $site = $request->getHost() == self::$EVENT_SITE ? 'event' : 'site';
+        $filter = Off::where('site', $site);
         
         $expired = $request->query('expired', null);
         $general = $request->query('general', null);
@@ -95,6 +96,15 @@ class OffController extends Controller
 
         $offs = $filter->paginate(20);
 
+        if($site == 'event')
+            return view('admin.off.event_list', [
+                'items' => OffResource::collection($offs)->toArray($request),
+                'links' => $offs->links(),
+                'categories' => CategoryDigest::collection(Category::all())->toArray($request),
+                'brands' => BrandResource::collection(Brand::all())->toArray($request),
+                'sellers' => SellerResource::collection(Seller::all())->toArray($request),
+            ]);
+            
         return view('admin.off.list', [
             'items' => OffResource::collection($offs)->toArray($request),
             'links' => $offs->links(),

@@ -41,6 +41,7 @@ class EventUserResource extends JsonResource
             'launcher_id' => $this->launcher_id,
             'launcher_title' => $launcher->title,
             'launcher_rate' => $launcher->rate == null ? 4 : $launcher->rate,
+            'launcher_img' => $launcher->img == null ? asset('storage/launchers/default.png') : asset('storage/launchers/' . $launcher->img),
             'launcher_rate_count' => $launcher->rate_count,
             'launcher_follower_count' => $launcher->follower_count,
             'launcher_x' => $launcher->launcher_x,
@@ -52,7 +53,7 @@ class EventUserResource extends JsonResource
             'end' => $e,
 
             'sr' => $start_registry_formatted,
-            'er' => $start_registry_formatted,
+            'er' => $end_registry_formatted,
             
             's' => $start_formatted,
             'e' => $end_formatted,

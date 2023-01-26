@@ -28,7 +28,7 @@
                                                             <th>عملیات</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody id="myTickets"></tbody>
+                                                    <tbody id="myEvents"></tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -55,35 +55,33 @@
             },
             success: function(res) {
                 if (res.status === "ok") {
-                    var myTickets = "";
+                    var myEvents = "";
                     if (res.data.length != 0) {
                         for (var i = 0; i < res.data.length; i++) {
-                            myTickets += '<tr>';
-                            myTickets += '<td>' + (i + 1) + '</td>';
-                            myTickets += '<td>' + res.data[i].title + '</td>';
-                            myTickets += '<td>' + res.data[i].launcher + '</td>';
-                            myTickets += '<td>' + res.data[i].created_at + '</td>';
-                            myTickets += '<td>' + res.data[i].start + '</td>';
-                            myTickets += '<td>' + res.data[i].count + '</td>';
-                            myTickets += '<td>';
-                            myTickets +=
-                                '<button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">';
-                            myTickets += '<i class="icon-visit-menu"></i>';
-                            myTickets += '</button>';
-                            myTickets += '<ul class="dropdown-menu">';
-                            myTickets += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i]
-                                .href + '">مشاهده</a></li>';
-                            myTickets += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i]
-                                .ticket_href + '">بلیت</a></li>';
-                            myTickets += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i]
-                                .recp_href + '">فاکتور</a></li>';
-                            myTickets +=
-                                '<li><a class="dropdown-item fontSize12 btnHover" href="{{ route('profile.my-tickets') }}">پشتیبانی</a></li>';
-                            myTickets += '</ul>'
-                            myTickets += '</td>';
-                            myTickets += '</tr>';
+                            myEvents += '<tr>';
+                            myEvents += '<td>' + (i + 1) + '</td>';
+                            myEvents += '<td>' + res.data[i].title + '</td>';
+                            myEvents += '<td>' + res.data[i].launcher + '</td>';
+                            myEvents += '<td>' + res.data[i].created_at + '</td>';
+                            myEvents += '<td>' + res.data[i].start + '</td>';
+                            myEvents += '<td>' + res.data[i].count + '</td>';
+                            myEvents += '<td>';
+                            myEvents += '<button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">';
+                            myEvents += '<i class="icon-visit-menu"></i>';
+                            myEvents += '</button>';
+                            myEvents += '<ul class="dropdown-menu">';
+                            myEvents += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i].href + '">مشاهده</a></li>';
+                            myEvents += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i].ticket_href + '">بلیت</a></li>';
+                            myEvents += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i].recp_href + '">فاکتور</a></li>';
+                            myEvents += '<li><a class="dropdown-item fontSize12 btnHover" href="' + res.data[i].recp_href + '">فاکتور</a></li>';
+                            myEvents += '<li><a class="dropdown-item fontSize12 btnHover" href="{{ route('profile.my-tickets') }}">پشتیبانی</a></li>';                    
+                            myEvents += '</ul>'
+                            myEvents += '</td>';
+                            myEvents += '</tr>';
                         }
-                        $("#myTickets").empty().append(myTickets);
+                        $("#myEvents").empty().append(myEvents);
+                    }else{
+                        showErr("موردی برای نمایش وجود ندارد")
                     }
                 }
             }

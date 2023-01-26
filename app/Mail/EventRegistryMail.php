@@ -3,8 +3,8 @@
 namespace App\Mail;
 
 use App\Events\EventRegistry;
+use App\Models\Event;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -35,12 +35,13 @@ class EventRegistryMail extends Mailable
      */
     public function build()
     {
+        
         return
             $this->subject('جزییات سفارش')
                 ->view('emails.event_registry', [
-                    'name' => $this->eventRegistry->data['name'],
-                    "invoice_no" => $this->eventRegistry->data['tracking_code'],
-                    'event' => $this->eventRegistry->data['title']
+                    'name' => $this->eventRegistry->name,
+                    "invoice_no" => '1221321', //$this->eventRegistry->data['tracking_code']
+                    'event' => $this->eventRegistry->event['title']
                 ])->attach($this->filename, [
                          'as' => 'ticket.pdf',
                          'mime' => 'application/pdf',

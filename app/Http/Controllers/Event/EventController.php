@@ -12,15 +12,12 @@ use App\Http\Resources\EventUserResource;
 use App\Http\Resources\LauncherVeryDigest;
 use App\Models\Config;
 use App\Models\Event;
-use App\Models\EventBuyer;
 use App\Models\EventComment;
 use App\Models\EventTag;
 use App\Models\Facility;
 use App\Models\Launcher;
 use App\Models\LauncherFollowers;
 use App\Models\State;
-use App\Models\Transaction;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -745,91 +742,4 @@ class EventController extends EventHelper
             ]
         );
     }
-
-    public function callback(Request $request) {
-
-        $request->validate([
-            'Status' => 'required|integer',
-            'ResNum' => 'required',
-        ]);
-
-        if($request['status'] == 2 || 1 == 1) {
-
-            $t = Transaction::find($request['ResNum']);
-            if($t == null)
-                dd("null");
-    
-
-            $t->status = Transaction::$COMPLETED_STATUS;
-            $t->save();
-
-            $users = json_decode($t->additional);
-            $find_diff = false;
-    
-            for($i = 0; $i < count($users); $i++) {
-    
-                for($j = $i + 1; $j < count($users); $j++) {
-    
-                    foreach($users[$i] as $key => $val) {
-    
-                        if($users[$j][$key] != $val) {
-                            $find_diff = true;
-                            break;
-                        }
-    
-                    }
-    
-                    if($find_diff)
-                        break;
-                }
-    
-                if($find_diff)
-                    break;
-            }
-    
-            $userId = $t->user_id;
-            $user = User::find($userId);
-            $event = Event::find($t->ref_id);
-                
-            if($find_diff) {
-                
-                foreach($users as $u) {
-    
-                    $tmp = EventBuyer::create([
-                        'first_name' => $u->first_name,
-                        'last_name' => $u->last_name,
-                        'nid' => $u->nid,
-                        'phone' => $u->phone,
-                        'user_id' => $userId,
-                        'event_id' => $event->id,
-                        'count' => 1,
-                        'tracking_code' => random_int(10000000, 99999999)
-                    ]);
-                }
-    
-                $u = $users[0];
-                // EventBuyerController::createEventListener($event, $tmp, $request, $user->mail);
-    
-            }
-            else {
-    
-                $u = $users[0];
-    
-                $tmp = EventBuyer::create([
-                    'first_name' => $u->first_name,
-                    'last_name' => $u->last_name,
-                    'nid' => $u->nid,
-                    'phone' => $u->phone,
-                    'user_id' => $user->id,
-                    'event_id' => $event->id,
-                    'count' => $u->count,
-                    'tracking_code' => random_int(10000000, 99999999)
-                ]);
-    
-                EventBuyerController::createEventListener($event, $tmp, $request, $user->mail);
-            }
-        }
-
-    }
-
 }

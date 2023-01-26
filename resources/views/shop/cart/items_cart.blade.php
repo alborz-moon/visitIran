@@ -4,7 +4,8 @@
     <!-- start of tab-pane -->
     <div class="tab-pane fade show active" id="nav-1" role="tabpanel"
         aria-labelledby="nav-1-tab">
-        <div class="ui-box bg-white borderEa p-2">
+        <div class="ui-box bg-white borderEa p-2 position-relative">
+            <span id="full-basket-item-category" class="colorWhite customCartLabel fontSize11 position-absolute r-0 zIndex1" style="top: 15px"></span>
             <div class="ui-box-content ">
                 <!-- start of cart-items -->
                 <div class="cart-items position-relative">
@@ -13,7 +14,6 @@
                         <div class="cart-item--thumbnail">
                             <a class="position-relative" href="#">
                                 <img id="full-basket-item-img">
-                                <span id="full-basket-item-category" class="colorWhite customCartLabel fontSize11 position-absolute t-0 r-0"></span>
                             </a>
                         </div>
                         <div class="cart-item--detail">

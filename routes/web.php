@@ -12,6 +12,7 @@ use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Models\EventTag;
 use App\Models\State;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -61,41 +62,13 @@ Route::middleware(['shareTopCategories'])->group(function() {
     
 });
 
-Route::get('bank', function() {
-    $ch = curl_init();
-
-    curl_setopt($ch, CURLOPT_URL, "https://sep.shaparak.ir/onlinepg/onlinepg");
-    curl_setopt($ch, CURLOPT_POST, 1);
-
-    $payload = json_encode([
-        "action" => "token",
-        "TerminalId" => "13158674",
-        "Amount" => 100000,
-        "ResNum" => time(),
-        "RedirectUrl" => route('shop.callback'),
-        "CellNumber" => '09214915905'
-    ]);
-
-    curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
-    curl_setopt( $ch, CURLOPT_HTTPHEADER, [
-        'Content-Type:application/json',
-        'Accept:application/json',
-    ]);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-    $server_output = curl_exec($ch);
-    curl_close($ch);
-
-    dd($server_output);
-});
-
 Route::middleware(['myAuth'])->group(function() {
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get('recp/{eventBuyer}', [EventBuyerController::class, 'generateRecpPDF'])->name('recp');
+    Route::get('recp/{event}', [EventBuyerController::class, 'generateRecpPDF'])->name('recp');
 
-    Route::get('ticket/{eventBuyer}', [EventBuyerController::class, 'generateTicketPDF'])->name('ticket');
+    Route::get('ticket/{event}', [EventBuyerController::class, 'generateTicketPDF'])->name('ticket');
 
 });
 
@@ -315,7 +288,7 @@ Route::middleware(['shareEventTags'])->group(function() {
     
         Route::get('/list/{orderBy}', [EventTagController::class, 'allCategories'])->name('event.category.list');
 
-
+        Route::view('/cal-visit', 'event.cal-visit')->name('cal-visit');
 
         Route::middleware(['myAuth'])->group(function() {
 
@@ -357,8 +330,13 @@ Route::get('/alaki', function () {
     return view('alaki');
 })->name('alaki');
 
-Route::get('/checkout-successful', function () {
-    return view('checkout-successful');
+Route::get('/checkout-successful/{transaction}', function (Transaction $transaction) {
+    
+    $id = $transaction->id;
+    $created_at = Controller::MiladyToShamsi3($transaction->created_at->timestamp);
+    $tracking_code = $transaction->tracking_code;
+
+    return view('checkout-successful', compact('id', 'tracking_code', 'created_at'));
 })->name('checkout-successful');
 
 Route::get('/checkout-unsuccessful', function () {

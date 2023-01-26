@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -87,7 +88,12 @@ class Event extends Model
     
     public static function isActiveForRegistry($event) {
         
+        EventBuyer::removeUnPaid();
+
         if(!$event->visibility || $event->status != 'confirmed') return false;
+
+        if($event->capacity <= $event->buyers()->sum('count'))
+            return false;
         
         if($event->start_registry <= time() && $event->end_registry >= time()) return true;
 
