@@ -2211,6 +2211,10 @@ figure .ck-widget {
     color: #00b2bc;
     border-bottom: 0;
 }
+.moreChart{
+    left: 12px;
+    bottom: -17px;
+}
 .link:hover {
     color: #0089b7 !important;
     border: none;
