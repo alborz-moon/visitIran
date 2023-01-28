@@ -1,4 +1,3 @@
-
 @extends('layouts.structure')
 @section('content')
     <main class="page-content">
@@ -44,36 +43,38 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-md-12">              <!-- start of box => coupon-gift -->
+                        <div class="col-xl-6 col-md-12">
+                            <!-- start of box => coupon-gift -->
                             <div class="ui-box bg-white payment-methods mb-5">
                                 <div class="ui-box-title"> افزودن کد تخفیف </div>
                                 <div class="ui-box-content p-5">
-                                        <!-- start of coupon -->
-                                        <div class="coupon">
-                                            <!-- start of coupon-form -->
-                                            <form action="#" class="coupon-form">
-                                                <!-- start of form-element -->
-                                                <div class="form-element-row with-btn">
-                                                    <input type="text" class="form-control" placeholder="افزودن کد تخفیف">
-                                                    <button class="btn btn-primary">ثبت</button>
-                                                </div>
-                                                <!-- end of form-element -->
-                                            </form>
-                                            <!-- end of coupon-form -->
-                                        </div>
-                                        <!-- end of coupon -->
-                                        <!-- start of divider -->
-                                        {{-- <div class="divider-container">
+                                    <!-- start of coupon -->
+                                    <div class="coupon">
+                                        <!-- start of coupon-form -->
+                                        <form action="#" class="coupon-form">
+                                            <!-- start of form-element -->
+                                            <div class="form-element-row with-btn">
+                                                <input type="text" class="form-control" placeholder="افزودن کد تخفیف">
+                                                <button class="btn btn-primary">ثبت</button>
+                                            </div>
+                                            <!-- end of form-element -->
+                                        </form>
+                                        <!-- end of coupon-form -->
+                                    </div>
+                                    <!-- end of coupon -->
+                                    <!-- start of divider -->
+                                    {{-- <div class="divider-container">
                                             <span class="divider"></span>
                                         </div> --}}
-                                        <!-- end of divider -->
+                                    <!-- end of divider -->
                                 </div>
-                    <!-- end of box => coupon-gift -->
+                                <!-- end of box => coupon-gift -->
                             </div>
                         </div>
                     </div>
                     <!-- end of box => payment-methods -->
-                    <a href='{{ route('shipping') }}' class="link border-bottom-0"><i class="ri-arrow-right-s-fill"></i> بازگشت به شیوه ی
+                    <a href='{{ route('shipping') }}' class="link border-bottom-0"><i class="ri-arrow-right-s-fill"></i>
+                        بازگشت به شیوه ی
                         ارسال</a>
                 </div>
                 @include('shop.cart.basket_cart', ['nextBtnId' => 'goToPaymentBtn'])
@@ -82,10 +83,8 @@
     </main>
 @stop
 
-@section('footer')
-    @parent
-@stop
-
 @section('extraJS')
     @parent
+
+
 @stop
