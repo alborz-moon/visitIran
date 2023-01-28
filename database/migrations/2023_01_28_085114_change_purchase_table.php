@@ -19,6 +19,7 @@ class ChangePurchaseTable extends Migration
             $table->dropColumn('off_id');
             $table->enum('payment_status', ['paid', 'pending']);
             $table->unsignedInteger('transaction_id');
+            $table->string('delivery');
             $table->index('transaction_id');
             $table->foreign('transaction_id')->on('transactions')->references('id')->onDelete('cascade')->onUpdate('cascade');
         });
@@ -37,6 +38,7 @@ class ChangePurchaseTable extends Migration
             $table->index('off_id');
             $table->foreign('off_id')->on('offs')->references('id');
             $table->dropColumn('payment_status');
+            $table->dropColumn('delivery');
             $table->dropForeign(['transaction_id']);
             $table->dropColumn('transaction_id');
         });
