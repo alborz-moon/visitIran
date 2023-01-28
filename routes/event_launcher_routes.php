@@ -5,8 +5,17 @@ use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Event\EventGalleryController;
 use App\Http\Controllers\Event\EventSessionController;
 use App\Http\Controllers\Event\FacilityController;
+use App\Http\Controllers\Event\FinanceReportController;
 use App\Http\Controllers\Event\LauncherController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/report', [ProfileController::class, 'report'])->name('report');
+
+Route::get('/financeReport', [FinanceReportController::class, 'generalStats'])->name('generalStats');
+
+Route::get('/registry_report', [FinanceReportController::class, 'registry_report'])->name('registry_report');
+
 
 Route::get('getPlaceInfo/{launcher?}', [LauncherController::class, 'getPlaceInfo'])->name('getPlaceInfo');
 

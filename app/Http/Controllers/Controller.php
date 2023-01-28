@@ -67,6 +67,26 @@ class Controller extends BaseController
         include_once 'jdate.php';
         return jdate('l d F سال Y', "", $ts);
     }
+    
+    public static function MiladyToIntShamsi($date, $explode='-'){
+        include_once 'jdate.php';
+        $date = explode(' ', $date);
+        $d = explode($explode, $date[0]);
+        $splited = explode('/', gregorian_to_jalali($d[0],$d[1],$d[2],'/'));
+        $str = $splited[0];
+
+        if(strlen($splited[1]) == 1)
+            $str .= '0' . $splited[1];
+        else
+            $str .= $splited[1];
+            
+        if(strlen($splited[2]) == 1)
+            $str .= '0' . $splited[2];
+        else
+            $str .= $splited[2];
+
+        return (int)str_replace('/', '', $str);
+    }
 
     public static function MiladyToShamsi($date, $explode='-'){
         include_once 'jdate.php';

@@ -106,7 +106,35 @@
 
             $("#goToShipingBtn").on('click', function() {
                 @if(Auth::check())
-                    document.location.href = '{{ route('shipping') }}';
+                    
+                    let products = [];
+
+                    let basket = window.localStorage.getItem("basket");
+                    basket = JSON.parse(basket);
+
+                    for(let i = 0; i < basket.length; i++) {
+                        let data = {
+                            count: basket[i].count,
+                            id: basket[i].product_id,
+                        };
+                        
+                        if(basket[i].colorLabel !== undefined)
+                            data.feature = basket[i].colorLabel;
+
+                        products.push(data);
+                    }
+
+                    $.ajax({
+                        type: 'post',
+                        url: '{{ route('api.check_basket') }}',
+                        data: {
+                            products: products
+                        },
+                        success: function(res) {
+                            console.log(res);
+                        }
+                    });
+                    // document.location.href = '{{ route('shipping') }}';
                 @else
                     localStorage.setItem("url", '{{ URL::current() }}');
                     document.location.href = '{{ route('login-register') }}';

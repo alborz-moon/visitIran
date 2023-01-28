@@ -121,110 +121,6 @@ Route::get('blog/{blog?}', [BlogController::class, 'show'])->name('api.blog.show
 
 Route::get('blogs/getDistinctTags', [BlogController::class, 'distinctTags'])->name('api.blog.getDistinctTags');
 
-
-Route::get('/alaki2', function() {
-    
-        $data = [
-            'email' => 'alborzmoon@gmail.com',
-            'tel' => '092247869125',
-            'nid' => '0018374921',
-            'address' => 'تهرانپارس سه راه داریوش',
-            'name' => 'البرز منشی زاده',
-            'selname' => 'محمد قانع',
-            'selnid' => '0011111111',
-            'postalcode' => '41137511731',
-            'seltel' => '41137511731',
-            'seladdress' => 'توضیحات1',
-            'products' => [
-                [
-                    'id' => '1',
-                    'title' => 'ذدلاال',
-                    'desc' => 'توضیحات1',
-                    'count' => 2,
-                    'price' => 200000,
-                    'total' => 5000000,
-                    'off' => 2000,
-                    'total_after_off' => 3000000,
-                    'total_after_off_tax' => 3200000,
-                    'all' => 3200000
-                ],
-                [
-                    'id' => '2',
-                    'title' => 'سشیصض',
-                    'desc' => 'توضیحات1',
-                    'count' => 2,
-                    'price' => 200000,
-                    'total' => 5000000,
-                    'off' => 2000,
-                    'total_after_off' => 3000000,
-                    'total_after_off_tax' => 3200000,
-                    'all' => 3200000
-                ],
-                [
-                    'id' => '2',
-                    'title' => 'سشیصض',
-                    'desc' => 'توضیحات1',
-                    'count' => 2,
-                    'price' => 200000,
-                    'total' => 5000000,
-                    'off' => 2000,
-                    'total_after_off' => 3000000,
-                    'total_after_off_tax' => 3200000,
-                    'all' => 3200000
-                ],
-                [
-                    'id' => '2',
-                    'title' => 'سشیصض',
-                    'desc' => 'توضیحات1',
-                    'count' => 2,
-                    'price' => 200000,
-                    'total' => 5000000,
-                    'off' => 2000,
-                    'total_after_off' => 3000000,
-                    'total_after_off_tax' => 3200000,
-                    'all' => 3200000
-                ],
-                [
-                    'id' => '2',
-                    'title' => 'سشیصض',
-                    'desc' => 'توضیحات1',
-                    'count' => 2,
-                    'price' => 200000,
-                    'total' => 5000000,
-                    'off' => 2000,
-                    'total_after_off' => 3000000,
-                    'total_after_off_tax' => 3200000,
-                    'all' => 3200000
-                ]
-            ],
-            'transfers' => [
-                'price' => 200000,
-                'total' => 6000000,
-                'off' => 3000,
-                'total_after_off' => 4000000,
-                'total_after_off_tax' => 4200000,
-                'all' => 4200000
-            ],
-            'total' => [
-                'total' => 6000000,
-                'off' => 3000,
-                'total_after_off' => 4000000,
-                'total_after_off_tax' => 4200000,
-                'all' => 4200000
-            ]
-        ];
-
-        view()->share('data', $data);
-
-        $pdf = Pdf::loadView('event.event.receipt_event', $data, [], 
-            [
-                'format' => 'A4-L',
-                'display_mode' => 'fullpage'
-            ]
-        );
-        return $pdf->download('pdf_file.pdf');
-});
-
 Route::middleware(['myAuth'])->group(function() {
 
     Route::prefix('profile')->group(function() {
@@ -252,8 +148,6 @@ Route::middleware(['myAuth'])->group(function() {
         Route::get('/my-tickets', [ProfileController::class, 'myTickets'])->name('profile.my-tickets');
 
         Route::get('/profile-offcode', [ProfileController::class, 'profileOffCode'])->name('profile.offcode');
-
-        Route::get('/report', [ProfileController::class, 'report'])->name('report');
         
         Route::get('/history', [ProfileController::class, 'history'])->name('profile.history');
 
