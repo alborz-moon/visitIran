@@ -24,7 +24,7 @@ class ProductFeatures extends Model
         return $this->belongsTo(Product::class);
     }
     
-    public function subCategoryFeature() {
-        return $this->belongsTo(SubCategoryFeatures::class);
+    public function categoryFeature() {
+        return $this->belongsTo(Feature::class);
     }
 }

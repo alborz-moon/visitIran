@@ -27,7 +27,7 @@ class OffController extends Controller
      */
     public function index(Request $request)
     {
-        $site = $request->getHost() == self::$EVENT_SITE ? 'event' : 'site';
+        $site = $request->getHost() == self::$EVENT_SITE ? 'event' : 'shop';
         $filter = Off::where('site', $site);
         
         $expired = $request->query('expired', null);
