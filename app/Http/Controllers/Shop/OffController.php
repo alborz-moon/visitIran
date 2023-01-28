@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\Off;
 use App\Models\Seller;
 use App\Models\Transaction;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -171,6 +172,9 @@ class OffController extends Controller
         if($request['off_type'] == 'percent' && ($request['amount'] > 100  || $request['amount'] < 1))
             return $this->create($request, 'میزان تخفیف باید بین 1 تا 100 باشد.');
 
+        if($request['off_type'] == 'value' && !$request->has('username'))
+            return $this->create($request, 'کد تخفیف مقداری تنها به کاربران داده میشود');
+
         $today = (int)self::getToday()['date'];
         $expiration = (int)self::convertDateToString($request['off_expiration']);
 
@@ -181,6 +185,13 @@ class OffController extends Controller
         $site = $request->getHost() == Controller::$EVENT_SITE ? 'event' : 'shop';
 
         $request['site'] = $site;
+        if($request->has('username')) {
+            $user = User::where('phone', $request['username'])->first();
+            if($user != null) {
+                unset($request['username']);
+                $request['user_id'] = $user->id;
+            }
+        }
 
         Off::create($request->toArray());
         return Redirect::route('off.index');
@@ -253,7 +264,8 @@ class OffController extends Controller
             return response()->json([
                 'status' => 'ok',
                 'msg' => $msg . ' کد تخفیف اعمال شد',
-                'new_amount' => $newAmount
+                'new_amount' => $newAmount,
+                'off_amount' => max(0, $request['amount'] - $newAmount)
             ]);
         }
         catch(\Exception $x) {

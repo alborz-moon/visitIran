@@ -15,7 +15,10 @@ class PurchaseItems extends Model
         'id',
         'purchase_id',
         'product_id',
-        'count'
+        'count',
+        'feature',
+        'off_amount',
+        'unit_price'
     ];
 
     public $timestamps = false;

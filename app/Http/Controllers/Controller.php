@@ -183,7 +183,8 @@ class Controller extends BaseController
         'digest.required' => 'لطفا متن خلاصه را وارد نمایید',
         'priority.required' => 'لطفا اولویت را وارد نمایید',
         'img_file.required' => 'لطفا تصویر موردنظر خود را بارگذاری نمایید',
-        '*.url' => 'لینک وارد شده معتبر نمی باشد'
+        '*.url' => 'لینک وارد شده معتبر نمی باشد',
+        'code.required' => 'لطفا کد را وارد نمایید',
     ];
 
 }

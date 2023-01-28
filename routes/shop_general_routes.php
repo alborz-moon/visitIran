@@ -28,6 +28,10 @@ Route::get('get_top_categories_products', [CategoryController::class, 'get_top_c
 
 Route::post('check_basket', [BasketController::class, 'check_basket'])->name('api.check_basket');
 
+Route::post('refresh_basket', [BasketController::class, 'refresh_basket'])->name('api.refresh_basket');
+
+Route::post('finalize_basket', [BasketController::class, 'finalize_basket'])->name('api.finalize_basket');
+
 
 
 Route::get('shop_callback', [EventController::class, 'callback'])->name('shop.callback');

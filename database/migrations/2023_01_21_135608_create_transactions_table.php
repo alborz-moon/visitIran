@@ -21,7 +21,8 @@ class CreateTransactionsTable extends Migration
             $table->enum('status', ['init', 'cancelled', 'completed']);
             $table->enum('site', ['shop', 'event'])->default('shop');
             $table->unsignedInteger('amount');
-            $table->unsignedInteger('ref_id');
+            $table->unsignedInteger('transfer')->default(0);
+            $table->unsignedInteger('ref_id')->nullable();
             $table->unsignedInteger('off_id')->nullable();
             $table->unsignedInteger('off_amount')->nullable();
             $table->longText('additional')->nullable();

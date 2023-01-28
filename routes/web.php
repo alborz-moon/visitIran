@@ -8,6 +8,7 @@ use App\Http\Controllers\Event\LauncherController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Event\EventBuyerController;
+use App\Http\Controllers\Shop\BasketController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Models\EventTag;
@@ -220,9 +221,11 @@ Route::get('/cart-empty', function () {
     return view('cart-empty');
 })->name('cart-empty');
 
-Route::get('/alaki', function () {
-    return view('alaki');
-})->name('alaki');
+// Route::get('/alaki', function () {
+//     return view('alaki');
+// })->name('alaki');
+
+Route::get('/alaki/{purchase}', [BasketController::class, 'generateRecpPDF'])->name('alaki');
 
 Route::get('/checkout-successful/{transaction}', function (Transaction $transaction) {
     
@@ -257,4 +260,3 @@ Route::get('/404', function ($request) {
 })->middleware(['shareEventTags', 'shareTopCategories'])->name('404');
 
 Route::view('403', 'errors.403')->middleware(['shareEventTags', 'shareTopCategories'])->name('403');
-

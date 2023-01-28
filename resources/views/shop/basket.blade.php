@@ -102,7 +102,67 @@
         @parent
         <script>
             $(document).ready(function() {
-                renderBasket();
+
+                let products = [];
+
+                let basket = window.localStorage.getItem("basket");
+                basket = JSON.parse(basket);
+
+                for (let i = 0; i < basket.length; i++) {
+                    let data = {
+                        count: basket[i].count,
+                        id: basket[i].product_id,
+                    };
+
+                    if (basket[i].colorLabel !== undefined)
+                        data.feature = basket[i].colorLabel;
+
+                    products.push(data);
+                }
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{ route('api.refresh_basket') }}',
+                    data: {
+                        'products': products
+                    },
+                    success: function(res) {
+
+                        let new_basket = [];
+
+                        if(res.orders.length != basket.length) {
+                            showErr('خطایی در به روزرسانی سبدخرید شما به وجود آمده است');
+                            return;
+                        }
+
+                        for(let i = 0; i < res.orders.length; i++) {
+                            new_basket.push({
+                                count: res.orders[i].available >= res.orders[i].wanted ? res.orders[i].wanted : res.orders[i].available,
+                                color: basket[i].color,
+                                colorLabel: basket[i].colorLabel,
+                                id: basket[i].id,
+                                product_id: res.orders[i].id,
+                                detail: {
+                                    'title': res.orders[i].name,
+                                    'img': basket[i].detail.img,
+                                    'alt': basket[i].detail.alt,
+                                    'href': basket[i].detail.href,
+                                    'price': res.orders[i].unit_price,
+                                    'seller': basket[i].detail.seller,
+                                    'category': basket[i].detail.category,
+                                    'feature': basket[i].detail.feature,
+                                    'brand': basket[i].detail.brand,
+                                    'guarantee': basket[i].detail.guarantee,
+                                    'off_type': res.orders[i].off != null ? res.orders[i].off.type : null,
+                                    'off_value': res.orders[i].off != null ? res.orders[i].off.value : null,
+                                }
+                            });
+                        }
+                        
+                        window.localStorage.setItem("basket", JSON.stringify(new_basket));
+                        renderBasket();
+                    }
+                });
 
                 $("#goToShipingBtn").on('click', function() {
                     @if (Auth::check())

@@ -135,7 +135,7 @@
 <body>
     <div class="absolute" style="width: 260px;top:25px;left:0">
         <p class="margin0 padding0">
-            <div class="fontSize12">تاریخ: <span>1402/01/01</span></div>
+            <div class="fontSize12">تاریخ: <span>{{ $created_at }}</span></div>
         </p>
     </div>
     <div class="relative">
@@ -147,7 +147,7 @@
             <div class="yellow font14 bold">ویزیت ایران</div>
             <div class="font14 bold">بازارگاه صنایع دستی</div>
             <div class="font16 bold">صورت حساب الکترونیک</div>
-            <div class="font14">شماره سفارش :<span>1654786415348647</span></div>
+            <div class="font14">شماره سفارش :<span>{{ $tracking_code }}</span></div>
         </div>
     </div>
     <div class="fontSize16 bold">مشخصات خریدار</div>
@@ -261,12 +261,12 @@
                 @endforeach
                 <tr>
                     <td colspan="4">حمل و نقل</td>
-                    <td>{{$transfers['price']}}</td>
-                    <td>{{$transfers['total']}}</td>
-                    <td>{{$transfers['off']}}</td>
-                    <td>{{$transfers['total_after_off']}}</td>
-                    <td>{{$transfers['total_after_off_tax']}}</td>
-                    <td>{{$transfers['all']}}</td>
+                    <td>{{$transfer['price']}}</td>
+                    <td>{{$transfer['total']}}</td>
+                    <td>{{$transfer['off']}}</td>
+                    <td>{{$transfer['total_after_off']}}</td>
+                    <td>{{$transfer['total_after_off_tax']}}</td>
+                    <td>{{$transfer['all']}}</td>
                 </tr>             
             <tr>
                 <td colspan="5">جمع کل</td>

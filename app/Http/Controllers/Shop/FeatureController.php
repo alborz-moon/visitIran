@@ -89,8 +89,12 @@ class FeatureController extends Controller
         if($request->has('choices')) {
             $choicesStr = "";
 
-            foreach($request['choices'] as $itr)
-                $choicesStr .= $itr['key'] . '$$' . $itr['label'] . '__';
+            foreach($request['choices'] as $itr) {
+                if(empty($itr['label']))
+                    $choicesStr .= $itr['key'] . '$$' . $itr['key'] . '__';
+                else
+                    $choicesStr .= $itr['key'] . '$$' . $itr['label'] . '__';
+            }
             
             $request['choices'] = substr($choicesStr, 0, strlen($choicesStr) - 2);
         }
