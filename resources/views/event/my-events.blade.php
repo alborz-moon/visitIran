@@ -11,12 +11,13 @@
                     <div class="ui-box bg-white mb-5 boxShadow p-0">
                         <div class="ui-box-title">رویداد ها</div>
                         <div class="ui-box-content">
-                            <div class="row">
-                                <div class="col-lg-12 mb-3">
+                            <div class="row" >
+                                <div id="nothingToShow" class="hidden">محصولی برای نمایش موجود نیست</div>
+                                <div id="hiddenTable" class="col-lg-12 mb-3">
                                     <div class="py-2">
                                         <div class="ui-box bg-white mb-5 p-0">
                                             <div class="table-responsive dropdown">
-                                                <table class="table mb-0">
+                                                <table class="table mb-0 ">
                                                     <thead>
                                                         <tr>
                                                             <th>ردیف</th>
@@ -47,6 +48,8 @@
 @section('extraJS')
     @parent
     <script>
+
+
         $.ajax({
             type: 'get',
             url: '{{ route('api.my-events') }}',
@@ -57,6 +60,7 @@
                 if (res.status === "ok") {
                     var myEvents = "";
                     if (res.data.length != 0) {
+                        $('#nothingToShow').addClass('hidden');
                         for (var i = 0; i < res.data.length; i++) {
                             myEvents += '<tr>';
                             myEvents += '<td>' + (i + 1) + '</td>';
@@ -82,6 +86,8 @@
                         $("#myEvents").empty().append(myEvents);
                     }else{
                         showErr("موردی برای نمایش وجود ندارد")
+                        $('#nothingToShow').removeClass('hidden');
+                        $('#hiddenTable').addClass('hidden');
                     }
                 }
             }

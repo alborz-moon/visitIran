@@ -15,7 +15,7 @@
                                         aria-labelledby="most-visited-tab">
                                         <div class="ui-box customListUIBoxPadding mb-4">
                                             <div class="ui-box-content p-0">
-                                                <div class="ui-box-title">کالاهای مورد علاقه</div>
+                                                    <div class="ui-box-title">کالاهای مورد علاقه</div>
                                                 <div class="row mx-0">
                                                     <div id="nothingToShow" class="hidden">محصولی برای نمایش موجود نیست</div>
                                                     <div id="sample_product_div" class="hidden">

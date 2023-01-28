@@ -17,7 +17,6 @@
         .top-cat::before {
             content: none !important;
         }
-
         .down-arrow::before {
             content: "\EA76" !important;
         }

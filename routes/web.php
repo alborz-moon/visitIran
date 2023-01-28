@@ -150,7 +150,7 @@ Route::middleware(['myAuth'])->group(function() {
 
         Route::get('/profile-offcode', [ProfileController::class, 'profileOffCode'])->name('profile.offcode');
         
-        Route::get('/history', [ProfileController::class, 'history'])->name('profile.history');
+        Route::get('/my-transaction', [ProfileController::class, 'myTransaction'])->name('profile.my-transaction');
 
     });
 });
