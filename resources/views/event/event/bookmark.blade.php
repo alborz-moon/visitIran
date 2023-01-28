@@ -6,7 +6,7 @@
     @endif
     <button data-remodal-target="share-modal" class="icon-visit-share fontSize30 b-0 colorWhiteGray btnHover backColorWhite"></button>
 </div>
-<div class="remodal remodal-xs remodal-is-initialized remodal-is-opened" data-remodal-id="share-modal" data-remodal-options="hashTracking: false" tabindex="-1">
+<div class="remodal remodal-xs remodal-is-initialized remodal-is-opened hiddenbtnShare hidden" data-remodal-id="share-modal" data-remodal-options="hashTracking: false" tabindex="-1">
     <div class="remodal-header">
         <div class="remodal-title">اشتراک‌ گذاری</div>
         <button data-remodal-action="close" class="remodal-close"></button>
@@ -20,13 +20,13 @@
                 <div class="widget-content widget-socials">
                     <ul  class="align-items-center">
                         <li>
-                            <a id="whatsapp" href="#" class="d-inline-flex share-link"><i class="ri-whatsapp-fill"></i></a>
+                            <a id="whatsapp" href="#" class="d-inline-flex share-link" data-action="share/whatsapp/share" target="_blank"><i class="ri-whatsapp-fill"></i></a>
                         </li>
                         <li>
                             <a id="telegram" class="d-inline-flex share-link-telegram"><i class="ri-telegram-fill"></i></a>
                         </li>
                         <li>
-                            <a href="#" class="d-inline-flex share-link"><i class="ri-instagram-fill"></i></a>
+                            <a href="#" id="instagram" class="d-inline-flex share-link-instagram"><i class="ri-instagram-fill"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -70,14 +70,19 @@ $('.clipboard').on('click', function() {
             }
         });
     }
-    $(document).ready(function() {
 
+    $(document).ready(function() {
+    $('.hiddenbtnShare').removeClass('hidden');
     $('#telegram').click(function(){
-        $('.share-link-telegram').attr("href","https://telegram.me/share/url?url=" + $url + "&text=سایت میراث");
+        $(this).attr("href","https://telegram.me/share/url?url=" + $url + "&text=سایت میراث");
     });
 
     $('#whatsapp').click(function(){
-        $('.share-link-telegram').attr("href","https://telegram.me/share/url?url=" + $url + "&text=سایت میراث");
+        $(this).attr("href","whatsapp://send?text=" + $url +"");
+    });
+
+    $('#instagram').click(function(){
+        $(this).attr("href", "https://www.instagram.com/sharer.php?u=" + $url +"");
     });
 
 });

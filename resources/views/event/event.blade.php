@@ -40,7 +40,6 @@
                             </div>
                             <div class="spaceBetween p-3">
 
-
                                 @if ($event['isActiveForRegistry'])
                                     @if ($event['price'] != null)
                                         <div class="px-2">
@@ -853,7 +852,7 @@
                             <div class="fontSize14">
                                 در صورت داشتن کد تخفیف آن را وارد کنید
                             </div>
-                            <div class="d-flex spaceBetween">
+                            <div class="d-flex spaceBetween alignItemsCenter">
                                 <div id="off_result"></div>
                                 <div>
                                     <div class="d-flex gap10 align-items-center">

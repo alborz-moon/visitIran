@@ -98,7 +98,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href=""><i
+                    <a class="nav-link" href="{{ route('profile.my-transaction') }}"><i
                             class="nav-link-icon ri-notification-line"></i>
                         تراکنش های من
                     </a>

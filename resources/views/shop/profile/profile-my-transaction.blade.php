@@ -16,25 +16,30 @@
 												<tr>
 													<th>ردیف</th>
 													<th>نام رویداد</th>
+													<th>تعداد بلیط</th>
+													<th>مبلغ</th>
 													<th>تاریخ</th>
-													<th>نام خریداد</th>
-													<th>مبلغ </th>
-													<th>وضعیت </th>
+													<th>شماره تراکنش</th>
+													<th>نوع پرداخت</th>
+													<th>عملیات</th>
 												</tr>
 											</thead>
 											<tbody id="myTransaction">
 												<tr>
 													<td>1</td>
 													<td>رویداد من</td>
-													<td>1401 </td>
-													<td>اصغر فرهادی</td>
-													<td>100/000</td>
+													<td>2</td>
+													<td>12.000</td>
+													<td>1401.14.01</td>
+													<td>12012545823486</td>
+													<td>10101010</td>
 													<td>
 														<button class="btn btn-circle borderCircle my-1 dropdown-toggle" data-bs-toggle="dropdown"
 															aria-expanded="false">
 															<i class="icon-visit-menu"></i>
 														</button>
 														<ul class="dropdown-menu">
+															<li><a class="dropdown-item fontSize12 btnHover" href="#"></a></li>
 															<li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده
 																	فاکتور</a></li>
 														</ul>
