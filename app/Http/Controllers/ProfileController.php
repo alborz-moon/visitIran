@@ -110,8 +110,8 @@ class ProfileController extends Controller
         return view('event.profile-report');
     }
 
-    public function history() {
-        return view('shop.profile.profile-history');
+    public function myTransaction() {
+        return view('shop.profile.profile-my-transaction');
     }
 
     public function profileOffCode() {
