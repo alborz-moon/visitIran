@@ -1540,7 +1540,7 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
 }
 #nothingToShow {
     width: 100%;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 200px);
     color: #555a5d;
     font-size: 25px;
     display: flex;
@@ -2211,7 +2211,7 @@ figure .ck-widget {
     color: #00b2bc;
     border-bottom: 0;
 }
-.moreChart{
+.moreChart {
     left: 12px;
     bottom: -17px;
 }
