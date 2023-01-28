@@ -1289,6 +1289,10 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
 .marginBottom5 {
     margin-bottom: 5px;
 }
+.marginBottom30{
+    margin-bottom: 30px;
+}
+
 .customBoxNews {
     max-width: 325px !important;
     min-width: 325px;
@@ -2275,6 +2279,30 @@ figure .ck-widget {
     }
 }
 @media (max-width: 768px) {
+    .changeCal{
+        flex-direction: column !important;
+    }
+    .moblieCal{
+    font-size: 10px;
+    margin-bottom: -30px;
+    margin-right: -15px;
+}
+.advanceFilterBtn{
+    margin-right: -60px;
+}
+    .advanceFilter{
+        height: 90px !important;
+    }
+    .dateTopic{
+        display: none;
+    }
+    .cardCal{
+        max-height:160px ;
+        overflow: hidden;
+    }
+    .imgcal{
+        width: 106px;
+        max-height: 106px !important; }
     .logoImgFromTop {
         top: -20px;
     }

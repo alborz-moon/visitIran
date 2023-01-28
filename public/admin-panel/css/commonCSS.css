@@ -15,6 +15,10 @@ body {
     animation: sk-stretchdelay 1.2s infinite ease-in-out;
 }
 
+.calendar {
+    z-index: 100000;
+}
+
 .font-size-17 {
     font-size: 17px !important;
 }

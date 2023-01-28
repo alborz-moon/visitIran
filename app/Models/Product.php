@@ -61,6 +61,21 @@ class Product extends Model
     public function productFeatures() {
         return $this->hasMany(ProductFeatures::class);
     }
+    
+    public function productEffectiveFeatures() {
+        
+        $features = $this->productFeatures()->get();
+        foreach($features as $feature) {
+
+            if(
+                $feature->categoryFeature->effect_on_price ||
+                $feature->categoryFeature->effect_on_available_count
+            )
+                return $feature;
+        }
+
+        return null;
+    }
 
     public function scopeVisible($query) {
         return $query->where('visibility', true);

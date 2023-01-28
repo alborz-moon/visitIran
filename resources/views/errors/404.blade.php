@@ -1,5 +1,5 @@
-
 @extends('layouts.structure')
+
 @section('content')
         <main class="page-content">
         <div class="container">
@@ -17,10 +17,6 @@
             </div>
         </div>
     </main>
-@stop
-
-@section('footer')
-    @parent
 @stop
 
 @section('extraJS')
