@@ -22,8 +22,9 @@ class Purchase extends Model
     protected $fillable = [
         'id',
         'user_id',
-        'delivery_address',
-        'tracking_code',
+        'address_id',
+        'transaction_id',
+        'payment_status',
         'status',
         'payment_type'
     ];

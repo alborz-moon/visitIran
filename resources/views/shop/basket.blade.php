@@ -1,6 +1,6 @@
 @extends('layouts.structure')
 @section('content')
-<div class="container">
+    <div class="container">
         <main class="page-content">
             <div class="container">
 
@@ -79,67 +79,70 @@
                 <div id="full-basket" class="row">
                     <div class="col-xl-9 col-lg-8">
                         @include('shop.layouts.process', ['step' => 'basket'])
-                        
+
                         <div class="hidden" id="sample_full_basket_item">
                             @include('shop.cart.items_cart')
                         </div>
 
                         <div id="full_basket_items"></div>
-                        
+
                     </div>
                     @include('shop.cart.basket_cart', ['nextBtnId' => 'goToShipingBtn'])
 
                 </div>
             </div>
         </main>
-        @stop
+    @stop
 
-@section('footer')
-    @parent
-@stop
+    @section('footer')
+        @parent
+    @stop
 
-@section('extraJS')
-    @parent
-    <script>
-        $(document).ready(function() {
-            renderBasket();
+    @section('extraJS')
+        @parent
+        <script>
+            $(document).ready(function() {
+                renderBasket();
 
-            $("#goToShipingBtn").on('click', function() {
-                @if(Auth::check())
-                    
-                    let products = [];
+                $("#goToShipingBtn").on('click', function() {
+                    @if (Auth::check())
 
-                    let basket = window.localStorage.getItem("basket");
-                    basket = JSON.parse(basket);
+                        let products = [];
 
-                    for(let i = 0; i < basket.length; i++) {
-                        let data = {
-                            count: basket[i].count,
-                            id: basket[i].product_id,
-                        };
-                        
-                        if(basket[i].colorLabel !== undefined)
-                            data.feature = basket[i].colorLabel;
+                        let basket = window.localStorage.getItem("basket");
+                        basket = JSON.parse(basket);
 
-                        products.push(data);
-                    }
+                        for (let i = 0; i < basket.length; i++) {
+                            let data = {
+                                count: basket[i].count,
+                                id: basket[i].product_id,
+                            };
 
-                    $.ajax({
-                        type: 'post',
-                        url: '{{ route('api.check_basket') }}',
-                        data: {
-                            products: products
-                        },
-                        success: function(res) {
-                            console.log(res);
+                            if (basket[i].colorLabel !== undefined)
+                                data.feature = basket[i].colorLabel;
+
+                            products.push(data);
                         }
-                    });
-                    // document.location.href = '{{ route('shipping') }}';
-                @else
-                    localStorage.setItem("url", '{{ URL::current() }}');
-                    document.location.href = '{{ route('login-register') }}';
-                @endif
+
+                        $.ajax({
+                            type: 'post',
+                            url: '{{ route('api.check_basket') }}',
+                            data: {
+                                products: products
+                            },
+                            success: function(res) {
+                                if (res.status === "ok")
+                                    document.location.href = '{{ route('shipping') }}';
+                                else {
+                                    showErr("ارور");
+                                }
+                            }
+                        });
+                    @else
+                        localStorage.setItem("url", '{{ URL::current() }}');
+                        document.location.href = '{{ route('login-register') }}';
+                    @endif
+                })
             })
-        })
-    </script>
-@stop
+        </script>
+    @stop

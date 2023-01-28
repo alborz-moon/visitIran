@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AddressResource;
 use App\Models\Address;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
 
 class AddressController extends Controller
 {
@@ -19,10 +17,26 @@ class AddressController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
+        $addresses = $user->addresses;
+        $find_address = false;
+
+        foreach($addresses as $address) {
+            if($address->is_default) {
+                $find_address = true;
+                break;
+            }
+
+        }
+
+        if(!$find_address && count($addresses) > 0) {
+            $addresses[0]->is_default = true;
+            $addresses[0]->save();
+        }
+
         return response()->json(
             [
                 'status' => 'ok',
-                'data' => AddressResource::collection($user->addresses)->toArray($request)
+                'data' => AddressResource::collection($addresses)->toArray($request)
             ]
         );
     }
