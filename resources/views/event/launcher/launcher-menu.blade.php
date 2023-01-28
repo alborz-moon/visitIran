@@ -76,6 +76,8 @@
                             گزارشات مالی
                         </a>
                     </li>
+
+                    {{-- متصل شود با آیدی launcher-register --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('launcher-list') }}"><i
                                 class="nav-link-icon ri-user-line"></i>

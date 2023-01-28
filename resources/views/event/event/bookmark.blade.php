@@ -72,18 +72,17 @@ $('.clipboard').on('click', function() {
     }
 
     $(document).ready(function() {
-    $('.hiddenbtnShare').removeClass('hidden');
-    $('#telegram').click(function(){
-        $(this).attr("href","https://telegram.me/share/url?url=" + $url + "&text=سایت میراث");
-    });
+        $('.hiddenbtnShare').removeClass('hidden');
+        $('#telegram').click(function(){
+            $(this).attr("href","https://telegram.me/share/url?url=" + $url + "&text=سایت میراث");
+        });
 
-    $('#whatsapp').click(function(){
-        $(this).attr("href","whatsapp://send?text=" + $url +"");
-    });
+        $('#whatsapp').click(function(){
+            $(this).attr("href","whatsapp://send?text=" + $url +"");
+        });
 
-    $('#instagram').click(function(){
-        $(this).attr("href", "https://www.instagram.com/sharer.php?u=" + $url +"");
-    });
-
+        $('#instagram').click(function(){
+            $(this).attr("href", "https://www.instagram.com/sharer.php?u=" + $url +"");
+        });
 });
 </script>
