@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Purchase extends Model
 {
@@ -32,8 +33,13 @@ class Purchase extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+    
+    public function address() {
+        return $this->belongsTo(Address::class);
+    }
 
     public function items() {
-        return $this->hasManyThrough(Product::class, PurchaseItems::class);
+        return DB::select('select products.id, products.name, purchase_items.count, purchase_items.unit_price, purchase_items.feature, purchase_items.off_amount from products inner join purchase_items on purchase_items.product_id = products.id where purchase_id = ' . $this->id);
     }
+    
 }
