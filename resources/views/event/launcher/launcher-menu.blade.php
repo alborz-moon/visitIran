@@ -43,8 +43,8 @@
                         </a>
                     </li>
                 @else
-                    <li class="nav-item hidden goLauncher">
-                        <a role="button" class="nav-link whiteSpaceNoWrap textColor"><i
+                    <li class="nav-item goLauncher">
+                        <a href="{{ route('launcher') }}" role="button" class="nav-link whiteSpaceNoWrap textColor"><i
                                 class="nav-link-icon ri-user-line"></i>
                             ارتقا به برگزار کننده
                         </a>
@@ -72,13 +72,20 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('report') }}"><i class="nav-link-icon ri-notification-line"></i>
+                        <a class="nav-link" href="{{ route('report') }}"><i
+                                class="nav-link-icon ri-notification-line"></i>
                             گزارشات مالی
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('launcher-list') }}"><i
+                        <a class="nav-link" href="{{ route('launcher-bank') }}"><i
                                 class="nav-link-icon ri-user-line"></i>
+                            اطلاعات
+                            حساب</a>
+                    </li>
+                    {{-- متصل شود با آیدی launcher-register --}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('launcher') }}"><i class="nav-link-icon ri-user-line"></i>
                             اطلاعات برگزار کننده
                         </a>
                     </li>
@@ -98,18 +105,20 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href=""><i
+                    <a class="nav-link" href="{{ route('profile.my-transaction') }}"><i
                             class="nav-link-icon ri-notification-line"></i>
                         تراکنش های من
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('profile-favorites-event') }}"><i class="nav-link-icon ri-heart-3-line"></i>
+                    <a class="nav-link" href="{{ route('profile-favorites-event') }}"><i
+                            class="nav-link-icon ri-heart-3-line"></i>
                         علاقه مندی ها
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('profile.comments') }}"><i class="nav-link-icon ri-chat-1-line"></i>
+                    <a class="nav-link" href="{{ route('profile.comments') }}"><i
+                            class="nav-link-icon ri-chat-1-line"></i>
                         نظرات
                     </a>
                 </li>
@@ -117,11 +126,6 @@
                     <a class="nav-link" href="{{ route('profile.my-tickets') }}"><i
                             class="nav-link-icon ri-notification-line"></i>
                         پشتیبانی
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href=""><i class="nav-link-icon ri-user-line"></i> اطلاعات
-                        حساب
                     </a>
                 </li>
                 <li class="nav-item">

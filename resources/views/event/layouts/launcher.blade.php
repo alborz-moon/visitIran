@@ -32,7 +32,7 @@
         </div>
         <div class="d-flex flexDirectionColumn">
             <div class="d-flex mt-2">
-                <div id="company_name" class="fontSize15 bold colorBlack"></div>
+                <div id="company_name" class="fontSize15 bold colorBlack overFlowHidden"></div>
                 <div class=" align-items-center px-2 px-2 fontSize15 colorYellow">
                     <i class=" fontSize15 icon-visit-star me-1 fontSize14 verticalAlign-2"></i><span
                         id="rate"></span>
@@ -46,20 +46,20 @@
     </div>
     <div class="d-flex align-items-center">
         <i class="icon-visit-location colorYellow fontSize35 marginTop10"></i>
-        <span id="launcherAddress" class="fontSize13 fontNormal colorBlack mx-3"></span>
+        <span id="launcherAddress" class="fontSize13 fontNormal colorBlack mx-3 overFlowHidden"></span>
     </div>
     <div class="d-flex align-items-center">
         <i class="icon-visit-phone colorYellow fontSize35 marginTop10"></i>
         <div id="launcher_phone"></div>
 
     </div>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center spaceBetween">
         <i class="icon-visit-mail colorYellow fontSize35 marginTop10"></i>
-        <a id="launcherEmail" class="fontSize13 fontNormal colorBlack mx-3"></a>
+        <a id="launcherEmail" class="fontSize13 fontNormal colorBlack mx-3 overFlowHidden d-flex justifyContentEnd"></a>
     </div>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center spaceBetween">
         <i class="icon-visit-website colorYellow fontSize35 marginTop10"></i>
-        <a id="launcherSite" class="fontSize13 fontNormal colorBlack mx-3"></a>
+        <a id="launcherSite" class="fontSize13 fontNormal colorBlack mx-3 overFlowHidden d-flex justifyContentEnd"></a>
     </div>
 </div>
 <!-- end of product-gallery -->

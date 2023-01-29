@@ -86,7 +86,7 @@
                     <div class="seller-final-score-container">
                         <div class="seller-rate-container ">
                             <a href="{{ $event['site'] }}"
-                                class="ltr h-20 overFlowHidden colorBlack fontSize14 fontWight400 d-flex justify-content-end">
+                                class="ltr h-20 overFlowHidden colorBlack fontSize14 fontWight400 d-flex justify-content-start">
                                 {{ $event['site'] }}
                             </a>
                         </div>

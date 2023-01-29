@@ -8,6 +8,7 @@ use App\Http\Controllers\Event\LauncherController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Event\EventBuyerController;
+use App\Http\Controllers\Shop\BasketController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Models\EventTag;
@@ -149,7 +150,7 @@ Route::middleware(['myAuth'])->group(function() {
 
         Route::get('/profile-offcode', [ProfileController::class, 'profileOffCode'])->name('profile.offcode');
         
-        Route::get('/history', [ProfileController::class, 'history'])->name('profile.history');
+        Route::get('/my-transaction', [ProfileController::class, 'myTransaction'])->name('profile.my-transaction');
 
     });
 });
@@ -197,10 +198,6 @@ Route::middleware(['shareEventTags'])->group(function() {
             Route::get('/launcher-document/{formId?}', [LauncherController::class, 'documents'])->name('launcher-document');
 
             Route::post('/launcher_send_for_review/{launcher}', [LauncherController::class, 'sendForReview'])->name('launcher.send_for_review');
-
-            Route::get('/launcher-finance/{formId}', function($formId) {
-                return view('event.launcher.launcher-finance', compact('formId'));
-            })->name('finance');
             
             Route::middleware(['launcherLevel'])->prefix('admin')->group(function() {
             
@@ -220,9 +217,11 @@ Route::get('/cart-empty', function () {
     return view('cart-empty');
 })->name('cart-empty');
 
-Route::get('/alaki', function () {
-    return view('alaki');
-})->name('alaki');
+// Route::get('/alaki', function () {
+//     return view('alaki');
+// })->name('alaki');
+
+Route::get('/alaki/{purchase}', [BasketController::class, 'generateRecpPDF'])->name('alaki');
 
 Route::get('/checkout-successful/{transaction}', function (Transaction $transaction) {
     
@@ -257,4 +256,3 @@ Route::get('/404', function ($request) {
 })->middleware(['shareEventTags', 'shareTopCategories'])->name('404');
 
 Route::view('403', 'errors.403')->middleware(['shareEventTags', 'shareTopCategories'])->name('403');
-

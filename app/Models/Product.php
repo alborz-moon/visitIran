@@ -203,6 +203,7 @@ class Product extends Model
         }
 
         $off = Off::where('off_expiration', '>', $today)
+            ->where('site', 'shop')
             ->where(function($query) {
                 return $query->where('category_id', $this->category_id)
                     ->orWhereNull('category_id');
@@ -212,10 +213,14 @@ class Product extends Model
             })->where(function($query) {
                 return $query->where('seller_id', $this->seller_id)
                     ->orWhereNull('seller_id');
-            })->where(function($query) use ($userId) {
-                return $query->where('user_id', $userId)
-                    ->orWhereNull('user_id');
-            })->orderBy('amount', 'desc')->get();
+            })
+            ->whereNull('user_id')
+            ->whereNull('code')
+            // ->where(function($query) use ($userId) {
+            //     return $query->where('user_id', $userId)
+            //         ->orWhereNull('user_id');
+            // })
+            ->orderBy('amount', 'desc')->get();
 
         if($off != null && count($off) > 0) {
             return [

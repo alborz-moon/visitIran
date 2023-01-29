@@ -40,7 +40,6 @@
                             </div>
                             <div class="spaceBetween p-3">
 
-
                                 @if ($event['isActiveForRegistry'])
                                     @if ($event['price'] != null)
                                         <div class="px-2">
@@ -389,7 +388,7 @@
                                             </div>
                                             <div class="product-seller-row-detail">
                                                 <div class="seller-final-score-container">
-                                                    <div class="seller-rate-container ">
+                                                    <div class="seller-rate-container">
                                                         <a href="{{ $event['site'] }}"
                                                             class="ltr overFlowHidden h-20 colorBlack fontSize14 fontWight400 px-2 d-flex justify-content-end">
                                                             {{ $event['site'] }}
@@ -853,7 +852,7 @@
                             <div class="fontSize14">
                                 در صورت داشتن کد تخفیف آن را وارد کنید
                             </div>
-                            <div class="d-flex spaceBetween">
+                            <div class="d-flex spaceBetween alignItemsCenter">
                                 <div id="off_result"></div>
                                 <div>
                                     <div class="d-flex gap10 align-items-center">

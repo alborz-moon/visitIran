@@ -311,9 +311,6 @@
 
     </main>
 
-    @include('event.layouts.personalInfoFullName')
-    @include('event.layouts.personalInfoBirthDay')
-
 @stop
 
 @section('extraJS')
@@ -364,6 +361,7 @@
         var idx = 1;
         var facilitiesList = undefined;
         var tagsList = undefined;
+
 
         $("#launcher").on('change', function() {
 

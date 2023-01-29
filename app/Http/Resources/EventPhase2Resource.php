@@ -49,7 +49,10 @@ class EventPhase2Resource extends JsonResource
         $mail = $useFromLauncher ? $launcher->launcher_email : $this->email;
         $phone = $useFromLauncher ? $launcher->launcher_phone : $this->phone;
 
-        $phone = $useFromLauncher ? explode('__', $phone) : explode('_', $phone);
+        if($useFromLauncher && $phone != null && !empty($phone) && $phone != '__')
+            $phone = explode('__', $phone);
+        else if(!$useFromLauncher)
+            $phone = explode('_', $phone);
 
         return [
             'id' => $this->id,

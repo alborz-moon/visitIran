@@ -127,7 +127,7 @@ class LauncherController extends LauncherHelper
             'last_name' => 'required|string|min:2',
             'about' => 'nullable|string',
             'phone' => 'required|regex:/(09)[0-9]{9}/|unique:mysql2.launchers,phone',
-            'user_NID' => ['bail', 'required','regex:/[0-9]{10}/','unique:mysql2.launchers,user_NID', new NID],
+            'user_NID' => ['bail', 'required','regex:/[0-9]{10}/', new NID], //'unique:mysql2.launchers,user_NID',
             'user_email' => 'required|email|unique:mysql2.launchers,user_email',
             'user_birth_day' => 'required', //|date
             'launcher_type' => ['required', Rule::in(['haghighi', 'hoghoghi'])],

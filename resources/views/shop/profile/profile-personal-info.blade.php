@@ -125,48 +125,7 @@
         @include('event.layouts.personalInfoFullName')
         @include('event.layouts.personalInfoBirthDay')
 
-        <!-- start of personal-info-returned-modal -->
-        {{-- <div class="remodal remodal-xs" data-remodal-id="personal-info-returned-modal"
-            data-remodal-options="hashTracking: false">
-            <div class="remodal-header">
-                <button data-remodal-action="close" class="remodal-close"></button>
-            </div>
-            <div class="remodal-content">
-                <div class="fs-7 fw-bold mb-4">
-                    لطفا روش بازگرداندن وجوه خود را انتخاب نمایید. همچنین برای کسب اطلاعات بیشتر لطفا ملاحظات بازگشت
-                    وجه را مطالعه نمایید.
-                </div>
-                <div class="custom-radio-outline">
-                    <input type="radio" class="custom-radio-outline-input" name="checkoutPayment"
-                        id="checkoutPayment01">
-                    <label for="checkoutPayment01" class="custom-radio-outline-label">
-                        <span class="label">
-                            <span class="icon"><i class="ri-secure-payment-fill"></i></span>
-                            <span class="detail">
-                                <span class="title">واریز به حساب بانکی</span>
-                            </span>
-                        </span>
-                    </label>
-                </div>
-                <div class="custom-radio-outline">
-                    <input  type="radio" class="custom-radio-outline-input" name="checkoutPayment"
-                        id="checkoutPayment02">
-                    <label for="checkoutPayment02" class="custom-radio-outline-label">
-                        <span class="label">
-                            <span class="icon"><i class="ri-wallet-3-fill"></i></span>
-                            <span class="detail">
-                                <span class="title">واریز به کیف پول</span>
-                            </span>
-                        </span>
-                    </label>
-                </div>
-            </div>
-            <div class="remodal-footer">
-                <button class="btn btn-sm btn-primary px-3">ثبت</button>
-            </div>
-        </div> --}}
-        <!-- end of personal-info-returned-modal -->
-        <!-- start of personal-info-change-password-modal -->
+
         <div class="remodal remodal-xs" data-remodal-id="personal-info-change-password-modal"
             data-remodal-options="hashTracking: false">
             <div class="remodal-header">
@@ -191,7 +150,6 @@
                 <button class="btn btn-sm btn-primary px-3">ثبت</button>
             </div>
         </div>
-        <!-- end of personal-info-change-password-modal -->
 
     </main>
 
@@ -229,8 +187,6 @@
 
         function submit() {
 
-            // let data = {};
-
             let first_name = $("#first_name").val();
             let last_name = $('#last_name').val();
             let nid = $('#nid').val();
@@ -238,23 +194,6 @@
             let phone = $('#phone').val();
             let birthday = $('#brithdayVal').val();
 
-            // if(birthday !== undefined && birthday !== '')
-            //     data.birth_day = birthday;
-
-            // if(nid !== undefined && nid !== '')
-            //     data.nid = nid;
-
-            // if(mail !== undefined && mail !== '')
-            //     data.mail = mail;
-
-            // if(phone !== undefined && phone !== '')
-            //     data.phone = phone;
-
-            // if(first_name !== undefined && first_name !== '')
-            //     data.first_name = first_name;
-
-            // if(last_name !== undefined && last_name !== '')
-            //     data.last_name = last_name;
 
             $.ajax({
                 type: 'post',
@@ -269,9 +208,9 @@
                 },
                 success: function(res) {
                     if (res.status === 'ok')
-                        // $('#editBtnName').removeClass('hidden');
-                        // $('#editBtnBirdthday').removeClass('hidden');
                         showSuccess('عملیات موردنظر باموفقیت انجام شد.');
+                    else
+                        showErr(res.msg);
 
                 }
             })
