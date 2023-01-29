@@ -449,7 +449,7 @@
                             <button data-remodal-target="modalAreYouSure" class="btn btn-sm btn-primary px-5">اعمال
                                 تغییرات</button>
                         @else
-                            <button class="btn btn-sm btn-primary px-5 submit">ثبت اطلاعات</button>
+                            <button class="btn btn-sm btn-primary px-5 nextBtn">ثبت اطلاعات</button>
                         @endif
                     </div>
 
@@ -507,14 +507,21 @@
                 $(".remodal-close").click();
             }
         }
-        
-        $('#nameConfirm').on('click', function(){
-            var name = $('#name').val();
-            var last = $('#last').val();
-            alert(name + last);
+
+        function setValName() {
+
+            var name = $('#first_name').val();
+            var last = $('#last_name').val();
+
+            if (name.length == 0 || last.length == 0) {
+                showErr("لطفا نام و نام خانوادگی را وارد نمائید.");
+                return
+            }
+
             $('#nameLast').val(name + ' ' + last);
+            $('#editBtnName').removeClass('hidden');
             $(".remodal-close").click();
-        });
+        }
 
         $(document).ready(function() {
 
@@ -561,26 +568,43 @@
 
             });
 
+            function fillWithDefault() {
+
+                $('#shimmer').removeClass('hidden');
+                $('#hiddenHandler').addClass('hidden');
+
+                @if (Auth::user()->first_name != null && Auth::user()->last_name != null)
+                    $("#nameLast").val('{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}');
+                    $("#first_name").val('{{ Auth::user()->first_name }}');
+                    $("#last_name").val('{{ Auth::user()->last_name }}');
+                @endif
+
+                @if (Auth::user()->nid != null)
+                    $("#nid").val('{{ Auth::user()->nid }}');
+                @endif
+
+
+                @if (Auth::user()->birth_day != null)
+                    $("#mainBrithday").val('{{ Auth::user()->birth_day }}');
+                @endif
+
+
+                @if (Auth::user()->mail != null)
+                    $("#userEmail").val('{{ Auth::user()->mail }}');
+                @endif
+
+                $("#phone").val('{{ Auth::user()->phone }}');
+                removeShimmer();
+
+            }
+
 
             @if (!$isEditor && $mode != 'edit')
+                fillWithDefault();
                 removeUnNecessaryLocks();
             @endif
 
             watchEnterInTellInput(telsObj);
-
-            $('#getName').on('click', function() {
-                var name = $('#name').val();
-                var last = $('#last').val();
-                if (name.length == 0 || last.length == 0) {
-                    showErr("لطفا نام و نام خانوادگی را وارد نمائید.");
-                    return
-                } else {
-                    $('.setName').val(name + ' ' + last);
-                    $(".remodal-close").click();
-                    $(".showPenEdit").removeClass('hidden');
-                }
-            });
-
 
             $('#launcherType').on('change', function() {
                 var launcherType = $('#launcherType').val();
@@ -606,11 +630,11 @@
 
             });
 
-            $('.submit').on('click', function() {
+            $('.nextBtn').on('click', function() {
 
                 var nameLast = $('#nameLast').val();
-                var name = $('#name').val();
-                var last = $('#last').val();
+                var name = $('#first_name').val();
+                var last = $('#last_name').val();
                 var phone = $('#phone').val();
                 var setName = $('.setName').val();
                 var userEmail = $('#userEmail').val();
@@ -639,9 +663,9 @@
 
                 let required_list = (launcherType == "hoghoghi") ? ['nameLast', 'phone', 'userEmail',
                     'mainBrithday', 'nid', 'companyName', 'postalCode', 'launcherAddress',
-                    'launcherSite', 'launcherEmail', 'code'
+                    'code'
                 ] : ['nameLast', 'phone', 'userEmail', 'mainBrithday', 'nid', 'companyName',
-                    'postalCode', 'launcherAddress', 'launcherSite', 'launcherEmail'
+                    'postalCode', 'launcherAddress',
                 ];
 
                 let inputList = checkInputs(required_list);
@@ -740,7 +764,8 @@
                             } else {
                                 launcher_id = '{{ isset($formId) ? $formId : -1 }}';
                             }
-                            window.location.href = '{{ route('launcher-document') }}' + "/" +
+                            window.location.href = '{{ route('launcher-document') }}' +
+                                "/" +
                                 launcher_id;
                         } else {
                             showErr(res.msg);
@@ -748,8 +773,7 @@
                     }
                 });
             })
-        })
-        @if ($mode == 'edit')
+        }) @if ($mode == 'edit')
 
             $(document).ready(function() {
                 $('#shimmer').removeClass('hidden');
@@ -766,8 +790,8 @@
 
                         loc.x = res.data.launcher_x;
                         loc.y = res.data.launcher_y;
-                        $('#name').val(res.data.first_name);
-                        $('#last').val(res.data.last_name);
+                        $('#first_name').val(res.data.first_name);
+                        $('#last_name').val(res.data.last_name);
                         $('.setName').val(res.data.first_name + ' ' + res.data.last_name)
                         $('#phone').val(res.data.phone);
                         $('#aboutme').val(res.data.about);
@@ -780,11 +804,13 @@
                             $("#companyType").val(res.data.company_type).change();
                         }
 
-                        if (res.data.back_img !== null && res.data.back_img !== undefined && res.data
+                        if (res.data.back_img !== null && res.data.back_img !== undefined && res
+                            .data
                             .back_img !== 'null' && res.data.back_img.length > 0)
                             $("#file-ip-1-preview").attr('src', res.data.back_img);
 
-                        if (res.data.img !== null && res.data.img !== undefined && res.data.img !==
+                        if (res.data.img !== null && res.data.img !== undefined && res.data
+                            .img !==
                             'null' && res.data.img.length > 0)
                             $("#file-ip-2-preview").attr('src', res.data.img);
 

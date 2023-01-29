@@ -414,7 +414,7 @@
                 success: function(res) {
                     if (res.status === "ok")
                         window.location.href =
-                        '{{ $isEditor ? route('launcher.index') : route('show-events', ['event' => $formId]) }}';
+                        '{{ $isEditor ? route('launcher.index') : route('profile.my-tickets') }}';
                     else
                         showErr(res.data)
                 }

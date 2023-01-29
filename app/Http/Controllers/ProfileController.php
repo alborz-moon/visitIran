@@ -6,8 +6,6 @@ use App\Models\State;
 use App\Models\User;
 use App\Rules\NID;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
@@ -36,7 +34,7 @@ class ProfileController extends Controller
                 ]);
         }
         
-        if($request->has('mail') && $request['mail'] != $user->nid) {
+        if($request->has('mail') && $request['mail'] != $user->mail) {
             if(User::where('mail', $request['mail'])->count() > 0)
                 return response()->json([
                     'status' => 'nok',

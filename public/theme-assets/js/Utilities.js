@@ -64,7 +64,6 @@ function checkSelect(required_list_Select) {
     required_list_Select.forEach((elem) => {
         let tmpVal = $("#" + elem).val();
         if (tmpVal === undefined || tmpVal === null || tmpVal == 0) {
-            // showErr("همه فیلد ها را پر کنید.");
             $("#select2-" + elem + "-container")
                 .addClass("errEmpty")
                 .removeClass("haveValue");
@@ -85,7 +84,6 @@ function checkArr(required_Arr, Arr) {
     for (let i = 0; i < required_Arr.length; i++) {
         let elem = required_Arr[i];
         if (Arr[i].length == 0) {
-            // showErr("همه فیلد ها را پر کنید.");
             $("#select2-" + elem + "-container")
                 .addClass("errEmpty")
                 .removeClass("haveValue");
@@ -121,7 +119,6 @@ $(document).ready(function () {
         if ($("#" + id).attr("data-editable") == "false") {
             $("#" + id).attr("data-editable", "true");
             $("#" + id).removeAttr("disabled");
-            // $("#" + id).val("");
         } else {
             $("#" + id).attr("data-editable", "false");
             $("#" + id).attr("disabled", "disabled");
@@ -155,6 +152,8 @@ function removeUnNecessaryLocks() {
         "date_input_end",
         "time_stop",
         "time_end",
+        "first_name",
+        "last_name",
     ];
 
     $("input,textarea").each(function () {
