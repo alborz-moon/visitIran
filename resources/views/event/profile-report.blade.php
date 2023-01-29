@@ -119,12 +119,50 @@
             </div>
         </div>
         <div class="ui-box bg-white mb-5 p-0">
+			<div class="col-xl-12 col-lg-12 ">
+				<div class="accordion" id="accordionExample">
+				  <div class="accordion-item">
+				    <h2 class="accordion-header" id="headingOne">
+				      <button class="accordion-button py-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+				        گزارشات تفکیکی
+				      </button>
+				    </h2>
+				    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+				      <div class="accordion-body">
+				        <div class="d-flex justifyContentEnd">
+                            <div>
+                                <label class="tripCalenderSection w-100">
+                                <input id="date_input_start_in_accordion"
+                                    class="tripDateInput w-100 form-control directionLtr backColorWhite"
+                                    placeholder="تاریخ شروع" required readonly type="text">
+                                </label>
+                            </div>
+                            <div>
+                                <label class="tripCalenderSection w-100">
+                                <span class="calendarIcon"></span>
+                                <input id="date_input_stop_in_accordion"
+                                    class="tripDateInput w-100 form-control directionLtr backColorWhite"
+                                    placeholder="تاریخ پایان" required readonly type="text">
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <canvas dir="rtl" id="myChartLineInAccordion"></canvas>
+                        </div>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</div>
+		</div>
+        <div class="ui-box bg-white mb-5 p-0">
             <div class="col-xl-12 col-lg-12 ">
                 <div class="ui-box bg-white mb-5 p-0">
                     <div class="ui-box-title align-items-center justify-content-between">
-                        <div>گزارشات تفکیکی </div>
+                        <div>گزارشات تفکیکی</div>
                         <div class="spaceBetween">
-                            <div> <label class="tripCalenderSection w-100">
+                            <div>
+                                <label class="tripCalenderSection w-100">
                                 <input id="date_input_start"
                                     class="tripDateInput w-100 form-control directionLtr backColorWhite"
                                     placeholder="تاریخ شروع" required readonly type="text">
@@ -143,7 +181,7 @@
                     <div>
                         <canvas dir="rtl" id="myChartLine"></canvas>
                     </div>
-                    <div class="py-2">
+                    {{-- <div class="py-2">
                         <div class="table-responsive dropdown">
                             <table class="table mb-0">
                                 <thead>
@@ -160,7 +198,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -180,6 +218,9 @@
 
 <input id="date_input_start_formatted" type="hidden" />
 <input id="date_input_stop_formatted" type="hidden" />
+
+<input id="date_input_start_formatted_in_accordion" type="hidden" />
+<input id="date_input_stop_formatted_in_accordion" type="hidden" />
 
 @stop
 
@@ -203,9 +244,27 @@
         altField: $("#date_input_stop_formatted")
     };
     
+    var datePickerOptionsInAccordion = {
+        numberOfMonths: 1,
+        showButtonPanel: true,
+        dateFormat: "DD d M سال yy",
+        altFormat: "yy/mm/dd",
+        altField: $("#date_input_start_formatted")
+    };
+    
+    var datePickerOptionsEndInAccordion = {
+        numberOfMonths: 1,
+        showButtonPanel: true,
+        dateFormat: "DD d M سال yy",
+        altFormat: "yy/mm/dd",
+        altField: $("#date_input_stop_formatted")
+    };
+    
     $(document).ready(function() {
         $("#date_input_start").datepicker(datePickerOptions);
         $("#date_input_stop").datepicker(datePickerOptionsEnd);
+        $("#date_input_start_in_accordion").datepicker(datePickerOptionsInAccordion);
+        $("#date_input_stop_in_accordion").datepicker(datePickerOptionsEndInAccordion);
     });
     
     var width = window.innerWidth;
@@ -437,6 +496,53 @@
 
         var ctx = $(".myChart");
         new Chart(document.getElementById("myChartLine"), {
+            type: 'line',
+            data: {
+                labels: stats.map(elem => { 
+
+                    if(typeof elem.date === 'number')
+                        return (elem.date + "").substr(0, 4) + "/" + (elem.date + "").substr(4, 2) + "/" + (elem.date + "").substr(6, 2);
+
+                    return elem.date;
+                }),
+                datasets: [{
+                    data: stats.map(elem => { return elem.count; }),
+                    borderColor: "#3e95cd",
+                    fill: false
+                }, ]
+            },
+            options: {
+        
+                scales: {
+        
+                    yAxes: [{
+                        ticks: {
+                            fontFamily: "IRANSans",
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontFamily: "IRANSans",
+                            autoSkip: false,
+                            maxRotation: 90,
+                            minRotation: 90
+                        }
+                    }]
+                },
+                legend: {
+                    display: false,
+                },
+        
+                title: {
+                    fontFamily: "IRANSans",
+                    display: true,
+                    text: 'نمودار تراکنش ها از تاریخ تا تاریخ'
+                }
+        
+            }
+        });
+
+        new Chart(document.getElementById("myChartLineInAccordion"), {
             type: 'line',
             data: {
                 labels: stats.map(elem => { 

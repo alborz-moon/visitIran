@@ -43,8 +43,28 @@
     @section('seo')
         @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
             <title>بازارگاه صنایع دستی | خانه</title>
+            <meta property="og:title" content="از ایران ویزیت" />
+            <meta name="twitter:title" content="از ایران ویزیت" />
+            <meta property="og:site_name" content="از ایران ویزیت" />
+            <meta property="og:image" content="از ایران ویزیت"/>
+            <meta property="og:image:secure_url" content="از ایران ویزیت"/>
+            <meta name="twitter:image" content="از ایران ویزیت"/>
+            <meta property="og:description" content="از ایران ویزیت" />
+            <meta name="twitter:description" content="از ایران ویزیت" />
+            <meta name="description" content="از ایران ویزیت"/>
+            <meta name="keywords" content="از ایران ویزیت" />
         @else
             <title>ویزیت ایران | خانه</title>
+            <meta property="og:title" content="از ایران ویزیت" />
+            <meta name="twitter:title" content="از ایران ویزیت" />
+            <meta property="og:site_name" content="از ایران ویزیت" />
+            <meta property="og:image" content="از ایران ویزیت"/>
+            <meta property="og:image:secure_url" content="از ایران ویزیت"/>
+            <meta name="twitter:image" content="از ایران ویزیت"/>
+            <meta property="og:description" content="از ایران ویزیت" />
+            <meta name="twitter:description" content="از ایران ویزیت" />
+            <meta name="description" content="از ایران ویزیت"/>
+            <meta name="keywords" content="از ایران ویزیت" />
         @endif
     @show
 
