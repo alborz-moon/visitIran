@@ -39,9 +39,7 @@ class LauncherBankAccountsController extends Controller
     public function store(Request $request)
     {
 
-        dd("qw");
         $launcher = $request->user()->launcher;
-        dd($launcher);
 
         if($launcher == null)
             return abort(401);
@@ -56,7 +54,7 @@ class LauncherBankAccountsController extends Controller
         $request->validate($validator, self::$COMMON_ERRS);
 
         $request['launcher_id'] = $launcher->id;
-        $request['is_default'] = false;
+        $request['is_default'] = count($launcher->banks) == 0;
 
         $bank = LauncherBank::create($request->toArray());
         $bank->status = 'pending';
@@ -122,7 +120,7 @@ class LauncherBankAccountsController extends Controller
         if($request->user()->id != $launcher->user_id)
             return abort(401);
 
-        $launcher->delete();
+        $launcherBank->delete();
         
         return response()->json([
             'status' => 'ok'

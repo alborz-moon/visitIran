@@ -788,7 +788,7 @@
         function addToPending(data) {
             let html = '<tr>';
             html += '<td>' + pendingsIdx + '</td>';
-            html += '<td>' + data.title + '</td>';
+            html += '<td><a href="' + updateEvent + data.id + '">' + data.title + '</a></td>';
             html += '<td>' + data.created_at + '</td>';
 
             html += '<td class="fa-num">';
