@@ -45,7 +45,11 @@ class Purchase extends Model
     }
 
     public function items() {
-        return DB::select('select products.id, products.name, purchase_items.count, purchase_items.unit_price, purchase_items.feature, purchase_items.off_amount from products inner join purchase_items on purchase_items.product_id = products.id where purchase_id = ' . $this->id);
+        return DB::select('select products.id, products.name, products.img, purchase_items.count, purchase_items.unit_price, purchase_items.feature, purchase_items.off_amount from products inner join purchase_items on purchase_items.product_id = products.id where purchase_id = ' . $this->id);
     }
     
+    public function scopePaid($query) {
+        return $query->where('status', EventBuyer::$PAID);
+    }
+
 }

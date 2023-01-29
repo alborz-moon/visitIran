@@ -33,6 +33,7 @@ class ProductDigest extends JsonResource
             'comment_count' => $this->comment_count,
             'new_comment_count' => $this->new_comment_count,
             'seen' => $this->seen,
+            'has_effective_feature' => $this->productEffectiveFeatures() != null,
         ];
     }
 }

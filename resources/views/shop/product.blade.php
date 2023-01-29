@@ -630,8 +630,9 @@
                         showAvailableCount(parseInt(finalAvailableCount));
                     }
 
-                    wantedFeature = selectedOption.text();
-                    $('#selected_option_for_feature_' + $(this).attr('data-id')).empty().append(wantedFeature);
+                    wantedFeature = selectedOption.val();
+                    $('#selected_option_for_feature_' + $(this).attr('data-id')).empty().append(selectedOption
+                        .text());
 
                 });
 

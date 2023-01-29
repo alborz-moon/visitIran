@@ -19,17 +19,17 @@ function setVals(prefix, elem, complete = false) {
             elem.detail.off_type === "null")
     ) {
         $("#" + prefix + "-price").text(elem.detail.price);
-        priceAfter = elem.detail.price.replace(",", "");
+        priceAfter = elem.detail.price.replaceAll(",", "");
     } else if (elem.detail.price !== undefined) {
         if (elem.detail.off_type === "percent") {
             priceAfter =
                 ((100 - parseInt(elem.detail.off_value)) *
-                    parseInt(elem.detail.price.replace(",", ""))) /
+                    parseInt(elem.detail.price.replaceAll(",", ""))) /
                 100;
         } else {
             priceAfter = Math.max(
                 0,
-                parseInt(elem.detail.price.replace(",", "")) -
+                parseInt(elem.detail.price.replaceAll(",", "")) -
                     parseInt(elem.detail.off_value)
             );
         }
@@ -79,7 +79,7 @@ function setVals(prefix, elem, complete = false) {
                 .removeClass("hidden");
         else $("#" + prefix + "-color-label").addClass("hidden");
 
-        if (priceAfter != parseInt(elem.detail.price.replace(",", ""))) {
+        if (priceAfter != parseInt(elem.detail.price.replaceAll(",", ""))) {
             $("#" + prefix + "-price-before-off")
                 .removeClass("hidden")
                 .text(elem.detail.price);
@@ -162,17 +162,17 @@ function refreshBasket() {
             elem.detail.off_type === "null"
         )
             totalPrice +=
-                elem.count * parseInt(elem.detail.price.replace(",", ""));
+                elem.count * parseInt(elem.detail.price.replaceAll(",", ""));
         else {
             if (elem.detail.off_type === "percent") {
                 priceAfter =
                     ((100 - parseInt(elem.detail.off_value)) *
-                        parseInt(elem.detail.price.replace(",", ""))) /
+                        parseInt(elem.detail.price.replaceAll(",", ""))) /
                     100;
             } else {
                 priceAfter = Math.max(
                     0,
-                    parseInt(elem.detail.price.replace(",", "")) -
+                    parseInt(elem.detail.price.replaceAll(",", "")) -
                         parseInt(elem.detail.off_value)
                 );
             }
@@ -238,7 +238,7 @@ function renderBasket() {
     basket.forEach((elem) => {
         totalPricesAfterOff += setVals(prefix, elem, true) * elem.count;
         totalPrices +=
-            parseInt(elem.detail.price.replace(",", "")) * elem.count;
+            parseInt(elem.detail.price.replaceAll(",", "")) * elem.count;
         let id = elem.id;
         var newElem = $("#sample_full_basket_item").html();
 
@@ -368,17 +368,17 @@ function renderPaymentCard() {
             elem.detail.off_type === "" ||
             elem.detail.off_type === "null"
         ) {
-            priceAfter = elem.detail.price.replace(",", "");
+            priceAfter = elem.detail.price.replaceAll(",", "");
         } else {
             if (elem.detail.off_type === "percent") {
                 priceAfter =
                     ((100 - parseInt(elem.detail.off_value)) *
-                        parseInt(elem.detail.price.replace(",", ""))) /
+                        parseInt(elem.detail.price.replaceAll(",", ""))) /
                     100;
             } else {
                 priceAfter = Math.max(
                     0,
-                    parseInt(elem.detail.price.replace(",", "")) -
+                    parseInt(elem.detail.price.replaceAll(",", "")) -
                         parseInt(elem.detail.off_value)
                 );
             }
@@ -386,7 +386,7 @@ function renderPaymentCard() {
 
         totalPricesAfterOff += priceAfter * elem.count;
         totalPrices +=
-            parseInt(elem.detail.price.replace(",", "")) * elem.count;
+            parseInt(elem.detail.price.replaceAll(",", "")) * elem.count;
     });
 
     $("#full_basket_count_items")

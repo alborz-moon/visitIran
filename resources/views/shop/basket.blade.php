@@ -116,6 +116,8 @@
 
                     if (basket[i].colorLabel !== undefined)
                         data.feature = basket[i].colorLabel;
+                    else if (basket[i].detail.feature !== undefined)
+                        data.feature = basket[i].detail.feature;
 
                     products.push(data);
                 }
@@ -130,14 +132,15 @@
 
                         let new_basket = [];
 
-                        if(res.orders.length != basket.length) {
+                        if (res.orders.length != basket.length) {
                             showErr('خطایی در به روزرسانی سبدخرید شما به وجود آمده است');
                             return;
                         }
 
-                        for(let i = 0; i < res.orders.length; i++) {
+                        for (let i = 0; i < res.orders.length; i++) {
                             new_basket.push({
-                                count: res.orders[i].available >= res.orders[i].wanted ? res.orders[i].wanted : res.orders[i].available,
+                                count: res.orders[i].available >= res.orders[i].wanted ? res.orders[
+                                    i].wanted : res.orders[i].available,
                                 color: basket[i].color,
                                 colorLabel: basket[i].colorLabel,
                                 id: basket[i].id,
@@ -153,12 +156,15 @@
                                     'feature': basket[i].detail.feature,
                                     'brand': basket[i].detail.brand,
                                     'guarantee': basket[i].detail.guarantee,
-                                    'off_type': res.orders[i].off != null ? res.orders[i].off.type : null,
-                                    'off_value': res.orders[i].off != null ? res.orders[i].off.value : null,
+                                    'off_type': res.orders[i].off != null && res.orders[i]
+                                        .off_amount > 0 ? res.orders[i].off.type : null,
+                                    'off_value': res.orders[i].off != null && res.orders[i]
+                                        .off_amount > 0 ? res.orders[i].off
+                                        .value : null,
                                 }
                             });
                         }
-                        
+
                         window.localStorage.setItem("basket", JSON.stringify(new_basket));
                         renderBasket();
                     }
@@ -180,6 +186,8 @@
 
                             if (basket[i].colorLabel !== undefined)
                                 data.feature = basket[i].colorLabel;
+                            else if (basket[i].detail.feature !== undefined)
+                                data.feature = basket[i].detail.feature;
 
                             products.push(data);
                         }

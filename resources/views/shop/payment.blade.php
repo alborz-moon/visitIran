@@ -49,10 +49,11 @@
                                 <div class="ui-box-content p-5">
                                     <div class="coupon">
                                         <div class="form-element-row with-btn">
-                                            <input id="off" type="text" class="form-control" placeholder="افزودن کد تخفیف">
+                                            <input id="off" type="text" class="form-control"
+                                                placeholder="افزودن کد تخفیف">
                                             <button onclick="checkOff()" class="btn btn-primary">ثبت</button>
                                         </div>
-                                        
+
                                         <div id="off_result"></div>
                                     </div>
                                 </div>
@@ -74,9 +75,8 @@
     @parent
 
     <script src="{{ asset('theme-assets/js/basket.js') }}"></script>
-    
-    <script>
 
+    <script>
         $(document).ready(function() {
             renderPaymentCard();
         });
@@ -101,7 +101,8 @@
                         .addClass(resultClass);
 
                     if (res.status === 'ok') {
-                        let total_before_price = parseInt($("#full_basket_total_price").text().replaceAll(",", ""));
+                        let total_before_price = parseInt($("#full_basket_total_price").text().replaceAll(",",
+                            ""));
                         $("#full_basket_total_after_price").empty().append(res.new_amount);
                         let old_off_amount = parseInt($("#full_basket_total_off").text().replaceAll(",", ""));
                         old_off_amount = Math.min(res.off_amount + old_off_amount, total_before_price);
@@ -116,13 +117,13 @@
         $(document).on('click', '#goToPaymentBtn', function() {
 
             let address = window.localStorage.getItem("address");
-            if(address === undefined) {
+            if (address === undefined) {
                 showErr('لطفا به مرحله قبل بازگردید و آدرس موردنظر خود را وارد نمایید');
                 return;
             }
 
             let time = window.localStorage.getItem("time");
-            if(time === undefined) {
+            if (time === undefined) {
                 showErr('لطفا به مرحله قبل بازگردید و زمان ارسال موردنظر خود را وارد نمایید');
                 return;
             }
@@ -130,7 +131,7 @@
             let products = [];
             let basket = window.localStorage.getItem("basket");
 
-            if(basket === undefined || basket === null) {
+            if (basket === undefined || basket === null) {
                 showErr('خطایی در پردازش سبدخرید شما به وجود آمده است');
                 return;
             }
@@ -145,10 +146,12 @@
 
                 if (basket[i].colorLabel !== undefined)
                     data.feature = basket[i].colorLabel;
+                else if (basket[i].detail.feature !== undefined)
+                    data.feature = basket[i].detail.feature;
 
                 products.push(data);
             }
-            
+
             let code = $("#off").val();
             let data = {
                 'products': products,
@@ -156,7 +159,7 @@
                 'time': time
             };
 
-            if(code !== undefined && code.length > 0)
+            if (code !== undefined && code.length > 0)
                 data['off'] = code;
 
             $.ajax({
@@ -165,8 +168,8 @@
                 data: data,
                 success: function(res) {
 
-                    if(res.status === 'ok') {
-                        if(res.action === 'registered') {
+                    if (res.status === 'ok') {
+                        if (res.action === 'registered') {
                             showSuccess('خرید شما با موفقیت انجام شد');
                             window.localStorage.removeItem('basket');
                             setTimeout(() => {
@@ -179,7 +182,6 @@
             });
 
         });
-
     </script>
 
 @stop

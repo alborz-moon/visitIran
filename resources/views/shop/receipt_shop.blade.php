@@ -35,7 +35,7 @@
         }
 
         .logo {
-            width: 100px;
+            width: 80px;
             float: right;
             position: relative;
             display: inline-block;
@@ -55,6 +55,10 @@
 
         .yellow {
             color: #c59358;
+        }
+
+        .font12 {
+            font-size: 12px
         }
 
         .font14 {
@@ -148,7 +152,8 @@
             padding: 8px 10px;
             border-left: 1px solid rgb(185, 185, 185);
             border-bottom: 1px solid rgb(185, 185, 185);
-            text-align: center
+            text-align: center;
+            font-size: 11px;
         }
     </style>
 </head>
@@ -166,9 +171,9 @@
 
         <div class="absolute">
             <div class="yellow font14 bold">ویزیت ایران</div>
-            <div class="font14 bold">بازارگاه صنایع دستی</div>
-            <div class="font16 bold">صورت حساب الکترونیک</div>
-            <div class="font14">شماره سفارش :<span>{{ $tracking_code }}</span></div>
+            <div class="font12 bold">بازارگاه صنایع دستی</div>
+            <div class="font12 bold">صورت حساب الکترونیک</div>
+            <div class="font12">شماره سفارش :<span>{{ $tracking_code }}</span></div>
         </div>
     </div>
     <div class="fontSize16 bold">مشخصات خریدار</div>
@@ -282,9 +287,8 @@
                 </tr>
             @endforeach
             <tr>
-                <td colspan="4">حمل و نقل</td>
+                <td colspan="5">حمل و نقل</td>
                 <td>{{ $transfer['price'] }}</td>
-                <td>{{ $transfer['total'] }}</td>
                 <td>{{ $transfer['off'] }}</td>
                 <td>{{ $transfer['total_after_off'] }}</td>
                 <td>{{ $transfer['total_after_off_tax'] }}</td>

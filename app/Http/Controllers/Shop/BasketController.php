@@ -296,6 +296,13 @@ class BasketController extends Controller {
         return $pdf->download('pdf_file.pdf');
     }
 
+    public function myOrders(Request $request) {
+
+        $orders = Purchase::where('user_id', $request->user()->id)->paid()->orderBy('created_at', 'desc')->get();
+        
+
+    }
+
 
     public static function doGenerateRecpPDF($user, $purchase) {
 
@@ -303,18 +310,19 @@ class BasketController extends Controller {
         $all_data = [];
 
         $total = 0;
-        $totalOff = 0;
         $totalAll = 0;
         $counter = 0;
 
         $items = $purchase->items();
         $products = [];
         $counter = 1;
+        $offs = 0;
+
         foreach($items as $item) {
             
-            $total += $item->unit_price * $item->count;
-            $totalOff += $item->off_amount;
-            $totalAll += $item->unit_price * $item->count - $item->off_amount;
+            $t = $item->unit_price * $item->count;
+            $offs += $item->off_amount;
+            $total += $t;
 
             array_push($products, [
                 'id' => $counter++,
@@ -322,23 +330,24 @@ class BasketController extends Controller {
                 'count' => $item->count,
                 'desc' => $item->feature == null ? '' : $item->feature,
                 'price' => number_format($item->unit_price, 0),
-                'total' => number_format($item->unit_price * $item->count),
+                'total' => number_format($t),
                 'off' => number_format($item->off_amount, 0),
-                'total_after_off' => number_format($item->unit_price * $item->count - $item->off_amount),
-                'total_after_off_tax' => number_format($item->unit_price * $item->count - $item->off_amount),
-                'all' => number_format($item->unit_price * $item->count - $item->off_amount),
+                'total_after_off' => number_format($t - $item->off_amount),
+                'total_after_off_tax' => 0,
+                'all' => number_format($t - $item->off_amount),
             ]);
         }
 
         $total += $transaction->transfer;
-        $totalAll += $transaction->transfer;
+        $totalOff = $transaction->off_amount + $offs;
+        $totalAll = $total - $totalOff;
 
         $data = [
             'email' => $user->mail == null ? '' : $user->mail,
             'tel' => $user->phone,
             'nid' => $user->nid == null ? '' : $user->nid,
             'tracking_code' => $transaction->tracking_code,
-            'address' => $purchase->address->address,
+            'address' => $purchase->address,
             'created_at' => Controller::MiladyToShamsi($transaction->created_at),
             'name' => $user->first_name != null && $user->last_name != null ? 
                 $user->first_name . ' ' . $user->last_name : '',
@@ -346,16 +355,15 @@ class BasketController extends Controller {
             'total' => [
                 'total' => number_format($total, 0),
                 'off' => number_format($totalOff, 0),
-                'total_after_off' => number_format($total - $totalOff, 0),
+                'total_after_off' => number_format($totalAll, 0),
                 'total_after_off_tax' => 0,
                 'all' => number_format($totalAll, 0)
             ],
             'transfer' => [
                 'price' => number_format($transaction->transfer, 0),
-                'total' => number_format($transaction->transfer, 0),
-                'off' => number_format($transaction->transfer, 0),
+                'off' => 0,
                 'total_after_off' => number_format($transaction->transfer, 0),
-                'total_after_off_tax' => number_format($transaction->transfer, 0),
+                'total_after_off_tax' => 0,
                 'all' => number_format($transaction->transfer, 0),
             ]
         ];
@@ -490,7 +498,7 @@ class BasketController extends Controller {
             PurchaseItems::create([
                 'off_amount' => $order['off_amount'] * 10,
                 'count' => $order['wanted'],
-                'unit_price' => $order['price_after_off'] * 10,
+                'unit_price' => ((int)str_replace(',', '', $order['unit_price'])) * 10,
                 'feature' => $order['feature_label'],
                 'product_id' => $order['id'],
                 'purchase_id' => $p->id
