@@ -4,6 +4,7 @@
         <main class="page-content">
             <div class="container">
                 <div class="row mb-5">
+					 <div id="nothingToShow" class="hidden">موردی برای نمایش موجود نیست</div>
                         @include('shop.profile.layouts.profile_menu')     
                     <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="ui-box bg-white mb-5 p-0">

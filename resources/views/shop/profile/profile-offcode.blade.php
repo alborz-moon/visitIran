@@ -9,7 +9,8 @@
                         <div class="ui-box-title align-items-center justify-content-between">
                             تخفیف های فعال      
                         </div>
-                        <div class="py-2">
+                         <div id="nothingToShow" class="">موردی برای نمایش موجود نیست</div>
+                        <div class="py-2 hidden">
                             <div class="table-responsive dropdown">
                                 <table class="table mb-0">
                                     <thead>

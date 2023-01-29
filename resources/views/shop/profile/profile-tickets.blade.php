@@ -13,6 +13,7 @@
                                 <i class="ri-add-line ms-2"></i>
                             </a>
                         </div>
+                         <div id="nothingToShow" class="hidden">موردی برای نمایش موجود نیست</div>
                         <div class="py-2">
                             <div class="table-responsive dropdown">
                                 <table class="table mb-0">

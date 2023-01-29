@@ -16,7 +16,7 @@
             <div class="product-detail-container mb-5">
                 <div class="row">
                     @include('event.event.bookmark', ['is_bookmark' => $event['is_bookmark']])
-                    <div class="col-lg-9 col-md-12 mb-md-0 mb-4">
+                    <div class="col-lg-9 col-md-12 mb-md-0 mb-4 px-0">
                         <!-- start of product-gallery -->
                         <div class="bold colorBlack fontSize20">{{ $event['title'] }}</div>
                         <div
@@ -38,7 +38,7 @@
                                     <div class="colorBlack">{{ $event['ticket_description'] }}</div>
                                 </div>
                             </div>
-                            <div class="spaceBetween p-3">
+                            <div class="spaceBetween p-3 px-0 flexWrap">
 
                                 @if ($event['isActiveForRegistry'])
                                     @if ($event['price'] != null)
@@ -48,10 +48,12 @@
                                             <span class="colorYellow fontSize22 bold">ت</span>
                                         </div>
                                     @endif
-
                                     <div class="product-seller-row product-remaining-in-stock spaceBetween">
                                         <div class="bold textColor d-flex align-items-center ">
-                                            <div class="whiteSpaceNoWrap">تعداد شرکت کننده :</div>
+                                            <div class="whiteSpaceNoWrap mx-2">تعداد ظرفیت:<span>25</span> </div>
+                                        </div>
+                                        <div class="bold textColor d-flex align-items-center ">
+                                            <div class="whiteSpaceNoWrap">تعداد شرکت کننده:</div>
                                         </div>
                                         <div class="num-block fa-num me-3">
                                             <span class="num-in b-0">
@@ -65,6 +67,7 @@
                                             </span>
                                         </div>
                                     </div>
+                                    
                                 @endif
 
                             </div>

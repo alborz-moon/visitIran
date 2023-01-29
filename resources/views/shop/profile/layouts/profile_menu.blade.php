@@ -25,7 +25,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('profile.offcode') }}"><i
-                                class="nav-link-icon ri-briefcase-5-line"></i>تخفیف ها</a>
+                                class="nav-link-icon ri-price-tag-3-line"></i>تخفیف ها</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('profile.favorites') }}">

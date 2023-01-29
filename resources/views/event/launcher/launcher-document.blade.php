@@ -373,7 +373,7 @@
                         if (uploadedFiles.length === 0)
                             $(".dz-message").addClass('block');
 
-                        showSuccess('فایل موردنظر با موفقیت حدف گردید.');
+                        showSuccess('فایل موردنظر با موفقیت حذف گردید.');
                     }
                 }
             });
@@ -394,7 +394,7 @@
                 success: function(res) {
                     if (res.status === 'ok') {
                         $("#gallery_" + id).remove();
-                        showSuccess('فایل موردنظر با موفقیت حدف گردید.');
+                        showSuccess('فایل موردنظر با موفقیت حذف گردید.');
 
                         console.log(uploadedFiles.length);
                         total--;

@@ -10,7 +10,8 @@
                             <div class="ui-box-title">تاریخچه سفارشات</div>
                             <div class="ui-box-content">
                                 <!-- start of order-tabs -->
-                                <div class="order-tabs">
+                                 <div id="nothingToShow" class="">موردی برای نمایش موجود نیست</div>
+                                <div class="order-tabs hidden">
                                     <ul class="nav nav-tabs fa-num" id="myTab" role="tablist">
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link d-inline-flex align-items-center"

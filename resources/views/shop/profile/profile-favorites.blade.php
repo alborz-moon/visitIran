@@ -17,7 +17,7 @@
                                             <div class="ui-box-content p-0">
                                                     <div class="ui-box-title">کالاهای مورد علاقه</div>
                                                 <div class="row mx-0">
-                                                    <div id="nothingToShow" class="hidden">محصولی برای نمایش موجود نیست</div>
+                                                    <div id="nothingToShow" class="hidden">موردی برای نمایش موجود نیست</div>
                                                     <div id="sample_product_div" class="hidden">
                                                         @include('shop.productCard', ['key' => 'sample'])
                                                     </div>

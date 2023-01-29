@@ -117,6 +117,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                        <a class="nav-link" href="{{ route('profile.offcode') }}"><i
+                            class="nav-link-icon ri-price-tag-3-line"></i>
+                            تخفیف ها
+                        </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('profile.comments') }}"><i
                             class="nav-link-icon ri-chat-1-line"></i>
                         نظرات

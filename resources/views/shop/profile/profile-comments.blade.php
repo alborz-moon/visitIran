@@ -8,7 +8,7 @@
                     <div class="col-xl-9 col-lg-9 col-md-8">
                         <div class="ui-box bg-white mb-5">
                             <div class="ui-box-title">نظرات</div>
-                            <div id="nothingToShow" class="hidden">نظری ثبت نشده است</div>
+                             <div id="nothingToShow" class="hidden">موردی برای نمایش موجود نیست</div>
                             <div class="ui-box-content comments">
                                 <div class="row" id="commentMy">
                                 </div>
@@ -34,9 +34,6 @@
             'accept': 'application/json'
         },
         success: function(res) {
-            console.log('====================================');
-            console.log(res);
-            console.log('====================================');
             var html= "";
             if(res.status === "ok") {
                 if (res.data.length != 0){
