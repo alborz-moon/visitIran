@@ -3,15 +3,15 @@
     <div class="ui-sticky ui-sticky-top">
         <div class="profile-user-info py-3 ui-box bg-white">
             @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
-            <div class="profile-detail">
-                <div class="d-flex align-items-center">
-                    <div class="profile-info">
-                        <a
-                            class="text-decoration-none text-dark fw-bold mb-2">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</a>
-                        <div class="text-muted fw-bold bold">{{ Auth::user()->phone }}</div>
+                <div class="profile-detail">
+                    <div class="d-flex align-items-center">
+                        <div class="profile-info">
+                            <a
+                                class="text-decoration-none text-dark fw-bold mb-2">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</a>
+                            <div class="text-muted fw-bold bold">{{ Auth::user()->phone }}</div>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endif
             @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
                 @include('event.launcher.launcher-menu', ['desktopMenu' => true])

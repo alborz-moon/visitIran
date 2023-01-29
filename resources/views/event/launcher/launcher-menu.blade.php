@@ -43,8 +43,8 @@
                         </a>
                     </li>
                 @else
-                    <li class="nav-item hidden goLauncher">
-                        <a role="button" class="nav-link whiteSpaceNoWrap textColor"><i
+                    <li class="nav-item goLauncher">
+                        <a href="{{ route('launcher') }}" role="button" class="nav-link whiteSpaceNoWrap textColor"><i
                                 class="nav-link-icon ri-user-line"></i>
                             ارتقا به برگزار کننده
                         </a>

@@ -365,6 +365,14 @@
         var facilitiesList = undefined;
         var tagsList = undefined;
 
+
+        $('#nameConfirm').on('click', function(){
+            var name = $('#name').val();
+            var last = $('#last').val();
+            alert(name + last);
+            $('#nameLast').val(name + ' ' + last);
+            $(".remodal-close").click();
+        });
         $("#launcher").on('change', function() {
 
             let launcher = $(this).val();
