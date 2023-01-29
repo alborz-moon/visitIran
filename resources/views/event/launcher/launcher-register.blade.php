@@ -507,6 +507,14 @@
                 $(".remodal-close").click();
             }
         }
+        
+        $('#nameConfirm').on('click', function(){
+            var name = $('#name').val();
+            var last = $('#last').val();
+            alert(name + last);
+            $('#nameLast').val(name + ' ' + last);
+            $(".remodal-close").click();
+        });
 
         $(document).ready(function() {
 
@@ -741,11 +749,9 @@
                 });
             })
         })
-
         @if ($mode == 'edit')
 
             $(document).ready(function() {
-
                 $('#shimmer').removeClass('hidden');
                 $('#hiddenHandler').addClass('hidden');
 
