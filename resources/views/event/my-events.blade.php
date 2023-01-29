@@ -4,15 +4,13 @@
     <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
             <div class="row mb-5">
-
                 @include('event.launcher.launcher-menu')
-
                 <div class="col-xl-9 col-lg-9 col-md-8">
                     <div class="ui-box bg-white mb-5 boxShadow p-0">
                         <div class="ui-box-title">رویداد ها</div>
                         <div class="ui-box-content">
                             <div class="row" >
-                                <div id="nothingToShow" class="hidden">محصولی برای نمایش موجود نیست</div>
+                                <div id="nothingToShow" class="hidden">رویدادی برای نمایش موجود نیست</div>
                                 <div id="hiddenTable" class="col-lg-12 mb-3">
                                     <div class="py-2">
                                         <div class="ui-box bg-white mb-5 p-0">

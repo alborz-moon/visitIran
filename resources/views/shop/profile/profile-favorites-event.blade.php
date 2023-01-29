@@ -13,11 +13,11 @@
                                     <!-- start of tab-pane -->
                                     <div class="tab-pane fade show active" id="most-visited" role="tabpanel"
                                         aria-labelledby="most-visited-tab">
-                                        <div class="ui-box customListUIBoxPadding mb-4">
+                                        <div class="ui-box bg-white customListUIBoxPadding mb-4">
                                             <div class="ui-box-content p-0">
                                                 <div class="ui-box-title">رویداد های مورد علاقه</div>
                                                 <div class="row mx-0">
-                                                    <div id="nothingToShow" class="hidden">رویداد برای نمایش موجود نیست</div>
+                                                    <div id="nothingToShow" class="hidden">رویدادی برای نمایش موجود نیست</div>
                                                     <div id="sample_event_div" class="hidden">
                                                         @include('event.event.event_card', ['key' => 'sample'])
                                                     </div>

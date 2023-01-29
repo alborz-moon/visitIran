@@ -1289,7 +1289,7 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
 .marginBottom5 {
     margin-bottom: 5px;
 }
-.marginBottom30{
+.marginBottom30 {
     margin-bottom: 30px;
 }
 
@@ -1544,7 +1544,7 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
 }
 #nothingToShow {
     width: 100%;
-    height: calc(100vh - 200px);
+    height: calc(15vh - 0px);
     color: #555a5d;
     font-size: 25px;
     display: flex;
@@ -2279,30 +2279,31 @@ figure .ck-widget {
     }
 }
 @media (max-width: 768px) {
-    .changeCal{
+    .changeCal {
         flex-direction: column !important;
     }
-    .moblieCal{
-    font-size: 10px;
-    margin-bottom: -30px;
-    margin-right: -15px;
-}
-.advanceFilterBtn{
-    margin-right: -60px;
-}
-    .advanceFilter{
+    .moblieCal {
+        font-size: 10px;
+        margin-bottom: -30px;
+        margin-right: -15px;
+    }
+    .advanceFilterBtn {
+        margin-right: -60px;
+    }
+    .advanceFilter {
         height: 90px !important;
     }
-    .dateTopic{
+    .dateTopic {
         display: none;
     }
-    .cardCal{
-        max-height:160px ;
+    .cardCal {
+        max-height: 160px;
         overflow: hidden;
     }
-    .imgcal{
+    .imgcal {
         width: 106px;
-        max-height: 106px !important; }
+        max-height: 106px !important;
+    }
     .logoImgFromTop {
         top: -20px;
     }

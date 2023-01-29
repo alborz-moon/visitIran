@@ -13,7 +13,7 @@
                                     <!-- start of tab-pane -->
                                     <div class="tab-pane fade show active" id="most-visited" role="tabpanel"
                                         aria-labelledby="most-visited-tab">
-                                        <div class="ui-box customListUIBoxPadding mb-4">
+                                        <div class="ui-box bg-white customListUIBoxPadding mb-4">
                                             <div class="ui-box-content p-0">
                                                     <div class="ui-box-title">کالاهای مورد علاقه</div>
                                                 <div class="row mx-0">
@@ -55,92 +55,6 @@
                                         </div>
                                     </div>
                                     <!-- end of tab-pane -->
-                                    <!-- start of tab-pane -->
-                                    {{-- <div class="tab-pane fade" id="best-selling" role="tabpanel"
-                                        aria-labelledby="best-selling-tab">
-                                        <div class="ui-box pt-3 pb-0 px-0 mb-4">
-                                            <div class="ui-box-content">
-                                                <div class="row mx-0">
-                                                        
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    <!-- end of tab-pane -->
-                                    {{-- <!-- start of tab-pane -->
-                                    <div class="tab-pane fade" id="most-popular" role="tabpanel"
-                                        aria-labelledby="most-popular-tab">
-                                        <div class="ui-box pt-3 pb-0 px-0 mb-4">
-                                            <div class="ui-box-content">
-                                                <div class="row mx-0">
-                                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
-                                                        <!-- start of product-card -->
-                                                        <div class="product-card">
-                                                            <div class="product-thumbnail">
-                                                                <a href="#">
-                                                                    <img src=""
-                                                                        alt="product title">
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-card-body">
-                                                                <h2 class="product-title">
-                                                                    <a href="#">گوشی موبایل اپل مدل iPhone 12 Pro Max
-                                                                        A2412 دو
-                                                                        سیم‌
-                                                                        کارت
-                                                                        ظرفیت
-                                                                        256 گیگابایت
-                                                                    </a>
-                                                                </h2>
-                                                                <div class="product-variant">
-                                                                    
-                                                                </div>
-                                                                <div class="product-price fa-num">
-                                                                    <span class="price-now">36,300,000 <span
-                                                                            class="currency">تومان</span></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-card-footer">
-                                                                <div
-                                                                    class="d-flex align-items-center justify-content-between border-top mt-2 py-2">
-                                                                    <div class="product-actions">
-                                                                        <ul>
-                                                                            <li><a href="#" data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="top" title=""
-                                                                                    data-bs-original-title="افزودن به سبد خرید"
-                                                                                    aria-label="افزودن به سبد خرید"><i
-                                                                                        class="ri-shopping-cart-line"></i></a>
-                                                                            </li>
-                                                                            <li><a href="#" data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="top" title=""
-                                                                                    data-bs-original-title="مشاهده سریع"
-                                                                                    aria-label="مشاهده سریع"
-                                                                                    data-remodal-target="quick-view-modal"><i
-                                                                                        class="ri-search-line"></i></a>
-                                                                            </li>
-                                                                            <li><a href="#" data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="top" title=""
-                                                                                    data-bs-original-title="افزودن به علاقمندی"
-                                                                                    aria-label="افزودن به علاقمندی"><i
-                                                                                        class="ri-heart-3-line"></i></a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="product-rating fa-num">
-                                                                        <i class="ri-star-fill star"></i>
-                                                                        <strong>۴.۴</strong>
-                                                                        <span>(۴۳۶)</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end of product-card -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end of tab-pane --> --}}
                                 </div>
                             </div>
                         </div>
