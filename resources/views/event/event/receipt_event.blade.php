@@ -235,7 +235,7 @@
             <div class="float-r" style="width: 270px">
                 <p class="margin0 padding0">
                     <span class="bold fontSize14">شماره تلفن:</span>
-                    <span class="fontSize12">411137511731</span>
+                    <span class="fontSize12">66900770</span>
                 </p>
             </div>
         </div>

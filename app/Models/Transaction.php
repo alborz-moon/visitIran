@@ -24,7 +24,8 @@ class Transaction extends Model
         'ref_id',
         'user_id',
         'status',
-        'site'
+        'site',
+        'transfer'
     ];
 
     public function scopeComplete($query) {

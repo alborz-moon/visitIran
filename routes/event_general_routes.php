@@ -71,12 +71,8 @@ Route::middleware(['myAuth'])->group(function() {
         Route::post('/{launcher}', [LauncherController::class, 'update'])->name('launcher.update');
 
         Route::get('/{launcher}/files', [LauncherController::class, 'showFiles'])->name('launcher.files');
-
-        Route::post('/launcher_bank_accounts/{launcher_bank?}', [LauncherBankAccountsController::class, 'update'])->name('launcher_bank_accounts.update');
     
         Route::delete('/{launcher}/certificate', [LauncherController::class, 'removeFile'])->name('launcher.cert.destroy');
-
-        Route::delete('/launcher_bank_accounts/{launcher_bank?}', [LauncherBankAccountsController::class, 'destroy'])->name('launcher_bank_accounts.destroy');
 
     });
 
@@ -88,8 +84,6 @@ Route::middleware(['myAuth'])->group(function() {
 
 
     Route::resource('launcher.launcher_certifications', LauncherCertificationsController::class)->only('store')->shallow();
-
-    Route::resource('launcher.launcher_bank_accounts', LauncherBankAccountsController::class)->only('store', 'index')->shallow();
 
 });
 

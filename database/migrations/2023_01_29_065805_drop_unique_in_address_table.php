@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeInPurchaseItemsTable extends Migration
+class DropUniqueInAddressTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class ChangeInPurchaseItemsTable extends Migration
      */
     public function up()
     {
-        Schema::table('purchase_items', function (Blueprint $table) {
-            $table->string('feature')->nullable();
-            $table->unsignedInteger('unit_price');
+        Schema::table('address', function (Blueprint $table) {
+            $table->dropUnique(['postal_code']);
         });
     }
 
@@ -26,9 +25,7 @@ class ChangeInPurchaseItemsTable extends Migration
      */
     public function down()
     {
-        Schema::table('purchase_items', function (Blueprint $table) {
-            $table->dropColumn('feature');
-            $table->dropColumn('unit_price');
+        Schema::table('address', function (Blueprint $table) {
         });
     }
 }

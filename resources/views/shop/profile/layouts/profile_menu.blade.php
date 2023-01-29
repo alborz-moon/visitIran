@@ -3,15 +3,15 @@
     <div class="ui-sticky ui-sticky-top">
         <div class="profile-user-info py-3 ui-box bg-white">
             @if (request()->getHost() == \App\Http\Controllers\Controller::$SHOP_SITE)
-            <div class="profile-detail">
-                <div class="d-flex align-items-center">
-                    <div class="profile-info">
-                        <a
-                            class="text-decoration-none text-dark fw-bold mb-2">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</a>
-                        <div class="text-muted fw-bold bold">{{ Auth::user()->phone }}</div>
+                <div class="profile-detail">
+                    <div class="d-flex align-items-center">
+                        <div class="profile-info">
+                            <a
+                                class="text-decoration-none text-dark fw-bold mb-2">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</a>
+                            <div class="text-muted fw-bold bold">{{ Auth::user()->phone }}</div>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endif
             @if (request()->getHost() == \App\Http\Controllers\Controller::$EVENT_SITE)
                 @include('event.launcher.launcher-menu', ['desktopMenu' => true])
@@ -30,7 +30,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('profile.favorites') }}">
                             <i class="nav-link-icon ri-heart-3-line"></i>
-                            علاقه مندی ها    
+                            علاقه مندی ها
                         </a>
                     </li>
                     <li class="nav-item">
@@ -48,11 +48,7 @@
                                 class="nav-link-icon ri-notification-line"></i>
                             پشتیبانی</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('profile.personal-info') }}"><i
-                                class="nav-link-icon ri-user-line"></i> اطلاعات
-                            حساب</a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}"><i
                                 class="nav-link-icon ri-logout-box-r-line"></i>

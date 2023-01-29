@@ -330,6 +330,9 @@ class BasketController extends Controller {
             ]);
         }
 
+        $total += $transaction->transfer;
+        $totalAll += $transaction->transfer;
+
         $data = [
             'email' => $user->mail == null ? '' : $user->mail,
             'tel' => $user->phone,
@@ -348,12 +351,12 @@ class BasketController extends Controller {
                 'all' => number_format($totalAll, 0)
             ],
             'transfer' => [
-                'price' => $transaction->transfer,
-                'total' => $transaction->transfer,
-                'off' => $transaction->transfer,
-                'total_after_off' => $transaction->transfer,
-                'total_after_off_tax' => $transaction->transfer,
-                'all' => $transaction->transfer,
+                'price' => number_format($transaction->transfer, 0),
+                'total' => number_format($transaction->transfer, 0),
+                'off' => number_format($transaction->transfer, 0),
+                'total_after_off' => number_format($transaction->transfer, 0),
+                'total_after_off_tax' => number_format($transaction->transfer, 0),
+                'all' => number_format($transaction->transfer, 0),
             ]
         ];
 
@@ -469,12 +472,18 @@ class BasketController extends Controller {
 
         $p = Purchase::create([
             'user_id' => $userId,
-            'address_id' => $address->id,
             'transaction_id' => $t->id,
             'payment_status' => $payment_status,
             'status' => Purchase::$SENDING,
             'payment_type' => Purchase::$ONLINE,
-            'delivery' => $request['time']
+            'delivery' => $request['time'],
+            'address' => $address->address,
+            'recv_name' => $address->recv_name,
+            'recv_phone' => $address->recv_phone,
+            'postal_code' => $address->postal_code,
+            'city_id' => $address->city_id,
+            'x' => $address->x,
+            'y' => $address->y,
         ]);
 
         foreach($orders as $order) {

@@ -198,10 +198,6 @@ Route::middleware(['shareEventTags'])->group(function() {
             Route::get('/launcher-document/{formId?}', [LauncherController::class, 'documents'])->name('launcher-document');
 
             Route::post('/launcher_send_for_review/{launcher}', [LauncherController::class, 'sendForReview'])->name('launcher.send_for_review');
-
-            Route::get('/launcher-finance/{formId}', function($formId) {
-                return view('event.launcher.launcher-finance', compact('formId'));
-            })->name('finance');
             
             Route::middleware(['launcherLevel'])->prefix('admin')->group(function() {
             

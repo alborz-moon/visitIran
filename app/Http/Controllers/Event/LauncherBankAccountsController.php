@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LauncherBankAccountResource;
-use App\Models\Launcher;
 use App\Models\LauncherBank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,10 +15,11 @@ class LauncherBankAccountsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Launcher $launcher)
+    public function index(Request $request)
     {
-        
-        if($request->user()->id != $launcher->user_id)
+
+        $launcher = $request->user()->launcher;
+        if($launcher == null)
             return abort(401);
 
         return response()->json([
@@ -36,8 +36,15 @@ class LauncherBankAccountsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Launcher $launcher)
+    public function store(Request $request)
     {
+
+        dd("qw");
+        $launcher = $request->user()->launcher;
+        dd($launcher);
+
+        if($launcher == null)
+            return abort(401);
         
         $validator = [
             'shaba_no' => 'required|digits:24'

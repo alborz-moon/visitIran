@@ -72,11 +72,17 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('report') }}"><i class="nav-link-icon ri-notification-line"></i>
+                        <a class="nav-link" href="{{ route('report') }}"><i
+                                class="nav-link-icon ri-notification-line"></i>
                             گزارشات مالی
                         </a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('launcher-bank') }}"><i
+                                class="nav-link-icon ri-user-line"></i>
+                            اطلاعات
+                            حساب</a>
+                    </li>
                     {{-- متصل شود با آیدی launcher-register --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('launcher-list') }}"><i
@@ -106,12 +112,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('profile-favorites-event') }}"><i class="nav-link-icon ri-heart-3-line"></i>
+                    <a class="nav-link" href="{{ route('profile-favorites-event') }}"><i
+                            class="nav-link-icon ri-heart-3-line"></i>
                         علاقه مندی ها
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('profile.comments') }}"><i class="nav-link-icon ri-chat-1-line"></i>
+                    <a class="nav-link" href="{{ route('profile.comments') }}"><i
+                            class="nav-link-icon ri-chat-1-line"></i>
                         نظرات
                     </a>
                 </li>
