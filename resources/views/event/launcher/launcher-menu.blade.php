@@ -129,11 +129,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href=""><i class="nav-link-icon ri-user-line"></i> اطلاعات
-                        حساب
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"><i class="nav-link-icon ri-logout-box-r-line"></i>
                         خروج
                     </a>

@@ -15,7 +15,8 @@ class LauncherBank extends Model
         'launcher_id',
         'shaba_no',
         'confirmed_at',
-        'status'
+        'status',
+        'is_default'
     ];
 
     public function launcher() {
