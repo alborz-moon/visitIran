@@ -43,7 +43,7 @@
 @stop
 @section('content')
 
-	<main class="page-content TopParentBannerMoveOnTop" style="overflow:hidden ">
+	<main class="page-content TopParentBannerMoveOnTop">
 		<div class="container">
 			<div class="row">
 				@include('shop.profile.layouts.profile_menu')
