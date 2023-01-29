@@ -20,6 +20,7 @@
     </div>
 
     <script>
+        // onclick="function(e){e.stopPropagaction()}"
         var ctx = document.getElementById('myChart');
         var myChart = new Chart(ctx, {
             type: 'pie',
