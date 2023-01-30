@@ -162,6 +162,5 @@
             $('.simpleProfileHidden').removeClass('hidden');
             $('.launcherProfileHidden').addClass('hidden');
         });
-
     });
 </script>

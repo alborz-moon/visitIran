@@ -12,16 +12,13 @@
 								<i class="ri-add-line ms-2"></i>
 							</a>
 						</div>
-						<div id="nothingToShow" class="hidden">
-
+						<div id="nothingToShow" class="">
 							<div style=" height: 180px">
-								<img class=" h-100 " src="{{ asset('theme-assets/images/orders.svg') }} "alt="">
+								<img class=" h-100" src="{{ asset('theme-assets/images/orders.svg') }} "alt="">
 							</div>
-
 							<div> موردی برای نمایش موجود نیست</div>
-
 						</div>
-						<div class="py-2">
+						<div class="py-2 hidden">
 							<div class="table-responsive dropdown">
 								<table class="table mb-0">
 									<thead>

@@ -1,16 +1,13 @@
 @extends('layouts.structure')
 @section('content')
-	<main class="page-content">
+	<main class="page-content TopParentBannerMoveOnTop">
 		<div class="container">
 			<div class="row mb-5">
 				<div id="nothingToShow" class="hidden">
-
 					<div style=" height: 180px">
 						<img class=" h-100 " src="{{ asset('theme-assets/images/orders.svg') }} "alt="">
 					</div>
-
 					<div> موردی برای نمایش موجود نیست</div>
-
 				</div>
 				@include('shop.profile.layouts.profile_menu')
 				<div class="col-xl-9 col-lg-8 col-md-7">
@@ -32,7 +29,7 @@
 												<th>عملیات</th>
 											</tr>
 										</thead>
-										<tbody id="myTransaction">
+										<tbody id="myTransaction" class="hidden">
 											<tr>
 												<td>1</td>
 												<td>رویداد من</td>
@@ -47,7 +44,7 @@
 														<i class="icon-visit-menu"></i>
 													</button>
 													<ul class="dropdown-menu">
-														<li><a class="dropdown-item fontSize12 btnHover" href="#"></a></li>
+														{{-- <li><a class="dropdown-item fontSize12 btnHover" href="#"></a></li> --}}
 														<li><a class="dropdown-item fontSize12 btnHover" href="#">مشاهده
 																فاکتور</a></li>
 													</ul>

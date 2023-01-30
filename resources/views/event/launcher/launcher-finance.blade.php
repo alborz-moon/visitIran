@@ -133,7 +133,6 @@
             });
         }
 
-
         function addNewRow(i, data) {
             let html = '<tr id="delete_row_' + i + '">';
             html += '<td class="fa-num">' + (i + 1) + '</td>';
