@@ -20,7 +20,15 @@
     <main class="page-content TopParentBannerMoveOnTop">
         <div class="container">
             <div class="row mb-5">
-                 <div id="nothingToShow" class="hidden">موردی برای نمایش موجود نیست</div>
+                <div id="nothingToShow" class="hidden">
+
+                    <div style=" height: 180px">
+                        <img class=" h-100 " src="{{ asset('theme-assets/images/orders.svg') }} "alt="">
+                    </div>
+
+                    <div> موردی برای نمایش موجود نیست</div>
+
+                </div>
                 @include('event.launcher.launcher-menu')
 
                 <div class="col-xl-9 col-lg-8 col-md-7">

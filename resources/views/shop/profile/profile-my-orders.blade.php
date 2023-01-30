@@ -1,45 +1,49 @@
-
 @extends('layouts.structure')
 @section('content')
-        <main class="page-content">
-            <div class="container">
-                <div class="row mb-5">
-                        @include('shop.profile.layouts.profile_menu')     
-                    <div class="col-xl-9 col-lg-8 col-md-7">
-                        <div class="ui-box bg-white">
-                            <div class="ui-box-title">تاریخچه سفارشات</div>
-                            <div class="ui-box-content">
-                                <!-- start of order-tabs -->
-                                 <div id="nothingToShow" class="">موردی برای نمایش موجود نیست</div>
-                                <div class="order-tabs hidden">
-                                    <ul class="nav nav-tabs fa-num" id="myTab" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link d-inline-flex align-items-center"
-                                                id="paid-in-progress-tab" data-bs-toggle="tab"
-                                                data-bs-target="#paid-in-progress" type="button" role="tab"
-                                                aria-controls="paid-in-progress" aria-selected="false">در حال پردازش
-                                                <span class="badge rounded-pill bg-danger ms-1">0</span></button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link d-inline-flex align-items-center" id="delivered-tab"
-                                                data-bs-toggle="tab" data-bs-target="#delivered" type="button"
-                                                role="tab" aria-controls="delivered" aria-selected="false">تحویل شده
-                                                <span class="badge rounded-pill bg-danger ms-1">0</span></button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link d-inline-flex align-items-center active"
-                                                id="canceled-tab" data-bs-toggle="tab" data-bs-target="#canceled"
-                                                type="button" role="tab" aria-controls="canceled"
-                                                aria-selected="true">لغو
-                                                شده <span class="badge rounded-pill bg-danger ms-1">0</span></button>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- end of order-tabs -->
-                                <!-- start of tab-content -->
-                                <div class="tab-content" id="myTabContent">
-                                    <!-- start of tab-pane -->
-                                    {{-- <div class="tab-pane fade" id="paid-in-progress" role="tabpanel"
+	<main class="page-content">
+		<div class="container">
+			<div class="row mb-5">
+				@include('shop.profile.layouts.profile_menu')
+				<div class="col-xl-9 col-lg-8 col-md-7">
+					<div class="ui-box bg-white">
+						<div class="ui-box-title">تاریخچه سفارشات</div>
+						<div class="ui-box-content">
+							<!-- start of order-tabs -->
+							<div id="nothingToShow" class="hidden">
+
+								<div style=" height: 180px">
+									<img class=" h-100 " src="{{ asset('theme-assets/images/orders.svg') }} "alt="">
+								</div>
+
+								<div> موردی برای نمایش موجود نیست</div>
+
+							</div>
+							<div class="order-tabs hidden">
+								<ul class="nav nav-tabs fa-num" id="myTab" role="tablist">
+									<li class="nav-item" role="presentation">
+										<button class="nav-link d-inline-flex align-items-center" id="paid-in-progress-tab" data-bs-toggle="tab"
+											data-bs-target="#paid-in-progress" type="button" role="tab" aria-controls="paid-in-progress"
+											aria-selected="false">در حال پردازش
+											<span class="badge rounded-pill bg-danger ms-1">0</span></button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link d-inline-flex align-items-center" id="delivered-tab" data-bs-toggle="tab"
+											data-bs-target="#delivered" type="button" role="tab" aria-controls="delivered"
+											aria-selected="false">تحویل شده
+											<span class="badge rounded-pill bg-danger ms-1">0</span></button>
+									</li>
+									<li class="nav-item" role="presentation">
+										<button class="nav-link d-inline-flex align-items-center active" id="canceled-tab" data-bs-toggle="tab"
+											data-bs-target="#canceled" type="button" role="tab" aria-controls="canceled" aria-selected="true">لغو
+											شده <span class="badge rounded-pill bg-danger ms-1">0</span></button>
+									</li>
+								</ul>
+							</div>
+							<!-- end of order-tabs -->
+							<!-- start of tab-content -->
+							<div class="tab-content" id="myTabContent">
+								<!-- start of tab-pane -->
+								{{-- <div class="tab-pane fade" id="paid-in-progress" role="tabpanel"
                                         aria-labelledby="paid-in-progress-tab">
                                         <div class="user-order-items">
                                             <div class="user-order-item">
@@ -85,9 +89,9 @@
                                             </div>
                                         </div>
                                     </div> --}}
-                                    <!-- end of tab-pane -->
-                                    <!-- start of tab-pane -->
-                                    {{-- <div class="tab-pane fade" id="delivered" role="tabpanel"
+								<!-- end of tab-pane -->
+								<!-- start of tab-pane -->
+								{{-- <div class="tab-pane fade" id="delivered" role="tabpanel"
                                         aria-labelledby="delivered-tab">
                                         <div class="user-order-items">
                                             <div class="user-order-item">
@@ -133,9 +137,9 @@
                                             </div>
                                         </div>
                                     </div> --}}
-                                    <!-- end of tab-pane -->
-                                    <!-- start of tab-pane -->
-                                    {{-- <div class="tab-pane fade show active" id="canceled" role="tabpanel"
+								<!-- end of tab-pane -->
+								<!-- start of tab-pane -->
+								{{-- <div class="tab-pane fade show active" id="canceled" role="tabpanel"
                                         aria-labelledby="canceled-tab">
                                         <div class="user-order-items">
                                             <div class="user-order-item">
@@ -181,21 +185,21 @@
                                             </div>
                                         </div>
                                     </div> --}}
-                                    <!-- end of tab-pane -->
-                                </div>
-                                <!-- end of tab-content -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
+								<!-- end of tab-pane -->
+							</div>
+							<!-- end of tab-content -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
 @stop
 
 @section('footer')
-    @parent
+	@parent
 @stop
 
 @section('extraJS')
-    @parent
+	@parent
 @stop
