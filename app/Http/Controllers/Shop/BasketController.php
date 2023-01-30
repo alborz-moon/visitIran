@@ -500,9 +500,9 @@ class BasketController extends Controller {
         }
 
         if($total == 0) {
-            self::createBuyEvent(
-                $user, $p
-            );
+            // self::createBuyEvent(
+            //     $user, $p
+            // );
             return response()->json([
                 'status' => 'ok',
                 'action' => 'registered'
