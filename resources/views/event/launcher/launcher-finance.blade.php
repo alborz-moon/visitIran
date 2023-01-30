@@ -126,8 +126,8 @@
                 },
                 success: function(res) {
                     if (res.status === "ok") {
-                        $(".is_dafult_bank_account").removeClass('btn-dark').addClass('btn-light');
-                        $("#choose_default_" + idx).addClass('btn-dark').removeClass('btn-light');
+                        $(".is_dafult_bank_account").removeClass('btn-success').addClass('btn-light');
+                        $("#choose_default_" + idx).addClass('btn-success').removeClass('btn-light');
                     }
                 }
             });
@@ -139,6 +139,12 @@
             html += '<td class="fa-num">' + (i + 1) + '</td>';
             html += '<td class="fa-num">' + data.shaba_no + '</td>';
             html += '<td>';
+            if (data.is_default)
+                html += '<button id="choose_default_' + i +
+                '" class="is_dafult_bank_account btn btn-circle btn-success my-1"><i class="ri-check-fill"></i></button>';
+            else
+            html += '<button onclick="changeDefault(\'' + i + '\', \'' + data.id + '\')" id="choose_default_' + i +
+                '" class="is_dafult_bank_account btn btn-circle btn-light my-1"><i class="ri-check-fill"></i></button>';
             html += '</td>';
             if (data.status === 'pending') {
                 html += '<td class="fa-num"><span class="badge bg-primary rounded-pill"> درحال بررسی</span></td>';
@@ -149,12 +155,7 @@
             }
             html += '<td class="fa-num">' + data.created_at + '</td>';
             html += '<td>';
-            if (data.is_default)
-                html += '<button id="choose_default_' + i +
-                '" class="is_dafult_bank_account btn btn-circle btn-dark my-1"><i class="ri-close-line"></i></button>';
-            else
-                html += '<button onclick="changeDefault(\'' + i + '\', \'' + data.id + '\')" id="choose_default_' + i +
-                '" class="is_dafult_bank_account btn btn-circle btn-light my-1"><i class="ri-close-line"></i></button>';
+            
             html += '<button onclick="deleteShaba(\'' + i + '\', \'' + data.id +
                 '\')" class="btn btn-circle btn-danger my-1"><i class="ri-close-line"></i></button>';
             html += '</td>';
