@@ -255,7 +255,6 @@ class OffController extends Controller
 
         try {
             $off = $this::check_code($site, $userId, $request->code);
-
             $newAmount = $off->off_type == 'percent' ? number_format((100 - $off->amount) * $request['amount'] / 100, 0) : 
                 number_format(max(0, $request['amount'] - $off->amount), 0);
     
@@ -265,7 +264,7 @@ class OffController extends Controller
                 'status' => 'ok',
                 'msg' => $msg . ' کد تخفیف اعمال شد',
                 'new_amount' => $newAmount,
-                'off_amount' => max(0, $request['amount'] - $newAmount)
+                'off_amount' => max(0, $request['amount'] - $off->amount)
             ]);
         }
         catch(\Exception $x) {
@@ -279,6 +278,7 @@ class OffController extends Controller
             if($x->getMessage() == 'double_spend')
                 return response()->json(['status' => 'nok', 'msg' => 'این کد قبلا استفاده شده است']);    
 
+            dd($x->getMessage());
         }
         
     }

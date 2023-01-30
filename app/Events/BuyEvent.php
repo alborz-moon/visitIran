@@ -11,9 +11,6 @@ class BuyEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $name;
-    public $phone;
-    public $mail;
     public $purchase;
 
     /**
@@ -21,11 +18,9 @@ class BuyEvent
      *
      * @return void
      */
-    public function __construct($name, $phone, $mail, $purchase)
+    public function __construct($user, $purchase)
     {
-        $this->name = $name;
-        $this->phone = $phone;
-        $this->mail = $mail;
+        $this->user = $user;
         $this->purchase = $purchase;
     }
 

@@ -3,10 +3,12 @@
 namespace App\Listeners;
 
 use App\Events\BuyEvent;
+use App\Http\Controllers\Shop\BasketController;
+use App\Mail\BuyShopMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Mail;
 
-class BuyEventListener
+class BuyEventListener implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -28,9 +30,11 @@ class BuyEventListener
     {
         if($event->mail != null) {
 
-            // $pdf = EventBuyerController::doGenerateTicketPDF($event->event);
-            // $filename = storage_path('tmp/' . time() . '.pdf');
-            // $pdf->save($filename);
+            $pdf = BasketController::doGenerateRecpPDF($event->user, $event->purchase);
+            $filename_recp = storage_path('tmp/' . time() . '.pdf');
+            $pdf->save($filename_recp);
+
+            Mail::to($event->mail)->send(new BuyShopMail($event, $filename_recp));
 
         }
     }

@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\Shop\BasketController;
 use App\Http\Controllers\Shop\BrandController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\CommentController;
 use App\Http\Controllers\Shop\FeatureController;
 use App\Http\Controllers\Shop\GalleryController;
-use App\Http\Controllers\Shop\OffController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\ProductFeatureController;
 use App\Http\Controllers\Shop\SellerController;
@@ -21,6 +21,8 @@ Route::resource('seller', SellerController::class)->except(['show', 'update']);
 
 Route::post('seller/{seller}', [SellerController::class, 'update'])->name('seller.update');
 
+
+Route::get('basket-report', [BasketController::class, 'report'])->name('basket-report');
 
 
 Route::resource('category', CategoryController::class)->except('update');

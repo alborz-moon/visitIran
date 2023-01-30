@@ -43,16 +43,21 @@ Route::middleware(['shareTopCategories'])->group(function() {
         Route::get('/list/{orderBy}', [CategoryController::class, 'allCategories'])->name('category.list');
     
     
-        Route::get('/basket', function () {
-            return view('shop.basket');
-        })->name('cart');
-    
-        Route::get('shipping', function() {
-            $states = State::orderBy('name', 'asc')->get();
-            return view('shop.shipping', compact('states'));
-        })->name('shipping');
-    
-        Route::view('payment', 'shop.payment')->name('payment');
+        Route::middleware(['myAuth'])->group(function() {
+
+            Route::get('/basket', function () {
+                return view('shop.basket');
+            })->name('cart');
+        
+            Route::get('shipping', function() {
+                $states = State::orderBy('name', 'asc')->get();
+                return view('shop.shipping', compact('states'));
+            })->name('shipping');
+        
+            Route::view('payment', 'shop.payment')->name('payment');
+            
+        });
+
         
     
     });

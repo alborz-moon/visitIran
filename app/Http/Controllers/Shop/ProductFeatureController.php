@@ -130,11 +130,34 @@ class ProductFeatureController extends Controller
 
         $pf->value = $request['value'];
 
-        if($request->has('price'))
+        if($request->has('price')) {
             $pf->price = $request['price'];
+            $all_prices = explode('$$', $request['price']);
+            $min = -1;
 
-        if($request->has('count'))
+            foreach($all_prices as $itr) {
+
+                if($min == -1 || (int)str_replace(',', '', $itr) < $min)
+                    $min = (int)str_replace(',', '', $itr);
+
+            }
+
+            $product->price = $min;
+            $product->save();
+
+        }
+
+        if($request->has('count')) {
             $pf->available_count = $request['count'];
+            $all_counts = explode('$$', $request['count']);
+            $tatal_counts = 0;
+
+            foreach($all_counts as $itr)
+                $tatal_counts += (int)$itr;
+
+            $product->available_count = $tatal_counts;
+            $product->save();
+        }
 
         $pf->save();
 

@@ -26,17 +26,25 @@ Route::get('top-categories/{category?}', [CategoryController::class, 'top'])->na
 Route::get('get_top_categories_products', [CategoryController::class, 'get_top_categories_products'])->name('api.get_top_categories_products');
 
 
-Route::post('check_basket', [BasketController::class, 'check_basket'])->name('api.check_basket');
-
-Route::post('refresh_basket', [BasketController::class, 'refresh_basket'])->name('api.refresh_basket');
-
-Route::post('finalize_basket', [BasketController::class, 'finalize_basket'])->name('api.finalize_basket');
-
-
 
 Route::get('shop_callback', [EventController::class, 'callback'])->name('shop.callback');
 
 Route::middleware(['myAuth'])->group(function() {
+
+
+    Route::post('check_basket', [BasketController::class, 'check_basket'])->name('api.check_basket');
+
+    Route::post('refresh_basket', [BasketController::class, 'refresh_basket'])->name('api.refresh_basket');
+
+    Route::post('finalize_basket', [BasketController::class, 'finalize_basket'])->name('api.finalize_basket');
+
+
+    Route::get('get_my_orders', [BasketController::class, 'getMyOrders'])->name('api.getMyOrders');
+
+    Route::get('get_order/{purchase}', [BasketController::class, 'getOrder'])->name('api.getOrder');
+
+    Route::get('/get_recp/{purchase}', [BasketController::class, 'generateRecpPDF'])->name('api.get_recp');
+
 
     Route::prefix('product/{product}')->group(function() {
 

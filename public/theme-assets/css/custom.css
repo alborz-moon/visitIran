@@ -1550,12 +1550,11 @@ textarea:not([type="checkbox"]):not([type="radio"]):not(
 }
 #nothingToShow {
     width: 100%;
-    height: calc(15vh - 0px);
+    /* height: calc(15vh - 0px); */
     color: #555a5d;
     font-size: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: block;
+    text-align: center;
 }
 .customListUIBoxPadding {
     padding-left: 3px;
