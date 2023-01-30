@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\BuyEvent;
 use App\Events\EventRegistry;
+use App\Listeners\BuyEventListener;
 use App\Listeners\SendEventRegistryNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -19,6 +21,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+            BuyEventListener::class
         ],
     ];
 
@@ -30,8 +33,15 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Event::listen(
-            EventRegistry::class,
-            [SendEventRegistryNotification::class, 'handle']
+            [
+                EventRegistry::class,
+                BuyEvent::class
+            ],
+            [
+                [SendEventRegistryNotification::class, 'handle'],
+                [BuyEventListener::class, 'handle'],
+            ]
+            
     )   ;
     }
 }

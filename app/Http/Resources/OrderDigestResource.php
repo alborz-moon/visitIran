@@ -24,7 +24,7 @@ class OrderDigestResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'created_at' => Controller::MiladyToShamsi3($this->created_at),
+            'created_at' => Controller::MiladyToShamsi3($this->created_at->timestamp),
             'total' => number_format($transaction->amount),
             'tracking_code' => $transaction->tracking_code,
             'items_count' => count($items),

@@ -7,6 +7,7 @@ use App\Exports\ProductExport;
 use App\Http\Resources\BrandResource;
 use App\Http\Resources\CategoryDigest;
 use App\Http\Resources\GalleryResource;
+use App\Http\Resources\OrderDigestResource;
 use App\Http\Resources\ProductDigest;
 use App\Http\Resources\ProductDigestUser;
 use App\Http\Resources\ProductFeatureResource;

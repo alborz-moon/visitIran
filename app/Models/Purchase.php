@@ -33,15 +33,26 @@ class Purchase extends Model
         'recv_name',
         'recv_phone',
         'postal_code',
-        'city_id'
+        'city_id',
+        'delivery',
+        'delivery_at'
     ];
+
+    public function transaction() {
+        return $this->belongsTo(Transaction::class);
+    }
 
     public function user() {
         return $this->belongsTo(User::class);
     }
-    
+
     public function address() {
         return $this->belongsTo(Address::class);
+    }
+
+
+    public function purchase_items() {
+        return $this->hasMany(PurchaseItems::class);
     }
 
     public function items() {
@@ -49,7 +60,19 @@ class Purchase extends Model
     }
     
     public function scopePaid($query) {
-        return $query->where('status', EventBuyer::$PAID);
+        return $query->where('payment_status', EventBuyer::$PAID);
+    }
+
+    public function scopeSending($query) {
+        return $query->where('status', Purchase::$SENDING);
+    }
+
+    public function scopeDelivered($query) {
+        return $query->where('status', Purchase::$DELIVERED);
+    }
+
+    public function scopeFinalized($query) {
+        return $query->where('status', Purchase::$FINALIZED);
     }
 
 }

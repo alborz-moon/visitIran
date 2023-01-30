@@ -11,57 +11,57 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- favicon
-                ============================================ -->
+                                ============================================ -->
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('admin-panel/img/logo.png') }}">
         <!-- Google Fonts
-                ============================================ -->
+                                ============================================ -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i,800" rel="stylesheet">
         <!-- Bootstrap CSS
-                ============================================ -->
+                                ============================================ -->
         <link rel="stylesheet" href="{{ asset('admin-panel/css/bootstrap.min.css') }}">
         <!-- Bootstrap CSS
-                ============================================ -->
+                                ============================================ -->
         <link rel="stylesheet" href="{{ asset('admin-panel/css/font-awesome.min.css') }}">
 
         <!-- adminpro icon CSS
-                ============================================ -->
+                                ============================================ -->
         <link rel="stylesheet" href="{{ asset('admin-panel/css/adminpro-custon-icon.css') }}">
 
         <!-- meanmenu icon CSS
-                ============================================ -->
+                                ============================================ -->
         <link rel="stylesheet" href="{{ asset('admin-panel/css/meanmenu.min.css') }}">
 
         <!-- mCustomScrollbar CSS
-                ============================================ -->
+                                ============================================ -->
         <link rel="stylesheet" href="{{ asset('admin-panel/css/jquery.mCustomScrollbar.min.css') }}">
 
         <!-- animate CSS
-                ============================================ -->
+                                ============================================ -->
         <link rel="stylesheet" href="{{ asset('admin-panel/css/animate.css') }}">
         <link rel="stylesheet" href="{{ asset('admin-panel/css/modal.css') }}">
 
         <!-- jvectormap CSS
-                ============================================ -->
+                                ============================================ -->
         {{--        <link rel="stylesheet" href="{{asset('admin-panel/css/jvectormap/jquery-jvectormap-2.0.3.css')}}"> --}}
 
         <!-- normalize CSS
-                ============================================ -->
+                                ============================================ -->
         <link rel="stylesheet" href="{{ asset('admin-panel/css/data-table/bootstrap-table.css') }}">
         <link rel="stylesheet" href="{{ asset('admin-panel/css/data-table/bootstrap-editable.css') }}">
 
         <link rel="stylesheet" href="{{ asset('admin-panel/css/accordions.css') }}">
 
         <!-- normalize CSS
-                ============================================ -->
+                                ============================================ -->
         <link rel="stylesheet" href="{{ asset('admin-panel/css/normalize.css') }}">
         <!-- charts CSS
-                ============================================ -->
+                                ============================================ -->
         <link rel="stylesheet" href="{{ asset('admin-panel/css/tabs.css') }}">
         <!-- style CSS
-                ============================================ -->
+                                ============================================ -->
         <link rel="stylesheet" href="{{ asset('admin-panel/css/style.css') }}">
         <!-- responsive CSS
-                ============================================ -->
+                                ============================================ -->
         <link rel="stylesheet" href="{{ asset('admin-panel/css/responsive.css') }}">
         <link rel="stylesheet" href="{{ asset('admin-panel/css/common.css?v=1.2') }}">
         <link rel="stylesheet" href="{{ asset('admin-panel/css/commonCSS.css') }}">
@@ -69,7 +69,7 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <!-- modernizr JS
-                ============================================ -->
+                                ============================================ -->
         <script src="{{ asset('admin-panel/js/vendor/modernizr-2.8.3.min.js') }}"></script>
         <script src="{{ asset('admin-panel/js/jquery.min.js') }}"></script>
         <link href="{{ asset('theme-assets/css/dependencies/iziToast.min.css') }}" rel="stylesheet" />
@@ -175,6 +175,9 @@
                                 </li>
 
 
+                                <li class="nav-item"><a href="{{ route('basket-report') }}" role="button"
+                                        class="nav-link"><i></i> <span class="mini-dn">گزارش گیری</span></a></li>
+
                                 <li class="nav-item"><a href="{{ route('off.index') }}" role="button"
                                         class="nav-link"><i></i> <span class="mini-dn">تخفیفات</span></a></li>
                                 <li class="nav-item"><a href="{{ route('product.index') }}" role="button"
@@ -239,6 +242,7 @@
                                     </div>
                                 </li>
 
+
                                 <li class="nav-item"><a href="{{ route('off.index') }}" role="button"
                                         class="nav-link"><i></i> <span class="mini-dn">تخفیفات</span></a></li>
                                 <li class="nav-item"><a href="{{ route('event.index') }}" role="button"
@@ -276,50 +280,50 @@
 
         @section('reminder')
             <!-- jquery
-            ============================================ -->
+                            ============================================ -->
             <script src="{{ asset('admin-panel/js/vendor/jquery-1.11.3.min.js') }}"></script>
             <!-- bootstrap JS
-                    ============================================ -->
+                                    ============================================ -->
             <script src="{{ asset('admin-panel/js/bootstrap.min.js') }}"></script>
             <!-- meanmenu JS
-                    ============================================ -->
+                                    ============================================ -->
             <script src="{{ asset('admin-panel/js/jquery.meanmenu.js') }}"></script>
             <!-- mCustomScrollbar JS
-                    ============================================ -->
+                                    ============================================ -->
             <script src="{{ asset('admin-panel/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
             <!-- sticky JS
-                    ============================================ -->
+                                    ============================================ -->
             <script src="{{ asset('admin-panel/js/jquery.sticky.js') }}"></script>
             <!-- scrollUp JS
-                    ============================================ -->
+                                    ============================================ -->
             <script src="{{ asset('admin-panel/js/jquery.scrollUp.min.js') }}"></script>
             <!-- scrollUp JS
-                    ============================================ -->
+                                    ============================================ -->
             <script src="{{ asset('admin-panel/js/wow/wow.min.js') }}"></script>
             <!-- counterup JS
-                    ============================================ -->
+                                    ============================================ -->
             <script src="{{ asset('admin-panel/js/counterup/jquery.counterup.min.js') }}"></script>
             <script src="{{ asset('admin-panel/js/counterup/waypoints.min.js') }}"></script>
             <script src="{{ asset('admin-panel/js/counterup/counterup-active.js') }}"></script>
             <!-- jvectormap JS
-                    ============================================ -->
+                                    ============================================ -->
             {{-- <script src="{{asset('admin-panel/js/jvectormap/jquery-jvectormap-2.0.2.min.js')}}"></script> --}}
             {{-- <script src="{{asset('admin-panel/js/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script> --}}
             {{-- <script src="{{asset('admin-panel/js/jvectormap/jvectormap-active.js')}}"></script> --}}
             <!-- peity JS
-                    ============================================ -->
+                                    ============================================ -->
             <script src="{{ asset('admin-panel/js/peity/jquery.peity.min.js') }}"></script>
             <script src="{{ asset('admin-panel/js/peity/peity-active.js') }}"></script>
             <!-- sparkline JS
-                    ============================================ -->
+                                    ============================================ -->
             <script src="{{ asset('admin-panel/js/sparkline/jquery.sparkline.min.js') }}"></script>
             <script src="{{ asset('admin-panel/js/sparkline/sparkline-active.js') }}"></script>
             <!-- flot JS
-                    ============================================ -->
+                                    ============================================ -->
             <script src="{{ asset('admin-panel/js/flot/Chart.min.js') }}"></script>
             <script src="{{ asset('admin-panel/js/flot/dashtwo-flot-active.js') }}"></script>
             <!-- data table JS
-                    ============================================ -->
+                                    ============================================ -->
             <script src="{{ asset('admin-panel/js/data-table/bootstrap-table.js') }}"></script>
             <script src="{{ asset('admin-panel/js/data-table/tableExport.js') }}"></script>
             <script src="{{ asset('admin-panel/js/data-table/data-table-active.js') }}"></script>
@@ -335,7 +339,7 @@
             <script src="{{ asset('admin-panel/js/summernote-active.js') }}"></script>
 
             <!-- main JS
-                    ============================================ -->
+                                    ============================================ -->
             <script src="{{ asset('admin-panel/js/main.js') }}"></script>
             <script src="{{ asset('theme-assets/js/dependencies/iziToast.min.js') }}"></script>
 

@@ -3,11 +3,11 @@
 namespace App\Http\Resources;
 
 use App\Http\Controllers\Controller;
-use App\Models\City;
 use App\Models\Purchase;
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrderResource extends JsonResource
+class OrderAdminDigestResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,20 +17,7 @@ class OrderResource extends JsonResource
      */
     public function toArray($request)
     {
-        $items = $this->items();
         $transaction = $this->transaction;
-
-        $items = [];
-        foreach($items as $item) {
-            array_push($items, [
-                'img' => asset('storage/products/' . $item->img),
-                'title' => $item->name,
-                'count' => $item->count,
-                'unit_price' => $item->unit_price,
-                'feature' => $item->feature,
-                'id' => $item->id
-            ]);
-        }
 
         $status = 'در حال ارسال';
         if($this->status == Purchase::$FINALIZED)
@@ -38,24 +25,23 @@ class OrderResource extends JsonResource
         else if($this->status == Purchase::$DELIVERED)
             $status = 'تحویل شده';
 
+        $user = User::find($transaction->user_id);
+
         return [
             'id' => $this->id,
             'created_at' => Controller::MiladyToShamsi3($this->created_at->timestamp),
             'total' => number_format($transaction->amount),
-            'total_off' => number_format($transaction->off_amount),
+            'off_amount' => number_format($transaction->off_amount),
             'tracking_code' => $transaction->tracking_code,
-            'items' => $items,
+            'transaction_code' => $transaction->transaction_code,
+            'items_count' => $this->purchase_items->count(),
             'status' => $status,
             'time' => $this->delivery,
             'delivery_at' => $this->delivery_at == null ? 'هنوز تحویل داده نشده' : Controller::MiladyToShamsi2($this->delivery_at),
-            'recv_name' => $this->recv_name,
-            'recv_phone' => $this->recv_phone,
-            'x' => $this->x,
-            'y' => $this->y,
-            'address' => $this->address,
-            'postal_code' => $this->postal_code,
-            'city' => City::find($this->city_id)->first()->name,
-            'recp_href' => route('api.get_recp', ['purchase' => $this->id])
+            'user' => [
+                'name' => $user->first_name != null && $user->last_name != null ? $user->first_name . ' ' . $user->last_name : '',
+                'phone' => $user->phone
+            ]
         ];
     }
 }

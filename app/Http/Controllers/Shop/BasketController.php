@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Shop;
 
 use App\Events\BuyEvent;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OrderAdminDigestResource;
+use App\Http\Resources\OrderDigestResource;
+use App\Http\Resources\OrderResource;
 use App\Models\Address;
 use App\Models\EventBuyer;
 use App\Models\Feature;
@@ -272,10 +275,8 @@ class BasketController extends Controller {
         $product->save();
     }
 
-    private static function createBuyEvent($name, $phone, $mail, $purchase) {
-        event(new BuyEvent(
-            $name, $phone, $mail, $purchase
-        ));
+    private static function createBuyEvent($user, $purchase) {
+        event(new BuyEvent($user, $purchase));
     }
 
 
@@ -294,13 +295,6 @@ class BasketController extends Controller {
 
         $pdf = self::doGenerateRecpPDF($user, $purchase);
         return $pdf->download('pdf_file.pdf');
-    }
-
-    public function myOrders(Request $request) {
-
-        $orders = Purchase::where('user_id', $request->user()->id)->paid()->orderBy('created_at', 'desc')->get();
-        
-
     }
 
 
@@ -506,10 +500,9 @@ class BasketController extends Controller {
         }
 
         if($total == 0) {
-            // self::createBuyEvent(
-            //     $p, $user->phone, $user->mail,
-            //     $user->first_name . ' ' . $user->last_name
-            // );
+            self::createBuyEvent(
+                $user, $p
+            );
             return response()->json([
                 'status' => 'ok',
                 'action' => 'registered'
@@ -550,6 +543,44 @@ class BasketController extends Controller {
             'status' => 'nok2'
         ]);
 
+    }
+
+
+    public function getMyOrders(Request $request) {
+
+        $status = $request->query('status', null);
+        if($status == null || $status == 'sending')
+            $orders = Purchase::where('user_id', $request->user()->id)
+            ->paid()->sending()->orderBy('created_at', 'desc')->get();
+        else if($status == 'delivered')
+            $orders = Purchase::where('user_id', $request->user()->id)
+                ->paid()->delivered()->orderBy('created_at', 'desc')->get();
+
+        return response()->json([
+            'status' => 'ok',
+            'data' => OrderDigestResource::collection($orders)
+        ]);
+
+    }
+
+    public function getOrder(Purchase $purchase, Request $request) {
+
+        if($purchase->user_id != $request->user()->id || $purchase->payment_status != EventBuyer::$PAID)
+            return abort(401);
+
+        return response()->json([
+            'status' => 'ok',
+            'data' => OrderResource::make($purchase)
+        ]);
+    }
+
+
+    public function report(Request $request) {
+        return view('admin.orders.list', [
+            'items' => OrderAdminDigestResource::collection(
+                Purchase::paid()->orderBy('created_at', 'desc')->get()
+            )->toArray($request)
+        ]);
     }
 
 }
